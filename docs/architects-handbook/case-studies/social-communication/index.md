@@ -5,6 +5,60 @@ description: Real-time messaging, social media platforms, and collaborative appl
 
 # Social & Communication Systems
 
+## Table of Contents
+
+- [Overview  ](#overview-)
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Case Studies](#-case-studies)
+  - [💬 Real-time Messaging](#-real-time-messaging)
+    - [**[Chat System Architecture](chat-system.md)**](#chat-system-architecturechat-systemmd)
+    - [**[Chat Consistency Deep Dive](consistency-deep-dive-chat.md)**](#chat-consistency-deep-diveconsistency-deep-dive-chatmd)
+    - [**[Slack Infrastructure](slack-infrastructure.md)**](#slack-infrastructureslack-infrastructuremd)
+  - [📱 Social Media Platforms](#-social-media-platforms)
+    - [**[Social Media Feed](social-media-feed.md)**](#social-media-feedsocial-media-feedmd)
+    - [**[Twitter Timeline](twitter-timeline.md)**  ](#twitter-timelinetwitter-timelinemd-)
+    - [**[News Feed System](news-feed.md)**](#news-feed-systemnews-feedmd)
+    - [**[Social Graph](social-graph.md)**](#social-graphsocial-graphmd)
+  - [📺 Video & Media Platforms](#-video-media-platforms)
+    - [**[YouTube Platform](google-youtube.md)**](#youtube-platformgoogle-youtubemd)
+    - [**[YouTube Architecture](youtube.md)**](#youtube-architectureyoutubemd)
+    - [**[Video Streaming](video-streaming.md)**](#video-streamingvideo-streamingmd)
+  - [📧 Communication Infrastructure](#-communication-infrastructure)
+    - [**[Gmail Architecture](google-gmail.md)**  ](#gmail-architecturegoogle-gmailmd-)
+    - [**[Distributed Email Enhanced](distributed-email-enhanced.md)**](#distributed-email-enhanceddistributed-email-enhancedmd)
+    - [**[Notification System](notification-system.md)**](#notification-systemnotification-systemmd)
+  - [🤝 Collaborative Applications](#-collaborative-applications)
+    - [**[Google Docs](google-docs.md)**](#google-docsgoogle-docsmd)
+- [🔄 Progressive Learning Path](#-progressive-learning-path)
+  - [Foundation Track (Beginner)](#foundation-track-beginner)
+  - [Intermediate Track](#intermediate-track)
+  - [Advanced Track  ](#advanced-track-)
+  - [Expert Track](#expert-track)
+- [🏗️ Social & Communication Patterns](#-social-communication-patterns)
+  - [Real-time Communication](#real-time-communication)
+  - [Social Graph Management  ](#social-graph-management-)
+  - [Content Distribution](#content-distribution)
+  - [Media Processing](#media-processing)
+- [📊 Social Platform Scale Comparison](#-social-platform-scale-comparison)
+- [🔗 Cross-References](#-cross-references)
+  - [Related Patterns](#related-patterns)
+  - [Quantitative Analysis](#quantitative-analysis)
+  - [Human Factors  ](#human-factors-)
+- [🎯 Social Platform Success Metrics](#-social-platform-success-metrics)
+  - [Engagement Metrics](#engagement-metrics)
+  - [Performance Metrics](#performance-metrics)
+  - [Technical Metrics  ](#technical-metrics-)
+  - [Business Metrics](#business-metrics)
+- [🚀 Common Social Platform Challenges](#-common-social-platform-challenges)
+  - [Challenge: Real-time at Scale  ](#challenge-real-time-at-scale-)
+  - [Challenge: Content Moderation](#challenge-content-moderation)
+  - [Challenge: Celebrity Users](#challenge-celebrity-users)
+  - [Challenge: Global Consistency](#challenge-global-consistency)
+  - [Challenge: Privacy & Safety](#challenge-privacy-safety)
+  - [Challenge: Personalization vs Performance](#challenge-personalization-vs-performance)
+
+
+
 Real-time communication platforms and social media systems that connect billions of users globally.
 
 ## Overview  

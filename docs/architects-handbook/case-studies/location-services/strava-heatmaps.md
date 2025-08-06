@@ -35,3 +35,15 @@ This case study would examine Strava's architecture for aggregating billions of 
 - [Strava Metro](https://metro.strava.com/) - Anonymized activity data
 - [Strava Privacy Controls](https://support.strava.com/hc/en-us/articles/115000173384/)
 - [Military Base Exposure Incident](https://www.bbc.com/news/technology-42853072/)
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [Learning Paths](/architects-handbook/learning-paths)
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [SRE Practices](/architects-handbook/human-factors/sre-practices)

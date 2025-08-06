@@ -1,9 +1,46 @@
 ---
 title: Common Problems
 description: Common Problems overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Common System Design Problems
+
+## Table of Contents
+
+- [Overview](#overview)
+- [📚 Available Problems](#-available-problems)
+  - [Storage & Collaboration Systems](#storage-collaboration-systems)
+  - [Development & Infrastructure](#development-infrastructure)
+- [🎯 Difficulty Levels](#-difficulty-levels)
+  - [Intermediate (45-60 min)](#intermediate-45-60-min)
+  - [Advanced (60+ min)](#advanced-60-min)
+- [📊 Common Patterns Used](#-common-patterns-used)
+- [🚀 More Problems Coming Soon](#-more-problems-coming-soon)
+  - [Fundamental Systems](#fundamental-systems)
+  - [Social Media Systems](#social-media-systems)
+  - [Messaging Systems](#messaging-systems)
+  - [Media Systems](#media-systems)
+  - [E-commerce Systems](#e-commerce-systems)
+  - [Transportation Systems](#transportation-systems)
+  - [Booking Systems](#booking-systems)
+- [💡 How to Use These Problems](#-how-to-use-these-problems)
+  - [1. Choose Based on Interview Target](#1-choose-based-on-interview-target)
+  - [2. Practice Approach](#2-practice-approach)
+  - [3. Key Skills to Demonstrate](#3-key-skills-to-demonstrate)
+- [📖 Study Resources](#-study-resources)
+  - [Before Practice](#before-practice)
+  - [During Practice](#during-practice)
+  - [After Practice](#after-practice)
+- [🎪 Problem Selection Strategy](#-problem-selection-strategy)
+  - [Week 1-2: Fundamentals](#week-1-2-fundamentals)
+  - [Week 3-4: Intermediate Systems](#week-3-4-intermediate-systems)
+  - [Week 5-6: Advanced Systems](#week-5-6-advanced-systems)
+  - [Week 7-8: Mock Interviews](#week-7-8-mock-interviews)
+
+
 
 Practice with frequently asked system design interview questions.
 

@@ -107,17 +107,17 @@ graph TB
 ### 1. Dimensional Data Model
 
 ```prometheus
-# Traditional: flat metrics
+## Traditional: flat metrics
 cpu_usage_web_server_1 75.5
 cpu_usage_web_server_2 82.3
 cpu_usage_db_server_1 45.2
 
-# Prometheus: dimensional metrics
+## Prometheus: dimensional metrics
 cpu_usage{instance="server-1",job="web",env="prod"} 75.5
 cpu_usage{instance="server-2",job="web",env="prod"} 82.3
 cpu_usage{instance="server-1",job="db",env="prod"} 45.2
 
-# Powerful queries
+## Powerful queries
 sum by (job) (cpu_usage{env="prod"})  # CPU by service type
 avg(cpu_usage{job="web"})             # Average web server CPU
 ```
@@ -148,25 +148,25 @@ sequenceDiagram
 ### 3. PromQL Query Language
 
 ```prometheus
-# Instant queries
+## Instant queries
 http_requests_total{status="500"}  # All 500 errors
 
-# Rate calculations
+## Rate calculations
 rate(http_requests_total[5m])  # Requests per second, 5min window
 
-# Aggregations
+## Aggregations
 sum by (status) (
   rate(http_requests_total[5m])
 )  # RPS grouped by status code
 
-# Complex queries
+## Complex queries
 (
   sum by (instance) (rate(http_requests_total{job="api"}[5m]))
   /
   sum by (instance) (up{job="api"})
 ) > 1000  # Instances handling >1000 RPS
 
-# Histogram quantiles
+## Histogram quantiles
 histogram_quantile(0.99,
   sum by (le) (
     rate(http_request_duration_seconds_bucket[5m])
@@ -253,7 +253,7 @@ graph TB
 ### Service Discovery Configuration
 
 ```yaml
-# Kubernetes service discovery
+## Kubernetes service discovery
 scrape_configs:
   - job_name: 'kubernetes-pods'
     kubernetes_sd_configs:
@@ -276,16 +276,16 @@ scrape_configs:
 ### High-Cardinality Management
 
 ```prometheus
-# Problem: Cardinality explosion
+## Problem: Cardinality explosion
 http_requests{path="/user/123"}     # Bad: unique label per user
 http_requests{path="/user/456"}
-# Millions of series!
+## Millions of series!
 
-# Solution: Bounded cardinality
+## Solution: Bounded cardinality
 http_requests{path="/user/{id}"}    # Good: template path
 http_requests{endpoint="user"}
 
-# Recording rules for expensive queries
+## Recording rules for expensive queries
 groups:
   - name: aggregations
     interval: 30s
@@ -395,7 +395,7 @@ graph TB
 ### Challenge 3: Federation Bottlenecks
 
 ```yaml
-# Anti-pattern: Pulling all metrics
+## Anti-pattern: Pulling all metrics
 - job_name: 'federate'
   honor_labels: true
   metrics_path: '/federate'
@@ -403,7 +403,7 @@ graph TB
     'match[]':
       - '{__name__=~".+"}'  # DON'T DO THIS!
 
-# Best practice: Selective federation
+## Best practice: Selective federation
 - job_name: 'federate'
   honor_labels: true
   metrics_path: '/federate'
@@ -418,13 +418,13 @@ graph TB
 ### 1. Metric Naming
 
 ```prometheus
-# Good naming conventions
+## Good naming conventions
 http_requests_total         # Counter: _total suffix
 http_request_duration_seconds  # Histogram: base unit
 http_requests_in_progress   # Gauge: current state
 process_start_time_seconds  # Timestamp: _seconds suffix
 
-# Include unit in name
+## Include unit in name
 network_bytes_total        # Not: network_traffic
 memory_usage_bytes         # Not: memory_usage
 http_duration_seconds      # Not: http_latency
@@ -433,13 +433,13 @@ http_duration_seconds      # Not: http_latency
 ### 2. Label Design
 
 ```prometheus
-# Good: Bounded cardinality
+## Good: Bounded cardinality
 http_requests_total{method="GET",status="200",endpoint="/api/users"}
 
-# Bad: Unbounded cardinality
+## Bad: Unbounded cardinality
 http_requests_total{user_id="12345",session_id="abc-def-ghi"}
 
-# Use quantiles for distributions
+## Use quantiles for distributions
 http_request_duration_seconds_bucket{le="0.1"}   # 100ms
 http_request_duration_seconds_bucket{le="0.5"}   # 500ms
 http_request_duration_seconds_bucket{le="1.0"}   # 1s
@@ -475,10 +475,10 @@ type WriteRequest struct {
 ### Exemplars (Trace Integration)
 
 ```prometheus
-# Metrics with trace correlation
+## Metrics with trace correlation
 http_requests_total{method="GET",status="500"} 1027 # {trace_id="abc123"}
 
-# Query traces for slow requests
+## Query traces for slow requests
 http_request_duration_seconds{quantile="0.99"} # Link to Jaeger
 ```
 

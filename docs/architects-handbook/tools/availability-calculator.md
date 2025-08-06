@@ -1,10 +1,57 @@
 ---
-title: Availability Calculator
+title: "Availability Calculator"
+description: "Calculate system availability, MTBF, and MTTR for distributed systems with comprehensive reliability metrics and SLA planning."
+type: documentation
+---
+
+# Availability Calculator
+
+
+
+## Overview
+
+Availability Calculator
 description: *Mean Time Between Failures*
 type: documentation
 ---
 
 # Availability Calculator
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Component Reliability](#component-reliability)
+  - [Redundancy Configuration](#redundancy-configuration)
+  - [System Configuration](#system-configuration)
+- [Understanding Availability](#understanding-availability)
+  - [Key Concepts](#key-concepts)
+  - [Common Availability Targets](#common-availability-targets)
+- [Strategies to Improve Availability](#strategies-to-improve-availability)
+- [Real-World Examples](#real-world-examples)
+- [Related Resources](#related-resources)
+
+
+
+! Interactive Calculator"
+ <h2>✅ System Availability Calculator</h2>
+<p>Calculate system availability, redundancy requirements, and the impact of failures on uptime.
+
+**Reading time:** ~11 minutes
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Component Reliability](#component-reliability)
+  - [Redundancy Configuration](#redundancy-configuration)
+  - [System Configuration](#system-configuration)
+- [Understanding Availability](#understanding-availability)
+  - [Key Concepts](#key-concepts)
+  - [Common Availability Targets](#common-availability-targets)
+- [Strategies to Improve Availability](#strategies-to-improve-availability)
+- [Real-World Examples](#real-world-examples)
+- [Related Resources](#related-resources)
+
+
 
 !!! info "Interactive Calculator"
  <h2>✅ System Availability Calculator</h2>

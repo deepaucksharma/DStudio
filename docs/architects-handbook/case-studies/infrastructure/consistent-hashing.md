@@ -34,6 +34,96 @@ production_checklist:
 
 # Consistent Hashing
 
+## Table of Contents
+
+- [Challenge Statement](#challenge-statement)
+- [Part 1: Concept Map](#part-1-concept-map)
+  - [🗺 System Overview](#system-overview)
+  - [Law Analysis](#law-analysis)
+- [Invalidate cache on topology change](#invalidate-cache-on-topology-change)
+- [Binary search for next node](#binary-search-for-next-node)
+  - [💾 Law 2 (Capacity): Load Distribution](#law-2-capacity-load-distribution)
+- [Calculate new virtual node count](#calculate-new-virtual-node-count)
+- [Remove and re-add with new count](#remove-and-re-add-with-new-count)
+  - [Law 1 (Correlated Failure): Node Failures and Recovery](#law-1-correlated-failure-node-failures-and-recovery)
+- [Walk the ring to find N distinct physical nodes](#walk-the-ring-to-find-n-distinct-physical-nodes)
+- [Find affected key ranges](#find-affected-key-ranges)
+- [Trigger re-replication for affected data](#trigger-re-replication-for-affected-data)
+- [Log re-replication task](#log-re-replication-task)
+  - [🔀 Law 4 (Concurrency): Concurrent Ring Modifications](#law-4-concurrency-concurrent-ring-modifications)
+- [Increment version for initiator](#increment-version-for-initiator)
+- [Create change record](#create-change-record)
+- [Apply change if no conflicts](#apply-change-if-no-conflicts)
+- [Queue for later reconciliation](#queue-for-later-reconciliation)
+- [Sort by vector clock partial order](#sort-by-vector-clock-partial-order)
+  - [🤝 Law 5 (Coordination): Ring Topology Consensus](#law-5-coordination-ring-topology-consensus)
+- [Phase 1: Announce intention to join](#phase-1-announce-intention-to-join)
+- [Phase 2: Get current ring state](#phase-2-get-current-ring-state)
+- [Phase 3: Calculate new token ranges](#phase-3-calculate-new-token-ranges)
+- [Phase 4: Coordinate with affected nodes](#phase-4-coordinate-with-affected-nodes)
+- [Phase 5: Two-phase commit](#phase-5-two-phase-commit)
+- [Select random subset of peers](#select-random-subset-of-peers)
+- [Exchange ring state](#exchange-ring-state)
+  - [👁 Law 6 (Observability): Ring Monitoring](#law-6-observability-ring-monitoring)
+- [Record lookup latency](#record-lookup-latency)
+- [Track load](#track-load)
+- [Detect hot keys](#detect-hot-keys)
+- [Calculate load distribution](#calculate-load-distribution)
+- [Find hot spots](#find-hot-spots)
+  - [👤 Law 7 (Human Interface): Operational Tools](#law-7-human-interface-operational-tools)
+- [Group virtual nodes by physical node](#group-virtual-nodes-by-physical-node)
+- [Normalize to 0-360 degrees](#normalize-to-0-360-degrees)
+- [Create visual representation](#create-visual-representation)
+- [Calculate required virtual nodes](#calculate-required-virtual-nodes)
+- [Simulate addition](#simulate-addition)
+- [Analyze data movement](#analyze-data-movement)
+  - [Law 7 (Economic Reality): Cost Optimization](#law-7-economic-reality-cost-optimization)
+- [Calculate distribution quality](#calculate-distribution-quality)
+- [Calculate costs](#calculate-costs)
+- [Estimate rebalancing cost (inversely proportional to vnodes)](#estimate-rebalancing-cost-inversely-proportional-to-vnodes)
+- [Check if distribution meets SLA](#check-if-distribution-meets-sla)
+- [Simulate key movements](#simulate-key-movements)
+- [Sample keys to estimate movement](#sample-keys-to-estimate-movement)
+- [Estimate data size (example: 1KB per key)](#estimate-data-size-example-1kb-per-key)
+- [Extrapolate to full dataset](#extrapolate-to-full-dataset)
+  - [🏛 Pillar Mapping](#pillar-mapping)
+  - [Pattern Application](#pattern-application)
+- [Part 2: Architecture & Trade-offs](#part-2-architecture-trade-offs)
+  - [Core Architecture](#core-architecture)
+  - [Key Design Trade-offs](#key-design-trade-offs)
+  - [Alternative Architectures](#alternative-architectures)
+  - [Performance Characteristics](#performance-characteristics)
+- [Law Mapping Matrix](#law-mapping-matrix)
+  - [Comprehensive Design Decision Mapping](#comprehensive-design-decision-mapping)
+  - [Law Implementation Priority](#law-implementation-priority)
+- [Architecture Alternatives Analysis](#architecture-alternatives-analysis)
+  - [Alternative 1: Jump Consistent Hash](#alternative-1-jump-consistent-hash)
+  - [Alternative 2: Rendezvous Hashing](#alternative-2-rendezvous-hashing)
+  - [Alternative 3: Maglev Hashing](#alternative-3-maglev-hashing)
+  - [Alternative 4: Multi-Probe Consistent Hash](#alternative-4-multi-probe-consistent-hash)
+  - [Alternative 5: Hierarchical Consistent Hash](#alternative-5-hierarchical-consistent-hash)
+- [Comparative Trade-off Analysis](#comparative-trade-off-analysis)
+  - [Algorithm Comparison Matrix](#algorithm-comparison-matrix)
+  - [Decision Framework](#decision-framework)
+  - [Implementation Complexity](#implementation-complexity)
+- [Key Design Insights](#key-design-insights)
+  - [1. **Virtual Nodes Solve Distribution**](#1-virtual-nodes-solve-distribution)
+  - [2. **Minimal Movement is Critical**](#2-minimal-movement-is-critical)
+  - [3. **Topology Changes are Rare but Critical**](#3-topology-changes-are-rare-but-critical)
+  - [4. 💪 **Heterogeneity is the Norm**](#4-heterogeneity-is-the-norm)
+  - [5. **Observability Prevents Drift**](#5-observability-prevents-drift)
+- [Implementation Best Practices](#implementation-best-practices)
+  - [Ring Management](#ring-management)
+  - [Monitoring Setup](#monitoring-setup)
+  - [🎓 Key Lessons](#key-lessons)
+  - [📚 References](#references)
+- [Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 Relevant Laws (Part I.md)](#relevant-laws-part-imd)
+  - [🏛 Related Patterns (Part III/index)](#related-patterns-part-iiiindex)
+  - [Quantitative Models](#quantitative-models)
+  - [👥 Human Factors Considerations](#human-factors-considerations)
+  - [Similar Case Studies](#similar-case-studies)
+
 !!! info "Case Study Overview"
     **System**: Distributed data partitioning with minimal resharding  
     **Scale**: Support 1000+ nodes, millions of keys  
@@ -104,7 +194,7 @@ class ConsistentHashRing:
             self.ring[hash_value] = node
             bisect.insort(self.sorted_keys, hash_value)
         
-# Invalidate cache on topology change
+## Invalidate cache on topology change
         self._ring_cache.clear()
     
     def get_node(self, key: str) -> Optional[str]:
@@ -117,7 +207,7 @@ class ConsistentHashRing:
         
         hash_value = self._hash(key)
         
-# Binary search for next node
+## Binary search for next node
         index = bisect.bisect_right(self.sorted_keys, hash_value)
         if index == len(self.sorted_keys):
             index = 0  # Wrap around
@@ -127,7 +217,7 @@ class ConsistentHashRing:
         return node
 ```
 
-#### 💾 Law 2 (Capacity): Load Distribution
+### 💾 Law 2 (Capacity): Load Distribution
 ```text
 Virtual Nodes Analysis:
 - Physical nodes: 100
@@ -182,18 +272,18 @@ class LoadBalancedHashRing(ConsistentHashRing):
         """Dynamically adjust virtual nodes based on load"""
         for node, stats in distribution.items():
             if stats['deviation'] > 0.1:  # 10% threshold
-# Calculate new virtual node count
+## Calculate new virtual node count
                 current_vnodes = self._count_virtual_nodes(node)
                 adjustment_factor = stats['expected'] / stats['actual']
                 new_vnodes = int(current_vnodes * adjustment_factor)
                 
-# Remove and re-add with new count
+## Remove and re-add with new count
                 self.remove_node(node)
                 weight = new_vnodes / self.virtual_nodes
                 self.add_node(node, weight)
 ```
 
-#### Law 1 (Correlated Failure): Node Failures and Recovery
+### Law 1 (Correlated Failure): Node Failures and Recovery
 ```text
 Failure Scenarios:
 1. Node crash: Keys rehashed to next node
@@ -229,7 +319,7 @@ class ResilientHashRing(ConsistentHashRing):
         hash_value = self._hash(key)
         start_index = bisect.bisect_right(self.sorted_keys, hash_value)
         
-# Walk the ring to find N distinct physical nodes
+## Walk the ring to find N distinct physical nodes
         for i in range(len(self.sorted_keys)):
             index = (start_index + i) % len(self.sorted_keys)
             node = self.ring[self.sorted_keys[index]]
@@ -252,19 +342,19 @@ class ResilientHashRing(ConsistentHashRing):
         """Gracefully handle node failure"""
         self.node_health[failed_node] = False
         
-# Find affected key ranges
+## Find affected key ranges
         affected_ranges = self._get_affected_ranges(failed_node)
         
-# Trigger re-replication for affected data
+## Trigger re-replication for affected data
         for range_start, range_end in affected_ranges:
             next_healthy_node = self._find_next_healthy_node(range_end)
             
-# Log re-replication task
+## Log re-replication task
             logger.info(f"Re-replicate range [{range_start}, {range_end}] "
                        f"from {failed_node} to {next_healthy_node}")
 ```
 
-#### 🔀 Law 4 (Concurrency): Concurrent Ring Modifications
+### 🔀 Law 4 (Concurrency): Concurrent Ring Modifications
 ```text
 Concurrency Challenges:
 - Multiple nodes joining simultaneously
@@ -294,11 +384,11 @@ class ConcurrentHashRing(ConsistentHashRing):
     def add_node_safe(self, node: str, initiator: str):
         """Thread-safe node addition with vector clock"""
         with self.ring_lock.write():
-# Increment version for initiator
+## Increment version for initiator
             self.version_vector[initiator] = \
                 self.version_vector.get(initiator, 0) + 1
             
-# Create change record
+## Create change record
             change = {
                 'type': 'add_node',
                 'node': node,
@@ -307,12 +397,12 @@ class ConcurrentHashRing(ConsistentHashRing):
                 'initiator': initiator
             }
             
-# Apply change if no conflicts
+## Apply change if no conflicts
             if self._can_apply_change(change):
                 self.add_node(node)
                 self._broadcast_change(change)
             else:
-# Queue for later reconciliation
+## Queue for later reconciliation
                 self.pending_changes.append(change)
     
     def get_node_safe(self, key: str) -> Optional[str]:
@@ -323,7 +413,7 @@ class ConcurrentHashRing(ConsistentHashRing):
     def reconcile_pending_changes(self):
         """Resolve conflicts in pending changes"""
         with self.ring_lock.write():
-# Sort by vector clock partial order
+## Sort by vector clock partial order
             sorted_changes = self._topological_sort(self.pending_changes)
             
             for change in sorted_changes:
@@ -335,7 +425,7 @@ class ConcurrentHashRing(ConsistentHashRing):
             self.pending_changes.clear()
 ```
 
-#### 🤝 Law 5 (Coordination): Ring Topology Consensus
+### 🤝 Law 5 (Coordination): Ring Topology Consensus
 ```text
 Coordination Requirements:
 - All nodes must agree on ring membership
@@ -363,27 +453,27 @@ class CoordinatedHashRing(ConsistentHashRing):
         
     async def join_ring(self):
         """Coordinated ring join protocol"""
-# Phase 1: Announce intention to join
+## Phase 1: Announce intention to join
         join_request = {
             'node': self.node_id,
             'capacity': self._get_node_capacity(),
             'timestamp': time.time()
         }
         
-# Phase 2: Get current ring state
+## Phase 2: Get current ring state
         current_topology = await self._fetch_ring_topology()
         
-# Phase 3: Calculate new token ranges
+## Phase 3: Calculate new token ranges
         my_tokens = self._calculate_tokens(
             current_topology, 
             self.node_id,
             self.virtual_nodes
         )
         
-# Phase 4: Coordinate with affected nodes
+## Phase 4: Coordinate with affected nodes
         affected_nodes = self._find_affected_nodes(my_tokens, current_topology)
         
-# Phase 5: Two-phase commit
+## Phase 5: Two-phase commit
         prepared = await self._prepare_topology_change(
             affected_nodes, 
             my_tokens
@@ -399,13 +489,13 @@ class CoordinatedHashRing(ConsistentHashRing):
     async def _gossip_ring_state(self):
         """Epidemic propagation of ring state"""
         while True:
-# Select random subset of peers
+## Select random subset of peers
             gossip_targets = random.sample(
                 self.peers, 
                 min(3, len(self.peers))
             )
             
-# Exchange ring state
+## Exchange ring state
             local_state = self._get_ring_digest()
             
             for peer in gossip_targets:
@@ -418,7 +508,7 @@ class CoordinatedHashRing(ConsistentHashRing):
             await asyncio.sleep(self.gossip_interval)
 ```
 
-#### 👁 Law 6 (Observability): Ring Monitoring
+### 👁 Law 6 (Observability): Ring Monitoring
 ```text
 Key Metrics:
 - Load distribution (standard deviation)
@@ -450,15 +540,15 @@ class ObservableHashRing(ConsistentHashRing):
         
         node = self.get_node(key)
         
-# Record lookup latency
+## Record lookup latency
         latency_us = (time.perf_counter() - start_time) * 1_000_000
         self.lookup_histogram.observe(latency_us)
         
-# Track load
+## Track load
         if node:
             self.load_tracker[node] = self.load_tracker.get(node, 0) + 1
         
-# Detect hot keys
+## Detect hot keys
         key_hash = self._hash(key)
         self.metrics.increment('hash_ring.lookups', tags={
             'node': node,
@@ -471,7 +561,7 @@ class ObservableHashRing(ConsistentHashRing):
         """Comprehensive ring health analysis"""
         nodes = list(set(self.ring.values()))
         
-# Calculate load distribution
+## Calculate load distribution
         loads = []
         for node in nodes:
             load = self.load_tracker.get(node, 0)
@@ -480,7 +570,7 @@ class ObservableHashRing(ConsistentHashRing):
         avg_load = sum(loads) / len(loads) if loads else 0
         std_dev = statistics.stdev(loads) if len(loads) > 1 else 0
         
-# Find hot spots
+## Find hot spots
         hot_spots = []
         for node, load in self.load_tracker.items():
             if load > avg_load * 1.5:  # 50% above average
@@ -502,7 +592,7 @@ class ObservableHashRing(ConsistentHashRing):
         }
 ```
 
-#### 👤 Law 7 (Human Interface): Operational Tools
+### 👤 Law 7 (Human Interface): Operational Tools
 ```text
 Operational Requirements:
 - Visual ring representation
@@ -526,16 +616,16 @@ class OperationalHashRing(ConsistentHashRing):
         if not self.ring:
             return "Empty ring"
         
-# Group virtual nodes by physical node
+## Group virtual nodes by physical node
         node_positions = {}
         for hash_val, node in self.ring.items():
             if node not in node_positions:
                 node_positions[node] = []
-# Normalize to 0-360 degrees
+## Normalize to 0-360 degrees
             angle = (hash_val / (2**32)) * 360
             node_positions[node].append(angle)
         
-# Create visual representation
+## Create visual representation
         visual = ["Ring Topology (0-360°):"]
         visual.append("-" * 50)
         
@@ -553,15 +643,15 @@ class OperationalHashRing(ConsistentHashRing):
         if target_load is None:
             target_load = 1 / (len(set(self.ring.values())) + 1)
         
-# Calculate required virtual nodes
+## Calculate required virtual nodes
         total_vnodes = len(self.ring)
         required_vnodes = int(total_vnodes * target_load)
         
-# Simulate addition
+## Simulate addition
         temp_ring = self._copy_ring()
         temp_ring.add_node(new_node, weight=required_vnodes/self.virtual_nodes)
         
-# Analyze data movement
+## Analyze data movement
         moved_keys = 0
         key_movements = []
         
@@ -590,7 +680,7 @@ class OperationalHashRing(ConsistentHashRing):
         }
 ```
 
-#### Law 7 (Economic Reality): Cost Optimization
+### Law 7 (Economic Reality): Cost Optimization
 ```text
 Cost Factors:
 - Memory: Virtual nodes storage
@@ -627,13 +717,13 @@ class EconomicHashRing(ConsistentHashRing):
         best_cost = float('inf')
         
         for vnodes in range(min_vnodes, max_vnodes, 10):
-# Calculate distribution quality
+## Calculate distribution quality
             distribution_quality = 1 / math.sqrt(vnodes)  # Approximation
             
-# Calculate costs
+## Calculate costs
             memory_cost = vnodes * self.cost_model['memory_per_vnode']
             
-# Estimate rebalancing cost (inversely proportional to vnodes)
+## Estimate rebalancing cost (inversely proportional to vnodes)
             rebalance_frequency = constraints.get('node_changes_per_month', 5)
             avg_rebalance_size = constraints.get('avg_data_per_node_gb', 100)
             rebalance_cost = (rebalance_frequency * avg_rebalance_size * 
@@ -641,7 +731,7 @@ class EconomicHashRing(ConsistentHashRing):
             
             total_cost = memory_cost + rebalance_cost
             
-# Check if distribution meets SLA
+## Check if distribution meets SLA
             if distribution_quality < constraints.get('max_load_deviation', 0.1):
                 if total_cost < best_cost:
                     best_cost = total_cost
@@ -651,11 +741,11 @@ class EconomicHashRing(ConsistentHashRing):
     
     def estimate_migration_cost(self, from_topology: dict, to_topology: dict) -> dict:
         """Calculate cost of topology change"""
-# Simulate key movements
+## Simulate key movements
         moved_data_gb = 0
         affected_nodes = set()
         
-# Sample keys to estimate movement
+## Sample keys to estimate movement
         sample_size = 100000
         for i in range(sample_size):
             key = f"sample_{i}"
@@ -663,12 +753,12 @@ class EconomicHashRing(ConsistentHashRing):
             new_node = self._get_node_in_topology(key, to_topology)
             
             if old_node != new_node:
-# Estimate data size (example: 1KB per key)
+## Estimate data size (example: 1KB per key)
                 moved_data_gb += 0.000001  # 1KB in GB
                 affected_nodes.add(old_node)
                 affected_nodes.add(new_node)
         
-# Extrapolate to full dataset
+## Extrapolate to full dataset
         total_keys = constraints.get('total_keys', 1_000_000_000)
         moved_data_gb *= (total_keys / sample_size)
         

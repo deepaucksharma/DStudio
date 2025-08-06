@@ -1,6 +1,26 @@
 ---
 title: Failure Models in Distributed Systems
 description: Understanding types of failures, their probabilities, and impact on system
+type: quantitative
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: 
+pattern_type: various
+status: complete
+last_updated: 2025-01-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Failure Models in Distributed Systems
+
+
+
+## Overview
+
+Failure Models in Distributed Systems
+description: Understanding types of failures, their probabilities, and impact on system
   design
 type: quantitative
 difficulty: intermediate
@@ -15,6 +35,67 @@ last_updated: 2025-01-23
 
 
 # Failure Models in Distributed Systems
+
+## Table of Contents
+
+- [Failure Model Hierarchy](#failure-model-hierarchy)
+- [Types of Failures](#types-of-failures)
+  - [1. Crash Failures (Fail-Stop)](#1-crash-failures-fail-stop)
+- [Simple heartbeat detection](#simple-heartbeat-detection)
+  - [2.
+
+**Reading time:** ~6 minutes
+
+## Table of Contents
+
+- [Failure Model Hierarchy](#failure-model-hierarchy)
+- [Types of Failures](#types-of-failures)
+  - [1. Crash Failures (Fail-Stop)](#1-crash-failures-fail-stop)
+- [Simple heartbeat detection](#simple-heartbeat-detection)
+  - [2. Omission Failures](#2-omission-failures)
+  - [3. Timing Failures](#3-timing-failures)
+- [Latency often follows log-normal distribution](#latency-often-follows-log-normal-distribution)
+- [P99 calculation](#p99-calculation)
+- [Result: ~365ms for 50ms median](#result-365ms-for-50ms-median)
+  - [4. Byzantine Failures](#4-byzantine-failures)
+  - [5. Gray Failures](#5-gray-failures)
+- [Failure Probability Models](#failure-probability-models)
+  - [Independent Failures](#independent-failures)
+- [Probability of k failures out of n components](#probability-of-k-failures-out-of-n-components)
+- [Example: 100 servers, 0.1% daily failure rate](#example-100-servers-01-daily-failure-rate)
+- [P(exactly 2 failures) = C(100,2) * 0.001² * 0.999⁹⁸](#pexactly-2-failures-c1002-0001²-0999⁹⁸)
+- [= 0.00184 (0.18%)](#-000184-018)
+  - [Correlated Failures](#correlated-failures)
+- [Joint failure probability](#joint-failure-probability)
+- [High correlation example:](#high-correlation-example)
+- [Same rack: correlation = 0.8](#same-rack-correlation-08)
+- [Same datacenter: correlation = 0.3](#same-datacenter-correlation-03)
+- [Different regions: correlation = 0.01](#different-regions-correlation-001)
+- [Failure Detection Strategies](#failure-detection-strategies)
+  - [Detection Time vs Accuracy Trade-off](#detection-time-vs-accuracy-trade-off)
+  - [Phi Accrual Failure Detector](#phi-accrual-failure-detector)
+- [Calculate expected interval](#calculate-expected-interval)
+- [Time since last heartbeat](#time-since-last-heartbeat)
+- [Calculate φ](#calculate-φ)
+- [where F is CDF of normal distribution](#where-f-is-cdf-of-normal-distribution)
+- [Usage:](#usage)
+- [φ < 1: Likely alive](#φ-1-likely-alive)
+- [φ > 8: Likely failed](#φ-8-likely-failed)
+- [Adjust threshold based on requirements](#adjust-threshold-based-on-requirements)
+- [Recovery Strategies by Failure Type](#recovery-strategies-by-failure-type)
+- [Failure Amplification](#failure-amplification)
+  - [Cascading Failure Model](#cascading-failure-model)
+- [Cascade likely](#cascade-likely)
+- [Probability increases with load](#probability-increases-with-load)
+- [Real-World Failure Patterns](#real-world-failure-patterns)
+  - [Metastable Failures](#metastable-failures)
+  - [Failure Budget Allocation](#failure-budget-allocation)
+- [Allocate failure budget across components](#allocate-failure-budget-across-components)
+- [Component budgets](#component-budgets)
+- [Key Insights](#key-insights)
+- [Related Concepts](#related-concepts)
+
+
 
 !!! abstract "🎯 Core Insight"
  Different failure models have vastly different detection and recovery complexities. Understanding these models is crucial for designing resilient systems that can handle real-world failures gracefully.
@@ -67,7 +148,7 @@ where λ = failure rate
 
 <h4>Detection</h4>
 ```python
-# Simple heartbeat detection
+## Simple heartbeat detection
 if time_since_last_heartbeat > timeout:
  mark_as_crashed(node)
 ```
@@ -128,15 +209,15 @@ Operations complete but take longer than specified time bounds.
 
 <h4>Modeling Latency</h4>
 ```python
-# Latency often follows log-normal distribution
+## Latency often follows log-normal distribution
 import numpy as np
 
 median_latency = 50 # ms
 std_dev = 1.5
 
-# P99 calculation
+## P99 calculation
 p99 = np.exp(np.log(median_latency) + std_dev * 2.33)
-# Result: ~365ms for 50ms median
+## Result: ~365ms for 50ms median
 ```
 </div>
 
@@ -212,16 +293,16 @@ graph LR
 ### Independent Failures
 
 ```python
-# Probability of k failures out of n components
+## Probability of k failures out of n components
 from math import comb
 
 def failure_probability(n, k, p):
  """Binomial distribution for independent failures"""
  return comb(n, k) * (p**k) * ((1-p)**(n-k))
 
-# Example: 100 servers, 0.1% daily failure rate
-# P(exactly 2 failures) = C(100,2) * 0.001² * 0.999⁹⁸
-# = 0.00184 (0.18%)
+## Example: 100 servers, 0.1% daily failure rate
+## P(exactly 2 failures) = C(100,2) * 0.001² * 0.999⁹⁸
+## = 0.00184 (0.18%)
 ```
 
 ### Correlated Failures
@@ -246,13 +327,13 @@ graph TD
 
 **Correlation Model**:
 ```python
-# Joint failure probability
+## Joint failure probability
 P(A and B) = P(A) * P(B) + correlation_factor
 
-# High correlation example:
-# Same rack: correlation = 0.8
-# Same datacenter: correlation = 0.3
-# Different regions: correlation = 0.01
+## High correlation example:
+## Same rack: correlation = 0.8
+## Same datacenter: correlation = 0.3
+## Different regions: correlation = 0.01
 ```
 
 ## Failure Detection Strategies
@@ -290,24 +371,24 @@ def phi_accrual_detector(heartbeat_history):
  current_time = time.now()
  last_heartbeat = heartbeat_history[-1]
  
-# Calculate expected interval
+## Calculate expected interval
  intervals = calculate_intervals(heartbeat_history)
  mean = np.mean(intervals)
  std = np.std(intervals)
  
-# Time since last heartbeat
+## Time since last heartbeat
  elapsed = current_time - last_heartbeat
  
-# Calculate φ
+## Calculate φ
  phi = -log10(1 - F(elapsed))
-# where F is CDF of normal distribution
+## where F is CDF of normal distribution
  
  return phi
 
-# Usage:
-# φ < 1: Likely alive
-# φ > 8: Likely failed
-# Adjust threshold based on requirements
+## Usage:
+## φ < 1: Likely alive
+## φ > 8: Likely failed
+## Adjust threshold based on requirements
 ```
 
 ## Recovery Strategies by Failure Type
@@ -382,10 +463,10 @@ def cascade_probability(initial_load, capacity, failed_nodes, total_nodes):
  new_load_per_node = (initial_load * total_nodes) / remaining_nodes
  
  if new_load_per_node > capacity:
-# Cascade likely
+## Cascade likely
  return 1.0
  else:
-# Probability increases with load
+## Probability increases with load
  return (new_load_per_node / capacity) ** 2
 ```
 
@@ -411,11 +492,11 @@ stateDiagram-v2
 ### Failure Budget Allocation
 
 ```python
-# Allocate failure budget across components
+## Allocate failure budget across components
 total_availability_target = 0.999 # 99.9%
 allowed_downtime = 43.8 # minutes/month
 
-# Component budgets
+## Component budgets
 budgets = {
  'network': 0.3 * allowed_downtime, # 13.1 min
  'compute': 0.2 * allowed_downtime, # 8.8 min 

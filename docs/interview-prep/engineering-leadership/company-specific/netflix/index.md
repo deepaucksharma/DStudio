@@ -1,9 +1,64 @@
 ---
 title: Netflix
 description: Netflix overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Netflix Engineering Leadership Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Netflix's Core Values & Leadership Principles](#netflixs-core-values-leadership-principles)
+  - [1. Freedom & Responsibility (Autonomy with Accountability)](#1-freedom-responsibility-autonomy-with-accountability)
+  - [2. High Performance Culture (A Players Only)](#2-high-performance-culture-a-players-only)
+  - [3. Candor & Feedback (Radical Transparency)](#3-candor-feedback-radical-transparency)
+  - [4. Innovation & Risk-Taking (Bet Big, Learn Fast)](#4-innovation-risk-taking-bet-big-learn-fast)
+  - [5. Customer Obsession (Member Joy)](#5-customer-obsession-member-joy)
+- [Interview Format & Process](#interview-format-process)
+  - [Typical Interview Structure](#typical-interview-structure)
+  - [Interview Focus Areas](#interview-focus-areas)
+    - [High Performance & Talent Management](#high-performance-talent-management)
+    - [Technical Excellence & Innovation](#technical-excellence-innovation)
+    - [Freedom & Responsibility Leadership](#freedom-responsibility-leadership)
+- [Netflix-Specific Interview Themes](#netflix-specific-interview-themes)
+  - [1. Global Streaming at Scale](#1-global-streaming-at-scale)
+  - [2. Data-Driven Personalization](#2-data-driven-personalization)
+  - [3. High-Performance Team Building](#3-high-performance-team-building)
+  - [4. Entertainment Technology Innovation](#4-entertainment-technology-innovation)
+- [Tailoring Your Responses for Netflix](#tailoring-your-responses-for-netflix)
+  - [Emphasize High Performance Standards](#emphasize-high-performance-standards)
+  - [Show Autonomous Decision-Making](#show-autonomous-decision-making)
+  - [Demonstrate Direct Communication](#demonstrate-direct-communication)
+  - [Focus on Member Impact](#focus-on-member-impact)
+- [Common Interview Questions by Category](#common-interview-questions-by-category)
+  - [Freedom & Responsibility](#freedom-responsibility)
+  - [High Performance Culture](#high-performance-culture)
+  - [Candor & Direct Communication](#candor-direct-communication)
+  - [Technical Leadership at Netflix Scale](#technical-leadership-at-netflix-scale)
+  - [Innovation & Member Focus](#innovation-member-focus)
+  - [Team Leadership & Culture](#team-leadership-culture)
+- [Red Flags to Avoid](#red-flags-to-avoid)
+  - [Anti-Netflix Behaviors](#anti-netflix-behaviors)
+  - [Technical Red Flags](#technical-red-flags)
+  - [Leadership Red Flags](#leadership-red-flags)
+- [Netflix Success Factors](#netflix-success-factors)
+  - [What Netflix Values Most](#what-netflix-values-most)
+  - [Story Structure for Netflix Interviews](#story-structure-for-netflix-interviews)
+- [Level-Specific Expectations](#level-specific-expectations)
+  - [Senior Software Engineer (L5)](#senior-software-engineer-l5)
+  - [Staff Software Engineer (L6)](#staff-software-engineer-l6)
+  - [Senior Staff/Principal Engineer (L7)](#senior-staffprincipal-engineer-l7)
+- [Preparation Strategy](#preparation-strategy)
+  - [8 Weeks Before](#8-weeks-before)
+  - [4 Weeks Before](#4-weeks-before)
+  - [1 Week Before](#1-week-before)
+  - [Day of Interview](#day-of-interview)
+- [Final Tips for Success](#final-tips-for-success)
+
+
 
 ## Overview
 

@@ -1,5 +1,26 @@
 # Performance Visualization Templates
 
+## Table of Contents
+
+- [Benchmark Result Visualizations](#benchmark-result-visualizations)
+  - [Throughput vs Latency Trade-offs](#throughput-vs-latency-trade-offs)
+  - [Load Testing Results Matrix](#load-testing-results-matrix)
+- [Latency Distribution Charts](#latency-distribution-charts)
+  - [Multi-Service Latency Breakdown](#multi-service-latency-breakdown)
+  - [Geographic Latency Heatmap](#geographic-latency-heatmap)
+- [Scaling Behavior Curves](#scaling-behavior-curves)
+  - [Horizontal Scaling Performance](#horizontal-scaling-performance)
+  - [Vertical vs Horizontal Scaling Comparison](#vertical-vs-horizontal-scaling-comparison)
+- [Resource Utilization Dashboards](#resource-utilization-dashboards)
+  - [Real-time System Health Dashboard](#real-time-system-health-dashboard)
+  - [Multi-Region Performance Comparison](#multi-region-performance-comparison)
+- [Template Customization Guidelines](#template-customization-guidelines)
+  - [1. Metrics Substitution](#1-metrics-substitution)
+  - [2. Threshold Customization](#2-threshold-customization)
+  - [3. Geographic Adaptation](#3-geographic-adaptation)
+  - [4. Scaling Model Updates](#4-scaling-model-updates)
+  - [5. Cost Integration](#5-cost-integration)
+
 Specialized Mermaid templates for visualizing system performance, scaling behavior, and operational metrics in distributed systems.
 
 ## Benchmark Result Visualizations

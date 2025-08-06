@@ -1,9 +1,40 @@
 ---
 title: Ic Interviews
 description: Ic Interviews overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # IC Interviews Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [🎯 IC Interview Preparation Flow](#-ic-interview-preparation-flow)
+- [📚 Core Resources](#-core-resources)
+- [🎯 IC Interview Types](#-ic-interview-types)
+  - [🗣️ Behavioral Interviews (45-60 minutes)](#-behavioral-interviews-45-60-minutes)
+  - [🏗️ System Design Interviews (45-60 minutes)](#-system-design-interviews-45-60-minutes)
+- [🎯 System Design Interview Process](#-system-design-interview-process)
+  - [Typical Timeline (45-60 minutes)](#typical-timeline-45-60-minutes)
+    - [1. Requirements Gathering (5-10 min)](#1-requirements-gathering-5-10-min)
+    - [2. High-Level Design (15-20 min)](#2-high-level-design-15-20-min)
+    - [3. Detailed Design (15-20 min)](#3-detailed-design-15-20-min)
+    - [4. Scale & Optimization (10-15 min)](#4-scale-optimization-10-15-min)
+- [📊 Topics by Difficulty Level](#-topics-by-difficulty-level)
+  - [🟢 Beginner Level (L3/E3)](#-beginner-level-l3e3)
+  - [🟡 Intermediate Level (L4/E4)  ](#-intermediate-level-l4e4-)
+  - [🔴 Advanced Level (L5/E5)](#-advanced-level-l5e5)
+- [🔧 Technical Concepts to Master](#-technical-concepts-to-master)
+  - [🎯 Core Concepts (Must Know)](#-core-concepts-must-know)
+  - [🧠 Advanced Topics (L4+ Focus)](#-advanced-topics-l4-focus)
+- [💡 Success Tips](#-success-tips)
+- [🚀 Quick Start](#-quick-start)
+  - [For Behavioral Interviews](#for-behavioral-interviews)
+  - [For System Design Interviews](#for-system-design-interviews)
+
+
 
 > Master both system design and behavioral interviews for Individual Contributor roles (L3-L5)
 

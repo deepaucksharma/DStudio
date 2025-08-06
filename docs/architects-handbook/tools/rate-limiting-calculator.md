@@ -6,6 +6,55 @@ type: documentation
 
 # Rate Limiting Calculator
 
+
+
+## Overview
+
+Rate Limiting Calculator
+description: Token bucket, sliding window, distributed rate limiting algorithms analysis
+type: documentation
+---
+
+# Rate Limiting Calculator
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Traffic Patterns](#traffic-patterns)
+  - [Rate Limiting Strategy](#rate-limiting-strategy)
+  - [Granularity & Scope](#granularity-scope)
+  - [Response Strategy](#response-strategy)
+  - [Performance Requirements](#performance-requirements)
+- [Understanding Rate Limiting Algorithms](#understanding-rate-limiting-algorithms)
+  - [Algorithm Comparison](#algorithm-comparison)
+  - [Distributed Rate Limiting Challenges](#distributed-rate-limiting-challenges)
+  - [Implementation Patterns](#implementation-patterns)
+- [Related Resources](#related-resources)
+
+
+
+! Advanced Rate Limiting Analysis"
+    <h2>🚦 Rate Limiting Strategy Calculator</h2>
+    <p>Design and analyze rate limiting strategies with token bucket, sliding window, fixed window, and distributed algorithms.
+
+**Reading time:** ~26 minutes
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Traffic Patterns](#traffic-patterns)
+  - [Rate Limiting Strategy](#rate-limiting-strategy)
+  - [Granularity & Scope](#granularity-scope)
+  - [Response Strategy](#response-strategy)
+  - [Performance Requirements](#performance-requirements)
+- [Understanding Rate Limiting Algorithms](#understanding-rate-limiting-algorithms)
+  - [Algorithm Comparison](#algorithm-comparison)
+  - [Distributed Rate Limiting Challenges](#distributed-rate-limiting-challenges)
+  - [Implementation Patterns](#implementation-patterns)
+- [Related Resources](#related-resources)
+
+
+
 !!! info "Advanced Rate Limiting Analysis"
     <h2>🚦 Rate Limiting Strategy Calculator</h2>
     <p>Design and analyze rate limiting strategies with token bucket, sliding window, fixed window, and distributed algorithms.</p>

@@ -1,9 +1,38 @@
 ---
 title: Coding Interviews
 description: Coding Interviews overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Coding Interview Quick Reference
+
+## Table of Contents
+
+- [Overview](#overview)
+- [When You Need This](#when-you-need-this)
+- [Learning Path](#learning-path)
+- [External Resources](#external-resources)
+  - [Primary Platforms](#primary-platforms)
+  - [Books & References](#books-references)
+  - [Company-Specific Prep](#company-specific-prep)
+- [Core Competencies](#core-competencies)
+  - [Data Structures (Must Know)](#data-structures-must-know)
+  - [Algorithms (Must Know)](#algorithms-must-know)
+  - [Advanced Topics (Nice to Have)](#advanced-topics-nice-to-have)
+- [Complexity Cheat Sheet](#complexity-cheat-sheet)
+  - [Time Complexity Hierarchy](#time-complexity-hierarchy)
+  - [Common Operations](#common-operations)
+  - [Algorithm Complexities](#algorithm-complexities)
+- [Interview Timeline](#interview-timeline)
+  - [1-2 Weeks Before](#1-2-weeks-before)
+  - [1 Week Before](#1-week-before)
+  - [Day Before](#day-before)
+- [Success Metrics](#success-metrics)
+- [Next Steps](#next-steps)
+
+
 
 !!! note "Lightweight Guide"
     This is a focused reference guide. For comprehensive coding prep, we recommend dedicated platforms like LeetCode, HackerRank, or Cracking the Coding Interview.

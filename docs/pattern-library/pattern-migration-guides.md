@@ -180,7 +180,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Step 1: Keep sync, add async publishing
+## Step 1: Keep sync, add async publishing
 class OrderService:
     def create_order(self, order_data):
         # Existing sync call
@@ -216,7 +216,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Step 2: Both paths active
+## Step 2: Both paths active
 class OrderService:
     def create_order(self, order_data):
         # Publish to queue first
@@ -252,14 +252,14 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Step 3: Remove sync path
+## Step 3: Remove sync path
 class OrderService:
     def create_order(self, order_data):
         # Only async now
         queue.publish("payment.requested", order_data)
         return {"status": "processing", "id": order_data.id}
 
-# New: Result handler
+## New: Result handler
 class PaymentResultHandler:
     def handle_payment_completed(self, event):
         # Update order status
@@ -462,7 +462,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Step 1: Create abstraction
+## Step 1: Create abstraction
 class PaymentProcessor:
     def process(self, amount):
         if feature_flag.use_new_processor:
@@ -501,7 +501,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Run both systems, compare results
+## Run both systems, compare results
 class MigrationValidator:
     def process_order(self, order):
         # Run old system
@@ -694,7 +694,7 @@ graph LR
 <summary>📄 View complete migration implementation</summary>
 
 ```python
-# Step 1: Legacy 2PC Transaction
+## Step 1: Legacy 2PC Transaction
 class TwoPhaseCommitService:
     def process_order(self, order):
         tx = start_transaction()
@@ -707,7 +707,7 @@ class TwoPhaseCommitService:
             tx.rollback()
             raise
 
-# Step 2: Saga Implementation
+## Step 2: Saga Implementation
 class OrderSaga:
     def __init__(self):
         self.saga_manager = SagaManager()
@@ -740,7 +740,7 @@ class OrderSaga:
 <summary>📄 View communication pattern migration</summary>
 
 ```python
-# Phase 1: Synchronous RPC
+## Phase 1: Synchronous RPC
 class OrderService:
     def create_order(self, order_data):
         # Blocking calls
@@ -753,7 +753,7 @@ class OrderService:
             # Handle rollback
             return {"status": "failed", "reason": "Payment or inventory failed"}
 
-# Phase 2: Dual Write (Transition)
+## Phase 2: Dual Write (Transition)
 class OrderService:
     def create_order(self, order_data):
         # Publish async event
@@ -765,14 +765,14 @@ class OrderService:
         else:
             return {"status": "processing", "id": order_data.id}
 
-# Phase 3: Full Async
+## Phase 3: Full Async
 class OrderService:
     def create_order(self, order_data):
         # Only async processing
         saga_id = saga_manager.start("order-processing", order_data)
         return {"status": "processing", "saga_id": saga_id}
 
-# Event handlers
+## Event handlers
 class PaymentEventHandler:
     def handle_order_created(self, event):
         result = payment_service.process(event.data)
@@ -814,7 +814,7 @@ CREATE SCHEMA user_service;
 <summary>📄 View monolith decomposition approach</summary>
 
 ```python
-# API Gateway routing for gradual migration
+## API Gateway routing for gradual migration
 class MigrationRouter:
     def __init__(self):
         self.feature_flags = FeatureFlags()

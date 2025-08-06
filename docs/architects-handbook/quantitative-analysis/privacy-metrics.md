@@ -1,6 +1,9 @@
 ---
 title: Privacy Metrics
 description: Quantitative models for privacy preservation and anonymization
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Privacy Metrics

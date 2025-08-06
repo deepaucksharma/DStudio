@@ -69,6 +69,40 @@ lessons_learned:
 
 # Slack's Infrastructure: Real-time Messaging at Scale
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [System Architecture](#system-architecture)
+  - [High-Level Overview](#high-level-overview)
+  - [Key Components](#key-components)
+- [Technical Deep Dive](#technical-deep-dive)
+  - [WebSocket Management](#websocket-management)
+  - [Sharding Strategy](#sharding-strategy)
+  - [Message Flow](#message-flow)
+- [Performance Optimization](#performance-optimization)
+  - [Caching Strategy](#caching-strategy)
+  - [Trade-off Analysis](#trade-off-analysis)
+- [Operational Challenges](#operational-challenges)
+  - [Challenge 1: Connection Storms](#challenge-1-connection-storms)
+  - [Challenge 2: Message Ordering](#challenge-2-message-ordering)
+- [Kafka producer config](#kafka-producer-config)
+  - [Challenge 3: Search at Scale](#challenge-3-search-at-scale)
+- [Best Practices Implemented](#best-practices-implemented)
+  - [1. Graceful Degradation](#1-graceful-degradation)
+  - [2. Resource Management](#2-resource-management)
+- [Connection limits per server](#connection-limits-per-server)
+- [Memory optimization](#memory-optimization)
+  - [3. Monitoring and Alerting](#3-monitoring-and-alerting)
+- [Migration Path](#migration-path)
+  - [From Polling to WebSockets](#from-polling-to-websockets)
+- [Lessons for Your Architecture](#lessons-for-your-architecture)
+  - [When to Use This Approach](#when-to-use-this-approach)
+  - [Implementation Checklist](#implementation-checklist)
+- [Related Resources](#related-resources)
+- [See Also](#see-also)
+
+
+
 !!! success "Excellence Badge"
     🥈 **Silver Tier**: Proven patterns with careful trade-off management
 
@@ -313,7 +347,7 @@ def get_partition(channel_id):
     # All messages for a channel go to same partition
     return hash(channel_id) % NUM_PARTITIONS
 
-# Kafka producer config
+## Kafka producer config
 producer.send(
     topic='messages',
     key=channel_id,  # Ensures ordering
@@ -355,12 +389,12 @@ graph TB
 ### 2. Resource Management
 
 ```python
-# Connection limits per server
+## Connection limits per server
 MAX_CONNECTIONS_PER_SERVER = 50000
 CONNECTION_IDLE_TIMEOUT = 300  # 5 minutes
 MESSAGE_BUFFER_SIZE = 256
 
-# Memory optimization
+## Memory optimization
 class ConnectionPool:
     def __init__(self):
         self.pool = []
@@ -449,3 +483,9 @@ graph LR
 ---
 
 *"Real-time messaging is not just about speed, it's about reliability at speed." - Slack Engineering*
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [Learning Paths](/architects-handbook/learning-paths)

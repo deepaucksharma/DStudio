@@ -1,9 +1,48 @@
 ---
 title: Amazon
 description: Amazon overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Amazon Leadership Principles Deep Dive for Engineering Leaders
+
+## Table of Contents
+
+- [Overview](#overview)
+- [The Bar Raiser Process](#the-bar-raiser-process)
+  - [What to Expect](#what-to-expect)
+  - [How to Prepare](#how-to-prepare)
+- [L6+ Leadership Principles Deep Dive](#l6-leadership-principles-deep-dive)
+  - [1. Ownership (Critical for L6+)](#1-ownership-critical-for-l6)
+  - [2. Deliver Results (Table Stakes)](#2-deliver-results-table-stakes)
+  - [3. Hire and Develop the Best](#3-hire-and-develop-the-best)
+  - [4. Think Big (L7+ Differentiator)](#4-think-big-l7-differentiator)
+  - [5. Earn Trust (Stakeholder Management)](#5-earn-trust-stakeholder-management)
+  - [6. Have Backbone; Disagree and Commit](#6-have-backbone-disagree-and-commit)
+  - [7. Dive Deep (Technical Credibility)](#7-dive-deep-technical-credibility)
+- [Interview Day Strategy](#interview-day-strategy)
+  - [Interview Loop Structure](#interview-loop-structure)
+  - [STAR Story Bank](#star-story-bank)
+  - [The "Tell Me More" Technique](#the-tell-me-more-technique)
+- [Red Flags for Amazon](#red-flags-for-amazon)
+  - [Avoid These](#avoid-these)
+  - [Embrace These](#embrace-these)
+- [L6 vs L7 vs L8 Expectations](#l6-vs-l7-vs-l8-expectations)
+  - [L6 (Senior Manager)](#l6-senior-manager)
+  - [L7 (Principal/Director)](#l7-principaldirector)
+  - [L8 (Senior Principal/Senior Director)](#l8-senior-principalsenior-director)
+- [Practice Questions Bank](#practice-questions-bank)
+  - [Ownership](#ownership)
+  - [Deliver Results](#deliver-results)
+  - [Hire and Develop](#hire-and-develop)
+  - [Think Big](#think-big)
+- [Final Tips](#final-tips)
+  - [Preparation Timeline](#preparation-timeline)
+  - [Day-of Success Factors](#day-of-success-factors)
+
+
 
 ## Overview
 

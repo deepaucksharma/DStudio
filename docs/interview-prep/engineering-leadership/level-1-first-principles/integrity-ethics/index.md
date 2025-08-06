@@ -1,9 +1,98 @@
 ---
 title: Integrity Ethics
 description: Integrity Ethics overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # First Principle #5: Integrity & Ethics
+
+
+
+## Overview
+
+Integrity Ethics
+description: Integrity Ethics overview and navigation
+---
+
+# First Principle #5: Integrity & Ethics
+
+## Table of Contents
+
+- [Definition](#definition)
+- [The Business Case for Integrity](#the-business-case-for-integrity)
+  - [Trust as Competitive Advantage](#trust-as-competitive-advantage)
+  - [The Compound Effect of Trust](#the-compound-effect-of-trust)
+- [Core Dimensions of Integrity](#core-dimensions-of-integrity)
+  - [1. Technical Integrity](#1-technical-integrity)
+  - [2.
+
+**Reading time:** ~16 minutes
+
+## Table of Contents
+
+- [Definition](#definition)
+- [The Business Case for Integrity](#the-business-case-for-integrity)
+  - [Trust as Competitive Advantage](#trust-as-competitive-advantage)
+  - [The Compound Effect of Trust](#the-compound-effect-of-trust)
+- [Core Dimensions of Integrity](#core-dimensions-of-integrity)
+  - [1. Technical Integrity](#1-technical-integrity)
+  - [2. Data Ethics](#2-data-ethics)
+  - [3. Organizational Integrity](#3-organizational-integrity)
+  - [4. Personal Integrity](#4-personal-integrity)
+- [Ethical Frameworks for Engineering Leaders](#ethical-frameworks-for-engineering-leaders)
+  - [1. The Ethical Decision Tree](#1-the-ethical-decision-tree)
+  - [2. The Stakeholder Impact Analysis](#2-the-stakeholder-impact-analysis)
+  - [3. The Front Page Test](#3-the-front-page-test)
+  - [4. The Future Self Test](#4-the-future-self-test)
+- [Real-World Integrity & Ethics Stories](#real-world-integrity-ethics-stories)
+  - [Case Study 1: Patagonia's "Don't Buy This Jacket" - When Integrity Drives Profits](#case-study-1-patagonias-dont-buy-this-jacket-when-integrity-drives-profits)
+  - [Case Study 2: The Facebook Data Science Team's A/B Test Ethics Crisis](#case-study-2-the-facebook-data-science-teams-ab-test-ethics-crisis)
+  - [Case Study 3: The Equifax Breach - When Integrity Failures Compound](#case-study-3-the-equifax-breach-when-integrity-failures-compound)
+- [Common Ethical Dilemmas in Engineering](#common-ethical-dilemmas-in-engineering)
+  - [Frequent Scenarios Engineering Leaders Face](#frequent-scenarios-engineering-leaders-face)
+- [Building Ethical Engineering Cultures](#building-ethical-engineering-cultures)
+  - [Structural Supports](#structural-supports)
+  - [Cultural Practices](#cultural-practices)
+- [The Cost of Integrity Failures](#the-cost-of-integrity-failures)
+  - [Technical Debt Analogy](#technical-debt-analogy)
+  - [Case Studies in Engineering Ethics Failures](#case-studies-in-engineering-ethics-failures)
+  - [The Recovery Pattern](#the-recovery-pattern)
+- [Practical Integrity Tools](#practical-integrity-tools)
+  - [1. The Pre-Mortem Ethics Check](#1-the-pre-mortem-ethics-check)
+- [Ethics Pre-Mortem](#ethics-pre-mortem)
+  - [2. The Regular Integrity Audit](#2-the-regular-integrity-audit)
+  - [3. The Integrity Ladder](#3-the-integrity-ladder)
+- [Interview Applications](#interview-applications)
+  - [Demonstrating Integrity](#demonstrating-integrity)
+    - [Story Categories](#story-categories)
+    - [Power Phrases](#power-phrases)
+  - [The Integrity Story Framework](#the-integrity-story-framework)
+  - [Real Interview Example: The Algorithmic Bias Discovery](#real-interview-example-the-algorithmic-bias-discovery)
+- [Red Flags: Integrity at Risk](#red-flags-integrity-at-risk)
+  - [Personal Warning Signs](#personal-warning-signs)
+  - [Organizational Warning Signs](#organizational-warning-signs)
+- [Building Your Integrity Practice](#building-your-integrity-practice)
+  - [Daily Habits](#daily-habits)
+  - [Weekly Rituals](#weekly-rituals)
+  - [Monthly Investments](#monthly-investments)
+- [The Long Game](#the-long-game)
+  - [Integrity Compounds](#integrity-compounds)
+  - [The Ultimate Test](#the-ultimate-test)
+- [Connection to Other Principles](#connection-to-other-principles)
+- [Application in Other Levels](#application-in-other-levels)
+  - [Level II: Core Business Concepts](#level-ii-core-business-concepts)
+  - [Level III: Engineering Applications](#level-iii-engineering-applications)
+  - [Level IV: Interview Execution](#level-iv-interview-execution)
+- [Integrity & Ethics Interview Toolkit](#integrity-ethics-interview-toolkit)
+  - [Five Essential Integrity Stories to Prepare](#five-essential-integrity-stories-to-prepare)
+  - [Integrity Power Phrases for Interviews](#integrity-power-phrases-for-interviews)
+  - [The "Integrity Under Pressure" Framework](#the-integrity-under-pressure-framework)
+  - [Red Flags Interviewers Look For](#red-flags-interviewers-look-for)
+- [Next Steps](#next-steps)
+
+
 
 > "In looking for people to hire, you look for three qualities: integrity, intelligence, and energy. And if they don't have the first, the other two will kill you." - Warren Buffett
 

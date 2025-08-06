@@ -59,6 +59,50 @@ type: pattern
 
 # Feature Store
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+- [Level 1: Intuition (5 min) {#intuition}](#level-1-intuition-5-min-intuition)
+  - [The Story](#the-story)
+  - [Visual Metaphor](#visual-metaphor)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Level 2: Foundation (10 min) {#foundation}](#level-2-foundation-10-min-foundation)
+  - [The Problem Space](#the-problem-space)
+  - [How It Works](#how-it-works)
+  - [Basic Example](#basic-example)
+- [Feature store implementation with Feast (open source)](#feature-store-implementation-with-feast-open-source)
+- [Define entities (primary keys for features)](#define-entities-primary-keys-for-features)
+- [Define feature views (logical grouping of features)](#define-feature-views-logical-grouping-of-features)
+- [Initialize feature store](#initialize-feature-store)
+- [Training: Get historical features for model training](#training-get-historical-features-for-model-training)
+- [Serving: Get online features for real-time inference](#serving-get-online-features-for-real-time-inference)
+- [Level 3: Deep Dive (15 min) {#deep-dive}](#level-3-deep-dive-15-min-deep-dive)
+  - [Implementation Details](#implementation-details)
+  - [Advanced Implementation Patterns](#advanced-implementation-patterns)
+- [Advanced feature engineering with data quality checks](#advanced-feature-engineering-with-data-quality-checks)
+- [Usage example](#usage-example)
+  - [Common Pitfalls](#common-pitfalls)
+  - [Production Considerations](#production-considerations)
+- [Level 4: Expert (20 min) {#expert}](#level-4-expert-20-min-expert)
+  - [Advanced Architecture Patterns](#advanced-architecture-patterns)
+  - [Advanced Optimization Strategies](#advanced-optimization-strategies)
+- [Advanced feature caching with smart invalidation](#advanced-feature-caching-with-smart-invalidation)
+  - [2. Feature Drift Detection and Alerting](#2-feature-drift-detection-and-alerting)
+- [Production-grade feature drift monitoring](#production-grade-feature-drift-monitoring)
+  - [Scaling Considerations](#scaling-considerations)
+- [Level 5: Mastery (30 min) {#mastery}](#level-5-mastery-30-min-mastery)
+  - [Real-World Case Studies](#real-world-case-studies)
+  - [Pattern Evolution and Future Directions](#pattern-evolution-and-future-directions)
+  - [Pattern Combinations](#pattern-combinations)
+- [Quick Reference](#quick-reference)
+  - [Decision Matrix](#decision-matrix)
+  - [Implementation Roadmap](#implementation-roadmap)
+  - [Related Resources](#related-resources)
+
 !!! info "🥇 Gold Tier Pattern"
     **ML Feature Management** • Essential for enterprise ML at scale
     
@@ -215,17 +259,17 @@ graph TD
 ### Basic Example
 
 ```python
-# Feature store implementation with Feast (open source)
+## Feature store implementation with Feast (open source)
 from feast import FeatureStore, Entity, FeatureView, Field
 from feast.types import Float64, Int64, String
 import pandas as pd
 from datetime import timedelta
 
-# Define entities (primary keys for features)
+## Define entities (primary keys for features)
 user = Entity(name="user_id", join_keys=["user_id"])
 item = Entity(name="item_id", join_keys=["item_id"])
 
-# Define feature views (logical grouping of features)
+## Define feature views (logical grouping of features)
 user_features = FeatureView(
     name="user_features",
     entities=[user],
@@ -252,10 +296,10 @@ item_features = FeatureView(
     source="item_table"
 )
 
-# Initialize feature store
+## Initialize feature store
 store = FeatureStore(repo_path=".")
 
-# Training: Get historical features for model training
+## Training: Get historical features for model training
 training_df = store.get_historical_features(
     entity_df=pd.DataFrame({
         "user_id": [1, 2, 3],
@@ -266,7 +310,7 @@ training_df = store.get_historical_features(
              "item_features:price", "item_features:category"]
 ).to_df()
 
-# Serving: Get online features for real-time inference  
+## Serving: Get online features for real-time inference  
 online_features = store.get_online_features(
     features=["user_features:age", "item_features:price"],
     entity_rows=[{"user_id": 1, "item_id": 101}]
@@ -325,7 +369,7 @@ graph TD
 #### Feature Pipeline with Data Quality
 
 ```python
-# Advanced feature engineering with data quality checks
+## Advanced feature engineering with data quality checks
 from dataclasses import dataclass
 from typing import Dict, List, Any, Optional
 import pandas as pd
@@ -405,7 +449,7 @@ class FeaturePipeline:
                     
         return results
 
-# Usage example
+## Usage example
 user_engagement_def = FeatureDefinition(
     name="user_engagement_score",
     description="Composite score measuring user engagement across platform",
@@ -487,7 +531,7 @@ graph TB
 #### 1. Feature Precomputation and Caching
 
 ```python
-# Advanced feature caching with smart invalidation
+## Advanced feature caching with smart invalidation
 from typing import Dict, Set, Optional
 import redis
 import hashlib
@@ -550,10 +594,10 @@ class SmartFeatureCache:
             self.redis.delete(*keys_to_delete)
 ```
 
-#### 2. Feature Drift Detection and Alerting
+### 2. Feature Drift Detection and Alerting
 
 ```python
-# Production-grade feature drift monitoring
+## Production-grade feature drift monitoring
 from scipy import stats
 import numpy as np
 from dataclasses import dataclass

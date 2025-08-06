@@ -1,9 +1,53 @@
 ---
 title: Practice Scenarios
 description: Practice Scenarios overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Engineering Leadership Practice Scenarios
+
+
+
+## Overview
+
+Practice Scenarios
+description: Practice Scenarios overview and navigation
+---
+
+# Engineering Leadership Practice Scenarios
+
+## Table of Contents
+
+- [📚 Available Scenarios](#-available-scenarios)
+- [🎯 Practice Matrix: Scenarios by Leadership Principle](#-practice-matrix-scenarios-by-leadership-principle)
+- [🎪 How to Use These Scenarios](#-how-to-use-these-scenarios)
+  - [1. Initial Practice Structure**](#1-initial-practice-structure)
+  - [2.
+
+**Reading time:** ~4 minutes
+
+## Table of Contents
+
+- [📚 Available Scenarios](#-available-scenarios)
+- [🎯 Practice Matrix: Scenarios by Leadership Principle](#-practice-matrix-scenarios-by-leadership-principle)
+- [🎪 How to Use These Scenarios](#-how-to-use-these-scenarios)
+  - [1. **Initial Practice Structure**](#1-initial-practice-structure)
+  - [2. **Adaptation Guidelines**](#2-adaptation-guidelines)
+  - [3. **Interview Preparation Timeline**](#3-interview-preparation-timeline)
+  - [4. **Mock Interview Practice**](#4-mock-interview-practice)
+- [📊 Scenario Difficulty by Level](#-scenario-difficulty-by-level)
+  - [Engineering Manager (L5-L6)](#engineering-manager-l5-l6)
+  - [Senior Engineering Manager (L7)](#senior-engineering-manager-l7)
+  - [Director+ (L8+)](#director-l8)
+- [🔑 Common Success Patterns](#-common-success-patterns)
+  - [Across All Scenarios](#across-all-scenarios)
+  - [Interview Excellence Formula](#interview-excellence-formula)
+- [🚀 Next Steps](#-next-steps)
+- [📚 Related Resources](#-related-resources)
+
+
 
 Master behavioral interviews through realistic leadership scenarios that test your experience, judgment, and communication skills.
 

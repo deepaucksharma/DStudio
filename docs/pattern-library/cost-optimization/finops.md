@@ -23,7 +23,7 @@ FinOps combines financial accountability with operational excellence. It provide
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class FinOpsManager:
     def __init__(self):
         pass

@@ -1,9 +1,78 @@
 ---
 title: Leadership
 description: Leadership overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Business Concept #2: Leadership
+
+
+
+## Overview
+
+Leadership
+description: Leadership overview and navigation
+---
+
+# Business Concept #2: Leadership
+
+## Table of Contents
+
+- [Definition](#definition)
+- [Core Leadership Frameworks](#core-leadership-frameworks)
+  - [1. Situational Leadership (Blanchard & Hersey)](#1-situational-leadership-blanchard-hersey)
+  - [2.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [Definition](#definition)
+- [Core Leadership Frameworks](#core-leadership-frameworks)
+  - [1. Situational Leadership (Blanchard & Hersey)](#1-situational-leadership-blanchard-hersey)
+  - [2. Servant Leadership (Greenleaf)](#2-servant-leadership-greenleaf)
+  - [3. Transformational Leadership (Bass)](#3-transformational-leadership-bass)
+  - [4. Kotter's 8-Step Change Process](#4-kotters-8-step-change-process)
+- [Leadership Dimensions for Engineering](#leadership-dimensions-for-engineering)
+  - [1. Technical Leadership](#1-technical-leadership)
+  - [2. People Leadership](#2-people-leadership)
+  - [3. Organizational Leadership](#3-organizational-leadership)
+  - [4. Strategic Leadership](#4-strategic-leadership)
+- [Leadership Styles Spectrum](#leadership-styles-spectrum)
+  - [The Range Every Leader Needs](#the-range-every-leader-needs)
+  - [Style Flexibility Exercise](#style-flexibility-exercise)
+- [Building High-Performing Engineering Teams](#building-high-performing-engineering-teams)
+  - [The Tuckman Model in Engineering](#the-tuckman-model-in-engineering)
+  - [Psychological Safety: The Foundation](#psychological-safety-the-foundation)
+  - [The Multiplier Effect](#the-multiplier-effect)
+- [Leadership Communication](#leadership-communication)
+  - [The Engineering Leader's Communication Stack](#the-engineering-leaders-communication-stack)
+  - [Storytelling for Engineers](#storytelling-for-engineers)
+- [Leading Through Challenges](#leading-through-challenges)
+  - [Crisis Leadership](#crisis-leadership)
+  - [Leading Through Ambiguity](#leading-through-ambiguity)
+  - [Leading Change](#leading-change)
+- [Developing Leadership Skills](#developing-leadership-skills)
+  - [The 70-20-10 Model](#the-70-20-10-model)
+  - [Leadership Development Plan](#leadership-development-plan)
+- [Interview Mastery: Demonstrating Leadership](#interview-mastery-demonstrating-leadership)
+  - [Leadership Story Categories](#leadership-story-categories)
+  - [The STAR-L Framework](#the-star-l-framework)
+  - [Power Phrases](#power-phrases)
+- [Common Leadership Pitfalls](#common-leadership-pitfalls)
+  - [The Technical Leader Traps](#the-technical-leader-traps)
+  - [Red Flags in Your Leadership](#red-flags-in-your-leadership)
+- [The Leadership Journey](#the-leadership-journey)
+  - [From IC to Executive](#from-ic-to-executive)
+- [Connection to First Principles](#connection-to-first-principles)
+- [Connection to Other Business Concepts](#connection-to-other-business-concepts)
+- [Application in Level III](#application-in-level-iii)
+- [Interview Application (Level IV)](#interview-application-level-iv)
+- [Next Steps](#next-steps)
+
+
 
 > "Leadership is not about being in charge. It's about taking care of those in your charge." - Simon Sinek
 

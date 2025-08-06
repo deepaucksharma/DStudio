@@ -1,9 +1,64 @@
 ---
 title: Microsoft
 description: Microsoft overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Microsoft Engineering Leadership Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Microsoft's Core Values & Leadership Principles](#microsofts-core-values-leadership-principles)
+  - [1. Growth Mindset (Learn-It-All Culture)](#1-growth-mindset-learn-it-all-culture)
+  - [2. Customer Obsession (Customer First)](#2-customer-obsession-customer-first)
+  - [3. Diversity & Inclusion (One Microsoft)](#3-diversity-inclusion-one-microsoft)
+  - [4. Partner for Success (Better Together)](#4-partner-for-success-better-together)
+  - [5. Make a Difference (Empower Others)](#5-make-a-difference-empower-others)
+- [Interview Format & Process](#interview-format-process)
+  - [Typical Interview Structure](#typical-interview-structure)
+  - [Interview Focus Areas](#interview-focus-areas)
+    - [Growth Mindset & Learning](#growth-mindset-learning)
+    - [Customer Obsession & Impact](#customer-obsession-impact)
+    - [Inclusive Leadership](#inclusive-leadership)
+- [Microsoft-Specific Interview Themes](#microsoft-specific-interview-themes)
+  - [1. Cloud-First & Hybrid Solutions](#1-cloud-first-hybrid-solutions)
+  - [2. Enterprise Customer Focus](#2-enterprise-customer-focus)
+  - [3. Developer Platform & Ecosystem](#3-developer-platform-ecosystem)
+  - [4. AI & Intelligent Services Integration](#4-ai-intelligent-services-integration)
+- [Tailoring Your Responses for Microsoft](#tailoring-your-responses-for-microsoft)
+  - [Emphasize Learning & Growth](#emphasize-learning-growth)
+  - [Show Customer-Centric Thinking](#show-customer-centric-thinking)
+  - [Demonstrate Inclusive Leadership](#demonstrate-inclusive-leadership)
+  - [Highlight Collaboration & Partnership](#highlight-collaboration-partnership)
+- [Common Interview Questions by Category](#common-interview-questions-by-category)
+  - [Growth Mindset & Learning](#growth-mindset-learning)
+  - [Customer Obsession & Impact](#customer-obsession-impact)
+  - [Inclusive Leadership & Team Building](#inclusive-leadership-team-building)
+  - [Technical Leadership & Architecture](#technical-leadership-architecture)
+  - [Collaboration & Partnership](#collaboration-partnership)
+  - [Innovation & Strategic Thinking](#innovation-strategic-thinking)
+- [Red Flags to Avoid](#red-flags-to-avoid)
+  - [Anti-Microsoft Behaviors](#anti-microsoft-behaviors)
+  - [Technical Red Flags](#technical-red-flags)
+  - [Leadership Red Flags](#leadership-red-flags)
+- [Microsoft Success Factors](#microsoft-success-factors)
+  - [What Microsoft Values Most](#what-microsoft-values-most)
+  - [Story Structure for Microsoft Interviews](#story-structure-for-microsoft-interviews)
+- [Level-Specific Expectations](#level-specific-expectations)
+  - [Level 65 (Senior Engineer/Manager)](#level-65-senior-engineermanager)
+  - [Level 66 (Principal Engineer/Senior Manager)](#level-66-principal-engineersenior-manager)
+  - [Level 67 (Distinguished Engineer/Director)](#level-67-distinguished-engineerdirector)
+- [Preparation Strategy](#preparation-strategy)
+  - [8 Weeks Before](#8-weeks-before)
+  - [4 Weeks Before](#4-weeks-before)
+  - [1 Week Before](#1-week-before)
+  - [Day of Interview](#day-of-interview)
+- [Final Tips for Success](#final-tips-for-success)
+
+
 
 ## Overview
 

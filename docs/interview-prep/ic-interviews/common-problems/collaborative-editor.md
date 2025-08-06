@@ -4,6 +4,25 @@ description: Build a real-time collaborative document editor like Google Docs or
 type: system-design-problem
 difficulty: intermediate
 reading_time: 50 min
+prerequisites: 
+status: complete
+last_updated: 2025-08-04
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
+---
+
+# Design a Collaborative Document Editor
+
+
+
+## Overview
+
+Design a Collaborative Document Editor
+description: Build a real-time collaborative document editor like Google Docs or Notion
+type: system-design-problem
+difficulty: intermediate
+reading_time: 50 min
 prerequisites:
 - pattern-library/operational-transforms
 - pattern-library/conflict-resolution
@@ -13,6 +32,78 @@ last_updated: 2025-08-04
 ---
 
 # Design a Collaborative Document Editor
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Real-time Synchronization Challenges](#real-time-synchronization-challenges)
+  - [Document State Management](#document-state-management)
+  - [Scalability Concerns](#scalability-concerns)
+  - [User Experience Requirements](#user-experience-requirements)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Components Architecture](#core-components-architecture)
+    - [1. Collaboration Engine](#1-collaboration-engine)
+    - [2.
+
+**Reading time:** ~9 minutes
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Real-time Synchronization Challenges](#real-time-synchronization-challenges)
+  - [Document State Management](#document-state-management)
+  - [Scalability Concerns](#scalability-concerns)
+  - [User Experience Requirements](#user-experience-requirements)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Components Architecture](#core-components-architecture)
+    - [1. Collaboration Engine](#1-collaboration-engine)
+    - [2. Operational Transform Engine](#2-operational-transform-engine)
+    - [3. Real-time Communication](#3-real-time-communication)
+  - [Data Models](#data-models)
+    - [Document Schema](#document-schema)
+    - [Version Control Schema](#version-control-schema)
+    - [Real-time State Schema](#real-time-state-schema)
+- [Relevant Patterns from Pattern Library](#relevant-patterns-from-pattern-library)
+  - [Core Patterns](#core-patterns)
+    - [1. Operational Transforms (OT)](#1-operational-transforms-ot)
+    - [2. Conflict-Free Replicated Data Types (CRDTs)](#2-conflict-free-replicated-data-types-crdts)
+    - [3. WebSocket Scaling](#3-websocket-scaling)
+    - [4. Event Sourcing](#4-event-sourcing)
+  - [Supporting Patterns](#supporting-patterns)
+    - [5. Publish-Subscribe](#5-publish-subscribe)
+    - [6. Caching](#6-caching)
+    - [7. Rate Limiting](#7-rate-limiting)
+- [Common Pitfalls to Avoid](#common-pitfalls-to-avoid)
+  - [1. Operational Transform Complexity](#1-operational-transform-complexity)
+  - [2. WebSocket Connection Scaling](#2-websocket-connection-scaling)
+  - [3. Large Document Performance](#3-large-document-performance)
+  - [4. Offline-Online Synchronization](#4-offline-online-synchronization)
+  - [5. Real-time Memory Leaks](#5-real-time-memory-leaks)
+- [What Interviewers Look For](#what-interviewers-look-for)
+  - [Real-time Systems Design (35%)](#real-time-systems-design-35)
+  - [Collaboration Features (25%)](#collaboration-features-25)
+  - [Performance & Scale (25%)](#performance-scale-25)
+  - [User Experience (15%)](#user-experience-15)
+- [Advanced Follow-up Questions](#advanced-follow-up-questions)
+  - [Complex Document Structures](#complex-document-structures)
+  - [Cross-Document References](#cross-document-references)
+  - [Real-time Performance Optimization](#real-time-performance-optimization)
+  - [Mobile Collaboration](#mobile-collaboration)
+- [Key Metrics to Monitor](#key-metrics-to-monitor)
+  - [Real-time Performance Metrics](#real-time-performance-metrics)
+  - [User Experience Metrics](#user-experience-metrics)
+  - [System Performance Metrics](#system-performance-metrics)
+  - [Business Metrics](#business-metrics)
+
+
 
 ## Problem Statement
 

@@ -13,6 +13,73 @@ last_updated: 2025-07-20
 
 # Universal Scalability Law
 
+
+
+## Overview
+
+Universal Scalability Law
+description: Mathematical model for system scalability - understanding contention
+  and coherency limits in distributed systems
+type: quantitative
+difficulty: intermediate
+reading_time: 50 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+
+# Universal Scalability Law
+
+## Table of Contents
+
+- [The USL Equation](#the-usl-equation)
+- [Three Scaling Regimes](#three-scaling-regimes)
+- [Measuring Your Parameters](#measuring-your-parameters)
+  - [Parameter Fitting](#parameter-fitting)
+- [Real-World Examples](#real-world-examples)
+- [Identifying α (Contention)](#identifying-α-contention)
+- [Measure contention](#measure-contention)
+- [Identifying β (Coherency)](#identifying-β-coherency)
+- [Measure coherency (N² patterns)](#measure-coherency-n²-patterns)
+- [Strong coherency overhead](#strong-coherency-overhead)
+- [Optimization Strategies](#optimization-strategies)
+- [Reduce α (Contention)](#reduce-α-contention)
+- [1. Lock-free: global_lock → atomic_increment](#1-lock-free-global_lock-atomic_increment)
+- [2.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [The USL Equation](#the-usl-equation)
+- [Three Scaling Regimes](#three-scaling-regimes)
+- [Measuring Your Parameters](#measuring-your-parameters)
+  - [Parameter Fitting](#parameter-fitting)
+- [Real-World Examples](#real-world-examples)
+- [Identifying α (Contention)](#identifying-α-contention)
+- [Measure contention](#measure-contention)
+- [Identifying β (Coherency)](#identifying-β-coherency)
+- [Measure coherency (N² patterns)](#measure-coherency-n²-patterns)
+- [Strong coherency overhead](#strong-coherency-overhead)
+- [Optimization Strategies](#optimization-strategies)
+- [Reduce α (Contention)](#reduce-α-contention)
+- [1. Lock-free: global_lock → atomic_increment](#1-lock-free-global_lock-atomic_increment)
+- [2. Partition: global_pool → thread_local_pool](#2-partition-global_pool-thread_local_pool)
+- [3. Cache: fetch_always → local_cache.get_or_fetch()](#3-cache-fetch_always-local_cacheget_or_fetch)
+- [Reduce β (Coherency)](#reduce-β-coherency)
+- [1. Eventual: sync_replicate → async_replicate](#1-eventual-sync_replicate-async_replicate)
+- [2. Hierarchical: all_to_all → tree_based](#2-hierarchical-all_to_all-tree_based)
+- [3. Pub-sub: broadcast_all → publish_to_topic](#3-pub-sub-broadcast_all-publish_to_topic)
+- [Capacity Planning with USL](#capacity-planning-with-usl)
+- [USL in Practice](#usl-in-practice)
+- [Monitor](#monitor)
+- [Warning Signs](#warning-signs)
+- [Architecture Decisions](#architecture-decisions)
+- [Key Takeaways](#key-takeaways)
+
+
+
 **Why systems don't scale linearly**
 
 ## The USL Equation
@@ -281,7 +348,7 @@ Kafka Cluster: α=0.08, β=0.002 → Peak ~20 brokers
 **Sources**: Shared locks, central services, resource pools
 
 ```python
-# Measure contention
+## Measure contention
 t1 = time_operation(nodes=1)
 tN = time_operation(nodes=N)
 α = (tN/t1 - 1)/(N-1)
@@ -292,25 +359,25 @@ tN = time_operation(nodes=N)
 **Sources**: All-to-all communication, broadcasts, synchronization
 
 ```python
-# Measure coherency (N² patterns)
+## Measure coherency (N² patterns)
 messages_2 = count_messages(nodes=2)
 messages_N = count_messages(nodes=N)
 if messages_N ≈ messages_2 * (N/2)²:
-# Strong coherency overhead
+## Strong coherency overhead
 ```
 
 ## Optimization Strategies
 
 ```python
-# Reduce α (Contention)
-# 1. Lock-free: global_lock → atomic_increment
-# 2. Partition: global_pool → thread_local_pool
-# 3. Cache: fetch_always → local_cache.get_or_fetch()
+## Reduce α (Contention)
+## 1. Lock-free: global_lock → atomic_increment
+## 2. Partition: global_pool → thread_local_pool
+## 3. Cache: fetch_always → local_cache.get_or_fetch()
 
-# Reduce β (Coherency)
-# 1. Eventual: sync_replicate → async_replicate
-# 2. Hierarchical: all_to_all → tree_based
-# 3. Pub-sub: broadcast_all → publish_to_topic
+## Reduce β (Coherency)
+## 1. Eventual: sync_replicate → async_replicate
+## 2. Hierarchical: all_to_all → tree_based
+## 3. Pub-sub: broadcast_all → publish_to_topic
 ```
 
 ## Capacity Planning with USL
@@ -325,13 +392,13 @@ Options: Shard workload, reduce coordination, async processing, add caching
 ## USL in Practice
 
 ```text
-# Monitor
+## Monitor
 Throughput vs nodes, lock wait time (α), network O(N²) (β), CPU efficiency
 
-# Warning Signs
+## Warning Signs
 Sublinear scaling, quadratic network growth, rising lock/coordination time
 
-# Architecture Decisions
+## Architecture Decisions
 α dominates → Remove serialization, shard, cache
 β dominates → Reduce coordination, eventual consistency, hierarchies
 ```

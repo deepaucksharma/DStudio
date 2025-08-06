@@ -23,7 +23,7 @@ Data mesh treats data as a product owned by domain teams. It provides decentrali
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class DataMeshPlatform:
     def __init__(self):
         pass

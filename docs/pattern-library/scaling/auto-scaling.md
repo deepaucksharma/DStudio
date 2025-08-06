@@ -43,6 +43,39 @@ type: pattern
 
 # Auto-scaling Pattern
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+- [Level 1: Intuition (5 min) {#intuition}](#level-1-intuition-5-min-intuition)
+  - [The Story](#the-story)
+  - [Visual Metaphor](#visual-metaphor)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Level 2: Foundation (10 min) {#foundation}](#level-2-foundation-10-min-foundation)
+  - [The Problem Space](#the-problem-space)
+  - [How It Works](#how-it-works)
+  - [Scaling Decision Flow](#scaling-decision-flow)
+- [Level 3: Deep Dive (15 min) {#deep-dive}](#level-3-deep-dive-15-min-deep-dive)
+  - [Implementation Details](#implementation-details)
+  - [Common Pitfalls & Solutions](#common-pitfalls-solutions)
+  - [Production Considerations](#production-considerations)
+- [Level 4: Expert (20 min) {#expert}](#level-4-expert-20-min-expert)
+  - [Advanced Techniques](#advanced-techniques)
+  - [Scaling Considerations](#scaling-considerations)
+  - [Monitoring & Observability](#monitoring-observability)
+- [Level 5: Mastery (30 min) {#mastery}](#level-5-mastery-30-min-mastery)
+  - [Real-World Case Studies](#real-world-case-studies)
+  - [Pattern Evolution](#pattern-evolution)
+  - [Pattern Combinations](#pattern-combinations)
+- [Quick Reference](#quick-reference)
+  - [Decision Matrix for Auto-scaling Adoption](#decision-matrix-for-auto-scaling-adoption)
+  - [Auto-scaling vs Alternatives Comparison](#auto-scaling-vs-alternatives-comparison)
+  - [Implementation Checklist](#implementation-checklist)
+  - [Related Resources](#related-resources)
+
 !!! info "🥈 Silver Tier Pattern"
     **Dynamic resource scaling that adapts to demand patterns** • Uber, Netflix, Spotify proven at scale
     

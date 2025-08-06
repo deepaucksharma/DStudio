@@ -23,7 +23,7 @@ Maintaining ACID properties across multiple distributed systems requires coordin
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class TwoPhaseCommitCoordinator:
     def __init__(self):
         pass

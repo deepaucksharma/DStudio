@@ -1,6 +1,6 @@
 ---
-title: Data Consistency Guide: Choosing the Right Patterns
-description: ```mermaid graph LR A[Eventual Consistency] --> B[Causal Consistency] B --> C[Session Consistency] C --> D[Bounded Staleness]
+title: "Data Consistency Guide: Choosing the Right Patterns"
+description: "Navigate the consistency spectrum from eventual to strong consistency, choosing the right pattern for your use case and understanding the trade-offs."
 type: guide
 ---
 
@@ -412,3 +412,5 @@ graph TD
 - [Saga Pattern](../../pattern-library/data-management/saga/) (Gold)
 - [CDC Pattern](../../pattern-library/data-management/cdc/) (Silver)
 - [CRDT Pattern](../../pattern-library/data-management/crdt/) (Silver)
+```
+```

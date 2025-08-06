@@ -1,9 +1,52 @@
 ---
 title: Star Framework
 description: Star Framework overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # STAR+ Method for Leadership Scenarios
+
+## Table of Contents
+
+- [Overview](#overview)
+- [The STAR+ Framework](#the-star-framework)
+  - [Traditional STAR](#traditional-star)
+  - [The "+" Additions for Leadership](#the-additions-for-leadership)
+- [Leadership Dimensions to Highlight](#leadership-dimensions-to-highlight)
+  - [1. Scale and Complexity](#1-scale-and-complexity)
+  - [2. Stakeholder Management](#2-stakeholder-management)
+  - [3. Decision Making Under Ambiguity](#3-decision-making-under-ambiguity)
+- [Example: Scaling Engineering Team](#example-scaling-engineering-team)
+  - [Situation](#situation)
+  - [Task  ](#task-)
+  - [Action](#action)
+  - [Result](#result)
+  - [Learning](#learning)
+  - [Scale](#scale)
+  - [Impact](#impact)
+- [Common Leadership Scenarios](#common-leadership-scenarios)
+  - [1. Performance Management](#1-performance-management)
+  - [2. Organizational Change](#2-organizational-change)
+  - [3. Crisis Management](#3-crisis-management)
+  - [4. Strategic Initiatives](#4-strategic-initiatives)
+- [Power Phrases for Leadership](#power-phrases-for-leadership)
+  - [Demonstrating Ownership](#demonstrating-ownership)
+  - [Showing Strategic Thinking](#showing-strategic-thinking)
+  - [Highlighting People Leadership](#highlighting-people-leadership)
+- [Practice Framework](#practice-framework)
+  - [Story Development Process](#story-development-process)
+  - [Mock Interview Script](#mock-interview-script)
+- [Red Flags to Avoid](#red-flags-to-avoid)
+  - [In Your Stories](#in-your-stories)
+  - [In Your Delivery](#in-your-delivery)
+- [Company-Specific Adaptations](#company-specific-adaptations)
+  - [Amazon - Leadership Principles](#amazon-leadership-principles)
+  - [Google - Collaboration](#google-collaboration)
+  - [Meta - Impact](#meta-impact)
+
+
 
 ## Overview
 

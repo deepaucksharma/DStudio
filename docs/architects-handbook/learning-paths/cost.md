@@ -1,6 +1,25 @@
 ---
 title: Cost Optimization Learning Path
 description: Master cloud cost management and resource optimization for distributed
+type: learning-path
+topic: cost
+difficulty: intermediate
+reading_time: 12 min
+status: complete
+last_updated: 2025-07-25
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Cost Optimization Learning Path
+
+
+
+## Overview
+
+Cost Optimization Learning Path
+description: Master cloud cost management and resource optimization for distributed
   systems
 type: learning-path
 topic: cost
@@ -11,6 +30,97 @@ last_updated: 2025-07-25
 ---
 
 # Cost Optimization Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Cost Optimization Journey](#-cost-optimization-journey)
+  - [Phase 1: Cloud Economics (1 week)](#phase-1-cloud-economics-1-week)
+  - [Phase 2: Optimization Strategies (2 weeks)](#phase-2-optimization-strategies-2-weeks)
+    - [Week 2: Resource Optimization](#week-2-resource-optimization)
+    - [Week 3: Architectural Patterns](#week-3-architectural-patterns)
+  - [Phase 3: Advanced Optimization (2 weeks)](#phase-3-advanced-optimization-2-weeks)
+    - [Week 4: Advanced Strategies](#week-4-advanced-strategies)
+    - [Week 5: Cost-Aware Architecture](#week-5-cost-aware-architecture)
+  - [Phase 4: FinOps in Practice (1 week)](#phase-4-finops-in-practice-1-week)
+    - [Week 6: Implementation & Culture](#week-6-implementation-culture)
+- [📊 Cost Optimization Projects](#-cost-optimization-projects)
+  - [Project 1: Cloud Cost Dashboard](#project-1-cloud-cost-dashboard)
+  - [Project 2: Serverless Migration](#project-2-serverless-migration)
+  - [Project 3: Multi-Region Optimization](#project-3-multi-region-optimization)
+- [🧮 Cost Calculation Exercises](#-cost-calculation-exercises)
+  - [Exercise 1: Compute Cost Comparison](#exercise-1-compute-cost-comparison)
+- [Compare different compute options](#compare-different-compute-options)
+  - [Exercise 2: Storage Tiering Strategy](#exercise-2-storage-tiering-strategy)
+  - [Exercise 3: Traffic Cost Optimization](#exercise-3-traffic-cost-optimization)
+- [📈 Cost Decision Framework](#-cost-decision-framework)
+  - [Build vs Buy Decision Matrix](#build-vs-buy-decision-matrix)
+  - [Cost Optimization Checklist](#cost-optimization-checklist)
+- [🔍 Cost Analysis Tools](#-cost-analysis-tools)
+  - [Monitoring & Analysis](#monitoring-analysis)
+  - [Automation Tools](#automation-tools)
+- [Example: Automated resource cleanup](#example-automated-resource-cleanup)
+- [💰 Real-World Case Studies](#-real-world-case-studies)
+  - [Case Study 1: Startup Cost Reduction](#case-study-1-startup-cost-reduction)
+  - [Case Study 2: Enterprise Optimization](#case-study-2-enterprise-optimization)
+- [📚 FinOps Resources](#-finops-resources)
+  - [Essential Reading](#essential-reading)
+  - [Communities](#communities)
+- [💡 Cost Optimization Wisdom](#-cost-optimization-wisdom)
+- [🎯 Success Metrics](#-success-metrics)
+  - [KPIs to Track](#kpis-to-track)
+- [⏱️ Time Investment](#-time-investment)
+
+
+
+! Optimize Without Compromise"
+ Learn to build cost-efficient distributed systems without sacrificing performance or reliability.
+
+**Reading time:** ~6 minutes
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Cost Optimization Journey](#-cost-optimization-journey)
+  - [Phase 1: Cloud Economics (1 week)](#phase-1-cloud-economics-1-week)
+  - [Phase 2: Optimization Strategies (2 weeks)](#phase-2-optimization-strategies-2-weeks)
+    - [Week 2: Resource Optimization](#week-2-resource-optimization)
+    - [Week 3: Architectural Patterns](#week-3-architectural-patterns)
+  - [Phase 3: Advanced Optimization (2 weeks)](#phase-3-advanced-optimization-2-weeks)
+    - [Week 4: Advanced Strategies](#week-4-advanced-strategies)
+    - [Week 5: Cost-Aware Architecture](#week-5-cost-aware-architecture)
+  - [Phase 4: FinOps in Practice (1 week)](#phase-4-finops-in-practice-1-week)
+    - [Week 6: Implementation & Culture](#week-6-implementation-culture)
+- [📊 Cost Optimization Projects](#-cost-optimization-projects)
+  - [Project 1: Cloud Cost Dashboard](#project-1-cloud-cost-dashboard)
+  - [Project 2: Serverless Migration](#project-2-serverless-migration)
+  - [Project 3: Multi-Region Optimization](#project-3-multi-region-optimization)
+- [🧮 Cost Calculation Exercises](#-cost-calculation-exercises)
+  - [Exercise 1: Compute Cost Comparison](#exercise-1-compute-cost-comparison)
+- [Compare different compute options](#compare-different-compute-options)
+  - [Exercise 2: Storage Tiering Strategy](#exercise-2-storage-tiering-strategy)
+  - [Exercise 3: Traffic Cost Optimization](#exercise-3-traffic-cost-optimization)
+- [📈 Cost Decision Framework](#-cost-decision-framework)
+  - [Build vs Buy Decision Matrix](#build-vs-buy-decision-matrix)
+  - [Cost Optimization Checklist](#cost-optimization-checklist)
+- [🔍 Cost Analysis Tools](#-cost-analysis-tools)
+  - [Monitoring & Analysis](#monitoring-analysis)
+  - [Automation Tools](#automation-tools)
+- [Example: Automated resource cleanup](#example-automated-resource-cleanup)
+- [💰 Real-World Case Studies](#-real-world-case-studies)
+  - [Case Study 1: Startup Cost Reduction](#case-study-1-startup-cost-reduction)
+  - [Case Study 2: Enterprise Optimization](#case-study-2-enterprise-optimization)
+- [📚 FinOps Resources](#-finops-resources)
+  - [Essential Reading](#essential-reading)
+  - [Communities](#communities)
+- [💡 Cost Optimization Wisdom](#-cost-optimization-wisdom)
+- [🎯 Success Metrics](#-success-metrics)
+  - [KPIs to Track](#kpis-to-track)
+- [⏱️ Time Investment](#-time-investment)
+
+
 
 !!! abstract "Optimize Without Compromise"
  Learn to build cost-efficient distributed systems without sacrificing performance or reliability. This path covers cloud economics, resource optimization, and financial engineering for modern architectures.
@@ -216,7 +326,7 @@ expected_savings: 50% on data transfer
 
 ### Exercise 1: Compute Cost Comparison
 ```python
-# Compare different compute options
+## Compare different compute options
 def calculate_monthly_cost(option):
  scenarios = {
  'on_demand': {
@@ -335,7 +445,7 @@ open_source:
 
 ### Automation Tools
 ```python
-# Example: Automated resource cleanup
+## Example: Automated resource cleanup
 def cleanup_unused_resources():
  """
  Find and remove:

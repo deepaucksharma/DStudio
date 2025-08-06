@@ -1,9 +1,59 @@
 ---
 title: Apple
 description: Apple overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Apple Engineering Leadership Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Interview Process Structure](#interview-process-structure)
+  - [ICT4/Manager to ICT6/Director Process](#ict4manager-to-ict6director-process)
+  - [Key Assessment Areas](#key-assessment-areas)
+- [Core Apple Values for Leaders](#core-apple-values-for-leaders)
+  - [1. Excellence in Everything](#1-excellence-in-everything)
+  - [2. Think Different](#2-think-different)
+  - [3. Own It End-to-End](#3-own-it-end-to-end)
+  - [4. Simplicity is the Ultimate Sophistication](#4-simplicity-is-the-ultimate-sophistication)
+- [Technical Leadership Interview Deep Dive](#technical-leadership-interview-deep-dive)
+  - [Systems Thinking at Apple Scale](#systems-thinking-at-apple-scale)
+  - [Architecture Review Process](#architecture-review-process)
+- [Behavioral Interview Categories](#behavioral-interview-categories)
+  - [Core Leadership Areas](#core-leadership-areas)
+    - [1. Functional Excellence](#1-functional-excellence)
+    - [2. Cross-functional Collaboration](#2-cross-functional-collaboration)
+    - [3. Innovation Under Constraints](#3-innovation-under-constraints)
+- [Level-Specific Expectations](#level-specific-expectations)
+  - [ICT4 (Staff Engineer/Engineering Manager)](#ict4-staff-engineerengineering-manager)
+  - [ICT5 (Principal Engineer/Senior Manager)](#ict5-principal-engineersenior-manager)
+  - [ICT6 (Senior Principal/Director)](#ict6-senior-principaldirector)
+- [Common Interview Questions](#common-interview-questions)
+  - [Technical Excellence](#technical-excellence)
+  - [Cross-functional Leadership](#cross-functional-leadership)
+  - [Innovation & Problem Solving](#innovation-problem-solving)
+  - [Apple Culture](#apple-culture)
+- [Apple-Specific Preparation Tips](#apple-specific-preparation-tips)
+  - [Research Focus Areas](#research-focus-areas)
+  - [Interview Day Strategy](#interview-day-strategy)
+  - [Red Flags to Avoid](#red-flags-to-avoid)
+  - [Success Indicators](#success-indicators)
+- [Apple Culture Deep Dive](#apple-culture-deep-dive)
+  - ["Our Users Deserve the Best"](#our-users-deserve-the-best)
+  - ["Think Different" in Engineering](#think-different-in-engineering)
+  - [Functional Excellence Model](#functional-excellence-model)
+- [Preparation Timeline](#preparation-timeline)
+  - [8 Weeks Before](#8-weeks-before)
+  - [4 Weeks Before](#4-weeks-before)
+  - [1 Week Before](#1-week-before)
+  - [Day Of](#day-of)
+- [Sample Story Structure](#sample-story-structure)
+  - [Technical Excellence Story](#technical-excellence-story)
+
+
 
 ## Overview
 

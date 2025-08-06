@@ -1,5 +1,36 @@
 # Route Optimization Algorithms
 
+## Table of Contents
+
+- [System Overview](#system-overview)
+  - [Scale & Complexity](#scale-complexity)
+- [Architecture Overview](#architecture-overview)
+- [Key Architectural Challenges](#key-architectural-challenges)
+  - [1. Vehicle Routing Problem (VRP) at Scale](#1-vehicle-routing-problem-vrp-at-scale)
+  - [2. Real-time Route Adaptation](#2-real-time-route-adaptation)
+  - [3. Multi-Objective Optimization](#3-multi-objective-optimization)
+- [Advanced Algorithm Implementations](#advanced-algorithm-implementations)
+  - [1. Hybrid Genetic Algorithm](#1-hybrid-genetic-algorithm)
+  - [2. Machine Learning Route Prediction](#2-machine-learning-route-prediction)
+- [Real-World Examples](#real-world-examples)
+  - [UPS ORION (On-Road Integrated Optimization and Navigation)](#ups-orion-on-road-integrated-optimization-and-navigation)
+  - [Amazon Last Mile Optimization](#amazon-last-mile-optimization)
+  - [DHL SmartTruck Initiative](#dhl-smarttruck-initiative)
+- [Performance Optimization](#performance-optimization)
+  - [1. Computational Performance](#1-computational-performance)
+  - [2. Algorithm Selection Strategy](#2-algorithm-selection-strategy)
+- [Lessons Learned](#lessons-learned)
+  - [1. Balance Between Optimization and Practicality](#1-balance-between-optimization-and-practicality)
+  - [2. Real-time Constraints vs. Solution Quality](#2-real-time-constraints-vs-solution-quality)
+  - [3. Integration with Legacy Systems](#3-integration-with-legacy-systems)
+- [Future Considerations](#future-considerations)
+  - [1. Autonomous Vehicle Integration](#1-autonomous-vehicle-integration)
+  - [2. Sustainability Integration](#2-sustainability-integration)
+  - [3. Advanced AI Integration](#3-advanced-ai-integration)
+- [Technology Stack](#technology-stack)
+
+
+
 ## System Overview
 
 Logistics companies use sophisticated algorithms to optimize delivery routes, reducing fuel costs, improving delivery times, and maximizing vehicle utilization. Systems like UPS ORION, Amazon's Last Mile optimization, and DHL's route planning process billions of calculations daily to optimize routes for hundreds of thousands of vehicles globally.

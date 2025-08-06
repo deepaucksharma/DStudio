@@ -66,3 +66,9 @@ Each pattern makes different CAP trade-offs:
 ---
 
 *Browse individual patterns below or return to the [Pattern Library](../).*
+
+## See Also
+
+- [Pattern Decision Matrix](/pattern-library/pattern-decision-matrix)
+- [Pattern Comparison Tool](/pattern-library/pattern-comparison-tool)
+- [CRDT (Conflict-free Replicated Data Types)](/pattern-library/data-management/crdt)

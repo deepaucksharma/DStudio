@@ -35,6 +35,27 @@ production_checklist:
 
 # Distributed Key-Value Store
 
+## Table of Contents
+
+- [Challenge Statement](#challenge-statement)
+- [Part 1: Concept Map](#part-1-concept-map)
+  - [🗺 System Overview](#system-overview)
+  - [Law Analysis](#law-analysis)
+  - [Comprehensive Law Mapping](#comprehensive-law-mapping)
+  - [🏛 Pillar Mapping](#pillar-mapping)
+  - [Pattern Application](#pattern-application)
+  - [Architecture Alternatives](#architecture-alternatives)
+  - [Trade-off Analysis Matrix](#trade-off-analysis-matrix)
+  - [Detailed Comparison Metrics](#detailed-comparison-metrics)
+- [Part 2: Architecture & Trade-offs](#part-2-architecture-trade-offs)
+  - [Core Architecture](#core-architecture)
+  - [Key Design Trade-offs](#key-design-trade-offs)
+  - [Alternative Architectures](#alternative-architectures)
+  - [Performance Characteristics](#performance-characteristics)
+  - [🎓 Key Lessons](#key-lessons)
+  - [🔗 Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 References](#references)
+
 ## Challenge Statement
 Design a distributed key-value storage system capable of handling billions of keys with sub-millisecond latency, providing configurable consistency guarantees, automatic failover, and horizontal scalability while maintaining operational simplicity.
 

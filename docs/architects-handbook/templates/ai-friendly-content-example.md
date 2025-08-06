@@ -1,4 +1,107 @@
+---
+title: AI-Friendly Content Structure Guide
+description: Documentation for AI-Friendly Content Structure Guide
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
 # AI-Friendly Content Structure Guide
+
+
+
+## Overview
+
+AI-Friendly Content Structure Guide
+
+## Table of Contents
+
+- [Transforming Prose into Structured Data](#transforming-prose-into-structured-data)
+  - [Before: Wall of Text ❌](#before-wall-of-text-)
+  - [After: Structured Tables ✅](#after-structured-tables-)
+- [Database Selection Matrix](#database-selection-matrix)
+- [Decision Tree](#decision-tree)
+- [Structured Metadata Format](#structured-metadata-format)
+  - [Pattern Metadata Example](#pattern-metadata-example)
+- [Comparison Tables for Everything](#comparison-tables-for-everything)
+  - [Before: Paragraph about caching strategies ❌](#before-paragraph-about-caching-strategies-)
+  - [After: Structured Comparison ✅](#after-structured-comparison-)
+- [Structured Problem-Solution Format](#structured-problem-solution-format)
+  - [Before: Mixed narrative ❌](#before-mixed-narrative-)
+  - [After: Problem-Solution Matrix ✅](#after-problem-solution-matrix-)
+- [Quantitative Comparisons](#quantitative-comparisons)
+  - [Before: Vague performance claims ❌](#before-vague-performance-claims-)
+  - [After: Concrete metrics ✅](#after-concrete-metrics-)
+- [Implementation Readiness Checklists](#implementation-readiness-checklists)
+  - [Before: Paragraph of considerations ❌](#before-paragraph-of-considerations-)
+  - [After: Actionable checklist ✅](#after-actionable-checklist-)
+  - [Service Mesh Readiness](#service-mesh-readiness)
+- [Architecture Decision Records (ADR)](#architecture-decision-records-adr)
+  - [Structured ADR Template](#structured-adr-template)
+- [ADR-001: Adopt Event Streaming for Order Processing](#adr-001-adopt-event-streaming-for-order-processing)
+- [Status](#status)
+- [Context](#context)
+- [Decision](#decision)
+- [Consequences](#consequences)
+  - [Positive](#positive)
+  - [Negative](#negative)
+- [Pattern Relationship Mappings](#pattern-relationship-mappings)
+  - [Visual Pattern Relationships](#visual-pattern-relationships)
+  - [Compatibility Matrix](#compatibility-matrix)
+- [Migration Paths as Tables](#migration-paths-as-tables)
+  - [Database Migration Options](#database-migration-options)
+- [Quick Reference Cards](#quick-reference-cards)
+  - [Scalability Quick Wins](#scalability-quick-wins)
+
+
+
+## Transforming Prose into Structured Data
+
+### Before: Wall of Text ❌
+"When choosing between SQL and NoSQL databases, there are many factors to consider. SQL databases like PostgreSQL and MySQL are great for structured data and complex queries, offering ACID compliance and strong consistency.
+
+**Reading time:** ~5 minutes
+
+## Table of Contents
+
+- [Transforming Prose into Structured Data](#transforming-prose-into-structured-data)
+  - [Before: Wall of Text ❌](#before-wall-of-text-)
+  - [After: Structured Tables ✅](#after-structured-tables-)
+- [Database Selection Matrix](#database-selection-matrix)
+- [Decision Tree](#decision-tree)
+- [Structured Metadata Format](#structured-metadata-format)
+  - [Pattern Metadata Example](#pattern-metadata-example)
+- [Comparison Tables for Everything](#comparison-tables-for-everything)
+  - [Before: Paragraph about caching strategies ❌](#before-paragraph-about-caching-strategies-)
+  - [After: Structured Comparison ✅](#after-structured-comparison-)
+- [Structured Problem-Solution Format](#structured-problem-solution-format)
+  - [Before: Mixed narrative ❌](#before-mixed-narrative-)
+  - [After: Problem-Solution Matrix ✅](#after-problem-solution-matrix-)
+- [Quantitative Comparisons](#quantitative-comparisons)
+  - [Before: Vague performance claims ❌](#before-vague-performance-claims-)
+  - [After: Concrete metrics ✅](#after-concrete-metrics-)
+- [Implementation Readiness Checklists](#implementation-readiness-checklists)
+  - [Before: Paragraph of considerations ❌](#before-paragraph-of-considerations-)
+  - [After: Actionable checklist ✅](#after-actionable-checklist-)
+  - [Service Mesh Readiness](#service-mesh-readiness)
+- [Architecture Decision Records (ADR)](#architecture-decision-records-adr)
+  - [Structured ADR Template](#structured-adr-template)
+- [ADR-001: Adopt Event Streaming for Order Processing](#adr-001-adopt-event-streaming-for-order-processing)
+- [Status](#status)
+- [Context](#context)
+- [Decision](#decision)
+- [Consequences](#consequences)
+  - [Positive](#positive)
+  - [Negative](#negative)
+- [Pattern Relationship Mappings](#pattern-relationship-mappings)
+  - [Visual Pattern Relationships](#visual-pattern-relationships)
+  - [Compatibility Matrix](#compatibility-matrix)
+- [Migration Paths as Tables](#migration-paths-as-tables)
+  - [Database Migration Options](#database-migration-options)
+- [Quick Reference Cards](#quick-reference-cards)
+  - [Scalability Quick Wins](#scalability-quick-wins)
+
+
 
 ## Transforming Prose into Structured Data
 
@@ -140,7 +243,7 @@ pattern:
 ### Structured ADR Template
 
 ```markdown
-# ADR-001: Adopt Event Streaming for Order Processing
+## ADR-001: Adopt Event Streaming for Order Processing
 
 ## Status
 Accepted (2024-01-15)

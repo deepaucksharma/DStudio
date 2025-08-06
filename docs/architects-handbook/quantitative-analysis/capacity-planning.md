@@ -13,6 +13,149 @@ last_updated: 2025-07-20
 
 # Capacity Planning Worksheet
 
+
+
+## Overview
+
+Capacity Planning Worksheet
+description: Systematic approach to planning infrastructure capacity using mathematical
+  models and real-world usage patterns
+type: quantitative
+difficulty: beginner
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+
+# Capacity Planning Worksheet
+
+## Table of Contents
+
+- [Capacity Planning Framework](#capacity-planning-framework)
+  - [Step 1: Baseline Measurement](#step-1-baseline-measurement)
+  - [Step 2: Growth Projection](#step-2-growth-projection)
+  - [Step 3: Safety Margins](#step-3-safety-margins)
+- [Workload Characterization](#workload-characterization)
+- [Traffic Patterns](#traffic-patterns)
+- [Request Mix](#request-mix)
+- [Scaling Strategies](#scaling-strategies)
+  - [Resource Planning Table](#resource-planning-table)
+- [Capacity Planning Tools](#capacity-planning-tools)
+- [Little's Law](#littles-law)
+- [Queue Theory](#queue-theory)
+- [Real Example: E-Commerce Platform](#real-example-e-commerce-platform)
+- [Current: 10K users, 100/300 rps avg/peak, 50GB DB, 1TB storage](#current-10k-users-100300-rps-avgpeak-50gb-db-1tb-storage)
+- [Growth: 20% users, 30% data monthly](#growth-20-users-30-data-monthly)
+- [6-Month Projection](#6-month-projection)
+- [Detailed Capacity Models](#detailed-capacity-models)
+  - [CPU Capacity Planning](#cpu-capacity-planning)
+- [Account for:](#account-for)
+- [- Base OS overhead: 10%](#-base-os-overhead-10)
+- [- Safety margin: 40%](#-safety-margin-40)
+- [- Peak factor: 3x](#-peak-factor-3x)
+  - [Memory Capacity Planning](#memory-capacity-planning)
+- [Static components](#static-components)
+- [Dynamic components](#dynamic-components)
+- [Safety margins](#safety-margins)
+  - [Storage Capacity Planning](#storage-capacity-planning)
+- [Data growth projection](#data-growth-projection)
+- [Log storage (often overlooked)](#log-storage-often-overlooked)
+- [Backup storage](#backup-storage)
+- [Indexes and overhead](#indexes-and-overhead)
+- [Future margin](#future-margin)
+- [Capacity Planning by Service Type](#capacity-planning-by-service-type)
+- [Capacity Triggers](#capacity-triggers)
+- [Immediate Action](#immediate-action)
+- [Planning Required](#planning-required)
+- [Architecture Change](#architecture-change)
+- [Capacity Planning Checklist](#capacity-planning-checklist)
+- [Common Mistakes](#common-mistakes)
+- [Key Takeaways](#key-takeaways)
+
+
+
+**Right-sizing for the future**
+
+## Capacity Planning Framework
+
+### Step 1: Baseline Measurement
+! Current State Assessment"
+
+ <div class="measurement-form">
+ <div>
+ <div>
+ <strong>Traffic Metrics:</strong>
+ <table class="responsive-table">
+ <tr><td>Peak traffic:</td><td>_______</td><td>req/s</td></tr>
+ <tr><td>Average traffic:</td><td>_______</td><td>req/s</td></tr>
+ <tr><td>Peak/Average ratio:</td><td>_______</td><td>x</td></tr>
+ </table>
+ <div>
+ <strong>Growth & Storage:</strong>
+ <table class="responsive-table">
+ <tr><td>Storage used:</td><td>_______</td><td>GB</td></tr>
+ <tr><td>Growth rate:</td><td>_______</td><td>% monthly</td></tr>
+ <tr><td>Retention:</td><td>_______</td><td>days</td></tr>
+ </table>
+ </div>
+ </div>
+ 
+ <div>
+ <strong>Resource Usage at Peak:</strong>
+ <svg viewBox="0 0 500 200" role="img" aria-label="Resource usage gauges showing CPU, Memory, Network, and Disk I/O percentages at peak load">
+ <title>Resource Usage at Peak</title>
+ <desc>Interactive gauge visualization displaying current resource utilization levels for CPU, Memory, Network bandwidth, and Disk I/O operations</desc>
+ <!
+
+**Reading time:** ~14 minutes
+
+## Table of Contents
+
+- [Capacity Planning Framework](#capacity-planning-framework)
+  - [Step 1: Baseline Measurement](#step-1-baseline-measurement)
+  - [Step 2: Growth Projection](#step-2-growth-projection)
+  - [Step 3: Safety Margins](#step-3-safety-margins)
+- [Workload Characterization](#workload-characterization)
+- [Traffic Patterns](#traffic-patterns)
+- [Request Mix](#request-mix)
+- [Scaling Strategies](#scaling-strategies)
+  - [Resource Planning Table](#resource-planning-table)
+- [Capacity Planning Tools](#capacity-planning-tools)
+- [Little's Law](#littles-law)
+- [Queue Theory](#queue-theory)
+- [Real Example: E-Commerce Platform](#real-example-e-commerce-platform)
+- [Current: 10K users, 100/300 rps avg/peak, 50GB DB, 1TB storage](#current-10k-users-100300-rps-avgpeak-50gb-db-1tb-storage)
+- [Growth: 20% users, 30% data monthly](#growth-20-users-30-data-monthly)
+- [6-Month Projection](#6-month-projection)
+- [Detailed Capacity Models](#detailed-capacity-models)
+  - [CPU Capacity Planning](#cpu-capacity-planning)
+- [Account for:](#account-for)
+- [- Base OS overhead: 10%](#-base-os-overhead-10)
+- [- Safety margin: 40%](#-safety-margin-40)
+- [- Peak factor: 3x](#-peak-factor-3x)
+  - [Memory Capacity Planning](#memory-capacity-planning)
+- [Static components](#static-components)
+- [Dynamic components](#dynamic-components)
+- [Safety margins](#safety-margins)
+  - [Storage Capacity Planning](#storage-capacity-planning)
+- [Data growth projection](#data-growth-projection)
+- [Log storage (often overlooked)](#log-storage-often-overlooked)
+- [Backup storage](#backup-storage)
+- [Indexes and overhead](#indexes-and-overhead)
+- [Future margin](#future-margin)
+- [Capacity Planning by Service Type](#capacity-planning-by-service-type)
+- [Capacity Triggers](#capacity-triggers)
+- [Immediate Action](#immediate-action)
+- [Planning Required](#planning-required)
+- [Architecture Change](#architecture-change)
+- [Capacity Planning Checklist](#capacity-planning-checklist)
+- [Common Mistakes](#common-mistakes)
+- [Key Takeaways](#key-takeaways)
+
+
+
 **Right-sizing for the future**
 
 ## Capacity Planning Framework
@@ -264,13 +407,13 @@ function calculateGrowth() {
 ## Workload Characterization
 
 ```python
-# Traffic Patterns
+## Traffic Patterns
 Peak hour: _____ (e.g., 2 PM)
 Peak/average ratio: _____ (e.g., 3x)
 Weekend factor: _____ (e.g., 0.6x)
 Black Friday: _____x normal
 
-# Request Mix
+## Request Mix
 Operation % Traffic Impact
 Read (cached) 60% Low (1x)
 Read (DB) 20% Medium (3x)
@@ -397,12 +540,12 @@ Horizontal: 10→15 instances
 ## Capacity Planning Tools
 
 ```python
-# Little's Law
+## Little's Law
 Concurrent users = Requests/sec × Session duration
 DB connections = Queries/sec × Query time
 Memory = Objects/sec × Object lifetime × Size
 
-# Queue Theory
+## Queue Theory
 Utilization > 70% → Exponential response time
 Servers needed = Load / (Capacity × 0.7)
 ```
@@ -410,10 +553,10 @@ Servers needed = Load / (Capacity × 0.7)
 ## Real Example: E-Commerce Platform
 
 ```python
-# Current: 10K users, 100/300 rps avg/peak, 50GB DB, 1TB storage
-# Growth: 20% users, 30% data monthly
+## Current: 10K users, 100/300 rps avg/peak, 50GB DB, 1TB storage
+## Growth: 20% users, 30% data monthly
 
-# 6-Month Projection
+## 6-Month Projection
 Users: 10K × 1.2^6 = 30K
 Peak: 300 × 3 = 900 rps
 DB: 50 × 1.3^6 = 230GB
@@ -429,10 +572,10 @@ Infrastructure: Apps 10→30, DB needs sharding, Cache 10→50GB, CDN required
 def calculate_cpu_needs(current_load, growth_rate, months):
  future_load = current_load * ((1 + growth_rate) ** months)
 
-# Account for:
-# - Base OS overhead: 10%
-# - Safety margin: 40%
-# - Peak factor: 3x
+## Account for:
+## - Base OS overhead: 10%
+## - Safety margin: 40%
+## - Peak factor: 3x
 
  average_cpu = future_load * cpu_per_request
  peak_cpu = average_cpu * 3
@@ -444,16 +587,16 @@ def calculate_cpu_needs(current_load, growth_rate, months):
 ### Memory Capacity Planning
 ```python
 def calculate_memory_needs():
-# Static components
+## Static components
  os_memory = 2 # GB
  app_runtime = 4 # GB
 
-# Dynamic components
+## Dynamic components
  connection_pool = connections * 10 # MB per connection
  cache_size = hot_data_size * 1.2 # 20% overhead
  session_storage = concurrent_users * session_size
 
-# Safety margins
+## Safety margins
  gc_headroom = total * 0.3
 
  return sum([os_memory, app_runtime, connection_pool,
@@ -463,19 +606,19 @@ def calculate_memory_needs():
 ### Storage Capacity Planning
 ```python
 def calculate_storage_needs():
-# Data growth projection
+## Data growth projection
  data_growth = compound_growth(current_data, rate, time)
 
-# Log storage (often overlooked)
+## Log storage (often overlooked)
  log_size = requests_per_day * log_entry_size * retention_days
 
-# Backup storage
+## Backup storage
  backup_size = data_size * backup_generations
 
-# Indexes and overhead
+## Indexes and overhead
  index_size = data_size * 0.3 # 30% typical
 
-# Future margin
+## Future margin
  margin = total * 0.5 # 50% headroom
 
  return sum([data_growth, log_size, backup_size,
@@ -494,13 +637,13 @@ Queue: 1 CPU = 10k msg/s, Storage = rate × size × retention
 ## Capacity Triggers
 
 ```python
-# Immediate Action
+## Immediate Action
 CPU > 80%, Memory > 90%, Storage > 80%, Network > 70%, Errors > 1%
 
-# Planning Required
+## Planning Required
 3-month projection hits limit, growth accelerating, new features/regions
 
-# Architecture Change
+## Architecture Change
 Vertical limit reached, super-linear costs, higher availability needed
 ```
 

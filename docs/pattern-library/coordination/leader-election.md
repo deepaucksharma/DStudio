@@ -149,7 +149,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Simplified leader election state machine
+## Simplified leader election state machine
 class NodeState:
     def __init__(self):
         self.state = "FOLLOWER"  # FOLLOWER, CANDIDATE, LEADER

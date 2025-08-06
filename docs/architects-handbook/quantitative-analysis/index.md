@@ -1,9 +1,38 @@
 ---
 title: Quantitative Analysis
 description: Quantitative Analysis overview and navigation
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Quantitative Analysis
+
+## Table of Contents
+
+- [Overview](#overview)
+- [🔬 Fundamental Theorems](#-fundamental-theorems)
+  - [Consistency & Distribution](#consistency-distribution)
+  - [Performance Laws](#performance-laws)
+- [📊 Performance Analysis](#-performance-analysis)
+  - [Latency & Throughput](#latency-throughput)
+  - [Load Characteristics](#load-characteristics)
+- [🛡️ Reliability Mathematics](#-reliability-mathematics)
+  - [Availability Calculations](#availability-calculations)
+  - [Redundancy & Resilience](#redundancy-resilience)
+- [💰 Capacity Planning](#-capacity-planning)
+  - [Resource Estimation](#resource-estimation)
+  - [Cost Optimization](#cost-optimization)
+- [🎯 Quick Reference](#-quick-reference)
+  - [Essential Formulas](#essential-formulas)
+  - [Key Numbers to Remember](#key-numbers-to-remember)
+  - [Rules of Thumb](#rules-of-thumb)
+- [📈 Interactive Tools](#-interactive-tools)
+  - [Calculators in This Section](#calculators-in-this-section)
+  - [External Resources](#external-resources)
+- [🚀 Getting Started](#-getting-started)
+
+
 
 Mathematical tools and models for distributed systems design, capacity planning, and reliability engineering.
 

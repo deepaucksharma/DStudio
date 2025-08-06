@@ -19,6 +19,154 @@ key_patterns:
 
 # 👥 Nearby Friends System Design
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Architecture Evolution](#architecture-evolution)
+  - [Phase 1: Continuous Polling (2012-2013)](#phase-1-continuous-polling-2012-2013)
+  - [Phase 2: Push-Based Architecture (2013-2015)](#phase-2-push-based-architecture-2013-2015)
+  - [Phase 3: Privacy-First Design (2015-2018)](#phase-3-privacy-first-design-2015-2018)
+  - [Phase 4: Modern Distributed Architecture (2018-Present)](#phase-4-modern-distributed-architecture-2018-present)
+- [Part 1: Concept Map - The Physics of Moving Friends](#part-1-concept-map-the-physics-of-moving-friends)
+  - [Law 2: Asynchronous Reality - Real-time Friend Discovery](#law-2-asynchronous-reality-real-time-friend-discovery)
+  - [Law 4: Trade-offs - The N×M Friend Location Problem](#law-4-trade-offs-the-nm-friend-location-problem)
+  - [Law 1: Failure - Privacy-First Failure Modes](#law-1-failure-privacy-first-failure-modes)
+  - [Law 3: Emergence - Millions Moving Simultaneously](#law-3-emergence-millions-moving-simultaneously)
+  - [Law 4: Trade-offs - Global Friend Graph Consistency](#law-4-trade-offs-global-friend-graph-consistency)
+  - [Law 5: Epistemology - Privacy-Aware Monitoring](#law-5-epistemology-privacy-aware-monitoring)
+  - [Law 6: Human-API - Privacy and Control](#law-6-human-api-privacy-and-control)
+  - [Law 7: Economics - Balancing Features and Costs](#law-7-economics-balancing-features-and-costs)
+- [Part 2: Comprehensive Law Analysis Matrix](#part-2-comprehensive-law-analysis-matrix)
+  - [Law Mapping for Core Design Decisions](#law-mapping-for-core-design-decisions)
+  - [Law Interaction Complexity](#law-interaction-complexity)
+- [Part 3: Architecture - Building Real-time Location Sharing](#part-3-architecture-building-real-time-location-sharing)
+  - [Current Architecture: Pub/Sub with Spatial Indexing](#current-architecture-pubsub-with-spatial-indexing)
+  - [Alternative Architecture 1: Peer-to-Peer Location Sharing](#alternative-architecture-1-peer-to-peer-location-sharing)
+  - [Alternative Architecture 2: Edge-Based Processing](#alternative-architecture-2-edge-based-processing)
+  - [Alternative Architecture 3: Blockchain-Based](#alternative-architecture-3-blockchain-based)
+  - [Alternative Architecture 4: Federated System](#alternative-architecture-4-federated-system)
+  - [Recommended Architecture: Hybrid Privacy-First System](#recommended-architecture-hybrid-privacy-first-system)
+- [Part 4: Comparative Analysis](#part-4-comparative-analysis)
+  - [Architecture Comparison Matrix](#architecture-comparison-matrix)
+  - [Privacy Feature Comparison](#privacy-feature-comparison)
+  - [Performance Analysis](#performance-analysis)
+  - [Cost Analysis by Scale](#cost-analysis-by-scale)
+  - [Decision Framework](#decision-framework)
+- [Core Components Deep Dive](#core-components-deep-dive)
+  - [1. Privacy-Preserving Location System](#1-privacy-preserving-location-system)
+- [1. Check consent](#1-check-consent)
+- [2. Apply time restrictions](#2-apply-time-restrictions)
+- [3. Quantize to grid](#3-quantize-to-grid)
+- [4. Add fuzzing](#4-add-fuzzing)
+- [5. Apply k-anonymity](#5-apply-k-anonymity)
+- [Not enough users in cell, expand to parent](#not-enough-users-in-cell-expand-to-parent)
+- [Random angle](#random-angle)
+- [Random distance with triangular distribution](#random-distance-with-triangular-distribution)
+- [(more likely to be near center)](#more-likely-to-be-near-center)
+- [Calculate offset](#calculate-offset)
+- [1. Check if already consented](#1-check-if-already-consented)
+- [2. Check friendship](#2-check-friendship)
+- [3. Send consent request](#3-send-consent-request)
+- [4. Notify target](#4-notify-target)
+- [5. Wait for response (with timeout)](#5-wait-for-response-with-timeout)
+- [Create bidirectional consent](#create-bidirectional-consent)
+  - [2. Efficient Proximity Detection](#2-efficient-proximity-detection)
+- [1. Get user's current grid cells at different levels](#1-get-users-current-grid-cells-at-different-levels)
+- [2. Find friends in same or adjacent cells](#2-find-friends-in-same-or-adjacent-cells)
+- [Check adjacent cells for edge cases](#check-adjacent-cells-for-edge-cases)
+- [3. Calculate exact distances](#3-calculate-exact-distances)
+- [Determine proximity level](#determine-proximity-level)
+- [4. Rank by relevance](#4-rank-by-relevance)
+- [1. Check notification cooldown](#1-check-notification-cooldown)
+- [2. Check if significant change](#2-check-if-significant-change)
+- [3. ML relevance scoring](#3-ml-relevance-scoring)
+- [4. Decide based on score](#4-decide-based-on-score)
+- [Update cooldown](#update-cooldown)
+- [5. Batch and send notifications](#5-batch-and-send-notifications)
+  - [3. Battery-Efficient Location Updates](#3-battery-efficient-location-updates)
+- [1. Check battery level](#1-check-battery-level)
+- [2. Detect movement pattern](#2-detect-movement-pattern)
+- [3. Check friend proximity](#3-check-friend-proximity)
+- [4. Time of day optimization](#4-time-of-day-optimization)
+- [5. Select strategy](#5-select-strategy)
+- [6. Adjust based on context](#6-adjust-based-on-context)
+- [More frequent updates when friends nearby](#more-frequent-updates-when-friends-nearby)
+- [Flush conditions](#flush-conditions)
+- [1. Deduplicate by user](#1-deduplicate-by-user)
+- [2. Compress if enabled](#2-compress-if-enabled)
+- [3. Parallel processing](#3-parallel-processing)
+  - [Update location storage](#update-location-storage)
+- [Update grid indices](#update-grid-indices)
+- [Check proximities](#check-proximities)
+- [Stream to analytics](#stream-to-analytics)
+  - [4. Social Graph Integration](#4-social-graph-integration)
+- [Filter by privacy settings](#filter-by-privacy-settings)
+- [Check if consent is active](#check-if-consent-is-active)
+- [1. Get close friends without location sharing](#1-get-close-friends-without-location-sharing)
+- [2. Enhance with ML predictions](#2-enhance-with-ml-predictions)
+- [1. Get location history](#1-get-location-history)
+- [2. Detect home/work locations](#2-detect-homework-locations)
+- [3. Detect commute patterns](#3-detect-commute-patterns)
+- [4. Find routine patterns](#4-find-routine-patterns)
+- [5. Identify anomalies](#5-identify-anomalies)
+  - [5. Real-time Stream Processing](#5-real-time-stream-processing)
+- [1. Source: Kafka location stream](#1-source-kafka-location-stream)
+- [2. Parse and validate](#2-parse-and-validate)
+- [3. Window by user](#3-window-by-user)
+- [4. Aggregate location updates](#4-aggregate-location-updates)
+- [5. Detect proximity events](#5-detect-proximity-events)
+- [6. Output to multiple sinks](#6-output-to-multiple-sinks)
+- [Real-time notifications](#real-time-notifications)
+- [Analytics](#analytics)
+- [Location storage](#location-storage)
+- [Update location](#update-location)
+- [Check proximity with friends](#check-proximity-with-friends)
+- [Emit proximity event](#emit-proximity-event)
+- [Law Mapping & Design Decisions](#law-mapping-design-decisions)
+  - [Comprehensive Design Decision Matrix](#comprehensive-design-decision-matrix)
+- [Alternative Architectures](#alternative-architectures)
+  - [Alternative 1: Peer-to-Peer Location Sharing](#alternative-1-peer-to-peer-location-sharing)
+  - [Alternative 2: Blockchain-Based System](#alternative-2-blockchain-based-system)
+  - [Alternative 3: Federated Architecture](#alternative-3-federated-architecture)
+  - [Alternative 4: Carrier-Based System](#alternative-4-carrier-based-system)
+- [Performance & Privacy Metrics](#performance-privacy-metrics)
+  - [Key Performance Indicators](#key-performance-indicators)
+- [Performance metrics](#performance-metrics)
+- [Privacy metrics](#privacy-metrics)
+- [Battery metrics](#battery-metrics)
+- [Business metrics](#business-metrics)
+  - [Privacy Dashboard](#privacy-dashboard)
+- [Failure Scenarios & Recovery](#failure-scenarios-recovery)
+  - [Common Failure Modes](#common-failure-modes)
+- [1. Switch to fallback provider](#1-switch-to-fallback-provider)
+- [2. Notify users of degraded accuracy](#2-notify-users-of-degraded-accuracy)
+- [3. Use cached last known locations](#3-use-cached-last-known-locations)
+- [1. Immediately stop location sharing](#1-immediately-stop-location-sharing)
+- [2. Audit access logs](#2-audit-access-logs)
+- [3. Notify affected users](#3-notify-affected-users)
+- [4. Reset all consents](#4-reset-all-consents)
+- [Switch to battery saver mode](#switch-to-battery-saver-mode)
+- [Notify user](#notify-user)
+- [Key Design Insights](#key-design-insights)
+  - [1. 🔐 **Privacy Must Be Default**](#1-privacy-must-be-default)
+  - [2. 🔋 **Battery Life is Critical**](#2-battery-life-is-critical)
+  - [3. 📍 **Fuzzing Preserves Privacy**](#3-fuzzing-preserves-privacy)
+  - [4. 🤝 **Social Context Matters**](#4-social-context-matters)
+  - [5. **Real-time with Boundaries**](#5-real-time-with-boundaries)
+- [Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 Relevant Laws](#-relevant-laws)
+  - [🏛 Related Patterns](#-related-patterns)
+  - [Quantitative Models](#quantitative-models)
+  - [Similar Case Studies](#similar-case-studies)
+- [Implementation Best Practices](#implementation-best-practices)
+  - [Privacy-First Design Principles](#privacy-first-design-principles)
+  - [Battery Optimization Strategies](#battery-optimization-strategies)
+  - [Scaling Strategies](#scaling-strategies)
+- [Conclusion](#conclusion)
+- [References](#references)
+
+
+
 **Challenge**: Track friend locations in real-time while preserving privacy and minimizing battery drain
 
 !!! info "Case Study Sources"
@@ -810,27 +958,27 @@ class PrivacyPreservingLocation:
                         privacy_level: str,
                         viewer_id: str) -> ProcessedLocation:
         """Process location with privacy controls"""
-# 1. Check consent
+## 1. Check consent
         if not self._has_consent(location.user_id, viewer_id):
             return None
             
-# 2. Apply time restrictions
+## 2. Apply time restrictions
         if not self._within_time_window(location.user_id, viewer_id):
             return None
             
-# 3. Quantize to grid
+## 3. Quantize to grid
         grid_level = self.grid_resolutions[privacy_level]
         grid_cell = self._quantize_to_grid(location, grid_level)
         
-# 4. Add fuzzing
+## 4. Add fuzzing
         fuzzed_location = self._add_fuzzing(
             grid_cell.center,
             self.privacy_levels[privacy_level]['fuzzing']
         )
         
-# 5. Apply k-anonymity
+## 5. Apply k-anonymity
         if not self._check_k_anonymity(grid_cell, k=3):
-# Not enough users in cell, expand to parent
+## Not enough users in cell, expand to parent
             grid_cell = grid_cell.parent
             fuzzed_location = grid_cell.center
             
@@ -847,14 +995,14 @@ class PrivacyPreservingLocation:
         if radius_m == 0:
             return location
             
-# Random angle
+## Random angle
         angle = random.uniform(0, 2 * math.pi)
         
-# Random distance with triangular distribution
-# (more likely to be near center)
+## Random distance with triangular distribution
+## (more likely to be near center)
         distance = random.triangular(0, radius_m, radius_m/3)
         
-# Calculate offset
+## Calculate offset
         lat_offset = (distance / 111320) * math.cos(angle)
         lng_offset = (distance / (111320 * math.cos(math.radians(location.lat)))) * math.sin(angle)
         
@@ -874,16 +1022,16 @@ class ConsentManager:
                             target_id: str,
                             duration: timedelta = None) -> bool:
         """Request location sharing consent"""
-# 1. Check if already consented
+## 1. Check if already consented
         existing = self.consent_store.get((target_id, requester_id))
         if existing and existing.is_active():
             return True
             
-# 2. Check friendship
+## 2. Check friendship
         if not await self._are_friends(requester_id, target_id):
             return False
             
-# 3. Send consent request
+## 3. Send consent request
         consent_request = ConsentRequest(
             requester_id=requester_id,
             target_id=target_id,
@@ -891,10 +1039,10 @@ class ConsentManager:
             created_at=datetime.now()
         )
         
-# 4. Notify target
+## 4. Notify target
         await self._send_consent_notification(consent_request)
         
-# 5. Wait for response (with timeout)
+## 5. Wait for response (with timeout)
         try:
             response = await self._wait_for_response(
                 consent_request,
@@ -902,7 +1050,7 @@ class ConsentManager:
             )
             
             if response.accepted:
-# Create bidirectional consent
+## Create bidirectional consent
                 self._create_consent(requester_id, target_id, duration)
                 self._create_consent(target_id, requester_id, duration)
                 return True
@@ -930,10 +1078,10 @@ class ProximityDetector:
         
     async def check_proximity(self, user_location: Location) -> List[NearbyFriend]:
         """Check which friends are nearby"""
-# 1. Get user's current grid cells at different levels
+## 1. Get user's current grid cells at different levels
         grid_cells = self._get_multi_level_cells(user_location)
         
-# 2. Find friends in same or adjacent cells
+## 2. Find friends in same or adjacent cells
         potential_nearby = set()
         for cell_id in grid_cells:
             friends_in_cell = await self._get_friends_in_cell(
@@ -942,7 +1090,7 @@ class ProximityDetector:
             )
             potential_nearby.update(friends_in_cell)
             
-# Check adjacent cells for edge cases
+## Check adjacent cells for edge cases
             for adjacent in self._get_adjacent_cells(cell_id):
                 friends_in_adjacent = await self._get_friends_in_cell(
                     user_location.user_id,
@@ -950,7 +1098,7 @@ class ProximityDetector:
                 )
                 potential_nearby.update(friends_in_adjacent)
         
-# 3. Calculate exact distances
+## 3. Calculate exact distances
         nearby_friends = []
         for friend_id in potential_nearby:
             friend_location = await self._get_friend_location(friend_id)
@@ -961,7 +1109,7 @@ class ProximityDetector:
                     friend_location
                 )
                 
-# Determine proximity level
+## Determine proximity level
                 proximity_level = self._get_proximity_level(distance)
                 
                 if proximity_level:
@@ -973,7 +1121,7 @@ class ProximityDetector:
                         last_updated=friend_location.timestamp
                     ))
         
-# 4. Rank by relevance
+## 4. Rank by relevance
         ranked = await self._rank_nearby_friends(
             user_location.user_id,
             nearby_friends
@@ -994,15 +1142,15 @@ class ProximityNotificationEngine:
         notifications = []
         
         for friend in nearby:
-# 1. Check notification cooldown
+## 1. Check notification cooldown
             if self._in_cooldown(user_id, friend.friend_id):
                 continue
                 
-# 2. Check if significant change
+## 2. Check if significant change
             if not self._is_significant_change(user_id, friend):
                 continue
                 
-# 3. ML relevance scoring
+## 3. ML relevance scoring
             relevance_score = await self.ml_model.score(
                 user_id=user_id,
                 friend_id=friend.friend_id,
@@ -1012,7 +1160,7 @@ class ProximityNotificationEngine:
                 location_type=await self._classify_location(friend.location)
             )
             
-# 4. Decide based on score
+## 4. Decide based on score
             if relevance_score > 0.7:
                 notifications.append(
                     ProximityNotification(
@@ -1024,10 +1172,10 @@ class ProximityNotificationEngine:
                     )
                 )
                 
-# Update cooldown
+## Update cooldown
                 self._update_cooldown(user_id, friend.friend_id)
         
-# 5. Batch and send notifications
+## 5. Batch and send notifications
         if notifications:
             await self._send_notifications(notifications)
 ```
@@ -1064,22 +1212,22 @@ class AdaptiveLocationManager:
         
     async def determine_update_strategy(self, user_id: str) -> dict:
         """Determine optimal update strategy"""
-# 1. Check battery level
+## 1. Check battery level
         battery_level = await self._get_battery_level(user_id)
         if battery_level < 20:
             return self.update_strategies['battery_saver']
             
-# 2. Detect movement pattern
+## 2. Detect movement pattern
         movement = await self._detect_movement_pattern(user_id)
         
-# 3. Check friend proximity
+## 3. Check friend proximity
         has_nearby_friends = await self._has_nearby_friends(user_id)
         
-# 4. Time of day optimization
+## 4. Time of day optimization
         hour = datetime.now().hour
         is_active_hours = 8 <= hour <= 22
         
-# 5. Select strategy
+## 5. Select strategy
         if movement.speed < 1:  # m/s
             strategy = 'stationary'
         elif movement.speed < 2:  # walking speed
@@ -1087,11 +1235,11 @@ class AdaptiveLocationManager:
         else:
             strategy = 'driving'
             
-# 6. Adjust based on context
+## 6. Adjust based on context
         config = self.update_strategies[strategy].copy()
         
         if has_nearby_friends and is_active_hours:
-# More frequent updates when friends nearby
+## More frequent updates when friends nearby
             config['interval'] = max(30, config['interval'] / 2)
             config['accuracy'] = 'high'
             
@@ -1113,7 +1261,7 @@ class LocationBatchProcessor:
         async for update in self.location_stream:
             batch.append(update)
             
-# Flush conditions
+## Flush conditions
             should_flush = (
                 len(batch) >= self.batch_size or
                 time.time() - last_flush > self.batch_timeout
@@ -1126,7 +1274,7 @@ class LocationBatchProcessor:
     
     async def _process_batch(self, updates: List[LocationUpdate]):
         """Process a batch of location updates"""
-# 1. Deduplicate by user
+## 1. Deduplicate by user
         latest_by_user = {}
         for update in updates:
             user_id = update.user_id
@@ -1134,25 +1282,25 @@ class LocationBatchProcessor:
                 update.timestamp > latest_by_user[user_id].timestamp):
                 latest_by_user[user_id] = update
         
-# 2. Compress if enabled
+## 2. Compress if enabled
         if self.compression:
             compressed = self._compress_updates(list(latest_by_user.values()))
         else:
             compressed = list(latest_by_user.values())
             
-# 3. Parallel processing
+## 3. Parallel processing
         tasks = []
         
-# Update location storage
+### Update location storage
         tasks.append(self._update_location_storage(compressed))
         
-# Update grid indices
+## Update grid indices
         tasks.append(self._update_grid_indices(compressed))
         
-# Check proximities
+## Check proximities
         tasks.append(self._check_proximities(compressed))
         
-# Stream to analytics
+## Stream to analytics
         tasks.append(self._stream_to_analytics(compressed))
         
         await asyncio.gather(*tasks)
@@ -1180,13 +1328,13 @@ class SocialGraphIntegration:
         
         results = await self.neo4j.query(query, user_id=user_id)
         
-# Filter by privacy settings
+## Filter by privacy settings
         eligible = []
         for row in results:
             friend_id = row['friend_id']
             sharing_level = row['level']
             
-# Check if consent is active
+## Check if consent is active
             if await self._has_active_consent(user_id, friend_id):
                 eligible.append(friend_id)
                 
@@ -1194,7 +1342,7 @@ class SocialGraphIntegration:
     
     async def suggest_location_sharing(self, user_id: str) -> List[FriendSuggestion]:
         """Suggest friends to share location with"""
-# 1. Get close friends without location sharing
+## 1. Get close friends without location sharing
         query = """
         MATCH (u:User {id: $user_id})-[r:FRIEND]-(f:User)
         WHERE r.location_sharing = false
@@ -1208,7 +1356,7 @@ class SocialGraphIntegration:
         
         candidates = await self.neo4j.query(query, user_id=user_id)
         
-# 2. Enhance with ML predictions
+## 2. Enhance with ML predictions
         suggestions = []
         for candidate in candidates:
             likelihood = await self._predict_sharing_likelihood(
@@ -1235,26 +1383,26 @@ class LocationHistoryAnalyzer:
         
     async def analyze_user_patterns(self, user_id: str) -> UserLocationPatterns:
         """Analyze user's location patterns"""
-# 1. Get location history
+## 1. Get location history
         history = await self._get_location_history(user_id, days=30)
         
-# 2. Detect home/work locations
+## 2. Detect home/work locations
         significant_places = self.pattern_detector.find_significant_places(
             history,
             min_visits=10,
             min_duration=timedelta(hours=2)
         )
         
-# 3. Detect commute patterns
+## 3. Detect commute patterns
         commute_patterns = self.pattern_detector.find_commute_patterns(
             history,
             significant_places
         )
         
-# 4. Find routine patterns
+## 4. Find routine patterns
         routines = self.pattern_detector.find_weekly_routines(history)
         
-# 5. Identify anomalies
+## 5. Identify anomalies
         anomalies = self.pattern_detector.find_anomalies(
             history,
             significant_places,
@@ -1283,7 +1431,7 @@ class LocationStreamProcessor:
         
     def build_processing_pipeline(self):
         """Build Flink processing pipeline"""
-# 1. Source: Kafka location stream
+## 1. Source: Kafka location stream
         location_stream = self.flink_env.add_source(
             FlinkKafkaConsumer(
                 'location-updates',
@@ -1292,48 +1440,48 @@ class LocationStreamProcessor:
             )
         )
         
-# 2. Parse and validate
+## 2. Parse and validate
         parsed_stream = location_stream.map(
             lambda x: self.parse_location_update(x)
         ).filter(
             lambda x: x is not None
         )
         
-# 3. Window by user
+## 3. Window by user
         windowed_stream = parsed_stream.key_by(
             lambda x: x.user_id
         ).window(
             TumblingEventTimeWindows.of(Time.seconds(self.window_size))
         )
         
-# 4. Aggregate location updates
+## 4. Aggregate location updates
         aggregated = windowed_stream.aggregate(
             LocationAggregator(),
             ProcessWindowFunction()
         )
         
-# 5. Detect proximity events
+## 5. Detect proximity events
         proximity_events = aggregated.connect(
             self.friend_location_stream
         ).process(
             ProximityDetectionFunction()
         )
         
-# 6. Output to multiple sinks
+## 6. Output to multiple sinks
         
-# Real-time notifications
+## Real-time notifications
         proximity_events.filter(
             lambda x: x.is_significant
         ).add_sink(
             NotificationSink()
         )
         
-# Analytics
+## Analytics
         aggregated.add_sink(
             AnalyticsSink()
         )
         
-# Location storage
+## Location storage
         parsed_stream.add_sink(
             LocationStorageSink()
         )
@@ -1351,10 +1499,10 @@ class ProximityDetectionFunction(CoProcessFunction):
         """Process user location update"""
         user_id = value.user_id
         
-# Update location
+## Update location
         self.user_locations[user_id] = value
         
-# Check proximity with friends
+## Check proximity with friends
         friends = self.get_friends(user_id)
         
         for friend_id in friends:
@@ -1367,7 +1515,7 @@ class ProximityDetectionFunction(CoProcessFunction):
                 )
                 
                 if distance < self.proximity_threshold:
-# Emit proximity event
+## Emit proximity event
                     out.collect(ProximityEvent(
                         user1=user_id,
                         user2=friend_id,
@@ -1545,7 +1693,7 @@ class NearbyFriendsMetrics:
     
     def __init__(self):
         self.metrics = {
-# Performance metrics
+## Performance metrics
             'location_update_latency': Histogram(
                 'nearby_location_update_latency_ms',
                 'Time to process location update',
@@ -1557,7 +1705,7 @@ class NearbyFriendsMetrics:
                 buckets=[10, 25, 50, 100, 250]
             ),
             
-# Privacy metrics
+## Privacy metrics
             'location_fuzzing_radius': Histogram(
                 'nearby_fuzzing_radius_meters',
                 'Location fuzzing radius applied',
@@ -1569,7 +1717,7 @@ class NearbyFriendsMetrics:
                 ['status']  # granted, denied, expired
             ),
             
-# Battery metrics
+## Battery metrics
             'battery_usage_rate': Gauge(
                 'nearby_battery_usage_percent_per_hour',
                 'Battery consumption rate'
@@ -1580,7 +1728,7 @@ class NearbyFriendsMetrics:
                 buckets=[30, 60, 300, 600, 3600]
             ),
             
-# Business metrics
+## Business metrics
             'daily_active_sharers': Gauge(
                 'nearby_daily_active_sharers',
                 'Users actively sharing location'
@@ -1619,13 +1767,13 @@ class PrivacyDashboard:
    ```python
    class LocationServiceFailover:
        async def handle_location_service_failure(self):
-# 1. Switch to fallback provider
+## 1. Switch to fallback provider
            await self.switch_to_fallback_location_provider()
            
-# 2. Notify users of degraded accuracy
+## 2. Notify users of degraded accuracy
            await self.notify_degraded_service()
            
-# 3. Use cached last known locations
+## 3. Use cached last known locations
            await self.enable_cached_location_mode()
    ```
 
@@ -1633,16 +1781,16 @@ class PrivacyDashboard:
    ```python
    class PrivacyBreachHandler:
        async def handle_potential_breach(self, incident: PrivacyIncident):
-# 1. Immediately stop location sharing
+## 1. Immediately stop location sharing
            await self.emergency_stop_sharing(incident.affected_users)
            
-# 2. Audit access logs
+## 2. Audit access logs
            violations = await self.audit_access_logs(incident)
            
-# 3. Notify affected users
+## 3. Notify affected users
            await self.notify_users(violations)
            
-# 4. Reset all consents
+## 4. Reset all consents
            await self.reset_consents(incident.affected_users)
    ```
 
@@ -1653,10 +1801,10 @@ class PrivacyDashboard:
            drain_rate = await self.calculate_drain_rate(user_id)
            
            if drain_rate > 10:  # >10% per hour
-# Switch to battery saver mode
+## Switch to battery saver mode
                await self.enable_battery_saver(user_id)
                
-# Notify user
+## Notify user
                await self.send_battery_warning(user_id)
    ```
 

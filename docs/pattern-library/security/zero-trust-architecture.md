@@ -103,19 +103,19 @@ Network Segmentation:
 
 1. **Identity Infrastructure**
 ```bash
-# Deploy identity provider
+## Deploy identity provider
 kubectl apply -f identity-provider.yaml
 
-# Configure RBAC policies
+## Configure RBAC policies
 kubectl apply -f rbac-policies.yaml
 
-# Set up certificate authority
+## Set up certificate authority
 cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 ```
 
 2. **Network Security**
 ```yaml
-# Kubernetes Network Policy
+## Kubernetes Network Policy
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -137,10 +137,10 @@ spec:
 
 1. **Service Mesh Deployment**
 ```bash
-# Install Istio with mTLS
+## Install Istio with mTLS
 istioctl install --set values.global.mtls.default=STRICT
 
-# Apply service mesh policies
+## Apply service mesh policies
 kubectl apply -f service-mesh-policies.yaml
 ```
 
@@ -169,7 +169,7 @@ spec:
 
 1. **Dynamic Policy Engine**
 ```python
-# Policy evaluation logic
+## Policy evaluation logic
 class ZeroTrustPolicyEngine:
     def evaluate_access(self, request):
         risk_score = self.calculate_risk(request)
@@ -193,7 +193,7 @@ class ZeroTrustPolicyEngine:
 
 2. **Continuous Monitoring**
 ```yaml
-# Monitoring configuration
+## Monitoring configuration
 monitoring:
   metrics:
     - authentication_failures

@@ -1,9 +1,56 @@
 ---
 title: Finance
 description: Finance overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Finance for Engineering Leaders
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Core Financial Concepts](#core-financial-concepts)
+  - [1. Time Value of Money](#1-time-value-of-money)
+  - [2. Return on Investment (ROI)](#2-return-on-investment-roi)
+  - [3. Total Cost of Ownership (TCO)](#3-total-cost-of-ownership-tco)
+  - [4. Unit Economics](#4-unit-economics)
+- [Budget Management](#budget-management)
+  - [Budget Structure](#budget-structure)
+  - [Budget Planning Framework](#budget-planning-framework)
+  - [Cost Allocation Models](#cost-allocation-models)
+- [Building Business Cases](#building-business-cases)
+  - [Business Case Framework](#business-case-framework)
+  - [Persuasive Financial Narratives](#persuasive-financial-narratives)
+- [P&L Responsibility](#pl-responsibility)
+  - [Understanding P&L Components](#understanding-pl-components)
+  - [Engineering Levers for P&L Impact](#engineering-levers-for-pl-impact)
+  - [P&L Metrics for Engineering](#pl-metrics-for-engineering)
+- [Cost Optimization Strategies](#cost-optimization-strategies)
+  - [Systematic Cost Reduction Framework](#systematic-cost-reduction-framework)
+  - [Cost Optimization Playbook](#cost-optimization-playbook)
+- [Capital vs. Operating Expenses](#capital-vs-operating-expenses)
+  - [CapEx vs. OpEx Decision Framework](#capex-vs-opex-decision-framework)
+  - [Engineering CapEx/OpEx Examples](#engineering-capexopex-examples)
+- [Real Options Theory](#real-options-theory)
+  - [Applying Options Thinking to Technical Decisions](#applying-options-thinking-to-technical-decisions)
+  - [Valuing Technical Flexibility](#valuing-technical-flexibility)
+- [Measuring Engineering ROI](#measuring-engineering-roi)
+  - [ROI Measurement Framework](#roi-measurement-framework)
+  - [Engineering Investment Returns](#engineering-investment-returns)
+  - [ROI Calculation Examples](#roi-calculation-examples)
+- [Financial Metrics That Matter](#financial-metrics-that-matter)
+  - [Key Engineering Financial Metrics](#key-engineering-financial-metrics)
+  - [Engineering-Specific Financial Metrics](#engineering-specific-financial-metrics)
+- [Interview Applications](#interview-applications)
+  - [Common Finance Questions for Engineering Leaders](#common-finance-questions-for-engineering-leaders)
+  - [Case Study Frameworks](#case-study-frameworks)
+  - [Red Flags to Avoid](#red-flags-to-avoid)
+- [Key Takeaways](#key-takeaways)
+- [Action Items](#action-items)
+
+
 
 > "The best engineering decisions are financially sound business decisions." - Werner Vogels, CTO, Amazon
 

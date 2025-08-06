@@ -6,9 +6,104 @@ difficulty: intermediate
 reading_time: 15 min
 status: complete
 last_updated: 2025-07-25
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Engineering Manager Learning Path
+
+
+
+## Overview
+
+Engineering Manager Learning Path
+description: Distributed systems knowledge for engineering leaders and technical managers
+type: learning-path
+difficulty: intermediate
+reading_time: 15 min
+status: complete
+last_updated: 2025-07-25
+---
+
+# Engineering Manager Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Your Leadership Journey](#-your-leadership-journey)
+  - [Phase 1: Strategic Foundations (1-2 weeks)](#phase-1-strategic-foundations-1-2-weeks)
+  - [Phase 2: Patterns for Decision Making (2-3 weeks)](#phase-2-patterns-for-decision-making-2-3-weeks)
+    - [Week 3: Essential Patterns](#week-3-essential-patterns)
+    - [Week 4: Advanced Patterns](#week-4-advanced-patterns)
+  - [Phase 3: Operational Excellence (2-3 weeks)](#phase-3-operational-excellence-2-3-weeks)
+    - [Week 5: Human Factors](#week-5-human-factors)
+    - [Week 6: Quantitative Management](#week-6-quantitative-management)
+  - [Phase 4: Strategic Case Studies (1-2 weeks)](#phase-4-strategic-case-studies-1-2-weeks)
+    - [Week 7-8: Management Perspectives](#week-7-8-management-perspectives)
+- [📊 Manager's Decision Framework](#-managers-decision-framework)
+  - [Architecture Decision Records (ADRs)](#architecture-decision-records-adrs)
+  - [Capacity Planning Checklist](#capacity-planning-checklist)
+  - [Incident Management](#incident-management)
+- [🎯 Key Metrics to Track](#-key-metrics-to-track)
+  - [System Health](#system-health)
+  - [Team Performance](#team-performance)
+- [💼 Management Tools](#-management-tools)
+  - [Communication Templates](#communication-templates)
+  - [Decision Matrices](#decision-matrices)
+- [🎓 Leadership Development](#-leadership-development)
+  - [Technical Leadership Skills](#technical-leadership-skills)
+  - [Team Development](#team-development)
+- [📚 Manager Resources](#-manager-resources)
+  - [Essential Reading](#essential-reading)
+  - [Podcasts & Blogs](#podcasts-blogs)
+- [💡 Management Best Practices](#-management-best-practices)
+- [🚀 Next Steps](#-next-steps)
+- [⏱️ Time Commitment](#-time-commitment)
+
+
+
+! Lead with Technical Excellence"
+ This path equips engineering managers with the distributed systems knowledge needed to make informed decisions, guide architectural choices, and effectively lead teams building scalable systems.
+
+**Reading time:** ~5 minutes
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Your Leadership Journey](#-your-leadership-journey)
+  - [Phase 1: Strategic Foundations (1-2 weeks)](#phase-1-strategic-foundations-1-2-weeks)
+  - [Phase 2: Patterns for Decision Making (2-3 weeks)](#phase-2-patterns-for-decision-making-2-3-weeks)
+    - [Week 3: Essential Patterns](#week-3-essential-patterns)
+    - [Week 4: Advanced Patterns](#week-4-advanced-patterns)
+  - [Phase 3: Operational Excellence (2-3 weeks)](#phase-3-operational-excellence-2-3-weeks)
+    - [Week 5: Human Factors](#week-5-human-factors)
+    - [Week 6: Quantitative Management](#week-6-quantitative-management)
+  - [Phase 4: Strategic Case Studies (1-2 weeks)](#phase-4-strategic-case-studies-1-2-weeks)
+    - [Week 7-8: Management Perspectives](#week-7-8-management-perspectives)
+- [📊 Manager's Decision Framework](#-managers-decision-framework)
+  - [Architecture Decision Records (ADRs)](#architecture-decision-records-adrs)
+  - [Capacity Planning Checklist](#capacity-planning-checklist)
+  - [Incident Management](#incident-management)
+- [🎯 Key Metrics to Track](#-key-metrics-to-track)
+  - [System Health](#system-health)
+  - [Team Performance](#team-performance)
+- [💼 Management Tools](#-management-tools)
+  - [Communication Templates](#communication-templates)
+  - [Decision Matrices](#decision-matrices)
+- [🎓 Leadership Development](#-leadership-development)
+  - [Technical Leadership Skills](#technical-leadership-skills)
+  - [Team Development](#team-development)
+- [📚 Manager Resources](#-manager-resources)
+  - [Essential Reading](#essential-reading)
+  - [Podcasts & Blogs](#podcasts-blogs)
+- [💡 Management Best Practices](#-management-best-practices)
+- [🚀 Next Steps](#-next-steps)
+- [⏱️ Time Commitment](#-time-commitment)
+
+
 
 !!! abstract "Lead with Technical Excellence"
  This path equips engineering managers with the distributed systems knowledge needed to make informed decisions, guide architectural choices, and effectively lead teams building scalable systems.

@@ -10,6 +10,55 @@ tags: [deployment, zero-downtime, rollback, infrastructure, devops]
 
 # Blue-Green Deployment
 
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+- [Solution Overview](#solution-overview)
+- [Architecture Components](#architecture-components)
+  - [1. Environment Infrastructure](#1-environment-infrastructure)
+  - [2. Traffic Management](#2-traffic-management)
+  - [3. Database Management](#3-database-management)
+- [Implementation Guide](#implementation-guide)
+  - [Phase 1: Infrastructure Setup (Weeks 1-2)](#phase-1-infrastructure-setup-weeks-1-2)
+- [Terraform configuration for Blue-Green infrastructure](#terraform-configuration-for-blue-green-infrastructure)
+- [Blue deployment](#blue-deployment)
+- [Green deployment (initially with 0 replicas)](#green-deployment-initially-with-0-replicas)
+- [Main service (switches between blue and green)](#main-service-switches-between-blue-and-green)
+  - [Phase 2: Deployment Automation (Weeks 3-4)](#phase-2-deployment-automation-weeks-3-4)
+- [Blue-Green deployment script](#blue-green-deployment-script)
+- [Configuration](#configuration)
+- [Colors for output](#colors-for-output)
+- [Check if new version is provided](#check-if-new-version-is-provided)
+- [Determine current active environment](#determine-current-active-environment)
+- [Determine target environment](#determine-target-environment)
+- [Update target environment with new version](#update-target-environment-with-new-version)
+- [Scale up target environment](#scale-up-target-environment)
+- [Wait for deployment to be ready](#wait-for-deployment-to-be-ready)
+- [Health check](#health-check)
+- [Smoke tests](#smoke-tests)
+- [Kill port-forward if it was used](#kill-port-forward-if-it-was-used)
+- [Additional smoke tests](#additional-smoke-tests)
+- [Switch traffic to target environment](#switch-traffic-to-target-environment)
+- [Scale down previous environment](#scale-down-previous-environment)
+- [Deployment summary](#deployment-summary)
+- [smoke-tests.py - Comprehensive smoke test suite](#smoke-testspy-comprehensive-smoke-test-suite)
+  - [Phase 3: Rollback Mechanism (Weeks 5-6)](#phase-3-rollback-mechanism-weeks-5-6)
+- [rollback.py - Automated rollback system](#rollbackpy-automated-rollback-system)
+- [Health check](#health-check)
+- [Monitoring integration for automatic rollback](#monitoring-integration-for-automatic-rollback)
+- [Real-World Examples](#real-world-examples)
+  - [Netflix Implementation](#netflix-implementation)
+  - [Amazon Implementation](#amazon-implementation)
+- [Metrics and Success Criteria](#metrics-and-success-criteria)
+  - [Deployment Metrics](#deployment-metrics)
+  - [Cost Analysis](#cost-analysis)
+- [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
+  - [1. Database Schema Changes](#1-database-schema-changes)
+  - [2. Stateful Applications](#2-stateful-applications)
+  - [3. Resource Costs](#3-resource-costs)
+- [Related Patterns](#related-patterns)
+- [Further Reading](#further-reading)
+
 ## Problem Statement
 
 Traditional deployments often require downtime, create deployment risks, and make rollbacks complex and time-consuming. Users experience service interruptions, and failed deployments can leave systems in inconsistent states.
@@ -130,7 +179,7 @@ Database Strategies:
 
 1. **AWS Blue-Green Setup**
 ```yaml
-# Terraform configuration for Blue-Green infrastructure
+## Terraform configuration for Blue-Green infrastructure
 resource "aws_launch_template" "app_template" {
   name_prefix   = "app-template-"
   image_id      = var.ami_id
@@ -258,7 +307,7 @@ resource "aws_lb_listener" "main" {
 
 2. **Kubernetes Blue-Green Setup**
 ```yaml
-# Blue deployment
+## Blue deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -308,7 +357,7 @@ spec:
   - port: 80
     targetPort: 8080
 ---
-# Green deployment (initially with 0 replicas)
+## Green deployment (initially with 0 replicas)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -358,7 +407,7 @@ spec:
   - port: 80
     targetPort: 8080
 ---
-# Main service (switches between blue and green)
+## Main service (switches between blue and green)
 apiVersion: v1
 kind: Service
 metadata:
@@ -378,11 +427,11 @@ spec:
 1. **Deployment Script**
 ```bash
 #!/bin/bash
-# Blue-Green deployment script
+## Blue-Green deployment script
 
 set -e
 
-# Configuration
+## Configuration
 APP_NAME="myapp"
 NEW_VERSION="$1"
 NAMESPACE="production"
@@ -390,7 +439,7 @@ HEALTH_CHECK_URL="/health"
 SMOKE_TEST_TIMEOUT=300  # 5 minutes
 ROLLBACK_TIMEOUT=60     # 1 minute
 
-# Colors for output
+## Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -409,16 +458,16 @@ error() {
     exit 1
 }
 
-# Check if new version is provided
+## Check if new version is provided
 if [ -z "$NEW_VERSION" ]; then
     error "Usage: $0 <new_version>"
 fi
 
-# Determine current active environment
+## Determine current active environment
 CURRENT_VERSION=$(kubectl get service $APP_NAME-service -n $NAMESPACE -o jsonpath='{.spec.selector.version}')
 log "Current active environment: $CURRENT_VERSION"
 
-# Determine target environment
+## Determine target environment
 if [ "$CURRENT_VERSION" = "blue" ]; then
     TARGET_ENV="green"
     CURRENT_ENV="blue"
@@ -430,19 +479,19 @@ fi
 log "Target environment: $TARGET_ENV"
 log "Deploying version: $NEW_VERSION"
 
-# Update target environment with new version
+## Update target environment with new version
 log "Updating $TARGET_ENV environment..."
 kubectl set image deployment/$APP_NAME-$TARGET_ENV $APP_NAME=$APP_NAME:$NEW_VERSION -n $NAMESPACE
 
-# Scale up target environment
+## Scale up target environment
 log "Scaling up $TARGET_ENV environment..."
 kubectl scale deployment/$APP_NAME-$TARGET_ENV --replicas=3 -n $NAMESPACE
 
-# Wait for deployment to be ready
+## Wait for deployment to be ready
 log "Waiting for $TARGET_ENV deployment to be ready..."
 kubectl rollout status deployment/$APP_NAME-$TARGET_ENV -n $NAMESPACE --timeout=600s
 
-# Health check
+## Health check
 log "Performing health checks on $TARGET_ENV environment..."
 TARGET_SERVICE_IP=$(kubectl get service $APP_NAME-$TARGET_ENV-service -n $NAMESPACE -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
@@ -456,7 +505,7 @@ else
     TARGET_URL="http:/$TARGET_SERVICE_IP"
 fi
 
-# Smoke tests
+## Smoke tests
 log "Running smoke tests..."
 START_TIME=$(date +%s)
 while true; do
@@ -476,29 +525,29 @@ while true; do
     fi
 done
 
-# Kill port-forward if it was used
+## Kill port-forward if it was used
 if [ ! -z "$PORT_FORWARD_PID" ]; then
     kill $PORT_FORWARD_PID 2>/dev/null || true
 fi
 
-# Additional smoke tests
+## Additional smoke tests
 log "Running application smoke tests..."
 if ! ./smoke-tests.sh "$TARGET_URL"; then
     error "Smoke tests failed. Rolling back..."
 fi
 
-# Switch traffic to target environment
+## Switch traffic to target environment
 log "Switching traffic to $TARGET_ENV environment..."
 kubectl patch service $APP_NAME-service -n $NAMESPACE -p '{"spec":{"selector":{"version":"'$TARGET_ENV'"}}}'
 
 log "Traffic switched successfully!"
 
-# Scale down previous environment
+## Scale down previous environment
 log "Scaling down $CURRENT_ENV environment..."
 sleep 30  # Wait for traffic to drain
 kubectl scale deployment/$APP_NAME-$CURRENT_ENV --replicas=0 -n $NAMESPACE
 
-# Deployment summary
+## Deployment summary
 log "\n=== Deployment Summary ==="
 log "Application: $APP_NAME"
 log "Version: $NEW_VERSION"
@@ -510,7 +559,7 @@ log "Deployment completed successfully!"
 2. **Smoke Test Suite**
 ```python
 #!/usr/bin/env python3
-# smoke-tests.py - Comprehensive smoke test suite
+## smoke-tests.py - Comprehensive smoke test suite
 
 import requests
 import json
@@ -754,7 +803,7 @@ if __name__ == "__main__":
 
 1. **Automated Rollback**
 ```python
-# rollback.py - Automated rollback system
+## rollback.py - Automated rollback system
 import subprocess
 import time
 import requests
@@ -877,7 +926,7 @@ class BlueGreenRollback:
             if not service_ip:
                 return False
             
-            # Health check
+            ## Health check
             health_url = f"http:/{service_ip}/health"
             response = requests.get(health_url, timeout=10)
             
@@ -922,7 +971,7 @@ class BlueGreenRollback:
             print(f"Rollback verification error: {str(e)}")
             return False
 
-# Monitoring integration for automatic rollback
+## Monitoring integration for automatic rollback
 class AutoRollbackMonitor:
     def __init__(self, rollback_system: BlueGreenRollback):
         self.rollback_system = rollback_system

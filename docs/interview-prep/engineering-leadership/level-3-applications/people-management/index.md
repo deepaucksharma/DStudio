@@ -1,9 +1,114 @@
 ---
 title: People Management
 description: People Management overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # People Management
+
+
+
+## Overview
+
+People Management
+description: People Management overview and navigation
+---
+
+# People Management
+
+## Table of Contents
+
+- [Building and Leading High-Performing Engineering Teams](#building-and-leading-high-performing-engineering-teams)
+- [Connection to Framework Levels](#connection-to-framework-levels)
+  - [First Principles Foundation](#first-principles-foundation)
+  - [Business Concepts Applied](#business-concepts-applied)
+- [Core Competencies](#core-competencies)
+  - [1. Talent Acquisition & Hiring](#1-talent-acquisition-hiring)
+  - [2.
+
+**Reading time:** ~12 minutes
+
+## Table of Contents
+
+- [Building and Leading High-Performing Engineering Teams](#building-and-leading-high-performing-engineering-teams)
+- [Connection to Framework Levels](#connection-to-framework-levels)
+  - [First Principles Foundation](#first-principles-foundation)
+  - [Business Concepts Applied](#business-concepts-applied)
+- [Core Competencies](#core-competencies)
+  - [1. Talent Acquisition & Hiring](#1-talent-acquisition-hiring)
+  - [2. Performance Management](#2-performance-management)
+  - [3. Psychological Safety & Intellectual Honesty](#3-psychological-safety-intellectual-honesty)
+  - [4. Culture Design & Rituals](#4-culture-design-rituals)
+  - [5. Performance Metrics & SPACE Framework](#5-performance-metrics-space-framework)
+  - [6. Career Development](#6-career-development)
+  - [7. Communication & Relationships](#7-communication-relationships)
+  - [8. Modern People Management](#8-modern-people-management)
+- [Psychological Safety + Intellectual Honesty Framework](#psychological-safety-intellectual-honesty-framework)
+  - [Google's Project Aristotle Findings](#googles-project-aristotle-findings)
+  - [Creating Psychological Safety](#creating-psychological-safety)
+    - [Model Vulnerability](#model-vulnerability)
+    - [Frame Work as Learning Problems](#frame-work-as-learning-problems)
+    - [Practice Inquiry Over Advocacy](#practice-inquiry-over-advocacy)
+  - [Pairing with Intellectual Honesty](#pairing-with-intellectual-honesty)
+    - [High Standards as Care](#high-standards-as-care)
+    - [Constructive Disagreement](#constructive-disagreement)
+- [Culture Design Through Rituals](#culture-design-through-rituals)
+  - [Culture as Emergent Property](#culture-as-emergent-property)
+    - [Powerful Culture-Shaping Rituals](#powerful-culture-shaping-rituals)
+  - [Making Values the Path of Least Resistance](#making-values-the-path-of-least-resistance)
+    - [Design Systems That Reinforce Culture](#design-systems-that-reinforce-culture)
+    - [Examples of Value-Aligned Systems](#examples-of-value-aligned-systems)
+- [SPACE Framework for Sustainable Performance](#space-framework-for-sustainable-performance)
+  - [The Five Dimensions](#the-five-dimensions)
+  - [Metrics in Tension](#metrics-in-tension)
+    - [Activity vs Quality](#activity-vs-quality)
+    - [Efficiency vs Collaboration](#efficiency-vs-collaboration)
+  - [DORA + SPACE Integration](#dora-space-integration)
+  - [Sustainable Performance Measurement](#sustainable-performance-measurement)
+    - [Avoiding Metric Gaming](#avoiding-metric-gaming)
+    - [Burnout Prevention Through Metrics](#burnout-prevention-through-metrics)
+- [Modern People Management Practices](#modern-people-management-practices)
+  - [Remote-First Considerations](#remote-first-considerations)
+    - [Psychological Safety in Virtual Environments](#psychological-safety-in-virtual-environments)
+    - [Culture Rituals for Distributed Teams](#culture-rituals-for-distributed-teams)
+  - [AI Tools for Team Insights](#ai-tools-for-team-insights)
+    - [Sentiment Analysis](#sentiment-analysis)
+    - [Performance Pattern Recognition](#performance-pattern-recognition)
+  - [Continuous Feedback Systems](#continuous-feedback-systems)
+    - [Beyond Annual Reviews](#beyond-annual-reviews)
+    - [Feedback Loop Optimization](#feedback-loop-optimization)
+- [Common Scenarios](#common-scenarios)
+  - [Scenario 1: Underperforming Team Member](#scenario-1-underperforming-team-member)
+  - [Scenario 2: Team Conflict](#scenario-2-team-conflict)
+  - [Scenario 3: Rapid Team Growth](#scenario-3-rapid-team-growth)
+- [Interview Question Patterns](#interview-question-patterns)
+  - [Behavioral Questions](#behavioral-questions)
+  - [Situational Questions](#situational-questions)
+  - [Modern People Management Questions](#modern-people-management-questions)
+- [Excellence Indicators](#excellence-indicators)
+  - [Modern Competency Indicators](#modern-competency-indicators)
+- [Anti-Patterns to Avoid](#anti-patterns-to-avoid)
+  - [Classic Anti-Patterns](#classic-anti-patterns)
+  - [Modern Anti-Patterns](#modern-anti-patterns)
+  - [Warning Signs to Watch](#warning-signs-to-watch)
+- [Resources & Tools](#resources-tools)
+  - [Templates](#templates)
+  - [Best Practices](#best-practices)
+  - [Modern Tools & Frameworks](#modern-tools-frameworks)
+- [Practice Exercises](#practice-exercises)
+  - [Traditional Exercises](#traditional-exercises)
+  - [Modern Practice Scenarios](#modern-practice-scenarios)
+  - [Interview Preparation Exercises](#interview-preparation-exercises)
+- [Links to Other Applications](#links-to-other-applications)
+- [Interview Execution (Level IV)](#interview-execution-level-iv)
+- [Next Steps](#next-steps)
+  - [Immediate Actions](#immediate-actions)
+  - [This Week](#this-week)
+  - [For Interviews](#for-interviews)
+
+
 
 ## Building and Leading High-Performing Engineering Teams
 

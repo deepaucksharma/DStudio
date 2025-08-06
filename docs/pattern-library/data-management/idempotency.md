@@ -23,7 +23,7 @@ Idempotency ensures operations produce the same result when executed multiple ti
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class IdempotencyManager:
     def __init__(self):
         pass

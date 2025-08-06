@@ -53,6 +53,117 @@ nav:
 
 # CAP Theorem: The Fundamental Trade-off
 
+
+
+## Overview
+
+CAP Theorem: The Fundamental Trade-off'
+description: Understanding the impossibility of simultaneously achieving Consistency,
+  Availability, and Partition tolerance in distributed systems
+type: theory
+category: fundamentals
+difficulty: intermediate
+reading_time: 25 min
+status: complete
+last_updated: 2025-07-22
+nav:
+  learning_path: all
+  sequence:
+    current: 1
+    total: 15
+    collection: quantitative-foundations
+  prerequisites:
+  - title: Introduction to Distributed Systems
+    path: /introduction/getting-started/
+  - title: Basic Networking Concepts
+    path: /introduction/networking-basics/
+  related:
+  - title: PACELC Theorem
+    path: /quantitative-analysis/pacelc/
+    type: theory
+  - title: Consistency Models
+    path: /quantitative-analysis/consistency-models/
+    type: theory
+  - title: Cassandra Case Study
+    path: /case-studies/cassandra/
+    type: case-study
+  - title: Two-Phase Commit
+    path: /. CAP Theorem Calculator
+    path: /tools/cap-calculator/
+    level: beginner
+  - title: Building CP Systems
+    path: /tutorials/cp-system-design/
+    level: intermediate
+  - title: CAP in Production
+    path: /tutorials/cap-production/
+    level: advanced
+  tags:
+  - fundamental
+  - cap-theorem
+  - distributed-systems
+  - consistency
+  - availability
+  - partition-tolerance
+---
+
+# CAP Theorem: The Fundamental Trade-off
+
+## Table of Contents
+
+- [The Essential Insight](#the-essential-insight)
+- [Visual Understanding](#visual-understanding)
+- [Formal Definitions](#formal-definitions)
+  - [Consistency (C)](#consistency-c)
+- [Consistent system example](#consistent-system-example)
+  - [Availability (A)](#availability-a)
+- [Available system guarantees](#available-system-guarantees)
+  - [Partition Tolerance (P)](#partition-tolerance-p)
+- [The Proof (Intuitive)](#the-proof-intuitive)
+  - [Why Can't We Have All Three?
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [The Essential Insight](#the-essential-insight)
+- [Visual Understanding](#visual-understanding)
+- [Formal Definitions](#formal-definitions)
+  - [Consistency (C)](#consistency-c)
+- [Consistent system example](#consistent-system-example)
+  - [Availability (A)](#availability-a)
+- [Available system guarantees](#available-system-guarantees)
+  - [Partition Tolerance (P)](#partition-tolerance-p)
+- [The Proof (Intuitive)](#the-proof-intuitive)
+  - [Why Can't We Have All Three?](#why-cant-we-have-all-three)
+- [Real-World Trade-offs](#real-world-trade-offs)
+  - [CP Systems (Consistency + Partition Tolerance)](#cp-systems-consistency-partition-tolerance)
+  - [AP Systems (Availability + Partition Tolerance)](#ap-systems-availability-partition-tolerance)
+  - [CA Systems (Consistency + Availability)](#ca-systems-consistency-availability)
+- [Beyond CAP: Nuanced Choices](#beyond-cap-nuanced-choices)
+  - [1. Tunable Consistency](#1-tunable-consistency)
+- [Strong consistency when needed](#strong-consistency-when-needed)
+- [Eventual consistency when acceptable  ](#eventual-consistency-when-acceptable-)
+  - [2. Partition Detection Strategies](#2-partition-detection-strategies)
+  - [3. Graceful Degradation](#3-graceful-degradation)
+- [PACELC: The Extended Model](#pacelc-the-extended-model)
+- [Practical Implications](#practical-implications)
+  - [1. Design Decisions](#1-design-decisions)
+  - [2. SLA Considerations](#2-sla-considerations)
+  - [3. Operational Complexity](#3-operational-complexity)
+- [Common Misconceptions](#common-misconceptions)
+- [Testing CAP Behavior](#testing-cap-behavior)
+  - [Jepsen Testing Framework](#jepsen-testing-framework)
+- [Design Patterns](#design-patterns)
+  - [Pattern 1: Saga Pattern (AP Alternative to Transactions)](#pattern-1-saga-pattern-ap-alternative-to-transactions)
+  - [Pattern 2: Write Quorums (Tunable Consistency)](#pattern-2-write-quorums-tunable-consistency)
+- [Real-World Case Studies](#real-world-case-studies)
+- [Interactive Tool](#interactive-tool)
+- [Next Steps](#next-steps)
+- [Key Takeaways](#key-takeaways)
+- [References](#references)
+
+
+
 <span class="path-icon">📐</span>
  <span class="path-name">Quantitative Foundations</span>
  <span class="path-progress">1/15</span>
@@ -100,7 +211,7 @@ graph TB
 More precisely: **Linearizability** - operations appear to execute atomically at some point between their start and completion.
 
 ```python
-# Consistent system example
+## Consistent system example
 def read_after_write():
     write(key="x", value=1)  # Time: T1
     result = read(key="x")   # Time: T2 (T2 > T1)
@@ -113,7 +224,7 @@ def read_after_write():
 Formally: Every non-failing node returns a response for all read and write requests in a reasonable time.
 
 ```python
-# Available system guarantees
+## Available system guarantees
 def available_system():
     try:
         response = request(timeout=5000)  # 5 seconds
@@ -231,13 +342,13 @@ class CASystem:
 Systems like Cassandra allow per-operation choice:
 
 ```python
-# Strong consistency when needed
+## Strong consistency when needed
 critical_balance = read(
     key="account_balance",
     consistency_level=QUORUM  # CP behavior
 )
 
-# Eventual consistency when acceptable  
+## Eventual consistency when acceptable  
 user_preferences = read(
     key="theme_settings",
     consistency_level=ONE     # AP behavior

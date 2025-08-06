@@ -1,6 +1,25 @@
 ---
 title: Reliability & Resilience Learning Path
 description: Build systems that never fail - master fault tolerance, high availability,
+type: learning-path
+topic: reliability
+difficulty: advanced
+reading_time: 15 min
+status: complete
+last_updated: 2025-07-25
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Reliability & Resilience Learning Path
+
+
+
+## Overview
+
+Reliability & Resilience Learning Path
+description: Build systems that never fail - master fault tolerance, high availability,
   and disaster recovery
 type: learning-path
 topic: reliability
@@ -11,6 +30,95 @@ last_updated: 2025-07-25
 ---
 
 # Reliability & Resilience Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Reliability Journey](#-reliability-journey)
+  - [Phase 1: Reliability Foundations (1 week)](#phase-1-reliability-foundations-1-week)
+  - [Phase 2: Resilience Patterns (2 weeks)](#phase-2-resilience-patterns-2-weeks)
+    - [Week 2: Core Resilience Patterns](#week-2-core-resilience-patterns)
+    - [Week 3: Advanced Patterns](#week-3-advanced-patterns)
+  - [Phase 3: High Availability Architecture (2 weeks)](#phase-3-high-availability-architecture-2-weeks)
+    - [Week 4: HA Design Patterns](#week-4-ha-design-patterns)
+    - [Week 5: Disaster Recovery](#week-5-disaster-recovery)
+  - [Phase 4: Operational Excellence (2 weeks)](#phase-4-operational-excellence-2-weeks)
+    - [Week 6: SRE Implementation](#week-6-sre-implementation)
+    - [Week 7: Continuous Improvement](#week-7-continuous-improvement)
+- [📊 Reliability Projects](#-reliability-projects)
+  - [Project 1: Build a Resilient Microservice](#project-1-build-a-resilient-microservice)
+  - [Project 2: Chaos Engineering Exercise](#project-2-chaos-engineering-exercise)
+  - [Project 3: Multi-Region Deployment](#project-3-multi-region-deployment)
+- [🧪 Reliability Labs](#-reliability-labs)
+  - [Lab 1: Failure Injection](#lab-1-failure-injection)
+- [Test resilience with controlled failures](#test-resilience-with-controlled-failures)
+  - [Lab 2: Load Testing to Failure](#lab-2-load-testing-to-failure)
+  - [Lab 3: Disaster Recovery Drill](#lab-3-disaster-recovery-drill)
+- [Simulate complete region failure](#simulate-complete-region-failure)
+- [📈 Reliability Decision Framework](#-reliability-decision-framework)
+  - [Availability Target Selection](#availability-target-selection)
+  - [Pattern Selection Matrix](#pattern-selection-matrix)
+- [🔍 Troubleshooting Guide](#-troubleshooting-guide)
+  - [Common Reliability Issues](#common-reliability-issues)
+  - [Debugging Tools](#debugging-tools)
+- [📚 Reliability Resources](#-reliability-resources)
+  - [Essential Reading](#essential-reading)
+  - [Key Papers](#key-papers)
+  - [Communities](#communities)
+- [💡 Reliability Wisdom](#-reliability-wisdom)
+- [🎯 Reliability Metrics](#-reliability-metrics)
+  - [Key SRE Indicators](#key-sre-indicators)
+- [⏱️ Time Investment](#-time-investment)
+
+
+
+! Build Unbreakable Systems"
+ This path teaches you to design and operate systems that stay up when everything goes wrong.
+
+**Reading time:** ~6 minutes
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Reliability Journey](#-reliability-journey)
+  - [Phase 1: Reliability Foundations (1 week)](#phase-1-reliability-foundations-1-week)
+  - [Phase 2: Resilience Patterns (2 weeks)](#phase-2-resilience-patterns-2-weeks)
+    - [Week 2: Core Resilience Patterns](#week-2-core-resilience-patterns)
+    - [Week 3: Advanced Patterns](#week-3-advanced-patterns)
+  - [Phase 3: High Availability Architecture (2 weeks)](#phase-3-high-availability-architecture-2-weeks)
+    - [Week 4: HA Design Patterns](#week-4-ha-design-patterns)
+    - [Week 5: Disaster Recovery](#week-5-disaster-recovery)
+  - [Phase 4: Operational Excellence (2 weeks)](#phase-4-operational-excellence-2-weeks)
+    - [Week 6: SRE Implementation](#week-6-sre-implementation)
+    - [Week 7: Continuous Improvement](#week-7-continuous-improvement)
+- [📊 Reliability Projects](#-reliability-projects)
+  - [Project 1: Build a Resilient Microservice](#project-1-build-a-resilient-microservice)
+  - [Project 2: Chaos Engineering Exercise](#project-2-chaos-engineering-exercise)
+  - [Project 3: Multi-Region Deployment](#project-3-multi-region-deployment)
+- [🧪 Reliability Labs](#-reliability-labs)
+  - [Lab 1: Failure Injection](#lab-1-failure-injection)
+- [Test resilience with controlled failures](#test-resilience-with-controlled-failures)
+  - [Lab 2: Load Testing to Failure](#lab-2-load-testing-to-failure)
+  - [Lab 3: Disaster Recovery Drill](#lab-3-disaster-recovery-drill)
+- [Simulate complete region failure](#simulate-complete-region-failure)
+- [📈 Reliability Decision Framework](#-reliability-decision-framework)
+  - [Availability Target Selection](#availability-target-selection)
+  - [Pattern Selection Matrix](#pattern-selection-matrix)
+- [🔍 Troubleshooting Guide](#-troubleshooting-guide)
+  - [Common Reliability Issues](#common-reliability-issues)
+  - [Debugging Tools](#debugging-tools)
+- [📚 Reliability Resources](#-reliability-resources)
+  - [Essential Reading](#essential-reading)
+  - [Key Papers](#key-papers)
+  - [Communities](#communities)
+- [💡 Reliability Wisdom](#-reliability-wisdom)
+- [🎯 Reliability Metrics](#-reliability-metrics)
+  - [Key SRE Indicators](#key-sre-indicators)
+- [⏱️ Time Investment](#-time-investment)
+
+
 
 !!! abstract "Build Unbreakable Systems"
  This path teaches you to design and operate systems that stay up when everything goes wrong. Learn patterns, practices, and principles for achieving 99.99%+ availability in distributed systems.
@@ -235,7 +343,7 @@ challenges:
 
 ### Lab 1: Failure Injection
 ```python
-# Test resilience with controlled failures
+## Test resilience with controlled failures
 def chaos_test():
  scenarios = [
  "network_partition",
@@ -270,7 +378,7 @@ metrics:
 
 ### Lab 3: Disaster Recovery Drill
 ```bash
-# Simulate complete region failure
+## Simulate complete region failure
 1. Document current state
 2. Trigger region failure
 3. Measure detection time

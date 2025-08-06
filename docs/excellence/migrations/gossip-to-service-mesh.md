@@ -197,7 +197,7 @@ class GossipServiceDiscovery:
 ### After: Service Mesh Discovery
 
 ```python
-# Istio/Envoy automatically handles discovery
+## Istio/Envoy automatically handles discovery
 class ServiceMeshClient:
     def __init__(self, service_name: str):
         self.service_name = service_name
@@ -219,7 +219,7 @@ class ServiceMeshClient:
         )
         return response
 
-# Configuration via ConfigMap (Kubernetes)
+## Configuration via ConfigMap (Kubernetes)
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -270,7 +270,7 @@ graph TD
 
 ### Gossip-based Config
 ```python
-# Old: Custom propagation
+## Old: Custom propagation
 def propagate_config(self, config):
     self.config_version += 1
     for peer in self.select_random_peers():
@@ -279,7 +279,7 @@ def propagate_config(self, config):
 
 ### Service Mesh Config
 ```yaml
-# New: Declarative configuration
+## New: Declarative configuration
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -297,7 +297,7 @@ spec:
 ### From SWIM to Mesh Health Checks
 
 ```yaml
-# Envoy health check configuration
+## Envoy health check configuration
 healthChecks:
 - timeout: 3s
   interval: 10s

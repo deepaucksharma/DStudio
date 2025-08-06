@@ -120,7 +120,7 @@ last_updated: 2025-07-20
    ```python
    @retry_with_backoff(max_attempts=5, exceptions=(ConnectionError,))
    def call_external_api():
-# API call that might fail
+## API call that might fail
        return requests.get("https://api.example.com/data")
    ```
 
@@ -143,7 +143,7 @@ last_updated: 2025-07-20
 
 2. **Check Service Health Dashboard**
    ```bash
-# Health check script
+## Health check script
    services=("user-service" "order-service" "payment-service")
    for service in "${services[@]}"; do
        echo "Checking $service..."
@@ -155,7 +155,7 @@ last_updated: 2025-07-20
 
 4. **Examine Error Patterns**
    ```bash
-# Query logs for error patterns
+## Query logs for error patterns
    kubectl logs -l app=user-service | grep ERROR | tail -100
    ```
 
@@ -181,7 +181,7 @@ last_updated: 2025-07-20
 
 1. **Establish Baseline**
    ```bash
-# Capture current performance metrics
+## Capture current performance metrics
    curl -s "http:/metrics-server/api/v1/query?query=response_time_p95"
    ```
 
@@ -189,7 +189,7 @@ last_updated: 2025-07-20
 
 3. **Load Test Current State**
    ```bash
-# Simple load test
+## Simple load test
    hey -n 1000 -c 10 http:/your-service/api/endpoint
    ```
 
@@ -209,7 +209,7 @@ last_updated: 2025-07-20
 
 1. **Deploy Prometheus**
    ```yaml
-# prometheus-config.yml
+## prometheus-config.yml
    global:
      scrape_interval: 15s
    scrape_configs:
@@ -228,14 +228,14 @@ last_updated: 2025-07-20
    @REQUEST_LATENCY.time()
    def handle_request():
        REQUEST_COUNT.labels(method='GET', endpoint='/api').inc()
-# Your application logic
+## Your application logic
    ```
 
 3. **Create Dashboards**: Golden signals, Service metrics, Infrastructure
 
 4. **Set Up Alerting Rules**
    ```yaml
-# Alert on high error rate
+## Alert on high error rate
    groups:
    - name: application.rules
      rules:
@@ -284,7 +284,7 @@ last_updated: 2025-07-20
 
 3. **Optimize Connection Pooling**
    ```python
-# Configure connection pool
+## Configure connection pool
    DATABASE_URL = "postgresql:/user:pass@host:5432/db?max_connections=20&min_connections=5"
    ```
 
@@ -327,7 +327,7 @@ last_updated: 2025-07-20
 
 3. **Optimize Serialization**
    ```python
-# Use faster JSON serialization
+## Use faster JSON serialization
    import orjson
 
    def fast_json_response(data):
@@ -409,7 +409,7 @@ last_updated: 2025-07-20
 
 1. **Gather Current Metrics**
    ```bash
-# Extract usage patterns
+## Extract usage patterns
    curl "http:/prometheus:9090/api/v1/query_range?query=rate(requests_total[5m])&start=$(date -d '7 days ago' +%s)&end=$(date +%s)&step=3600"
    ```
 
@@ -417,7 +417,7 @@ last_updated: 2025-07-20
 
 3. **Calculate Resource Requirements**
    ```python
-# Simple capacity calculation
+## Simple capacity calculation
    current_rps = 1000  # requests per second
    growth_factor = 2.0  # expected growth
    safety_margin = 1.5  # buffer for spikes

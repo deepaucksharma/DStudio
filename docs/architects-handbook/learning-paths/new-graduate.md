@@ -1,6 +1,24 @@
 ---
 title: New Graduate Learning Path
 description: A structured journey through distributed systems for recent graduates
+type: learning-path
+difficulty: beginner
+reading_time: 15 min
+status: complete
+last_updated: 2025-07-25
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# New Graduate Learning Path
+
+
+
+## Overview
+
+New Graduate Learning Path
+description: A structured journey through distributed systems for recent graduates
   and early-career engineers
 type: learning-path
 difficulty: beginner
@@ -10,6 +28,73 @@ last_updated: 2025-07-25
 ---
 
 # New Graduate Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Recommended Prerequisites](#-recommended-prerequisites)
+- [🗺️ Your Learning Journey](#-your-learning-journey)
+  - [Phase 1: Foundations (2-3 weeks)](#phase-1-foundations-2-3-weeks)
+  - [📈 Phase 1 Progress Tracker](#-phase-1-progress-tracker)
+  - [📊 Phase 1 Checkpoint Assessments](#-phase-1-checkpoint-assessments)
+  - [Phase 2: Essential Patterns (3-4 weeks)](#phase-2-essential-patterns-3-4-weeks)
+  - [📝 Phase 2 Hands-On Projects](#-phase-2-hands-on-projects)
+  - [Phase 3: Real-World Applications (2-3 weeks)](#phase-3-real-world-applications-2-3-weeks)
+  - [🏆 Phase 3 Capstone Project](#-phase-3-capstone-project)
+  - [Phase 4: Interview Preparation (1-2 weeks)](#phase-4-interview-preparation-1-2-weeks)
+  - [🌟 Phase 4 Success Metrics](#-phase-4-success-metrics)
+- [📊 Progress Tracking](#-progress-tracking)
+  - [Foundations Checklist](#foundations-checklist)
+  - [Patterns Checklist](#patterns-checklist)
+  - [Case Studies Checklist](#case-studies-checklist)
+  - [Interview Prep Checklist](#interview-prep-checklist)
+- [🎓 Next Steps & Beyond](#-next-steps-beyond)
+  - [🚀 After Completing This Path](#-after-completing-this-path)
+  - [🎉 Congratulations! Resources & Support](#-resources-support)
+  - [📖 Essential Reading List](#-essential-reading-list)
+  - [🤝 Get Help](#-get-help)
+- [💡 Tips for Success](#-tips-for-success)
+- [🗓️ Time Commitment](#-time-commitment)
+  - [🎯 Final Advice](#-final-advice)
+
+
+
+!
+
+**Reading time:** ~11 minutes
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Recommended Prerequisites](#-recommended-prerequisites)
+- [🗺️ Your Learning Journey](#-your-learning-journey)
+  - [Phase 1: Foundations (2-3 weeks)](#phase-1-foundations-2-3-weeks)
+  - [📈 Phase 1 Progress Tracker](#-phase-1-progress-tracker)
+  - [📊 Phase 1 Checkpoint Assessments](#-phase-1-checkpoint-assessments)
+  - [Phase 2: Essential Patterns (3-4 weeks)](#phase-2-essential-patterns-3-4-weeks)
+  - [📝 Phase 2 Hands-On Projects](#-phase-2-hands-on-projects)
+  - [Phase 3: Real-World Applications (2-3 weeks)](#phase-3-real-world-applications-2-3-weeks)
+  - [🏆 Phase 3 Capstone Project](#-phase-3-capstone-project)
+  - [Phase 4: Interview Preparation (1-2 weeks)](#phase-4-interview-preparation-1-2-weeks)
+  - [🌟 Phase 4 Success Metrics](#-phase-4-success-metrics)
+- [📊 Progress Tracking](#-progress-tracking)
+  - [Foundations Checklist](#foundations-checklist)
+  - [Patterns Checklist](#patterns-checklist)
+  - [Case Studies Checklist](#case-studies-checklist)
+  - [Interview Prep Checklist](#interview-prep-checklist)
+- [🎓 Next Steps & Beyond](#-next-steps-beyond)
+  - [🚀 After Completing This Path](#-after-completing-this-path)
+  - [🎉 Congratulations!](#-congratulations)
+- [📚 Resources & Support](#-resources-support)
+  - [📖 Essential Reading List](#-essential-reading-list)
+  - [🤝 Get Help](#-get-help)
+- [💡 Tips for Success](#-tips-for-success)
+- [🗓️ Time Commitment](#-time-commitment)
+  - [🎯 Final Advice](#-final-advice)
+
+
 
 !!! abstract "Your Journey Begins"
  Welcome to distributed systems! This learning path is designed for recent graduates and engineers with 0-2 years of experience. You'll build a solid foundation in distributed systems principles before diving into real-world applications.

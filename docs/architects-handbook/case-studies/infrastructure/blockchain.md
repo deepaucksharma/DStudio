@@ -74,6 +74,49 @@ migration_guide:
 
 # Blockchain Architecture: Distributed Consensus at Scale
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Business Context & Evolution](#business-context-evolution)
+  - [The Distributed Trust Problem](#the-distributed-trust-problem)
+  - [Industry Adoption Timeline](#industry-adoption-timeline)
+- [Core Technical Architecture](#core-technical-architecture)
+  - [Fundamental Components](#fundamental-components)
+  - [Detailed Block Structure](#detailed-block-structure)
+- [Deep Dive: Consensus Mechanisms](#deep-dive-consensus-mechanisms)
+  - [1. Proof of Work (PoW) - Bitcoin's Approach](#1-proof-of-work-pow-bitcoins-approach)
+  - [2. Proof of Stake (PoS) - Ethereum 2.0's Approach](#2-proof-of-stake-pos-ethereum-20s-approach)
+  - [3. Practical Byzantine Fault Tolerance (pBFT)](#3-practical-byzantine-fault-tolerance-pbft)
+- [Advanced Technical Components](#advanced-technical-components)
+  - [Merkle Tree Implementation](#merkle-tree-implementation)
+  - [Smart Contract Virtual Machine](#smart-contract-virtual-machine)
+- [Scalability Solutions & Layer 2 Technologies](#scalability-solutions-layer-2-technologies)
+  - [1. State Channels (Lightning Network)](#1-state-channels-lightning-network)
+  - [2. Rollup Technologies](#2-rollup-technologies)
+- [Performance Analysis & Benchmarking](#performance-analysis-benchmarking)
+  - [2025 Blockchain Performance Comparison](#2025-blockchain-performance-comparison)
+  - [Real-World Performance Metrics](#real-world-performance-metrics)
+- [Economic Analysis & Cost Modeling](#economic-analysis-cost-modeling)
+  - [Total Cost of Ownership (TCO) Analysis](#total-cost-of-ownership-tco-analysis)
+- [Example usage](#example-usage)
+- [Results would show Hyperledger as most cost-effective for enterprise](#results-would-show-hyperledger-as-most-cost-effective-for-enterprise)
+- [despite higher development costs, due to low transaction fees](#despite-higher-development-costs-due-to-low-transaction-fees)
+  - [ROI Analysis for Enterprise Blockchain](#roi-analysis-for-enterprise-blockchain)
+- [Failure Analysis & Lessons Learned](#failure-analysis-lessons-learned)
+  - [Historic Blockchain Failures](#historic-blockchain-failures)
+- [Modern Alternatives & When to Use](#modern-alternatives-when-to-use)
+  - [Decision Matrix for Blockchain Adoption](#decision-matrix-for-blockchain-adoption)
+  - [When NOT to Use Blockchain](#when-not-to-use-blockchain)
+- [Future Trends & 2025-2030 Roadmap](#future-trends-2025-2030-roadmap)
+  - [Emerging Technologies](#emerging-technologies)
+- [Key Takeaways for System Architects](#key-takeaways-for-system-architects)
+  - [Implementation Checklist](#implementation-checklist)
+- [Cross-References & Related Topics](#cross-references-related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns](#related-patterns)
+  - [Related Case Studies](#related-case-studies)
+- [External Resources](#external-resources)
+
 !!! warning "Excellence Badge"
     🥉 **Bronze Tier**: Innovative but limited practical applicability due to scalability and energy constraints
 
@@ -1299,7 +1342,7 @@ class BlockchainTCOCalculator:
         
         return results
 
-# Example usage
+## Example usage
 calculator = BlockchainTCOCalculator(
     blockchain_type='ethereum',
     transaction_volume=10000,  # 10K transactions per day
@@ -1310,8 +1353,8 @@ tco_analysis = calculator.compare_alternatives([
     'bitcoin', 'polygon', 'hyperledger'
 ])
 
-# Results would show Hyperledger as most cost-effective for enterprise
-# despite higher development costs, due to low transaction fees
+## Results would show Hyperledger as most cost-effective for enterprise
+## despite higher development costs, due to low transaction fees
 ```
 
 ### ROI Analysis for Enterprise Blockchain

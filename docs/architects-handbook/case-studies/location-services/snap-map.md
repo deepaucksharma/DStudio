@@ -34,3 +34,9 @@ This case study would explore Snap Map's architecture for real-time location sha
 ## External Resources
 - [Snap Map Privacy](https://support.snapchat.com/en-US/article/snap-map-privacy-settings/)
 - [Location Sharing Best Practices](https://support.snapchat.com/en-US/article/location-sharing/)
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [Learning Paths](/architects-handbook/learning-paths)

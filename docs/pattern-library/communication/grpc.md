@@ -124,7 +124,7 @@ gRPC **achieves high-performance communication** by **using binary Protocol Buff
 <details>
 <summary>📄 View implementation code</summary>
 
-# user_service.proto
+## user_service.proto
 syntax = "proto3";
 
 service UserService {
@@ -141,7 +141,7 @@ message User {
   int64 created_at = 4;
 }
 
-# Python implementation
+## Python implementation
 import grpc
 import user_service_pb2_grpc as user_pb2_grpc
 import user_service_pb2 as user_pb2
@@ -176,7 +176,7 @@ class UserService(user_pb2_grpc.UserServiceServicer):
         
         return user_pb2.CreateUsersResponse(count=created_count)
 
-# Client usage
+## Client usage
 def use_grpc_client():
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = user_pb2_grpc.UserServiceStub(channel)

@@ -8,8 +8,10 @@ prerequisites: []
 pattern_type: various
 status: stub
 last_updated: 2025-01-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
-
 
 # Stochastic Processes
 

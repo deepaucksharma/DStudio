@@ -1,9 +1,76 @@
 ---
 title: Interactive
 description: Interactive overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Interactive Interview Practice Tools
+
+
+
+## Overview
+
+Interactive
+description: Interactive overview and navigation
+---
+
+# Interactive Interview Practice Tools
+
+## Table of Contents
+
+- [🛠️ Available Tools](#-available-tools)
+- [🎯 How to Use These Tools](#-how-to-use-these-tools)
+  - [For New Managers (L6 Target)](#for-new-managers-l6-target)
+  - [For Senior Managers (L7-L8 Target)](#for-senior-managers-l7-l8-target)
+  - [For Directors+ (L8+ Target)](#for-directors-l8-target)
+- [📱 Mobile Usage](#-mobile-usage)
+- [💡 Pro Tips](#-pro-tips)
+  - [Maximize Tool Effectiveness](#maximize-tool-effectiveness)
+  - [Tool Combinations](#tool-combinations)
+- [🔄 Continuous Improvement](#-continuous-improvement)
+- [🎮 Gamification Elements](#-gamification-elements)
+  - [Story Master 📚](#story-master-)
+  - [Time Ninja ⏱️](#time-ninja-)
+  - [Decision Expert 🌳](#decision-expert-)
+  - [Question Champion 💯](#question-champion-)
+  - [Assessment Pro 📊](#assessment-pro-)
+- [🚀 Getting Started](#-getting-started)
+
+
+
+> Enhance your engineering leadership interview preparation with hands-on interactive tools
+
+## 🛠️ Available Tools
+
+<div class="grid cards" markdown>
+
+- :material-timer:{ . Interview Timer](.
+
+**Reading time:** ~2 minutes
+
+## Table of Contents
+
+- [🛠️ Available Tools](#-available-tools)
+- [🎯 How to Use These Tools](#-how-to-use-these-tools)
+  - [For New Managers (L6 Target)](#for-new-managers-l6-target)
+  - [For Senior Managers (L7-L8 Target)](#for-senior-managers-l7-l8-target)
+  - [For Directors+ (L8+ Target)](#for-directors-l8-target)
+- [📱 Mobile Usage](#-mobile-usage)
+- [💡 Pro Tips](#-pro-tips)
+  - [Maximize Tool Effectiveness](#maximize-tool-effectiveness)
+  - [Tool Combinations](#tool-combinations)
+- [🔄 Continuous Improvement](#-continuous-improvement)
+- [🎮 Gamification Elements](#-gamification-elements)
+  - [Story Master 📚](#story-master-)
+  - [Time Ninja ⏱️](#time-ninja-)
+  - [Decision Expert 🌳](#decision-expert-)
+  - [Question Champion 💯](#question-champion-)
+  - [Assessment Pro 📊](#assessment-pro-)
+- [🚀 Getting Started](#-getting-started)
+
+
 
 > Enhance your engineering leadership interview preparation with hands-on interactive tools
 

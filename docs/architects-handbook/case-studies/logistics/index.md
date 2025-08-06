@@ -1,5 +1,50 @@
 # Logistics & Supply Chain Case Studies
 
+## Table of Contents
+
+- [📦 Case Studies Overview](#-case-studies-overview)
+  - [**Difficulty Levels**](#difficulty-levels)
+  - [**Key Learning Areas**](#key-learning-areas)
+- [📋 Case Study Catalog](#-case-study-catalog)
+  - [**Real-time Package Tracking**](#real-time-package-tracking)
+  - [**Route Optimization Systems**](#route-optimization-systems)
+  - [**Warehouse Automation**](#warehouse-automation)
+- [🎯 Learning Paths](#-learning-paths)
+  - [**Logistics Architecture Fundamentals**](#logistics-architecture-fundamentals)
+  - [**Real-time Operations Track**](#real-time-operations-track)
+  - [**Scale & Efficiency Track**  ](#scale-efficiency-track-)
+- [🏗️ Logistics Architecture Patterns](#-logistics-architecture-patterns)
+  - [**Event-Driven Patterns**](#event-driven-patterns)
+  - [**Optimization Patterns**](#optimization-patterns)
+  - [**Integration Patterns**](#integration-patterns)
+- [📊 Logistics System Characteristics](#-logistics-system-characteristics)
+  - [**Performance Requirements**](#performance-requirements)
+  - [**Scale Characteristics**](#scale-characteristics)
+- [🔍 Pattern Cross-References](#-pattern-cross-references)
+  - [**Core Patterns**](#core-patterns)
+  - [**Optimization Patterns**](#optimization-patterns)
+  - [**Scale Patterns**](#scale-patterns)
+- [🏆 Real-World Examples](#-real-world-examples)
+  - [**Amazon Logistics**](#amazon-logistics)
+  - [**UPS (United Parcel Service)**](#ups-united-parcel-service)
+  - [**FedEx Corporation**](#fedex-corporation)
+  - [**DHL International**](#dhl-international)
+  - [**Alibaba Logistics (Cainiao)**](#alibaba-logistics-cainiao)
+- [📊 Logistics Technology Stack](#-logistics-technology-stack)
+  - [**Tracking & Visibility**](#tracking-visibility)
+  - [**Optimization Engines**](#optimization-engines)
+  - [**Automation Systems**](#automation-systems)
+  - [**Integration Platforms**](#integration-platforms)
+- [💡 Key Takeaways](#-key-takeaways)
+  - [**Logistics-Specific Considerations**](#logistics-specific-considerations)
+  - [**Common Anti-Patterns to Avoid**](#common-anti-patterns-to-avoid)
+- [🚚 Logistics Industry Trends](#-logistics-industry-trends)
+  - [**Emerging Technologies**](#emerging-technologies)
+  - [**Sustainability Focus**](#sustainability-focus)
+  - [**Customer Experience**](#customer-experience)
+
+
+
 > Building intelligent, efficient, and resilient logistics systems at global scale
 
 Logistics systems orchestrate complex supply chains, optimize delivery routes, and manage real-time inventory across global networks. This collection examines how leading logistics companies have built systems to handle billions of packages, optimize last-mile delivery, and create seamless end-to-end supply chain visibility.

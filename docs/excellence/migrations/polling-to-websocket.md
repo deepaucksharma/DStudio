@@ -96,7 +96,7 @@ websocket_infrastructure:
 ### SSE Infrastructure Setup
 
 ```nginx
-# Nginx configuration for SSE
+## Nginx configuration for SSE
 location /events {
     proxy_pass http:/sse_backend;
     proxy_http_version 1.1;
@@ -348,7 +348,7 @@ ws.on('message', (data) => {
 ### Step 1: Server-Side WebSocket Implementation
 
 ```python
-# FastAPI WebSocket implementation
+## FastAPI WebSocket implementation
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from typing import Dict, Set
 import json
@@ -414,7 +414,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 ### Step 2: Load Balancer Configuration
 
 ```yaml
-# HAProxy configuration for WebSocket
+## HAProxy configuration for WebSocket
 global
     maxconn 50000
     tune.ssl.default-dh-param 2048
@@ -486,7 +486,7 @@ monitoring_setup:
 ### Load Testing WebSockets
 
 ```python
-# WebSocket load testing with locust
+## WebSocket load testing with locust
 from locust import User, task, between
 import websocket
 import json
@@ -530,21 +530,21 @@ class WebSocketUser(User):
 
 ```bash
 #!/bin/bash
-# migration-validation.sh
+## migration-validation.sh
 
-# Test 1: Verify dual support
+## Test 1: Verify dual support
 echo "Testing dual support..."
 curl -X GET https://api.example.com/data  # Polling endpoint
 wscat -c wss:/api.example.com/ws  # WebSocket endpoint
 
-# Test 2: Fallback mechanism
+## Test 2: Fallback mechanism
 echo "Testing fallback..."
-# Block WebSocket port temporarily
+## Block WebSocket port temporarily
 iptables -A OUTPUT -p tcp --dport 443 -j DROP
-# Verify client falls back to polling
+## Verify client falls back to polling
 node test-client.js --expect-fallback
 
-# Test 3: Performance comparison
+## Test 3: Performance comparison
 echo "Running performance comparison..."
 artillery run polling-scenario.yml -o polling-results.json
 artillery run websocket-scenario.yml -o websocket-results.json
@@ -607,7 +607,7 @@ class RobustWebSocket {
 
 **Solution:**
 ```python
-# Implement connection recycling
+## Implement connection recycling
 class ConnectionRecycler:
     def __init__(self, max_age_hours=24):
         self.max_age = max_age_hours * 3600

@@ -1,11 +1,11 @@
 ---
-title: [Pattern Name]
-description: [One-line description of what the pattern solves]
+title: "[Pattern Name]"
+description: "[One-line description of what the pattern solves]"
 type: pattern
 category: communication|resilience|data-management|scaling|architecture|coordination
 difficulty: beginner|intermediate|advanced
-reading_time: [X] min
-prerequisites: [list of required knowledge]
+reading_time: "[X] min"
+prerequisites: ["list of required knowledge"]
 excellence_tier: gold|silver|bronze
 pattern_status: recommended|stable|use-with-expertise|use-with-caution|legacy
 introduced: YYYY-MM
@@ -155,7 +155,7 @@ graph TB
 ### Basic Example
 
 ```python
-# Minimal example showing core concept (10-15 lines MAX)
+## Minimal example showing core concept (10-15 lines MAX)
 def pattern_example():
     """Shows the essential pattern mechanism"""
     # Key step 1

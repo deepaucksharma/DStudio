@@ -1,4 +1,50 @@
+---
+title: Structured Learning Path Template
+description: Documentation for Structured Learning Path Template
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
 # Structured Learning Path Template
+
+
+
+## Overview
+
+Structured Learning Path Template
+
+## Table of Contents
+
+- [Example: Distributed Systems Foundations Path](#example-distributed-systems-foundations-path)
+  - [Before: Vague Promises ❌](#before-vague-promises-)
+  - [After: SMART Learning Path ✅](#after-smart-learning-path-)
+- [Distributed Systems Foundations](#distributed-systems-foundations)
+- [Learning Outcome](#learning-outcome)
+- [Prerequisites Check](#prerequisites-check)
+- [Week-by-Week Breakdown](#week-by-week-breakdown)
+  - [Week 1: Monolith Baseline](#week-1-monolith-baseline)
+  - [Week 2: Horizontal Scaling](#week-2-horizontal-scaling)
+  - [Week 3: Data Layer Distribution](#week-3-data-layer-distribution)
+  - [Week 4: Caching & Performance](#week-4-caching-performance)
+  - [Week 5: High Availability](#week-5-high-availability)
+  - [Week 6: Observability](#week-6-observability)
+  - [Week 7: Security & Compliance](#week-7-security-compliance)
+  - [Week 8: Global Distribution](#week-8-global-distribution)
+  - [Week 9: Scale to 10K RPS](#week-9-scale-to-10k-rps)
+  - [Week 10: Production Operations](#week-10-production-operations)
+- [Progress Tracking](#progress-tracking)
+  - [Weekly Milestones](#weekly-milestones)
+  - [Skills Acquired](#skills-acquired)
+- [Capstone Project](#capstone-project)
+- [Learning Resources](#learning-resources)
+  - [Required Reading (In Order)](#required-reading-in-order)
+  - [Reference Documentation](#reference-documentation)
+  - [Community & Support](#community-support)
+- [Certification Path](#certification-path)
+- [FAQ](#faq)
+
+
 
 ## Example: Distributed Systems Foundations Path
 
@@ -10,7 +56,104 @@
 
 ### After: SMART Learning Path ✅
 
-# Distributed Systems Foundations
+## Distributed Systems Foundations
+**Build a Production-Ready URL Shortener Handling 10K RPS**
+
+## Learning Outcome
+By completing this 10-week path, you will:
+- **Build** a distributed URL shortener from scratch
+- **Scale** it to handle 10,000 requests per second
+- **Deploy** across 3 geographic regions
+- **Achieve** <100ms p99 latency globally
+- **Pass** chaos testing with 99. Prerequisites Check
+
+| Requirement | Self-Assessment | Resources if Needed |
+|-------------|-----------------|---------------------|
+| Basic programming (any language) | ⬜ Yes ⬜ No | [Programming basics] |
+| HTTP/REST concepts | ⬜ Yes ⬜ No | [REST tutorial] |
+| Basic database knowledge | ⬜ Yes ⬜ No | [SQL basics] |
+| Command line comfort | ⬜ Yes ⬜ No | [Terminal guide] |
+
+## Week-by-Week Breakdown
+
+### Week 1: Monolith Baseline
+**Goal**: Build working URL shortener handling 100 RPS
+
+| Day | Topic | Hands-On | Checkpoint |
+|-----|-------|----------|------------|
+| 1 | System design basics | Design on paper | Architecture diagram |
+| 2 | Database schema | Implement schema | Working database |
+| 3 | Core API | Build REST endpoints | `/shorten`, `/redirect` working |
+| 4 | Caching layer | Add Redis | 90% cache hit rate |
+| 5 | Load testing | Use JMeter/k6 | Baseline: 100 RPS |
+
+**Deliverable**: Single-node URL shortener with tests
+
+### Week 2: Horizontal Scaling
+**Goal**: Scale to 1,000 RPS with multiple instances
+
+| Day | Topic | Hands-On | Checkpoint |
+|-----|-------|----------|------------|
+| 1 | Load balancing | Deploy HAProxy/nginx | Round-robin working |
+| 2 | Session management | Implement stateless design | No sticky sessions |
+| 3 | Database connection pooling | Configure pool | No connection exhaustion |
+| 4 | Horizontal scaling | Deploy 3 instances | Linear scaling verified |
+| 5 | Monitoring setup | Prometheus + Grafana | Dashboards live |
+
+**Deliverable**: Multi-instance deployment hitting 1K RPS
+
+### Week 3: Data Layer Distribution
+**Goal**: Implement sharding for 1M+ URLs
+
+| Day | Topic | Hands-On | Checkpoint |
+|-----|-------|----------|------------|
+| 1 | [Consistent hashing](/.
+
+**Reading time:** ~5 minutes
+
+## Table of Contents
+
+- [Example: Distributed Systems Foundations Path](#example-distributed-systems-foundations-path)
+  - [Before: Vague Promises ❌](#before-vague-promises-)
+  - [After: SMART Learning Path ✅](#after-smart-learning-path-)
+- [Distributed Systems Foundations](#distributed-systems-foundations)
+- [Learning Outcome](#learning-outcome)
+- [Prerequisites Check](#prerequisites-check)
+- [Week-by-Week Breakdown](#week-by-week-breakdown)
+  - [Week 1: Monolith Baseline](#week-1-monolith-baseline)
+  - [Week 2: Horizontal Scaling](#week-2-horizontal-scaling)
+  - [Week 3: Data Layer Distribution](#week-3-data-layer-distribution)
+  - [Week 4: Caching & Performance](#week-4-caching-performance)
+  - [Week 5: High Availability](#week-5-high-availability)
+  - [Week 6: Observability](#week-6-observability)
+  - [Week 7: Security & Compliance](#week-7-security-compliance)
+  - [Week 8: Global Distribution](#week-8-global-distribution)
+  - [Week 9: Scale to 10K RPS](#week-9-scale-to-10k-rps)
+  - [Week 10: Production Operations](#week-10-production-operations)
+- [Progress Tracking](#progress-tracking)
+  - [Weekly Milestones](#weekly-milestones)
+  - [Skills Acquired](#skills-acquired)
+- [Capstone Project](#capstone-project)
+- [Learning Resources](#learning-resources)
+  - [Required Reading (In Order)](#required-reading-in-order)
+  - [Reference Documentation](#reference-documentation)
+  - [Community & Support](#community-support)
+- [Certification Path](#certification-path)
+- [FAQ](#faq)
+
+
+
+## Example: Distributed Systems Foundations Path
+
+### Before: Vague Promises ❌
+- "Learn distributed systems concepts"
+- "Understand scalability"
+- "Master microservices"
+- "Become a better architect"
+
+### After: SMART Learning Path ✅
+
+## Distributed Systems Foundations
 **Build a Production-Ready URL Shortener Handling 10K RPS**
 
 ## Learning Outcome

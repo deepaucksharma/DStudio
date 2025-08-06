@@ -120,24 +120,24 @@ Expiration Policies:
 
 1. **Deploy HashiCorp Vault**
 ```bash
-# Install Vault on Kubernetes
+## Install Vault on Kubernetes
 helm repo add hashicorp https://helm.releases.hashicorp.com
 helm install vault hashicorp/vault \
   --set="server.ha.enabled=true" \
   --set="server.ha.replicas=3" \
   --set="ui.enabled=true"
 
-# Initialize and unseal Vault
+## Initialize and unseal Vault
 kubectl exec vault-0 -- vault operator init
 kubectl exec vault-0 -- vault operator unseal
 ```
 
 2. **Configure Authentication**
 ```bash
-# Enable Kubernetes auth method
+## Enable Kubernetes auth method
 vault auth enable kubernetes
 
-# Configure Kubernetes auth
+## Configure Kubernetes auth
 vault write auth/kubernetes/config \
     token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
     kubernetes_host="https://kubernetes.default.svc.cluster.local" \
@@ -148,10 +148,10 @@ vault write auth/kubernetes/config \
 
 1. **Database Secret Engine**
 ```bash
-# Enable database secret engine
+## Enable database secret engine
 vault secrets enable database
 
-# Configure PostgreSQL connection
+## Configure PostgreSQL connection
 vault write database/config/postgresql \
     plugin_name=postgresql-database-plugin \
     connection_url="postgresql:/{{username}}:{{password}}@postgres:5432/mydb" \
@@ -159,7 +159,7 @@ vault write database/config/postgresql \
     username="vaultadmin" \
     password="secretpassword"
 
-# Create dynamic role
+## Create dynamic role
 vault write database/roles/readonly \
     db_name=postgresql \
     creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";"
@@ -169,15 +169,15 @@ vault write database/roles/readonly \
 
 2. **PKI Secret Engine**
 ```bash
-# Enable PKI engine
+## Enable PKI engine
 vault secrets enable pki
 
-# Configure CA certificate
+## Configure CA certificate
 vault write pki/root/generate/internal \
     common_name="Company Internal CA" \
     ttl=87600h
 
-# Configure certificate role
+## Configure certificate role
 vault write pki/roles/server-cert \
     allowed_domains="company.com" \
     allow_subdomains=true \
@@ -219,7 +219,7 @@ data:
 
 2. **Application Secret Injection**
 ```yaml
-# Kubernetes Deployment with Vault Agent
+## Kubernetes Deployment with Vault Agent
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -247,7 +247,7 @@ spec:
 
 1. **Secret Rotation Automation**
 ```python
-# Automated rotation script
+## Automated rotation script
 import hvac
 import schedule
 import time
@@ -293,7 +293,7 @@ if __name__ == "__main__":
 
 2. **Compliance and Auditing**
 ```yaml
-# Audit configuration
+## Audit configuration
 auditing:
   enabled: true
   backends:

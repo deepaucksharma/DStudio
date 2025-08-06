@@ -62,6 +62,129 @@ lessons_learned:
 
 # Design a Payment System
 
+## Table of Contents
+
+- [Patterns Demonstrated](#patterns-demonstrated)
+- [1. Problem Statement](#1-problem-statement)
+  - [Real-World Context](#real-world-context)
+- [Introduction](#introduction)
+- [2. Requirements Analysis](#2-requirements-analysis)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Law Mapping](#law-mapping)
+- [Architecture Evolution](#architecture-evolution)
+  - [Phase 1: Monolithic Payment Gateway](#phase-1-monolithic-payment-gateway)
+  - [Phase 2: Microservices Architecture (Current)](#phase-2-microservices-architecture-current)
+- [Concept Map](#concept-map)
+- [Key Design Decisions](#key-design-decisions)
+  - [1. Transaction Processing Model](#1-transaction-processing-model)
+- [Cryptographic signature for tamper detection](#cryptographic-signature-for-tamper-detection)
+  - [2. Distributed Transaction Management](#2-distributed-transaction-management)
+  - [3. Idempotency and Exactly-Once Processing](#3-idempotency-and-exactly-once-processing)
+- [Check if already processed](#check-if-already-processed)
+- [Acquire distributed lock](#acquire-distributed-lock)
+- [Double-check after acquiring lock](#double-check-after-acquiring-lock)
+- [Process payment](#process-payment)
+- [Store result with TTL](#store-result-with-ttl)
+- [Validate request](#validate-request)
+- [Create payment record](#create-payment-record)
+- [Execute payment saga](#execute-payment-saga)
+  - [4. Double-Entry Bookkeeping](#4-double-entry-bookkeeping)
+- [Technical Deep Dives](#technical-deep-dives)
+  - [Real-time Fraud Detection](#real-time-fraud-detection)
+- [Parallel fraud checks](#parallel-fraud-checks)
+- [Combine scores](#combine-scores)
+- [Weighted combination](#weighted-combination)
+- [Real-time feature engineering](#real-time-feature-engineering)
+- [Check transaction velocity](#check-transaction-velocity)
+  - [Multi-Currency Support](#multi-currency-support)
+  - [Settlement and Reconciliation](#settlement-and-reconciliation)
+- [Get all transactions for the day](#get-all-transactions-for-the-day)
+- [Group by settlement entity](#group-by-settlement-entity)
+- [Create settlement batches](#create-settlement-batches)
+- [Execute settlements in parallel](#execute-settlements-in-parallel)
+- [Wait for all settlements](#wait-for-all-settlements)
+- [Reconciliation](#reconciliation)
+- [Calculate net amount](#calculate-net-amount)
+- [Create ledger entries](#create-ledger-entries)
+- [Post to ledger atomically](#post-to-ledger-atomically)
+- [Initiate bank transfer](#initiate-bank-transfer)
+- [Compare ledger vs bank statements](#compare-ledger-vs-bank-statements)
+- [Automated investigation](#automated-investigation)
+  - [Payment Routing](#payment-routing)
+- [Get available routes](#get-available-routes)
+- [Score each route](#score-each-route)
+- [Sort by score (higher is better)](#sort-by-score-higher-is-better)
+- [Try routes in order until one succeeds](#try-routes-in-order-until-one-succeeds)
+- [Multi-factor scoring](#multi-factor-scoring)
+- [Rolling window success rate](#rolling-window-success-rate)
+- [Performance Optimization](#performance-optimization)
+  - [Database Sharding Strategy](#database-sharding-strategy)
+  - [Caching Strategy](#caching-strategy)
+- [Two-tier caching](#two-tier-caching)
+- [Local cache for hot data](#local-cache-for-hot-data)
+- [Redis for distributed cache](#redis-for-distributed-cache)
+- [Check local cache first](#check-local-cache-first)
+- [Check Redis](#check-redis)
+- [Populate local cache](#populate-local-cache)
+- [Remove from both caches](#remove-from-both-caches)
+- [Failure Scenarios](#failure-scenarios)
+  - [1. Network Partition During Payment](#1-network-partition-during-payment)
+  - [2. Database Failure During Settlement](#2-database-failure-during-settlement)
+- [Attempt primary database](#attempt-primary-database)
+- [Failover to secondary](#failover-to-secondary)
+- [Queue for reconciliation](#queue-for-reconciliation)
+- [Both DBs failed - write to durable queue](#both-dbs-failed-write-to-durable-queue)
+- [Return provisional success](#return-provisional-success)
+- [Compliance and Security](#compliance-and-security)
+  - [PCI-DSS Compliance](#pci-dss-compliance)
+- [Never log full card number](#never-log-full-card-number)
+- [Tokenize immediately](#tokenize-immediately)
+- [Delete from memory](#delete-from-memory)
+- [Show only last 4 digits](#show-only-last-4-digits)
+- [Use HSM for encryption](#use-hsm-for-encryption)
+  - [Audit Trail](#audit-trail)
+- [Monitoring and Operations](#monitoring-and-operations)
+  - [Key Metrics](#key-metrics)
+- [4. Detailed Component Design](#4-detailed-component-design)
+  - [4.1 Payment Orchestrator](#41-payment-orchestrator)
+  - [4.2 Distributed Ledger System](#42-distributed-ledger-system)
+- [7. Consistency Deep Dive for Payment Systems](#7-consistency-deep-dive-for-payment-systems)
+  - [7.1 ACID Guarantees in Distributed Payments](#71-acid-guarantees-in-distributed-payments)
+- [Start distributed transaction](#start-distributed-transaction)
+- [Phase 1: Prepare all participants](#phase-1-prepare-all-participants)
+- [Check if all participants voted to commit](#check-if-all-participants-voted-to-commit)
+- [Phase 2: Commit](#phase-2-commit)
+- [Abort transaction](#abort-transaction)
+- [Ensure cleanup on any failure](#ensure-cleanup-on-any-failure)
+  - [7.2 Consistency Trade-offs in Payment Systems](#72-consistency-trade-offs-in-payment-systems)
+- [Lessons Learned](#lessons-learned)
+  - [1. Idempotency is Non-Negotiable](#1-idempotency-is-non-negotiable)
+  - [2. Event Sourcing Provides Perfect Audit Trail](#2-event-sourcing-provides-perfect-audit-trail)
+  - [3. Distributed Transactions Need Compensation](#3-distributed-transactions-need-compensation)
+  - [4. Real-time Fraud Detection Saves Money](#4-real-time-fraud-detection-saves-money)
+  - [5. Multiple Payment Routes Increase Reliability](#5-multiple-payment-routes-increase-reliability)
+- [Pattern Excellence Analysis](#pattern-excellence-analysis)
+  - [Gold Patterns for Financial Systems](#gold-patterns-for-financial-systems)
+  - [Silver Patterns for Scale](#silver-patterns-for-scale)
+  - [Bronze Pattern Caution](#bronze-pattern-caution)
+- [Trade-offs and Decisions](#trade-offs-and-decisions)
+- [9. Real-World Patterns and Lessons](#9-real-world-patterns-and-lessons)
+  - [9.1 The Double-Charge Incident (Stripe, 2019)](#91-the-double-charge-incident-stripe-2019)
+  - [9.2 The Settlement Delay Crisis (PayPal, 2020)](#92-the-settlement-delay-crisis-paypal-2020)
+- [10. Alternative Architectures](#10-alternative-architectures)
+  - [10.1 Event Sourcing for Payments](#101-event-sourcing-for-payments)
+  - [10.2 Blockchain-Based Payments](#102-blockchain-based-payments)
+- [11. Industry Insights](#11-industry-insights)
+  - [Key Principles](#key-principles)
+  - [Future Trends](#future-trends)
+- [Excellence Resources](#excellence-resources)
+  - [Implementation Guides](#implementation-guides)
+  - [Related Case Studies](#related-case-studies)
+  - [Pattern Deep Dives](#pattern-deep-dives)
+  - [Excellence Journeys](#excellence-journeys)
+- [References](#references)
+
 !!! success "Excellence Badge"
     🥇 **Gold Tier**: Battle-tested financial systems with zero data loss guarantee
 
@@ -314,7 +437,7 @@ class PaymentEvent:
         self.signature = self._calculate_signature()
     
     def _calculate_signature(self):
-# Cryptographic signature for tamper detection
+## Cryptographic signature for tamper detection
         payload = f"{self.event_id}:{self.payment_id}:{self.amount}:{self.timestamp}"
         return hmac.new(SECRET_KEY, payload.encode(), hashlib.sha256).hexdigest()
 
@@ -425,23 +548,23 @@ class IdempotentPaymentProcessor:
         self.lock_manager = DistributedLockManager()
     
     def process_payment(self, request, idempotency_key):
-# Check if already processed
+## Check if already processed
         cached_result = self.idempotency_store.get(idempotency_key)
         if cached_result:
             return json.loads(cached_result)
         
-# Acquire distributed lock
+## Acquire distributed lock
         lock_key = f"payment_lock:{idempotency_key}"
         with self.lock_manager.acquire(lock_key, timeout=30):
-# Double-check after acquiring lock
+## Double-check after acquiring lock
             cached_result = self.idempotency_store.get(idempotency_key)
             if cached_result:
                 return json.loads(cached_result)
             
-# Process payment
+## Process payment
             result = self._execute_payment(request)
             
-# Store result with TTL
+## Store result with TTL
             self.idempotency_store.setex(
                 idempotency_key,
                 86400,  # 24 hours
@@ -451,15 +574,15 @@ class IdempotentPaymentProcessor:
             return result
     
     def _execute_payment(self, request):
-# Validate request
+## Validate request
         validation_result = self.validate_request(request)
         if not validation_result.is_valid:
             return PaymentResult.invalid(validation_result.errors)
         
-# Create payment record
+## Create payment record
         payment_id = self.generate_payment_id()
         
-# Execute payment saga
+## Execute payment saga
         saga = PaymentSaga()
         saga_result = saga.execute(payment_id, request)
         
@@ -528,20 +651,20 @@ class FraudDetectionEngine:
         self.velocity_checker = VelocityChecker()
         
     def score_transaction(self, transaction):
-# Parallel fraud checks
+## Parallel fraud checks
         with ThreadPoolExecutor(max_workers=4) as executor:
             ml_future = executor.submit(self._ml_scoring, transaction)
             rule_future = executor.submit(self._rule_checking, transaction)
             velocity_future = executor.submit(self._velocity_checking, transaction)
             device_future = executor.submit(self._device_fingerprinting, transaction)
         
-# Combine scores
+## Combine scores
         ml_score = ml_future.result()
         rule_score = rule_future.result()
         velocity_score = velocity_future.result()
         device_score = device_future.result()
         
-# Weighted combination
+## Weighted combination
         final_score = (
             ml_score * 0.4 +
             rule_score * 0.3 +
@@ -562,7 +685,7 @@ class FraudDetectionEngine:
     
     def _ml_scoring(self, transaction):
         features = self._extract_features(transaction)
-# Real-time feature engineering
+## Real-time feature engineering
         features['hour_of_day'] = transaction.timestamp.hour
         features['day_of_week'] = transaction.timestamp.weekday()
         features['amount_zscore'] = self._calculate_amount_zscore(transaction)
@@ -571,7 +694,7 @@ class FraudDetectionEngine:
         return self.ml_model.predict_proba(features)[0][1]
     
     def _velocity_checking(self, transaction):
-# Check transaction velocity
+## Check transaction velocity
         checks = {
             'card_velocity_1min': self._check_velocity(
                 transaction.card_id, 
@@ -655,39 +778,39 @@ class SettlementEngine:
         self.settlement_accounts = {}
         
     def daily_settlement(self, date):
-# Get all transactions for the day
+## Get all transactions for the day
         transactions = self.get_transactions_for_date(date)
         
-# Group by settlement entity
+## Group by settlement entity
         grouped = self.group_by_settlement_entity(transactions)
         
-# Create settlement batches
+## Create settlement batches
         settlement_batches = []
         for entity, txns in grouped.items():
             batch = self.create_settlement_batch(entity, txns, date)
             settlement_batches.append(batch)
         
-# Execute settlements in parallel
+## Execute settlements in parallel
         with ThreadPoolExecutor(max_workers=10) as executor:
             futures = []
             for batch in settlement_batches:
                 future = executor.submit(self.execute_settlement, batch)
                 futures.append(future)
             
-# Wait for all settlements
+## Wait for all settlements
             results = [f.result() for f in futures]
         
-# Reconciliation
+## Reconciliation
         self.reconcile_settlements(results, date)
         
         return SettlementReport(date, results)
     
     def execute_settlement(self, batch):
         try:
-# Calculate net amount
+## Calculate net amount
             net_amount = sum(t.amount for t in batch.transactions)
             
-# Create ledger entries
+## Create ledger entries
             entries = [
                 LedgerEntry(
                     account=batch.merchant_account,
@@ -703,10 +826,10 @@ class SettlementEngine:
                 )
             ]
             
-# Post to ledger atomically
+## Post to ledger atomically
             self.ledger.post_entries(entries)
             
-# Initiate bank transfer
+## Initiate bank transfer
             transfer_id = self.initiate_bank_transfer(batch)
             
             return SettlementResult(
@@ -724,7 +847,7 @@ class SettlementEngine:
             )
     
     def reconcile_settlements(self, results, date):
-# Compare ledger vs bank statements
+## Compare ledger vs bank statements
         ledger_total = self.ledger.get_settlement_total(date)
         bank_total = self.get_bank_statement_total(date)
         
@@ -732,7 +855,7 @@ class SettlementEngine:
             discrepancy = ledger_total - bank_total
             self.raise_reconciliation_alert(date, discrepancy)
             
-# Automated investigation
+## Automated investigation
             self.investigate_discrepancy(date, discrepancy)
 ```
 
@@ -746,19 +869,19 @@ class IntelligentPaymentRouter:
         self.cost_calculator = CostCalculator()
         
     def route_payment(self, payment_request):
-# Get available routes
+## Get available routes
         available_routes = self.get_available_routes(payment_request)
         
-# Score each route
+## Score each route
         scored_routes = []
         for route in available_routes:
             score = self.score_route(route, payment_request)
             scored_routes.append((score, route))
         
-# Sort by score (higher is better)
+## Sort by score (higher is better)
         scored_routes.sort(reverse=True, key=lambda x: x[0])
         
-# Try routes in order until one succeeds
+## Try routes in order until one succeeds
         for score, route in scored_routes:
             if self.provider_health.is_healthy(route.provider):
                 return route
@@ -766,7 +889,7 @@ class IntelligentPaymentRouter:
         raise NoAvailableRouteException()
     
     def score_route(self, route, request):
-# Multi-factor scoring
+## Multi-factor scoring
         scores = {
             'success_rate': self.get_success_rate(route) * 0.3,
             'cost': (1 - self.normalize_cost(route, request)) * 0.2,
@@ -778,7 +901,7 @@ class IntelligentPaymentRouter:
         return sum(scores.values())
     
     def get_success_rate(self, route):
-# Rolling window success rate
+## Rolling window success rate
         window = datetime.now() - timedelta(hours=1)
         successes = self.get_successful_txns(route, window)
         total = self.get_total_txns(route, window)
@@ -838,13 +961,13 @@ class PaymentCache:
         self.local_cache = LRUCache(maxsize=10000)
         
     def cache_payment_state(self, payment_id, state, ttl=3600):
-# Two-tier caching
+## Two-tier caching
         cache_key = f"payment:{payment_id}"
         
-# Local cache for hot data
+## Local cache for hot data
         self.local_cache[payment_id] = state
         
-# Redis for distributed cache
+## Redis for distributed cache
         self.redis_cluster.setex(
             cache_key,
             ttl,
@@ -852,24 +975,24 @@ class PaymentCache:
         )
     
     def get_payment_state(self, payment_id):
-# Check local cache first
+## Check local cache first
         if payment_id in self.local_cache:
             return self.local_cache[payment_id]
         
-# Check Redis
+## Check Redis
         cache_key = f"payment:{payment_id}"
         cached = self.redis_cluster.get(cache_key)
         
         if cached:
             state = json.loads(cached)
-# Populate local cache
+## Populate local cache
             self.local_cache[payment_id] = state
             return state
         
         return None
     
     def invalidate(self, payment_id):
-# Remove from both caches
+## Remove from both caches
         self.local_cache.pop(payment_id, None)
         self.redis_cluster.delete(f"payment:{payment_id}")
 ```
@@ -905,16 +1028,16 @@ sequenceDiagram
 ```python
 def handle_settlement_db_failure(self, batch):
     try:
-# Attempt primary database
+## Attempt primary database
         return self.execute_settlement_primary(batch)
     except DatabaseException as e:
         log.error(f"Primary DB failed: {e}")
         
-# Failover to secondary
+## Failover to secondary
         try:
             result = self.execute_settlement_secondary(batch)
             
-# Queue for reconciliation
+## Queue for reconciliation
             self.reconciliation_queue.put({
                 'batch_id': batch.batch_id,
                 'reason': 'primary_db_failure',
@@ -924,10 +1047,10 @@ def handle_settlement_db_failure(self, batch):
             return result
             
         except Exception as e2:
-# Both DBs failed - write to durable queue
+## Both DBs failed - write to durable queue
             self.disaster_recovery_queue.put(batch)
             
-# Return provisional success
+## Return provisional success
             return SettlementResult(
                 batch_id=batch.batch_id,
                 status='PROVISIONAL',
@@ -946,26 +1069,26 @@ class PCICompliantCardHandler:
         self.hsm = HardwareSecurityModule()
         
     def handle_card_number(self, card_number):
-# Never log full card number
+## Never log full card number
         masked = self.mask_card_number(card_number)
         log.info(f"Processing card: {masked}")
         
-# Tokenize immediately
+## Tokenize immediately
         token = self.tokenizer.tokenize(card_number)
         
-# Delete from memory
+## Delete from memory
         card_number = None
         
         return token
     
     def mask_card_number(self, card_number):
-# Show only last 4 digits
+## Show only last 4 digits
         if len(card_number) < 4:
             return "****"
         return "*" * (len(card_number) - 4) + card_number[-4:]
     
     def encrypt_sensitive_data(self, data):
-# Use HSM for encryption
+## Use HSM for encryption
         key_id = self.hsm.get_current_key_id()
         encrypted = self.hsm.encrypt(data, key_id)
         
@@ -1164,11 +1287,11 @@ class DistributedPaymentConsistency:
     async def execute_payment_transaction(self, payment: PaymentRequest) -> TransactionResult:
         """Execute payment with distributed ACID guarantees"""
         
-# Start distributed transaction
+## Start distributed transaction
         tx_id = await self.transaction_coordinator.begin_transaction()
         
         try:
-# Phase 1: Prepare all participants
+## Phase 1: Prepare all participants
             prepare_results = await asyncio.gather(
                 self._prepare_debit(tx_id, payment.source_account, payment.amount),
                 self._prepare_credit(tx_id, payment.dest_account, payment.amount),
@@ -1176,18 +1299,18 @@ class DistributedPaymentConsistency:
                 self._prepare_fraud_check(tx_id, payment)
             )
             
-# Check if all participants voted to commit
+## Check if all participants voted to commit
             if all(result.can_commit for result in prepare_results):
-# Phase 2: Commit
+## Phase 2: Commit
                 await self.transaction_coordinator.commit(tx_id)
                 return TransactionResult(success=True, tx_id=tx_id)
             else:
-# Abort transaction
+## Abort transaction
                 await self.transaction_coordinator.abort(tx_id)
                 return TransactionResult(success=False, reason="Prepare phase failed")
                 
         except Exception as e:
-# Ensure cleanup on any failure
+## Ensure cleanup on any failure
             await self.transaction_coordinator.abort(tx_id)
             raise
 ```

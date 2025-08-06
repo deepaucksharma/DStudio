@@ -34,6 +34,56 @@ production_checklist:
 
 # Distributed Rate Limiter
 
+## Table of Contents
+
+- [Challenge Statement](#challenge-statement)
+- [System Architecture Overview](#system-architecture-overview)
+- [Part 1: Concept Map](#part-1-concept-map)
+  - [🗺 System Overview](#system-overview)
+  - [Rate Limiting Algorithms Comparison](#rate-limiting-algorithms-comparison)
+  - [Law Analysis](#law-analysis)
+  - [Request Processing Flow](#request-processing-flow)
+  - [Rate Limiting Algorithm Visualizations](#rate-limiting-algorithm-visualizations)
+  - [Monitoring Dashboard Visualization](#monitoring-dashboard-visualization)
+  - [🏛 Pillar Mapping](#pillar-mapping)
+  - [Pattern Application](#pattern-application)
+- [Part 2: Architecture & Trade-offs](#part-2-architecture-trade-offs)
+  - [Core Architecture](#core-architecture)
+  - [Key Design Trade-offs](#key-design-trade-offs)
+  - [Alternative Architectures](#alternative-architectures)
+  - [Performance Characteristics](#performance-characteristics)
+  - [🎓 Key Lessons](#key-lessons)
+- [Law Mapping Matrix](#law-mapping-matrix)
+  - [Law Implementation Priority](#law-implementation-priority)
+- [Architecture Alternatives Analysis](#architecture-alternatives-analysis)
+  - [Alternative 1: Centralized Redis Cluster](#alternative-1-centralized-redis-cluster)
+  - [Alternative 2: Fully Distributed P2P](#alternative-2-fully-distributed-p2p)
+  - [Alternative 3: Hierarchical Multi-Tier](#alternative-3-hierarchical-multi-tier)
+  - [Alternative 4: Token Bucket Network](#alternative-4-token-bucket-network)
+  - [Alternative 5: ML-Adaptive System](#alternative-5-ml-adaptive-system)
+- [Comparative Trade-off Analysis](#comparative-trade-off-analysis)
+  - [Architecture Comparison Matrix](#architecture-comparison-matrix)
+  - [Decision Framework](#decision-framework)
+  - [Risk Assessment Matrix](#risk-assessment-matrix)
+- [Implementation Best Practices](#implementation-best-practices)
+  - [1. **Optimize for the Common Case**](#1-optimize-for-the-common-case)
+  - [2. **Design for Graceful Degradation**](#2-design-for-graceful-degradation)
+  - [3. 💾 **Memory-Efficient Counting**](#3-memory-efficient-counting)
+  - [4. 🤝 **Eventually Consistent is Usually OK**](#4-eventually-consistent-is-usually-ok)
+  - [5. 👁 **Observable by Design**](#5-observable-by-design)
+- [Key Design Insights](#key-design-insights)
+  - [Pattern Selection Guide](#pattern-selection-guide)
+  - [System Evolution Roadmap](#system-evolution-roadmap)
+  - [Implementation Complexity vs Performance](#implementation-complexity-vs-performance)
+  - [Success Metrics Dashboard](#success-metrics-dashboard)
+  - [📚 References](#references)
+- [Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 Relevant Laws (Part I.md)](#relevant-laws-part-imd)
+  - [🏛 Related Patterns (Part III/index)](#related-patterns-part-iiiindex)
+  - [Quantitative Models](#quantitative-models)
+  - [👥 Human Factors Considerations](#human-factors-considerations)
+  - [Similar Case Studies](#similar-case-studies)
+
 !!! info "Case Study Overview"
     **System**: Rate limiting service for API protection  
     **Scale**: 10M requests/second, 1M unique users  
@@ -1575,3 +1625,4 @@ graph TB
 - **[PayPal Payments](../architects-handbook/case-studies/financial-commerce/paypal-payments.md)** - Rate limiting prevents payment fraud
 - **[Consistent Hashing](../pattern-library/data-management/consistent-hashing.md)** - Core technique for distributing rate limit state
 - **[News Feed System](news-feed.md)** - Rate limiting API calls for feed generation
+```

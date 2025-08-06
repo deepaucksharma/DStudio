@@ -221,7 +221,7 @@ Series Identifier = hash(metric_name + sorted(labels))
 
 **Hybrid Solution**:
 ```yaml
-# Pull for internal services
+## Pull for internal services
 scrape_configs:
   - job_name: 'kubernetes-pods'
     kubernetes_sd_configs:
@@ -231,7 +231,7 @@ scrape_configs:
         action: keep
         regex: true
 
-# Push gateway for short-lived jobs
+## Push gateway for short-lived jobs
 push_gateway:
   endpoint: https://pushgateway.monitoring.svc:9091
   batch_size: 1000
@@ -327,7 +327,7 @@ graph TD
 
 **Problem**: Millions of unique label combinations
 ```
-# Explosion example
+## Explosion example
 metrics = 1000
 services = 100
 endpoints = 50
@@ -345,14 +345,14 @@ def should_sample(series_id, cardinality):
     if cardinality < 1_000_000:
         return True  # Keep all low-cardinality series
     
-# Progressively sample high-cardinality series
+## Progressively sample high-cardinality series
     sample_rate = 1_000_000 / cardinality
     return random.random() < sample_rate
 ```
 
 2. **Label Limits**:
 ```yaml
-# Enforce limits
+## Enforce limits
 global:
   max_samples_per_send: 10000
   max_series_per_metric: 100000
@@ -430,19 +430,19 @@ Global Level (Cross-Region):
 
 **Recording Rules for Aggregation**:
 ```yaml
-# Pre-compute expensive queries at lower levels
+## Pre-compute expensive queries at lower levels
 groups:
   - name: aggregations
     interval: 30s
     rules:
-# Service-level aggregation
+## Service-level aggregation
       - record: service:http_requests:rate5m
         expr: |
           sum by (service, method, status) (
             rate(http_requests_total[5m])
           )
       
-# Regional rollup
+## Regional rollup
       - record: region:service:http_requests:rate5m
         expr: |
           sum by (region, service) (
@@ -536,7 +536,7 @@ def calculate_storage_requirements(
         "monthly_cost_usd": (compressed_storage / 1e12) * 23  # S3 pricing
     }
 
-# Example: 1M metrics/sec = 3.7 TB/day raw, 16.6 TB total compressed
+## Example: 1M metrics/sec = 3.7 TB/day raw, 16.6 TB total compressed
 ```
 
 ### Monitoring the Monitor

@@ -99,7 +99,7 @@ testing_phases:
 ### Week 5-6: Conflict Resolution Implementation
 
 ```python
-# Example: Last-Write-Wins with Vector Clocks
+## Example: Last-Write-Wins with Vector Clocks
 class MultiPrimaryConflictResolver:
     def __init__(self):
         self.vector_clock = VectorClock()
@@ -357,24 +357,24 @@ monitoring_queries:
 
 ```bash
 #!/bin/bash
-# emergency-rollback-to-single-primary.sh
+## emergency-rollback-to-single-primary.sh
 
-# 1. Select new primary (lowest latency to majority)
+## 1. Select new primary (lowest latency to majority)
 PRIMARY=$(select-optimal-primary.sh)
 
-# 2. Demote other nodes to read-only
+## 2. Demote other nodes to read-only
 for node in $(get-all-nodes.sh | grep -v $PRIMARY); do
   mysql -h $node -e "SET GLOBAL read_only=ON;"
   mysql -h $node -e "SET GLOBAL super_read_only=ON;"
 done
 
-# 3. Update application configuration
+## 3. Update application configuration
 update-config.sh --mode=single_primary --primary=$PRIMARY
 
-# 4. Restart application servers
+## 4. Restart application servers
 rolling-restart.sh --service=app-servers
 
-# 5. Monitor for stability
+## 5. Monitor for stability
 monitor-health.sh --duration=30m --alert-on-error
 ```
 

@@ -1,6 +1,10 @@
 ---
 title: Vector Clocks To Hlc - Redirect
 redirect_to: /excellence/migrations/vector-clocks-to-hlc/
+description: Documentation for Vector Clocks To Hlc - Redirect
+category: migrations
+tags: [migrations]
+date: 2025-08-07
 ---
 
 # Vector Clocks To Hlc

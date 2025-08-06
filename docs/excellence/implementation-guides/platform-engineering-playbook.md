@@ -1,10 +1,29 @@
 ---
-title: Platform Engineering Playbook: Building Developer Excellence
-description: ```mermaid graph TD A[Platform Team] --> B{Platform Products} B --> C[Self-Service Portal] B --> D[Golden Paths]
+title: "Platform Engineering Playbook: Building Developer Excellence"
+description: "Complete guide to platform engineering with self-service portals, golden paths, and developer productivity frameworks."
 type: guide
 ---
 
 # Platform Engineering Playbook: Building Developer Excellence
+
+## Table of Contents
+
+1. [Platform as a Product Mindset](#platform-as-a-product-mindset)
+2. [Core Platform Patterns](#core-platform-patterns)
+   - [GitOps Foundation](#1-gitops-foundation)
+   - [Infrastructure as Code (IaC)](#2-infrastructure-as-code-iac)
+   - [Developer Experience Patterns](#3-developer-experience-patterns)
+   - [Observability and Monitoring](#4-observability-and-monitoring)
+   - [CI/CD and Progressive Delivery](#5-cicd-and-progressive-delivery)
+   - [Cost Optimization](#6-cost-optimization)
+3. [Platform Maturity Model](#platform-maturity-model)
+4. [Key Metrics](#key-metrics)
+5. [Implementation Roadmap](#implementation-roadmap)
+6. [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
+7. [Platform Team Structure](#platform-team-structure)
+8. [Success Stories](#success-stories)
+9. [Next Steps](#next-steps)
+10. [Resources](#resources)
 
 ## Platform as a Product Mindset
 
@@ -38,7 +57,7 @@ graph TD
 ### 1. GitOps Foundation
 
 ```yaml
-# GitOps Repository Structure
+## GitOps Repository Structure
 platform/
 ├── clusters/
 │   ├── production/
@@ -97,7 +116,7 @@ spec:
 
 **Terraform Module Structure**:
 ```hcl
-# modules/microservice/main.tf
+## modules/microservice/main.tf
 module "microservice" {
   source = "./modules/microservice"
   
@@ -124,7 +143,7 @@ module "microservice" {
 
 #### Self-Service Portal
 ```python
-# Platform API for service creation
+## Platform API for service creation
 @app.post("/services")
 async def create_service(request: ServiceRequest):
     # Validate request
@@ -155,9 +174,9 @@ async def create_service(request: ServiceRequest):
     }
 ```
 
-#### Golden Path Templates
+### Golden Path Templates
 ```yaml
-# golden-paths/microservice/template.yaml
+## golden-paths/microservice/template.yaml
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
@@ -246,7 +265,7 @@ graph TD
 
 #### Pipeline as Code
 ```yaml
-# .platform/pipeline.yaml
+## .platform/pipeline.yaml
 stages:
   - name: build
     steps:
@@ -292,9 +311,9 @@ stages:
               threshold: 500ms
 ```
 
-#### Feature Flags Integration
+### Feature Flags Integration
 ```python
-# Platform feature flag service
+## Platform feature flag service
 class FeatureFlags:
     def __init__(self):
         self.provider = LaunchDarkly(sdk_key=PLATFORM_SDK_KEY)
@@ -329,7 +348,7 @@ class FeatureFlags:
 
 #### Cost Allocation Tags
 ```yaml
-# Platform standard tags
+## Platform standard tags
 platform_tags:
   required:
     - team
@@ -348,9 +367,9 @@ platform_tags:
     - last-modified: timestamp
 ```
 
-#### Resource Optimization
+### Resource Optimization
 ```python
-# Automated rightsizing recommendations
+## Automated rightsizing recommendations
 class ResourceOptimizer:
     def analyze_service(self, service_name: str) -> Recommendations:
         # Get actual usage
@@ -512,7 +531,21 @@ graph TD
 
 ## Resources
 
+### External Resources
 - [CNCF Platform Engineering](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/)
-- [Team Topologies](../architects-handbook/human-factors/team-topologies.md)
 - [GitOps Patterns](https://www.gitops.tech/)
 - [Platform Engineering Slack](https://platformengineering.org/slack/)
+- [Backstage Documentation](https://backstage.io/docs/)
+
+### Related Internal Guides
+- [Team Topologies](../../architects-handbook/human-factors/team-topologies.md)
+- [Operational Excellence](operational-excellence.md)
+- [Modern Distributed Systems](modern-distributed-systems-2025.md)
+- [Resilience First](resilience-first.md)
+
+### See Also
+- [Service Communication Patterns](service-communication.md)
+- [Security Patterns](security-patterns.md)
+- [Performance Optimization](performance-optimization.md)
+```
+```

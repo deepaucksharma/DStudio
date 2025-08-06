@@ -7,10 +7,149 @@ reading_time: 50 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Coordination Cost Models
+
+
+
+## Overview
+
+Coordination Cost Models
+description: The hidden tax of distributed systems
+type: quantitative
+difficulty: advanced
+reading_time: 50 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
 
 
 # Coordination Cost Models
+
+## Table of Contents
+
+- [2-Phase Commit Costs](#2-phase-commit-costs)
+  - [Example Calculation](#example-calculation)
+- [Paxos/Raft Costs](#paxosraft-costs)
+  - [Cost Optimization](#cost-optimization)
+- [Multi-Paxos batching](#multi-paxos-batching)
+- [Consensus Scaling Costs](#consensus-scaling-costs)
+- [Coordination Patterns Compared](#coordination-patterns-compared)
+  - [Gossip Protocol](#gossip-protocol)
+  - [Coordination Patterns](#coordination-patterns)
+- [Real Dollar Costs](#real-dollar-costs)
+  - [Cross-Region Coordination](#cross-region-coordination)
+  - [Optimization Strategies](#optimization-strategies)
+- [Coordination Elimination](#coordination-elimination)
+- [Hidden Coordination Costs](#hidden-coordination-costs)
+- [Cost-Aware Architecture](#cost-aware-architecture)
+  - [Minimize Coordination Scope](#minimize-coordination-scope)
+- [Bad: Global coordination](#bad-global-coordination)
+- [Better: Account-level coordination](#better-account-level-coordination)
+- [Only coordinate affected accounts](#only-coordinate-affected-accounts)
+  - [Async When Possible](#async-when-possible)
+- [Expensive: Synchronous consensus](#expensive-synchronous-consensus)
+- [Cheaper: Async replication](#cheaper-async-replication)
+- [Return immediately](#return-immediately)
+  - [Batch Coordination](#batch-coordination)
+- [Expensive: Coordinate per operation](#expensive-coordinate-per-operation)
+- [Cheaper: Batch coordination](#cheaper-batch-coordination)
+- [Monitoring Coordination Costs](#monitoring-coordination-costs)
+- [Key Metrics](#key-metrics)
+- [Cost Dashboard Example](#cost-dashboard-example)
+- [Key Takeaways](#key-takeaways)
+
+
+
+**The hidden tax of distributed systems**
+
+## 2-Phase Commit Costs
+
+! Phase Commit Protocol Costs"
+
+ <div>
+ <table class="responsive-table">
+ <thead>
+ <tr>
+ <th>Metric</th>
+ <th>Value</th>
+ <th>Explanation</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td data-label="Metric"><strong>Messages</strong></td>
+ <td data-label="Value">3N</td>
+ <td data-label="Explanation">prepare + vote + commit</td>
+ </tr>
+ <tr>
+ <td data-label="Metric"><strong>Rounds</strong></td>
+ <td data-label="Value">3</td>
+ <td data-label="Explanation">Sequential phases</td>
+ </tr>
+ <tr>
+ <td data-label="Metric"><strong>Latency</strong></td>
+ <td data-label="Value">3 × RTT</td>
+ <td data-label="Explanation">Round-trip time per phase</td>
+ </tr>
+ <tr>
+ <td data-label="Metric"><strong>Failure modes</strong></td>
+ <td data-label="Value">N + 1</td>
+ <td data-label="Explanation">Coordinator + participants</td>
+ </tr>
+ </tbody>
+ </table>
+
+ <div>
+ <strong>Cost Function:</strong><br>
+ Cost = 3N × message_cost + 3 × RTT × latency_cost
+</div>
+</div>
+
+### Example Calculation
+!
+
+**Reading time:** ~10 minutes
+
+## Table of Contents
+
+- [2-Phase Commit Costs](#2-phase-commit-costs)
+  - [Example Calculation](#example-calculation)
+- [Paxos/Raft Costs](#paxosraft-costs)
+  - [Cost Optimization](#cost-optimization)
+- [Multi-Paxos batching](#multi-paxos-batching)
+- [Consensus Scaling Costs](#consensus-scaling-costs)
+- [Coordination Patterns Compared](#coordination-patterns-compared)
+  - [Gossip Protocol](#gossip-protocol)
+  - [Coordination Patterns](#coordination-patterns)
+- [Real Dollar Costs](#real-dollar-costs)
+  - [Cross-Region Coordination](#cross-region-coordination)
+  - [Optimization Strategies](#optimization-strategies)
+- [Coordination Elimination](#coordination-elimination)
+- [Hidden Coordination Costs](#hidden-coordination-costs)
+- [Cost-Aware Architecture](#cost-aware-architecture)
+  - [Minimize Coordination Scope](#minimize-coordination-scope)
+- [Bad: Global coordination](#bad-global-coordination)
+- [Better: Account-level coordination](#better-account-level-coordination)
+- [Only coordinate affected accounts](#only-coordinate-affected-accounts)
+  - [Async When Possible](#async-when-possible)
+- [Expensive: Synchronous consensus](#expensive-synchronous-consensus)
+- [Cheaper: Async replication](#cheaper-async-replication)
+- [Return immediately](#return-immediately)
+  - [Batch Coordination](#batch-coordination)
+- [Expensive: Coordinate per operation](#expensive-coordinate-per-operation)
+- [Cheaper: Batch coordination](#cheaper-batch-coordination)
+- [Monitoring Coordination Costs](#monitoring-coordination-costs)
+- [Key Metrics](#key-metrics)
+- [Cost Dashboard Example](#cost-dashboard-example)
+- [Key Takeaways](#key-takeaways)
+
+
 
 **The hidden tax of distributed systems**
 
@@ -187,7 +326,7 @@ Modern consensus protocols:
 
 ### Cost Optimization
 ```proto
-# Multi-Paxos batching
+## Multi-Paxos batching
 Single decision: 2N messages
 100 decisions: 2N + 99 messages 
 Amortized: ~1 message per decision
@@ -450,15 +589,15 @@ Config Updates: O(N) push (thundering herd) → Jittered pull (smooth)
 
 ### Minimize Coordination Scope
 ```python
-# Bad: Global coordination
+## Bad: Global coordination
 def transfer_money(from_account, to_account, amount):
  with distributed_lock("global"):
  debit(from_account, amount)
  credit(to_account, amount)
 
-# Better: Account-level coordination
+## Better: Account-level coordination
 def transfer_money(from_account, to_account, amount):
-# Only coordinate affected accounts
+## Only coordinate affected accounts
  with multi_lock([from_account, to_account]):
  debit(from_account, amount)
  credit(to_account, amount)
@@ -466,37 +605,37 @@ def transfer_money(from_account, to_account, amount):
 
 ### Async When Possible
 ```python
-# Expensive: Synchronous consensus
+## Expensive: Synchronous consensus
 def update_all_replicas(data):
  futures = []
  for replica in replicas:
  futures.append(replica.update(data))
  wait_all(futures) # Blocks on slowest
 
-# Cheaper: Async replication
+## Cheaper: Async replication
 def update_all_replicas(data):
  for replica in replicas:
  async_send(replica, data)
-# Return immediately
+## Return immediately
 ```
 
 ### Batch Coordination
 ```python
-# Expensive: Coordinate per operation
+## Expensive: Coordinate per operation
 for update in updates:
  coordinate_update(update) # 3N messages each
 
-# Cheaper: Batch coordination
+## Cheaper: Batch coordination
 coordinate_batch(updates) # 3N messages total
 ```
 
 ## Monitoring Coordination Costs
 
 ```bash
-# Key Metrics
+## Key Metrics
 Messages/op, coordination latency, failed coordinations, network bandwidth
 
-# Cost Dashboard Example
+## Cost Dashboard Example
 2PC: 50K/day @ $0.30 = $15K/day
 Raft: 1M/day @ $0.02 = $20K/day 
 Health: 100M/day @ $0.001 = $100/day

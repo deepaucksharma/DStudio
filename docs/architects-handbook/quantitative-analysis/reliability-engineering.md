@@ -4,6 +4,26 @@ description: Quantitative methods for measuring and improving distributed system
 type: quantitative
 difficulty: intermediate
 reading_time: 20 min
+prerequisites: 
+pattern_type: analysis
+status: complete
+last_updated: 2025-01-26
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Reliability Engineering Mathematics
+
+
+
+## Overview
+
+Reliability Engineering Mathematics
+description: Quantitative methods for measuring and improving distributed system reliability
+type: quantitative
+difficulty: intermediate
+reading_time: 20 min
 prerequisites:
 - probability
 - failure-models
@@ -13,6 +33,49 @@ last_updated: 2025-01-26
 ---
 
 # Reliability Engineering Mathematics
+
+## Table of Contents
+
+- [Reliability Fundamentals](#reliability-fundamentals)
+  - [The Availability Spectrum](#the-availability-spectrum)
+  - [Visual Reliability Model](#visual-reliability-model)
+- [Core Reliability Formulas](#core-reliability-formulas)
+  - [1. Basic Reliability Metrics](#1-basic-reliability-metrics)
+  - [2.
+
+**Reading time:** ~4 minutes
+
+## Table of Contents
+
+- [Reliability Fundamentals](#reliability-fundamentals)
+  - [The Availability Spectrum](#the-availability-spectrum)
+  - [Visual Reliability Model](#visual-reliability-model)
+- [Core Reliability Formulas](#core-reliability-formulas)
+  - [1. Basic Reliability Metrics](#1-basic-reliability-metrics)
+  - [2. System Architectures](#2-system-architectures)
+    - [Series Systems (All must work)](#series-systems-all-must-work)
+    - [Parallel Systems (One must work)](#parallel-systems-one-must-work)
+- [Failure Analysis](#failure-analysis)
+  - [Bathtub Curve](#bathtub-curve)
+  - [Failure Probability Over Time](#failure-probability-over-time)
+- [Reliability Improvement Strategies](#reliability-improvement-strategies)
+  - [Cost vs Reliability Trade-off](#cost-vs-reliability-trade-off)
+  - [Improvement Techniques Matrix](#improvement-techniques-matrix)
+- [Mathematical Models](#mathematical-models)
+  - [1. Exponential Reliability](#1-exponential-reliability)
+  - [2. N+K Redundancy](#2-nk-redundancy)
+- [Real-World Applications](#real-world-applications)
+  - [Case Study: E-commerce Platform](#case-study-e-commerce-platform)
+  - [Reliability Budget Allocation](#reliability-budget-allocation)
+- [Quick Reference Formulas](#quick-reference-formulas)
+- [Availability](#availability)
+- [Series system](#series-system)
+- [Parallel system  ](#parallel-system-)
+- [Required replicas for target availability](#required-replicas-for-target-availability)
+- [Downtime per period](#downtime-per-period)
+- [Related Concepts](#related-concepts)
+
+
 
 !!! abstract "Core Concept"
     **🎯 Goal**: Quantify system reliability to make data-driven decisions
@@ -221,23 +284,23 @@ graph TB
 ## Quick Reference Formulas
 
 ```python
-# Availability
+## Availability
 availability = MTTF / (MTTF + MTTR)
 
-# Series system
+## Series system
 R_series = R1 * R2 * R3 * ... * Rn
 
-# Parallel system  
+## Parallel system  
 R_parallel = 1 - (1-R1) * (1-R2) * ... * (1-Rn)
 
-# Required replicas for target availability
+## Required replicas for target availability
 import math
 replicas = math.ceil(
     math.log(1 - target_availability) / 
     math.log(1 - component_availability)
 )
 
-# Downtime per period
+## Downtime per period
 downtime_minutes = period_minutes * (1 - availability)
 ```
 

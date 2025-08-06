@@ -1,6 +1,10 @@
 ---
 title: Apache Spark
 redirect_to: /architects-handbook/case-studies/messaging-streaming/apache-spark/
+description: Documentation for Apache Spark
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Apache Spark

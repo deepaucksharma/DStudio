@@ -77,6 +77,70 @@ lessons_learned:
 
 # Elasticsearch: Distributed Search and Analytics Engine
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Part 1: The Physics of Distributed Search](#part-1-the-physics-of-distributed-search)
+  - [Law 4: Multidimensional Optimization - Search Quality vs Speed](#law-4-multidimensional-optimization-search-quality-vs-speed)
+  - [Law 2: Asynchronous Reality - Real-time Indexing](#law-2-asynchronous-reality-real-time-indexing)
+- [Part 2: Core Architecture Components](#part-2-core-architecture-components)
+  - [Cluster and Node Types](#cluster-and-node-types)
+  - [Document Indexing Pipeline](#document-indexing-pipeline)
+- [Elasticsearch indexing configuration](#elasticsearch-indexing-configuration)
+  - [Inverted Index Structure](#inverted-index-structure)
+- [Calculate field norm (document length normalization)](#calculate-field-norm-document-length-normalization)
+- [Build posting lists](#build-posting-lists)
+- [Find documents containing any query term](#find-documents-containing-any-query-term)
+- [Score and rank documents](#score-and-rank-documents)
+  - [Sharding and Distribution](#sharding-and-distribution)
+- [Elasticsearch uses murmur3 hash](#elasticsearch-uses-murmur3-hash)
+- [Custom routing - go to specific shard](#custom-routing-go-to-specific-shard)
+- [No routing - query all shards](#no-routing-query-all-shards)
+- [Part 3: Search and Scoring Algorithms](#part-3-search-and-scoring-algorithms)
+  - [Query Execution Pipeline](#query-execution-pipeline)
+  - [Relevance Scoring (BM25)](#relevance-scoring-bm25)
+- [Term frequency in document](#term-frequency-in-document)
+- [Document frequency (how many docs contain the term)](#document-frequency-how-many-docs-contain-the-term)
+- [Inverse document frequency](#inverse-document-frequency)
+- [Document length normalization](#document-length-normalization)
+- [BM25 formula](#bm25-formula)
+- [Sort by score descending](#sort-by-score-descending)
+  - [Advanced Query Types](#advanced-query-types)
+- [Part 4: Real-Time Analytics and Aggregations](#part-4-real-time-analytics-and-aggregations)
+  - [Aggregation Framework](#aggregation-framework)
+- [Part 5: Production Scaling Challenges](#part-5-production-scaling-challenges)
+  - [Netflix's Elasticsearch Journey](#netflixs-elasticsearch-journey)
+  - [GitHub's Code Search Scale](#githubs-code-search-scale)
+- [Part 6: Operational Excellence](#part-6-operational-excellence)
+  - [Monitoring and Performance Tuning](#monitoring-and-performance-tuning)
+- [Cluster health overview](#cluster-health-overview)
+- [Node stats for performance monitoring](#node-stats-for-performance-monitoring)
+- [Index stats for capacity planning](#index-stats-for-capacity-planning)
+- [Hot threads for performance debugging](#hot-threads-for-performance-debugging)
+- [Pending cluster tasks](#pending-cluster-tasks)
+- [Circuit breaker status](#circuit-breaker-status)
+  - [Performance Optimization Strategies](#performance-optimization-strategies)
+- [elasticsearch.yml JVM configuration](#elasticsearchyml-jvm-configuration)
+- [Memory allocation guidelines](#memory-allocation-guidelines)
+- [Heap: 50% of RAM, max 32GB](#heap-50-of-ram-max-32gb)
+- [Off-heap: Lucene uses remaining RAM for file system cache](#off-heap-lucene-uses-remaining-ram-for-file-system-cache)
+- [Example: 64GB RAM = 32GB heap + 32GB file cache](#example-64gb-ram-32gb-heap-32gb-file-cache)
+  - [Index Optimization Techniques](#index-optimization-techniques)
+- [Bulk indexing optimization](#bulk-indexing-optimization)
+- [Prepare bulk actions](#prepare-bulk-actions)
+- [Bulk index with optimizations](#bulk-index-with-optimizations)
+- [Index template for time-based data](#index-template-for-time-based-data)
+  - [Security and Access Control](#security-and-access-control)
+- [elasticsearch.yml security configuration](#elasticsearchyml-security-configuration)
+- [Authentication providers](#authentication-providers)
+- [Part 7: Key Takeaways and Design Principles](#part-7-key-takeaways-and-design-principles)
+  - [Elasticsearch Design Philosophy](#elasticsearch-design-philosophy)
+  - [When to Choose Elasticsearch](#when-to-choose-elasticsearch)
+  - [Performance Optimization Checklist](#performance-optimization-checklist)
+- [Conclusion](#conclusion)
+- [Related Case Studies](#related-case-studies)
+- [External Resources](#external-resources)
+
 **The Challenge**: Build a search engine that can index billions of documents and return relevant results in milliseconds while scaling horizontally across hundreds of nodes.
 
 !!! info "Case Study Overview"
@@ -217,7 +281,7 @@ sequenceDiagram
 **Indexing Performance Factors:**
 
 ```python
-# Elasticsearch indexing configuration
+## Elasticsearch indexing configuration
 index_settings = {
  "settings": {
  "number_of_shards": 5, # Parallel indexing
@@ -305,10 +369,10 @@ class InvertedIndex:
  for field_name, field_value in fields.items():
  tokens = self.analyze_text(field_value)
  
-# Calculate field norm (document length normalization)
+## Calculate field norm (document length normalization)
  self.field_norms[doc_id] = math.sqrt(len(tokens))
  
-# Build posting lists
+## Build posting lists
  for position, token in enumerate(tokens):
  if token not in self.term_dictionary:
  self.term_dictionary[token] = PostingList()
@@ -321,13 +385,13 @@ class InvertedIndex:
  """Boolean search with TF-IDF scoring."""
  candidate_docs = set()
  
-# Find documents containing any query term
+## Find documents containing any query term
  for term in query_terms:
  if term in self.term_dictionary:
  posting_list = self.term_dictionary[term]
  candidate_docs.update(posting_list.doc_ids)
  
-# Score and rank documents
+## Score and rank documents
  scored_docs = []
  for doc_id in candidate_docs:
  score = self.calculate_tfidf_score(doc_id, query_terms)
@@ -378,7 +442,7 @@ graph TB
 ```python
 def route_document(doc_id, number_of_shards):
  """Determine which shard should store a document."""
-# Elasticsearch uses murmur3 hash
+## Elasticsearch uses murmur3 hash
  hash_value = murmur3_hash(doc_id)
  shard_id = hash_value % number_of_shards
  return shard_id
@@ -386,12 +450,12 @@ def route_document(doc_id, number_of_shards):
 def route_search_query(index_name, query):
  """Route search query to appropriate shards."""
  if 'routing' in query:
-# Custom routing - go to specific shard
+## Custom routing - go to specific shard
  routing_value = query['routing']
  target_shard = route_document(routing_value, get_shard_count(index_name))
  return [target_shard]
  else:
-# No routing - query all shards
+## No routing - query all shards
  return list(range(get_shard_count(index_name)))
 ```
 
@@ -484,20 +548,20 @@ import math
 def bm25_score(term, document, corpus, k1=1.2, b=0.75):
  """Calculate BM25 score for a term in a document."""
  
-# Term frequency in document
+## Term frequency in document
  tf = document.count(term)
  
-# Document frequency (how many docs contain the term)
+## Document frequency (how many docs contain the term)
  df = sum(1 for doc in corpus if term in doc)
  
-# Inverse document frequency
+## Inverse document frequency
  idf = math.log((len(corpus) - df + 0.5) / (df + 0.5))
  
-# Document length normalization
+## Document length normalization
  doc_length = len(document)
  avg_doc_length = sum(len(doc) for doc in corpus) / len(corpus)
  
-# BM25 formula
+## BM25 formula
  numerator = tf * (k1 + 1)
  denominator = tf + k1 * (1 - b + b * (doc_length / avg_doc_length))
  
@@ -518,7 +582,7 @@ def search_query(query_terms, corpus):
  if total_score > 0:
  doc_scores[doc_id] = total_score
  
-# Sort by score descending
+## Sort by score descending
  return sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
 ```
 
@@ -945,22 +1009,22 @@ graph TB
 **Critical Monitoring Queries:**
 
 ```bash
-# Cluster health overview
+## Cluster health overview
 curl -X GET "localhost:9200/_cluster/health?pretty"
 
-# Node stats for performance monitoring
+## Node stats for performance monitoring
 curl -X GET "localhost:9200/_nodes/stats?pretty"
 
-# Index stats for capacity planning
+## Index stats for capacity planning
 curl -X GET "localhost:9200/_cat/indices?v&s=store.size:desc"
 
-# Hot threads for performance debugging
+## Hot threads for performance debugging
 curl -X GET "localhost:9200/_nodes/hot_threads"
 
-# Pending cluster tasks
+## Pending cluster tasks
 curl -X GET "localhost:9200/_cluster/pending_tasks"
 
-# Circuit breaker status
+## Circuit breaker status
 curl -X GET "localhost:9200/_nodes/stats/breaker"
 ```
 
@@ -969,7 +1033,7 @@ curl -X GET "localhost:9200/_nodes/stats/breaker"
 #### JVM and Memory Tuning
 
 ```bash
-# elasticsearch.yml JVM configuration
+## elasticsearch.yml JVM configuration
 -Xms16g
 -Xmx16g
 -XX:+UseG1GC
@@ -979,23 +1043,23 @@ curl -X GET "localhost:9200/_nodes/stats/breaker"
 -XX:+AlwaysPreTouch
 -XX:+DisableExplicitGC
 
-# Memory allocation guidelines
-# Heap: 50% of RAM, max 32GB
-# Off-heap: Lucene uses remaining RAM for file system cache
-# Example: 64GB RAM = 32GB heap + 32GB file cache
+## Memory allocation guidelines
+## Heap: 50% of RAM, max 32GB
+## Off-heap: Lucene uses remaining RAM for file system cache
+## Example: 64GB RAM = 32GB heap + 32GB file cache
 ```
 
-#### Index Optimization Techniques
+### Index Optimization Techniques
 
 ```python
-# Bulk indexing optimization
+## Bulk indexing optimization
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 
 def optimize_bulk_indexing(es_client, documents):
  """Optimize bulk indexing performance."""
  
-# Prepare bulk actions
+## Prepare bulk actions
  actions = []
  for doc in documents:
  action = {
@@ -1005,7 +1069,7 @@ def optimize_bulk_indexing(es_client, documents):
  }
  actions.append(action)
  
-# Bulk index with optimizations
+## Bulk index with optimizations
  bulk(
  es_client,
  actions,
@@ -1016,7 +1080,7 @@ def optimize_bulk_indexing(es_client, documents):
  max_backoff=600, # Max retry delay
  )
 
-# Index template for time-based data
+## Index template for time-based data
 index_template = {
  "index_patterns": ["logs-*"],
  "template": {
@@ -1094,7 +1158,7 @@ index_template = {
 #### TLS and Encryption
 
 ```yaml
-# elasticsearch.yml security configuration
+## elasticsearch.yml security configuration
 xpack.security.enabled: true
 xpack.security.transport.ssl.enabled: true
 xpack.security.transport.ssl.verification_mode: certificate
@@ -1105,7 +1169,7 @@ xpack.security.transport.ssl.truststore.path: elastic-certificates.p12
 xpack.security.http.ssl.enabled: true
 xpack.security.http.ssl.keystore.path: elastic-certificates.p12
 
-# Authentication providers
+## Authentication providers
 xpack.security.authc.realms:
  native:
  native1:

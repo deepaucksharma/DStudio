@@ -6,6 +6,26 @@ difficulty: expert
 reading_time: 15 min
 status: complete
 last_updated: 2025-08-06
+prerequisites: 
+outcomes: 
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Quantum-Resilient Systems Learning Path
+
+
+
+## Overview
+
+Quantum-Resilient Systems Learning Path
+description: Master post-quantum cryptography, quantum-safe systems, and future-proof security architectures
+type: learning-path
+difficulty: expert
+reading_time: 15 min
+status: complete
+last_updated: 2025-08-06
 prerequisites:
   - 5+ years systems security experience
   - Advanced understanding of cryptography
@@ -20,6 +40,91 @@ outcomes:
 ---
 
 # Quantum-Resilient Systems Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🔬 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Quantum Computing & Cryptography ⚛️](#week-1-2-quantum-computing-cryptography-)
+  - [Week 3-4: Post-Quantum Cryptography 🔐](#week-3-4-post-quantum-cryptography-)
+  - [Week 5-6: Migration Strategies & Hybrid Systems 🔄](#week-5-6-migration-strategies-hybrid-systems-)
+  - [Week 7-8: Quantum-Native Systems 🚀](#week-7-8-quantum-native-systems-)
+- [🛠️ Quantum-Safe Development Labs](#-quantum-safe-development-labs)
+  - [Weekly Lab Structure](#weekly-lab-structure)
+  - [Critical Infrastructure Scenarios](#critical-infrastructure-scenarios)
+- [📊 Assessment & Quantum Readiness Metrics](#-assessment-quantum-readiness-metrics)
+  - [Quantum Security Metrics](#quantum-security-metrics)
+  - [Certification & Standards Alignment](#certification-standards-alignment)
+- [💼 Quantum Security Career Development](#-quantum-security-career-development)
+  - [Quantum-Resilient Systems Interview Questions](#quantum-resilient-systems-interview-questions)
+  - [Quantum Security Career Paths](#quantum-security-career-paths)
+  - [Market Demand & Compensation](#market-demand-compensation)
+- [👥 Quantum Security Community](#-quantum-security-community)
+  - [Research & Professional Networks](#research-professional-networks)
+  - [Industry Events & Research Conferences](#industry-events-research-conferences)
+  - [Expert Mentorship Network](#expert-mentorship-network)
+- [🚀 Emerging Quantum Technologies](#-emerging-quantum-technologies)
+  - [Next-Generation Quantum Security](#next-generation-quantum-security)
+  - [Research Frontiers (2025-2035)](#research-frontiers-2025-2035)
+- [📚 Essential Quantum Security Library](#-essential-quantum-security-library)
+  - [Must-Read Books & Papers](#must-read-books-papers)
+  - [Implementation Resources](#implementation-resources)
+- [🏁 Capstone: Quantum-Resilient Security Platform](#-capstone-quantum-resilient-security-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Requirements](#technical-requirements)
+  - [Security & Performance Requirements](#security-performance-requirements)
+  - [Evaluation Framework](#evaluation-framework)
+- [🎉 Quantum-Resilient Future Leadership](#-quantum-resilient-future-leadership)
+  - [Advanced Quantum Specializations](#advanced-quantum-specializations)
+  - [Continued Learning & Research](#continued-learning-research)
+
+
+
+! Prepare for the Quantum Future"
+    Master the art of quantum-resilient system design.
+
+**Reading time:** ~15 minutes
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🔬 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Quantum Computing & Cryptography ⚛️](#week-1-2-quantum-computing-cryptography-)
+  - [Week 3-4: Post-Quantum Cryptography 🔐](#week-3-4-post-quantum-cryptography-)
+  - [Week 5-6: Migration Strategies & Hybrid Systems 🔄](#week-5-6-migration-strategies-hybrid-systems-)
+  - [Week 7-8: Quantum-Native Systems 🚀](#week-7-8-quantum-native-systems-)
+- [🛠️ Quantum-Safe Development Labs](#-quantum-safe-development-labs)
+  - [Weekly Lab Structure](#weekly-lab-structure)
+  - [Critical Infrastructure Scenarios](#critical-infrastructure-scenarios)
+- [📊 Assessment & Quantum Readiness Metrics](#-assessment-quantum-readiness-metrics)
+  - [Quantum Security Metrics](#quantum-security-metrics)
+  - [Certification & Standards Alignment](#certification-standards-alignment)
+- [💼 Quantum Security Career Development](#-quantum-security-career-development)
+  - [Quantum-Resilient Systems Interview Questions](#quantum-resilient-systems-interview-questions)
+  - [Quantum Security Career Paths](#quantum-security-career-paths)
+  - [Market Demand & Compensation](#market-demand-compensation)
+- [👥 Quantum Security Community](#-quantum-security-community)
+  - [Research & Professional Networks](#research-professional-networks)
+  - [Industry Events & Research Conferences](#industry-events-research-conferences)
+  - [Expert Mentorship Network](#expert-mentorship-network)
+- [🚀 Emerging Quantum Technologies](#-emerging-quantum-technologies)
+  - [Next-Generation Quantum Security](#next-generation-quantum-security)
+  - [Research Frontiers (2025-2035)](#research-frontiers-2025-2035)
+- [📚 Essential Quantum Security Library](#-essential-quantum-security-library)
+  - [Must-Read Books & Papers](#must-read-books-papers)
+  - [Implementation Resources](#implementation-resources)
+- [🏁 Capstone: Quantum-Resilient Security Platform](#-capstone-quantum-resilient-security-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Requirements](#technical-requirements)
+  - [Security & Performance Requirements](#security-performance-requirements)
+  - [Evaluation Framework](#evaluation-framework)
+- [🎉 Quantum-Resilient Future Leadership](#-quantum-resilient-future-leadership)
+  - [Advanced Quantum Specializations](#advanced-quantum-specializations)
+  - [Continued Learning & Research](#continued-learning-research)
+
+
 
 !!! abstract "Prepare for the Quantum Future"
     Master the art of quantum-resilient system design. Build systems that remain secure against both classical and quantum adversaries. Learn to future-proof critical infrastructure for the coming quantum computing revolution.

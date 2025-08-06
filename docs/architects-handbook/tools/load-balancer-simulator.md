@@ -6,6 +6,55 @@ type: documentation
 
 # Load Balancer Simulator
 
+
+
+## Overview
+
+Load Balancer Simulator
+description: Algorithm comparison, health check impact, connection pooling simulation
+type: documentation
+---
+
+# Load Balancer Simulator
+
+## Table of Contents
+
+- [Interactive Simulator](#interactive-simulator)
+  - [Infrastructure Configuration](#infrastructure-configuration)
+  - [Load Balancing Algorithms](#load-balancing-algorithms)
+  - [Traffic Patterns](#traffic-patterns)
+  - [Health Checks & Failover](#health-checks-failover)
+  - [Performance Requirements](#performance-requirements)
+- [Understanding Load Balancing Algorithms](#understanding-load-balancing-algorithms)
+  - [Algorithm Comparison Matrix](#algorithm-comparison-matrix)
+  - [Load Balancing Patterns](#load-balancing-patterns)
+  - [Failover Strategies](#failover-strategies)
+- [Related Resources](#related-resources)
+
+
+
+! Advanced Load Balancing Analysis"
+    <h2>⚖️ Load Balancer Algorithm Simulator</h2>
+    <p>Simulate and compare load balancing algorithms with real-time traffic patterns, health checks, and connection pooling analysis.
+
+**Reading time:** ~30 minutes
+
+## Table of Contents
+
+- [Interactive Simulator](#interactive-simulator)
+  - [Infrastructure Configuration](#infrastructure-configuration)
+  - [Load Balancing Algorithms](#load-balancing-algorithms)
+  - [Traffic Patterns](#traffic-patterns)
+  - [Health Checks & Failover](#health-checks-failover)
+  - [Performance Requirements](#performance-requirements)
+- [Understanding Load Balancing Algorithms](#understanding-load-balancing-algorithms)
+  - [Algorithm Comparison Matrix](#algorithm-comparison-matrix)
+  - [Load Balancing Patterns](#load-balancing-patterns)
+  - [Failover Strategies](#failover-strategies)
+- [Related Resources](#related-resources)
+
+
+
 !!! info "Advanced Load Balancing Analysis"
     <h2>⚖️ Load Balancer Algorithm Simulator</h2>
     <p>Simulate and compare load balancing algorithms with real-time traffic patterns, health checks, and connection pooling analysis.</p>

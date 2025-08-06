@@ -6,6 +6,26 @@ difficulty: advanced
 reading_time: 15 min
 status: complete
 last_updated: 2025-08-06
+prerequisites: 
+outcomes: 
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Edge Computing Learning Path
+
+
+
+## Overview
+
+Edge Computing Learning Path
+description: Master edge architecture, 5G integration, fog computing, and distributed edge systems
+type: learning-path
+difficulty: advanced
+reading_time: 15 min
+status: complete
+last_updated: 2025-08-06
 prerequisites:
   - 3+ years distributed systems experience
   - Understanding of cloud computing
@@ -20,6 +40,89 @@ outcomes:
 ---
 
 # Edge Computing Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🌐 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Edge Computing Fundamentals 🏗️](#week-1-2-edge-computing-fundamentals-)
+  - [Week 3-4: 5G & Wireless Edge 📡](#week-3-4-5g-wireless-edge-)
+  - [Week 5-6: Fog Computing & Orchestration ☁️](#week-5-6-fog-computing-orchestration-)
+  - [Week 7-8: Edge AI & Applications 🤖](#week-7-8-edge-ai-applications-)
+- [🛠️ Hands-On Labs & Real-World Projects](#-hands-on-labs-real-world-projects)
+  - [Weekly Lab Structure](#weekly-lab-structure)
+  - [Industry Application Scenarios](#industry-application-scenarios)
+- [📊 Assessment & Performance Metrics](#-assessment-performance-metrics)
+  - [Edge Computing KPIs](#edge-computing-kpis)
+  - [Certification Pathways](#certification-pathways)
+- [💼 Career Development & Edge Computing Interviews](#-career-development-edge-computing-interviews)
+  - [Edge Computing Interview Questions](#edge-computing-interview-questions)
+  - [Career Specializations & Salary Ranges](#career-specializations-salary-ranges)
+- [👥 Edge Computing Community](#-edge-computing-community)
+  - [Study Groups & Professional Networks](#study-groups-professional-networks)
+  - [Industry Events & Conferences](#industry-events-conferences)
+  - [Expert Mentorship Network](#expert-mentorship-network)
+- [🚀 Emerging Edge Technologies](#-emerging-edge-technologies)
+  - [Next-Generation Edge Computing](#next-generation-edge-computing)
+  - [Research Areas & Future Directions](#research-areas-future-directions)
+- [📚 Essential Edge Computing Library](#-essential-edge-computing-library)
+  - [Must-Read Books & Research](#must-read-books-research)
+  - [Technical Resources](#technical-resources)
+- [🏁 Capstone: Global Edge Computing Platform](#-capstone-global-edge-computing-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Requirements](#technical-requirements)
+  - [Performance Requirements](#performance-requirements)
+  - [Evaluation Criteria](#evaluation-criteria)
+- [🎉 Edge Computing Mastery & Future Opportunities](#-edge-computing-mastery-future-opportunities)
+  - [Advanced Career Paths](#advanced-career-paths)
+  - [Continued Learning Paths](#continued-learning-paths)
+
+
+
+! Bring Computing to the Edge of Everything"
+    Master the art of edge computing architecture.
+
+**Reading time:** ~15 minutes
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🌐 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Edge Computing Fundamentals 🏗️](#week-1-2-edge-computing-fundamentals-)
+  - [Week 3-4: 5G & Wireless Edge 📡](#week-3-4-5g-wireless-edge-)
+  - [Week 5-6: Fog Computing & Orchestration ☁️](#week-5-6-fog-computing-orchestration-)
+  - [Week 7-8: Edge AI & Applications 🤖](#week-7-8-edge-ai-applications-)
+- [🛠️ Hands-On Labs & Real-World Projects](#-hands-on-labs-real-world-projects)
+  - [Weekly Lab Structure](#weekly-lab-structure)
+  - [Industry Application Scenarios](#industry-application-scenarios)
+- [📊 Assessment & Performance Metrics](#-assessment-performance-metrics)
+  - [Edge Computing KPIs](#edge-computing-kpis)
+  - [Certification Pathways](#certification-pathways)
+- [💼 Career Development & Edge Computing Interviews](#-career-development-edge-computing-interviews)
+  - [Edge Computing Interview Questions](#edge-computing-interview-questions)
+  - [Career Specializations & Salary Ranges](#career-specializations-salary-ranges)
+- [👥 Edge Computing Community](#-edge-computing-community)
+  - [Study Groups & Professional Networks](#study-groups-professional-networks)
+  - [Industry Events & Conferences](#industry-events-conferences)
+  - [Expert Mentorship Network](#expert-mentorship-network)
+- [🚀 Emerging Edge Technologies](#-emerging-edge-technologies)
+  - [Next-Generation Edge Computing](#next-generation-edge-computing)
+  - [Research Areas & Future Directions](#research-areas-future-directions)
+- [📚 Essential Edge Computing Library](#-essential-edge-computing-library)
+  - [Must-Read Books & Research](#must-read-books-research)
+  - [Technical Resources](#technical-resources)
+- [🏁 Capstone: Global Edge Computing Platform](#-capstone-global-edge-computing-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Requirements](#technical-requirements)
+  - [Performance Requirements](#performance-requirements)
+  - [Evaluation Criteria](#evaluation-criteria)
+- [🎉 Edge Computing Mastery & Future Opportunities](#-edge-computing-mastery-future-opportunities)
+  - [Advanced Career Paths](#advanced-career-paths)
+  - [Continued Learning Paths](#continued-learning-paths)
+
+
 
 !!! abstract "Bring Computing to the Edge of Everything"
     Master the art of edge computing architecture. Build distributed systems that bring computation closer to data sources and users. Learn the patterns used by AWS, Microsoft, and Google to enable ultra-low latency applications at the edge of networks.

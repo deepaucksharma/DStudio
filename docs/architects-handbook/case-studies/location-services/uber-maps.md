@@ -12,6 +12,47 @@ key_patterns:
 
 # Uber Maps Case Study
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Architecture Overview](#architecture-overview)
+- [Key Challenges](#key-challenges)
+  - [1. Scale and Real-Time Requirements](#1-scale-and-real-time-requirements)
+  - [2. Accuracy and Precision](#2-accuracy-and-precision)
+  - [3. Custom Map Features](#3-custom-map-features)
+  - [4. Multi-Modal Requirements](#4-multi-modal-requirements)
+- [Technical Deep Dive](#technical-deep-dive)
+  - [Map Data Pipeline](#map-data-pipeline)
+- [Simplified map data processing pipeline](#simplified-map-data-processing-pipeline)
+- [Extract road network](#extract-road-network)
+- [Add Uber-specific attributes](#add-uber-specific-attributes)
+- [Build spatial indices](#build-spatial-indices)
+- [Generate pre-computed data](#generate-pre-computed-data)
+  - [Real-Time Location Processing](#real-time-location-processing)
+- [Location update processing with accuracy enhancement](#location-update-processing-with-accuracy-enhancement)
+- [Map matching - snap to road network](#map-matching-snap-to-road-network)
+- [Accuracy enhancement](#accuracy-enhancement)
+- [Update indices](#update-indices)
+- [Stream to consumers](#stream-to-consumers)
+  - [Routing Engine Architecture](#routing-engine-architecture)
+- [Routing engine configuration](#routing-engine-configuration)
+- [System Design Patterns](#system-design-patterns)
+  - [1. Hexagonal Spatial Indexing (H3)](#1-hexagonal-spatial-indexing-h3)
+  - [2. Map Matching Pipeline](#2-map-matching-pipeline)
+  - [3. Distributed Graph Processing](#3-distributed-graph-processing)
+  - [4. ML-Enhanced ETA Prediction](#4-ml-enhanced-eta-prediction)
+- [Performance Optimizations](#performance-optimizations)
+  - [Pre-computation Strategy](#pre-computation-strategy)
+  - [Caching Architecture](#caching-architecture)
+- [Lessons Learned](#lessons-learned)
+  - [What Worked Well](#what-worked-well)
+  - [Challenges and Solutions](#challenges-and-solutions)
+- [Related Patterns](#related-patterns)
+- [References](#references)
+- [See Also](#see-also)
+
+
+
 > 🚧 This case study is planned for future development.
 
 ## Overview
@@ -104,22 +145,22 @@ graph TB
 ### Map Data Pipeline
 
 ```python
-# Simplified map data processing pipeline
+## Simplified map data processing pipeline
 class MapDataPipeline:
     def process_osm_data(self, raw_data):
-# Extract road network
+## Extract road network
         roads = self.extract_roads(raw_data)
         
-# Add Uber-specific attributes
+## Add Uber-specific attributes
         roads = self.add_pickup_zones(roads)
         roads = self.add_turn_restrictions(roads)
         roads = self.add_speed_profiles(roads)
         
-# Build spatial indices
+## Build spatial indices
         h3_index = self.build_h3_index(roads)
         rtree_index = self.build_rtree(roads)
         
-# Generate pre-computed data
+## Generate pre-computed data
         contraction_hierarchy = self.build_ch(roads)
         
         return MapData(
@@ -132,16 +173,16 @@ class MapDataPipeline:
 ### Real-Time Location Processing
 
 ```python
-# Location update processing with accuracy enhancement
+## Location update processing with accuracy enhancement
 class LocationProcessor:
     def process_location_update(self, driver_id, raw_gps):
-# Map matching - snap to road network
+## Map matching - snap to road network
         matched_location = self.map_match(
             raw_gps,
             self.get_driver_history(driver_id)
         )
         
-# Accuracy enhancement
+## Accuracy enhancement
         if raw_gps.accuracy > 50:  # meters
             matched_location = self.enhance_accuracy(
                 matched_location,
@@ -149,11 +190,11 @@ class LocationProcessor:
                 self.get_wifi_signals(raw_gps)
             )
         
-# Update indices
+## Update indices
         self.update_h3_index(driver_id, matched_location)
         self.update_supply_heat_map(matched_location)
         
-# Stream to consumers
+## Stream to consumers
         self.publish_location_event(
             driver_id=driver_id,
             location=matched_location,
@@ -164,7 +205,7 @@ class LocationProcessor:
 ### Routing Engine Architecture
 
 ```yaml
-# Routing engine configuration
+## Routing engine configuration
 routing_engine:
   algorithms:
     - name: "contraction_hierarchies"
@@ -271,3 +312,9 @@ GROUP BY h3_cell, service_type;
 - [Improving ETA Prediction Accuracy](https://eng.uber.com/eta-prediction/)
 
 > **Note**: This case study is based on publicly available information and represents a simplified view of Uber's mapping infrastructure. Actual implementation details may vary.
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [Learning Paths](/architects-handbook/learning-paths)

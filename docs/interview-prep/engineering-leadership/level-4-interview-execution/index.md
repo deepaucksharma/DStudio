@@ -1,9 +1,73 @@
 ---
 title: Level 4 Interview Execution
 description: Level 4 Interview Execution overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Level 4: Interview Execution Framework
+
+
+
+## Overview
+
+Level 4 Interview Execution
+description: Level 4 Interview Execution overview and navigation
+---
+
+# Level 4: Interview Execution Framework
+
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Foundation: Demonstrating Mastery Across All Levels](#foundation-demonstrating-mastery-across-all-levels)
+  - [[Level I: First Principles](. Level II: Business Concepts](.
+
+**Reading time:** ~5 minutes
+
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Foundation: Demonstrating Mastery Across All Levels](#foundation-demonstrating-mastery-across-all-levels)
+  - [[Level I: First Principles](../engineering-leadership/level-1-first-principles/)](#level-i-first-principlesengineering-leadershiplevel-1-first-principles)
+  - [[Level II: Business Concepts](../engineering-leadership/level-2-core-business/)](#level-ii-business-conceptsengineering-leadershiplevel-2-core-business)
+  - [[Level III: Applications](../engineering-leadership/level-3-applications/)](#level-iii-applicationsengineering-leadershiplevel-3-applications)
+- [Interview Types & Success Strategies](#interview-types-success-strategies)
+  - [1. Behavioral Interviews](#1-behavioral-interviews)
+  - [2. Technical Leadership Interviews](#2-technical-leadership-interviews)
+  - [3. System & Organizational Design](#3-system-organizational-design)
+  - [4. Culture & Values Assessment](#4-culture-values-assessment)
+- [Execution Tools & Frameworks](#execution-tools-frameworks)
+  - [Core Tools](#core-tools)
+- [Interview Day Execution](#interview-day-execution)
+  - [Pre-Interview (1 hour before)](#pre-interview-1-hour-before)
+  - [During Interview](#during-interview)
+  - [Post-Interview](#post-interview)
+- [Success Patterns](#success-patterns)
+  - [What Distinguishes Great Candidates](#what-distinguishes-great-candidates)
+- [Common Pitfalls & Mitigations](#common-pitfalls-mitigations)
+  - [Pitfall 1: Over-Indexing on Technical Details](#pitfall-1-over-indexing-on-technical-details)
+  - [Pitfall 2: Lack of Quantification](#pitfall-2-lack-of-quantification)
+  - [Pitfall 3: Hero Narrative](#pitfall-3-hero-narrative)
+  - [Pitfall 4: Not Reading the Room](#pitfall-4-not-reading-the-room)
+- [Interview Calibration Guide](#interview-calibration-guide)
+  - [L5 Senior Engineering Manager](#l5-senior-engineering-manager)
+  - [L6 Director of Engineering](#l6-director-of-engineering)
+  - [L7+ VP of Engineering](#l7-vp-of-engineering)
+- [Continuous Improvement](#continuous-improvement)
+  - [Weekly Practice Routine](#weekly-practice-routine)
+  - [Monthly Calibration](#monthly-calibration)
+  - [Resources](#resources)
+- [Connecting Your Stories Across Levels](#connecting-your-stories-across-levels)
+  - [The Power Story Structure](#the-power-story-structure)
+  - [Example: Technical Migration Story](#example-technical-migration-story)
+- [Interview Success Checklist](#interview-success-checklist)
+  - [Before the Interview](#before-the-interview)
+  - [During the Interview](#during-the-interview)
+  - [After the Interview](#after-the-interview)
+
+
 
 ## Executive Summary
 

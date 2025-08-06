@@ -59,6 +59,53 @@ type: pattern
 
 # Serverless Event Processing
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+- [Level 1: Intuition (5 min) {#intuition}](#level-1-intuition-5-min-intuition)
+  - [The Story](#the-story)
+  - [Visual Metaphor](#visual-metaphor)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Level 2: Foundation (10 min) {#foundation}](#level-2-foundation-10-min-foundation)
+  - [The Problem Space](#the-problem-space)
+  - [How It Works](#how-it-works)
+  - [Basic Example](#basic-example)
+- [AWS Lambda example for serverless event processing](#aws-lambda-example-for-serverless-event-processing)
+- [Configure logging](#configure-logging)
+- [AWS clients (initialized outside handler for reuse)](#aws-clients-initialized-outside-handler-for-reuse)
+- [Business logic functions](#business-logic-functions)
+- [Additional utility functions would be implemented here...](#additional-utility-functions-would-be-implemented-here)
+- [Level 3: Deep Dive (15 min) {#deep-dive}](#level-3-deep-dive-15-min-deep-dive)
+  - [Implementation Details](#implementation-details)
+  - [Advanced Implementation Patterns](#advanced-implementation-patterns)
+- [Cold start optimization techniques](#cold-start-optimization-techniques)
+- [Global variables for connection reuse](#global-variables-for-connection-reuse)
+  - [Configure logging once](#configure-logging-once)
+- [Event processing with batch optimization](#event-processing-with-batch-optimization)
+- [Error handling and retry logic](#error-handling-and-retry-logic)
+- [Optimized Lambda handler with all improvements](#optimized-lambda-handler-with-all-improvements)
+  - [Common Pitfalls](#common-pitfalls)
+  - [Production Considerations](#production-considerations)
+- [Level 4: Expert (20 min) {#expert}](#level-4-expert-20-min-expert)
+  - [Advanced Scaling Patterns](#advanced-scaling-patterns)
+  - [Advanced Optimization Techniques](#advanced-optimization-techniques)
+- [Advanced serverless orchestration across multiple runtimes](#advanced-serverless-orchestration-across-multiple-runtimes)
+- [Usage example](#usage-example)
+- [Run example](#run-example)
+- [asyncio.run(main())](#asynciorunmain)
+- [Level 5: Mastery (30 min) {#mastery}](#level-5-mastery-30-min-mastery)
+  - [Real-World Case Studies](#real-world-case-studies)
+  - [Pattern Evolution and Future Directions](#pattern-evolution-and-future-directions)
+  - [Pattern Combinations](#pattern-combinations)
+- [Quick Reference](#quick-reference)
+  - [Decision Matrix](#decision-matrix)
+  - [Implementation Roadmap](#implementation-roadmap)
+  - [Related Resources](#related-resources)
+
 !!! info "🥇 Gold Tier Pattern"
     **Event-Driven Scaling** • Essential for modern cloud-native applications
     
@@ -241,7 +288,7 @@ graph TD
 ### Basic Example
 
 ```python
-# AWS Lambda example for serverless event processing
+## AWS Lambda example for serverless event processing
 import json
 import boto3
 import logging
@@ -249,11 +296,11 @@ from datetime import datetime
 from typing import Dict, Any, List
 import base64
 
-# Configure logging
+## Configure logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-# AWS clients (initialized outside handler for reuse)
+## AWS clients (initialized outside handler for reuse)
 dynamodb = boto3.resource('dynamodb')
 s3 = boto3.client('s3')
 sns = boto3.client('sns')
@@ -466,7 +513,7 @@ def handle_scheduled_event(event: Dict[str, Any], context) -> Dict[str, Any]:
         
     return result
 
-# Business logic functions
+## Business logic functions
 def process_order(order_data: Dict[str, Any]) -> Dict[str, Any]:
     """Process an order (example business logic)"""
     # Validate order
@@ -525,7 +572,7 @@ def send_error_notification(error_data: Dict[str, Any]) -> None:
     except Exception as e:
         logger.error(f"Failed to send error notification: {str(e)}")
 
-# Additional utility functions would be implemented here...
+## Additional utility functions would be implemented here...
 def calculate_total(items: List[Dict]) -> float:
     return sum(item.get('price', 0) * item.get('quantity', 1) for item in items)
 
@@ -613,7 +660,7 @@ graph TD
 #### 1. Cold Start Optimization
 
 ```python
-# Cold start optimization techniques
+## Cold start optimization techniques
 import os
 import json
 import time
@@ -621,12 +668,12 @@ from functools import lru_cache
 from typing import Dict, Any, Optional
 import logging
 
-# Global variables for connection reuse
+## Global variables for connection reuse
 _database_connection = None
 _api_clients = {}
 _cached_config = None
 
-# Configure logging once
+### Configure logging once
 logger = logging.getLogger()
 if not logger.handlers:
     logger.setLevel(logging.INFO)
@@ -731,7 +778,7 @@ class ColdStartOptimizer:
         except:
             return 0.0
 
-# Event processing with batch optimization
+## Event processing with batch optimization
 class BatchEventProcessor:
     """Efficiently process batch events to minimize function invocations"""
     
@@ -832,7 +879,7 @@ class BatchEventProcessor:
             'processed': True
         }
 
-# Error handling and retry logic
+## Error handling and retry logic
 class ServerlessErrorHandler:
     """Advanced error handling for serverless functions"""
     
@@ -882,7 +929,7 @@ class ServerlessErrorHandler:
         except Exception as dlq_error:
             logger.error(f"Failed to send to DLQ: {dlq_error}")
 
-# Optimized Lambda handler with all improvements
+## Optimized Lambda handler with all improvements
 def optimized_lambda_handler(event: Dict[str, Any], context) -> Dict[str, Any]:
     """Optimized Lambda handler with cold start optimization"""
     
@@ -1013,7 +1060,7 @@ graph TB
 #### 1. Multi-Runtime Function Orchestration
 
 ```python
-# Advanced serverless orchestration across multiple runtimes
+## Advanced serverless orchestration across multiple runtimes
 import json
 import asyncio
 import time
@@ -1305,7 +1352,7 @@ class ServerlessOrchestrator:
                     
         return suggestions
 
-# Usage example
+## Usage example
 async def main():
     # Initialize orchestrator
     orchestrator = ServerlessOrchestrator()
@@ -1378,8 +1425,8 @@ async def main():
     result = await orchestrator.execute_workflow(workflow)
     print(json.dumps(result, indent=2))
 
-# Run example
-# asyncio.run(main())
+## Run example
+## asyncio.run(main())
 ```
 
 ## Level 5: Mastery (30 min) {#mastery}

@@ -1,6 +1,25 @@
 ---
 title: Availability Math & Nines
 description: Understanding availability percentages and their real impact on system
+type: quantitative
+difficulty: beginner
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Availability Math & Nines
+
+
+
+## Overview
+
+Availability Math & Nines
+description: Understanding availability percentages and their real impact on system
   uptime and downtime calculations
 type: quantitative
 difficulty: beginner
@@ -12,6 +31,117 @@ last_updated: 2025-07-20
 
 
 # Availability Math & Nines
+
+## Table of Contents
+
+- [The Nines](#the-nines)
+- [Visual Availability Framework](#visual-availability-framework)
+- [Availability Calculations](#availability-calculations)
+  - [Series (AND): Multiply](#series-and-multiply)
+  - [Parallel (OR): Complement](#parallel-or-complement)
+  - [N+M Redundancy](#nm-redundancy)
+- [System Modeling](#system-modeling)
+- [Active-Active](#active-active)
+- [Multi-Region](#multi-region)
+- [Microservice Chain](#microservice-chain)
+- [Improving Availability](#improving-availability)
+- [Error Budgets](#error-budgets)
+- [Cloud Reality](#cloud-reality)
+- [MTBF and MTTR](#mtbf-and-mttr)
+  - [Visual MTBF/MTTR Relationship](#visual-mtbfmttr-relationship)
+- [Availability Patterns](#availability-patterns)
+  - [Failover Impact](#failover-impact)
+  - [Degraded Modes](#degraded-modes)
+  - [Cascading Failures](#cascading-failures)
+- [Economics](#economics)
+- [Practical Guidelines](#practical-guidelines)
+- [Design for failure](#design-for-failure)
+- [Track availability](#track-availability)
+- [Law Connections](#law-connections)
+  - [Law 1: Failure](#law-1-failure)
+  - [Law 4: Trade-offs](#law-4-trade-offs)
+  - [Law 4: Trade-offs (CAP Trade-offs)](#law-4-trade-offs-cap-trade-offs)
+- [Consistency vs Availability Trade-off](#consistency-vs-availability-trade-off)
+- [CAP theorem in action](#cap-theorem-in-action)
+  - [Law 7: Economics](#law-7-economics)
+- [Visual Availability Architecture](#visual-availability-architecture)
+  - [Series vs Parallel - Visual Impact](#series-vs-parallel-visual-impact)
+  - [The Nines Visualization](#the-nines-visualization)
+- [Decision Framework: Choosing Availability Target](#decision-framework-choosing-availability-target)
+- [Real-World Application: E-commerce Platform](#real-world-application-e-commerce-platform)
+  - [Availability Calculation](#availability-calculation)
+- [Component Availability](#component-availability)
+- [End-to-end (Series)](#end-to-end-series)
+- [MTBF/MTTR Visualization](#mtbfmttr-visualization)
+  - [Error Budget Dashboard](#error-budget-dashboard)
+- [Advanced Pattern: Cell-Based Architecture](#advanced-pattern-cell-based-architecture)
+- [Key Takeaways](#key-takeaways)
+- [Related Concepts](#related-concepts)
+
+
+
+**Building reliable systems from unreliable parts**
+
+## The Nines
+
+```
+90% (1 nine) = 36. Visual Availability Framework
+
+```mermaid
+graph TB
+ subgraph "Availability Patterns"
+ subgraph "Series (Chain) - Multiply"
+ S1[Service A<br/>99.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [The Nines](#the-nines)
+- [Visual Availability Framework](#visual-availability-framework)
+- [Availability Calculations](#availability-calculations)
+  - [Series (AND): Multiply](#series-and-multiply)
+  - [Parallel (OR): Complement](#parallel-or-complement)
+  - [N+M Redundancy](#nm-redundancy)
+- [System Modeling](#system-modeling)
+- [Active-Active](#active-active)
+- [Multi-Region](#multi-region)
+- [Microservice Chain](#microservice-chain)
+- [Improving Availability](#improving-availability)
+- [Error Budgets](#error-budgets)
+- [Cloud Reality](#cloud-reality)
+- [MTBF and MTTR](#mtbf-and-mttr)
+  - [Visual MTBF/MTTR Relationship](#visual-mtbfmttr-relationship)
+- [Availability Patterns](#availability-patterns)
+  - [Failover Impact](#failover-impact)
+  - [Degraded Modes](#degraded-modes)
+  - [Cascading Failures](#cascading-failures)
+- [Economics](#economics)
+- [Practical Guidelines](#practical-guidelines)
+- [Design for failure](#design-for-failure)
+- [Track availability](#track-availability)
+- [Law Connections](#law-connections)
+  - [Law 1: Failure](#law-1-failure)
+  - [Law 4: Trade-offs](#law-4-trade-offs)
+  - [Law 4: Trade-offs (CAP Trade-offs)](#law-4-trade-offs-cap-trade-offs)
+- [Consistency vs Availability Trade-off](#consistency-vs-availability-trade-off)
+- [CAP theorem in action](#cap-theorem-in-action)
+  - [Law 7: Economics](#law-7-economics)
+- [Visual Availability Architecture](#visual-availability-architecture)
+  - [Series vs Parallel - Visual Impact](#series-vs-parallel-visual-impact)
+  - [The Nines Visualization](#the-nines-visualization)
+- [Decision Framework: Choosing Availability Target](#decision-framework-choosing-availability-target)
+- [Real-World Application: E-commerce Platform](#real-world-application-e-commerce-platform)
+  - [Availability Calculation](#availability-calculation)
+- [Component Availability](#component-availability)
+- [End-to-end (Series)](#end-to-end-series)
+- [MTBF/MTTR Visualization](#mtbfmttr-visualization)
+  - [Error Budget Dashboard](#error-budget-dashboard)
+- [Advanced Pattern: Cell-Based Architecture](#advanced-pattern-cell-based-architecture)
+- [Key Takeaways](#key-takeaways)
+- [Related Concepts](#related-concepts)
+
+
 
 **Building reliable systems from unreliable parts**
 
@@ -130,13 +260,13 @@ Two 99.9% DBs = 1 - 0.001² = 99.9999%
 ## System Modeling
 
 ```python
-# Active-Active
+## Active-Active
 LB(99.99%) → [App1|App2](99.9999%.md)) → DB(99.9%) = 99.89%
 
-# Multi-Region
+## Multi-Region
 Two 99.8% regions = 1 - 0.002² = 99.9996%
 
-# Microservice Chain
+## Microservice Chain
 Five 99.9% services = 0.999⁵ = 99.5%
 (With circuit breakers: maintain 99.9%)
 ```
@@ -266,7 +396,7 @@ $1B business: Same upgrade saves $9M = +4400% ROI!
 ## Practical Guidelines
 
 ```python
-# Design for failure
+## Design for failure
 try:
  result = service.call()
 except ServiceUnavailable:
@@ -274,7 +404,7 @@ except ServiceUnavailable:
 except Timeout:
  result = circuit_breaker.fallback()
 
-# Track availability
+## Track availability
 availability = successes / total_requests
 if availability < target_sla:
  alert()
@@ -305,10 +435,10 @@ graph TD
 
 ### Law 4: Trade-offs (CAP Trade-offs)
 ```python
-# Consistency vs Availability Trade-off
+## Consistency vs Availability Trade-off
 Strong Consistency + Partition = No Availability
 High Availability + Partition = Inconsistency
-# CAP theorem in action
+## CAP theorem in action
 ```
 
 ### Law 7: Economics
@@ -419,14 +549,14 @@ graph TB
 
 ### Availability Calculation
 ```python
-# Component Availability
+## Component Availability
 Edge: 0.9999 × 0.9999 = 99.98%
 LB Layer: 1 - (0.0001)² = 99.9999%
 App Layer: 1 - (0.001)³ = 99.9999%
 Cache: 99.99%
 DB Layer: 1 - (0.001)² = 99.9999%
 
-# End-to-end (Series)
+## End-to-end (Series)
 Total = 0.9998 × 0.999999 × 0.999999 × 0.9999 × 0.999999
  = 99.97% (2.6 hours downtime/year)
 ```

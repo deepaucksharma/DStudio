@@ -174,7 +174,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Simplified Phi Accrual implementation
+## Simplified Phi Accrual implementation
 class PhiAccrualDetector:
     def __init__(self, threshold=8.0, window_size=1000):
         self.threshold = threshold

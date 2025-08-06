@@ -65,6 +65,46 @@ lessons_learned:
 
 # Migration: From Polling to Event-Driven Architecture
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [The Polling Problem](#the-polling-problem)
+  - [Why Polling Doesn't Scale](#why-polling-doesnt-scale)
+  - [Real-World Polling Scenarios](#real-world-polling-scenarios)
+- [Migration Strategies](#migration-strategies)
+  - [Strategy 1: Dual-Write Transition](#strategy-1-dual-write-transition)
+  - [Strategy 2: Strangler Fig Pattern](#strategy-2-strangler-fig-pattern)
+- [Common Migration Patterns](#common-migration-patterns)
+  - [Pattern 1: Webhook-Based Events](#pattern-1-webhook-based-events)
+  - [Pattern 2: Event Streaming](#pattern-2-event-streaming)
+- [Migration Challenges](#migration-challenges)
+  - [Challenge 1: Event Ordering](#challenge-1-event-ordering)
+  - [Challenge 2: Duplicate Events](#challenge-2-duplicate-events)
+  - [Challenge 3: Missed Events](#challenge-3-missed-events)
+- [Migration Checklist](#migration-checklist)
+  - [Pre-Migration](#pre-migration)
+  - [During Migration](#during-migration)
+  - [Post-Migration](#post-migration)
+- [Cost-Benefit Analysis](#cost-benefit-analysis)
+  - [Polling Costs (Monthly)](#polling-costs-monthly)
+- [Example: Order status polling](#example-order-status-polling)
+- [= 2.592 billion API calls/month](#-2592-billion-api-callsmonth)
+- [= $10,368/month just for API calls](#-10368month-just-for-api-calls)
+- [= $25,368/month](#-25368month)
+  - [Event-Driven Costs (Monthly)](#event-driven-costs-monthly)
+- [Event-driven replacement](#event-driven-replacement)
+- [= $10/month for event delivery](#-10month-for-event-delivery)
+- [= $7,010/month](#-7010month)
+- [Savings: $18,358/month (72% reduction)](#savings-18358month-72-reduction)
+- [Lessons Learned](#lessons-learned)
+  - [What Worked](#what-worked)
+  - [What Failed](#what-failed)
+  - [Key Takeaways](#key-takeaways)
+- [Modern Alternatives Comparison](#modern-alternatives-comparison)
+- [Related Resources](#related-resources)
+
+
+
 !!! warning "Excellence Badge"
     🥉 **Bronze Tier**: Legacy pattern - migrate to modern alternatives
 
@@ -406,38 +446,38 @@ class EventRecovery:
 ### Polling Costs (Monthly)
 
 ```python
-# Example: Order status polling
+## Example: Order status polling
 polling_clients = 10000
 polls_per_client_per_day = 8640  # Every 10 seconds
 api_calls_per_month = polling_clients * polls_per_client_per_day * 30
-# = 2.592 billion API calls/month
+## = 2.592 billion API calls/month
 
 cost_per_1000_calls = 0.004  # $0.004 per 1000 API calls
 api_cost = (api_calls_per_month / 1000) * cost_per_1000_calls
-# = $10,368/month just for API calls
+## = $10,368/month just for API calls
 
 db_cost = 5000  # Database load from polling
 server_cost = 10000  # Servers to handle polling
 
 total_polling_cost = api_cost + db_cost + server_cost
-# = $25,368/month
+## = $25,368/month
 ```
 
 ### Event-Driven Costs (Monthly)
 
 ```python
-# Event-driven replacement
+## Event-driven replacement
 events_per_month = 1000000  # Only actual changes
 event_delivery_cost = events_per_month * 0.00001  # $0.01 per 1000 events
-# = $10/month for event delivery
+## = $10/month for event delivery
 
 streaming_infrastructure = 5000  # Kafka/webhooks
 reduced_server_cost = 2000  # Fewer servers needed
 
 total_event_cost = event_delivery_cost + streaming_infrastructure + reduced_server_cost
-# = $7,010/month
+## = $7,010/month
 
-# Savings: $18,358/month (72% reduction)
+## Savings: $18,358/month (72% reduction)
 ```
 
 ## Lessons Learned

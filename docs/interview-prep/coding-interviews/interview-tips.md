@@ -1,10 +1,56 @@
 ---
-title: Coding Interview Strategy & Tips
-description: | Aspect | Coding Interviews | System Design Interviews | |--------|-------------------|--------------------------|
+title: "Coding Interview Strategy & Tips"
+description: "Master coding interviews with strategic approaches, problem-solving frameworks, and real-world examples from technical interviews at top companies."
 type: interview-guide
+category: interview-prep
+tags: ["interview-prep"]
+date: 2025-08-07
+reading_time: "6 min"
 ---
 
 # Coding Interview Strategy & Tips
+
+**Reading time:** ~6 minutes
+
+## Table of Contents
+
+- [Coding vs System Design Interviews](#coding-vs-system-design-interviews)
+  - [Key Differences](#key-differences)
+  - [Transitioning Between Modes](#transitioning-between-modes)
+- [The REACTO Method](#the-reacto-method)
+  - [R - Repeat](#r-repeat)
+  - [E - Examples](#e-examples)
+  - [A - Approach](#a-approach)
+  - [C - Code](#c-code)
+  - [T - Test](#t-test)
+  - [O - Optimize](#o-optimize)
+- [Communication Best Practices](#communication-best-practices)
+  - [Think Aloud Protocol](#think-aloud-protocol)
+  - [Explain Trade-offs](#explain-trade-offs)
+  - [Handle Uncertainty](#handle-uncertainty)
+  - [Debug Systematically](#debug-systematically)
+- [Common Mistakes & How to Avoid](#common-mistakes-how-to-avoid)
+  - [Mistake 1: Jumping to Code](#mistake-1-jumping-to-code)
+  - [Mistake 2: Poor Variable Names](#mistake-2-poor-variable-names)
+  - [Mistake 3: Ignoring Edge Cases](#mistake-3-ignoring-edge-cases)
+  - [Mistake 4: Not Testing Code](#mistake-4-not-testing-code)
+  - [Mistake 5: Overcomplicating Solutions](#mistake-5-overcomplicating-solutions)
+- [What Interviewers Look For](#what-interviewers-look-for)
+  - [Technical Skills (60%)](#technical-skills-60)
+  - [Communication Skills (30%)](#communication-skills-30)
+  - [Attitude & Approach (10%)](#attitude-approach-10)
+- [Interview Timeline & Strategy](#interview-timeline-strategy)
+  - [Before the Interview (30 min)](#before-the-interview-30-min)
+  - [During the Interview](#during-the-interview)
+  - [Red Flags to Avoid](#red-flags-to-avoid)
+  - [Green Flags to Demonstrate](#green-flags-to-demonstrate)
+- [Mock Interview Checklist](#mock-interview-checklist)
+  - [Practice Setup](#practice-setup)
+  - [Self-Assessment Questions](#self-assessment-questions)
+  - [Common Practice Mistakes](#common-practice-mistakes)
+- [Integration with System Design Skills](#integration-with-system-design-skills)
+  - [Coding Skills That Help System Design](#coding-skills-that-help-system-design)
+  - [System Design Skills That Help Coding](#system-design-skills-that-help-coding)
 
 ## Coding vs System Design Interviews
 
@@ -48,15 +94,15 @@ type: interview-guide
 **Work through test cases**
 
 ```python
-# Example walkthrough
+## Example walkthrough
 arr = [2, 7, 11, 15], target = 9
-# Expected output: [0, 1] because arr[0] + arr[1] = 2 + 7 = 9
+## Expected output: [0, 1] because arr[0] + arr[1] = 2 + 7 = 9
 
-# Edge cases to consider:
-# - Empty array: []
-# - Single element: [5]
-# - No solution exists (if not guaranteed)
-# - Negative numbers: [-1, -2, -3]
+## Edge cases to consider:
+## - Empty array: []
+## - Single element: [5]
+## - No solution exists (if not guaranteed)
+## - Negative numbers: [-1, -2, -3]
 ```
 
 ### A - Approach
@@ -104,11 +150,11 @@ def two_sum(nums, target):
 **Verify with examples**
 
 ```python
-# Test with provided example
+## Test with provided example
 result = two_sum([2, 7, 11, 15], 9)
 print(result)  # [0, 1] ✓
 
-# Test edge case
+## Test edge case
 result = two_sum([3, 3], 6)  
 print(result)  # [0, 1] ✓
 ```
@@ -172,11 +218,11 @@ and use two pointers for O(1) space."
 **Solution**: Always clarify requirements and work through examples first
 
 ```python
-# ❌ Bad: Start coding immediately
+### ❌ Bad: Start coding immediately
 def solution(arr):
     # Wait, what exactly am I solving?
 
-# ✅ Good: Clarify first
+## ✅ Good: Clarify first
 """
 Problem: Find two indices where elements sum to target
 Input: [2, 7, 11, 15], target = 9
@@ -187,7 +233,7 @@ Approach: Hash map for O(n) solution
 
 ### Mistake 2: Poor Variable Names
 ```python
-# ❌ Bad
+## ❌ Bad
 def f(a, t):
     d = {}
     for i, x in enumerate(a):
@@ -196,7 +242,7 @@ def f(a, t):
             return [d[y], i]
         d[x] = i
 
-# ✅ Good  
+## ✅ Good  
 def two_sum(nums, target):
     num_to_index = {}
     for i, num in enumerate(nums):
@@ -208,14 +254,14 @@ def two_sum(nums, target):
 
 ### Mistake 3: Ignoring Edge Cases
 ```python
-# ❌ Missing edge case handling
+## ❌ Missing edge case handling
 def binary_search(arr, target):
     left, right = 0, len(arr) - 1
     while left <= right:
         mid = (left + right) / 2  # Integer overflow risk!
         # ... rest of logic
 
-# ✅ Handle edge cases
+## ✅ Handle edge cases
 def binary_search(arr, target):
     if not arr:  # Empty array
         return -1
@@ -228,7 +274,7 @@ def binary_search(arr, target):
 
 ### Mistake 4: Not Testing Code
 ```python
-# After writing solution, always test:
+## After writing solution, always test:
 print(two_sum([2, 7, 11, 15], 9))     # [0, 1]
 print(two_sum([3, 2, 4], 6))          # [1, 2]  
 print(two_sum([3, 3], 6))             # [0, 1]
@@ -236,14 +282,14 @@ print(two_sum([3, 3], 6))             # [0, 1]
 
 ### Mistake 5: Overcomplicating Solutions
 ```python
-# ❌ Overthinking
+## ❌ Overthinking
 def is_palindrome(s):
     # Complex regex and multiple passes
     import re
     cleaned = re.sub(r'[^a-zA-Z0-9]', '', s).lower()
     return cleaned == cleaned[::-1]
 
-# ✅ Simple and clear
+## ✅ Simple and clear
 def is_palindrome(s):
     left, right = 0, len(s) - 1
     while left < right:

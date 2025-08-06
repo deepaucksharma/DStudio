@@ -142,7 +142,7 @@ graph TD
 ### Basic GitOps Setup
 
 ```yaml
-# ArgoCD Application for GitOps deployment
+## ArgoCD Application for GitOps deployment
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -171,7 +171,7 @@ spec:
         maxDuration: 3m
 
 ---
-# Kubernetes manifest in Git repository
+## Kubernetes manifest in Git repository
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -203,7 +203,7 @@ spec:
               key: url
 
 ---
-# Sealed Secret for GitOps (encrypted in Git)
+## Sealed Secret for GitOps (encrypted in Git)
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
@@ -221,7 +221,7 @@ spec:
 ### Advanced GitOps Workflow
 
 ```python
-# GitOps automation and deployment management
+## GitOps automation and deployment management
 import git
 import yaml
 import json
@@ -465,7 +465,7 @@ class GitOpsManager:
             
         return result
 
-# Usage example
+## Usage example
 def main():
     # Initialize GitOps manager
     gitops = GitOpsManager(

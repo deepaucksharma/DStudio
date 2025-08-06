@@ -6,6 +6,54 @@ type: documentation
 
 # Backpressure Mathematics
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Core Concepts](#core-concepts)
+  - [Flow Control Theory](#flow-control-theory)
+  - [Mathematical Foundation](#mathematical-foundation)
+- [Backpressure Models](#backpressure-models)
+  - [Token Bucket Algorithm](#token-bucket-algorithm)
+  - [Leaky Bucket Algorithm](#leaky-bucket-algorithm)
+  - [Credit-Based Flow Control](#credit-based-flow-control)
+- [Mathematical Analysis](#mathematical-analysis)
+  - [Little's Law Application](#littles-law-application)
+  - [Queue Growth Rate](#queue-growth-rate)
+- [Backpressure Strategies](#backpressure-strategies)
+  - [Static Backpressure](#static-backpressure)
+  - [Dynamic Backpressure](#dynamic-backpressure)
+  - [Propagation Models](#propagation-models)
+- [Performance Metrics](#performance-metrics)
+  - [Throughput Under Backpressure](#throughput-under-backpressure)
+  - [Latency Impact](#latency-impact)
+  - [Buffer Sizing](#buffer-sizing)
+- [Implementation Models](#implementation-models)
+  - [Reactive Streams](#reactive-streams)
+  - [TCP Congestion Control](#tcp-congestion-control)
+  - [Credit Systems](#credit-systems)
+- [Stability Analysis](#stability-analysis)
+  - [Lyapunov Function](#lyapunov-function)
+  - [Control Theory](#control-theory)
+- [Real-World Examples](#real-world-examples)
+  - [Kafka Backpressure](#kafka-backpressure)
+  - [Akka Streams](#akka-streams)
+  - [Network Switches](#network-switches)
+- [Design Calculations](#design-calculations)
+  - [Buffer Sizing](#buffer-sizing)
+  - [Watermark Settings](#watermark-settings)
+  - [Response Time](#response-time)
+- [Common Pitfalls](#common-pitfalls)
+  - [Deadlock Scenarios](#deadlock-scenarios)
+  - [Livelock Conditions](#livelock-conditions)
+  - [Cascade Effects](#cascade-effects)
+- [Advanced Topics](#advanced-topics)
+  - [Multi-Level Backpressure](#multi-level-backpressure)
+  - [Predictive Backpressure](#predictive-backpressure)
+  - [Fairness Algorithms](#fairness-algorithms)
+- [Related Topics](#related-topics)
+
+
+
 ## Overview
 
 Backpressure is a flow control mechanism that prevents system overload by propagating capacity constraints upstream. This page explores the mathematical models underlying backpressure systems.

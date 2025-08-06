@@ -152,7 +152,7 @@ graph LR
 ### Pattern 1: Big Bang (Usually Fails)
 
 ```python
-# DON'T DO THIS
+## DON'T DO THIS
 class BigBangMigration:
     """The 'rewrite everything' approach - 90% failure rate"""
     
@@ -314,7 +314,7 @@ class MicroservicesReality:
 ### Pitfall 1: Wrong Service Boundaries
 
 ```python
-# BAD: Technical boundaries
+## BAD: Technical boundaries
 class WrongBoundaries:
     services = [
         "DatabaseService",      # Just a CRUD wrapper
@@ -323,7 +323,7 @@ class WrongBoundaries:
         "LoggingService"       # Should be a library
     ]
 
-# GOOD: Business boundaries  
+## GOOD: Business boundaries  
 class CorrectBoundaries:
     services = [
         "OrderManagement",     # Complete business capability

@@ -1,5 +1,34 @@
 # Mermaid Diagram Templates Library
 
+## Table of Contents
+
+- [Template Usage](#template-usage)
+- [1. State Machine Templates](#1-state-machine-templates)
+  - [Circuit Breaker State Machine](#circuit-breaker-state-machine)
+  - [Saga Transaction State Machine](#saga-transaction-state-machine)
+  - [Leader Election State Machine](#leader-election-state-machine)
+- [2. Architecture Diagram Templates](#2-architecture-diagram-templates)
+  - [Microservices Architecture](#microservices-architecture)
+  - [Event-Driven Architecture](#event-driven-architecture)
+  - [Cell-Based Architecture](#cell-based-architecture)
+- [3. Sequence Diagram Templates](#3-sequence-diagram-templates)
+  - [Distributed Transaction (Saga Pattern)](#distributed-transaction-saga-pattern)
+  - [Circuit Breaker Request Flow](#circuit-breaker-request-flow)
+  - [API Gateway Request Processing](#api-gateway-request-processing)
+- [4. Flowchart Templates](#4-flowchart-templates)
+  - [Error Handling Decision Tree](#error-handling-decision-tree)
+  - [Load Balancer Algorithm Selection](#load-balancer-algorithm-selection)
+  - [Caching Strategy Selection](#caching-strategy-selection)
+- [5. Performance Visualization Templates](#5-performance-visualization-templates)
+  - [Latency Distribution Visualization](#latency-distribution-visualization)
+  - [System Scaling Behavior](#system-scaling-behavior)
+  - [Multi-Dimensional Resource Dashboard](#multi-dimensional-resource-dashboard)
+- [Template Customization Guide](#template-customization-guide)
+  - [1. State Machine Customization](#1-state-machine-customization)
+  - [2. Architecture Diagram Adaptation](#2-architecture-diagram-adaptation)
+  - [3. Sequence Diagram Customization](#3-sequence-diagram-customization)
+  - [4. Performance Template Usage](#4-performance-template-usage)
+
 This document provides comprehensive, reusable Mermaid templates for all distributed systems patterns in the DStudio documentation.
 
 ## Template Usage

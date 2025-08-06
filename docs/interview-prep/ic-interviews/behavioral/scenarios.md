@@ -1,10 +1,40 @@
 ---
-title: IC Behavioral Scenarios Deep-Dive
-description: **Example Question**: "Tell me about a time you handled a critical production issue."
+title: "IC Behavioral Scenarios Deep-Dive"
+description: "Real-world behavioral interview scenarios for individual contributors with STAR-based answer frameworks and common follow-up questions."
 type: interview-guide
+category: interview-prep
+tags: ["interview-prep"]
+date: 2025-08-07
+reading_time: "8 min"
 ---
 
 # IC Behavioral Scenarios Deep-Dive
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [Advanced Scenario Practice](#advanced-scenario-practice)
+  - [Handling Production Incidents](#handling-production-incidents)
+  - [Disagreeing with Senior Engineers/Architects](#disagreeing-with-senior-engineersarchitects)
+  - [Technical Debt and Refactoring](#technical-debt-and-refactoring)
+  - [Cross-Functional Collaboration](#cross-functional-collaboration)
+  - [Learning and Growth](#learning-and-growth)
+- [Practice Framework](#practice-framework)
+  - [Scenario Preparation Matrix](#scenario-preparation-matrix)
+  - [Story Development Process](#story-development-process)
+  - [Common Follow-up Questions](#common-follow-up-questions)
+
+## Advanced Scenario Practice
+
+### Handling Production Incidents
+
+**Example Question**: "Tell me about a time you handled a critical production issue."
+  - [Scenario Preparation Matrix](#scenario-preparation-matrix)
+  - [Story Development Process](#story-development-process)
+  - [Common Follow-up Questions](#common-follow-up-questions)
+
+
 
 ## Advanced Scenario Practice
 

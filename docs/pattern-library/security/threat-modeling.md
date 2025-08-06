@@ -150,7 +150,7 @@ Risk Ratings:
 
 1. **Establish Threat Modeling Process**
 ```yaml
-# Threat modeling workflow
+## Threat modeling workflow
 process:
   trigger_events:
     - New system design
@@ -181,7 +181,7 @@ process:
 
 2. **Create System Model Template**
 ```python
-# System modeling framework
+## System modeling framework
 from dataclasses import dataclass
 from typing import List, Dict, Optional
 from enum import Enum
@@ -265,7 +265,7 @@ class SystemModel:
 
 1. **STRIDE Threat Assessment**
 ```python
-# STRIDE-based threat analysis
+## STRIDE-based threat analysis
 from enum import Enum
 from dataclasses import dataclass
 from typing import List, Dict
@@ -387,7 +387,7 @@ class STRIDEThreatAnalyzer:
 
 1. **Attack Tree Modeling**
 ```python
-# Attack tree implementation
+## Attack tree implementation
 from typing import List, Optional, Dict
 from dataclasses import dataclass
 from enum import Enum
@@ -498,7 +498,7 @@ class AttackTree:
             for child in node.children:
                 self._find_paths(child, current_path, all_paths)
 
-# Example attack tree for data breach
+## Example attack tree for data breach
 def create_data_breach_attack_tree() -> AttackTree:
     # Leaf nodes (actual attacks)
     sql_injection = AttackNode(
@@ -560,7 +560,7 @@ def create_data_breach_attack_tree() -> AttackTree:
 
 1. **Automated Threat Analysis**
 ```python
-# Automated threat modeling integration
+## Automated threat modeling integration
 import json
 from typing import Dict, List
 from dataclasses import asdict

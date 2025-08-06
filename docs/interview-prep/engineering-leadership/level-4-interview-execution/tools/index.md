@@ -1,9 +1,49 @@
 ---
 title: Tools
 description: Tools overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Interview Execution Tools
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Core Frameworks](#core-frameworks)
+  - [1. [STAR+ Framework](../../engineering-leadership/level-4-interview-execution/tools/star-framework/)](#1-star-frameworkengineering-leadershiplevel-4-interview-executiontoolsstar-framework)
+  - [2. [Story Portfolio](../../engineering-leadership/level-4-interview-execution/tools/story-portfolio/)](#2-story-portfolioengineering-leadershiplevel-4-interview-executiontoolsstory-portfolio)
+  - [3. [Principle Hooks](../../engineering-leadership/level-4-interview-execution/tools/principle-hooks/)](#3-principle-hooksengineering-leadershiplevel-4-interview-executiontoolsprinciple-hooks)
+  - [4. [Mock Interview Guide](../../engineering-leadership/level-4-interview-execution/tools/mock-interview-guide.md)](#4-mock-interview-guideengineering-leadershiplevel-4-interview-executiontoolsmock-interview-guidemd)
+- [Interactive Tools](#interactive-tools)
+  - [5. [Interactive Practice Tools](../../engineering-leadership/level-4-interview-execution/tools/interactive/)](#5-interactive-practice-toolsengineering-leadershiplevel-4-interview-executiontoolsinteractive)
+    - [Question Bank](#question-bank)
+    - [STAR Matcher](#star-matcher)
+    - [Interview Timer](#interview-timer)
+    - [Decision Trees](#decision-trees)
+    - [Self-Assessment](#self-assessment)
+- [Tool Integration Workflow](#tool-integration-workflow)
+  - [Phase 1: Foundation (Weeks 1-2)](#phase-1-foundation-weeks-1-2)
+  - [Phase 2: Refinement (Weeks 3-4)](#phase-2-refinement-weeks-3-4)
+  - [Phase 3: Execution (Weeks 5-6)](#phase-3-execution-weeks-5-6)
+- [Quick Start Guide](#quick-start-guide)
+  - [For Behavioral Interviews](#for-behavioral-interviews)
+  - [For Culture Interviews](#for-culture-interviews)
+  - [For Technical Leadership](#for-technical-leadership)
+- [Tool Selection Matrix](#tool-selection-matrix)
+- [Best Practices](#best-practices)
+  - [Daily Practice Routine (30 minutes)](#daily-practice-routine-30-minutes)
+  - [Weekly Deep Dives (2 hours)](#weekly-deep-dives-2-hours)
+- [Common Pitfalls](#common-pitfalls)
+  - [Tool Misuse](#tool-misuse)
+  - [Integration Failures](#integration-failures)
+- [Success Metrics](#success-metrics)
+- [Advanced Usage](#advanced-usage)
+  - [Creating Custom Tools](#creating-custom-tools)
+  - [Peer Practice Groups](#peer-practice-groups)
+
+
 
 ## Overview
 

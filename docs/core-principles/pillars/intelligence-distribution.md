@@ -290,28 +290,28 @@ Score: ___ / 7  (Less than 7 = DON'T DEPLOY)
 ### The Four Horsemen Detectors
 
 ```yaml
-# 1. FEEDBACK SPIRAL DETECTION
+## 1. FEEDBACK SPIRAL DETECTION
 - alert: FeedbackSpiral
   expr: |
     rate(model_predictions[5m]) / rate(reality_changes[5m]) > 1.5
   annotations:
     summary: "Model changing reality faster than learning"
     
-# 2. MODEL CORRELATION  
+## 2. MODEL CORRELATION  
 - alert: DangerousCorrelation
   expr: |
     model_correlation_matrix > 0.8
   annotations:
     summary: "Models will fail together"
     
-# 3. DRIFT ACCELERATION
+## 3. DRIFT ACCELERATION
 - alert: RealityDriftingFast  
   expr: |
     derivative(feature_distribution_distance[10m]) > 0.1
   annotations:
     summary: "World changing faster than model can adapt"
     
-# 4. CASCADE DETECTION
+## 4. CASCADE DETECTION
 - alert: PredictionCascade
   expr: |
     sum(model_dependencies) > 3

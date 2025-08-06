@@ -234,7 +234,7 @@ public class WordCountStream {
 ### Complex Aggregation Example
 
 ```python
-# Batch: Daily user activity summary
+## Batch: Daily user activity summary
 def batch_user_summary():
     df = spark.read.parquet("s3:/data/user_events/")
     
@@ -247,7 +247,7 @@ def batch_user_summary():
     
     summary.write.parquet("s3:/data/user_summaries/")
 
-# Streaming: Real-time user activity summary
+## Streaming: Real-time user activity summary
 from pyspark.sql import functions as F
 from pyspark.sql.types import *
 
@@ -702,7 +702,7 @@ migration_timeline:
 **After:** Continuous risk monitoring
 
 ```python
-# Before: Batch risk calculation
+## Before: Batch risk calculation
 def batch_risk_calculation():
     # Load entire portfolio
     positions = spark.read.parquet("s3:/data/positions/")
@@ -718,7 +718,7 @@ def batch_risk_calculation():
     
     risk_metrics.write.mode("overwrite").parquet("s3:/data/risk_metrics/")
 
-# After: Streaming risk calculation
+## After: Streaming risk calculation
 class StreamingRiskCalculator:
     def __init__(self):
         self.position_store = {}  # In practice, use Redis/Hazelcast

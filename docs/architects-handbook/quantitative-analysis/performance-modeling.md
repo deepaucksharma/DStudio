@@ -1,6 +1,26 @@
 ---
 title: Performance Modeling for Distributed Systems
 description: Mathematical models and practical techniques for predicting and optimizing
+type: quantitative
+difficulty: advanced
+reading_time: 45 min
+prerequisites: 
+pattern_type: various
+status: complete
+last_updated: 2025-01-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Performance Modeling for Distributed Systems
+
+
+
+## Overview
+
+Performance Modeling for Distributed Systems
+description: Mathematical models and practical techniques for predicting and optimizing
   system performance
 type: quantitative
 difficulty: advanced
@@ -16,6 +36,87 @@ last_updated: 2025-01-23
 
 
 # Performance Modeling for Distributed Systems
+
+## Table of Contents
+
+- [Visual Performance Modeling Framework](#visual-performance-modeling-framework)
+- [Fundamental Performance Equations](#fundamental-performance-equations)
+  - [1. Response Time Breakdown](#1-response-time-breakdown)
+  - [2.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [Visual Performance Modeling Framework](#visual-performance-modeling-framework)
+- [Fundamental Performance Equations](#fundamental-performance-equations)
+  - [1. Response Time Breakdown](#1-response-time-breakdown)
+  - [2. Throughput Limits](#2-throughput-limits)
+  - [3. Utilization Law](#3-utilization-law)
+- [Queueing Models for Distributed Systems](#queueing-models-for-distributed-systems)
+  - [M/M/1 Queue (Single Server)](#mm1-queue-single-server)
+  - [Example: 80 req/s arriving, 100 req/s capacity](#example-80-reqs-arriving-100-reqs-capacity)
+- [U = 0.8, Avg Response = 50ms, Queue Length = 4](#u-08-avg-response-50ms-queue-length-4)
+  - [M/M/c Queue (Multiple Servers)](#mmc-queue-multiple-servers)
+- [offered_load = arrival_rate / service_rate](#offered_load-arrival_rate-service_rate)
+- [Network of Queues Model](#network-of-queues-model)
+  - [Jackson Network](#jackson-network)
+- [Example paths:](#example-paths)
+- [80%: LB → App → Cache (5ms total)](#80-lb-app-cache-5ms-total)
+- [20%: LB → App → Cache → DB (25ms total)](#20-lb-app-cache-db-25ms-total)
+- [Average: 0.8 * 5 + 0.2 * 25 = 9ms](#average-08-5-02-25-9ms)
+- [Performance Under Load](#performance-under-load)
+  - [Response Time vs Load Curve](#response-time-vs-load-curve)
+  - [Hockey Stick Curve](#hockey-stick-curve)
+- [Response time = S / (1 - U) for M/M/1](#response-time-s-1-u-for-mm1)
+- [Plot](#plot)
+- [Key points:](#key-points)
+- [U=0.5: R=20ms (2x service time)](#u05-r20ms-2x-service-time)
+- [U=0.8: R=50ms (5x service time)](#u08-r50ms-5x-service-time)
+- [U=0.9: R=100ms (10x service time)](#u09-r100ms-10x-service-time)
+- [U=0.95: R=200ms (20x service time)](#u095-r200ms-20x-service-time)
+- [Modeling Distributed Systems](#modeling-distributed-systems)
+  - [Parallel Processing Model](#parallel-processing-model)
+  - [Universal Scalability Law (USL)](#universal-scalability-law-usl)
+  - [Example: Web application scaling](#example-web-application-scaling)
+- [alpha=0.03 (3% serialization)](#alpha003-3-serialization)
+- [beta=0.0001 (minimal coherency)](#beta00001-minimal-coherency)
+- [Results:](#results)
+- [N=1: throughput = 1x](#n1-throughput-1x)
+- [N=10: throughput = 7.8x (78% efficiency)](#n10-throughput-78x-78-efficiency)
+- [N=100: throughput = 24x (24% efficiency)](#n100-throughput-24x-24-efficiency)
+- [N=316: throughput = 25x (peak)](#n316-throughput-25x-peak)
+- [N>316: throughput decreases!](#n316-throughput-decreases)
+- [Modeling Techniques Comparison](#modeling-techniques-comparison)
+- [Practical Modeling Process](#practical-modeling-process)
+- [Case Study: E-Commerce Platform](#case-study-e-commerce-platform)
+  - [System Architecture](#system-architecture)
+  - [Performance Model](#performance-model)
+- [CDN handles 70% of requests](#cdn-handles-70-of-requests)
+- [Web tier utilization](#web-tier-utilization)
+- [Cache misses go to DB](#cache-misses-go-to-db)
+- [Total response time](#total-response-time)
+- [Analysis:](#analysis)
+- [200 req/s: 13ms response time](#200-reqs-13ms-response-time)
+- [300 req/s: 18ms response time](#300-reqs-18ms-response-time)
+- [330 req/s: 35ms response time (knee)](#330-reqs-35ms-response-time-knee)
+- [340 req/s: ∞ (DB saturated)](#340-reqs-db-saturated)
+- [Bottleneck Identification](#bottleneck-identification)
+  - [Method of Bottleneck Analysis](#method-of-bottleneck-analysis)
+- [Example:](#example)
+- [Advanced Topics](#advanced-topics)
+  - [Tail Latency Modeling](#tail-latency-modeling)
+- [Log-normal parameters](#log-normal-parameters)
+  - [Example: mean=50ms, CV=2](#example-mean50ms-cv2)
+- [P50: 35ms](#p50-35ms)
+- [P95: 150ms](#p95-150ms)
+- [P99: 300ms](#p99-300ms)
+- [P99.9: 600ms](#p999-600ms)
+  - [Microservices Performance Model](#microservices-performance-model)
+- [Key Takeaways](#key-takeaways)
+- [Related Topics](#related-topics)
+
+
 
 !!! abstract "🎯 Core Principle"
  Performance models help predict system behavior under various conditions, enabling data-driven capacity planning and optimization decisions before problems occur in production.
@@ -131,8 +232,8 @@ def mm1_queue_metrics(arrival_rate, service_rate):
  
  return metrics
 
-# Example: 80 req/s arriving, 100 req/s capacity
-# U = 0.8, Avg Response = 50ms, Queue Length = 4
+### Example: 80 req/s arriving, 100 req/s capacity
+## U = 0.8, Avg Response = 50ms, Queue Length = 4
 ```
 
 ### M/M/c Queue (Multiple Servers)
@@ -157,7 +258,7 @@ graph TB
 ```python
 def erlang_c(servers, offered_load):
  """Probability that arriving request must queue"""
-# offered_load = arrival_rate / service_rate
+## offered_load = arrival_rate / service_rate
  
  numerator = (offered_load**servers / factorial(servers)) * \
  (servers / (servers - offered_load))
@@ -216,10 +317,10 @@ def jackson_network_response(path_probabilities, service_times):
  
  return total_response
 
-# Example paths:
-# 80%: LB → App → Cache (5ms total)
-# 20%: LB → App → Cache → DB (25ms total)
-# Average: 0.8 * 5 + 0.2 * 25 = 9ms
+## Example paths:
+## 80%: LB → App → Cache (5ms total)
+## 20%: LB → App → Cache → DB (25ms total)
+## Average: 0.8 * 5 + 0.2 * 25 = 9ms
 ```
 
 ## Performance Under Load
@@ -252,19 +353,19 @@ import numpy as np
 
 def response_time_curve(utilization):
  """Classic hockey stick response time curve"""
-# Response time = S / (1 - U) for M/M/1
+## Response time = S / (1 - U) for M/M/1
  service_time = 10 # ms
  return service_time / (1 - utilization)
 
-# Plot
+## Plot
 u = np.linspace(0, 0.99, 100)
 r = [response_time_curve(x) for x in u]
 
-# Key points:
-# U=0.5: R=20ms (2x service time)
-# U=0.8: R=50ms (5x service time)
-# U=0.9: R=100ms (10x service time)
-# U=0.95: R=200ms (20x service time)
+## Key points:
+## U=0.5: R=20ms (2x service time)
+## U=0.8: R=50ms (5x service time)
+## U=0.9: R=100ms (10x service time)
+## U=0.95: R=200ms (20x service time)
 ```
 
 ## Modeling Distributed Systems
@@ -299,16 +400,16 @@ def usl_throughput(N, alpha, beta):
  """
  return N / (1 + alpha*(N-1) + beta*N*(N-1))
 
-# Example: Web application scaling
-# alpha=0.03 (3% serialization)
-# beta=0.0001 (minimal coherency)
+### Example: Web application scaling
+## alpha=0.03 (3% serialization)
+## beta=0.0001 (minimal coherency)
 
-# Results:
-# N=1: throughput = 1x
-# N=10: throughput = 7.8x (78% efficiency)
-# N=100: throughput = 24x (24% efficiency)
-# N=316: throughput = 25x (peak)
-# N>316: throughput decreases!
+## Results:
+## N=1: throughput = 1x
+## N=10: throughput = 7.8x (78% efficiency)
+## N=100: throughput = 24x (24% efficiency)
+## N=316: throughput = 25x (peak)
+## N>316: throughput decreases!
 ```
 
 ## Modeling Techniques Comparison
@@ -413,14 +514,14 @@ class EcommerceModel:
  self.search_capacity = 200
  
  def calculate_response_time(self, arrival_rate):
-# CDN handles 70% of requests
+## CDN handles 70% of requests
  backend_rate = arrival_rate * (1 - self.cdn_hit_rate)
  
-# Web tier utilization
+## Web tier utilization
  web_util = backend_rate / self.web_capacity
  web_response = 10 / (1 - web_util) # M/M/c approximation
  
-# Cache misses go to DB
+## Cache misses go to DB
  db_rate = backend_rate * (1 - self.cache_hit_rate)
  db_util = db_rate / self.db_capacity
  
@@ -429,18 +530,18 @@ class EcommerceModel:
  
  db_response = 50 / (1 - db_util)
  
-# Total response time
+## Total response time
  total = web_response + \
  self.cache_hit_rate * 1 + \ # Cache hit: 1ms
  (1 - self.cache_hit_rate) * db_response
  
  return total
 
-# Analysis:
-# 200 req/s: 13ms response time
-# 300 req/s: 18ms response time
-# 330 req/s: 35ms response time (knee)
-# 340 req/s: ∞ (DB saturated)
+## Analysis:
+## 200 req/s: 13ms response time
+## 300 req/s: 18ms response time
+## 330 req/s: 35ms response time (knee)
+## 340 req/s: ∞ (DB saturated)
 ```
 
 ## Bottleneck Identification
@@ -466,7 +567,7 @@ def identify_bottleneck(components):
  'headroom': 1 - max_utilization
  }
 
-# Example:
+## Example:
 components = [
  {'name': 'Web Tier', 'load': 80, 'capacity': 100},
  {'name': 'Database', 'load': 95, 'capacity': 100}, # Bottleneck!
@@ -486,17 +587,17 @@ def percentile_response_time(mean, cv, percentile):
  """
  import scipy.stats as stats
  
-# Log-normal parameters
+## Log-normal parameters
  sigma = np.sqrt(np.log(1 + cv**2))
  mu = np.log(mean) - sigma**2/2
  
  return np.exp(mu + sigma * stats.norm.ppf(percentile))
 
-# Example: mean=50ms, CV=2
-# P50: 35ms
-# P95: 150ms
-# P99: 300ms
-# P99.9: 600ms
+### Example: mean=50ms, CV=2
+## P50: 35ms
+## P95: 150ms
+## P99: 300ms
+## P99.9: 600ms
 ```
 
 ### Microservices Performance Model

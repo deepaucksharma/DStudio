@@ -12,6 +12,38 @@ last_updated: 2025-07-29
 
 # Pillar 2: Distribution of State
 
+## Table of Contents
+
+- [The One-Inch Punch 🥊](#the-one-inch-punch)
+- [The 10-Second Understanding 🎯](#the-10-second-understanding)
+- [The Emotional Journey 🎢](#the-emotional-journey)
+- [The Brutal Truth About Distributed State 💀](#the-brutal-truth-about-distributed-state)
+- [Your $7 Billion Wake-Up Call 🚨](#your-7-billion-wake-up-call)
+- [The ATM That Broke Banking 💸](#the-atm-that-broke-banking)
+- [The Five Horsemen of State Apocalypse 🏇](#the-five-horsemen-of-state-apocalypse)
+- [The State Distribution Decision Tree 🌳](#the-state-distribution-decision-tree)
+- [Mental Models That Stick 🧠](#mental-models-that-stick)
+- [GitHub's $100M Lesson in Hubris 💸](#githubs-100m-lesson-in-hubris)
+- [The CAP Theorem: The Universe's Cruel Joke ☠️](#the-cap-theorem-the-universes-cruel-joke)
+- [The State Consistency Spectrum 🌈](#the-state-consistency-spectrum)
+- [Real-World Examples That Got It Right (Eventually)](#real-world-examples-that-got-it-right-eventually)
+  - [Amazon DynamoDB: Eventually Consistent by Design](#amazon-dynamodb-eventually-consistent-by-design)
+  - [The Quorum Math That Runs Amazon 🧮](#the-quorum-math-that-runs-amazon)
+  - [Google Spanner: The Impossible Made Possible](#google-spanner-the-impossible-made-possible)
+- [Advanced Patterns for State Distribution](#advanced-patterns-for-state-distribution)
+  - [Vector Clocks: Tracking Causality](#vector-clocks-tracking-causality)
+  - [CRDTs: Conflict-Free Replicated Data Types](#crdts-conflict-free-replicated-data-types)
+- [Exercises: Master State Distribution](#exercises-master-state-distribution)
+  - [Exercise 1: Design a Distributed Key-Value Store](#exercise-1-design-a-distributed-key-value-store)
+  - [Exercise 2: Design a Distributed Lock Manager](#exercise-2-design-a-distributed-lock-manager)
+  - [Exercise 3: The Split-Brain Scenario](#exercise-3-the-split-brain-scenario)
+- [The Migration Path to Sanity](#the-migration-path-to-sanity)
+- [The Uncomfortable Questions](#the-uncomfortable-questions)
+- [The Truth That Changes Everything](#the-truth-that-changes-everything)
+- [Your Next Actions](#your-next-actions)
+- [The Final Revelation](#the-final-revelation)
+- [Related Topics](#related-topics)
+
 ## The One-Inch Punch 🥊
 
 ```

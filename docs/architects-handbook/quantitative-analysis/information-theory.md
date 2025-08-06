@@ -12,6 +12,137 @@ last_updated: 2025-01-23
 
 # Information Theory
 
+
+
+## Overview
+
+Information Theory
+description: Mathematical foundations of information, entropy, and communication theory applied to distributed systems
+type: quantitative
+difficulty: advanced
+reading_time: 45 min
+prerequisites: [probability-theory, linear-algebra, calculus]
+pattern_type: foundational
+status: complete
+last_updated: 2025-01-23
+---
+
+# Information Theory
+
+## Table of Contents
+
+- [Mathematical Foundations](#mathematical-foundations)
+  - [Shannon Entropy](#shannon-entropy)
+    - [Proof of Concavity](#proof-of-concavity)
+  - [Conditional Entropy](#conditional-entropy)
+  - [Mutual Information](#mutual-information)
+  - [Channel Capacity](#channel-capacity)
+    - [Binary Symmetric Channel (BSC)](#binary-symmetric-channel-bsc)
+    - [Additive White Gaussian Noise (AWGN) Channel](#additive-white-gaussian-noise-awgn-channel)
+- [Compression Theory](#compression-theory)
+  - [Source Coding Theorem](#source-coding-theorem)
+  - [Huffman Coding](#huffman-coding)
+    - [Implementation](#implementation)
+    - [Example usage](#example-usage)
+- [Calculate compression ratio](#calculate-compression-ratio)
+  - [Arithmetic Coding](#arithmetic-coding)
+  - [Lempel-Ziv Compression](#lempel-ziv-compression)
+- [Error Correction Codes](#error-correction-codes)
+  - [Linear Block Codes](#linear-block-codes)
+  - [Hamming Codes](#hamming-codes)
+  - [Reed-Solomon Codes](#reed-solomon-codes)
+    - [Implementation](#implementation)
+    - [Example usage](#example-usage)
+  - [Turbo Codes and LDPC](#turbo-codes-and-ldpc)
+- [Applications in Distributed Systems](#applications-in-distributed-systems)
+  - [Data Deduplication](#data-deduplication)
+  - [Network Coding](#network-coding)
+  - [Erasure Coding in Storage](#erasure-coding-in-storage)
+  - [Information-Theoretic Security](#information-theoretic-security)
+  - [Consensus and Information](#consensus-and-information)
+- [Interactive Tools and Calculators](#interactive-tools-and-calculators)
+  - [Entropy Calculator](#entropy-calculator)
+  - [Channel Capacity Calculator](#channel-capacity-calculator)
+- [Performance Analysis and Complexity](#performance-analysis-and-complexity)
+  - [Compression Algorithms Comparison](#compression-algorithms-comparison)
+  - [Error Correction Performance](#error-correction-performance)
+- [Implementation Examples](#implementation-examples)
+  - [Distributed Hash Table with Information-Theoretic Load Balancing](#distributed-hash-table-with-information-theoretic-load-balancing)
+    - [Example usage](#example-usage)
+- [Simulate key distribution](#simulate-key-distribution)
+- [Research Frontiers](#research-frontiers)
+  - [Quantum Information Theory](#quantum-information-theory)
+  - [Network Information Theory](#network-information-theory)
+  - [Distributed Source Coding](#distributed-source-coding)
+- [References and Further Reading](#references-and-further-reading)
+  - [Seminal Papers](#seminal-papers)
+  - [Modern Textbooks](#modern-textbooks)
+  - [Applications in Distributed Systems](#applications-in-distributed-systems)
+- [Related Topics](#related-topics)
+
+
+
+## Mathematical Foundations
+
+Information theory, developed by Claude Shannon in 1948, provides the mathematical foundation for understanding information transmission, compression, and storage in distributed systems. Shannon Entropy
+
+The fundamental concept of information theory is **entropy**, which measures the uncertainty or information content in a random variable.
+
+**Reading time:** ~12 minutes
+
+## Table of Contents
+
+- [Mathematical Foundations](#mathematical-foundations)
+  - [Shannon Entropy](#shannon-entropy)
+    - [Proof of Concavity](#proof-of-concavity)
+  - [Conditional Entropy](#conditional-entropy)
+  - [Mutual Information](#mutual-information)
+  - [Channel Capacity](#channel-capacity)
+    - [Binary Symmetric Channel (BSC)](#binary-symmetric-channel-bsc)
+    - [Additive White Gaussian Noise (AWGN) Channel](#additive-white-gaussian-noise-awgn-channel)
+- [Compression Theory](#compression-theory)
+  - [Source Coding Theorem](#source-coding-theorem)
+  - [Huffman Coding](#huffman-coding)
+    - [Implementation](#implementation)
+    - [Example usage](#example-usage)
+- [Calculate compression ratio](#calculate-compression-ratio)
+  - [Arithmetic Coding](#arithmetic-coding)
+  - [Lempel-Ziv Compression](#lempel-ziv-compression)
+- [Error Correction Codes](#error-correction-codes)
+  - [Linear Block Codes](#linear-block-codes)
+  - [Hamming Codes](#hamming-codes)
+  - [Reed-Solomon Codes](#reed-solomon-codes)
+    - [Implementation](#implementation)
+    - [Example usage](#example-usage)
+  - [Turbo Codes and LDPC](#turbo-codes-and-ldpc)
+- [Applications in Distributed Systems](#applications-in-distributed-systems)
+  - [Data Deduplication](#data-deduplication)
+  - [Network Coding](#network-coding)
+  - [Erasure Coding in Storage](#erasure-coding-in-storage)
+  - [Information-Theoretic Security](#information-theoretic-security)
+  - [Consensus and Information](#consensus-and-information)
+- [Interactive Tools and Calculators](#interactive-tools-and-calculators)
+  - [Entropy Calculator](#entropy-calculator)
+  - [Channel Capacity Calculator](#channel-capacity-calculator)
+- [Performance Analysis and Complexity](#performance-analysis-and-complexity)
+  - [Compression Algorithms Comparison](#compression-algorithms-comparison)
+  - [Error Correction Performance](#error-correction-performance)
+- [Implementation Examples](#implementation-examples)
+  - [Distributed Hash Table with Information-Theoretic Load Balancing](#distributed-hash-table-with-information-theoretic-load-balancing)
+    - [Example usage](#example-usage)
+- [Simulate key distribution](#simulate-key-distribution)
+- [Research Frontiers](#research-frontiers)
+  - [Quantum Information Theory](#quantum-information-theory)
+  - [Network Information Theory](#network-information-theory)
+  - [Distributed Source Coding](#distributed-source-coding)
+- [References and Further Reading](#references-and-further-reading)
+  - [Seminal Papers](#seminal-papers)
+  - [Modern Textbooks](#modern-textbooks)
+  - [Applications in Distributed Systems](#applications-in-distributed-systems)
+- [Related Topics](#related-topics)
+
+
+
 ## Mathematical Foundations
 
 Information theory, developed by Claude Shannon in 1948, provides the mathematical foundation for understanding information transmission, compression, and storage in distributed systems.
@@ -145,12 +276,12 @@ def huffman_encoding(text):
     generate_codes(root)
     return codes
 
-# Example usage
+#### Example usage
 text = "this is an example for huffman encoding"
 codes = huffman_encoding(text)
 print(f"Huffman codes: {codes}")
 
-# Calculate compression ratio
+## Calculate compression ratio
 original_bits = len(text) * 8
 encoded_bits = sum(len(codes[char]) for char in text)
 compression_ratio = original_bits / encoded_bits
@@ -261,7 +392,7 @@ class ReedSolomon:
         # Implementation details omitted for brevity
         return message + [0] * (self.n - self.k)  # Simplified
 
-# Example usage
+#### Example usage
 rs = ReedSolomon(15, 11)  # RS(15,11) can correct 2 symbol errors
 print(f"Reed-Solomon RS(15,11) can correct up to {rs.t} symbol errors")
 ```
@@ -503,11 +634,11 @@ class InformationTheoreticDHT:
         
         return entropy
 
-# Example usage
+#### Example usage
 nodes = [f"node_{i}" for i in range(8)]
 dht = InformationTheoreticDHT(nodes)
 
-# Simulate key distribution
+## Simulate key distribution
 keys = [f"key_{i}" for i in range(1000)]
 entropy = dht.calculate_load_entropy(keys)
 max_entropy = math.log2(len(nodes))

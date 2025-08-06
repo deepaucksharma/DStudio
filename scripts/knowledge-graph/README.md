@@ -1,93 +1,53 @@
-# Knowledge Graph Tools
+# DStudio Knowledge Graph System
 
 ## Overview
-This directory contains tools for building, querying, and analyzing a knowledge graph of the DStudio documentation. The knowledge graph provides semantic understanding of documentation structure, relationships, and quality metrics.
+The Knowledge Graph System provides comprehensive analysis and quality monitoring for the DStudio documentation. It builds a SQLite database with full-text search capabilities to track pages, links, concepts, and quality metrics.
 
-## Scripts
+## Main Components
 
-### 🚀 Production Ready
+### Core System
+- **`knowledge_graph_ultimate.py`** - Main analyzer that builds the knowledge graph database
+- **`knowledge_graph_ultimate.db`** - SQLite database containing all analyzed data
 
-#### `knowledge_graph_ultimate.py`
-**The recommended production implementation**
+### Key Features
+- Page analysis with quality scoring (0-100 scale)
+- Internal/external link validation
+- Concept extraction using TF-IDF
+- Heading hierarchy analysis
+- Issue detection (broken links, invalid frontmatter, unclosed code blocks, etc.)
+- Full-text search with FTS5
 
-Features:
-- SQLite database with FTS5 for full-text search
-- Async link validation for performance
-- Incremental updates using MD5 hashing
-- JSON-LD export for semantic web compatibility
-- Comprehensive quality scoring
-- Progress tracking with rich output
+## Usage
 
-Usage:
+### Build/Refresh Knowledge Graph
 ```bash
-# Build or update the knowledge graph
-python3 knowledge_graph_ultimate.py
-
-# The script will:
-# 1. Create/update dstudio_knowledge.db
-# 2. Validate all internal and external links
-# 3. Generate quality scores
-# 4. Export JSON-LD representation
+python3 knowledge_graph_ultimate.py --docs-dir /home/deepak/DStudio/docs
 ```
 
-#### `query_knowledge_graph.py`
-**Query interface for the knowledge graph database**
-
-Features:
-- Statistical analysis of documentation
-- Link relationship queries
-- Quality score reporting
-- Orphaned page detection
-
-Usage:
+### Generate Fix Report
 ```bash
-# Get comprehensive statistics
-python3 query_knowledge_graph.py
-
-# Query specific aspects (if CLI args supported)
-python3 query_knowledge_graph.py --orphaned
-python3 query_knowledge_graph.py --broken-links
+python3 knowledge_graph_ultimate.py --docs-dir /home/deepak/DStudio/docs --report
 ```
 
-#### `test_knowledge_graph.py`
-**Test suite for knowledge graph implementation**
+## Current Status (as of 2025-08-07)
 
-Features:
-- Unit tests for link normalization
-- Path resolution testing
-- Graph integrity validation
+### Metrics
+- **Total Pages**: 640
+- **Average Quality Score**: 94.7/100
+- **Link Success Rate**: 88.05%
+- **Critical Issues**: All resolved
 
-Usage:
-```bash
-# Run all tests
-python3 test_knowledge_graph.py
+### Recent Improvements
+- Fixed 52 invalid frontmatter issues
+- Closed 18 unclosed code blocks
+- Updated 4 broken external links
+- Enhanced 8 F-grade pages with 900% content growth
+- Added TOCs to 40+ long pages
 
-# Run with verbose output
-python3 -v test_knowledge_graph.py
-```
-
-### 📚 Historical Versions (Reference Only)
-
-#### `knowledge_graph_advanced.py`
-**ML-enhanced version with semantic features**
-
-Features:
-- TF-IDF vectorization for content similarity
-- Semantic embeddings (requires sentence-transformers)
-- NetworkX graph algorithms
-- LLM-optimized analysis
-
-Status: SUPERSEDED by ultimate version
-
-#### `knowledge_graph_builder.py`
-**Original implementation**
-
-Features:
-- Basic graph construction
-- Simple link validation
-- Navigation structure analysis
-
-Status: SUPERSEDED - kept for reference
+### Remaining Items
+- 5,866 broken internal links (mostly template placeholders and missing content pages)
+- Content creation needed for missing pages
+- Minor cosmetic issues (heading hierarchies, duplicate anchors)
 
 ## Database Schema
 

@@ -1,10 +1,53 @@
 ---
-title: Latency Calculator
+title: "Latency Calculator"
+description: "Calculate network latency, speed-of-light limits, and performance budgets for distributed systems with geographic constraints."
+type: documentation
+---
+
+# Latency Calculator
+
+
+
+## Overview
+
+Latency Calculator
 description: *Speed of light in fiber: ~200,000 km/s*
 type: documentation
 ---
 
 # Latency Calculator
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Network Latency](#network-latency)
+  - [Processing Time](#processing-time)
+  - [Additional Delays](#additional-delays)
+- [Understanding the Components](#understanding-the-components)
+  - [1. Network Latency](#1-network-latency)
+  - [2.
+
+**Reading time:** ~13 minutes
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Network Latency](#network-latency)
+  - [Processing Time](#processing-time)
+  - [Additional Delays](#additional-delays)
+- [Understanding the Components](#understanding-the-components)
+  - [1. Network Latency](#1-network-latency)
+  - [2. Processing Latency](#2-processing-latency)
+  - [3. I/O Latency](#3-io-latency)
+- [Latency Reduction Strategies](#latency-reduction-strategies)
+- [Mathematical Foundation](#mathematical-foundation)
+  - [Network Delay](#network-delay)
+  - [Queueing Delay (M/M/c model)](#queueing-delay-mmc-model)
+  - [Total Latency](#total-latency)
+- [Real-World Examples](#real-world-examples)
+- [Related Resources](#related-resources)
+
+
 
 !!! info "Interactive Calculator"
  <h2>⏱️ End-to-End Latency Calculator</h2>

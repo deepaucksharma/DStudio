@@ -79,7 +79,7 @@ When adding new documentation:
 ### Finding Orphaned Files
 
 ```bash
-# List all orphaned files
+## List all orphaned files
 python3 -c "import json; report=json.load(open('navigation-validation-report.json')); print('\n'.join(report['orphaned_files']))"
 ```
 
@@ -93,7 +93,7 @@ python3 scripts/fix-pattern-metadata.py
 ### Checking Navigation Health
 
 ```bash
-# Quick health check
+## Quick health check
 python3 scripts/navigation-validator.py | grep "Health Score"
 ```
 

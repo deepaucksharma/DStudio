@@ -147,7 +147,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Simple distributed queue interface
+## Simple distributed queue interface
 class DistributedQueue:
     async def send(self, message: dict, queue_name: str) -> str:
         """Send message with automatic retry and persistence"""

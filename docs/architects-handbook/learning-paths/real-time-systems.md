@@ -6,6 +6,26 @@ difficulty: expert
 reading_time: 15 min
 status: complete
 last_updated: 2025-08-06
+prerequisites: 
+outcomes: 
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Real-Time Systems Learning Path
+
+
+
+## Overview
+
+Real-Time Systems Learning Path
+description: Master ultra-low latency systems for gaming, IoT, trading, and video streaming applications
+type: learning-path
+difficulty: expert
+reading_time: 15 min
+status: complete
+last_updated: 2025-08-06
 prerequisites:
   - 4+ years systems programming experience
   - Deep understanding of distributed systems
@@ -20,6 +40,83 @@ outcomes:
 ---
 
 # Real-Time Systems Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [⚡ Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Real-Time Fundamentals ⚡](#week-1-2-real-time-fundamentals-)
+  - [Week 3-4: Gaming & Interactive Systems 🎮](#week-3-4-gaming-interactive-systems-)
+  - [Week 5-6: Financial Trading Systems 📈](#week-5-6-financial-trading-systems-)
+  - [Week 7-8: IoT & Edge Systems 🌐](#week-7-8-iot-edge-systems-)
+  - [Week 9-10: Video Streaming & Media 📹](#week-9-10-video-streaming-media-)
+- [🛠️ Industry-Specific Labs & Projects](#-industry-specific-labs-projects)
+  - [Domain-Focused Project Structure](#domain-focused-project-structure)
+  - [Real-World Performance Challenges](#real-world-performance-challenges)
+- [📊 Performance Assessment & Benchmarking](#-performance-assessment-benchmarking)
+  - [Real-Time Systems Metrics](#real-time-systems-metrics)
+  - [Industry Certification Paths](#industry-certification-paths)
+- [💼 Career Specialization & Interviews](#-career-specialization-interviews)
+  - [Real-Time Systems Interview Questions](#real-time-systems-interview-questions)
+  - [Specialized Career Paths & Compensation](#specialized-career-paths-compensation)
+- [👥 Real-Time Systems Community](#-real-time-systems-community)
+  - [Specialized Study Groups & Forums](#specialized-study-groups-forums)
+  - [Expert Mentorship Network](#expert-mentorship-network)
+  - [Industry Conferences & Events](#industry-conferences-events)
+- [🚀 Cutting-Edge Real-Time Technologies](#-cutting-edge-real-time-technologies)
+  - [Emerging Trends in Real-Time Systems](#emerging-trends-in-real-time-systems)
+- [📚 Essential Real-Time Systems Library](#-essential-real-time-systems-library)
+  - [Must-Read Books (Priority Order)](#must-read-books-priority-order)
+  - [Domain-Specific Resources](#domain-specific-resources)
+- [🏁 Final Assessment: Multi-Domain Real-Time Platform](#-final-assessment-multi-domain-real-time-platform)
+  - [Capstone Project Requirements](#capstone-project-requirements)
+  - [Success Criteria & Evaluation](#success-criteria-evaluation)
+- [🎉 Real-Time Systems Mastery](#-real-time-systems-mastery)
+  - [Advanced Specialization Opportunities](#advanced-specialization-opportunities)
+
+
+
+! Engineer Systems That Never Miss a Beat"
+    Master the art of real-time systems engineering.
+
+**Reading time:** ~15 minutes
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [⚡ Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Real-Time Fundamentals ⚡](#week-1-2-real-time-fundamentals-)
+  - [Week 3-4: Gaming & Interactive Systems 🎮](#week-3-4-gaming-interactive-systems-)
+  - [Week 5-6: Financial Trading Systems 📈](#week-5-6-financial-trading-systems-)
+  - [Week 7-8: IoT & Edge Systems 🌐](#week-7-8-iot-edge-systems-)
+  - [Week 9-10: Video Streaming & Media 📹](#week-9-10-video-streaming-media-)
+- [🛠️ Industry-Specific Labs & Projects](#-industry-specific-labs-projects)
+  - [Domain-Focused Project Structure](#domain-focused-project-structure)
+  - [Real-World Performance Challenges](#real-world-performance-challenges)
+- [📊 Performance Assessment & Benchmarking](#-performance-assessment-benchmarking)
+  - [Real-Time Systems Metrics](#real-time-systems-metrics)
+  - [Industry Certification Paths](#industry-certification-paths)
+- [💼 Career Specialization & Interviews](#-career-specialization-interviews)
+  - [Real-Time Systems Interview Questions](#real-time-systems-interview-questions)
+  - [Specialized Career Paths & Compensation](#specialized-career-paths-compensation)
+- [👥 Real-Time Systems Community](#-real-time-systems-community)
+  - [Specialized Study Groups & Forums](#specialized-study-groups-forums)
+  - [Expert Mentorship Network](#expert-mentorship-network)
+  - [Industry Conferences & Events](#industry-conferences-events)
+- [🚀 Cutting-Edge Real-Time Technologies](#-cutting-edge-real-time-technologies)
+  - [Emerging Trends in Real-Time Systems](#emerging-trends-in-real-time-systems)
+- [📚 Essential Real-Time Systems Library](#-essential-real-time-systems-library)
+  - [Must-Read Books (Priority Order)](#must-read-books-priority-order)
+  - [Domain-Specific Resources](#domain-specific-resources)
+- [🏁 Final Assessment: Multi-Domain Real-Time Platform](#-final-assessment-multi-domain-real-time-platform)
+  - [Capstone Project Requirements](#capstone-project-requirements)
+  - [Success Criteria & Evaluation](#success-criteria-evaluation)
+- [🎉 Real-Time Systems Mastery](#-real-time-systems-mastery)
+  - [Advanced Specialization Opportunities](#advanced-specialization-opportunities)
+
+
 
 !!! abstract "Engineer Systems That Never Miss a Beat"
     Master the art of real-time systems engineering. Build ultra-low latency systems for gaming, high-frequency trading, IoT, and live video streaming. Learn the techniques used by companies like Epic Games, Citadel Securities, and Twitch to deliver experiences where every microsecond matters.

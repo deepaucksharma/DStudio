@@ -1,9 +1,42 @@
 ---
 title: Frameworks
 description: Frameworks overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # System Design Frameworks
+
+## Table of Contents
+
+- [Overview](#overview)
+- [📚 Core Frameworks](#-core-frameworks)
+  - [RADIO Framework](#radio-framework)
+  - [4S Method](#4s-method)
+  - [Problem-First Design](#problem-first-design)
+- [🎯 Specialized Frameworks](#-specialized-frameworks)
+  - [For Real-Time Systems](#for-real-time-systems)
+  - [For Data-Intensive Systems](#for-data-intensive-systems)
+  - [For Microservices](#for-microservices)
+- [📊 Decision Frameworks](#-decision-frameworks)
+  - [CAP Triangle Analysis](#cap-triangle-analysis)
+  - [Trade-off Matrix](#trade-off-matrix)
+  - [Scaling Decision Tree](#scaling-decision-tree)
+- [💡 Communication Techniques](#-communication-techniques)
+  - [Diagramming Best Practices](#diagramming-best-practices)
+  - [Explaining Trade-offs](#explaining-trade-offs)
+  - [Handling Feedback](#handling-feedback)
+- [🏃 Practice Exercises](#-practice-exercises)
+  - [Framework Application](#framework-application)
+  - [Framework Comparison](#framework-comparison)
+  - [Custom Framework](#custom-framework)
+- [📈 Interview Flow](#-interview-flow)
+  - [Opening (5 min)](#opening-5-min)
+  - [Design (35 min)](#design-35-min)
+  - [Closing (5 min)](#closing-5-min)
+
+
 
 Structured approaches to tackle any system design problem systematically.
 

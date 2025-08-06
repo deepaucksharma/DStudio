@@ -306,7 +306,7 @@ Network Optimization Strategy:
 ### 1. Network Performance
 
 ```python
-# Network Performance Monitor
+## Network Performance Monitor
 class NetworkPerformanceMonitor:
     def __init__(self):
         self.player_metrics = {}

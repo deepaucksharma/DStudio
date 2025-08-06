@@ -1,9 +1,97 @@
 ---
 title: Technical Leadership
 description: Technical Leadership overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Technical Leadership
+
+
+
+## Overview
+
+Technical Leadership
+description: Technical Leadership overview and navigation
+---
+
+# Technical Leadership
+
+## Table of Contents
+
+- [Driving Technical Excellence at Scale](#driving-technical-excellence-at-scale)
+- [Connection to Framework Levels](#connection-to-framework-levels)
+  - [First Principles Foundation](#first-principles-foundation)
+  - [Business Concepts Applied](#business-concepts-applied)
+- [Core Competencies](#core-competencies)
+  - [1. Architecture & System Design](#1-architecture-system-design)
+  - [2.
+
+**Reading time:** ~9 minutes
+
+## Table of Contents
+
+- [Driving Technical Excellence at Scale](#driving-technical-excellence-at-scale)
+- [Connection to Framework Levels](#connection-to-framework-levels)
+  - [First Principles Foundation](#first-principles-foundation)
+  - [Business Concepts Applied](#business-concepts-applied)
+- [Core Competencies](#core-competencies)
+  - [1. Architecture & System Design](#1-architecture-system-design)
+  - [2. Technology Strategy](#2-technology-strategy)
+  - [3. Engineering Excellence](#3-engineering-excellence)
+  - [4. Technical Mentorship & Knowledge Systems](#4-technical-mentorship-knowledge-systems)
+  - [5. Cross-Functional Leadership](#5-cross-functional-leadership)
+- [Common Scenarios](#common-scenarios)
+  - [Scenario 1: Legacy System Migration](#scenario-1-legacy-system-migration)
+  - [Scenario 2: Technology Stack Decision](#scenario-2-technology-stack-decision)
+  - [Scenario 3: Technical Debt Crisis](#scenario-3-technical-debt-crisis)
+- [Modern Technical Leadership Practices](#modern-technical-leadership-practices)
+  - [Technical Debt as Portfolio Management](#technical-debt-as-portfolio-management)
+    - [Strategic vs. Accidental Debt](#strategic-vs-accidental-debt)
+    - [Health Model Framework](#health-model-framework)
+    - [Quantifying Interest Payments](#quantifying-interest-payments)
+    - [Dedicated Capacity Allocation](#dedicated-capacity-allocation)
+  - [DORA Metrics Implementation](#dora-metrics-implementation)
+    - [Implementation Without Weaponization](#implementation-without-weaponization)
+    - [Creating Balanced Systems](#creating-balanced-systems)
+  - [Knowledge Flywheel Concept](#knowledge-flywheel-concept)
+    - [1. Capture](#1-capture)
+    - [2. Synthesize](#2-synthesize)
+    - [3. Apply](#3-apply)
+    - [4. Feedback Loop](#4-feedback-loop)
+    - [Pattern Hubs and Documentation](#pattern-hubs-and-documentation)
+  - [Modern Toolchain as System Enabler](#modern-toolchain-as-system-enabler)
+    - [Systems Visualization Tools](#systems-visualization-tools)
+    - [Telemetry and Feedback Automation](#telemetry-and-feedback-automation)
+    - [AI Assistants for Synthesis](#ai-assistants-for-synthesis)
+    - [Tool Selection Framework](#tool-selection-framework)
+- [Interview Question Patterns](#interview-question-patterns)
+  - [System Design Questions](#system-design-questions)
+  - [Technical Leadership Questions](#technical-leadership-questions)
+  - [Strategic Questions](#strategic-questions)
+- [Excellence Indicators](#excellence-indicators)
+- [Architecture Decision Records](#architecture-decision-records)
+  - [Decision Framework](#decision-framework)
+- [Anti-Patterns to Avoid](#anti-patterns-to-avoid)
+- [Technical Leadership Toolkit](#technical-leadership-toolkit)
+  - [Key Resources](#key-resources)
+- [Practice Exercises](#practice-exercises)
+- [Resources](#resources)
+  - [Books & Articles](#books-articles)
+  - [Online Resources](#online-resources)
+- [Links to Other Applications](#links-to-other-applications)
+- [Interview Execution (Level IV)](#interview-execution-level-iv)
+- [Architecture Patterns](#architecture-patterns)
+- [Cross-Functional Leadership](#cross-functional-leadership)
+- [Engineering Excellence](#engineering-excellence)
+- [Technical Mentorship](#technical-mentorship)
+- [Next Steps](#next-steps)
+  - [Immediate Actions](#immediate-actions)
+  - [This Week](#this-week)
+  - [For Interviews](#for-interviews)
+
+
 
 ## Driving Technical Excellence at Scale
 

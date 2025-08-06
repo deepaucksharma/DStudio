@@ -254,7 +254,7 @@ graph TB
 ### Monitoring Stack
 
 ```yaml
-# Key metrics to monitor
+## Key metrics to monitor
 metrics:
   cluster_health:
     - node_ready_status

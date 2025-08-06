@@ -1,6 +1,26 @@
 ---
 title: Reliability Theory for Distributed Systems
 description: Mathematical foundations for system reliability, availability, and fault
+type: quantitative
+difficulty: advanced
+reading_time: 45 min
+prerequisites: 
+pattern_type: various
+status: complete
+last_updated: 2025-01-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Reliability Theory for Distributed Systems
+
+
+
+## Overview
+
+Reliability Theory for Distributed Systems
+description: Mathematical foundations for system reliability, availability, and fault
   tolerance
 type: quantitative
 difficulty: advanced
@@ -16,6 +36,81 @@ last_updated: 2025-01-23
 
 
 # Reliability Theory for Distributed Systems
+
+## Table of Contents
+
+- [Fundamental Concepts](#fundamental-concepts)
+  - [Reliability Function](#reliability-function)
+- [Common Reliability Models](#common-reliability-models)
+  - [1. Exponential Distribution (Constant Failure Rate)](#1-exponential-distribution-constant-failure-rate)
+- [Example: Server with MTTF = 10,000 hours](#example-server-with-mttf-10000-hours)
+- [Result: R(1 year) = 0.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [Fundamental Concepts](#fundamental-concepts)
+  - [Reliability Function](#reliability-function)
+- [Common Reliability Models](#common-reliability-models)
+  - [1. Exponential Distribution (Constant Failure Rate)](#1-exponential-distribution-constant-failure-rate)
+- [Example: Server with MTTF = 10,000 hours](#example-server-with-mttf-10000-hours)
+- [Result: R(1 year) = 0.416 (41.6% survive 1 year)](#result-r1-year-0416-416-survive-1-year)
+  - [2. Weibull Distribution (Wear-Out Effects)](#2-weibull-distribution-wear-out-effects)
+  - [3. Bathtub Curve](#3-bathtub-curve)
+- [System Reliability Models](#system-reliability-models)
+  - [1. Series Systems](#1-series-systems)
+- [Approximation for high reliability components](#approximation-for-high-reliability-components)
+- [R_s ≈ 1 - Σ(1 - R_i)](#r_s-1-σ1-r_i)
+- [Example: 10 components, each 99% reliable](#example-10-components-each-99-reliable)
+- [Result: 0.904 (90.4% system reliability)](#result-0904-904-system-reliability)
+  - [2. Parallel Systems](#2-parallel-systems)
+- [Example: 3 components, each 90% reliable](#example-3-components-each-90-reliable)
+- [Result: 0.999 (99.9% system reliability)](#result-0999-999-system-reliability)
+  - [3. k-out-of-n Systems](#3-k-out-of-n-systems)
+- [Example: 3-out-of-5 system, each 95% reliable](#example-3-out-of-5-system-each-95-reliable)
+- [Result: 0.9988 (99.88% system reliability)](#result-09988-9988-system-reliability)
+- [Fault Tree Analysis (FTA)](#fault-tree-analysis-fta)
+  - [Fault Tree Calculations](#fault-tree-calculations)
+- [P(A or B) = 1 - (1-P(A))(1-P(B))](#pa-or-b-1-1-pa1-pb)
+- [P(A and B) = P(A) * P(B)](#pa-and-b-pa-pb)
+- [Markov Models for Repairable Systems](#markov-models-for-repairable-systems)
+  - [Two-State Model](#two-state-model)
+- [Steady-state availability](#steady-state-availability)
+- [Time-dependent (starting in working state)](#time-dependent-starting-in-working-state)
+  - [Multi-State Models](#multi-state-models)
+- [State probability vector at time t](#state-probability-vector-at-time-t)
+- [Example: 3-state system (Working, Degraded, Failed)](#example-3-state-system-working-degraded-failed)
+- [Result: [0.65, 0.30, 0.05] probability distribution](#result-065-030-005-probability-distribution)
+- [Software Reliability Models](#software-reliability-models)
+  - [1. Software Reliability Growth](#1-software-reliability-growth)
+  - [2. Fault Injection Analysis](#2-fault-injection-analysis)
+- [Distributed System Reliability](#distributed-system-reliability)
+  - [1. Consensus System Reliability](#1-consensus-system-reliability)
+- [System works if at least n-f nodes work](#system-works-if-at-least-n-f-nodes-work)
+- [Byzantine case: need n > 3f](#byzantine-case-need-n-3f)
+- [Example: 5-node Raft cluster (tolerates 2 failures)](#example-5-node-raft-cluster-tolerates-2-failures)
+- [Each node 99.9% reliable](#each-node-999-reliable)
+- [Result: 0.99999 (5 nines reliability)](#result-099999-5-nines-reliability)
+  - [2. Geo-Replicated Systems](#2-geo-replicated-systems)
+- [Independent failures](#independent-failures)
+- [Correlated failures (simplified model)](#correlated-failures-simplified-model)
+- [Weighted combination](#weighted-combination)
+- [Reliability Optimization](#reliability-optimization)
+  - [Cost-Reliability Trade-off](#cost-reliability-trade-off)
+- [x[i] = number of components in parallel for subsystem i](#xi-number-of-components-in-parallel-for-subsystem-i)
+- [System reliability (series of parallel subsystems)](#system-reliability-series-of-parallel-subsystems)
+- [Optimize](#optimize)
+- [Reliability Testing](#reliability-testing)
+  - [Accelerated Life Testing](#accelerated-life-testing)
+- [Accelerated MTTF](#accelerated-mttf)
+- [Sample size for desired confidence/precision](#sample-size-for-desired-confidenceprecision)
+- [Test duration (multiples of accelerated MTTF)](#test-duration-multiples-of-accelerated-mttf)
+- [Key Metrics Summary](#key-metrics-summary)
+- [Best Practices](#best-practices)
+- [Related Topics](#related-topics)
+
+
 
 !!! abstract "🎯 Core Principle"
  Reliability theory provides mathematical tools to predict, measure, and improve system dependability. It quantifies the probability that a system performs correctly throughout a specified time duration under stated conditions.
@@ -63,11 +158,11 @@ def exponential_reliability(t, lambda_rate):
  'median_life': MTTF * np.log(2)
  }
 
-# Example: Server with MTTF = 10,000 hours
+## Example: Server with MTTF = 10,000 hours
 lambda_rate = 1/10000 # failures per hour
 t = 8760 # 1 year
 R_1year = exponential_reliability(t, lambda_rate)
-# Result: R(1 year) = 0.416 (41.6% survive 1 year)
+## Result: R(1 year) = 0.416 (41.6% survive 1 year)
 ```
 
 ### 2. Weibull Distribution (Wear-Out Effects)
@@ -131,14 +226,14 @@ def series_reliability(component_reliabilities):
  """Series system: fails if any component fails"""
  R_system = np.prod(component_reliabilities)
  
-# Approximation for high reliability components
-# R_s ≈ 1 - Σ(1 - R_i)
+## Approximation for high reliability components
+## R_s ≈ 1 - Σ(1 - R_i)
  
  return R_system
 
-# Example: 10 components, each 99% reliable
+## Example: 10 components, each 99% reliable
 R_series = series_reliability([0.99] * 10)
-# Result: 0.904 (90.4% system reliability)
+## Result: 0.904 (90.4% system reliability)
 ```
 
 ### 2. Parallel Systems
@@ -165,9 +260,9 @@ def parallel_reliability(component_reliabilities):
  
  return R_system
 
-# Example: 3 components, each 90% reliable
+## Example: 3 components, each 90% reliable
 R_parallel = parallel_reliability([0.90, 0.90, 0.90])
-# Result: 0.999 (99.9% system reliability)
+## Result: 0.999 (99.9% system reliability)
 ```
 
 ### 3. k-out-of-n Systems
@@ -188,9 +283,9 @@ def k_out_of_n_reliability(n, k, p):
  
  return R_system
 
-# Example: 3-out-of-5 system, each 95% reliable
+## Example: 3-out-of-5 system, each 95% reliable
 R_3of5 = k_out_of_n_reliability(5, 3, 0.95)
-# Result: 0.9988 (99.88% system reliability)
+## Result: 0.9988 (99.88% system reliability)
 ```
 
 ## Fault Tree Analysis (FTA)
@@ -225,13 +320,13 @@ def fault_tree_analysis(tree):
  if node['type'] == 'basic':
  return node['probability']
  elif node['type'] == 'OR':
-# P(A or B) = 1 - (1-P(A))(1-P(B))
+## P(A or B) = 1 - (1-P(A))(1-P(B))
  p = 1.0
  for child in node['children']:
  p *= (1 - calculate_node(child))
  return 1 - p
  elif node['type'] == 'AND':
-# P(A and B) = P(A) * P(B)
+## P(A and B) = P(A) * P(B)
  p = 1.0
  for child in node['children']:
  p *= calculate_node(child)
@@ -259,10 +354,10 @@ stateDiagram-v2
 ```python
 def markov_availability(lambda_fail, mu_repair, t):
  """Time-dependent availability for repairable system"""
-# Steady-state availability
+## Steady-state availability
  A_ss = mu_repair / (lambda_fail + mu_repair)
  
-# Time-dependent (starting in working state)
+## Time-dependent (starting in working state)
  A_t = A_ss + (1 - A_ss) * np.exp(-(lambda_fail + mu_repair) * t)
  
  return {
@@ -286,12 +381,12 @@ def multi_state_reliability(Q, initial_state, t):
  initial_state: Initial probability vector
  t: Time
  """
-# State probability vector at time t
+## State probability vector at time t
  P_t = initial_state @ expm(Q * t)
  
  return P_t
 
-# Example: 3-state system (Working, Degraded, Failed)
+## Example: 3-state system (Working, Degraded, Failed)
 Q = np.array([
  [-0.01, 0.008, 0.002], # From Working
  [0.1, -0.11, 0.01], # From Degraded 
@@ -300,7 +395,7 @@ Q = np.array([
 
 initial = np.array([1, 0, 0]) # Start in Working
 P_1year = multi_state_reliability(Q, initial, 8760)
-# Result: [0.65, 0.30, 0.05] probability distribution
+## Result: [0.65, 0.30, 0.05] probability distribution
 ```
 
 ## Software Reliability Models
@@ -347,10 +442,10 @@ def consensus_reliability(n, f, node_reliability):
  """
  Reliability of consensus with n nodes, tolerating f failures
  """
-# System works if at least n-f nodes work
+## System works if at least n-f nodes work
  R_consensus = k_out_of_n_reliability(n, n-f, node_reliability)
  
-# Byzantine case: need n > 3f
+## Byzantine case: need n > 3f
  byzantine_possible = n > 3*f
  
  return {
@@ -359,10 +454,10 @@ def consensus_reliability(n, f, node_reliability):
  'byzantine_capable': byzantine_possible
  }
 
-# Example: 5-node Raft cluster (tolerates 2 failures)
-# Each node 99.9% reliable
+## Example: 5-node Raft cluster (tolerates 2 failures)
+## Each node 99.9% reliable
 R_raft = consensus_reliability(5, 2, 0.999)
-# Result: 0.99999 (5 nines reliability)
+## Result: 0.99999 (5 nines reliability)
 ```
 
 ### 2. Geo-Replicated Systems
@@ -375,16 +470,16 @@ def geo_replicated_reliability(regions, quorum_size, region_reliability,
  correlation: Common-mode failure correlation
  """
  if correlation == 0:
-# Independent failures
+## Independent failures
  return k_out_of_n_reliability(regions, quorum_size, 
  region_reliability)
  else:
-# Correlated failures (simplified model)
+## Correlated failures (simplified model)
  R_independent = k_out_of_n_reliability(regions, quorum_size, 
  region_reliability)
  R_common_mode = region_reliability
  
-# Weighted combination
+## Weighted combination
  R_system = (1 - correlation) * R_independent + \
  correlation * R_common_mode
  
@@ -404,13 +499,13 @@ def optimize_redundancy(component_cost, component_reliability,
  from scipy.optimize import minimize
  
  def objective(x):
-# x[i] = number of components in parallel for subsystem i
+## x[i] = number of components in parallel for subsystem i
  total_cost = sum(x[i] * component_cost[i] for i in range(len(x)))
  
  if total_cost > budget:
  return 1e10 # Penalty for exceeding budget
  
-# System reliability (series of parallel subsystems)
+## System reliability (series of parallel subsystems)
  R_system = 1.0
  for i in range(len(x)):
  R_subsystem = 1 - (1 - component_reliability[i])**x[i]
@@ -418,7 +513,7 @@ def optimize_redundancy(component_cost, component_reliability,
  
  return -R_system # Maximize reliability
  
-# Optimize
+## Optimize
  x0 = np.ones(len(component_cost)) # Start with no redundancy
  result = minimize(objective, x0, method='SLSQP', 
  bounds=[(1, 10) for _ in x0])
@@ -438,14 +533,14 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
  """
  from scipy import stats
  
-# Accelerated MTTF
+## Accelerated MTTF
  accelerated_MTTF = normal_MTTF / acceleration_factor
  
-# Sample size for desired confidence/precision
+## Sample size for desired confidence/precision
  z = stats.norm.ppf((1 + confidence) / 2)
  n = (z / precision)**2
  
-# Test duration (multiples of accelerated MTTF)
+## Test duration (multiples of accelerated MTTF)
  test_duration = 2 * accelerated_MTTF # Common choice
  
  return {

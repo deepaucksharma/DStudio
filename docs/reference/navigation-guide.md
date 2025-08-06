@@ -113,7 +113,7 @@ nav:
 At the top of your content:
 
 ```markdown
-# {{ page.title }}
+## {{ page.title }}
 
 {{ nav_learning_path(page.meta.nav.learning_path, page.meta.nav.sequence.current, page.meta.nav.sequence.total) }}
 

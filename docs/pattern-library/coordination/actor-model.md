@@ -127,7 +127,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Conceptual actor implementation
+## Conceptual actor implementation
 class Actor:
     def __init__(self):
         self.mailbox = Queue()

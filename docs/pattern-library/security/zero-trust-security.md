@@ -152,7 +152,7 @@ graph TD
 ### Zero Trust Implementation
 
 ```python
-# Zero Trust security implementation framework
+## Zero Trust security implementation framework
 import jwt
 import hashlib
 import hmac
@@ -488,7 +488,7 @@ class SecurityException(Exception):
     """Security-related exceptions"""
     pass
 
-# Usage example
+## Usage example
 def main():
     # Initialize Zero Trust engine
     zt_engine = ZeroTrustEngine()

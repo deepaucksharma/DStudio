@@ -1,9 +1,113 @@
 ---
 title: Organizational Design
 description: Organizational Design overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Organizational Design
+
+
+
+## Overview
+
+Organizational Design
+description: Organizational Design overview and navigation
+---
+
+# Organizational Design
+
+## Table of Contents
+
+- [Scaling Engineering Organizations for Maximum Impact](#scaling-engineering-organizations-for-maximum-impact)
+- [Core Competencies](#core-competencies)
+  - [1. Conway's Law as a Design Tool](#1-conways-law-as-a-design-tool)
+  - [2.
+
+**Reading time:** ~11 minutes
+
+## Table of Contents
+
+- [Scaling Engineering Organizations for Maximum Impact](#scaling-engineering-organizations-for-maximum-impact)
+- [Core Competencies](#core-competencies)
+  - [1. Conway's Law as a Design Tool](#1-conways-law-as-a-design-tool)
+  - [2. Team Structure & Topology](#2-team-structure-topology)
+  - [3. Cognitive Load Optimization](#3-cognitive-load-optimization)
+  - [2. Process & Workflow Optimization](#2-process-workflow-optimization)
+  - [3. Communication Systems](#3-communication-systems)
+  - [4. Scaling Engineering](#4-scaling-engineering)
+  - [5. Organizational Change](#5-organizational-change)
+- [Common Scenarios](#common-scenarios)
+  - [Scenario 1: Startup to Scale-up Transition](#scenario-1-startup-to-scale-up-transition)
+  - [Scenario 2: Cross-Team Dependencies](#scenario-2-cross-team-dependencies)
+  - [Scenario 3: Remote-First Transformation](#scenario-3-remote-first-transformation)
+- [Interview Question Patterns](#interview-question-patterns)
+  - [Organizational Design Questions](#organizational-design-questions)
+  - [Process Questions](#process-questions)
+  - [Change Management Questions](#change-management-questions)
+- [Excellence Indicators](#excellence-indicators)
+- [Organizational Models Comparison](#organizational-models-comparison)
+- [Conway's Law as Design Tool](#conways-law-as-design-tool)
+  - [The Inverse Conway Maneuver](#the-inverse-conway-maneuver)
+  - [Organizational Design Strategies](#organizational-design-strategies)
+  - [Practical Conway's Law Applications](#practical-conways-law-applications)
+    - [Example 1: E-commerce Microservices](#example-1-e-commerce-microservices)
+    - [Example 2: Monolith to Microservices Migration](#example-2-monolith-to-microservices-migration)
+- [Team Topologies Framework](#team-topologies-framework)
+  - [Four Fundamental Team Types](#four-fundamental-team-types)
+    - [1. Stream-Aligned Teams](#1-stream-aligned-teams)
+    - [2. Platform Teams](#2-platform-teams)
+    - [3. Enabling Teams](#3-enabling-teams)
+    - [4. Complicated Subsystem Teams](#4-complicated-subsystem-teams)
+  - [Team Interaction Modes](#team-interaction-modes)
+  - [When to Use Each Topology](#when-to-use-each-topology)
+  - [Critical Insight: Over-reliance on Subsystem Teams](#critical-insight-over-reliance-on-subsystem-teams)
+- [Cognitive Load Management](#cognitive-load-management)
+  - [Understanding Cognitive Load Types](#understanding-cognitive-load-types)
+    - [1. Intrinsic Load](#1-intrinsic-load)
+    - [2. Extraneous Load](#2-extraneous-load)
+    - [3. Germane Load](#3-germane-load)
+  - [Cognitive Load Assessment Framework](#cognitive-load-assessment-framework)
+  - [Strategies for Cognitive Load Reduction](#strategies-for-cognitive-load-reduction)
+    - [1. Platform Engineering Approach](#1-platform-engineering-approach)
+    - [2. Tool Standardization](#2-tool-standardization)
+    - [3. Self-Service Capabilities](#3-self-service-capabilities)
+  - [The Real Bottleneck: Human Cognitive Capacity](#the-real-bottleneck-human-cognitive-capacity)
+- [Modern Tooling and Practices](#modern-tooling-and-practices)
+  - [Team Topology Mapping Tools](#team-topology-mapping-tools)
+    - [1. Organizational Network Analysis](#1-organizational-network-analysis)
+    - [2. Dependency Mapping](#2-dependency-mapping)
+    - [3. Cognitive Load Assessment](#3-cognitive-load-assessment)
+  - [Metrics for Organizational Effectiveness](#metrics-for-organizational-effectiveness)
+    - [Flow Metrics (DORA)](#flow-metrics-dora)
+    - [Team Health Metrics](#team-health-metrics)
+    - [Organizational Network Metrics](#organizational-network-metrics)
+  - [AI-Assisted Organizational Design](#ai-assisted-organizational-design)
+    - [1. Communication Pattern Analysis](#1-communication-pattern-analysis)
+    - [2. Workload Distribution Optimization](#2-workload-distribution-optimization)
+    - [3. Predictive Organizational Health](#3-predictive-organizational-health)
+- [Design Principles](#design-principles)
+  - [1. Conway's Law Application](#1-conways-law-application)
+  - [2. Cognitive Load Optimization](#2-cognitive-load-optimization)
+  - [3. Dunbar's Number Constraints](#3-dunbars-number-constraints)
+  - [4. Autonomy vs Alignment Matrix](#4-autonomy-vs-alignment-matrix)
+  - [5. Team-First Thinking](#5-team-first-thinking)
+- [Anti-Patterns to Avoid](#anti-patterns-to-avoid)
+  - [Traditional Anti-Patterns](#traditional-anti-patterns)
+  - [Modern Anti-Patterns](#modern-anti-patterns)
+- [Organizational Design Toolkit](#organizational-design-toolkit)
+  - [Assessment Tools](#assessment-tools)
+  - [Templates](#templates)
+  - [Modern Tools](#modern-tools)
+- [Practice Exercises](#practice-exercises)
+- [Resources](#resources)
+  - [Essential Reading](#essential-reading)
+  - [Modern Resources](#modern-resources)
+  - [Case Studies](#case-studies)
+- [Next Steps](#next-steps)
+
+
 
 ## Scaling Engineering Organizations for Maximum Impact
 

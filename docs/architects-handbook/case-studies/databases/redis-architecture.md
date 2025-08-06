@@ -65,6 +65,37 @@ best_for:
 
 # Redis Architecture: Scale and Architecture Deep Dive
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Patterns Demonstrated](#patterns-demonstrated)
+- [System Overview](#system-overview)
+  - [Business Context](#business-context)
+  - [High-Level Architecture](#high-level-architecture)
+- [Mapping to Fundamental Laws](#mapping-to-fundamental-laws)
+  - [Law Analysis](#law-analysis)
+- [Design Deep Dive](#design-deep-dive)
+  - [Data Architecture](#data-architecture)
+  - [Caching Strategy Implementation](#caching-strategy-implementation)
+- [Cache-Aside Pattern Example](#cache-aside-pattern-example)
+  - [Scaling Strategy](#scaling-strategy)
+- [Failure Scenarios & Lessons](#failure-scenarios-lessons)
+- [Performance Characteristics](#performance-characteristics)
+  - [Latency Breakdown](#latency-breakdown)
+  - [Resource Utilization](#resource-utilization)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring & Observability](#monitoring-observability)
+  - [Deployment Strategy](#deployment-strategy)
+  - [Master-Replica Pattern](#master-replica-pattern)
+  - [Consistent Hashing for Sharding](#consistent-hashing-for-sharding)
+- [Key Innovations](#key-innovations)
+- [Applicable Patterns](#applicable-patterns)
+- [Takeaways for Your System](#takeaways-for-your-system)
+- [Further Reading](#further-reading)
+- [Discussion Questions](#discussion-questions)
+
+
+
 !!! example "Excellence Badge"
     🥈 **Silver Tier**: Proven at enterprise scale with solid architectural choices
 
@@ -263,7 +294,7 @@ graph TB
     Redis implements multiple caching strategies through configurable eviction policies: LRU (Least Recently Used), LFU (Least Frequently Used), TTL-based, and random eviction.
 
 ```python
-# Cache-Aside Pattern Example
+## Cache-Aside Pattern Example
 class CacheAsideRepository:
     def __init__(self, redis_client, database):
         self.cache = redis_client

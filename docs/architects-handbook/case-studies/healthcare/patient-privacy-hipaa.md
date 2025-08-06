@@ -310,7 +310,7 @@ graph TD
 ### 2. Data Tokenization & Masking
 
 ```python
-# Advanced Tokenization Service
+## Advanced Tokenization Service
 class HealthcareTokenizationService:
     def __init__(self):
         self.token_vault = TokenVault()

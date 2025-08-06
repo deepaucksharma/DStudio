@@ -1,9 +1,73 @@
 ---
 title: Interview Prep
 description: Interview Prep overview and navigation
+category: root
+tags: [root]
+date: 2025-08-07
 ---
 
 # Interview Prep
+
+
+
+## Overview
+
+Interview Prep
+description: Interview Prep overview and navigation
+---
+
+# Interview Prep
+
+## Table of Contents
+
+- [🎯 What is a System Design Interview? How Distributed Systems Knowledge Helps](#how-distributed-systems-knowledge-helps)
+- [🗺️ Choose Your Interview Prep Path](#-choose-your-interview-prep-path)
+- [📚 Core Resources](#-core-resources)
+- [🎯 Interview Process Framework](#-interview-process-framework)
+  - [Phase-by-Phase Checklist](#phase-by-phase-checklist)
+- [📊 Common Interview Topics](#-common-interview-topics)
+  - [🏢 System Categories](#-system-categories)
+  - [🔧 Technical Concepts You Must Know](#-technical-concepts-you-must-know)
+- [🏃 Quick Practice](#-quick-practice)
+  - [30-Minute Designs (Beginner-Friendly)](#30-minute-designs-beginner-friendly)
+  - [45-Minute Designs (Intermediate)](#45-minute-designs-intermediate)
+  - [60-Minute Designs (Advanced)](#60-minute-designs-advanced)
+- [💡 Interview Tips](#-interview-tips)
+- [🛣️ Interview Prep Journey Map](#-interview-prep-journey-map)
+- [📈 Preparation Timeline](#-preparation-timeline)
+  - [1 Week Before](#1-week-before)
+  - [3 Days Before  ](#3-days-before-)
+  - [Day Of Interview](#day-of-interview)
+
+
+
+Ace your system design interviews with frameworks, practice problems, and comprehensive resources.
+
+**Reading time:** ~6 minutes
+
+## Table of Contents
+
+- [🎯 What is a System Design Interview?](#-what-is-a-system-design-interview)
+- [How Distributed Systems Knowledge Helps](#how-distributed-systems-knowledge-helps)
+- [🗺️ Choose Your Interview Prep Path](#-choose-your-interview-prep-path)
+- [📚 Core Resources](#-core-resources)
+- [🎯 Interview Process Framework](#-interview-process-framework)
+  - [Phase-by-Phase Checklist](#phase-by-phase-checklist)
+- [📊 Common Interview Topics](#-common-interview-topics)
+  - [🏢 System Categories](#-system-categories)
+  - [🔧 Technical Concepts You Must Know](#-technical-concepts-you-must-know)
+- [🏃 Quick Practice](#-quick-practice)
+  - [30-Minute Designs (Beginner-Friendly)](#30-minute-designs-beginner-friendly)
+  - [45-Minute Designs (Intermediate)](#45-minute-designs-intermediate)
+  - [60-Minute Designs (Advanced)](#60-minute-designs-advanced)
+- [💡 Interview Tips](#-interview-tips)
+- [🛣️ Interview Prep Journey Map](#-interview-prep-journey-map)
+- [📈 Preparation Timeline](#-preparation-timeline)
+  - [1 Week Before](#1-week-before)
+  - [3 Days Before  ](#3-days-before-)
+  - [Day Of Interview](#day-of-interview)
+
+
 
 Ace your system design interviews with frameworks, practice problems, and comprehensive resources.
 

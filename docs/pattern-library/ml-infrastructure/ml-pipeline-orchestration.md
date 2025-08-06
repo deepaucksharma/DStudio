@@ -59,6 +59,52 @@ type: pattern
 
 # ML Pipeline Orchestration
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+- [Level 1: Intuition (5 min) {#intuition}](#level-1-intuition-5-min-intuition)
+  - [The Story](#the-story)
+  - [Visual Metaphor](#visual-metaphor)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Level 2: Foundation (10 min) {#foundation}](#level-2-foundation-10-min-foundation)
+  - [The Problem Space](#the-problem-space)
+  - [How It Works](#how-it-works)
+  - [Basic Example](#basic-example)
+- [ML Pipeline with Apache Airflow](#ml-pipeline-with-apache-airflow)
+- [Default arguments for the DAG](#default-arguments-for-the-dag)
+- [Define the DAG](#define-the-dag)
+- [Define tasks](#define-tasks)
+- [Deploy model (simplified)](#deploy-model-simplified)
+- [Define task dependencies](#define-task-dependencies)
+- [Level 3: Deep Dive (15 min) {#deep-dive}](#level-3-deep-dive-15-min-deep-dive)
+  - [Implementation Details](#implementation-details)
+  - [Advanced Implementation Patterns](#advanced-implementation-patterns)
+- [Advanced pipeline with comprehensive error handling and quality gates](#advanced-pipeline-with-comprehensive-error-handling-and-quality-gates)
+  - [Common Pitfalls](#common-pitfalls)
+  - [Production Considerations](#production-considerations)
+- [Level 4: Expert (20 min) {#expert}](#level-4-expert-20-min-expert)
+  - [Advanced Orchestration Patterns](#advanced-orchestration-patterns)
+  - [Advanced Optimization Strategies](#advanced-optimization-strategies)
+- [Advanced pipeline scheduler with resource optimization](#advanced-pipeline-scheduler-with-resource-optimization)
+- [Usage example](#usage-example)
+- [Submit jobs with different priorities and resource requirements](#submit-jobs-with-different-priorities-and-resource-requirements)
+- [Schedule jobs](#schedule-jobs)
+  - [2. Pipeline Observability and Debugging](#2-pipeline-observability-and-debugging)
+- [Advanced pipeline monitoring with distributed tracing](#advanced-pipeline-monitoring-with-distributed-tracing)
+- [Enhanced pipeline stage with observability](#enhanced-pipeline-stage-with-observability)
+- [Level 5: Mastery (30 min) {#mastery}](#level-5-mastery-30-min-mastery)
+  - [Real-World Case Studies](#real-world-case-studies)
+  - [Pattern Evolution and Future Directions](#pattern-evolution-and-future-directions)
+  - [Pattern Combinations](#pattern-combinations)
+- [Quick Reference](#quick-reference)
+  - [Decision Matrix](#decision-matrix)
+  - [Implementation Roadmap](#implementation-roadmap)
+  - [Related Resources](#related-resources)
+
 !!! info "🥇 Gold Tier Pattern"
     **ML Workflow Automation** • Essential for production ML at scale
     
@@ -227,7 +273,7 @@ graph TD
 ### Basic Example
 
 ```python
-# ML Pipeline with Apache Airflow
+## ML Pipeline with Apache Airflow
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
@@ -237,7 +283,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import joblib
 
-# Default arguments for the DAG
+## Default arguments for the DAG
 default_args = {
     'owner': 'ml-team',
     'depends_on_past': False,
@@ -248,7 +294,7 @@ default_args = {
     'retry_delay': timedelta(minutes=5)
 }
 
-# Define the DAG
+## Define the DAG
 dag = DAG(
     'ml_training_pipeline',
     default_args=default_args,
@@ -330,7 +376,7 @@ def validate_model(**context):
     
     print(f"Model validation passed: Accuracy={accuracy:.3f}, Precision={precision:.3f}")
 
-# Define tasks
+## Define tasks
 extract_task = PythonOperator(
     task_id='extract_data',
     python_callable=extract_data,
@@ -361,14 +407,14 @@ validate_model_task = PythonOperator(
     dag=dag
 )
 
-# Deploy model (simplified)
+## Deploy model (simplified)
 deploy_task = BashOperator(
     task_id='deploy_model',
     bash_command='cp /models/{{ ds }}/model.pkl /production/current_model.pkl',
     dag=dag
 )
 
-# Define task dependencies
+## Define task dependencies
 extract_task >> validate_data_task >> preprocess_task >> train_task >> validate_model_task >> deploy_task
 ```
 
@@ -430,7 +476,7 @@ graph TD
 #### 1. Multi-Stage Pipeline with Quality Gates
 
 ```python
-# Advanced pipeline with comprehensive error handling and quality gates
+## Advanced pipeline with comprehensive error handling and quality gates
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
@@ -677,7 +723,7 @@ graph TB
 #### 1. Intelligent Pipeline Scheduling
 
 ```python
-# Advanced pipeline scheduler with resource optimization
+## Advanced pipeline scheduler with resource optimization
 from typing import Dict, List, Set
 import heapq
 from dataclasses import dataclass, field
@@ -787,10 +833,10 @@ class IntelligentPipelineScheduler:
             'gpu': self.current_gpu / self.max_gpu * 100 if self.max_gpu > 0 else 0
         }
 
-# Usage example
+## Usage example
 scheduler = IntelligentPipelineScheduler(max_cpu=64, max_memory=512, max_gpu=8)
 
-# Submit jobs with different priorities and resource requirements
+## Submit jobs with different priorities and resource requirements
 training_job = PipelineJob(
     id="model_training_v2",
     priority=1,  # High priority
@@ -809,16 +855,16 @@ batch_scoring_job = PipelineJob(
 scheduler.submit_job(training_job)
 scheduler.submit_job(batch_scoring_job)
 
-# Schedule jobs
+## Schedule jobs
 scheduled = scheduler.schedule_jobs()
 print(f"Scheduled {len(scheduled)} jobs")
 print(f"Resource utilization: {scheduler.get_resource_utilization()}")
 ```
 
-#### 2. Pipeline Observability and Debugging
+### 2. Pipeline Observability and Debugging
 
 ```python
-# Advanced pipeline monitoring with distributed tracing
+## Advanced pipeline monitoring with distributed tracing
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter  
 from opentelemetry.sdk.trace import TracerProvider
@@ -897,7 +943,7 @@ class PipelineObservability:
         else:
             self.logger.info("Pipeline event", **log_data)
 
-# Enhanced pipeline stage with observability
+## Enhanced pipeline stage with observability
 class ObservablePipelineStage(PipelineStage):
     def __init__(self, name: str, observability: PipelineObservability, **kwargs):
         super().__init__(name, **kwargs)

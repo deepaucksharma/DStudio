@@ -1,5 +1,36 @@
 # Warehouse Automation Systems
 
+## Table of Contents
+
+- [System Overview](#system-overview)
+  - [Scale & Complexity](#scale-complexity)
+- [Architecture Overview](#architecture-overview)
+- [Key Architectural Challenges](#key-architectural-challenges)
+  - [1. Multi-Robot Coordination at Scale](#1-multi-robot-coordination-at-scale)
+  - [2. Real-time Inventory Tracking](#2-real-time-inventory-tracking)
+  - [3. Dynamic Task Allocation & Optimization](#3-dynamic-task-allocation-optimization)
+- [Advanced Automation Features](#advanced-automation-features)
+  - [1. Computer Vision Quality Control](#1-computer-vision-quality-control)
+  - [2. Predictive Maintenance Integration](#2-predictive-maintenance-integration)
+- [Real-World Examples](#real-world-examples)
+  - [Amazon Fulfillment Centers](#amazon-fulfillment-centers)
+  - [Alibaba Smart Warehouses](#alibaba-smart-warehouses)
+  - [Ocado Automated Grid System](#ocado-automated-grid-system)
+- [Performance Optimization](#performance-optimization)
+  - [1. Robot Fleet Optimization](#1-robot-fleet-optimization)
+  - [2. Scalability Architecture](#2-scalability-architecture)
+- [Lessons Learned](#lessons-learned)
+  - [1. Human-Robot Collaboration](#1-human-robot-collaboration)
+  - [2. System Integration Complexity](#2-system-integration-complexity)
+  - [3. Maintenance and Reliability](#3-maintenance-and-reliability)
+- [Future Considerations](#future-considerations)
+  - [1. Advanced AI Integration](#1-advanced-ai-integration)
+  - [2. Sustainability Integration](#2-sustainability-integration)
+  - [3. Quantum Computing Applications](#3-quantum-computing-applications)
+- [Technology Stack](#technology-stack)
+
+
+
 ## System Overview
 
 Modern automated warehouses use robotics, AI, and sophisticated coordination systems to manage inventory, fulfill orders, and optimize operations. Systems like Amazon's fulfillment centers, Alibaba's smart warehouses, and Ocado's automated grid systems coordinate thousands of robots to process millions of items with sub-minute order fulfillment times.

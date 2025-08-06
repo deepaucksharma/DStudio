@@ -59,6 +59,47 @@ type: pattern
 
 # Distributed Training
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+- [Level 1: Intuition (5 min) {#intuition}](#level-1-intuition-5-min-intuition)
+  - [The Story](#the-story)
+  - [Visual Metaphor](#visual-metaphor)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Level 2: Foundation (10 min) {#foundation}](#level-2-foundation-10-min-foundation)
+  - [The Problem Space](#the-problem-space)
+  - [How It Works](#how-it-works)
+  - [Basic Example](#basic-example)
+- [Distributed training with PyTorch DDP (Data Distributed Parallel)](#distributed-training-with-pytorch-ddp-data-distributed-parallel)
+- [Advanced distributed training with model parallelism](#advanced-distributed-training-with-model-parallelism)
+- [Usage example](#usage-example)
+- [Level 3: Deep Dive (15 min) {#deep-dive}](#level-3-deep-dive-15-min-deep-dive)
+  - [Implementation Details](#implementation-details)
+  - [Advanced Implementation Patterns](#advanced-implementation-patterns)
+- [ZeRO-style optimizer state partitioning for memory efficiency](#zero-style-optimizer-state-partitioning-for-memory-efficiency)
+- [Advanced gradient compression for communication efficiency](#advanced-gradient-compression-for-communication-efficiency)
+- [Elastic training for fault tolerance](#elastic-training-for-fault-tolerance)
+  - [Common Pitfalls](#common-pitfalls)
+  - [Production Considerations](#production-considerations)
+- [Level 4: Expert (20 min) {#expert}](#level-4-expert-20-min-expert)
+  - [Advanced Scaling Strategies](#advanced-scaling-strategies)
+  - [Advanced Optimization Techniques](#advanced-optimization-techniques)
+- [Adaptive gradient compression based on network conditions](#adaptive-gradient-compression-based-on-network-conditions)
+- [Intelligent checkpointing for long-running jobs](#intelligent-checkpointing-for-long-running-jobs)
+- [Example usage of advanced distributed training](#example-usage-of-advanced-distributed-training)
+- [Level 5: Mastery (30 min) {#mastery}](#level-5-mastery-30-min-mastery)
+  - [Real-World Case Studies](#real-world-case-studies)
+  - [Pattern Evolution and Future Directions](#pattern-evolution-and-future-directions)
+  - [Pattern Combinations](#pattern-combinations)
+- [Quick Reference](#quick-reference)
+  - [Decision Matrix](#decision-matrix)
+  - [Implementation Roadmap](#implementation-roadmap)
+  - [Related Resources](#related-resources)
+
 !!! info "🥇 Gold Tier Pattern"
     **Large-Scale ML Training** • Essential for modern deep learning at scale
     
@@ -222,7 +263,7 @@ graph TD
 ### Basic Example
 
 ```python
-# Distributed training with PyTorch DDP (Data Distributed Parallel)
+## Distributed training with PyTorch DDP (Data Distributed Parallel)
 import torch
 import torch.distributed as dist
 import torch.multiprocessing as mp
@@ -339,7 +380,7 @@ def run_distributed_training():
     # Spawn processes for each GPU
     mp.spawn(train_distributed, args=(world_size,), nprocs=world_size, join=True)
 
-# Advanced distributed training with model parallelism
+## Advanced distributed training with model parallelism
 class ModelParallelResNet(nn.Module):
     def __init__(self, num_classes=1000):
         super(ModelParallelResNet, self).__init__()
@@ -427,7 +468,7 @@ class HybridParallelTrainer:
             loss = nn.functional.cross_entropy(output, target)
         return loss
 
-# Usage example
+## Usage example
 if __name__ == "__main__":
     # Simple distributed training
     run_distributed_training()
@@ -488,7 +529,7 @@ graph TD
 #### 1. Zero Redundancy Optimizer (ZeRO) Implementation
 
 ```python
-# ZeRO-style optimizer state partitioning for memory efficiency
+## ZeRO-style optimizer state partitioning for memory efficiency
 import torch
 import torch.distributed as dist
 from typing import Dict, List, Optional
@@ -628,7 +669,7 @@ class ZeROOptimizer:
                 if param.grad is not None:
                     param.grad.zero_()
 
-# Advanced gradient compression for communication efficiency
+## Advanced gradient compression for communication efficiency
 class GradientCompression:
     """Gradient compression techniques for distributed training"""
     
@@ -667,7 +708,7 @@ class GradientCompression:
         """Decompress quantized gradients"""
         return quantized.float() * scale + grad_min
 
-# Elastic training for fault tolerance
+## Elastic training for fault tolerance
 class ElasticTrainingManager:
     """Manager for elastic distributed training"""
     
@@ -792,7 +833,7 @@ graph TB
 #### 1. Adaptive Gradient Compression
 
 ```python
-# Adaptive gradient compression based on network conditions
+## Adaptive gradient compression based on network conditions
 import torch
 import time
 from typing import Tuple, Dict, Any
@@ -963,7 +1004,7 @@ class AdaptiveGradientCompressor:
                 
         return decompressed
 
-# Intelligent checkpointing for long-running jobs
+## Intelligent checkpointing for long-running jobs
 class IntelligentCheckpointer:
     """Smart checkpointing based on training dynamics"""
     
@@ -1028,7 +1069,7 @@ class IntelligentCheckpointer:
         # Checkpoint if significant improvement (>5%)
         return improvement > 0.05
 
-# Example usage of advanced distributed training
+## Example usage of advanced distributed training
 class ProductionDistributedTrainer:
     """Production-ready distributed trainer with advanced features"""
     

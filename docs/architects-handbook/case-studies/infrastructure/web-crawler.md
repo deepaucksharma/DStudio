@@ -36,6 +36,29 @@ best_for:
 
 # Distributed Web Crawler
 
+## Table of Contents
+
+- [Challenge Statement](#challenge-statement)
+- [Part 1: Concept Map](#part-1-concept-map)
+  - [🗺 System Overview](#system-overview)
+  - [Law Analysis](#law-analysis)
+- [Trap detection and recovery implementation details...](#trap-detection-and-recovery-implementation-details)
+  - [🔀 Law 4 (Concurrency): Parallel Crawling](#law-4-concurrency-parallel-crawling)
+  - [Comprehensive Law Mapping](#comprehensive-law-mapping)
+  - [🏛 Pillar Mapping](#pillar-mapping)
+  - [Pattern Application](#pattern-application)
+  - [Architecture Alternatives](#architecture-alternatives)
+  - [Trade-off Analysis](#trade-off-analysis)
+  - [Performance & Scale Comparison](#performance-scale-comparison)
+- [Part 2: Architecture & Trade-offs](#part-2-architecture-trade-offs)
+  - [Core Architecture](#core-architecture)
+  - [Key Design Trade-offs](#key-design-trade-offs)
+  - [Alternative Architectures](#alternative-architectures)
+  - [Performance Characteristics](#performance-characteristics)
+  - [🎓 Key Lessons](#key-lessons)
+  - [🔗 Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 References](#references)
+
 ## Challenge Statement
 Design a web crawler for 10B+ pages/month with robots.txt compliance, rate limiting, dynamic content handling, deduplication, and freshness maintenance at internet scale.
 
@@ -580,10 +603,10 @@ graph TB
     end
 ```
 
-# Trap detection and recovery implementation details...
+## Trap detection and recovery implementation details...
 ```
 
-#### 🔀 Law 4 (Concurrency): Parallel Crawling
+### 🔀 Law 4 (Concurrency): Parallel Crawling
 ```text
 Concurrency Challenges:
 - Thousands of parallel connections

@@ -1,9 +1,44 @@
 ---
 title: Hard Earned Wisdom
 description: Hard Earned Wisdom overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Hard-Earned Wisdom: The Unwritten Rules of Engineering Leadership
+
+## Table of Contents
+
+- [Overview](#overview)
+- [🔗 Framework Integration](#-framework-integration)
+  - [How Real Leadership Tests Every Principle](#how-real-leadership-tests-every-principle)
+  - [Where Theory Meets Reality](#where-theory-meets-reality)
+- [🔥 The Reality No One Talks About](#-the-reality-no-one-talks-about)
+- [📚 Sections](#-sections)
+- [🎭 The Unspoken Rules](#-the-unspoken-rules)
+  - [Rule #1: Your Job is to Be Fired](#rule-1-your-job-is-to-be-fired)
+  - [Rule #2: Culture Eats Everything](#rule-2-culture-eats-everything)
+  - [Rule #3: The Truth Has a Half-Life](#rule-3-the-truth-has-a-half-life)
+  - [Rule #4: Heroes Are Organizational Failures](#rule-4-heroes-are-organizational-failures)
+  - [Rule #5: Your Calendar is Your Values](#rule-5-your-calendar-is-your-values)
+  - [Rule #6: Power Dynamics Are Real](#rule-6-power-dynamics-are-real)
+  - [Rule #7: You Will Fail People](#rule-7-you-will-fail-people)
+- [💀 Career-Ending Mistakes to Avoid](#-career-ending-mistakes-to-avoid)
+  - [The Noble Failures](#the-noble-failures)
+  - [The Tempting Shortcuts](#the-tempting-shortcuts)
+  - [The Slow Deaths](#the-slow-deaths)
+- [🎯 What This Section Will Teach You](#-what-this-section-will-teach-you)
+  - [The Advanced Applications](#the-advanced-applications)
+  - [The Integration Points](#the-integration-points)
+- [🗺️ How to Use This Section](#-how-to-use-this-section)
+  - [For Interview Preparation](#for-interview-preparation)
+  - [For Career Development](#for-career-development)
+  - [Navigation by Situation](#navigation-by-situation)
+- [⚠️ Warning](#-warning)
+- [🤝 The Wisdom Exchange](#-the-wisdom-exchange)
+
+
 
 > What they don't teach you in management training - learned through years of mistakes, failures, and eventual success
 

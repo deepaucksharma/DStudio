@@ -32,6 +32,107 @@ production_checklist:
 
 # ☁ Google Drive Cloud Storage Architecture
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Part 1: Concept Map - The Physics of Distributed Storage](#part-1-concept-map-the-physics-of-distributed-storage)
+  - [Law 2: Asynchronous Reality - Making Cloud Feel Local](#law-2-asynchronous-reality-making-cloud-feel-local)
+  - [Law 4: Trade-offs - The Exabyte Challenge](#law-4-trade-offs-the-exabyte-challenge)
+  - [Law 1: Failure - Data Durability and Availability](#law-1-failure-data-durability-and-availability)
+  - [Law 3: Emergence - Real-time Collaboration](#law-3-emergence-real-time-collaboration)
+  - [Law 4: Trade-offs - Global Consistency](#law-4-trade-offs-global-consistency)
+  - [Law 5: Epistemology - Understanding System Health](#law-5-epistemology-understanding-system-health)
+  - [Law 6: Human-API - Seamless User Experience](#law-6-human-api-seamless-user-experience)
+  - [Law 7: Economics - Balancing Features and Costs](#law-7-economics-balancing-features-and-costs)
+- [Part 2: Comprehensive Law Analysis Matrix](#part-2-comprehensive-law-analysis-matrix)
+  - [Law Mapping for Core Design Decisions](#law-mapping-for-core-design-decisions)
+  - [Detailed Law Interaction Analysis](#detailed-law-interaction-analysis)
+  - [Architecture Decision Framework](#architecture-decision-framework)
+  - [Law Priority by Use Case](#law-priority-by-use-case)
+- [Part 3: Architecture Alternatives - Exploring the Design Space](#part-3-architecture-alternatives-exploring-the-design-space)
+  - [Current Architecture: The Multi-Region System](#current-architecture-the-multi-region-system)
+  - [Alternative Architecture 1: Content-Addressed Storage](#alternative-architecture-1-content-addressed-storage)
+  - [Alternative Architecture 2: Peer-to-Peer Hybrid](#alternative-architecture-2-peer-to-peer-hybrid)
+  - [Alternative Architecture 3: Edge-First Architecture](#alternative-architecture-3-edge-first-architecture)
+  - [Alternative Architecture 4: Blockchain-Based](#alternative-architecture-4-blockchain-based)
+  - [Recommended Architecture: Intelligent Hybrid System](#recommended-architecture-intelligent-hybrid-system)
+  - [Alternative Architecture 5: Event-Sourced Storage System](#alternative-architecture-5-event-sourced-storage-system)
+  - [Alternative Architecture 6: Federated Storage Network](#alternative-architecture-6-federated-storage-network)
+- [Part 4: Comprehensive Trade-off Comparison](#part-4-comprehensive-trade-off-comparison)
+  - [Performance Comparison Matrix](#performance-comparison-matrix)
+  - [Law-Based Architecture Selection Guide](#law-based-architecture-selection-guide)
+  - [Cost Analysis by Architecture and Scale](#cost-analysis-by-architecture-and-scale)
+  - [Feature Support Matrix](#feature-support-matrix)
+  - [Failure Resilience Analysis](#failure-resilience-analysis)
+  - [Implementation Complexity Timeline](#implementation-complexity-timeline)
+  - [Decision Matrix for Architecture Selection](#decision-matrix-for-architecture-selection)
+  - [Migration Path Analysis](#migration-path-analysis)
+  - [Implementation Considerations](#implementation-considerations)
+- [Architecture Evolution](#architecture-evolution)
+  - [Phase 1: Simple Upload/Download Service (2006-2008)](#phase-1-simple-uploaddownload-service-2006-2008)
+  - [Phase 2: Basic Sync Architecture (2008-2010)](#phase-2-basic-sync-architecture-2008-2010)
+  - [Phase 3: Distributed Architecture (2010-2014)](#phase-3-distributed-architecture-2010-2014)
+  - [Phase 4: Modern Cloud-Native Architecture (2014-Present)](#phase-4-modern-cloud-native-architecture-2014-present)
+- [Core Components Deep Dive](#core-components-deep-dive)
+  - [1. File Chunking & Deduplication](#1-file-chunking-deduplication)
+- [Check for chunk boundary](#check-for-chunk-boundary)
+- [Create chunk](#create-chunk)
+- [Reset for next chunk](#reset-for-next-chunk)
+- [Force chunk at max size](#force-chunk-at-max-size)
+- [Handle final chunk](#handle-final-chunk)
+- [Use last N bits to determine boundary](#use-last-n-bits-to-determine-boundary)
+- [This gives average chunk size of 4MB](#this-gives-average-chunk-size-of-4mb)
+- [Check if chunk exists](#check-if-chunk-exists)
+- [Increment reference count](#increment-reference-count)
+- [New chunk - store it](#new-chunk-store-it)
+- [Update indices](#update-indices)
+- [No more references - safe to delete](#no-more-references-safe-to-delete)
+  - [2. Sync Engine & Conflict Resolution](#2-sync-engine-conflict-resolution)
+- [1. Scan local changes](#1-scan-local-changes)
+- [2. Fetch remote changes](#2-fetch-remote-changes)
+- [3. Detect conflicts](#3-detect-conflicts)
+- [4. Resolve conflicts](#4-resolve-conflicts)
+- [5. Apply changes](#5-apply-changes)
+- [6. Update sync state](#6-update-sync-state)
+- [Build lookup maps](#build-lookup-maps)
+- [Find conflicts](#find-conflicts)
+- [Strategy: Keep both versions](#strategy-keep-both-versions)
+  - [3. Real-time Collaboration](#3-real-time-collaboration)
+- [Get or create session](#get-or-create-session)
+- [Add user to session](#add-user-to-session)
+- [Send current state](#send-current-state)
+- [Broadcast presence](#broadcast-presence)
+- [Transform operation against concurrent ops](#transform-operation-against-concurrent-ops)
+- [Apply to document](#apply-to-document)
+- [Broadcast to other users](#broadcast-to-other-users)
+- [Same position - use user ID for consistency](#same-position-use-user-id-for-consistency)
+  - [4. Intelligent Caching & Prediction](#4-intelligent-caching-prediction)
+- [1. Analyze user patterns](#1-analyze-user-patterns)
+- [2. Get current context](#2-get-current-context)
+- [3. Predict next file accesses](#3-predict-next-file-accesses)
+- [4. Pre-cache high probability files](#4-pre-cache-high-probability-files)
+- [Extract features](#extract-features)
+- [Get model predictions](#get-model-predictions)
+- [Convert to file predictions](#convert-to-file-predictions)
+  - [5. Storage Tiering & Lifecycle](#5-storage-tiering-lifecycle)
+- [Get file access patterns](#get-file-access-patterns)
+- [Calculate access frequency](#calculate-access-frequency)
+- [Determine tier based on access patterns](#determine-tier-based-on-access-patterns)
+- [1. Read from source tier](#1-read-from-source-tier)
+- [2. Write to destination tier](#2-write-to-destination-tier)
+- [3. Update metadata](#3-update-metadata)
+- [4. Schedule deletion from source](#4-schedule-deletion-from-source)
+- [5. Log migration](#5-log-migration)
+- [Law Mapping & Design Decisions](#law-mapping-design-decisions)
+  - [Comprehensive Design Decision Matrix](#comprehensive-design-decision-matrix)
+- [Conclusion](#conclusion)
+- [Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 Relevant Laws](#relevant-laws)
+  - [🏛 Related Patterns](#related-patterns)
+  - [Quantitative Models](#quantitative-models)
+  - [Similar Case Studies](#similar-case-studies)
+- [References](#references)
+
 **The Challenge**: Build a cloud storage system managing exabytes of data with seamless sync across devices
 
 !!! info "Case Study Overview"
@@ -1108,26 +1209,26 @@ class FileChunkingService:
                 rolling_hash.update(byte[0])
                 position += 1
                 
-# Check for chunk boundary
+## Check for chunk boundary
                 if (len(buffer) >= self.min_chunk_size and 
                     self._is_chunk_boundary(rolling_hash.hash_value)):
                     
-# Create chunk
+## Create chunk
                     chunk = self._create_chunk(buffer, position - len(buffer))
                     chunks.append(chunk)
                     
-# Reset for next chunk
+## Reset for next chunk
                     buffer = bytearray()
                     rolling_hash.reset()
                     
                 elif len(buffer) >= self.max_chunk_size:
-# Force chunk at max size
+## Force chunk at max size
                     chunk = self._create_chunk(buffer, position - len(buffer))
                     chunks.append(chunk)
                     buffer = bytearray()
                     rolling_hash.reset()
             
-# Handle final chunk
+## Handle final chunk
             if buffer:
                 chunk = self._create_chunk(buffer, position - len(buffer))
                 chunks.append(chunk)
@@ -1136,8 +1237,8 @@ class FileChunkingService:
     
     def _is_chunk_boundary(self, hash_value: int) -> bool:
         """Determine chunk boundary using hash"""
-# Use last N bits to determine boundary
-# This gives average chunk size of 4MB
+## Use last N bits to determine boundary
+## This gives average chunk size of 4MB
         return (hash_value & 0x3FFFFF) == 0
 
 class DeduplicationService:
@@ -1151,22 +1252,22 @@ class DeduplicationService:
     async def store_chunk(self, chunk_data: bytes, 
                          chunk_hash: str) -> StorageInfo:
         """Store chunk with deduplication"""
-# Check if chunk exists
+## Check if chunk exists
         if chunk_hash in self.chunk_index:
-# Increment reference count
+## Increment reference count
             self.reference_count[chunk_hash] += 1
             return StorageInfo(
                 location=self.chunk_index[chunk_hash],
                 deduplicated=True
             )
         
-# New chunk - store it
+## New chunk - store it
         storage_location = await self.storage_backend.put(
             chunk_hash,
             chunk_data
         )
         
-# Update indices
+## Update indices
         self.chunk_index[chunk_hash] = storage_location
         self.reference_count[chunk_hash] = 1
         
@@ -1183,7 +1284,7 @@ class DeduplicationService:
         self.reference_count[chunk_hash] -= 1
         
         if self.reference_count[chunk_hash] == 0:
-# No more references - safe to delete
+## No more references - safe to delete
             storage_location = self.chunk_index[chunk_hash]
             await self.storage_backend.delete(storage_location)
             
@@ -1205,23 +1306,23 @@ class SyncEngine:
         
     async def sync_folder(self, folder_path: str):
         """Bidirectional sync with conflict handling"""
-# 1. Scan local changes
+## 1. Scan local changes
         local_changes = await self.local_state.scan_changes(folder_path)
         
-# 2. Fetch remote changes
+## 2. Fetch remote changes
         remote_changes = await self.remote_state.fetch_changes(folder_path)
         
-# 3. Detect conflicts
+## 3. Detect conflicts
         conflicts = self._detect_conflicts(local_changes, remote_changes)
         
-# 4. Resolve conflicts
+## 4. Resolve conflicts
         resolutions = await self.conflict_resolver.resolve(conflicts)
         
-# 5. Apply changes
+## 5. Apply changes
         await self._apply_remote_changes(remote_changes, resolutions)
         await self._push_local_changes(local_changes, resolutions)
         
-# 6. Update sync state
+## 6. Update sync state
         await self._update_sync_state(folder_path)
     
     def _detect_conflicts(self, local: List[Change], 
@@ -1229,11 +1330,11 @@ class SyncEngine:
         """Detect sync conflicts"""
         conflicts = []
         
-# Build lookup maps
+## Build lookup maps
         local_map = {c.path: c for c in local}
         remote_map = {c.path: c for c in remote}
         
-# Find conflicts
+## Find conflicts
         for path in set(local_map.keys()) & set(remote_map.keys()):
             local_change = local_map[path]
             remote_change = remote_map[path]
@@ -1275,7 +1376,7 @@ class ConflictResolver:
     
     async def _resolve_both_modified(self, conflict: Conflict) -> Resolution:
         """Both sides modified the same file"""
-# Strategy: Keep both versions
+## Strategy: Keep both versions
         return Resolution(
             action=ResolutionAction.KEEP_BOTH,
             local_path=conflict.path,
@@ -1296,20 +1397,20 @@ class CollaborationEngine:
         
     async def join_session(self, doc_id: str, user_id: str) -> Session:
         """Join collaborative editing session"""
-# Get or create session
+## Get or create session
         if doc_id not in self.active_sessions:
             self.active_sessions[doc_id] = await self._create_session(doc_id)
             
         session = self.active_sessions[doc_id]
         
-# Add user to session
+## Add user to session
         await session.add_participant(user_id)
         
-# Send current state
+## Send current state
         current_state = await session.get_state()
         await self._send_state_to_user(user_id, current_state)
         
-# Broadcast presence
+## Broadcast presence
         await self.presence_tracker.announce_join(doc_id, user_id)
         
         return session
@@ -1321,16 +1422,16 @@ class CollaborationEngine:
         if not session:
             raise SessionNotFoundError()
             
-# Transform operation against concurrent ops
+## Transform operation against concurrent ops
         transformed = await self.operation_transformer.transform(
             operation,
             session.pending_operations
         )
         
-# Apply to document
+## Apply to document
         await session.apply_operation(transformed)
         
-# Broadcast to other users
+## Broadcast to other users
         await self._broadcast_operation(
             doc_id,
             transformed,
@@ -1362,7 +1463,7 @@ class OperationTransformer:
                 text=op1.text
             )
         else:
-# Same position - use user ID for consistency
+## Same position - use user ID for consistency
             if op1.user_id < op2.user_id:
                 return op1
             else:
@@ -1385,10 +1486,10 @@ class PredictiveCacheService:
         
     async def optimize_cache(self, user_id: str):
         """Optimize cache based on predicted access"""
-# 1. Analyze user patterns
+## 1. Analyze user patterns
         patterns = await self.user_patterns.analyze(user_id)
         
-# 2. Get current context
+## 2. Get current context
         context = {
             'time_of_day': datetime.now().hour,
             'day_of_week': datetime.now().weekday(),
@@ -1397,14 +1498,14 @@ class PredictiveCacheService:
             'recent_files': await self._get_recent_files(user_id)
         }
         
-# 3. Predict next file accesses
+## 3. Predict next file accesses
         predictions = await self.access_predictor.predict(
             user_id,
             patterns,
             context
         )
         
-# 4. Pre-cache high probability files
+## 4. Pre-cache high probability files
         for prediction in predictions:
             if prediction.probability > 0.7:
                 await self.cache_manager.pre_cache(
@@ -1422,16 +1523,16 @@ class FileAccessPredictor:
     async def predict(self, user_id: str, patterns: dict, 
                      context: dict) -> List[Prediction]:
         """Predict likely file accesses"""
-# Extract features
+## Extract features
         features = self.feature_extractor.extract(
             user_patterns=patterns,
             context=context
         )
         
-# Get model predictions
+## Get model predictions
         predictions = self.model.predict_proba(features)
         
-# Convert to file predictions
+## Convert to file predictions
         file_predictions = []
         for file_id, probability in predictions:
             if probability > 0.1:  # Threshold
@@ -1483,14 +1584,14 @@ class StorageLifecycleManager:
         
     async def evaluate_file_placement(self, file_id: str):
         """Determine optimal storage tier for file"""
-# Get file access patterns
+## Get file access patterns
         access_info = await self._get_access_info(file_id)
         
-# Calculate access frequency
+## Calculate access frequency
         days_since_access = (datetime.now() - access_info.last_access).days
         access_frequency = access_info.access_count / max(days_since_access, 1)
         
-# Determine tier based on access patterns
+## Determine tier based on access patterns
         if days_since_access < 7 or access_frequency > 1:
             return 'hot'
         elif days_since_access < 30 or access_frequency > 0.1:
@@ -1502,19 +1603,19 @@ class StorageLifecycleManager:
     
     async def migrate_file(self, file_id: str, from_tier: str, to_tier: str):
         """Migrate file between storage tiers"""
-# 1. Read from source tier
+## 1. Read from source tier
         file_data = await self._read_from_tier(file_id, from_tier)
         
-# 2. Write to destination tier
+## 2. Write to destination tier
         await self._write_to_tier(file_id, file_data, to_tier)
         
-# 3. Update metadata
+## 3. Update metadata
         await self._update_file_location(file_id, to_tier)
         
-# 4. Schedule deletion from source
+## 4. Schedule deletion from source
         await self._schedule_deletion(file_id, from_tier, delay_hours=24)
         
-# 5. Log migration
+## 5. Log migration
         await self._log_migration(file_id, from_tier, to_tier)
 ```
 

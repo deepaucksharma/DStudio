@@ -297,14 +297,14 @@ graph TD
 ### Shopping Cart
 
 ```python
-# Before: Anti-entropy with conflict resolution
+## Before: Anti-entropy with conflict resolution
 class AntiEntropyCart:
     def merge_carts(self, cart1, cart2):
         # Complex logic for concurrent adds/removes
         # What if same item added with different quantities?
         # What if one removed while other added?
 
-# After: OR-Map CRDT
+## After: OR-Map CRDT
 class CRDTCart:
     def __init__(self):
         self.items = ORMap()  # item_id -> quantity (PN-Counter)
@@ -323,14 +323,14 @@ class CRDTCart:
 ### User Presence
 
 ```python
-# Before: Gossip-based presence with anti-entropy
+## Before: Gossip-based presence with anti-entropy
 class AntiEntropyPresence:
     def reconcile_presence(self):
         # Compare heartbeats
         # Resolve conflicts
         # Clean up stale entries
 
-# After: LWW-Map with automatic expiry
+## After: LWW-Map with automatic expiry
 class CRDTPresence:
     def __init__(self):
         self.presence = LWWMap()  # user_id -> (status, timestamp)
@@ -381,12 +381,12 @@ graph LR
 ### 2. Operation Order Assumptions
 
 ```python
-# ❌ Wrong: Assuming order
+## ❌ Wrong: Assuming order
 def transfer_money(from_account, to_account, amount):
     from_account.decrement(amount)  # What if this arrives second?
     to_account.increment(amount)
 
-# ✅ Correct: Use CRDT that handles this
+## ✅ Correct: Use CRDT that handles this
 def transfer_money(transfer_id, from_account, to_account, amount):
     # Use a CRDT that tracks transfers as atomic operations
     transfer_crdt.add_transfer(transfer_id, from_account, to_account, amount)
@@ -437,7 +437,7 @@ def test_crdt_properties(crdt_class):
 ### Key Metrics
 
 ```yaml
-# Prometheus metrics
+## Prometheus metrics
 crdt_merge_duration_seconds{type="or_set"}
 crdt_state_size_bytes{type="or_set", node="node1"}
 crdt_operation_count{type="add", crdt="or_set"}

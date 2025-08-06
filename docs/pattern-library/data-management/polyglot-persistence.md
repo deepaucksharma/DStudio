@@ -258,7 +258,7 @@ Where N = number of different databases
 
 </div>
 
-#### Anti-Patterns to Avoid
+### Anti-Patterns to Avoid
 
 <div>
 

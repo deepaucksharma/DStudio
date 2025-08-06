@@ -1,4 +1,63 @@
+---
+title: Progressive Disclosure Pattern Example
+description: Documentation for Progressive Disclosure Pattern Example
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
 # Progressive Disclosure Pattern Example
+
+
+
+## Overview
+
+Progressive Disclosure Pattern Example
+
+## Table of Contents
+
+- [Example: Circuit Breaker Pattern Transformation](#example-circuit-breaker-pattern-transformation)
+  - [Before: Monolithic 5000-word Page](#before-monolithic-5000-word-page)
+  - [After: Progressive Disclosure Structure](#after-progressive-disclosure-structure)
+    - [Main Page: `/. Circuit Breaker Pattern](#circuit-breaker-pattern)
+- [The Problem (30 seconds)](#the-problem-30-seconds)
+- [The Solution - Visual Overview](#the-solution-visual-overview)
+- [Quick Decision Guide](#quick-decision-guide)
+- [5-Minute Implementation](#5-minute-implementation)
+- [Production Checklist](#production-checklist)
+- [Learn More (Progressive Links)](#learn-more-progressive-links)
+  - [Subpage 1: `/.
+
+**Reading time:** ~3 minutes
+
+## Table of Contents
+
+- [Example: Circuit Breaker Pattern Transformation](#example-circuit-breaker-pattern-transformation)
+  - [Before: Monolithic 5000-word Page](#before-monolithic-5000-word-page)
+  - [After: Progressive Disclosure Structure](#after-progressive-disclosure-structure)
+    - [Main Page: `/../pattern-library/resilience/circuit-breaker/index.md`](#main-page-pattern-libraryresiliencecircuit-breakerindexmd)
+- [Circuit Breaker Pattern](#circuit-breaker-pattern)
+- [The Problem (30 seconds)](#the-problem-30-seconds)
+- [The Solution - Visual Overview](#the-solution-visual-overview)
+- [Quick Decision Guide](#quick-decision-guide)
+- [5-Minute Implementation](#5-minute-implementation)
+- [Production Checklist](#production-checklist)
+- [Learn More (Progressive Links)](#learn-more-progressive-links)
+  - [Subpage 1: `/../pattern-library/resilience/circuit-breaker/configuration.md`](#subpage-1-pattern-libraryresiliencecircuit-breakerconfigurationmd)
+- [Circuit Breaker Configuration Guide](#circuit-breaker-configuration-guide)
+- [Threshold Configuration](#threshold-configuration)
+- [Real-World Configurations](#real-world-configurations)
+  - [High-Traffic API (1M+ RPM)](#high-traffic-api-1m-rpm)
+  - [Payment Service (High Stakes)](#payment-service-high-stakes)
+    - [Subpage 2: `/../pattern-library/resilience/circuit-breaker/mathematics.md`](#subpage-2-pattern-libraryresiliencecircuit-breakermathematicsmd)
+- [Circuit Breaker Mathematics](#circuit-breaker-mathematics)
+- [Failure Probability Models](#failure-probability-models)
+  - [Basic Failure Rate Calculation](#basic-failure-rate-calculation)
+  - [Statistical Significance](#statistical-significance)
+  - [Progressive Disclosure Benefits](#progressive-disclosure-benefits)
+  - [Implementation Checklist](#implementation-checklist)
+
+
 
 ## Example: Circuit Breaker Pattern Transformation
 
@@ -12,7 +71,7 @@
 
 #### Main Page: `/../pattern-library/resilience/circuit-breaker/index.md`
 
-# Circuit Breaker Pattern
+## Circuit Breaker Pattern
 
 ## The Problem (30 seconds)
 When external services fail, your system shouldn't. Circuit breakers prevent cascade failures by monitoring service health and failing fast when problems are detected.
@@ -154,9 +213,9 @@ stateDiagram-v2
 
 ---
 
-#### Subpage 1: `/../pattern-library/resilience/circuit-breaker/configuration.md`
+### Subpage 1: `/../pattern-library/resilience/circuit-breaker/configuration.md`
 
-# Circuit Breaker Configuration Guide
+## Circuit Breaker Configuration Guide
 
 ## Threshold Configuration
 
@@ -195,7 +254,7 @@ circuit_breaker:
 
 #### Subpage 2: `/../pattern-library/resilience/circuit-breaker/mathematics.md`
 
-# Circuit Breaker Mathematics
+## Circuit Breaker Mathematics
 
 ## Failure Probability Models
 

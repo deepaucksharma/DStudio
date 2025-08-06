@@ -1,6 +1,9 @@
 ---
 title: Storage Economics
 description: Quantitative models for storage cost optimization and economics
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Storage Economics

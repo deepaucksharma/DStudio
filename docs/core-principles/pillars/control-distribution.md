@@ -700,23 +700,23 @@ You have the illusion of control.
 <h4>The Control Starter Pack</h4>
 
 ```bash
-# 1. Add circuit breaker (5 minutes)
+## 1. Add circuit breaker (5 minutes)
 export CIRCUIT_BREAKER_THRESHOLD=5
 export CIRCUIT_BREAKER_TIMEOUT=60000
 
-# 2. Add kill switch (2 minutes)
+## 2. Add kill switch (2 minutes)
 if [ "$KILL_SWITCH" = "true" ]; then
   echo "Service disabled by kill switch"
   exit 0
 fi
 
-# 3. Add rate limiter (10 minutes)
+## 3. Add rate limiter (10 minutes)
 rate_limiter = TokenBucket(1000, refill_rate=100)
 
-# 4. Add timeout (1 minute)
+## 4. Add timeout (1 minute)
 requests.get(url, timeout=5.0)
 
-# 5. Add bulkhead (15 minutes)
+## 5. Add bulkhead (15 minutes)
 ThreadPoolBulkhead.of("payment-api", config)
 ```
 </div>

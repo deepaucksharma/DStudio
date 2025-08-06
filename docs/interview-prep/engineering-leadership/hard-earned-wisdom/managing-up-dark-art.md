@@ -2,9 +2,83 @@
 title: Managing Up: The Dark Art Nobody Teaches You
 description: Your ability to manage up determines 70% of your team's success. Technical excellence means nothing if your VP thinks you're "not strategic enough" or
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Managing Up: The Dark Art Nobody Teaches You
+
+
+
+## Overview
+
+Managing Up: The Dark Art Nobody Teaches You
+description: Your ability to manage up determines 70% of your team's success. Technical excellence means nothing if your VP thinks you're "not strategic enough" or
+type: interview-guide
+---
+
+# Managing Up: The Dark Art Nobody Teaches You
+
+## Table of Contents
+
+- [The Brutal Truth](#the-brutal-truth)
+- [🎭 The Executive Mindset Decoder](#-the-executive-mindset-decoder)
+  - [What They Say vs.
+
+**Reading time:** ~14 minutes
+
+## Table of Contents
+
+- [The Brutal Truth](#the-brutal-truth)
+- [🎭 The Executive Mindset Decoder](#-the-executive-mindset-decoder)
+  - [What They Say vs. What They Mean](#what-they-say-vs-what-they-mean)
+- [🛡️ Protecting Your Team from Executive Chaos](#-protecting-your-team-from-executive-chaos)
+  - [The Shit Umbrella Principle](#the-shit-umbrella-principle)
+    - [Chaos Types and Shields](#chaos-types-and-shields)
+  - [The Information Filter](#the-information-filter)
+- [🎪 The Political Game You Must Play](#-the-political-game-you-must-play)
+  - [Level-Specific Power Dynamics](#level-specific-power-dynamics)
+    - [L6/Senior Manager Power Sources](#l6senior-manager-power-sources)
+    - [L7/Director Power Sources  ](#l7director-power-sources-)
+    - [L8/Senior Director Power Sources](#l8senior-director-power-sources)
+  - [Building Your Power Base](#building-your-power-base)
+  - [Managing Peer Competition](#managing-peer-competition)
+- [📊 Managing Executive Communication](#-managing-executive-communication)
+  - [The Executive Dashboard Reality](#the-executive-dashboard-reality)
+- [Team: Infrastructure Platform](#team-infrastructure-platform)
+- [Week: [Date]](#week-date)
+  - [Business Impact This Week](#business-impact-this-week)
+  - [Strategic Progress](#strategic-progress)
+  - [Risks & Mitigations](#risks-mitigations)
+  - [Ask](#ask)
+  - [The Crucial Conversations Playbook](#the-crucial-conversations-playbook)
+  - [Complex Multi-Principle Scenarios](#complex-multi-principle-scenarios)
+- [🎯 Executive Relationship Patterns](#-executive-relationship-patterns)
+  - [The Five Executive Archetypes](#the-five-executive-archetypes)
+- [🚨 Emergency Protocols](#-emergency-protocols)
+  - [When Your Boss is About to be Fired](#when-your-boss-is-about-to-be-fired)
+  - [When You're Being Managed Out](#when-youre-being-managed-out)
+- [🧠 Advanced Mental Models for Managing Up](#-advanced-mental-models-for-managing-up)
+  - [The OODA Loop for Executive Management](#the-ooda-loop-for-executive-management)
+  - [The Stakeholder Power/Interest Grid](#the-stakeholder-powerinterest-grid)
+  - [The Trust Equation for Executives](#the-trust-equation-for-executives)
+  - [The Executive Attention Portfolio](#the-executive-attention-portfolio)
+  - [The Information Asymmetry Framework](#the-information-asymmetry-framework)
+  - [The Political Capital Model](#the-political-capital-model)
+  - [The Organizational Antibody Theory](#the-organizational-antibody-theory)
+- [💣 The Nuclear Options](#-the-nuclear-options)
+  - [When to Go to HR](#when-to-go-to-hr)
+  - [When to Go to Skip Level](#when-to-go-to-skip-level)
+- [🎖️ War Stories: Learning from Battle Scars](#-war-stories-learning-from-battle-scars)
+  - [The Time I Saved My Team from a Vindictive VP](#the-time-i-saved-my-team-from-a-vindictive-vp)
+  - [The Great Reorg Survival of 2019](#the-great-reorg-survival-of-2019)
+- [📚 Required Reading for the Political Game](#-required-reading-for-the-political-game)
+- [🎓 Final Wisdom](#-final-wisdom)
+  - [The Three Laws of Managing Up](#the-three-laws-of-managing-up)
+  - [The Ultimate Truth](#the-ultimate-truth)
+
+
 
 ## The Brutal Truth
 

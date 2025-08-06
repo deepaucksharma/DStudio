@@ -6,6 +6,57 @@ type: documentation
 
 # Observability Cost Calculator
 
+
+
+## Overview
+
+Observability Cost Calculator
+description: Metrics, logs, traces volume and cost estimation
+type: documentation
+---
+
+# Observability Cost Calculator
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Infrastructure Scale](#infrastructure-scale)
+  - [Metrics Configuration](#metrics-configuration)
+  - [Logging Configuration](#logging-configuration)
+  - [Distributed Tracing](#distributed-tracing)
+  - [Alerting Configuration](#alerting-configuration)
+  - [Platform Selection](#platform-selection)
+- [Understanding Observability Costs](#understanding-observability-costs)
+  - [Cost Components](#cost-components)
+  - [Optimization Strategies](#optimization-strategies)
+  - [Platform Comparison](#platform-comparison)
+- [Related Resources](#related-resources)
+
+
+
+! Advanced Observability Cost Analysis"
+    <h2>📊 Observability Platform Cost Calculator</h2>
+    <p>Estimate the cost and volume requirements for metrics, logs, traces, and alerts across your infrastructure.
+
+**Reading time:** ~20 minutes
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Infrastructure Scale](#infrastructure-scale)
+  - [Metrics Configuration](#metrics-configuration)
+  - [Logging Configuration](#logging-configuration)
+  - [Distributed Tracing](#distributed-tracing)
+  - [Alerting Configuration](#alerting-configuration)
+  - [Platform Selection](#platform-selection)
+- [Understanding Observability Costs](#understanding-observability-costs)
+  - [Cost Components](#cost-components)
+  - [Optimization Strategies](#optimization-strategies)
+  - [Platform Comparison](#platform-comparison)
+- [Related Resources](#related-resources)
+
+
+
 !!! info "Advanced Observability Cost Analysis"
     <h2>📊 Observability Platform Cost Calculator</h2>
     <p>Estimate the cost and volume requirements for metrics, logs, traces, and alerts across your infrastructure.</p>

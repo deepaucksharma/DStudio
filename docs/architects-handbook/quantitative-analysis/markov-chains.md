@@ -12,6 +12,142 @@ last_updated: 2025-01-23
 
 # Markov Chains
 
+
+
+## Overview
+
+Markov Chains
+description: Mathematical analysis of state-based systems, transition probabilities, and steady-state behavior in distributed systems
+type: quantitative
+difficulty: advanced
+reading_time: 50 min
+prerequisites: [probability-theory, linear-algebra, statistics]
+pattern_type: foundational
+status: complete
+last_updated: 2025-01-23
+---
+
+# Markov Chains
+
+## Table of Contents
+
+- [Mathematical Foundations](#mathematical-foundations)
+  - [Definition and Basic Properties](#definition-and-basic-properties)
+  - [Classes of States](#classes-of-states)
+  - [Recurrence and Transience](#recurrence-and-transience)
+    - [Proof of Finite Irreducible Recurrence](#proof-of-finite-irreducible-recurrence)
+- [Steady-State Analysis](#steady-state-analysis)
+  - [Stationary Distribution](#stationary-distribution)
+  - [Computing Stationary Distribution](#computing-stationary-distribution)
+    - [Implementation: Stationary Distribution Calculator](#implementation-stationary-distribution-calculator)
+  - [Example: Random walk on a graph](#example-random-walk-on-a-graph)
+  - [Example usage](#example-usage)
+- [Birth-death process with rates λ_i and μ_i](#birth-death-process-with-rates-λ_i-and-μ_i)
+  - [Detailed Balance and Reversibility](#detailed-balance-and-reversibility)
+- [Continuous-Time Markov Chains (CTMC)](#continuous-time-markov-chains-ctmc)
+  - [Generator Matrix](#generator-matrix)
+  - [Birth-Death Processes](#birth-death-processes)
+    - [M/M/1 Queue Analysis](#mm1-queue-analysis)
+- [Example](#example)
+- [Hitting Times and Mixing Times](#hitting-times-and-mixing-times)
+  - [First Passage Times](#first-passage-times)
+  - [Mixing Time](#mixing-time)
+    - [Spectral Gap and Mixing](#spectral-gap-and-mixing)
+  - [Example: Mixing time of random walk on cycle](#example-mixing-time-of-random-walk-on-cycle)
+- [Applications in Distributed Systems](#applications-in-distributed-systems)
+  - [PageRank Algorithm](#pagerank-algorithm)
+  - [Example: Small web graph](#example-small-web-graph)
+  - [Load Balancing and Consistent Hashing](#load-balancing-and-consistent-hashing)
+  - [Failure Detection and Recovery](#failure-detection-and-recovery)
+  - [Example system](#example-system)
+- [Advanced Topics](#advanced-topics)
+  - [Martingales and Optional Stopping](#martingales-and-optional-stopping)
+  - [Reversible Chains and MCMC](#reversible-chains-and-mcmc)
+  - [Example: Sample from 2D Gaussian](#example-sample-from-2d-gaussian)
+- [Performance Analysis and Complexity](#performance-analysis-and-complexity)
+  - [Computational Complexity](#computational-complexity)
+  - [Numerical Stability](#numerical-stability)
+- [Interactive Visualization Tools](#interactive-visualization-tools)
+  - [Markov Chain Simulator](#markov-chain-simulator)
+- [Case Studies](#case-studies)
+  - [Case Study 1: Web Service Reliability](#case-study-1-web-service-reliability)
+- [Convert rates to probabilities for discrete-time analysis](#convert-rates-to-probabilities-for-discrete-time-analysis)
+- [Assume small time step Δt = 0. Transition rate matrix Q](#transition-rate-matrix-q)
+- [Convert to transition probabilities: P = I + Q*dt](#convert-to-transition-probabilities-p-i-qdt)
+- [Ensure valid probabilities](#ensure-valid-probabilities)
+  - [Case Study 2: Distributed Consensus Protocol](#case-study-2-distributed-consensus-protocol)
+- [References and Further Reading](#references-and-further-reading)
+  - [Foundational Texts](#foundational-texts)
+  - [Applications in Computer Science](#applications-in-computer-science)
+  - [Distributed Systems Applications](#distributed-systems-applications)
+  - [Recent Research Papers](#recent-research-papers)
+- [Related Topics](#related-topics)
+
+
+
+## Mathematical Foundations
+
+A Markov chain is a mathematical system that undergoes transitions from one state to another according to certain probabilistic rules.
+
+**Reading time:** ~16 minutes
+
+## Table of Contents
+
+- [Mathematical Foundations](#mathematical-foundations)
+  - [Definition and Basic Properties](#definition-and-basic-properties)
+  - [Classes of States](#classes-of-states)
+  - [Recurrence and Transience](#recurrence-and-transience)
+    - [Proof of Finite Irreducible Recurrence](#proof-of-finite-irreducible-recurrence)
+- [Steady-State Analysis](#steady-state-analysis)
+  - [Stationary Distribution](#stationary-distribution)
+  - [Computing Stationary Distribution](#computing-stationary-distribution)
+    - [Implementation: Stationary Distribution Calculator](#implementation-stationary-distribution-calculator)
+  - [Example: Random walk on a graph](#example-random-walk-on-a-graph)
+  - [Example usage](#example-usage)
+- [Birth-death process with rates λ_i and μ_i](#birth-death-process-with-rates-λ_i-and-μ_i)
+  - [Detailed Balance and Reversibility](#detailed-balance-and-reversibility)
+- [Continuous-Time Markov Chains (CTMC)](#continuous-time-markov-chains-ctmc)
+  - [Generator Matrix](#generator-matrix)
+  - [Birth-Death Processes](#birth-death-processes)
+    - [M/M/1 Queue Analysis](#mm1-queue-analysis)
+- [Example](#example)
+- [Hitting Times and Mixing Times](#hitting-times-and-mixing-times)
+  - [First Passage Times](#first-passage-times)
+  - [Mixing Time](#mixing-time)
+    - [Spectral Gap and Mixing](#spectral-gap-and-mixing)
+  - [Example: Mixing time of random walk on cycle](#example-mixing-time-of-random-walk-on-cycle)
+- [Applications in Distributed Systems](#applications-in-distributed-systems)
+  - [PageRank Algorithm](#pagerank-algorithm)
+  - [Example: Small web graph](#example-small-web-graph)
+  - [Load Balancing and Consistent Hashing](#load-balancing-and-consistent-hashing)
+  - [Failure Detection and Recovery](#failure-detection-and-recovery)
+  - [Example system](#example-system)
+- [Advanced Topics](#advanced-topics)
+  - [Martingales and Optional Stopping](#martingales-and-optional-stopping)
+  - [Reversible Chains and MCMC](#reversible-chains-and-mcmc)
+  - [Example: Sample from 2D Gaussian](#example-sample-from-2d-gaussian)
+- [Performance Analysis and Complexity](#performance-analysis-and-complexity)
+  - [Computational Complexity](#computational-complexity)
+  - [Numerical Stability](#numerical-stability)
+- [Interactive Visualization Tools](#interactive-visualization-tools)
+  - [Markov Chain Simulator](#markov-chain-simulator)
+- [Case Studies](#case-studies)
+  - [Case Study 1: Web Service Reliability](#case-study-1-web-service-reliability)
+- [Convert rates to probabilities for discrete-time analysis](#convert-rates-to-probabilities-for-discrete-time-analysis)
+- [Assume small time step Δt = 0.1 hours](#assume-small-time-step-δt-01-hours)
+- [Transition rate matrix Q](#transition-rate-matrix-q)
+- [Convert to transition probabilities: P = I + Q*dt](#convert-to-transition-probabilities-p-i-qdt)
+- [Ensure valid probabilities](#ensure-valid-probabilities)
+  - [Case Study 2: Distributed Consensus Protocol](#case-study-2-distributed-consensus-protocol)
+- [References and Further Reading](#references-and-further-reading)
+  - [Foundational Texts](#foundational-texts)
+  - [Applications in Computer Science](#applications-in-computer-science)
+  - [Distributed Systems Applications](#distributed-systems-applications)
+  - [Recent Research Papers](#recent-research-papers)
+- [Related Topics](#related-topics)
+
+
+
 ## Mathematical Foundations
 
 A Markov chain is a mathematical system that undergoes transitions from one state to another according to certain probabilistic rules. The key property is the **Markov property**: the future state depends only on the current state, not on the sequence of events that preceded it.
@@ -162,7 +298,7 @@ def analyze_markov_chain(P):
         'eigenvalues': eigenvalues
     }
 
-# Example: Random walk on a graph
+### Example: Random walk on a graph
 def random_walk_transition_matrix(adjacency_matrix):
     """Create transition matrix for random walk on graph"""
     degrees = np.sum(adjacency_matrix, axis=1)
@@ -170,7 +306,7 @@ def random_walk_transition_matrix(adjacency_matrix):
     degrees[degrees == 0] = 1
     return adjacency_matrix / degrees[:, np.newaxis]
 
-# Example usage
+### Example usage
 print("Example 1: Simple 3-state chain")
 P1 = np.array([[0.7, 0.2, 0.1],
                [0.3, 0.4, 0.3],
@@ -182,7 +318,7 @@ print(f"Is irreducible: {result1['is_irreducible']}")
 print(f"Is aperiodic: {result1['is_aperiodic']}")
 
 print("\nExample 2: Birth-death process")
-# Birth-death process with rates λ_i and μ_i
+## Birth-death process with rates λ_i and μ_i
 def birth_death_matrix(birth_rates, death_rates):
     n = len(birth_rates) + 1
     P = np.zeros((n, n))
@@ -282,7 +418,7 @@ def mm1_queue_analysis(lambda_rate, mu_rate):
     
     return metrics
 
-# Example
+## Example
 result = mm1_queue_analysis(lambda_rate=8, mu_rate=10)
 print(f"M/M/1 Queue Analysis (λ=8, μ=10):")
 for key, value in result.items():
@@ -356,7 +492,7 @@ def compute_mixing_time(P, epsilon=0.25, max_steps=1000):
         'theoretical_bound': np.log(2) / spectral_gap if spectral_gap > 0 else float('inf')
     }
 
-# Example: Mixing time of random walk on cycle
+### Example: Mixing time of random walk on cycle
 def cycle_random_walk(n):
     """Random walk on n-cycle"""
     P = np.zeros((n, n))
@@ -425,7 +561,7 @@ def pagerank(adjacency_matrix, d=0.85, max_iter=100, tol=1e-6):
     
     return v
 
-# Example: Small web graph
+### Example: Small web graph
 adjacency = np.array([[0, 1, 1, 0],
                      [1, 0, 1, 1],
                      [1, 0, 0, 1],
@@ -487,7 +623,7 @@ def system_reliability_analysis(P, service_levels):
         'availability': pi[0] + pi[1],  # Assuming first two states provide service
     }
 
-# Example system
+### Example system
 P_system = np.array([[0.95, 0.04, 0.01],
                     [0.7, 0.2, 0.1],
                     [0.0, 0.3, 0.7]])
@@ -559,7 +695,7 @@ def metropolis_hastings_sampler(target_logpdf, proposal_std, initial_state, n_sa
     acceptance_rate = n_accepted / n_samples
     return np.array(samples), acceptance_rate
 
-# Example: Sample from 2D Gaussian
+### Example: Sample from 2D Gaussian
 def gaussian_2d_logpdf(x, mu=np.array([0, 0]), cov=np.eye(2)):
     diff = x - mu
     return -0.5 * np.dot(diff, np.linalg.solve(cov, diff))
@@ -705,19 +841,19 @@ Model a web service with three states: Normal, Degraded, Failed.
 
 **Analysis**:
 ```python
-# Convert rates to probabilities for discrete-time analysis
-# Assume small time step Δt = 0.1 hours
+## Convert rates to probabilities for discrete-time analysis
+## Assume small time step Δt = 0.1 hours
 dt = 0.1
 
-# Transition rate matrix Q
+## Transition rate matrix Q
 Q = np.array([[-0.11, 0.1, 0.01],
               [0.5, -0.7, 0.2],
               [0.0, 1.0, -1.0]])
 
-# Convert to transition probabilities: P = I + Q*dt
+## Convert to transition probabilities: P = I + Q*dt
 P_service = np.eye(3) + Q * dt
 
-# Ensure valid probabilities
+## Ensure valid probabilities
 np.fill_diagonal(P_service, 1 - np.sum(P_service, axis=1) + np.diag(P_service))
 
 service_analysis = analyze_markov_chain(P_service)

@@ -1,6 +1,6 @@
 ---
-title: Quick Start Guide: From Zero to Production Excellence
-description: ```mermaid timeline title From Startup to Scale: Your 90-Day Roadmap
+title: "Quick Start Guide: From Zero to Production Excellence"
+description: "90-day roadmap from startup to scale with concrete milestones, implementation patterns, and success metrics."
 type: guide
 ---
 
@@ -40,15 +40,15 @@ timeline
 **Why**: Prevent cascade failures from day one
 
 ```python
-# requirements.txt
+## requirements.txt
 py-breaker==0.7.0
 requests==2.28.0
 
-# circuit_breaker.py
+## circuit_breaker.py
 from pybreaker import CircuitBreaker
 import requests
 
-# Configure circuit breaker
+## Configure circuit breaker
 db_breaker = CircuitBreaker(
     fail_max=5,
     reset_timeout=60,
@@ -61,7 +61,7 @@ def get_user(user_id):
     response.raise_for_status()
     return response.json()
 
-# Usage
+### Usage
 try:
     user = get_user(123)
 except Exception as e:
@@ -74,7 +74,7 @@ except Exception as e:
 **Why**: Enable proper load balancing and deployment
 
 ```python
-# health.py
+## health.py
 from flask import Flask, jsonify
 import redis
 import psycopg2
@@ -114,7 +114,7 @@ def check_database():
 **Why**: Debugging distributed systems requires context
 
 ```python
-# logging_config.py
+## logging_config.py
 import structlog
 import logging
 
@@ -135,10 +135,10 @@ structlog.configure(
     cache_logger_on_first_use=True,
 )
 
-# Usage
+### Usage
 logger = structlog.get_logger()
 
-# Always include context
+## Always include context
 logger.info("user_action", 
     user_id=user_id,
     action="login",
@@ -160,7 +160,7 @@ logger.info("user_action",
 ### Retry with Exponential Backoff
 
 ```python
-# retry_handler.py
+## retry_handler.py
 import time
 import random
 from functools import wraps
@@ -195,7 +195,7 @@ def exponential_backoff_retry(
         return wrapper
     return decorator
 
-# Usage
+### Usage
 @exponential_backoff_retry(max_retries=3)
 def call_payment_service(amount, user_id):
     response = requests.post(
@@ -210,7 +210,7 @@ def call_payment_service(amount, user_id):
 ### Rate Limiting
 
 ```python
-# rate_limiter.py
+## rate_limiter.py
 from functools import wraps
 import time
 import redis
@@ -242,7 +242,7 @@ def rate_limit(max_requests=100, window_seconds=60):
         return wrapper
     return decorator
 
-# Usage
+### Usage
 @rate_limit(max_requests=1000, window_seconds=3600)
 def api_endpoint():
     return {"data": "response"}
@@ -253,7 +253,7 @@ def api_endpoint():
 ### Load Balancing Strategy
 
 ```yaml
-# kubernetes/service.yaml
+## kubernetes/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -303,7 +303,7 @@ spec:
 ### Caching Layer
 
 ```python
-# cache_manager.py
+## cache_manager.py
 import functools
 import hashlib
 import json
@@ -335,7 +335,7 @@ def cache_result(ttl_seconds=300):
         return wrapper
     return decorator
 
-# Usage
+### Usage
 @cache_result(ttl_seconds=3600)
 def get_product_details(product_id):
     # Expensive database query
@@ -345,12 +345,12 @@ def get_product_details(product_id):
 ### Message Queue Integration
 
 ```python
-# task_queue.py
+## task_queue.py
 import json
 import pika
 from celery import Celery
 
-# Using Celery for simplicity
+## Using Celery for simplicity
 app = Celery('tasks', broker='redis:/localhost:6379')
 
 @app.task(bind=True, max_retries=3)
@@ -367,7 +367,7 @@ def process_order(self, order_data):
         # Retry with exponential backoff
         raise self.retry(exc=exc, countdown=2 ** self.request.retries)
 
-# Usage in API
+####### Usage in API
 @app.route('/orders', methods=['POST'])
 def create_order():
     order_data = request.json
@@ -387,7 +387,7 @@ def create_order():
 ### Auto-scaling Configuration
 
 ```yaml
-# kubernetes/hpa.yaml
+## kubernetes/hpa.yaml
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -437,7 +437,7 @@ spec:
 ### Comprehensive Monitoring
 
 ```yaml
-# prometheus/rules.yaml
+## prometheus/rules.yaml
 groups:
   - name: api_alerts
     rules:
@@ -472,7 +472,7 @@ groups:
 ### Distributed Tracing
 
 ```python
-# tracing.py
+## tracing.py
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
@@ -480,25 +480,25 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
-# Configure tracing
+## Configure tracing
 trace.set_tracer_provider(TracerProvider())
 tracer = trace.get_tracer(__name__)
 
-# Configure exporter
+## Configure exporter
 otlp_exporter = OTLPSpanExporter(
     endpoint="http:/jaeger-collector:4317",
     insecure=True
 )
 
-# Add span processor
+## Add span processor
 span_processor = BatchSpanProcessor(otlp_exporter)
 trace.get_tracer_provider().add_span_processor(span_processor)
 
-# Auto-instrument libraries
+## Auto-instrument libraries
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 
-# Manual instrumentation
+## Manual instrumentation
 @app.route('/process')
 def process_request():
     with tracer.start_as_current_span("process_request") as span:
@@ -608,21 +608,21 @@ structlog==23.1.0     # Structured logging
 ### Deployment Commands
 
 ```bash
-# Local development
+## Local development
 docker-compose up -d
 make test
 make run-local
 
-# Staging deployment
+## Staging deployment
 kubectl apply -k overlays/staging
 kubectl rollout status deployment/api-deployment
 
-# Production deployment
+## Production deployment
 kubectl apply -k overlays/production
 kubectl rollout status deployment/api-deployment
 kubectl rollout history deployment/api-deployment
 
-# Rollback if needed
+## Rollback if needed
 kubectl rollout undo deployment/api-deployment
 ```
 
@@ -641,3 +641,5 @@ kubectl rollout undo deployment/api-deployment
 - [Caching Strategies](../../pattern-library/scaling/caching-strategies/)
 - [Auto-scaling Guide](../../pattern-library/scaling/auto-scaling/)
 - [Monitoring Best Practices](../architects-handbook/human-factors/observability-stacks.md)
+```
+```

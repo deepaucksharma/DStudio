@@ -56,6 +56,41 @@ deprecation:
 
 # MapReduce: Google's Distributed Computing Framework
 
+## Table of Contents
+
+- [Why MapReduce Mattered](#why-mapreduce-mattered)
+- [Architecture Overview](#architecture-overview)
+- [Programming Model](#programming-model)
+  - [Classic Word Count Example](#classic-word-count-example)
+  - [Execution Flow](#execution-flow)
+- [Key Design Principles](#key-design-principles)
+  - [1. Data Locality](#1-data-locality)
+  - [2. Fault Tolerance](#2-fault-tolerance)
+  - [3. Shuffle Phase (The Bottleneck)](#3-shuffle-phase-the-bottleneck)
+- [Real-World Applications at Google](#real-world-applications-at-google)
+  - [1. Web Index Building](#1-web-index-building)
+  - [2. Log Analysis](#2-log-analysis)
+- [Analyze petabytes of logs](#analyze-petabytes-of-logs)
+- [Limitations Leading to Deprecation](#limitations-leading-to-deprecation)
+  - [1. Disk I/O Overhead](#1-disk-io-overhead)
+  - [2. Limited Programming Model](#2-limited-programming-model)
+  - [3. Performance Comparison](#3-performance-comparison)
+- [Iterative algorithm (e.g., K-means clustering)](#iterative-algorithm-eg-k-means-clustering)
+- [MapReduce: Each iteration is a full job](#mapreduce-each-iteration-is-a-full-job)
+- [Spark: Cache in memory](#spark-cache-in-memory)
+- [Hadoop Ecosystem (MapReduce v2)](#hadoop-ecosystem-mapreduce-v2)
+- [Lessons Learned](#lessons-learned)
+  - [What MapReduce Got Right](#what-mapreduce-got-right)
+  - [What Led to Its Decline](#what-led-to-its-decline)
+- [Migration to Modern Frameworks](#migration-to-modern-frameworks)
+  - [MapReduce to Spark Translation](#mapreduce-to-spark-translation)
+- [When MapReduce Still Makes Sense](#when-mapreduce-still-makes-sense)
+- [Key Takeaways](#key-takeaways)
+- [Related Topics](#related-topics)
+- [References](#references)
+
+
+
 !!! abstract "The MapReduce Story"
     **🎯 Single Achievement**: Made big data processing accessible
     **📊 Scale**: Google: 20PB+ daily across 10,000+ machines
@@ -294,7 +329,7 @@ reduce(String pageId, Iterator<Double> contributions) {
 ### 2. Log Analysis
 
 ```python
-# Analyze petabytes of logs
+## Analyze petabytes of logs
 def mapper(line):
     # Parse Apache log
     ip, timestamp, url, status, size = parse_log(line)
@@ -350,16 +385,16 @@ graph LR
 ### 3. Performance Comparison
 
 ```python
-# Iterative algorithm (e.g., K-means clustering)
+## Iterative algorithm (e.g., K-means clustering)
 
-# MapReduce: Each iteration is a full job
+## MapReduce: Each iteration is a full job
 for i in range(10):
     # Map: Assign points to clusters (disk write)
     # Reduce: Compute new centers (disk write)
     # Total: 20 disk I/Os
     run_mapreduce_job()
 
-# Spark: Cache in memory
+## Spark: Cache in memory
 points = spark.read.parquet("data").cache()
 centers = initial_centers
 

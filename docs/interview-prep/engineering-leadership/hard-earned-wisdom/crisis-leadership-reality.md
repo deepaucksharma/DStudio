@@ -1,10 +1,102 @@
 ---
-title: Crisis Leadership: When Everything is On Fire
-description: Every engineering leader will face moments where everything goes catastrophically wrong. Not "the build is broken" wrong. The "company might not exist
+title: "Crisis Leadership: When Everything is On Fire"
+description: "Navigate catastrophic failures as an engineering leader with crisis management frameworks, stakeholder communication, and decision-making under extreme pressure."
 type: interview-guide
+category: interview-prep
+tags: ["interview-prep"]
+date: 2025-08-07
+reading_time: "25 min"
 ---
 
 # Crisis Leadership: When Everything is On Fire
+
+**Reading time:** ~25 minutes
+
+Every engineering leader will face moments where everything goes catastrophically wrong. Not "the build is broken" wrong. The "company might not exist tomorrow" wrong. This guide covers what really happens and how to lead when the world is ending.
+
+## Table of Contents
+
+- [The Truth About Crisis](#the-truth-about-crisis)
+- [🎯 The Five Principles Under Fire](#-the-five-principles-under-fire)
+  - [When All Principles Collide](#when-all-principles-collide)
+  - [The Real-Time Principle Battlefield](#the-real-time-principle-battlefield)
+- [⚡ The Crisis Decision Framework](#-the-crisis-decision-framework)
+  - [When Principles Conflict: The TRIAGE Method](#when-principles-conflict-the-triage-method)
+  - [The Crisis Paradox Examples](#the-crisis-paradox-examples)
+- [🔥 Types of Engineering Crises](#-types-of-engineering-crises)
+  - [The Hierarchy of Oh Shit](#the-hierarchy-of-oh-shit)
+- [💀 The Production Meltdown Playbook](#-the-production-meltdown-playbook)
+  - [Hour 0: The "Oh Fuck" Moment](#hour-0-the-oh-fuck-moment)
+- [Your crisis response workflow](#your-crisis-response-workflow)
+  - [The Real Incident Command](#the-real-incident-command)
+  - [Managing Executive Panic](#managing-executive-panic)
+  - [The 48-Hour Recovery Pattern](#the-48-hour-recovery-pattern)
+- [🩸 The Data Breach Nightmare](#-the-data-breach-nightmare)
+  - [The Worst Call You'll Ever Get](#the-worst-call-youll-ever-get)
+  - [The Real Data Breach Timeline](#the-real-data-breach-timeline)
+  - [Leading Through the Breach](#leading-through-the-breach)
+- [💼 The Layoff Leadership Test](#-the-layoff-leadership-test)
+  - [When You Find Out](#when-you-find-out)
+  - [The List Nobody Wants to Make](#the-list-nobody-wants-to-make)
+- [The cruel calculation](#the-cruel-calculation)
+- [The human factors you actually consider](#the-human-factors-you-actually-consider)
+- [The final horrible decision](#the-final-horrible-decision)
+  - [Layoff Day: Leading Through Hell](#layoff-day-leading-through-hell)
+  - [The Aftermath](#the-aftermath)
+- [🚨 The Security Incident Response](#-the-security-incident-response)
+  - [When Anonymous Comes Knocking](#when-anonymous-comes-knocking)
+  - [The Ransomware Reality](#the-ransomware-reality)
+- [💣 The PR Disaster Response](#-the-pr-disaster-response)
+  - [When Your Company Goes Viral (The Bad Way)](#when-your-company-goes-viral-the-bad-way)
+  - [Managing Engineering During PR Crisis](#managing-engineering-during-pr-crisis)
+  - [The PR Crisis Principles Conflict](#the-pr-crisis-principles-conflict)
+- [🚶 The Mass Exodus Crisis](#-the-mass-exodus-crisis)
+  - [When Half Your Team Quits](#when-half-your-team-quits)
+  - [Leading Through the Exodus](#leading-through-the-exodus)
+- [The brutal math](#the-brutal-math)
+- [The real questions](#the-real-questions)
+  - [The Knowledge Crisis Management](#the-knowledge-crisis-management)
+- [🌊 The Acquisition/Shutdown Crisis](#-the-acquisitionshutdown-crisis)
+  - [When the Company is Dying](#when-the-company-is-dying)
+  - [The Shutdown Playbook](#the-shutdown-playbook)
+- [🧠 The Mental Health Crisis](#-the-mental-health-crisis)
+  - [When Your Star Engineer Breaks](#when-your-star-engineer-breaks)
+  - [Leading Through Team Trauma](#leading-through-team-trauma)
+- [📚 Lessons from the Worst Days](#-lessons-from-the-worst-days)
+  - [The Time We Lost Everything](#the-time-we-lost-everything)
+  - [The Breach That Changed Everything](#the-breach-that-changed-everything)
+- [🧬 Systems Under Stress: Organizational Behavior](#-systems-under-stress-organizational-behavior)
+  - [How Organizations Actually Break](#how-organizations-actually-break)
+  - [The Organizational Immune Response](#the-organizational-immune-response)
+  - [Leading Through Organizational Stress](#leading-through-organizational-stress)
+  - [The Stress Multiplication Effect](#the-stress-multiplication-effect)
+  - [The Layoff That Broke Me](#the-layoff-that-broke-me)
+- [🛡️ The Crisis Leader's Toolkit](#-the-crisis-leaders-toolkit)
+  - [Pre-Crisis Preparation](#pre-crisis-preparation)
+  - [During Crisis Execution](#during-crisis-execution)
+  - [Post-Crisis Recovery](#post-crisis-recovery)
+- [📊 Level-Specific Crisis Responsibilities](#-level-specific-crisis-responsibilities)
+  - [Crisis Leadership by Level](#crisis-leadership-by-level)
+  - [Team Lead Crisis Response](#team-lead-crisis-response)
+  - [Engineering Manager Crisis Response](#engineering-manager-crisis-response)
+  - [Senior Manager/Director Crisis Response](#senior-managerdirector-crisis-response)
+  - [VP/CTO Crisis Response](#vpcto-crisis-response)
+  - [The Level Transition During Crisis](#the-level-transition-during-crisis)
+- [🔄 Post-Crisis Rebuilding Wisdom](#-post-crisis-rebuilding-wisdom)
+  - [The Recovery Phases](#the-recovery-phases)
+  - [The Scar Tissue Problem](#the-scar-tissue-problem)
+  - [Building Anti-Fragility](#building-anti-fragility)
+- [🎯 Interview Section: Demonstrating Crisis Leadership](#-interview-section-demonstrating-crisis-leadership)
+  - [The Questions They'll Ask](#the-questions-theyll-ask)
+  - [Advanced Crisis Leadership Questions](#advanced-crisis-leadership-questions)
+  - [The Stories That Demonstrate Mastery](#the-stories-that-demonstrate-mastery)
+  - [Red Flags in Your Answers](#red-flags-in-your-answers)
+  - [Green Flags That Show Maturity](#green-flags-that-show-maturity)
+- [🎭 Final Wisdom](#-final-wisdom)
+  - [The Crisis Leader's Creed](#the-crisis-leaders-creed)
+  - [The Ultimate Truth](#the-ultimate-truth)
+
+
 
 ## The Truth About Crisis
 
@@ -137,7 +229,7 @@ Principle Served: Results, Customer impact
 **First 5 Minutes**:
 ```bash
 #!/bin/bash
-# Your crisis response workflow
+## Your crisis response workflow
 
 1. Acknowledge you're awake and on it
 2. Get to computer (DO NOT try to fix from phone)
@@ -321,7 +413,7 @@ VP: "No. Board decision. It's happening."
 
 **How to Choose Who Dies** (Professionally):
 ```python
-# The cruel calculation
+## The cruel calculation
 factors = {
     "performance": 0.3,      # Recent performance
     "criticality": 0.3,      # How critical their role
@@ -330,7 +422,7 @@ factors = {
     "rehireability": 0.1     # Can we get them back?
 }
 
-# The human factors you actually consider
+## The human factors you actually consider
 reality = {
     "single_parent": "Keep if at all possible",
     "visa_status": "Losing job = leaving country",
@@ -339,7 +431,7 @@ reality = {
     "retirement": "2 years away from pension"
 }
 
-# The final horrible decision
+## The final horrible decision
 list = balance(factors, reality, your_soul)
 ```
 
@@ -589,14 +681,14 @@ class MassExodusType:
 **Hour 1: Damage Assessment**
 ```bash
 #!/bin/bash
-# The brutal math
+## The brutal math
 
 remaining_team=8  # From 20
 critical_knowledge_holders_gone=5
 projects_at_risk=12
 bus_factor=0  # We're fucked
 
-# The real questions
+## The real questions
 can_we_deliver_commitments="No"
 should_we_stop_feature_work="Yes"
 do_we_tell_customers="Not yet"

@@ -4,15 +4,83 @@ description: Advanced security incident response including SOAR integration, dig
 type: human-factors
 difficulty: advanced
 reading_time: 40 min
-prerequisites:
-  - incident-response.md
-  - disaster-recovery-planning.md
-  - blameless-postmortems.md
+prerequisites: 
 status: complete
 last_updated: 2025-08-06
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Security Incident Response for Distributed Systems
+
+
+
+## Overview
+
+Security Incident Response for Distributed Systems
+description: Advanced security incident response including SOAR integration, digital forensics, threat hunting, post-incident analysis, and security culture transformation
+type: human-factors
+difficulty: advanced
+reading_time: 40 min
+prerequisites:
+  - incident-response. Security Incident Response for Distributed Systems
+
+## Table of Contents
+
+- [Security Incident Response Framework](#security-incident-response-framework)
+  - [Security Incident Classification](#security-incident-classification)
+  - [Security Incident Types in Distributed Systems](#security-incident-types-in-distributed-systems)
+- [Common distributed systems security incident types](#common-distributed-systems-security-incident-types)
+- [SOAR Integration and Automation](#soar-integration-and-automation)
+  - [Security Orchestration Platform](#security-orchestration-platform)
+- [Example SOAR playbook for lateral movement detection](#example-soar-playbook-for-lateral-movement-detection)
+- [Digital Forensics for Distributed Systems](#digital-forensics-for-distributed-systems)
+  - [Distributed Forensics Framework](#distributed-forensics-framework)
+  - [Cloud-Native Forensics Tools](#cloud-native-forensics-tools)
+- [Advanced Threat Hunting](#advanced-threat-hunting)
+  - [Hypothesis-Driven Threat Hunting](#hypothesis-driven-threat-hunting)
+- [Example threat hunting queries for distributed systems](#example-threat-hunting-queries-for-distributed-systems)
+- [Post-Incident Security Analysis](#post-incident-security-analysis)
+  - [Security-Focused Post-Mortem Framework](#security-focused-post-mortem-framework)
+- [Security Incident Communication](#security-incident-communication)
+  - [Crisis Communication Framework](#crisis-communication-framework)
+- [Security incident communication templates](#security-incident-communication-templates)
+- [Measuring Security Incident Response Effectiveness](#measuring-security-incident-response-effectiveness)
+  - [Security Response Metrics Framework](#security-response-metrics-framework)
+
+
+
+**Building comprehensive security incident response capabilities for modern distributed architectures**
+
+> *"In security incident response, speed and accuracy are equally critical—move fast but preserve evidence, contain damage but maintain forensic integrity.
+
+**Reading time:** ~16 minutes
+
+## Table of Contents
+
+- [Security Incident Response Framework](#security-incident-response-framework)
+  - [Security Incident Classification](#security-incident-classification)
+  - [Security Incident Types in Distributed Systems](#security-incident-types-in-distributed-systems)
+- [Common distributed systems security incident types](#common-distributed-systems-security-incident-types)
+- [SOAR Integration and Automation](#soar-integration-and-automation)
+  - [Security Orchestration Platform](#security-orchestration-platform)
+- [Example SOAR playbook for lateral movement detection](#example-soar-playbook-for-lateral-movement-detection)
+- [Digital Forensics for Distributed Systems](#digital-forensics-for-distributed-systems)
+  - [Distributed Forensics Framework](#distributed-forensics-framework)
+  - [Cloud-Native Forensics Tools](#cloud-native-forensics-tools)
+- [Advanced Threat Hunting](#advanced-threat-hunting)
+  - [Hypothesis-Driven Threat Hunting](#hypothesis-driven-threat-hunting)
+- [Example threat hunting queries for distributed systems](#example-threat-hunting-queries-for-distributed-systems)
+- [Post-Incident Security Analysis](#post-incident-security-analysis)
+  - [Security-Focused Post-Mortem Framework](#security-focused-post-mortem-framework)
+- [Security Incident Communication](#security-incident-communication)
+  - [Crisis Communication Framework](#crisis-communication-framework)
+- [Security incident communication templates](#security-incident-communication-templates)
+- [Measuring Security Incident Response Effectiveness](#measuring-security-incident-response-effectiveness)
+  - [Security Response Metrics Framework](#security-response-metrics-framework)
+
+
 
 **Building comprehensive security incident response capabilities for modern distributed architectures**
 
@@ -118,7 +186,7 @@ class SecurityIncidentClassifier:
         
         return classification
 
-# Common distributed systems security incident types
+## Common distributed systems security incident types
 security_incident_types = {
     "lateral_movement": {
         "description": "Attacker moving between services/containers",
@@ -256,7 +324,7 @@ class SecurityOrchestrationPlatform:
         
         return custom_playbook
 
-# Example SOAR playbook for lateral movement detection
+## Example SOAR playbook for lateral movement detection
 lateral_movement_playbook = {
     "name": "Lateral Movement Response",
     "trigger_conditions": [
@@ -743,7 +811,7 @@ class ThreatHuntingFramework:
             'hunting_recommendations': self.generate_hunting_recommendations(scored_anomalies)
         }
 
-# Example threat hunting queries for distributed systems
+## Example threat hunting queries for distributed systems
 threat_hunting_queries = {
     "container_privilege_escalation": """
     SELECT 
@@ -1066,7 +1134,7 @@ class SecurityCrisisCommunitationManager:
         
         return notification_requirements
 
-# Security incident communication templates
+## Security incident communication templates
 security_communication_templates = {
     "initial_internal_alert": {
         "subject": "SECURITY INCIDENT - {severity} - {incident_type}",

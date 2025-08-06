@@ -1,6 +1,25 @@
 ---
 title: Latency Ladder 2025
 description: Updated latency numbers for common operations - understanding how long
+type: quantitative
+difficulty: beginner
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Latency Ladder 2025
+
+
+
+## Overview
+
+Latency Ladder 2025
+description: Updated latency numbers for common operations - understanding how long
   things take in modern systems
 type: quantitative
 difficulty: beginner
@@ -12,6 +31,70 @@ last_updated: 2025-07-20
 
 
 # Latency Ladder 2025
+
+## Table of Contents
+
+- [Fundamental Latency Hierarchy](#fundamental-latency-hierarchy)
+- [2025 Hardware Update](#2025-hardware-update)
+- [Latency Budget](#latency-budget)
+- [Compound Effects](#compound-effects)
+- [Industry Targets](#industry-targets)
+- [Latency Reduction Strategies](#latency-reduction-strategies)
+- [Practical Examples](#practical-examples)
+- [Example 1: E-commerce Checkout](#example-1-e-commerce-checkout)
+- [Example 2: Real-time Gaming](#example-2-real-time-gaming)
+- [Example 3: Database Query Optimization](#example-3-database-query-optimization)
+- [Law Connections](#law-connections)
+  - [Law 2: Asynchronous Reality](#law-2-asynchronous-reality)
+  - [Law 4: Trade-offs](#law-4-trade-offs)
+  - [Law 1: Failure](#law-1-failure)
+  - [Law 4: Trade-offs (Consistency Trade-off)](#law-4-trade-offs-consistency-trade-off)
+- [Visual Latency Comparison](#visual-latency-comparison)
+- [Decision Framework: Choosing Storage Tiers](#decision-framework-choosing-storage-tiers)
+- [Real-World Application: CDN Architecture](#real-world-application-cdn-architecture)
+- [Latency Budget Visualization](#latency-budget-visualization)
+- [Key Takeaways](#key-takeaways)
+- [Related Concepts](#related-concepts)
+
+
+
+**Know your physics: Every operation has a cost**
+
+## Fundamental Latency Hierarchy
+
+```
+L1 cache reference 0. Branch mispredict 5 ns 5 seconds
+L2 cache reference 7 ns 7 seconds
+Mutex lock/unlock 25 ns 25 seconds
+Main memory reference 100 ns 1.
+
+**Reading time:** ~15 minutes
+
+## Table of Contents
+
+- [Fundamental Latency Hierarchy](#fundamental-latency-hierarchy)
+- [2025 Hardware Update](#2025-hardware-update)
+- [Latency Budget](#latency-budget)
+- [Compound Effects](#compound-effects)
+- [Industry Targets](#industry-targets)
+- [Latency Reduction Strategies](#latency-reduction-strategies)
+- [Practical Examples](#practical-examples)
+- [Example 1: E-commerce Checkout](#example-1-e-commerce-checkout)
+- [Example 2: Real-time Gaming](#example-2-real-time-gaming)
+- [Example 3: Database Query Optimization](#example-3-database-query-optimization)
+- [Law Connections](#law-connections)
+  - [Law 2: Asynchronous Reality](#law-2-asynchronous-reality)
+  - [Law 4: Trade-offs](#law-4-trade-offs)
+  - [Law 1: Failure](#law-1-failure)
+  - [Law 4: Trade-offs (Consistency Trade-off)](#law-4-trade-offs-consistency-trade-off)
+- [Visual Latency Comparison](#visual-latency-comparison)
+- [Decision Framework: Choosing Storage Tiers](#decision-framework-choosing-storage-tiers)
+- [Real-World Application: CDN Architecture](#real-world-application-cdn-architecture)
+- [Latency Budget Visualization](#latency-budget-visualization)
+- [Key Takeaways](#key-takeaways)
+- [Related Concepts](#related-concepts)
+
+
 
 **Know your physics: Every operation has a cost**
 
@@ -643,3 +726,4 @@ You can't beat physics, but you can work with it.
 - **Quantitative**: [Little's Law](../quantitative-analysis/littles-law.md) | [Queueing Theory](../quantitative-analysis/queueing-models.md) | [Availability Math](../quantitative-analysis/availability-math.md)
 - **Patterns**: [Caching Strategies](../pattern-library/scaling/caching-strategies.md) | [Edge Computing](../pattern-library/scaling/edge-computing.md)
 ---
+```

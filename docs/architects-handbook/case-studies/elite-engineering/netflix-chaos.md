@@ -63,6 +63,69 @@ production_checklist:
 
 # Netflix Chaos Engineering: Production Resilience at Scale
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Business Context & Motivation](#business-context-motivation)
+  - [The AWS Migration Challenge (2008-2016)](#the-aws-migration-challenge-2008-2016)
+  - [Success Metrics & Business Impact](#success-metrics-business-impact)
+- [System Architecture Overview](#system-architecture-overview)
+  - [Netflix Chaos Engineering Ecosystem](#netflix-chaos-engineering-ecosystem)
+- [Deep Dive: Chaos Engineering Implementation](#deep-dive-chaos-engineering-implementation)
+  - [1. The Simian Army Evolution](#1-the-simian-army-evolution)
+- [Simplified Chaos Monkey implementation concept](#simplified-chaos-monkey-implementation-concept)
+  - [Chaos Gorilla (2012)](#chaos-gorilla-2012)
+- [Chaos Gorilla Configuration](#chaos-gorilla-configuration)
+  - [Chaos Kong (2014)](#chaos-kong-2014)
+  - [2. Advanced Failure Injection Strategies](#2-advanced-failure-injection-strategies)
+  - [3. Blast Radius Control Implementation](#3-blast-radius-control-implementation)
+  - [4. Game Day Exercise Implementation](#4-game-day-exercise-implementation)
+- [Modern Netflix Game Day Scenarios](#modern-netflix-game-day-scenarios)
+- [Performance & Reliability Metrics (2025)](#performance-reliability-metrics-2025)
+  - [Chaos Engineering Effectiveness](#chaos-engineering-effectiveness)
+  - [Real-World Chaos Results](#real-world-chaos-results)
+- [Failure Scenarios & Recovery Patterns](#failure-scenarios-recovery-patterns)
+  - [Historic Incident: AWS East Outage (2015)](#historic-incident-aws-east-outage-2015)
+  - [2025 Incident: AI Model Serving Failure](#2025-incident-ai-model-serving-failure)
+- [Architectural Decision Records (ADRs)](#architectural-decision-records-adrs)
+  - [ADR-001: Production Chaos Engineering Adoption](#adr-001-production-chaos-engineering-adoption)
+- [ADR-001: Enable Chaos Engineering in Production](#adr-001-enable-chaos-engineering-in-production)
+- [Status: ACCEPTED (2011-07-15)](#status-accepted-2011-07-15)
+- [Context](#context)
+- [Decision](#decision)
+- [Consequences](#consequences)
+  - [Positive](#positive)
+  - [Negative](#negative)
+- [Implementation](#implementation)
+  - [ADR-002: Game Day Exercise Integration](#adr-002-game-day-exercise-integration)
+- [ADR-002: Quarterly Game Day Disaster Recovery Exercises](#adr-002-quarterly-game-day-disaster-recovery-exercises)
+- [Status: ACCEPTED (2013-03-20)](#status-accepted-2013-03-20)
+- [Context](#context)
+- [Decision](#decision)
+- [Implementation Strategy](#implementation-strategy)
+- [Success Metrics](#success-metrics)
+- [Cost Analysis & Optimization](#cost-analysis-optimization)
+  - [Chaos Engineering ROI (2025)](#chaos-engineering-roi-2025)
+  - [Infrastructure Cost Optimization](#infrastructure-cost-optimization)
+- [Implementation Code Examples](#implementation-code-examples)
+  - [Chaos Monkey 2025 Implementation](#chaos-monkey-2025-implementation)
+  - [Advanced Blast Radius Control](#advanced-blast-radius-control)
+- [Team Organization & Culture](#team-organization-culture)
+  - [Chaos Engineering Team Structure (2025)](#chaos-engineering-team-structure-2025)
+  - [Cultural Transformation Playbook](#cultural-transformation-playbook)
+- [Future Evolution & Trends](#future-evolution-trends)
+  - [2025-2030 Chaos Engineering Roadmap](#2025-2030-chaos-engineering-roadmap)
+  - [Emerging Patterns & Innovations](#emerging-patterns-innovations)
+- [2025 Chaos-as-Code Example](#2025-chaos-as-code-example)
+- [Key Takeaways](#key-takeaways)
+  - [When to Apply Chaos Engineering](#when-to-apply-chaos-engineering)
+  - [When to Avoid](#when-to-avoid)
+- [Cross-References & Related Topics](#cross-references-related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns](#related-patterns)
+  - [Related Case Studies](#related-case-studies)
+- [External Resources](#external-resources)
+
 !!! success "Excellence Badge"
     🥇 **Gold Tier**: Pioneer and industry leader in production chaos engineering
 
@@ -203,7 +266,7 @@ graph TB
 **Purpose**: Random instance termination to test service resilience
 
 ```python
-# Simplified Chaos Monkey implementation concept
+## Simplified Chaos Monkey implementation concept
 class ChaosMonkey:
     def __init__(self, config):
         self.enabled = config.chaos_enabled
@@ -282,11 +345,11 @@ class ChaosPlatform:
         )
 ```
 
-#### Chaos Gorilla (2012)
+### Chaos Gorilla (2012)
 **Purpose**: Availability zone failures to test regional resilience
 
 ```yaml
-# Chaos Gorilla Configuration
+## Chaos Gorilla Configuration
 chaos_gorilla:
   schedule: "0 10 * * MON"  # Monday 10 AM
   target: availability-zone
@@ -304,7 +367,7 @@ chaos_gorilla:
     - recommendation_quality
 ```
 
-#### Chaos Kong (2014)
+### Chaos Kong (2014)
 **Purpose**: Entire region failures for ultimate resilience testing
 
 ```python
@@ -533,7 +596,7 @@ class GameDayExercise:
 
 #### 2025 Game Day Scenarios
 ```yaml
-# Modern Netflix Game Day Scenarios
+## Modern Netflix Game Day Scenarios
 game_day_scenarios:
   
   - name: "Multi-Region AI Outage"
@@ -675,7 +738,7 @@ game_day_scenarios:
 ### ADR-001: Production Chaos Engineering Adoption
 
 ```markdown
-# ADR-001: Enable Chaos Engineering in Production
+## ADR-001: Enable Chaos Engineering in Production
 
 ## Status: ACCEPTED (2011-07-15)
 
@@ -712,7 +775,7 @@ during business hours, forcing our systems to be resilient by design.
 ### ADR-002: Game Day Exercise Integration
 
 ```markdown
-# ADR-002: Quarterly Game Day Disaster Recovery Exercises
+## ADR-002: Quarterly Game Day Disaster Recovery Exercises
 
 ## Status: ACCEPTED (2013-03-20)
 
@@ -1067,7 +1130,7 @@ cultural_transformation:
 
 #### Chaos-as-Code Implementation
 ```python
-# 2025 Chaos-as-Code Example
+## 2025 Chaos-as-Code Example
 from netflix.chaos import ChaosExperiment, BlastRadius, SafetyChecks
 
 @ChaosExperiment(

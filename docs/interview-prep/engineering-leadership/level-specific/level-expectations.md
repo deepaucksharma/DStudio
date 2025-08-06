@@ -2,9 +2,160 @@
 title: Engineering Leadership Levels Across Tech Companies
 description: | Level | Amazon | Google | Meta | Apple | Microsoft | Typical Scope | |-------|--------|--------|------|-------|-----------|--------------|
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Engineering Leadership Levels Across Tech Companies
+
+
+
+## Overview
+
+Engineering Leadership Levels Across Tech Companies
+description: | Level | Amazon | Google | Meta | Apple | Microsoft | Typical Scope | |-------|--------|--------|------|-------|-----------|--------------|
+type: interview-guide
+---
+
+# Engineering Leadership Levels Across Tech Companies
+
+## Table of Contents
+
+- [Level Mapping Across Companies](#level-mapping-across-companies)
+- [L6 / Senior Manager Expectations](#l6-senior-manager-expectations)
+  - [Scope and Impact](#scope-and-impact)
+  - [Core Competencies](#core-competencies)
+    - [People Leadership](#people-leadership)
+    - [Technical Leadership](#technical-leadership)
+    - [Business Partnership](#business-partnership)
+  - [Interview Focus Areas](#interview-focus-areas)
+- [L7 / Director Expectations](#l7-director-expectations)
+  - [Scope and Impact](#scope-and-impact)
+  - [Core Competencies](#core-competencies)
+    - [Organizational Leadership](#organizational-leadership)
+    - [Strategic Thinking](#strategic-thinking)
+    - [Executive Communication](#executive-communication)
+  - [Interview Focus Areas](#interview-focus-areas)
+- [L8 / Senior Director Expectations](#l8-senior-director-expectations)
+  - [Scope and Impact](#scope-and-impact)
+  - [Additional Competencies](#additional-competencies)
+    - [Executive Leadership](#executive-leadership)
+    - [Business Ownership](#business-ownership)
+  - [Interview Focus Areas](#interview-focus-areas)
+- [Compensation Ranges (2024)](#compensation-ranges-2024)
+  - [Total Compensation Packages](#total-compensation-packages)
+  - [Negotiation Strategies](#negotiation-strategies)
+    - [For L6/M1](#for-l6m1)
+    - [For L7/M2](#for-l7m2)
+    - [For L8+](#for-l8)
+- [Growth Trajectory Planning](#growth-trajectory-planning)
+  - [Typical Timeline](#typical-timeline)
+  - [Accelerators](#accelerators)
+  - [Common Blockers](#common-blockers)
+- [Interview Preparation by Level](#interview-preparation-by-level)
+  - [L6 Preparation Focus](#l6-preparation-focus)
+  - [L7 Preparation Focus](#l7-preparation-focus)
+  - [L8+ Preparation Focus](#l8-preparation-focus)
+- [Red Flags by Level](#red-flags-by-level)
+  - [L6 Red Flags](#l6-red-flags)
+  - [L7 Red Flags](#l7-red-flags)
+  - [L8+ Red Flags](#l8-red-flags)
+
+
+
+## Level Mapping Across Companies
+
+| Level | Amazon | Google | Meta | Apple | Microsoft | Typical Scope |
+|-------|--------|--------|------|-------|-----------|--------------|
+| Senior Engineer | L5 (SDE II) | L4 | E4 | ICT3 | 62 | Tech lead for 2-3 engineers |
+| Staff/Lead | L6 (SDE III) | L5 | E5 | ICT4 | 63 | Tech lead for 5-8 engineers |
+| Senior Manager | L6 | L6 | M1 | M1 | 64 | Manage 10-20 engineers |
+| Principal/Director | L7 | L7 | M2 | M2 | 65 | Manage 30-50 engineers |
+| Senior Director | L8 | L8 | D1 | M3 | 66 | Manage 100+ engineers |
+| VP | L10 | L9 | D2 | M4 | 67 | Manage 200+ engineers |
+
+## L6 / Senior Manager Expectations
+
+### Scope and Impact
+- **Team Size**: 10-20 direct reports or 2-3 team leads
+- **Budget**: $2-5M annual (salaries + resources)
+- **Product Scope**: Single product or major feature area
+- **User Impact**: 100K - 1M users affected
+- **Revenue Impact**: $1-10M influenced
+
+### Core Competencies
+
+#### People Leadership
+- Hire and onboard 10+ engineers/year
+- Conduct calibrations and performance reviews
+- Coach 2-3 engineers to promotion annually
+- Maintain 90%+ team retention of top performers
+- Build inclusive team culture
+
+#### Technical Leadership
+- Own technical roadmap for area
+- Make architectural decisions
+- Review critical PRs and designs
+- Stay hands-on enough to unblock team
+- Drive best practices adoption
+
+#### Business Partnership
+- Work directly with PM/Design leads
+- Present to director+ leadership
+- Own team OKRs and metrics
+- Make trade-off decisions
+- Manage stakeholder expectations
+
+### Interview Focus Areas
+1. Team scaling stories** (5→15 engineers)
+2.
+
+**Reading time:** ~4 minutes
+
+## Table of Contents
+
+- [Level Mapping Across Companies](#level-mapping-across-companies)
+- [L6 / Senior Manager Expectations](#l6-senior-manager-expectations)
+  - [Scope and Impact](#scope-and-impact)
+  - [Core Competencies](#core-competencies)
+    - [People Leadership](#people-leadership)
+    - [Technical Leadership](#technical-leadership)
+    - [Business Partnership](#business-partnership)
+  - [Interview Focus Areas](#interview-focus-areas)
+- [L7 / Director Expectations](#l7-director-expectations)
+  - [Scope and Impact](#scope-and-impact)
+  - [Core Competencies](#core-competencies)
+    - [Organizational Leadership](#organizational-leadership)
+    - [Strategic Thinking](#strategic-thinking)
+    - [Executive Communication](#executive-communication)
+  - [Interview Focus Areas](#interview-focus-areas)
+- [L8 / Senior Director Expectations](#l8-senior-director-expectations)
+  - [Scope and Impact](#scope-and-impact)
+  - [Additional Competencies](#additional-competencies)
+    - [Executive Leadership](#executive-leadership)
+    - [Business Ownership](#business-ownership)
+  - [Interview Focus Areas](#interview-focus-areas)
+- [Compensation Ranges (2024)](#compensation-ranges-2024)
+  - [Total Compensation Packages](#total-compensation-packages)
+  - [Negotiation Strategies](#negotiation-strategies)
+    - [For L6/M1](#for-l6m1)
+    - [For L7/M2](#for-l7m2)
+    - [For L8+](#for-l8)
+- [Growth Trajectory Planning](#growth-trajectory-planning)
+  - [Typical Timeline](#typical-timeline)
+  - [Accelerators](#accelerators)
+  - [Common Blockers](#common-blockers)
+- [Interview Preparation by Level](#interview-preparation-by-level)
+  - [L6 Preparation Focus](#l6-preparation-focus)
+  - [L7 Preparation Focus](#l7-preparation-focus)
+  - [L8+ Preparation Focus](#l8-preparation-focus)
+- [Red Flags by Level](#red-flags-by-level)
+  - [L6 Red Flags](#l6-red-flags)
+  - [L7 Red Flags](#l7-red-flags)
+  - [L8+ Red Flags](#l8-red-flags)
+
+
 
 ## Level Mapping Across Companies
 

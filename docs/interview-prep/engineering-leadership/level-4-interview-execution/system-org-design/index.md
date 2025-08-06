@@ -1,9 +1,49 @@
 ---
 title: System Org Design
 description: System Org Design overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # System & Organizational Design Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [The Socio-Technical Lens](#the-socio-technical-lens)
+  - [Conway's Law in Practice](#conways-law-in-practice)
+- [Interview Format](#interview-format)
+  - [Structure](#structure)
+  - [Assessment Framework](#assessment-framework)
+- [Core Interview Scenarios](#core-interview-scenarios)
+  - [1. Greenfield Platform + Team](#1-greenfield-platform-team)
+  - [2. Monolith to Microservices Migration](#2-monolith-to-microservices-migration)
+  - [3. Global Scale Challenge](#3-global-scale-challenge)
+- [Advanced Design Patterns](#advanced-design-patterns)
+  - [1. Inverse Conway Maneuver](#1-inverse-conway-maneuver)
+  - [2. Team Topologies Patterns](#2-team-topologies-patterns)
+  - [3. Scaling Patterns](#3-scaling-patterns)
+- [System-Org Design Trade-offs](#system-org-design-trade-offs)
+  - [Centralization vs Decentralization](#centralization-vs-decentralization)
+  - [Coupling Patterns](#coupling-patterns)
+- [Interview Execution Strategy](#interview-execution-strategy)
+  - [Opening Questions to Ask](#opening-questions-to-ask)
+  - [Whiteboarding Approach](#whiteboarding-approach)
+  - [Time Management](#time-management)
+- [Level-Specific Expectations](#level-specific-expectations)
+  - [Senior Manager (L5)](#senior-manager-l5)
+  - [Director (L6)](#director-l6)
+  - [VP+ (L7+)](#vp-l7)
+- [Red Flags to Avoid](#red-flags-to-avoid)
+  - [System Design Mistakes](#system-design-mistakes)
+  - [Org Design Mistakes](#org-design-mistakes)
+  - [Integration Mistakes](#integration-mistakes)
+- [Practice Scenarios](#practice-scenarios)
+  - [Scenario Bank](#scenario-bank)
+  - [Mock Interview Template](#mock-interview-template)
+
+
 
 ## Overview
 

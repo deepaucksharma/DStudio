@@ -1,9 +1,55 @@
 ---
 title: Story Portfolio
 description: Story Portfolio overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Leadership Story Portfolio Framework
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Story Portfolio Architecture](#story-portfolio-architecture)
+  - [Core Story Categories](#core-story-categories)
+  - [Story Depth Levels](#story-depth-levels)
+- [Story Development Process](#story-development-process)
+  - [Step 1: Story Mining](#step-1-story-mining)
+  - [Step 2: Story Structuring](#step-2-story-structuring)
+- [Story Title: [Descriptive Name]](#story-title-descriptive-name)
+- [Situation (20-30 seconds)](#situation-20-30-seconds)
+- [Task (10-15 seconds)  ](#task-10-15-seconds-)
+- [Action (60-90 seconds)](#action-60-90-seconds)
+- [Result (20-30 seconds)](#result-20-30-seconds)
+- [Learning (10-15 seconds)](#learning-10-15-seconds)
+- [Scale & Impact](#scale-impact)
+  - [Step 3: Story Quantification](#step-3-story-quantification)
+- [Story Portfolio Matrix](#story-portfolio-matrix)
+  - [Mapping Stories to Competencies](#mapping-stories-to-competencies)
+  - [Company Values Alignment](#company-values-alignment)
+- [Story Deployment Strategy](#story-deployment-strategy)
+  - [Interview Stage Mapping](#interview-stage-mapping)
+  - [Dynamic Story Selection](#dynamic-story-selection)
+- [Story Practice Framework](#story-practice-framework)
+  - [Solo Practice Routine](#solo-practice-routine)
+  - [Peer Practice Sessions](#peer-practice-sessions)
+- [Story Refinement Techniques](#story-refinement-techniques)
+  - [Power Moves](#power-moves)
+  - [Common Story Upgrades](#common-story-upgrades)
+- [Story Portfolio Maintenance](#story-portfolio-maintenance)
+  - [Quarterly Review Checklist](#quarterly-review-checklist)
+  - [Story Documentation Template](#story-documentation-template)
+- [Quick Reference Card](#quick-reference-card)
+- [Red Flags in Story Portfolio](#red-flags-in-story-portfolio)
+  - [Portfolio-Level Issues](#portfolio-level-issues)
+  - [Story-Level Issues](#story-level-issues)
+- [Advanced Techniques](#advanced-techniques)
+  - [Story Chaining](#story-chaining)
+  - [Meta-Narratives](#meta-narratives)
+  - [Defensive Storytelling](#defensive-storytelling)
+
+
 
 ## Overview
 
@@ -51,7 +97,7 @@ graph TD
 
 **Enhanced STAR+ Template**:
 ```markdown
-# Story Title: [Descriptive Name]
+## Story Title: [Descriptive Name]
 **Category**: [Primary] | [Secondary]
 **Level**: [IC/Manager/Director/VP]
 **Company Context**: [Size, Stage, Industry]

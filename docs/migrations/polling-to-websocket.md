@@ -1,6 +1,10 @@
 ---
 title: Polling To Websocket - Redirect
 redirect_to: /excellence/migrations/polling-to-websocket/
+description: Documentation for Polling To Websocket - Redirect
+category: migrations
+tags: [migrations]
+date: 2025-08-07
 ---
 
 # Polling To Websocket

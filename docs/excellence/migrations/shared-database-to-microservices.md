@@ -112,7 +112,7 @@ bounded_contexts:
 ### Week 3-4: Data Access Layer Implementation
 
 ```python
-# Step 1: Introduce Repository Pattern
+## Step 1: Introduce Repository Pattern
 class OrderRepository:
     def __init__(self, db_connection):
         self.db = db_connection
@@ -196,7 +196,7 @@ class DualWriteUserService:
 ### Week 7-8: Cross-Service Queries
 
 ```python
-# Before: Single Database Join
+## Before: Single Database Join
 def get_order_details(order_id):
     return db.query("""
         SELECT o.*, u.name, u.email, p.name as product_name
@@ -207,7 +207,7 @@ def get_order_details(order_id):
         WHERE o.id = ?
     """, order_id)
 
-# After: Service Composition
+## After: Service Composition
 class OrderAggregationService:
     def __init__(self):
         self.order_service = OrderServiceClient()
@@ -237,7 +237,7 @@ class OrderAggregationService:
 ### Week 9-10: Transaction Management
 
 ```python
-# Saga Pattern Implementation for Distributed Transactions
+## Saga Pattern Implementation for Distributed Transactions
 class OrderSaga:
     def __init__(self):
         self.saga_log = SagaLog()
@@ -320,7 +320,7 @@ migration_strategy:
 
 **Solution:**
 ```python
-# CQRS Pattern with Materialized Views
+## CQRS Pattern with Materialized Views
 class OrderReadModel:
     def __init__(self):
         self.read_db = ReadOptimizedDatabase()
@@ -380,7 +380,7 @@ referential_integrity_patterns:
 
 **Solution:**
 ```python
-# Data Lake Pattern for Analytics
+## Data Lake Pattern for Analytics
 class AnalyticsDataPipeline:
     def __init__(self):
         self.data_lake = S3DataLake()
@@ -495,24 +495,24 @@ monitoring_queries:
 
 ```bash
 #!/bin/bash
-# emergency-rollback-to-monolith.sh
+## emergency-rollback-to-monolith.sh
 
-# 1. Route all traffic to monolith
+## 1. Route all traffic to monolith
 kubectl patch virtualservice api-gateway \
   --patch '{"spec":{"http":[{"route":[{"destination":{"host":"monolith"}}]}]}}'
 
-# 2. Disable service writes
+## 2. Disable service writes
 for service in $(kubectl get deployments -l type=microservice -o name); do
   kubectl set env $service WRITE_ENABLED=false
 done
 
-# 3. Sync service data back to monolith
+## 3. Sync service data back to monolith
 ./reverse-sync-data.sh --source=services --target=monolith
 
-# 4. Validate monolith data integrity
+## 4. Validate monolith data integrity
 ./validate-monolith-data.sh
 
-# 5. Scale down services
+## 5. Scale down services
 kubectl scale deployments -l type=microservice --replicas=0
 ```
 

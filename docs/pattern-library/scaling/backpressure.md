@@ -141,7 +141,7 @@ Backpressure signals upstream producers to reduce their rate when downstream con
 <details>
 <summary>📄 View decision logic</summary>
 
-# Backpressure core concept
+## Backpressure core concept
 def backpressure_control():
     """Shows essential backpressure flow control"""
     # 1. Monitor downstream capacity

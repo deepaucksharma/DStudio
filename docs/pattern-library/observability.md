@@ -23,7 +23,7 @@ Observability provides comprehensive system insights through three pillars: metr
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class ObservabilityStack:
     def __init__(self):
         pass

@@ -4,6 +4,25 @@ description: Build a scalable cloud storage service like Dropbox or Google Drive
 type: system-design-problem
 difficulty: intermediate
 reading_time: 45 min
+prerequisites: 
+status: complete
+last_updated: 2025-08-04
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
+---
+
+# Design a Cloud Storage System
+
+
+
+## Overview
+
+Design a Cloud Storage System
+description: Build a scalable cloud storage service like Dropbox or Google Drive
+type: system-design-problem
+difficulty: intermediate
+reading_time: 45 min
 prerequisites:
 - pattern-library/sharding
 - pattern-library/caching
@@ -13,6 +32,74 @@ last_updated: 2025-08-04
 ---
 
 # Design a Cloud Storage System
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Storage Challenges](#storage-challenges)
+  - [Synchronization Challenges](#synchronization-challenges)
+  - [Security & Privacy](#security-privacy)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Components](#core-components)
+    - [1. Metadata Service](#1-metadata-service)
+    - [2.
+
+**Reading time:** ~7 minutes
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Storage Challenges](#storage-challenges)
+  - [Synchronization Challenges](#synchronization-challenges)
+  - [Security & Privacy](#security-privacy)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Components](#core-components)
+    - [1. Metadata Service](#1-metadata-service)
+    - [2. File Service](#2-file-service)
+    - [3. Sync Service](#3-sync-service)
+  - [Data Models](#data-models)
+    - [File Metadata Schema](#file-metadata-schema)
+    - [Storage Schema](#storage-schema)
+- [Relevant Patterns from Pattern Library](#relevant-patterns-from-pattern-library)
+  - [Core Patterns](#core-patterns)
+    - [1. Content Addressable Storage](#1-content-addressable-storage)
+    - [2. Event Sourcing for Sync](#2-event-sourcing-for-sync)
+    - [3. CQRS for Read/Write Separation](#3-cqrs-for-readwrite-separation)
+    - [4. Database Sharding](#4-database-sharding)
+  - [Supporting Patterns](#supporting-patterns)
+    - [5. Circuit Breaker](#5-circuit-breaker)
+    - [6. Rate Limiting](#6-rate-limiting)
+    - [7. Publish-Subscribe](#7-publish-subscribe)
+- [Common Pitfalls to Avoid](#common-pitfalls-to-avoid)
+  - [1. Synchronization Race Conditions](#1-synchronization-race-conditions)
+  - [2. Storage Cost Explosion](#2-storage-cost-explosion)
+  - [3. Metadata Hotspots](#3-metadata-hotspots)
+  - [4. Sync Performance Issues](#4-sync-performance-issues)
+  - [5. Global Consistency Challenges](#5-global-consistency-challenges)
+- [What Interviewers Look For](#what-interviewers-look-for)
+  - [Architecture Design (40%)](#architecture-design-40)
+  - [Trade-off Analysis (30%)](#trade-off-analysis-30)
+  - [Scale Considerations (20%)](#scale-considerations-20)
+  - [Operational Excellence (10%)](#operational-excellence-10)
+- [Advanced Follow-up Questions](#advanced-follow-up-questions)
+  - [Conflict Resolution Deep Dive](#conflict-resolution-deep-dive)
+  - [Global Distribution](#global-distribution)
+  - [Advanced Features](#advanced-features)
+  - [Performance Optimization](#performance-optimization)
+- [Key Metrics to Monitor](#key-metrics-to-monitor)
+  - [User Experience Metrics](#user-experience-metrics)
+  - [System Performance Metrics](#system-performance-metrics)
+  - [Business Metrics](#business-metrics)
+
+
 
 ## Problem Statement
 

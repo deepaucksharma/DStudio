@@ -157,11 +157,11 @@ class InMemoryLeaseStore(LeaseStore):
 class LeaseManager:
 **Implementation available in production systems**
 
-# Redis-based implementation
+## Redis-based implementation
 class RedisLeaseStore(LeaseStore):
 **Implementation available in production systems**
 
-# Example usage patterns
+## Example usage patterns
 async def distributed_job_example():
 **Implementation available in production systems**
 

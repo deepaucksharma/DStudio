@@ -1,9 +1,54 @@
 ---
 title: Level 3 Applications
 description: Level 3 Applications overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Level III: Real-World Applications
+
+
+
+## Overview
+
+Level 3 Applications
+description: Level 3 Applications overview and navigation
+---
+
+# Level III: Real-World Applications
+
+## Table of Contents
+
+- [The 4 Domains of Engineering Leadership Excellence](#the-4-domains-of-engineering-leadership-excellence)
+- [Domain Integration Matrix](#domain-integration-matrix)
+- [How to Use This Level](#how-to-use-this-level)
+  - [1. Self-Assessment](#1-self-assessment)
+  - [2.
+
+**Reading time:** ~3 minutes
+
+## Table of Contents
+
+- [The 4 Domains of Engineering Leadership Excellence](#the-4-domains-of-engineering-leadership-excellence)
+- [Domain Integration Matrix](#domain-integration-matrix)
+- [How to Use This Level](#how-to-use-this-level)
+  - [1. Self-Assessment](#1-self-assessment)
+  - [2. Scenario Practice](#2-scenario-practice)
+  - [3. Interview Preparation](#3-interview-preparation)
+- [Cross-Domain Integration](#cross-domain-integration)
+- [Success Patterns](#success-patterns)
+  - [Domain Mastery Progression](#domain-mastery-progression)
+- [Navigation Guide](#navigation-guide)
+  - [:material-navigation: Your Learning Path](#material-navigation-your-learning-path)
+- [Foundation in First Principles](#foundation-in-first-principles)
+- [Powered by Business Concepts](#powered-by-business-concepts)
+- [Quick Links](#quick-links)
+  - [Domain Deep Dives](#domain-deep-dives)
+  - [Practice & Preparation](#practice-preparation)
+- [Next Steps](#next-steps)
+
+
 
 ## The 4 Domains of Engineering Leadership Excellence
 

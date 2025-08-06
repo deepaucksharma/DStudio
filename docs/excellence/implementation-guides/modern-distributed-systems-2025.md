@@ -1,6 +1,6 @@
 ---
-title: Modern Distributed Systems in 2025: The Gold Standard
-description: ```mermaid graph TD A[Starting Point] --> B{What's Your Scale?} B -->|< 1M users| C[Foundation Pack] B -->|1M-10M users| D[Scale Pack]
+title: "Modern Distributed Systems in 2025: The Gold Standard"
+description: "The definitive guide to building modern distributed systems in 2025, with proven patterns organized by scale and implementation roadmaps."
 type: guide
 ---
 
@@ -149,7 +149,7 @@ class SagaCoordinator:
                 await self.compensationsi
             raise e
 
-# Usage
+## Usage
 saga = SagaCoordinator()
 saga.add_step(
     action=lambda: reserve_inventory(item_id),
@@ -258,7 +258,7 @@ ride_booking:
 
 ### 3. Discord's Sharding Strategy
 ```python
-# Simplified Discord sharding
+## Simplified Discord sharding
 def get_shard(guild_id, num_shards):
     return (guild_id >> 22) % num_shards
 
@@ -347,3 +347,5 @@ Kafka (Event Streaming) + CQRS + CDC + Materialized Views
 - [Pattern Deep Dives](../pattern-library../architects-handbook/case-studies/)
 - [Quantitative Models](../architects-handbook/quantitative-analysis.md/)
 - [Human Factors](../architects-handbook/human-factors/)
+```
+```

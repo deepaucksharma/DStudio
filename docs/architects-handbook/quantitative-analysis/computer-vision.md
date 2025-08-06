@@ -1,6 +1,9 @@
 ---
 title: Computer Vision
 description: Quantitative models for image processing and visual computing
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Computer Vision

@@ -154,7 +154,7 @@ graph TD
 ### Basic Stream Processing Implementation
 
 ```python
-# Stream processing with Apache Kafka Streams (Python equivalent using kafka-python)
+## Stream processing with Apache Kafka Streams (Python equivalent using kafka-python)
 import json
 import time
 from collections import defaultdict, deque
@@ -511,7 +511,7 @@ class RealTimeAnalytics:
         """Stop processing"""
         self.processor.stop()
 
-# Usage example
+## Usage example
 def main():
     # Initialize real-time analytics
     analytics = RealTimeAnalytics("localhost:9092")

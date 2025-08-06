@@ -1,6 +1,10 @@
 ---
 title: Monolith To Microservices - Redirect
 redirect_to: /excellence/migrations/monolith-to-microservices/
+description: Documentation for Monolith To Microservices - Redirect
+category: migrations
+tags: [migrations]
+date: 2025-08-07
 ---
 
 # Monolith To Microservices

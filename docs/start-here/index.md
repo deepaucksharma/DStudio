@@ -1,4 +1,46 @@
+---
+title: Start Here: Your Journey into Distributed Systems
+description: Documentation for Start Here: Your Journey into Distributed Systems
+category: root
+tags: [root]
+date: 2025-08-07
+---
+
 # Start Here: Your Journey into Distributed Systems
+
+
+
+## Overview
+
+Start Here: Your Journey into Distributed Systems
+
+## Table of Contents
+
+- [What Brings You Here Today? Our system is on fire!
+
+**Reading time:** ~5 minutes
+
+## Table of Contents
+
+- [What Brings You Here Today?](#what-brings-you-here-today)
+  - [🔥 "Our system is on fire!"](#-our-system-is-on-fire)
+  - [📚 "I want to learn properly"](#-i-want-to-learn-properly)
+    - [Choose Your Path](#choose-your-path)
+    - [Quick Learning Wins](#quick-learning-wins)
+  - [🏗️ "I'm designing a new system"](#-im-designing-a-new-system)
+    - [Pattern Selection by Scale](#pattern-selection-by-scale)
+  - [🔄 "I need to migrate/modernize"](#-i-need-to-migratemodernize)
+    - [Popular Migrations](#popular-migrations)
+- [Quick Navigation](#quick-navigation)
+  - [By Problem Domain](#by-problem-domain)
+  - [By Company](#by-company)
+- [Learning Resources](#learning-resources)
+  - [Essential References](#essential-references)
+  - [Tools & Calculators](#tools-calculators)
+  - [Community & Updates](#community-updates)
+- [Not Sure Where to Start?](#not-sure-where-to-start)
+
+
 
 ## What Brings You Here Today?
 

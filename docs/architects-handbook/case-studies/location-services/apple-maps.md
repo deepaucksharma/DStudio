@@ -12,6 +12,34 @@ key_patterns:
 
 # Apple Maps: Privacy-First Location Services at Scale
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Business Context & Privacy Philosophy](#business-context-privacy-philosophy)
+  - [The Privacy-First Paradigm Shift](#the-privacy-first-paradigm-shift)
+  - [Privacy vs Functionality Trade-offs](#privacy-vs-functionality-trade-offs)
+- [Deep Architecture Analysis](#deep-architecture-analysis)
+  - [On-Device Route Calculation Engine](#on-device-route-calculation-engine)
+  - [Differential Privacy Implementation](#differential-privacy-implementation)
+  - [Look Around (Street View) Privacy Architecture](#look-around-street-view-privacy-architecture)
+- [Advanced Geospatial Indexing & Privacy](#advanced-geospatial-indexing-privacy)
+  - [Privacy-Preserving Spatial Indexing](#privacy-preserving-spatial-indexing)
+  - [MapKit Privacy Framework Integration](#mapkit-privacy-framework-integration)
+- [Real-World Privacy Performance](#real-world-privacy-performance)
+  - [Privacy vs Functionality Analysis (2025)](#privacy-vs-functionality-analysis-2025)
+  - [Privacy Technology Comparison](#privacy-technology-comparison)
+- [Innovation in Privacy-Preserving Location Services](#innovation-in-privacy-preserving-location-services)
+  - [Future Privacy Technologies (2025-2030)](#future-privacy-technologies-2025-2030)
+- [Key Takeaways for Privacy-Conscious Architects](#key-takeaways-for-privacy-conscious-architects)
+  - [Implementation Guidelines](#implementation-guidelines)
+- [Cross-References & Related Topics](#cross-references-related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns  ](#related-patterns-)
+  - [Related Case Studies](#related-case-studies)
+- [External Resources](#external-resources)
+
+
+
 !!! success "Excellence Badge"
     🥇 **Gold Tier**: Industry-leading privacy-preserving location architecture with innovative differential privacy implementation
 

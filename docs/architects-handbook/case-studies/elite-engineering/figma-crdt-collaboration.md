@@ -430,7 +430,7 @@ public:
     void render_frame(Canvas* canvas) {
         / Sort by z-index and layer hierarchy
         std::sort(objects.begin(), objects.end(), 
-            [](const auto& a, const auto& b) {
+            [Const Auto& A, Const Auto& B](const auto& a, const auto& b) {
                 return a.z_order < b.z_order;
             }.md);
         

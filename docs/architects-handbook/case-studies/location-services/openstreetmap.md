@@ -34,3 +34,15 @@ This case study would explore OpenStreetMap's unique crowdsourced approach to gl
 - [OpenStreetMap Wiki - Architecture](https://wiki.openstreetmap.org/wiki/Component_overview/)
 - [OSM System Architecture](https://wiki.openstreetmap.org/wiki/Servers/)
 - [Overpass API Documentation](https://wiki.openstreetmap.org/wiki/Overpass_API/)
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [Learning Paths](/architects-handbook/learning-paths)
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [SRE Practices](/architects-handbook/human-factors/sre-practices)

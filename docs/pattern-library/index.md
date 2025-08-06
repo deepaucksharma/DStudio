@@ -7,6 +7,28 @@ description: 'TODO: Add description'
 
 # Pattern Library: 103 Battle-Tested Solutions
 
+## Table of Contents
+
+- [🎯 Quick Navigation](#quick-navigation)
+- [🚀 Learning Paths](#learning-paths)
+  - [👶 Beginner Path (2-4 weeks)](#beginner-path-2-4-weeks)
+  - [🚀 Intermediate Path (1-2 months)](#intermediate-path-1-2-months)
+  - [🏆 Advanced Path (3-6 months)](#advanced-path-3-6-months)
+- [🔍 Pattern Explorer {#pattern-explorer}](#pattern-explorer-pattern-explorer)
+- [📈 Pattern Statistics at a Glance](#pattern-statistics-at-a-glance)
+- [🏆 Top Patterns by Impact](#top-patterns-by-impact)
+  - [The Elite 15 - Master These First](#the-elite-15-master-these-first)
+- [📚 Pattern Categories](#pattern-categories)
+- [🏆 Excellence Tiers](#excellence-tiers)
+  - [Pattern Selection Guide](#pattern-selection-guide)
+- [📊 Pattern Metadata](#pattern-metadata)
+- [🎓 Pattern Resources Hub](#pattern-resources-hub)
+- [🚦 Common Pattern Combinations](#common-pattern-combinations)
+  - [The Netflix Stack](#the-netflix-stack)
+  - [The Uber Stack](#the-uber-stack)
+  - [The Banking Stack](#the-banking-stack)
+- [🎯 Pattern Selection by Problem](#pattern-selection-by-problem)
+
 <div class="pattern-hero">
     <h2>🏗️ Build Reliable Distributed Systems with Proven Patterns</h2>
     <p>From Netflix's Circuit Breakers to Google's MapReduce - Learn from the giants</p>

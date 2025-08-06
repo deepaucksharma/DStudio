@@ -66,7 +66,7 @@ when_to_use: When you need causal ordering of events, don't need wall-clock time
 
 
 
-### The Happens-Before Relation (→)
+## The Happens-Before Relation (→)
 
 <div class="axiom-box">
 <h4>🔑 Lamport's Three Rules</h4>

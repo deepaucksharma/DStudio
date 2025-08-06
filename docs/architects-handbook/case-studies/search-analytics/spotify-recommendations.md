@@ -208,18 +208,18 @@ class SpotifyRecommender:
         self.ensemble = WeightedEnsemble()
 
     def get_recommendations(self, user_id, context):
-# Get predictions from each model
+## Get predictions from each model
         predictions = {}
         for name, model in self.models.items():
             predictions[name] = model.predict(user_id, context)
 
-# Ensemble with learned weights
+## Ensemble with learned weights
         final_scores = self.ensemble.combine(predictions)
 
-# Apply business rules
+## Apply business rules
         filtered = self.apply_business_rules(final_scores)
 
-# Diversity injection
+## Diversity injection
         diversified = self.diversity_algorithm(filtered)
 
         return diversified[:100]  # Top 100 recommendations
@@ -330,13 +330,13 @@ Optimizations:
 ```python
 class AudioFeatureExtractor:
     def extract_features(self, audio_file):
-# Mel-spectrogram analysis
+## Mel-spectrogram analysis
         spectrogram = self.compute_mel_spectrogram(audio_file)
 
-# CNN for audio features
+## CNN for audio features
         audio_embeddings = self.audio_cnn(spectrogram)
 
-# Extract high-level features
+## Extract high-level features
         features = {
             'tempo': self.tempo_estimator(spectrogram),
             'key': self.key_detector(audio_embeddings),
@@ -354,14 +354,14 @@ class AudioFeatureExtractor:
 class ContextualBandit:
     def select_recommendation(self, user, context, candidates):
         if random.random() < self.epsilon:
-# Exploration: try new content
+## Exploration: try new content
             return self.explore_new_content(candidates)
         else:
-# Exploitation: use learned preferences
+## Exploitation: use learned preferences
             return self.exploit_known_preferences(user, candidates)
 
     def update_policy(self, user, item, reward):
-# Thompson sampling update
+## Thompson sampling update
         self.success_counts[user][item] += reward
         self.trial_counts[user][item] += 1
 ```bash

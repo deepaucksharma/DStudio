@@ -106,7 +106,7 @@ public class CircuitBreaker {
 ```
 
 ```python
-# Python implementation with asyncio support
+## Python implementation with asyncio support
 import asyncio
 import time
 from enum import Enum
@@ -404,7 +404,7 @@ public class PaymentController {
 ### With AWS
 
 ```python
-# Using AWS SDK with circuit breaker
+## Using AWS SDK with circuit breaker
 from aws_lambda_powertools.utilities.feature_flags import CircuitBreaker
 
 @CircuitBreaker(

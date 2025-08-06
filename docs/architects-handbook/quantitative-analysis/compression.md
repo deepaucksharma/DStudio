@@ -1,6 +1,9 @@
 ---
 title: Compression Algorithms
 description: Quantitative models for data compression and storage optimization
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Compression Algorithms

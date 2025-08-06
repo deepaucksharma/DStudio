@@ -200,27 +200,27 @@ class ErasureCoding:
         self.n = k + m          # Total shards
         
     def encode(self, data):
-# Split data into k chunks
+## Split data into k chunks
         chunk_size = len(data) / self.k
         data_chunks = [data[i:i+chunk_size] for i in range(0, len(data), chunk_size)]
         
-# Generate m parity chunks
+## Generate m parity chunks
         parity_chunks = self.reed_solomon_encode(data_chunks)
         
-# Return all n chunks
+## Return all n chunks
         return data_chunks + parity_chunks
     
     def decode(self, available_chunks, chunk_indices):
         if len(available_chunks) < self.k:
             raise Exception("Not enough chunks to reconstruct data")
         
-# Reconstruct using any k chunks
+## Reconstruct using any k chunks
         return self.reed_solomon_decode(available_chunks[:self.k])
 
-# Example: 10+4 erasure coding
-# Can lose any 4 chunks and still recover data
-# Storage overhead: 40% (vs 200% for 3x replication)
-# Durability: 99.99999999% with proper placement
+## Example: 10+4 erasure coding
+## Can lose any 4 chunks and still recover data
+## Storage overhead: 40% (vs 200% for 3x replication)
+## Durability: 99.99999999% with proper placement
 ```
 
 **Durability Calculation**:
@@ -230,25 +230,25 @@ def calculate_durability(disk_afr=0.02, chunks=14, required=10, zones=3):
     AFR = Annual Failure Rate
     Probability of losing data = P(losing > 4 chunks in same year)
     """
-# Probability of exactly k failures
+## Probability of exactly k failures
     from scipy.stats import binom
     
     p_failure = disk_afr
     n_disks = chunks
     
-# Probability of losing more than (chunks - required) disks
+## Probability of losing more than (chunks - required) disks
     p_data_loss = 0
     for k in range(chunks - required + 1, chunks + 1):
         p_data_loss += binom.pmf(k, n_disks, p_failure)
     
-# Account for zone failures (correlated failures)
+## Account for zone failures (correlated failures)
     zone_failure_rate = 0.001  # 0.1% per year
     p_zone_failure = 1 - (1 - zone_failure_rate) ** zones
     
     total_durability = 1 - (p_data_loss + p_zone_failure)
     return total_durability
 
-# Result: 99.999999999% durability
+## Result: 99.999999999% durability
 ```
 
 ### 2. Metadata Management
@@ -381,7 +381,7 @@ class StorageClassManager:
     def transition_object(self, obj, new_class):
         current_class = obj.storage_class
         
-# Check minimum storage duration
+## Check minimum storage duration
         days_stored = (datetime.now() - obj.created_at).days
         min_days = self.STORAGE_CLASSES[current_class]['min_storage_days']
         
@@ -390,7 +390,7 @@ class StorageClassManager:
                 f"Object must be stored for {min_days} days in {current_class}"
             )
         
-# Move data to appropriate storage
+## Move data to appropriate storage
         if new_class in ['GLACIER', 'DEEP_ARCHIVE']:
             self._archive_to_tape(obj)
         elif current_class in ['GLACIER', 'DEEP_ARCHIVE']:
@@ -398,7 +398,7 @@ class StorageClassManager:
         else:
             self._move_storage_tier(obj, new_class)
         
-# Update metadata
+### Update metadata
         obj.storage_class = new_class
         obj.transition_date = datetime.now()
 ```
@@ -417,7 +417,7 @@ class MultipartUploadManager:
     def initiate_multipart_upload(self, bucket, key):
         upload_id = str(uuid.uuid4())
         
-# Create upload tracking record
+## Create upload tracking record
         self.metadata.create_multipart_upload({
             'upload_id': upload_id,
             'bucket': bucket,
@@ -433,14 +433,14 @@ class MultipartUploadManager:
         if part_number < 1 or part_number > self.max_parts:
             raise InvalidPartNumber()
         
-# Store part with erasure coding
+## Store part with erasure coding
         chunks = self.erasure_coder.encode(data)
         locations = self.storage.store_chunks(chunks)
         
-# Calculate part ETag
+## Calculate part ETag
         etag = hashlib.md5(data).hexdigest()
         
-# Update upload metadata
+## Update upload metadata
         self.metadata.add_part(upload_id, {
             'part_number': part_number,
             'etag': etag,
@@ -453,7 +453,7 @@ class MultipartUploadManager:
     def complete_multipart_upload(self, upload_id, parts):
         upload = self.metadata.get_upload(upload_id)
         
-# Verify all parts exist
+## Verify all parts exist
         for part in parts:
             if part['part_number'] not in upload['parts']:
                 raise InvalidPart(part['part_number'])
@@ -462,10 +462,10 @@ class MultipartUploadManager:
             if stored_etag != part['etag']:
                 raise ETagMismatch(part['part_number'])
         
-# Combine parts into single object
+## Combine parts into single object
         final_object = self._combine_parts(upload, parts)
         
-# Clean up multipart metadata
+## Clean up multipart metadata
         self.metadata.complete_upload(upload_id)
         
         return final_object
@@ -481,11 +481,11 @@ class CrossRegionReplicator:
         self.replication_queue = Queue()
         
     def handle_put_event(self, event):
-# Check replication rules
+## Check replication rules
         if not self._should_replicate(event.bucket, event.key):
             return
         
-# Queue for async replication
+## Queue for async replication
         self.replication_queue.put({
             'event_type': 'PUT',
             'bucket': event.bucket,
@@ -499,14 +499,14 @@ class CrossRegionReplicator:
             task = self.replication_queue.get()
             
             try:
-# Fetch object from source
+## Fetch object from source
                 obj = self.source.get_object(
                     task['bucket'], 
                     task['key'],
                     task['version_id']
                 )
                 
-# Replicate to all target regions
+## Replicate to all target regions
                 futures = []
                 for region in self.targets:
                     future = self.executor.submit(
@@ -515,21 +515,21 @@ class CrossRegionReplicator:
                     )
                     futures.append(future)
                 
-# Wait for all replications
+## Wait for all replications
                 results = [f.result() for f in futures]
                 
-# Update replication status
+## Update replication status
                 self._update_replication_status(task, results)
                 
             except Exception as e:
                 self._handle_replication_failure(task, e)
     
     def _replicate_to_region(self, region, obj, task):
-# Use multipart upload for large objects
+## Use multipart upload for large objects
         if obj.size > 100 * 1024 * 1024:  # 100MB
             return self._multipart_replicate(region, obj)
         
-# Direct copy for small objects
+## Direct copy for small objects
         return region.put_object(
             bucket=task['bucket'],
             key=task['key'],
@@ -597,11 +597,11 @@ class S3CacheManager:
     def get_object(self, bucket, key):
         cache_key = f"{bucket}:{key}"
         
-# Check negative cache first
+## Check negative cache first
         if cache_key in self.negative_cache:
             raise NoSuchKey()
         
-# Check metadata cache
+## Check metadata cache
         metadata = self.metadata_cache.get(cache_key)
         if not metadata:
             metadata = self._fetch_metadata(bucket, key)
@@ -610,7 +610,7 @@ class S3CacheManager:
                 raise NoSuchKey()
             self.metadata_cache.set(cache_key, metadata)
         
-# Check data cache for small objects
+## Check data cache for small objects
         if metadata.size < 1_024_000:  # 1MB
             data = self.data_cache.get(cache_key)
             if not data:
@@ -618,7 +618,7 @@ class S3CacheManager:
                 self.data_cache.set(cache_key, data)
             return ObjectResponse(metadata, data)
         
-# Stream large objects directly
+## Stream large objects directly
         return ObjectResponse(metadata, self._create_stream(metadata))
 ```
 
@@ -659,7 +659,7 @@ class DurabilityManager:
         
     def monitor_health(self):
         while True:
-# Check all chunks periodically
+## Check all chunks periodically
             for chunk in self.scan_chunks():
                 if chunk.status != 'healthy':
                     priority = self.calculate_repair_priority(chunk)
@@ -668,23 +668,23 @@ class DurabilityManager:
             time.sleep(3600)  # Hourly scan
     
     def calculate_repair_priority(self, chunk):
-# Higher priority for objects with fewer healthy shards
+## Higher priority for objects with fewer healthy shards
         object_chunks = self.get_object_chunks(chunk.object_id)
         healthy_count = sum(1 for c in object_chunks if c.status == 'healthy')
         
-# Critical: Less than k healthy chunks
+## Critical: Less than k healthy chunks
         if healthy_count < 10:
             return 0  # Highest priority
         
-# High: Exactly k healthy chunks
+## High: Exactly k healthy chunks
         elif healthy_count == 10:
             return 1
         
-# Medium: k+1 or k+2 healthy chunks
+## Medium: k+1 or k+2 healthy chunks
         elif healthy_count <= 12:
             return 2
         
-# Low: k+3 healthy chunks
+## Low: k+3 healthy chunks
         else:
             return 3
     
@@ -693,28 +693,28 @@ class DurabilityManager:
             priority, chunk = self.repair_queue.get()
             
             try:
-# Get all chunks for the object
+## Get all chunks for the object
                 all_chunks = self.get_object_chunks(chunk.object_id)
                 healthy_chunks = [c for c in all_chunks if c.status == 'healthy']
                 
                 if len(healthy_chunks) >= 10:
-# Reconstruct missing shard
+## Reconstruct missing shard
                     reconstructed = self.erasure_decoder.reconstruct(
                         healthy_chunks,
                         chunk.shard_index
                     )
                     
-# Store in new location
+## Store in new location
                     new_location = self.select_repair_location(chunk)
                     self.storage.write(new_location, reconstructed)
                     
-# Update metadata
+### Update metadata
                     chunk.status = 'healthy'
                     chunk.location = new_location
                     self.metadata.update_chunk(chunk)
                     
                 else:
-# Object is lost - trigger recovery from backup
+## Object is lost - trigger recovery from backup
                     self.trigger_disaster_recovery(chunk.object_id)
                     
             except Exception as e:
@@ -726,7 +726,7 @@ class DurabilityManager:
 ### Lifecycle Management
 
 ```yaml
-# Example lifecycle policy
+## Example lifecycle policy
 lifecycle_rules:
   - id: archive-old-logs
     prefix: logs/
@@ -758,7 +758,7 @@ lifecycle_rules:
 ```python
 class StorageOptimizer:
     def analyze_access_patterns(self, bucket):
-# Analyze last 90 days of access logs
+## Analyze last 90 days of access logs
         access_stats = self.query_access_logs(bucket, days=90)
         
         recommendations = []
@@ -779,7 +779,7 @@ class StorageOptimizer:
         return recommendations
     
     def implement_intelligent_tiering(self):
-# Automatic transition based on access patterns
+## Automatic transition based on access patterns
         policy = {
             'name': 'intelligent-tiering',
             'rules': [
@@ -838,35 +838,35 @@ METRICS = {
 
 **Adding Storage Capacity**:
 ```bash
-# !/bin/bash
-# Add new storage node to cluster
+## !/bin/bash
+## Add new storage node to cluster
 
-# 1. Provision new hardware
+## 1. Provision new hardware
 NODE_ID="storage-node-${REGION}-${ZONE}-${TIMESTAMP}"
 
-# 2. Install storage software
+## 2. Install storage software
 ansible-playbook -i inventory install-storage.yml --limit $NODE_ID
 
-# 3. Initialize storage
+## 3. Initialize storage
 s3-admin node init \
   --node-id $NODE_ID \
   --zone $ZONE \
   --capacity 100TB \
   --storage-class STANDARD
 
-# 4. Join cluster
+## 4. Join cluster
 s3-admin cluster join \
   --node $NODE_ID \
   --cluster $CLUSTER_ID \
   --weight 1.0
 
-# 5. Rebalance data
+## 5. Rebalance data
 s3-admin rebalance start \
   --cluster $CLUSTER_ID \
   --max-bandwidth 1Gbps \
   --background
 
-# 6. Monitor progress
+## 6. Monitor progress
 watch -n 60 's3-admin rebalance status --cluster $CLUSTER_ID'
 ```
 

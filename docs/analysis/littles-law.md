@@ -1,6 +1,10 @@
 ---
 title: Littles Law
 redirect_to: /architects-handbook/quantitative-analysis/littles-law/
+description: Documentation for Littles Law
+category: analysis
+tags: [analysis]
+date: 2025-08-07
 ---
 
 # Littles Law

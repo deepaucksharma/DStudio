@@ -8,9 +8,175 @@ prerequisites: [linear-algebra, discrete-mathematics, probability-theory]
 pattern_type: foundational
 status: complete
 last_updated: 2025-01-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Graph Theory
+
+
+
+## Overview
+
+Graph Theory
+description: Mathematical foundations of graphs, network algorithms, and their applications to distributed systems analysis
+type: quantitative
+difficulty: advanced
+reading_time: 55 min
+prerequisites: [linear-algebra, discrete-mathematics, probability-theory]
+pattern_type: foundational
+status: complete
+last_updated: 2025-01-23
+---
+
+# Graph Theory
+
+## Table of Contents
+
+- [Mathematical Foundations](#mathematical-foundations)
+  - [Basic Definitions and Properties](#basic-definitions-and-properties)
+  - [Graph Representations](#graph-representations)
+    - [Adjacency Matrix](#adjacency-matrix)
+    - [Adjacency List](#adjacency-list)
+- [Example usage](#example-usage)
+- [Create a sample graph](#create-a-sample-graph)
+- [Shortest Path Algorithms](#shortest-path-algorithms)
+  - [Dijkstra's Algorithm](#dijkstras-algorithm)
+- [Example: Shortest paths](#example-shortest-paths)
+  - [Bellman-Ford Algorithm](#bellman-ford-algorithm)
+  - [Floyd-Warshall Algorithm](#floyd-warshall-algorithm)
+  - [Example usage with adjacency matrix](#example-usage-with-adjacency-matrix)
+- [Replace zeros with infinity (except diagonal)](#replace-zeros-with-infinity-except-diagonal)
+- [Minimum Spanning Trees](#minimum-spanning-trees)
+  - [Kruskal's Algorithm](#kruskals-algorithm)
+- [Example: MST](#example-mst)
+  - [Prim's Algorithm](#prims-algorithm)
+- [Compare Kruskal and Prim](#compare-kruskal-and-prim)
+- [Network Flow Algorithms](#network-flow-algorithms)
+  - [Maximum Flow Problem](#maximum-flow-problem)
+  - [Ford-Fulkerson Algorithm](#ford-fulkerson-algorithm)
+- [Example: Create flow network](#example-create-flow-network)
+- [Spectral Graph Theory](#spectral-graph-theory)
+  - [Graph Laplacian](#graph-laplacian)
+  - [Spectral Clustering](#spectral-clustering)
+- [Example: Spectral analysis](#example-spectral-analysis)
+- [Spectral clustering](#spectral-clustering)
+- [Centrality Measures](#centrality-measures)
+  - [Degree Centrality](#degree-centrality)
+  - [Betweenness Centrality](#betweenness-centrality)
+  - [Closeness Centrality](#closeness-centrality)
+  - [PageRank (Eigenvector Centrality)](#pagerank-eigenvector-centrality)
+- [Example: Centrality analysis](#example-centrality-analysis)
+- [Community Detection](#community-detection)
+  - [Modularity](#modularity)
+  - [Louvain Algorithm](#louvain-algorithm)
+- [Example: Community detection](#example-community-detection)
+- [Applications in Distributed Systems](#applications-in-distributed-systems)
+  - [Service Dependency Analysis](#service-dependency-analysis)
+- [Example: Service dependency analysis](#example-service-dependency-analysis)
+  - [Network Routing and Load Balancing](#network-routing-and-load-balancing)
+- [Example: Network routing analysis](#example-network-routing-analysis)
+- [Link weights (latencies in ms)](#link-weights-latencies-in-ms)
+- [Advanced Graph Algorithms](#advanced-graph-algorithms)
+  - [Graph Coloring](#graph-coloring)
+- [Example: Graph coloring](#example-graph-coloring)
+  - [Matching Algorithms](#matching-algorithms)
+- [Example: Bipartite matching](#example-bipartite-matching)
+- [Performance Analysis and Complexity](#performance-analysis-and-complexity)
+  - [Algorithm Complexity Summary](#algorithm-complexity-summary)
+  - [Graph Properties and Thresholds](#graph-properties-and-thresholds)
+- [Interactive Visualization and Tools](#interactive-visualization-and-tools)
+  - [Graph Visualization](#graph-visualization)
+- [Research Frontiers and Modern Applications](#research-frontiers-and-modern-applications)
+  - [Graph Neural Networks](#graph-neural-networks)
+  - [Dynamic Graphs](#dynamic-graphs)
+  - [Quantum Graph Algorithms](#quantum-graph-algorithms)
+- [References and Further Reading](#references-and-further-reading)
+  - [Foundational Texts](#foundational-texts)
+  - [Algorithms and Complexity](#algorithms-and-complexity)
+  - [Spectral Graph Theory](#spectral-graph-theory)
+  - [Network Analysis](#network-analysis)
+  - [Applications in Computer Science](#applications-in-computer-science)
+- [Related Topics](#related-topics)
+
+
+
+## Mathematical Foundations
+
+Graph theory provides the mathematical framework for analyzing networks, relationships, and connectivity patterns in distributed systems. A graph $G = (V, E)$ consists of a set of vertices (nodes) $V$ and a set of edges $E \subseteq V \times V$.
+
+**Reading time:** ~22 minutes
+
+## Table of Contents
+
+- [Mathematical Foundations](#mathematical-foundations)
+  - [Basic Definitions and Properties](#basic-definitions-and-properties)
+  - [Graph Representations](#graph-representations)
+    - [Adjacency Matrix](#adjacency-matrix)
+    - [Adjacency List](#adjacency-list)
+- [Example usage](#example-usage)
+- [Create a sample graph](#create-a-sample-graph)
+- [Shortest Path Algorithms](#shortest-path-algorithms)
+  - [Dijkstra's Algorithm](#dijkstras-algorithm)
+- [Example: Shortest paths](#example-shortest-paths)
+  - [Bellman-Ford Algorithm](#bellman-ford-algorithm)
+  - [Floyd-Warshall Algorithm](#floyd-warshall-algorithm)
+  - [Example usage with adjacency matrix](#example-usage-with-adjacency-matrix)
+- [Replace zeros with infinity (except diagonal)](#replace-zeros-with-infinity-except-diagonal)
+- [Minimum Spanning Trees](#minimum-spanning-trees)
+  - [Kruskal's Algorithm](#kruskals-algorithm)
+- [Example: MST](#example-mst)
+  - [Prim's Algorithm](#prims-algorithm)
+- [Compare Kruskal and Prim](#compare-kruskal-and-prim)
+- [Network Flow Algorithms](#network-flow-algorithms)
+  - [Maximum Flow Problem](#maximum-flow-problem)
+  - [Ford-Fulkerson Algorithm](#ford-fulkerson-algorithm)
+- [Example: Create flow network](#example-create-flow-network)
+- [Spectral Graph Theory](#spectral-graph-theory)
+  - [Graph Laplacian](#graph-laplacian)
+  - [Spectral Clustering](#spectral-clustering)
+- [Example: Spectral analysis](#example-spectral-analysis)
+- [Spectral clustering](#spectral-clustering)
+- [Centrality Measures](#centrality-measures)
+  - [Degree Centrality](#degree-centrality)
+  - [Betweenness Centrality](#betweenness-centrality)
+  - [Closeness Centrality](#closeness-centrality)
+  - [PageRank (Eigenvector Centrality)](#pagerank-eigenvector-centrality)
+- [Example: Centrality analysis](#example-centrality-analysis)
+- [Community Detection](#community-detection)
+  - [Modularity](#modularity)
+  - [Louvain Algorithm](#louvain-algorithm)
+- [Example: Community detection](#example-community-detection)
+- [Applications in Distributed Systems](#applications-in-distributed-systems)
+  - [Service Dependency Analysis](#service-dependency-analysis)
+- [Example: Service dependency analysis](#example-service-dependency-analysis)
+  - [Network Routing and Load Balancing](#network-routing-and-load-balancing)
+- [Example: Network routing analysis](#example-network-routing-analysis)
+- [Link weights (latencies in ms)](#link-weights-latencies-in-ms)
+- [Advanced Graph Algorithms](#advanced-graph-algorithms)
+  - [Graph Coloring](#graph-coloring)
+- [Example: Graph coloring](#example-graph-coloring)
+  - [Matching Algorithms](#matching-algorithms)
+- [Example: Bipartite matching](#example-bipartite-matching)
+- [Performance Analysis and Complexity](#performance-analysis-and-complexity)
+  - [Algorithm Complexity Summary](#algorithm-complexity-summary)
+  - [Graph Properties and Thresholds](#graph-properties-and-thresholds)
+- [Interactive Visualization and Tools](#interactive-visualization-and-tools)
+  - [Graph Visualization](#graph-visualization)
+- [Research Frontiers and Modern Applications](#research-frontiers-and-modern-applications)
+  - [Graph Neural Networks](#graph-neural-networks)
+  - [Dynamic Graphs](#dynamic-graphs)
+  - [Quantum Graph Algorithms](#quantum-graph-algorithms)
+- [References and Further Reading](#references-and-further-reading)
+  - [Foundational Texts](#foundational-texts)
+  - [Algorithms and Complexity](#algorithms-and-complexity)
+  - [Spectral Graph Theory](#spectral-graph-theory)
+  - [Network Analysis](#network-analysis)
+  - [Applications in Computer Science](#applications-in-computer-science)
+- [Related Topics](#related-topics)
+
+
 
 ## Mathematical Foundations
 
@@ -145,11 +311,11 @@ class Graph:
             if u not in visited:
                 self._dfs(u, visited)
 
-# Example usage
+## Example usage
 print("Graph Theory Examples")
 print("=" * 50)
 
-# Create a sample graph
+## Create a sample graph
 g = Graph(directed=False, weighted=True)
 edges = [('A', 'B', 4), ('A', 'C', 2), ('B', 'C', 1), 
          ('B', 'D', 5), ('C', 'D', 8), ('C', 'E', 10), ('D', 'E', 2)]
@@ -221,7 +387,7 @@ def reconstruct_path(predecessors, source, target):
     path.reverse()
     return path if path[0] == source else None
 
-# Example: Shortest paths
+## Example: Shortest paths
 distances, preds = dijkstra(g, 'A')
 print(f"\nShortest distances from A: {distances}")
 
@@ -309,11 +475,11 @@ def floyd_warshall(adj_matrix):
     
     return dist
 
-# Example usage with adjacency matrix
+### Example usage with adjacency matrix
 adj_matrix, vertex_map = g.to_adjacency_matrix()
 print(f"\nAdjacency matrix:\n{adj_matrix}")
 
-# Replace zeros with infinity (except diagonal)
+## Replace zeros with infinity (except diagonal)
 for i in range(adj_matrix.shape[0]):
     for j in range(adj_matrix.shape[1]):
         if i != j and adj_matrix[i][j] == 0:
@@ -398,7 +564,7 @@ def kruskal_mst(graph):
     
     return mst_edges, mst_weight
 
-# Example: MST
+## Example: MST
 mst_edges, total_weight = kruskal_mst(g)
 print(f"\nMinimum Spanning Tree:")
 print(f"Edges: {mst_edges}")
@@ -454,7 +620,7 @@ def prim_mst(graph, start_vertex=None):
     
     return mst_edges, total_weight
 
-# Compare Kruskal and Prim
+## Compare Kruskal and Prim
 prim_mst_edges, prim_total_weight = prim_mst(g)
 print(f"\nPrim's MST:")
 print(f"Edges: {prim_mst_edges}")
@@ -517,7 +683,7 @@ def ford_fulkerson(graph, source, sink):
     
     return max_flow_value
 
-# Example: Create flow network
+## Example: Create flow network
 flow_graph = Graph(directed=True, weighted=True)
 flow_edges = [('s', 'a', 10), ('s', 'b', 8), ('a', 'b', 5), ('a', 'c', 8), 
               ('b', 'c', 2), ('b', 'd', 10), ('c', 't', 10), ('d', 't', 8)]
@@ -588,7 +754,7 @@ def spectral_clustering(adj_matrix, k=2):
     
     return clusters, eigenvalues, eigenvectors
 
-# Example: Spectral analysis
+## Example: Spectral analysis
 adj_matrix, _ = g.to_adjacency_matrix()
 L = compute_laplacian(adj_matrix)
 eigenvals, eigenvecs = np.linalg.eigh(L)
@@ -597,7 +763,7 @@ print(f"\nSpectral Analysis:")
 print(f"Laplacian eigenvalues: {eigenvals}")
 print(f"Algebraic connectivity (Fiedler value): {eigenvals[1]:.4f}")
 
-# Spectral clustering
+## Spectral clustering
 clusters, eigenvals_norm, _ = spectral_clustering(adj_matrix, k=2)
 vertex_list = sorted(g.vertices)
 print(f"Spectral clustering (2 clusters):")
@@ -661,7 +827,7 @@ def compute_centrality_measures(graph):
         'eigenvector': eigenvector_cent
     }
 
-# Example: Centrality analysis
+## Example: Centrality analysis
 centrality_measures = compute_centrality_measures(g)
 
 print(f"\nCentrality Measures:")
@@ -711,7 +877,7 @@ def louvain_community_detection(graph, resolution=1.0):
     
     return communities, modularity
 
-# Example: Community detection
+## Example: Community detection
 communities, modularity = louvain_community_detection(g)
 print(f"\nCommunity Detection:")
 print(f"Number of communities: {len(communities)}")
@@ -780,7 +946,7 @@ def analyze_service_dependencies(dependencies):
     except nx.NetworkXError as e:
         return {'error': str(e)}
 
-# Example: Service dependency analysis
+## Example: Service dependency analysis
 service_deps = [
     ('web-server', 'load-balancer'),
     ('web-server', 'database'),
@@ -870,7 +1036,7 @@ def analyze_network_routing(topology, weights=None):
         'vertex_mapping': vertex_map
     }
 
-# Example: Network routing analysis
+## Example: Network routing analysis
 network_topology = [
     ('Router1', 'Router2'), ('Router1', 'Router3'),
     ('Router2', 'Router4'), ('Router3', 'Router4'),
@@ -878,7 +1044,7 @@ network_topology = [
     ('Router5', 'Router6')
 ]
 
-# Link weights (latencies in ms)
+## Link weights (latencies in ms)
 link_weights = {
     ('Router1', 'Router2'): 10,
     ('Router1', 'Router3'): 15,
@@ -947,7 +1113,7 @@ def chromatic_number_bound(graph):
     
     return lower_bound, upper_bound, coloring
 
-# Example: Graph coloring
+## Example: Graph coloring
 coloring_bounds = chromatic_number_bound(g)
 print(f"\nGraph Coloring Analysis:")
 print(f"Chromatic number bounds: [{coloring_bounds[0]}, {coloring_bounds[1]}]")
@@ -994,7 +1160,7 @@ def maximum_bipartite_matching(left_vertices, right_vertices, edges):
     
     return max_flow
 
-# Example: Bipartite matching
+## Example: Bipartite matching
 left = ['Worker1', 'Worker2', 'Worker3']
 right = ['Task1', 'Task2', 'Task3', 'Task4']
 bipartite_edges = [

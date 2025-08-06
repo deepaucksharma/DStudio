@@ -1,11 +1,78 @@
 ---
 title: Learning Paths
 description: Structured journeys through distributed systems based on your experience
+type: learning-paths
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Learning Paths
+
+
+
+## Overview
+
+Learning Paths
+description: Structured journeys through distributed systems based on your experience
   level
 type: learning-paths
 ---
 
 # Learning Paths
+
+## Table of Contents
+
+- [🎯 Find Your Starting Point](#-find-your-starting-point)
+- [📊 Complete Learning Path Comparison](#-complete-learning-path-comparison)
+  - [Core Role-Based Paths](#core-role-based-paths)
+  - [High-Demand Career Paths](#high-demand-career-paths)
+  - [Specialized Domain Paths](#specialized-domain-paths)
+- [🚀 New Specialized Architecture Paths](#-new-specialized-architecture-paths)
+- [🚀 High-Demand Career Paths](#-high-demand-career-paths)
+- [📚 Specialized Domain Paths](#-specialized-domain-paths)
+- [📚 Foundation & Topic Paths](#-foundation-topic-paths)
+- [🎯 Learning Strategies](#-learning-strategies)
+- [🚀 Ready to Start? Visual Learning Journey](#-visual-learning-journey)
+- [📈 Comprehensive Skills Assessment & Progression](#-comprehensive-skills-assessment-progression)
+  - [Progressive Difficulty Framework](#progressive-difficulty-framework)
+  - [Skill Validation & Checkpoints](#skill-validation-checkpoints)
+- [🤝 Learning Community](#-learning-community)
+  - [Study Together](#study-together)
+  - [Resources by Path](#resources-by-path)
+- [🚀 Quick Start Guide](#-quick-start-guide)
+- [💡 Success Tips](#-success-tips)
+
+
+
+!
+
+**Reading time:** ~14 minutes
+
+## Table of Contents
+
+- [🎯 Find Your Starting Point](#-find-your-starting-point)
+- [📊 Complete Learning Path Comparison](#-complete-learning-path-comparison)
+  - [Core Role-Based Paths](#core-role-based-paths)
+  - [High-Demand Career Paths](#high-demand-career-paths)
+  - [Specialized Domain Paths](#specialized-domain-paths)
+- [🚀 New Specialized Architecture Paths](#-new-specialized-architecture-paths)
+- [🚀 High-Demand Career Paths](#-high-demand-career-paths)
+- [📚 Specialized Domain Paths](#-specialized-domain-paths)
+- [📚 Foundation & Topic Paths](#-foundation-topic-paths)
+- [🎯 Learning Strategies](#-learning-strategies)
+- [🚀 Ready to Start?](#-ready-to-start)
+- [🗺️ Visual Learning Journey](#-visual-learning-journey)
+- [📈 Comprehensive Skills Assessment & Progression](#-comprehensive-skills-assessment-progression)
+  - [Progressive Difficulty Framework](#progressive-difficulty-framework)
+  - [Skill Validation & Checkpoints](#skill-validation-checkpoints)
+- [🤝 Learning Community](#-learning-community)
+  - [Study Together](#study-together)
+  - [Resources by Path](#resources-by-path)
+- [🚀 Quick Start Guide](#-quick-start-guide)
+- [💡 Success Tips](#-success-tips)
+
+
 
 !!! abstract "Choose Your Journey"
     Whether you're a new graduate or a seasoned architect, we have a structured path designed for your experience level. Each path builds on the previous knowledge while introducing new concepts at the right pace.

@@ -4,6 +4,25 @@ description: Build a scalable continuous integration and deployment platform
 type: system-design-problem
 difficulty: intermediate
 reading_time: 50 min
+prerequisites: 
+status: complete
+last_updated: 2025-08-04
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
+---
+
+# Design a CI/CD Pipeline System
+
+
+
+## Overview
+
+Design a CI/CD Pipeline System
+description: Build a scalable continuous integration and deployment platform
+type: system-design-problem
+difficulty: intermediate
+reading_time: 50 min
 prerequisites:
 - pattern-library/event-driven-architecture
 - pattern-library/containerization
@@ -13,6 +32,78 @@ last_updated: 2025-08-04
 ---
 
 # Design a CI/CD Pipeline System
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Scalability Challenges](#scalability-challenges)
+  - [Security Requirements](#security-requirements)
+  - [Multi-Environment Complexity](#multi-environment-complexity)
+  - [Integration Requirements](#integration-requirements)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Services Architecture](#core-services-architecture)
+    - [1. Pipeline Service](#1-pipeline-service)
+    - [2.
+
+**Reading time:** ~10 minutes
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Scalability Challenges](#scalability-challenges)
+  - [Security Requirements](#security-requirements)
+  - [Multi-Environment Complexity](#multi-environment-complexity)
+  - [Integration Requirements](#integration-requirements)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Services Architecture](#core-services-architecture)
+    - [1. Pipeline Service](#1-pipeline-service)
+    - [2. Build Service](#2-build-service)
+    - [3. Deployment Service](#3-deployment-service)
+  - [Data Models](#data-models)
+    - [Pipeline Configuration Schema](#pipeline-configuration-schema)
+    - [Build and Deployment Schema](#build-and-deployment-schema)
+    - [Monitoring and Metrics Schema](#monitoring-and-metrics-schema)
+- [Relevant Patterns from Pattern Library](#relevant-patterns-from-pattern-library)
+  - [Core Patterns](#core-patterns)
+    - [1. Event-Driven Architecture](#1-event-driven-architecture)
+    - [2. Job Queue Pattern](#2-job-queue-pattern)
+    - [3. Circuit Breaker](#3-circuit-breaker)
+    - [4. Bulkhead Pattern](#4-bulkhead-pattern)
+  - [Supporting Patterns](#supporting-patterns)
+    - [5. Saga Pattern](#5-saga-pattern)
+    - [6. Database Sharding](#6-database-sharding)
+    - [7. Caching](#7-caching)
+- [Common Pitfalls to Avoid](#common-pitfalls-to-avoid)
+  - [1. Build Queue Bottlenecks](#1-build-queue-bottlenecks)
+  - [2. Artifact Storage Explosion](#2-artifact-storage-explosion)
+  - [3. Secrets Management Security](#3-secrets-management-security)
+  - [4. Pipeline Configuration Complexity](#4-pipeline-configuration-complexity)
+  - [5. Deployment Rollback Challenges](#5-deployment-rollback-challenges)
+- [What Interviewers Look For](#what-interviewers-look-for)
+  - [System Design Fundamentals (30%)](#system-design-fundamentals-30)
+  - [CI/CD Domain Knowledge (25%)](#cicd-domain-knowledge-25)
+  - [Operational Excellence (25%)](#operational-excellence-25)
+  - [Integration Complexity (20%)](#integration-complexity-20)
+- [Advanced Follow-up Questions](#advanced-follow-up-questions)
+  - [Multi-Cloud Deployments](#multi-cloud-deployments)
+  - [Pipeline Security](#pipeline-security)
+  - [Large-Scale Build Optimization](#large-scale-build-optimization)
+  - [GitOps Integration](#gitops-integration)
+- [Key Metrics to Monitor](#key-metrics-to-monitor)
+  - [Pipeline Performance Metrics](#pipeline-performance-metrics)
+  - [Resource Utilization Metrics](#resource-utilization-metrics)
+  - [Quality and Reliability Metrics](#quality-and-reliability-metrics)
+  - [Business Impact Metrics](#business-impact-metrics)
+
+
 
 ## Problem Statement
 

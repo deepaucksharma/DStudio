@@ -5,6 +5,52 @@ description: Event streaming, message queues, and distributed data processing pl
 
 # Messaging & Streaming Systems
 
+## Table of Contents
+
+- [Overview](#overview)
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Case Studies](#-case-studies)
+  - [📊 Stream Processing Platforms](#-stream-processing-platforms)
+    - [**[Apache Kafka](kafka.md)**](#apache-kafkakafkamd)
+    - [**[Apache Spark](apache-spark.md)**](#apache-sparkapache-sparkmd)
+    - [**[MapReduce](mapreduce.md)**](#mapreducemapreducemd)
+  - [🔄 Message Queue Systems](#-message-queue-systems)
+    - [**[Distributed Message Queue](distributed-message-queue.md)**](#distributed-message-queuedistributed-message-queuemd)
+  - [🎬 Media Streaming](#-media-streaming)
+    - [**[Netflix Streaming Platform](netflix-streaming.md)**  ](#netflix-streaming-platformnetflix-streamingmd-)
+  - [⚡ Architecture Evolution](#-architecture-evolution)
+    - [**[Batch to Streaming Migration](batch-to-streaming.md)**](#batch-to-streaming-migrationbatch-to-streamingmd)
+    - [**[Event-Driven Architecture](polling-to-event-driven.md)**](#event-driven-architecturepolling-to-event-drivenmd)
+- [🔄 Progressive Learning Path](#-progressive-learning-path)
+  - [Foundation Track (Beginner)](#foundation-track-beginner)
+  - [Intermediate Track](#intermediate-track)
+  - [Advanced Track  ](#advanced-track-)
+  - [Expert Track](#expert-track)
+- [🏗️ Messaging & Streaming Patterns](#-messaging-streaming-patterns)
+  - [Message Delivery Semantics](#message-delivery-semantics)
+  - [Stream Processing Patterns](#stream-processing-patterns)
+  - [Ordering & Partitioning](#ordering-partitioning)
+  - [Fault Tolerance](#fault-tolerance)
+- [📊 Streaming Platform Scale Comparison](#-streaming-platform-scale-comparison)
+- [🔗 Cross-References](#-cross-references)
+  - [Related Patterns](#related-patterns)
+  - [Quantitative Analysis  ](#quantitative-analysis-)
+  - [Human Factors](#human-factors)
+- [🎯 Streaming Success Metrics](#-streaming-success-metrics)
+  - [Throughput Metrics](#throughput-metrics)
+  - [Latency Metrics](#latency-metrics)
+  - [Reliability Metrics](#reliability-metrics)
+  - [Resource Metrics](#resource-metrics)
+- [🚀 Common Streaming Challenges](#-common-streaming-challenges)
+  - [Challenge: Exactly-Once Processing](#challenge-exactly-once-processing)
+  - [Challenge: Backpressure Management](#challenge-backpressure-management)
+  - [Challenge: Late-Arriving Data](#challenge-late-arriving-data)
+  - [Challenge: Schema Evolution](#challenge-schema-evolution)
+  - [Challenge: Multi-Tenancy](#challenge-multi-tenancy)
+  - [Challenge: Operational Complexity  ](#challenge-operational-complexity-)
+
+
+
 Event-driven architectures and stream processing systems that handle trillions of messages daily.
 
 ## Overview

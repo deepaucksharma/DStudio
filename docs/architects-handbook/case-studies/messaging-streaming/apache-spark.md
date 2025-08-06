@@ -47,6 +47,46 @@ excellence_guides:
 
 # Apache Spark: Unified Analytics Engine at Scale
 
+## Table of Contents
+
+- [Why Spark Matters](#why-spark-matters)
+- [Architecture Overview](#architecture-overview)
+- [Core Innovation: RDD Abstraction](#core-innovation-rdd-abstraction)
+  - [Resilient Distributed Datasets](#resilient-distributed-datasets)
+  - [RDD Lineage (Fault Tolerance)](#rdd-lineage-fault-tolerance)
+- [Execution Model](#execution-model)
+  - [DAG Construction and Optimization](#dag-construction-and-optimization)
+  - [Task Execution](#task-execution)
+- [Evolution: From RDD to DataFrames to Datasets](#evolution-from-rdd-to-dataframes-to-datasets)
+  - [API Evolution](#api-evolution)
+  - [Catalyst Optimizer](#catalyst-optimizer)
+- [Unified Engine: Batch + Streaming](#unified-engine-batch-streaming)
+  - [Structured Streaming](#structured-streaming)
+  - [Processing Model Comparison](#processing-model-comparison)
+- [Production Patterns](#production-patterns)
+  - [Dynamic Resource Allocation](#dynamic-resource-allocation)
+  - [Memory Management](#memory-management)
+  - [Optimization Techniques](#optimization-techniques)
+- [Real-World Use Cases](#real-world-use-cases)
+  - [Netflix: Content Recommendations](#netflix-content-recommendations)
+  - [Uber: Real-time Analytics](#uber-real-time-analytics)
+- [Performance Tuning](#performance-tuning)
+  - [Common Performance Issues](#common-performance-issues)
+  - [Shuffle Optimization](#shuffle-optimization)
+- [Modern Enhancements](#modern-enhancements)
+  - [Adaptive Query Execution (3.0+)](#adaptive-query-execution-30)
+  - [GPU Acceleration](#gpu-acceleration)
+- [Lessons Learned](#lessons-learned)
+  - [What Made Spark Successful](#what-made-spark-successful)
+  - [Common Pitfalls](#common-pitfalls)
+- [Decision Framework](#decision-framework)
+  - [When to Use Spark](#when-to-use-spark)
+- [Key Takeaways](#key-takeaways)
+- [Related Topics](#related-topics)
+- [References](#references)
+
+
+
 !!! abstract "The Spark Story"
     **🎯 Single Achievement**: Made big data processing 100x faster
     **📊 Scale**: Alibaba: 100PB+ data, 10,000+ nodes

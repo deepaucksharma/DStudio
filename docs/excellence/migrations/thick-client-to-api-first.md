@@ -116,7 +116,7 @@ api_design_approach:
 ### Week 5-6: Business Logic Extraction
 
 ```python
-# Before: Business logic in thick client
+## Before: Business logic in thick client
 class ThickClientOrderProcessor:
     def __init__(self):
         self.db = DirectDatabaseConnection()
@@ -143,7 +143,7 @@ class ThickClientOrderProcessor:
             (order_data['id'], total, customer['id'])
         )
 
-# After: Business logic in API
+## After: Business logic in API
 class OrderAPIService:
     def __init__(self):
         self.order_service = OrderService()
@@ -203,7 +203,7 @@ sequenceDiagram
 ### Week 9-10: Progressive Migration
 
 ```python
-# Strangler Fig Pattern Implementation
+## Strangler Fig Pattern Implementation
 class HybridClient:
     def __init__(self):
         self.legacy_processor = LegacyThickClientCode()
@@ -315,7 +315,7 @@ api_aggregation_patterns:
 
 **Solution:**
 ```python
-# Modern JWT-based authentication
+## Modern JWT-based authentication
 class APIAuthenticationMiddleware:
     def __init__(self):
         self.jwt_secret = os.environ['JWT_SECRET']
@@ -357,7 +357,7 @@ class APIAuthenticationMiddleware:
 
 **Solution:**
 ```python
-# Chunked upload implementation
+## Chunked upload implementation
 class FileUploadAPI:
     def __init__(self):
         self.storage = S3Storage()
@@ -490,21 +490,21 @@ performance_benchmarks:
 
 ```bash
 #!/bin/bash
-# emergency-rollback-to-thick-client.sh
+## emergency-rollback-to-thick-client.sh
 
-# 1. Disable new client access
+## 1. Disable new client access
 update-feature-flag.sh --flag=new_client_enabled --value=false
 
-# 2. Route all traffic to legacy infrastructure
+## 2. Route all traffic to legacy infrastructure
 update-load-balancer.sh --backend=legacy_servers
 
-# 3. Notify users
+## 3. Notify users
 send-notification.sh --message="Temporary switch to classic client"
 
-# 4. Restore thick client database access
+## 4. Restore thick client database access
 restore-db-permissions.sh --client=thick_client
 
-# 5. Monitor system stability
+## 5. Monitor system stability
 monitor-legacy-system.sh --duration=24h
 ```
 

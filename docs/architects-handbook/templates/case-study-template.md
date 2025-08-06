@@ -1,4 +1,79 @@
+---
+title: [Company] [System Name] Architecture
+description: Documentation for [Company] [System Name] Architecture
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
 # [Company] [System Name] Architecture
+
+
+
+## Overview
+
+Company] [System Name] Architecture
+
+## Table of Contents
+
+- [At a Glance](#at-a-glance)
+- [The Challenge](#the-challenge)
+- [Architecture Overview](#architecture-overview)
+- [Key Architectural Decisions](#key-architectural-decisions)
+- [Patterns Applied](#patterns-applied)
+- [Evolution Timeline](#evolution-timeline)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring & Observability](#monitoring-observability)
+  - [Incident Response](#incident-response)
+- [Lessons Learned](#lessons-learned)
+  - [What Worked Well ✅](#what-worked-well-)
+  - [What Didn't Work ❌](#what-didnt-work-)
+- [Try It Yourself](#try-it-yourself)
+  - [Minimal Implementation (1 day)](#minimal-implementation-1-day)
+- [docker-compose. Learning Exercise](#learning-exercise)
+- [Deep Dives](#deep-dives)
+- [Related Content](#related-content)
+  - [Similar Architectures](#similar-architectures)
+  - [Patterns to Explore](#patterns-to-explore)
+  - [Further Reading](#further-reading)
+
+
+
+## At a Glance
+
+| Metric | Value | Context |
+|--------|-------|---------|
+| **Scale** | X users/requests | Growth rate, peak loads |
+| **Data Volume** | X TB/PB | Daily growth, retention |
+| **Availability** | 99.
+
+**Reading time:** ~3 minutes
+
+## Table of Contents
+
+- [At a Glance](#at-a-glance)
+- [The Challenge](#the-challenge)
+- [Architecture Overview](#architecture-overview)
+- [Key Architectural Decisions](#key-architectural-decisions)
+- [Patterns Applied](#patterns-applied)
+- [Evolution Timeline](#evolution-timeline)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring & Observability](#monitoring-observability)
+  - [Incident Response](#incident-response)
+- [Lessons Learned](#lessons-learned)
+  - [What Worked Well ✅](#what-worked-well-)
+  - [What Didn't Work ❌](#what-didnt-work-)
+- [Try It Yourself](#try-it-yourself)
+  - [Minimal Implementation (1 day)](#minimal-implementation-1-day)
+- [docker-compose.yml for basic version](#docker-composeyml-for-basic-version)
+  - [Learning Exercise](#learning-exercise)
+- [Deep Dives](#deep-dives)
+- [Related Content](#related-content)
+  - [Similar Architectures](#similar-architectures)
+  - [Patterns to Explore](#patterns-to-explore)
+  - [Further Reading](#further-reading)
+
+
 
 ## At a Glance
 
@@ -144,7 +219,7 @@ timeline
 
 ### Minimal Implementation (1 day)
 ```yaml
-# docker-compose.yml for basic version
+## docker-compose.yml for basic version
 version: '3.8'
 services:
   api:

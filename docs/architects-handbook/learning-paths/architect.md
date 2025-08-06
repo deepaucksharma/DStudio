@@ -1,15 +1,51 @@
 ---
 title: Solution Architect Learning Path
 description: Master distributed systems architecture for designing enterprise-scale
-  solutions
 type: learning-path
 difficulty: expert
 reading_time: 20 min
 status: complete
 last_updated: 2025-07-25
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Solution Architect Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Your Architectural Journey](#-your-architectural-journey)
+  - [Phase 1: Architectural Foundations (1-2 weeks)](#phase-1-architectural-foundations-1-2-weeks)
+  - [Phase 2: Architectural Patterns (3-4 weeks)](#phase-2-architectural-patterns-3-4-weeks)
+    - [Week 3-4: Foundation Patterns](#week-3-4-foundation-patterns)
+    - [Week 5-6: Advanced Patterns](#week-5-6-advanced-patterns)
+  - [Phase 3: Reference Architectures (3-4 weeks)](#phase-3-reference-architectures-3-4-weeks)
+    - [Week 7-8: Industry Architectures](#week-7-8-industry-architectures)
+    - [Week 9-10: Design Deep Dives](#week-9-10-design-deep-dives)
+  - [Phase 4: Architectural Decision Making (2-3 weeks)](#phase-4-architectural-decision-making-2-3-weeks)
+    - [Week 11: Technology Selection](#week-11-technology-selection)
+    - [Week 12: Cost Optimization](#week-12-cost-optimization)
+  - [Phase 5: Enterprise Architecture (2-3 weeks)](#phase-5-enterprise-architecture-2-3-weeks)
+    - [Week 13-14: Enterprise Patterns](#week-13-14-enterprise-patterns)
+    - [Week 15: Governance & Standards](#week-15-governance-standards)
+- [📊 Architect's Toolkit](#-architects-toolkit)
+  - [Design Documentation](#design-documentation)
+  - [Evaluation Frameworks](#evaluation-frameworks)
+- [🏆 Architectural Excellence](#-architectural-excellence)
+  - [Design Principles](#design-principles)
+  - [Communication Skills](#communication-skills)
+- [📚 Architect Resources](#-architect-resources)
+  - [Essential Books](#essential-books)
+  - [Certifications](#certifications)
+  - [Communities](#communities)
+- [💡 Architectural Wisdom](#-architectural-wisdom)
+- [🚀 Career Progression](#-career-progression)
+- [⏱️ Time Investment](#-time-investment)
+
+
 
 !!! abstract "Architect at Scale"
  This path is designed for architects who design and oversee large-scale distributed systems. You'll master the art of making architectural decisions that balance technical excellence with business needs.

@@ -36,6 +36,41 @@ best_for:
 
 # URL Shortener Service
 
+## Table of Contents
+
+- [Challenge Statement](#challenge-statement)
+- [System Architecture Overview](#system-architecture-overview)
+- [Part 1: Concept Map](#part-1-concept-map)
+  - [🗺 System Overview](#system-overview)
+  - [Scale Visualization](#scale-visualization)
+  - [Law Analysis](#law-analysis)
+  - [URL Creation Flow](#url-creation-flow)
+  - [ID Generation Strategies](#id-generation-strategies)
+  - [Database Schema Design](#database-schema-design)
+  - [Stream Processing Architecture](#stream-processing-architecture)
+  - [Data Flow Optimization](#data-flow-optimization)
+  - [Real-time Analytics Dashboard](#real-time-analytics-dashboard)
+  - [Cost Analysis Deep Dive](#cost-analysis-deep-dive)
+  - [Traffic-based Cost Scaling](#traffic-based-cost-scaling)
+  - [Comprehensive Law Mapping](#comprehensive-law-mapping)
+  - [🏛 Pillar Mapping](#pillar-mapping)
+  - [Pattern Application](#pattern-application)
+  - [Architecture Alternatives](#architecture-alternatives)
+  - [Trade-off Analysis Matrix](#trade-off-analysis-matrix)
+  - [Performance Comparison](#performance-comparison)
+  - [Monitoring Architecture](#monitoring-architecture)
+  - [Alert Configuration](#alert-configuration)
+- [Part 2: Architecture & Trade-offs](#part-2-architecture-trade-offs)
+  - [Core Architecture](#core-architecture)
+  - [Key Design Trade-offs](#key-design-trade-offs)
+  - [Alternative Architectures](#alternative-architectures)
+  - [Performance Characteristics](#performance-characteristics)
+  - [System Evolution Roadmap](#system-evolution-roadmap)
+  - [Success Metrics Dashboard](#success-metrics-dashboard)
+  - [🎓 Key Lessons](#key-lessons)
+  - [🔗 Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 References](#references)
+
 ## Challenge Statement
 Design a URL shortening service capable of handling billions of URLs, providing sub-50ms redirects globally, supporting custom aliases, detailed analytics, spam detection, and graceful handling of expired or malicious links.
 

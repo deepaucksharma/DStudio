@@ -1,9 +1,118 @@
 ---
 title: Decision Making
 description: Decision Making overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # First Principle #2: Decision-Making
+
+## Table of Contents
+
+- [Definition](#definition)
+- [The Anatomy of Engineering Decisions](#the-anatomy-of-engineering-decisions)
+  - [Types of Decisions](#types-of-decisions)
+- [Real-World Decision-Making Stories](#real-world-decision-making-stories)
+  - [Case Study 1: The AWS S3 "Eventually Consistent" Decision That Changed Everything](#case-study-1-the-aws-s3-eventually-consistent-decision-that-changed-everything)
+  - [Case Study 2: Instagram's "No Android" Decision - When Timing Trumps Features](#case-study-2-instagrams-no-android-decision-when-timing-trumps-features)
+  - [Case Study 3: Slack's Database Migration - The $10M Weekend Decision](#case-study-3-slacks-database-migration-the-10m-weekend-decision)
+- [Distributed Decision-Making Systems](#distributed-decision-making-systems)
+  - [The Modern Reality: Decision Distribution](#the-modern-reality-decision-distribution)
+  - [Team Topologies for Decision Rights](#team-topologies-for-decision-rights)
+- [Core Decision-Making Frameworks](#core-decision-making-frameworks)
+  - [1. The RAPID Framework (Bain & Company)](#1-the-rapid-framework-bain-company)
+  - [2. The ICE Prioritization Model](#2-the-ice-prioritization-model)
+  - [3. The Cynefin Framework](#3-the-cynefin-framework)
+  - [4. Decision Frameworks That Enable Autonomy](#4-decision-frameworks-that-enable-autonomy)
+- [Decision Velocity vs. Decision Quality](#decision-velocity-vs-decision-quality)
+  - [The Speed-Quality Trade-off](#the-speed-quality-trade-off)
+  - [Optimizing for Learning](#optimizing-for-learning)
+- [Common Decision-Making Anti-Patterns](#common-decision-making-anti-patterns)
+  - [1. Analysis Paralysis](#1-analysis-paralysis)
+  - [2. Decision by Committee](#2-decision-by-committee)
+  - [3. HiPPO (Highest Paid Person's Opinion)](#3-hippo-highest-paid-persons-opinion)
+  - [4. Decision Cycling](#4-decision-cycling)
+- [Building Decision-Making Systems](#building-decision-making-systems)
+  - [1. Architecture Decision Records (ADRs)](#1-architecture-decision-records-adrs)
+- [ADR-023: Migrate to Event Sourcing for Order Service](#adr-023-migrate-to-event-sourcing-for-order-service)
+- [Status](#status)
+- [Context](#context)
+- [Decision](#decision)
+- [Alternatives Considered](#alternatives-considered)
+- [Consequences](#consequences)
+  - [Positive](#positive)
+  - [Negative](#negative)
+  - [Neutral](#neutral)
+- [Implementation Plan](#implementation-plan)
+- [Success Metrics](#success-metrics)
+- [Review Date](#review-date)
+- [Related ADRs](#related-adrs)
+  - [2. Request for Comments (RFC) Process](#2-request-for-comments-rfc-process)
+- [RFC: Standardize API Authentication Across Services](#rfc-standardize-api-authentication-across-services)
+- [Summary](#summary)
+- [Motivation](#motivation)
+- [Detailed Design](#detailed-design)
+  - [Authentication Flow](#authentication-flow)
+  - [Migration Strategy](#migration-strategy)
+  - [Backward Compatibility](#backward-compatibility)
+- [Alternatives Considered](#alternatives-considered)
+- [Unresolved Questions](#unresolved-questions)
+- [Timeline](#timeline)
+- [Stakeholders](#stakeholders)
+  - [3. The Enhanced Decision Journal](#3-the-enhanced-decision-journal)
+- [Decision: [Title] - [Date]](#decision-title-date)
+  - [Context & Constraints](#context-constraints)
+  - [Options Analysis](#options-analysis)
+  - [Decision Framework Applied](#decision-framework-applied)
+  - [Decision Made](#decision-made)
+  - [Success Criteria](#success-criteria)
+  - [Risk Mitigation](#risk-mitigation)
+  - [Review & Learning](#review-learning)
+  - [2. The Pre-Mortem Technique](#2-the-pre-mortem-technique)
+  - [3. The Options Framework](#3-the-options-framework)
+- [Decision-Making in Different Contexts](#decision-making-in-different-contexts)
+  - [Technical Architecture Decisions](#technical-architecture-decisions)
+- [ADR-001: Microservices Migration](#adr-001-microservices-migration)
+- [Status](#status)
+- [Context](#context)
+- [Decision](#decision)
+- [Consequences](#consequences)
+  - [People Decisions](#people-decisions)
+  - [Resource Allocation Decisions](#resource-allocation-decisions)
+- [Psychological Factors in Decision-Making](#psychological-factors-in-decision-making)
+  - [Cognitive Biases to Counter](#cognitive-biases-to-counter)
+  - [Building Psychological Safety for Decisions](#building-psychological-safety-for-decisions)
+- [Measuring Decision-Making Effectiveness](#measuring-decision-making-effectiveness)
+  - [Leading Indicators](#leading-indicators)
+  - [Lagging Indicators](#lagging-indicators)
+- [Decision-Making in Crisis](#decision-making-in-crisis)
+  - [The OODA Loop (Observe, Orient, Decide, Act)](#the-ooda-loop-observe-orient-decide-act)
+  - [Crisis Decision Principles](#crisis-decision-principles)
+- [Interview Applications](#interview-applications)
+  - [The Decision Story Structure](#the-decision-story-structure)
+  - [Power Phrases for Interviews](#power-phrases-for-interviews)
+- [Developing Your Decision-Making Skills](#developing-your-decision-making-skills)
+  - [Daily Practice](#daily-practice)
+  - [Weekly Reflection](#weekly-reflection)
+  - [Monthly Upgrades](#monthly-upgrades)
+- [Decision-Making in Remote-First Organizations](#decision-making-in-remote-first-organizations)
+  - [Async-First Decision Making](#async-first-decision-making)
+  - [Decision Velocity in Distributed Teams](#decision-velocity-in-distributed-teams)
+- [Connection to Other Principles](#connection-to-other-principles)
+- [Application in Other Levels](#application-in-other-levels)
+  - [Level II: Core Business Concepts](#level-ii-core-business-concepts)
+  - [Level III: Engineering Applications](#level-iii-engineering-applications)
+  - [Level IV: Interview Execution](#level-iv-interview-execution)
+- [The Decision-Making Interview Toolkit](#the-decision-making-interview-toolkit)
+  - [Five Essential Decision Stories to Prepare](#five-essential-decision-stories-to-prepare)
+  - [Decision-Making Power Phrases for Interviews](#decision-making-power-phrases-for-interviews)
+  - [The "Decision Archaeology" Exercise](#the-decision-archaeology-exercise)
+- [Next Steps](#next-steps)
+  - [Implementation Roadmap](#implementation-roadmap)
+  - [Modern Decision-Making Toolkit](#modern-decision-making-toolkit)
+
+
 
 > "In any moment of decision, the best thing you can do is the right thing, the next best thing is the wrong thing, and the worst thing you can do is nothing." - Theodore Roosevelt
 
@@ -313,7 +422,7 @@ graph LR
 
 **ADR Template**:
 ```markdown
-# ADR-023: Migrate to Event Sourcing for Order Service
+## ADR-023: Migrate to Event Sourcing for Order Service
 
 ## Status
 Accepted - 2024-01-15
@@ -383,7 +492,7 @@ Implement Event Sourcing pattern for order management
 
 **RFC Template**:
 ```markdown
-# RFC: Standardize API Authentication Across Services
+## RFC: Standardize API Authentication Across Services
 
 ## Summary
 Propose OAuth 2.0 + JWT standard for all internal APIs
@@ -500,7 +609,7 @@ Always generate at least three options:
 
 **Framework**: Architecture Decision Records (ADRs)
 ```markdown
-# ADR-001: Microservices Migration
+## ADR-001: Microservices Migration
 
 ## Status
 Accepted

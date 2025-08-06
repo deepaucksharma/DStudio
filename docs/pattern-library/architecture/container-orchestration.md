@@ -182,7 +182,7 @@ graph TB
 #### Basic Kubernetes Example
 
 ```yaml
-# Complete microservice deployment with orchestration features
+## Complete microservice deployment with orchestration features
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -305,7 +305,7 @@ spec:
 ### Advanced Orchestration Patterns
 
 ```python
-# Python operator for advanced container orchestration
+## Python operator for advanced container orchestration
 import asyncio
 import kubernetes
 from kubernetes import client, config, watch
@@ -571,7 +571,7 @@ class AdvancedOrchestrator:
             'response_time': max(200 / multiplier + random.uniform(-50, 100), 50)
         }
 
-# Usage example
+## Usage example
 async def main():
     orchestrator = AdvancedOrchestrator()
     
@@ -583,8 +583,8 @@ async def main():
     
     await asyncio.gather(*tasks)
 
-# Run the orchestrator
-# asyncio.run(main())
+## Run the orchestrator
+## asyncio.run(main())
 ```
 
 ### Production Considerations

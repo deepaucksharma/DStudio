@@ -228,7 +228,7 @@ graph TD
 
 ### ADR Template
 ```
-# Title: Short noun phrase
+## Title: Short noun phrase
 
 ## Status
 [Proposed | Accepted | Deprecated | Superseded]

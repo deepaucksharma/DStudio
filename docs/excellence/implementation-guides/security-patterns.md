@@ -1,6 +1,6 @@
 ---
-title: Security Patterns Guide: Building Secure Distributed Systems
-description: ```mermaid graph TD A[Security Layers] --> B[Network Security] A --> C[Application Security] A --> D[Data Security]
+title: "Security Patterns Guide: Building Secure Distributed Systems"
+description: "Comprehensive security patterns for distributed systems with defense-in-depth, zero-trust architecture, and threat modeling frameworks."
 type: guide
 ---
 
@@ -510,3 +510,5 @@ class SecurityMonitor:
 - [Service Mesh Pattern](../../pattern-library/communication/service-mesh/) (Gold)
 - [Valet Key Pattern](../../pattern-library/architecture/valet-key/)
 - [Security Best Practices](../reference/security.md)
+```
+```

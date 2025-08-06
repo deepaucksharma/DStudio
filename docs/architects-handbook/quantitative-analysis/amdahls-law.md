@@ -1,6 +1,25 @@
 ---
 title: Amdahl & Gustafson Laws
 description: Laws governing parallel computing speedup - understanding the limits
+type: quantitative
+difficulty: intermediate
+reading_time: 40 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Amdahl & Gustafson Laws
+
+
+
+## Overview
+
+Amdahl & Gustafson Laws
+description: Laws governing parallel computing speedup - understanding the limits
   of parallelization and scalability
 type: quantitative
 difficulty: intermediate
@@ -12,6 +31,105 @@ last_updated: 2025-07-20
 
 
 # Amdahl & Gustafson Laws
+
+## Table of Contents
+
+- [Examples](#examples)
+  - [Example 1: 95% Parallelizable](#example-1-95-parallelizable)
+  - [Quick Examples](#quick-examples)
+- [Web request: 10ms auth + 90ms queries + 10ms format](#web-request-10ms-auth-90ms-queries-10ms-format)
+- [Data pipeline: 5% read + 80% transform + 10% aggregate + 5% write](#data-pipeline-5-read-80-transform-10-aggregate-5-write)
+- [Gustafson's Law](#gustafsons-law)
+- [Examples](#examples)
+  - [Quick Examples](#quick-examples)
+- [Image: 100x100 vs 1000x1000](#image-100x100-vs-1000x1000)
+- [Database: 1GB vs 1TB](#database-1gb-vs-1tb)
+- [Applying Both Laws](#applying-both-laws)
+  - [Real Example: Video Encoding](#real-example-video-encoding)
+- [Real-World Patterns](#real-world-patterns)
+- [Microservices: 1000ms → 190ms (5x speedup)](#microservices-1000ms-190ms-5x-speedup)
+- [Sharding: 100ms → 20ms with 10 shards (5x)](#sharding-100ms-20ms-with-10-shards-5x)
+- [MapReduce: Scales well for large data, poor for small](#mapreduce-scales-well-for-large-data-poor-for-small)
+- [Optimization Strategies](#optimization-strategies)
+- [Breaking Limits](#breaking-limits)
+- [Practical Guidelines](#practical-guidelines)
+  - [Choosing Parallelization Strategy](#choosing-parallelization-strategy)
+  - [Investment Decision](#investment-decision)
+- [Key Takeaways](#key-takeaways)
+
+
+
+**The limits of parallelization**
+
+! Amdahl's Law Formula"
+
+ <div>
+ <div>
+ <h3>$$\text{Speedup} = \frac{1}{s + p/n}$$</h3>
+ 
+ <table class="responsive-table">
+ <thead>
+ <tr>
+ <th>Variable</th>
+ <th>Meaning</th>
+ <th>Constraint</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td data-label="Variable"><strong>s</strong></td>
+ <td data-label="Meaning">Serial fraction (can't parallelize)</td>
+ <td data-label="Constraint">0 ≤ s ≤ 1</td>
+ </tr>
+ <tr>
+ <td data-label="Variable"><strong>p</strong></td>
+ <td data-label="Meaning">Parallel fraction (can parallelize)</td>
+ <td data-label="Constraint">0 ≤ p ≤ 1</td>
+ </tr>
+ <tr>
+ <td data-label="Variable"><strong>n</strong></td>
+ <td data-label="Meaning">Number of processors</td>
+ <td data-label="Constraint">n ≥ 1</td>
+ </tr>
+ <tr>
+ <td data-label="Variable"><strong>s + p</strong></td>
+ <td data-label="Meaning">Total work</td>
+ <td data-label="Constraint">= 1</td>
+ </tr>
+ </tbody>
+</table>
+ 
+ <div>
+ <strong>💡 Key Insight:</strong> Serial bottlenecks dominate - even 5% serial work limits speedup to 20x maximum!
+
+**Reading time:** ~14 minutes
+
+## Table of Contents
+
+- [Examples](#examples)
+  - [Example 1: 95% Parallelizable](#example-1-95-parallelizable)
+  - [Quick Examples](#quick-examples)
+- [Web request: 10ms auth + 90ms queries + 10ms format](#web-request-10ms-auth-90ms-queries-10ms-format)
+- [Data pipeline: 5% read + 80% transform + 10% aggregate + 5% write](#data-pipeline-5-read-80-transform-10-aggregate-5-write)
+- [Gustafson's Law](#gustafsons-law)
+- [Examples](#examples)
+  - [Quick Examples](#quick-examples)
+- [Image: 100x100 vs 1000x1000](#image-100x100-vs-1000x1000)
+- [Database: 1GB vs 1TB](#database-1gb-vs-1tb)
+- [Applying Both Laws](#applying-both-laws)
+  - [Real Example: Video Encoding](#real-example-video-encoding)
+- [Real-World Patterns](#real-world-patterns)
+- [Microservices: 1000ms → 190ms (5x speedup)](#microservices-1000ms-190ms-5x-speedup)
+- [Sharding: 100ms → 20ms with 10 shards (5x)](#sharding-100ms-20ms-with-10-shards-5x)
+- [MapReduce: Scales well for large data, poor for small](#mapreduce-scales-well-for-large-data-poor-for-small)
+- [Optimization Strategies](#optimization-strategies)
+- [Breaking Limits](#breaking-limits)
+- [Practical Guidelines](#practical-guidelines)
+  - [Choosing Parallelization Strategy](#choosing-parallelization-strategy)
+  - [Investment Decision](#investment-decision)
+- [Key Takeaways](#key-takeaways)
+
+
 
 **The limits of parallelization**
 
@@ -185,10 +303,10 @@ last_updated: 2025-07-20
 
 ### Quick Examples
 ```python
-# Web request: 10ms auth + 90ms queries + 10ms format
+## Web request: 10ms auth + 90ms queries + 10ms format
 Serial = 20/110 = 18% → Max speedup = 5.5x
 
-# Data pipeline: 5% read + 80% transform + 10% aggregate + 5% write
+## Data pipeline: 5% read + 80% transform + 10% aggregate + 5% write
 Serial = 10% → Max speedup = 10x (even with 1000 cores!)
 ```
 
@@ -261,11 +379,11 @@ Serial = 10% → Max speedup = 10x (even with 1000 cores!)
 
 ### Quick Examples
 ```python
-# Image: 100x100 vs 1000x1000
+## Image: 100x100 vs 1000x1000
 Small: 10ms setup + 100ms process = 9% serial
 Large: 10ms setup + 10,000ms process = 0.1% serial
 
-# Database: 1GB vs 1TB
+## Database: 1GB vs 1TB
 Small: 17% serial (100+100 of 1200ms)
 Large: 0.01% serial (bigger data scales better!)
 ```
@@ -377,9 +495,9 @@ Large: 0.01% serial (bigger data scales better!)
 ## Real-World Patterns
 
 ```python
-# Microservices: 1000ms → 190ms (5x speedup)
-# Sharding: 100ms → 20ms with 10 shards (5x)
-# MapReduce: Scales well for large data, poor for small
+## Microservices: 1000ms → 190ms (5x speedup)
+## Sharding: 100ms → 20ms with 10 shards (5x)
+## MapReduce: Scales well for large data, poor for small
 ```
 
 ## Optimization Strategies

@@ -165,7 +165,7 @@ class PaymentSaga:
 
     async def execute_payment(self, payment_request):
         try:
-# Step 1: Validate and Lock Funds
+## Step 1: Validate and Lock Funds
             validation_result = await self.validate_and_lock(
                 payment_request
             )
@@ -173,13 +173,13 @@ class PaymentSaga:
                 lambda: self.unlock_funds(payment_request.sender)
             )
 
-# Step 2: Fraud Check
+## Step 2: Fraud Check
             fraud_result = await self.check_fraud(payment_request)
             if fraud_result.is_suspicious:
                 await self.compensate()
                 return PaymentResult.REJECTED
 
-# Step 3: Compliance Check
+## Step 3: Compliance Check
             compliance_result = await self.check_compliance(
                 payment_request
             )
@@ -187,7 +187,7 @@ class PaymentSaga:
                 await self.compensate()
                 return PaymentResult.COMPLIANCE_FAILED
 
-# Step 4: Execute Transfer
+## Step 4: Execute Transfer
             transfer_result = await self.execute_transfer(
                 payment_request
             )
@@ -195,20 +195,20 @@ class PaymentSaga:
                 lambda: self.reverse_transfer(transfer_result.id)
             )
 
-# Step 5: Update Balances
+## Step 5: Update Balances
             await self.update_balances(payment_request)
 
-# Step 6: Send Notifications
+## Step 6: Send Notifications
             await self.send_notifications(payment_request)
 
-# Success - Clear compensations
+## Success - Clear compensations
             self.state = "COMPLETED"
             self.compensations.clear()
 
             return PaymentResult.SUCCESS
 
         except Exception as e:
-# Failure - Run compensations
+## Failure - Run compensations
             await self.compensate()
             self.state = "FAILED"
             raise
@@ -219,7 +219,7 @@ class PaymentSaga:
             try:
                 await compensation()
             except Exception as e:
-# Log but continue compensating
+## Log but continue compensating
                 log.error(f"Compensation failed: {e}")
 ```
 
@@ -231,28 +231,28 @@ class IdempotentPaymentProcessor:
         self.processed_requests = {}  # In practice, distributed cache
 
     async def process_payment(self, request):
-# Generate idempotency key
+## Generate idempotency key
         idempotency_key = self.generate_key(request)
 
-# Check if already processed
+## Check if already processed
         if idempotency_key in self.processed_requests:
             return self.processed_requests[idempotency_key]
 
-# Acquire distributed lock
+## Acquire distributed lock
         lock = await self.acquire_lock(idempotency_key)
         if not lock:
-# Another instance is processing
+## Another instance is processing
             return await self.wait_for_result(idempotency_key)
 
         try:
-# Double-check after acquiring lock
+## Double-check after acquiring lock
             if idempotency_key in self.processed_requests:
                 return self.processed_requests[idempotency_key]
 
-# Process payment
+## Process payment
             result = await self.execute_payment(request)
 
-# Store result
+## Store result
             self.processed_requests[idempotency_key] = result
             await self.persist_result(idempotency_key, result)
 
@@ -285,14 +285,14 @@ class PaymentEvent:
 
 class EventStore:
     async def append_event(self, event: PaymentEvent):
-# Atomic append with ordering guarantee
+## Atomic append with ordering guarantee
         await self.storage.append(
             partition_key=event.saga_id,
             event=event,
             expected_version=self.get_version(event.saga_id)
         )
 
-# Publish to event bus
+## Publish to event bus
         await self.event_bus.publish(event)
 
     async def get_payment_history(self, payment_id: str):
@@ -317,33 +317,33 @@ class PaymentOrchestrator:
         self.timeout_manager = TimeoutManager()
 
     async def orchestrate_payment(self, payment_id: str):
-# Load current state
+## Load current state
         state = await self.load_state(payment_id)
 
-# Determine next actions
+## Determine next actions
         actions = self.state_machine.get_next_actions(state)
 
-# Execute actions in parallel where possible
+## Execute actions in parallel where possible
         results = await asyncio.gather(*[
             self.execute_action(action) for action in actions
             if action.can_run_parallel
         ])
 
-# Execute sequential actions
+## Execute sequential actions
         for action in actions:
             if not action.can_run_parallel:
                 result = await self.execute_action(action)
                 if not result.success:
                     await self.handle_failure(action, result)
 
-# Update state
+## Update state
         new_state = self.state_machine.transition(
             state,
             results
         )
         await self.save_state(payment_id, new_state)
 
-# Set timeout for next step
+## Set timeout for next step
         if not new_state.is_terminal:
             await self.timeout_manager.set_timeout(
                 payment_id,
@@ -375,15 +375,15 @@ class PaymentFailureHandler:
         error_type = self.classify_error(error)
 
         if error_type == 'business_error':
-# No retry for business logic errors
+## No retry for business logic errors
             return FailureResult.ABORT
 
         if error_type == 'insufficient_funds':
-# Specific handling for common cases
+## Specific handling for common cases
             await self.notify_user_insufficient_funds(context)
             return FailureResult.USER_ACTION_REQUIRED
 
-# Get retry policy
+## Get retry policy
         retry_policy = self.retry_policies.get(
             error_type,
             self.default_retry_policy
@@ -394,7 +394,7 @@ class PaymentFailureHandler:
             await asyncio.sleep(delay / 1000)  # Convert to seconds
             return FailureResult.RETRY
 
-# Max retries exceeded
+## Max retries exceeded
         await self.escalate_to_manual_review(context)
         return FailureResult.MANUAL_REVIEW
 ```

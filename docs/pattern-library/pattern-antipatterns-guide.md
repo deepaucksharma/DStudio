@@ -129,7 +129,7 @@ graph TD
 <summary>📄 View python code (9 lines)</summary>
 
 ```python
-# ❌ BAD: Multiple synchronous calls
+## ❌ BAD: Multiple synchronous calls
 def get_user_dashboard(user_id):
     user = user_service.get_user(user_id)  # Call 1
     orders = order_service.get_orders(user_id)  # Call 2
@@ -148,7 +148,7 @@ def get_user_dashboard(user_id):
 <details>
 <summary>📄 View async implementation</summary>
 
-# ✅ GOOD: Parallel calls with aggregation
+## ✅ GOOD: Parallel calls with aggregation
 async def get_user_dashboard(user_id):
     # Parallel execution
     user, orders, recs, notifs = await asyncio.gather(
@@ -181,7 +181,7 @@ async def get_user_dashboard(user_id):
 <summary>📄 View python code (7 lines)</summary>
 
 ```python
-# ❌ BAD: Trying to maintain consistency across services
+## ❌ BAD: Trying to maintain consistency across services
 def transfer_money(from_account, to_account, amount):
     # This doesn't work in distributed systems!
     account_service.debit(from_account, amount)
@@ -227,7 +227,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# ✅ GOOD: Saga pattern with compensation
+## ✅ GOOD: Saga pattern with compensation
 class MoneyTransferSaga:
     def execute(self, from_account, to_account, amount):
         saga = SagaOrchestrator()
@@ -260,7 +260,7 @@ class MoneyTransferSaga:
 <summary>📄 View python code (7 lines)</summary>
 
 ```python
-# ❌ BAD: Fetching related data in loops
+## ❌ BAD: Fetching related data in loops
 def get_orders_with_details():
     orders = get_all_orders()  # 1 query
     for order in orders:
@@ -273,7 +273,7 @@ def get_orders_with_details():
 
 **Pattern Fix:**
 ```python
-# ✅ GOOD: Batch fetching or joins
+## ✅ GOOD: Batch fetching or joins
 def get_orders_with_details():
     orders = get_all_orders_with_items_and_customers()  # 1 query with joins
     # Or use DataLoader pattern for batching
@@ -304,7 +304,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# ❌ BAD: Storing state in service memory
+## ❌ BAD: Storing state in service memory
 class ShoppingCartService:
     def __init__(self):
         self.carts = {}  # In-memory state
@@ -323,7 +323,7 @@ class ShoppingCartService:
 <summary>📄 View python code (9 lines)</summary>
 
 ```python
-# ✅ GOOD: External state store
+## ✅ GOOD: External state store
 class ShoppingCartService:
     def __init__(self):
         self.redis = Redis()
@@ -340,7 +340,7 @@ class ShoppingCartService:
 
 **Anti-Pattern:**
 ```python
-# ❌ BAD: Always hitting database
+## ❌ BAD: Always hitting database
 def get_product(product_id):
     return database.query(f"SELECT * FROM products WHERE id = {product_id}")
     # Every request hits DB
@@ -356,7 +356,7 @@ def get_product(product_id):
 
 **Anti-Pattern:**
 ```python
-# ❌ BAD: Unbounded operations
+## ❌ BAD: Unbounded operations
 def fetch_data():
     response = requests.get("http://slow-service/data")
     # Could wait forever!
@@ -373,7 +373,7 @@ def fetch_data():
 <summary>📄 View yaml code (6 lines)</summary>
 
 ```yaml
-# ❌ BAD: No redundancy
+## ❌ BAD: No redundancy
 architecture:
   load_balancer: single_instance
   database: single_master

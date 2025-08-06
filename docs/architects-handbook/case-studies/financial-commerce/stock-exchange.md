@@ -58,6 +58,104 @@ lessons_learned:
 
 # Design a Stock Exchange
 
+## Table of Contents
+
+- [1. Problem Statement](#1-problem-statement)
+  - [Real-World Context](#real-world-context)
+- [Introduction](#introduction)
+- [2. Requirements Analysis](#2-requirements-analysis)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Law Mapping](#law-mapping)
+- [Architecture Evolution](#architecture-evolution)
+  - [Phase 1: Traditional Exchange (1990s)](#phase-1-traditional-exchange-1990s)
+  - [Phase 2: Modern HFT Exchange (Current)](#phase-2-modern-hft-exchange-current)
+- [Concept Map](#concept-map)
+- [Key Design Decisions](#key-design-decisions)
+  - [1. Ultra-Low Latency Architecture](#1-ultra-low-latency-architecture)
+  - [2. Matching Engine Design](#2-matching-engine-design)
+- [Assign deterministic sequence number](#assign-deterministic-sequence-number)
+- [Record input for replay](#record-input-for-replay)
+- [Process based on order type](#process-based-on-order-type)
+- [Try immediate match](#try-immediate-match)
+- [Match against asks](#match-against-asks)
+- [Add remainder to book](#add-remainder-to-book)
+  - [3. Fair Access and Anti-Gaming](#3-fair-access-and-anti-gaming)
+- [Apply speed bump to prevent latency arbitrage](#apply-speed-bump-to-prevent-latency-arbitrage)
+- [Queue order with deterministic processing time](#queue-order-with-deterministic-processing-time)
+- [Process orders in strict time order](#process-orders-in-strict-time-order)
+- [Sort by process time for fairness](#sort-by-process-time-for-fairness)
+  - [4. Market Data Distribution](#4-market-data-distribution)
+- [Technical Deep Dives](#technical-deep-dives)
+  - [High-Precision Time Synchronization](#high-precision-time-synchronization)
+  - [Risk Management System](#risk-management-system)
+- [Parallel risk checks](#parallel-risk-checks)
+- [All checks must pass](#all-checks-must-pass)
+- [Detect potential erroneous orders](#detect-potential-erroneous-orders)
+- [Check if order is >5% away from last trade](#check-if-order-is-5-away-from-last-trade)
+- [Check order value](#check-order-value)
+- [Estimate market impact](#estimate-market-impact)
+  - [Circuit Breakers and Halts](#circuit-breakers-and-halts)
+- [Check if price moved >10% in 5 minutes](#check-if-price-moved-10-in-5-minutes)
+- [Cancel all open orders](#cancel-all-open-orders)
+- [Notify market](#notify-market)
+- [Schedule auction for restart](#schedule-auction-for-restart)
+  - [Order Types and Algorithms](#order-types-and-algorithms)
+- [Performance Optimization](#performance-optimization)
+  - [Memory Layout Optimization](#memory-layout-optimization)
+  - [Zero-Copy Message Processing](#zero-copy-message-processing)
+- [Disaster Recovery](#disaster-recovery)
+  - [Fault Tolerance Architecture](#fault-tolerance-architecture)
+  - [Deterministic Replay](#deterministic-replay)
+- [Record all inputs with nanosecond timestamp](#record-all-inputs-with-nanosecond-timestamp)
+- [Write to multiple locations](#write-to-multiple-locations)
+- [Load system state at checkpoint](#load-system-state-at-checkpoint)
+- [Create new matching engine with checkpoint state](#create-new-matching-engine-with-checkpoint-state)
+- [Replay all messages since checkpoint](#replay-all-messages-since-checkpoint)
+- [Replay in exact same order](#replay-in-exact-same-order)
+- [Verify determinism](#verify-determinism)
+- [Regulatory Compliance](#regulatory-compliance)
+  - [Market Surveillance](#market-surveillance)
+- [Detect large orders that are quickly cancelled](#detect-large-orders-that-are-quickly-cancelled)
+- [Get recent order history](#get-recent-order-history)
+- [Calculate cancellation rate](#calculate-cancellation-rate)
+- [Check for pattern](#check-for-pattern)
+- [Detect trades between related accounts](#detect-trades-between-related-accounts)
+- [Check if accounts are related](#check-if-accounts-are-related)
+- [Check for suspicious pattern](#check-for-suspicious-pattern)
+  - [Audit Trail](#audit-trail)
+- [Monitoring and Operations](#monitoring-and-operations)
+  - [Real-time Metrics](#real-time-metrics)
+  - [Production Safeguards](#production-safeguards)
+- [1. Reject all new orders](#1-reject-all-new-orders)
+- [2. Cancel all open orders](#2-cancel-all-open-orders)
+- [3. Disable all sessions](#3-disable-all-sessions)
+- [4. Publish market close message](#4-publish-market-close-message)
+- [5. Dump state for investigation](#5-dump-state-for-investigation)
+- [6. Notify regulators](#6-notify-regulators)
+- [8. Consistency Deep Dive for Stock Exchanges](#8-consistency-deep-dive-for-stock-exchanges)
+  - [8.1 The Critical Nature of Order Consistency](#81-the-critical-nature-of-order-consistency)
+  - [8.2 Total Order Broadcast for Fair Sequencing](#82-total-order-broadcast-for-fair-sequencing)
+  - [8.3 Consistency Models by Market Function](#83-consistency-models-by-market-function)
+  - [8.4 Best Practices for Exchange Consistency](#84-best-practices-for-exchange-consistency)
+- [Lessons Learned](#lessons-learned)
+  - [1. Determinism is Essential](#1-determinism-is-essential)
+  - [2. Latency Budget Every Nanosecond](#2-latency-budget-every-nanosecond)
+  - [3. Fairness Requires Active Measures](#3-fairness-requires-active-measures)
+  - [4. Test Everything at Scale](#4-test-everything-at-scale)
+  - [5. Human Override Critical](#5-human-override-critical)
+- [Trade-offs and Decisions](#trade-offs-and-decisions)
+- [9. Real-World Patterns and Lessons](#9-real-world-patterns-and-lessons)
+  - [9.1 Knight Capital Disaster (2012)](#91-knight-capital-disaster-2012)
+  - [9.2 NASDAQ Facebook IPO (2012)](#92-nasdaq-facebook-ipo-2012)
+- [10. Alternative Architectures](#10-alternative-architectures)
+  - [10.1 Blockchain-Based Exchange](#101-blockchain-based-exchange)
+  - [10.2 Hybrid Cloud Exchange](#102-hybrid-cloud-exchange)
+- [11. Industry Insights](#11-industry-insights)
+  - [Key Design Principles](#key-design-principles)
+  - [Technology Trends](#technology-trends)
+- [References](#references)
+
 !!! info "Case Study Overview"
     **System**: High-Frequency Trading Exchange  
     **Scale**: 10M+ orders/second, sub-microsecond latency, $100B+ daily volume  
@@ -381,14 +479,14 @@ class DeterministicMatchingEngine:
         self.random_seed = 12345  # Fixed seed for determinism
         
     def process_order(self, order):
-# Assign deterministic sequence number
+## Assign deterministic sequence number
         order.sequence = self.sequence_number
         self.sequence_number += 1
         
-# Record input for replay
+## Record input for replay
         self.audit_log.record_input(order)
         
-# Process based on order type
+## Process based on order type
         if order.type == OrderType.LIMIT:
             return self.process_limit_order(order)
         elif order.type == OrderType.MARKET:
@@ -399,12 +497,12 @@ class DeterministicMatchingEngine:
     def process_limit_order(self, order):
         book = self.order_books[order.symbol]
         
-# Try immediate match
+## Try immediate match
         fills = []
         remaining_qty = order.quantity
         
         if order.side == Side.BUY:
-# Match against asks
+## Match against asks
             while remaining_qty > 0 and book.has_asks():
                 best_ask = book.best_ask()
                 if best_ask.price <= order.price:
@@ -416,7 +514,7 @@ class DeterministicMatchingEngine:
                 else:
                     break
         
-# Add remainder to book
+## Add remainder to book
         if remaining_qty > 0:
             book.add_order(order, remaining_qty)
         
@@ -433,17 +531,17 @@ class FairAccessManager:
         self.participant_queues = {}
         
     def handle_order(self, order, participant_id):
-# Apply speed bump to prevent latency arbitrage
+## Apply speed bump to prevent latency arbitrage
         arrival_time = self.get_hardware_timestamp()
         process_time = arrival_time + self.speed_bump_us
         
-# Queue order with deterministic processing time
+## Queue order with deterministic processing time
         self.participant_queues[participant_id].put(
             (process_time, order)
         )
     
     def process_queued_orders(self):
-# Process orders in strict time order
+## Process orders in strict time order
         all_orders = []
         for queue in self.participant_queues.values():
             while not queue.empty():
@@ -454,7 +552,7 @@ class FairAccessManager:
                     queue.put((process_time, order))
                     break
         
-# Sort by process time for fairness
+## Sort by process time for fairness
         all_orders.sort(key=lambda x: x[0])
         
         for _, order in all_orders:
@@ -566,7 +664,7 @@ class PreTradeRiskChecker:
         self.banned_symbols = set()
         
     def check_order(self, order, participant):
-# Parallel risk checks
+## Parallel risk checks
         checks = [
             self.check_position_limits(order, participant),
             self.check_order_rate(order, participant),
@@ -576,7 +674,7 @@ class PreTradeRiskChecker:
             self.check_regulatory_restrictions(order, participant)
         ]
         
-# All checks must pass
+## All checks must pass
         for check_result in checks:
             if not check_result.passed:
                 return RiskReject(order, check_result.reason)
@@ -584,18 +682,18 @@ class PreTradeRiskChecker:
         return RiskPass(order)
     
     def check_fat_finger(self, order):
-# Detect potential erroneous orders
+## Detect potential erroneous orders
         if order.type == OrderType.MARKET:
             return CheckResult(False, "Market orders not allowed")
         
-# Check if order is >5% away from last trade
+## Check if order is >5% away from last trade
         last_price = self.get_last_trade_price(order.symbol)
         price_diff = abs(order.price - last_price) / last_price
         
         if price_diff > 0.05:
             return CheckResult(False, f"Price {price_diff*100:.1f}% from market")
         
-# Check order value
+## Check order value
         order_value = order.price * order.quantity
         if order_value > self.get_max_order_value(order.symbol):
             return CheckResult(False, f"Order value ${order_value:,.0f} exceeds limit")
@@ -603,7 +701,7 @@ class PreTradeRiskChecker:
         return CheckResult(True)
     
     def check_market_impact(self, order):
-# Estimate market impact
+## Estimate market impact
         adv = self.get_average_daily_volume(order.symbol)
         order_pct = (order.quantity / adv) * 100
         
@@ -638,7 +736,7 @@ class MarketProtectionSystem:
         return False
     
     def check_volatility_halt(self, symbol, trade):
-# Check if price moved >10% in 5 minutes
+## Check if price moved >10% in 5 minutes
         five_min_ago = self.current_time() - timedelta(minutes=5)
         price_5min = self.get_price_at(symbol, five_min_ago)
         
@@ -654,17 +752,17 @@ class MarketProtectionSystem:
         halt_until = self.current_time() + timedelta(minutes=minutes)
         self.volatility_halts[symbol] = halt_until
         
-# Cancel all open orders
+## Cancel all open orders
         self.matching_engine.cancel_all_orders(symbol)
         
-# Notify market
+## Notify market
         self.market_data.publish_halt(
             symbol=symbol,
             reason="VOLATILITY",
             halt_until=halt_until
         )
         
-# Schedule auction for restart
+## Schedule auction for restart
         self.schedule_opening_auction(symbol, halt_until)
 ```
 
@@ -838,7 +936,7 @@ class DisasterRecoverySystem:
         self.replay_engine = ReplayEngine()
         
     def record_input(self, message):
-# Record all inputs with nanosecond timestamp
+## Record all inputs with nanosecond timestamp
         entry = JournalEntry(
             sequence=self.next_sequence(),
             timestamp=self.get_hardware_timestamp(),
@@ -846,27 +944,27 @@ class DisasterRecoverySystem:
             payload=message.serialize()
         )
         
-# Write to multiple locations
+## Write to multiple locations
         self.journal_writer.write_local(entry)
         self.journal_writer.write_remote(entry)
         self.journal_writer.write_backup(entry)
     
     def replay_from_checkpoint(self, checkpoint_time):
-# Load system state at checkpoint
+## Load system state at checkpoint
         state = self.load_checkpoint(checkpoint_time)
         
-# Create new matching engine with checkpoint state
+## Create new matching engine with checkpoint state
         engine = MatchingEngine()
         engine.restore_state(state)
         
-# Replay all messages since checkpoint
+## Replay all messages since checkpoint
         messages = self.journal_reader.read_since(checkpoint_time)
         
         for msg in messages:
-# Replay in exact same order
+## Replay in exact same order
             result = engine.process(msg)
             
-# Verify determinism
+## Verify determinism
             original_result = self.get_original_result(msg.sequence)
             assert result == original_result, "Non-deterministic behavior detected"
         
@@ -900,17 +998,17 @@ class MarketSurveillanceSystem:
                     self.handle_alert(alert)
     
     def detect_spoofing(self, order):
-# Detect large orders that are quickly cancelled
+## Detect large orders that are quickly cancelled
         participant = order.participant_id
         symbol = order.symbol
         
-# Get recent order history
+## Get recent order history
         history = self.get_order_history(participant, symbol, minutes=5)
         
-# Calculate cancellation rate
+## Calculate cancellation rate
         cancel_rate = sum(1 for o in history if o.cancelled) / len(history)
         
-# Check for pattern
+## Check for pattern
         if cancel_rate > 0.9 and order.quantity > self.get_avg_order_size(symbol) * 10:
             return Alert(
                 type="SPOOFING",
@@ -923,11 +1021,11 @@ class MarketSurveillanceSystem:
         return None
     
     def detect_wash_trading(self, trade):
-# Detect trades between related accounts
+## Detect trades between related accounts
         buyer = trade.buyer_id
         seller = trade.seller_id
         
-# Check if accounts are related
+## Check if accounts are related
         if self.are_accounts_related(buyer, seller):
             return Alert(
                 type="WASH_TRADE",
@@ -936,7 +1034,7 @@ class MarketSurveillanceSystem:
                 severity="CRITICAL"
             )
         
-# Check for suspicious pattern
+## Check for suspicious pattern
         recent_trades = self.get_recent_trades(buyer, seller, hours=1)
         if len(recent_trades) > 10:
             return Alert(
@@ -1059,23 +1157,23 @@ class ProductionSafeguards:
         """Big red button - shut down all trading"""
         logging.critical("EMERGENCY MARKET CLOSE INITIATED")
         
-# 1. Reject all new orders
+## 1. Reject all new orders
         self.matching_engine.set_mode(EngineMode.REJECT_ALL)
         
-# 2. Cancel all open orders
+## 2. Cancel all open orders
         for symbol in self.get_all_symbols():
             self.matching_engine.cancel_all_orders(symbol)
         
-# 3. Disable all sessions
+## 3. Disable all sessions
         self.session_manager.disable_all_sessions()
         
-# 4. Publish market close message
+## 4. Publish market close message
         self.market_data.publish_emergency_close()
         
-# 5. Dump state for investigation
+## 5. Dump state for investigation
         self.dump_full_system_state()
         
-# 6. Notify regulators
+## 6. Notify regulators
         self.notify_regulatory_emergency()
 ```
 
@@ -1273,8 +1371,8 @@ graph LR
 
 ## References
 
-- [NASDAQ Technology Architecture](https://www.nasdaq.com/docs/2023/05/24/nasdaq-technology-overview.pdf/)
-- [High-Frequency Trading: A Practical Guide](https://www.wiley.com/en-us/High+Frequency+Trading%3A+A+Practical+Guide+to+Algorithmic+Strategies+and+Trading+Systems-p-9781118343500/)
+- [NASDAQ Eqlipse Trading Technology](https://www.nasdaq.com/solutions/fintech/nasdaq-eqlipse/trading-technology)
+- [High-Frequency Trading: A Practical Guide (2nd Edition) - Wiley](https://www.wiley.com/en-us/High+Frequency+Trading:+A+Practical+Guide+to+Algorithmic+Strategies+and+Trading+Systems,+2nd+Edition-p-9781118416822)
 - [SEC Market Structure Papers](https://www.sec.gov/marketstructure/)
 - [FIX Protocol Specifications](https://www.fixtrading.org/standards/)
-- [CME Group Matching Engine Architecture](https://www.cmegroup.com/confluence/display/EPICSANDBOX/CME+Globex+Architecture/)
+- [CME Globex Matching Algorithm Overview](https://www.cmegroup.com/education/matching-algorithm-overview.html)

@@ -1,6 +1,25 @@
 ---
 title: Knowledge Management in Distributed Systems
 description: Managing distributed knowledge across teams, systems, and documentation
+type: human-factors
+difficulty: intermediate
+reading_time: 25 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Knowledge Management in Distributed Systems
+
+
+
+## Overview
+
+Knowledge Management in Distributed Systems
+description: Managing distributed knowledge across teams, systems, and documentation
   to prevent information silos and tribal knowledge
 type: human-factors
 difficulty: intermediate
@@ -12,6 +31,51 @@ last_updated: 2025-07-20
 
 
 # Knowledge Management in Distributed Systems
+
+## Table of Contents
+
+- [Why Knowledge Management Matters](#why-knowledge-management-matters)
+- [Knowledge Types in Distributed Systems](#knowledge-types-in-distributed-systems)
+  - [1. Architectural Knowledge](#1-architectural-knowledge)
+  - [2.
+
+**Reading time:** ~5 minutes
+
+## Table of Contents
+
+- [Why Knowledge Management Matters](#why-knowledge-management-matters)
+- [Knowledge Types in Distributed Systems](#knowledge-types-in-distributed-systems)
+  - [1. Architectural Knowledge](#1-architectural-knowledge)
+  - [2. Operational Knowledge](#2-operational-knowledge)
+  - [3. Domain Knowledge](#3-domain-knowledge)
+- [Knowledge Capture Strategies](#knowledge-capture-strategies)
+  - [1. Architecture Decision Records (ADRs)](#1-architecture-decision-records-adrs)
+- [ADR-042: Use Event Sourcing for Order Service](#adr-042-use-event-sourcing-for-order-service)
+- [Status](#status)
+- [Context](#context)
+- [Decision](#decision)
+- [Consequences](#consequences)
+- [References](#references)
+  - [2. Living Documentation](#2-living-documentation)
+  - [3. Knowledge Extraction from Incidents](#3-knowledge-extraction-from-incidents)
+- [Create runbook entries](#create-runbook-entries)
+- [Create monitoring rules](#create-monitoring-rules)
+- [Update documentation](#update-documentation)
+- [Knowledge Organization Systems](#knowledge-organization-systems)
+  - [1. Service Catalog](#1-service-catalog)
+  - [2. Knowledge Graph](#2-knowledge-graph)
+- [Use graph embedding techniques](#use-graph-embedding-techniques)
+- [to suggest potential connections](#to-suggest-potential-connections)
+- [Knowledge Sharing Mechanisms](#knowledge-sharing-mechanisms)
+  - [1. Documentation as Code](#1-documentation-as-code)
+  - [2. Knowledge Sharing Sessions](#2-knowledge-sharing-sessions)
+  - [3. Interactive Learning](#3-interactive-learning)
+- [Measuring Knowledge Health](#measuring-knowledge-health)
+- [Knowledge Management Tools](#knowledge-management-tools)
+  - [Tool Categories](#tool-categories)
+- [Best Practices](#best-practices)
+
+
 
 **Capturing, sharing, and evolving system knowledge**
 
@@ -94,7 +158,7 @@ domain_knowledge:
 ### 1. Architecture Decision Records (ADRs)
 
 ```markdown
-# ADR-042: Use Event Sourcing for Order Service
+## ADR-042: Use Event Sourcing for Order Service
 
 ## Status
 Accepted
@@ -166,13 +230,13 @@ class IncidentKnowledgeExtractor:
             'prevention': self.generate_prevention_steps(incident)
         }
 
-# Create runbook entries
+## Create runbook entries
         runbook_updates = self.generate_runbook_updates(learnings)
 
-# Create monitoring rules
+## Create monitoring rules
         monitoring_rules = self.generate_alert_rules(learnings)
 
-# Update documentation
+## Update documentation
         doc_updates = self.generate_doc_updates(learnings)
 
         return {
@@ -261,8 +325,8 @@ class KnowledgeGraph:
 
     def suggest_missing_links(self):
         """ML-based link prediction"""
-# Use graph embedding techniques
-# to suggest potential connections
+## Use graph embedding techniques
+## to suggest potential connections
         pass
 ```
 
@@ -469,3 +533,9 @@ knowledge_tools:
 ---
 
 *"The graveyard of distributed systems is littered with teams who knew what to do—once."*
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [Learning Paths](/architects-handbook/learning-paths)

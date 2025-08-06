@@ -402,7 +402,7 @@ sequenceDiagram
 ### 2. Real-time AI Analysis
 
 ```python
-# AI Inference Service
+## AI Inference Service
 class MedicalAIService:
     def __init__(self):
         self.models = {
@@ -584,7 +584,7 @@ Audit Controls:
 ### 2. Data Integrity
 
 ```python
-# Medical Image Integrity Verification
+## Medical Image Integrity Verification
 class ImageIntegrityService:
     def __init__(self):
         self.blockchain = MedicalBlockchain()

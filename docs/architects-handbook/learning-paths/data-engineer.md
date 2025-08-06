@@ -6,6 +6,26 @@ difficulty: intermediate
 reading_time: 25 min
 status: complete
 last_updated: 2025-08-06
+prerequisites: 
+outcomes: 
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Data Engineer Learning Path
+
+
+
+## Overview
+
+Data Engineer Learning Path
+description: A comprehensive 10-week journey through modern data engineering, from real-time pipelines to data governance at scale
+type: learning-path
+difficulty: intermediate
+reading_time: 25 min
+status: complete
+last_updated: 2025-08-06
 prerequisites:
   - 2+ years software development experience
   - Basic understanding of databases and SQL
@@ -20,6 +40,99 @@ outcomes:
 ---
 
 # Data Engineer Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [📊 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Data Engineering Fundamentals 🏗️](#week-1-2-data-engineering-fundamentals-)
+  - [Week 3-4: Batch & Stream Processing ⚙️](#week-3-4-batch-stream-processing-)
+  - [📈 Week 3-4 Progress Tracker](#-week-3-4-progress-tracker)
+  - [Week 5-6: Data Lake & Warehouse Design 🏛️](#week-5-6-data-lake-warehouse-design-)
+  - [Week 7-8: Real-Time Analytics & ML Pipelines 🚀](#week-7-8-real-time-analytics-ml-pipelines-)
+  - [Week 9-10: Data Governance & Platform 📊](#week-9-10-data-governance-platform-)
+- [🛠️ Hands-On Labs & Projects](#-hands-on-labs-projects)
+  - [Weekly Project Structure](#weekly-project-structure)
+  - [Real-World Industry Scenarios](#real-world-industry-scenarios)
+- [📊 Assessment & Certification](#-assessment-certification)
+  - [Weekly Skills Assessment](#weekly-skills-assessment)
+  - [Industry Certification Alignment](#industry-certification-alignment)
+- [💼 Career & Interview Preparation](#-career-interview-preparation)
+  - [Data Engineering Interview Questions](#data-engineering-interview-questions)
+  - [Portfolio Projects for Job Applications](#portfolio-projects-for-job-applications)
+  - [Salary Insights & Negotiation](#salary-insights-negotiation)
+- [👥 Study Groups & Community](#-study-groups-community)
+  - [Specialized Study Groups](#specialized-study-groups)
+  - [Mentorship Program](#mentorship-program)
+  - [Community Resources](#community-resources)
+- [📚 Essential Data Engineering Library](#-essential-data-engineering-library)
+  - [Must-Read Books (Priority Order)](#must-read-books-priority-order)
+  - [Essential Online Resources](#essential-online-resources)
+- [🚀 Success Stories & Graduate Outcomes](#-success-stories-graduate-outcomes)
+  - [Recent Graduate Achievements](#recent-graduate-achievements)
+  - [Career Advancement Metrics](#career-advancement-metrics)
+- [🏁 Capstone Project: Enterprise Data Platform](#-capstone-project-enterprise-data-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Requirements](#technical-requirements)
+  - [Performance Requirements](#performance-requirements)
+  - [Evaluation Rubric](#evaluation-rubric)
+- [🎓 Next Steps & Specializations](#-next-steps-specializations)
+  - [Advanced Learning Paths](#advanced-learning-paths)
+  - [Career Progression Paths](#career-progression-paths)
+- [💡 Final Wisdom for Data Engineers](#-final-wisdom-for-data-engineers)
+  - [Core Principles to Remember](#core-principles-to-remember)
+
+
+
+! Transform Raw Data into Business Intelligence"
+    This intensive 10-week path transforms software engineers into data engineers who can build the infrastructure that powers modern data-driven organizations.
+
+**Reading time:** ~17 minutes
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [📊 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Data Engineering Fundamentals 🏗️](#week-1-2-data-engineering-fundamentals-)
+  - [Week 3-4: Batch & Stream Processing ⚙️](#week-3-4-batch-stream-processing-)
+  - [📈 Week 3-4 Progress Tracker](#-week-3-4-progress-tracker)
+  - [Week 5-6: Data Lake & Warehouse Design 🏛️](#week-5-6-data-lake-warehouse-design-)
+  - [Week 7-8: Real-Time Analytics & ML Pipelines 🚀](#week-7-8-real-time-analytics-ml-pipelines-)
+  - [Week 9-10: Data Governance & Platform 📊](#week-9-10-data-governance-platform-)
+- [🛠️ Hands-On Labs & Projects](#-hands-on-labs-projects)
+  - [Weekly Project Structure](#weekly-project-structure)
+  - [Real-World Industry Scenarios](#real-world-industry-scenarios)
+- [📊 Assessment & Certification](#-assessment-certification)
+  - [Weekly Skills Assessment](#weekly-skills-assessment)
+  - [Industry Certification Alignment](#industry-certification-alignment)
+- [💼 Career & Interview Preparation](#-career-interview-preparation)
+  - [Data Engineering Interview Questions](#data-engineering-interview-questions)
+  - [Portfolio Projects for Job Applications](#portfolio-projects-for-job-applications)
+  - [Salary Insights & Negotiation](#salary-insights-negotiation)
+- [👥 Study Groups & Community](#-study-groups-community)
+  - [Specialized Study Groups](#specialized-study-groups)
+  - [Mentorship Program](#mentorship-program)
+  - [Community Resources](#community-resources)
+- [📚 Essential Data Engineering Library](#-essential-data-engineering-library)
+  - [Must-Read Books (Priority Order)](#must-read-books-priority-order)
+  - [Essential Online Resources](#essential-online-resources)
+- [🚀 Success Stories & Graduate Outcomes](#-success-stories-graduate-outcomes)
+  - [Recent Graduate Achievements](#recent-graduate-achievements)
+  - [Career Advancement Metrics](#career-advancement-metrics)
+- [🏁 Capstone Project: Enterprise Data Platform](#-capstone-project-enterprise-data-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Requirements](#technical-requirements)
+  - [Performance Requirements](#performance-requirements)
+  - [Evaluation Rubric](#evaluation-rubric)
+- [🎓 Next Steps & Specializations](#-next-steps-specializations)
+  - [Advanced Learning Paths](#advanced-learning-paths)
+  - [Career Progression Paths](#career-progression-paths)
+- [💡 Final Wisdom for Data Engineers](#-final-wisdom-for-data-engineers)
+  - [Core Principles to Remember](#core-principles-to-remember)
+
+
 
 !!! abstract "Transform Raw Data into Business Intelligence"
     This intensive 10-week path transforms software engineers into data engineers who can build the infrastructure that powers modern data-driven organizations. Learn to design, build, and operate data systems that process petabytes at scale.

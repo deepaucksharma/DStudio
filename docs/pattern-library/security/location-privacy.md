@@ -23,7 +23,7 @@ Location privacy patterns implement privacy-preserving techniques like different
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class LocationPrivacyManager:
     def __init__(self):
         pass

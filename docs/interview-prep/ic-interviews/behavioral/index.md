@@ -1,9 +1,53 @@
 ---
 title: Behavioral
 description: Behavioral overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # IC Behavioral Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Themes for IC Behavioral Interviews](#key-themes-for-ic-behavioral-interviews)
+  - [1. Technical Leadership](#1-technical-leadership)
+  - [2. Ownership & Initiative](#2-ownership-initiative)
+  - [3. Collaboration & Influence](#3-collaboration-influence)
+  - [4. Problem Solving Under Ambiguity](#4-problem-solving-under-ambiguity)
+  - [5. Growth & Learning](#5-growth-learning)
+- [STAR Framework for ICs](#star-framework-for-ics)
+  - [Situation](#situation)
+  - [Task](#task)
+  - [Action](#action)
+  - [Result](#result)
+- [IC-Specific Behavioral Scenarios](#ic-specific-behavioral-scenarios)
+  - [Technical Disagreements with Peers](#technical-disagreements-with-peers)
+  - [Leading Without Formal Authority](#leading-without-formal-authority)
+  - [Handling Ambiguous Requirements](#handling-ambiguous-requirements)
+  - [Technical Debt vs Feature Delivery](#technical-debt-vs-feature-delivery)
+  - [Cross-Team Collaboration](#cross-team-collaboration)
+  - [Mentoring Junior Engineers](#mentoring-junior-engineers)
+- [IC vs EM Behavioral Differences](#ic-vs-em-behavioral-differences)
+- [Level-Specific Expectations](#level-specific-expectations)
+  - [L3 (Junior/Mid-Level IC)](#l3-juniormid-level-ic)
+  - [L4 (Senior IC)](#l4-senior-ic)
+  - [L5 (Staff/Principal IC)](#l5-staffprincipal-ic)
+- [Common IC Behavioral Mistakes](#common-ic-behavioral-mistakes)
+  - [❌ What NOT to Do](#-what-not-to-do)
+  - [✅ What to Do Instead](#-what-to-do-instead)
+- [Tips for Demonstrating IC Leadership](#tips-for-demonstrating-ic-leadership)
+  - [Technical Leadership Without Management](#technical-leadership-without-management)
+  - [Showing Appropriate Scope by Level](#showing-appropriate-scope-by-level)
+  - [Balancing Technical Depth with Collaboration](#balancing-technical-depth-with-collaboration)
+- [Preparation Strategy](#preparation-strategy)
+  - [1. Story Collection](#1-story-collection)
+  - [2. Practice Framework](#2-practice-framework)
+  - [3. Mock Interviews](#3-mock-interviews)
+  - [4. Company Research](#4-company-research)
+
+
 
 ## Overview
 

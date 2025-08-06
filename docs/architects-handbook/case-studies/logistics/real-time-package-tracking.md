@@ -1,5 +1,39 @@
 # Real-time Package Tracking Systems
 
+## Table of Contents
+
+- [System Overview](#system-overview)
+  - [Scale & Complexity](#scale-complexity)
+- [Architecture Overview](#architecture-overview)
+- [Key Architectural Challenges](#key-architectural-challenges)
+  - [1. Real-time Event Processing at Scale](#1-real-time-event-processing-at-scale)
+  - [2. Global Package State Management](#2-global-package-state-management)
+  - [3. Predictive Delivery Analytics](#3-predictive-delivery-analytics)
+- [Data Architecture](#data-architecture)
+  - [1. Event Store Schema](#1-event-store-schema)
+  - [2. Real-time State Caching](#2-real-time-state-caching)
+- [Performance Optimization](#performance-optimization)
+  - [1. Event Processing Pipeline](#1-event-processing-pipeline)
+  - [2. Global Distribution Strategy](#2-global-distribution-strategy)
+- [Real-World Examples](#real-world-examples)
+  - [FedEx Package Tracking](#fedex-package-tracking)
+  - [UPS Package Tracking (DIAD & ORION)](#ups-package-tracking-diad-orion)
+  - [Amazon Package Tracking](#amazon-package-tracking)
+- [Advanced Features](#advanced-features)
+  - [1. Predictive Exception Handling](#1-predictive-exception-handling)
+  - [2. IoT Integration for Enhanced Tracking](#2-iot-integration-for-enhanced-tracking)
+- [Lessons Learned](#lessons-learned)
+  - [1. Event Ordering and Consistency](#1-event-ordering-and-consistency)
+  - [2. Global Scale Data Synchronization](#2-global-scale-data-synchronization)
+  - [3. Customer Experience During Exceptions](#3-customer-experience-during-exceptions)
+- [Future Considerations](#future-considerations)
+  - [1. Autonomous Delivery Integration](#1-autonomous-delivery-integration)
+  - [2. Advanced Customer Experience](#2-advanced-customer-experience)
+  - [3. Blockchain Integration](#3-blockchain-integration)
+- [Technology Stack](#technology-stack)
+
+
+
 ## System Overview
 
 Global logistics companies like FedEx, UPS, and Amazon need to track millions of packages in real-time across their networks, providing customers with accurate delivery estimates and enabling operational optimization. These systems process billions of tracking events daily while maintaining 99.9% accuracy and sub-second query response times.

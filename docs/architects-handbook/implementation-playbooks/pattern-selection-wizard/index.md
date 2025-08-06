@@ -1,6 +1,9 @@
 ---
 title: Pattern Selection Wizard Playbook
 description: Implementation guide for pattern selection wizard
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Pattern Selection Wizard Playbook

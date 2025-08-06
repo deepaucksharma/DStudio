@@ -1,6 +1,25 @@
 ---
 title: Performance & Scale Learning Path
 description: Master performance optimization and scaling strategies for distributed
+type: learning-path
+topic: performance
+difficulty: advanced
+reading_time: 15 min
+status: complete
+last_updated: 2025-07-25
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Performance & Scale Learning Path
+
+
+
+## Overview
+
+Performance & Scale Learning Path
+description: Master performance optimization and scaling strategies for distributed
   systems
 type: learning-path
 topic: performance
@@ -11,6 +30,99 @@ last_updated: 2025-07-25
 ---
 
 # Performance & Scale Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Performance Journey](#-performance-journey)
+  - [Phase 1: Performance Foundations (1 week)](#phase-1-performance-foundations-1-week)
+  - [Phase 2: Optimization Techniques (2 weeks)](#phase-2-optimization-techniques-2-weeks)
+    - [Week 2: Caching Strategies](#week-2-caching-strategies)
+    - [Week 3: Load Distribution](#week-3-load-distribution)
+  - [Phase 3: Scaling Strategies (2 weeks)](#phase-3-scaling-strategies-2-weeks)
+    - [Week 4: Horizontal Scaling](#week-4-horizontal-scaling)
+    - [Week 5: Performance Patterns](#week-5-performance-patterns)
+  - [Phase 4: Production Performance (1 week)](#phase-4-production-performance-1-week)
+    - [Week 6: Monitoring & Optimization](#week-6-monitoring-optimization)
+- [📊 Performance Projects](#-performance-projects)
+  - [Project 1: Build a High-Performance API](#project-1-build-a-high-performance-api)
+  - [Project 2: Optimize a Slow System](#project-2-optimize-a-slow-system)
+  - [Project 3: Design a Real-Time Analytics System](#project-3-design-a-real-time-analytics-system)
+- [🧪 Performance Labs](#-performance-labs)
+  - [Lab 1: Latency Optimization](#lab-1-latency-optimization)
+- [Measure baseline latency](#measure-baseline-latency)
+- [Implement optimizations:](#implement-optimizations)
+- [Measure improvement](#measure-improvement)
+- [Target: 90% latency reduction](#target-90-latency-reduction)
+  - [Lab 2: Throughput Scaling](#lab-2-throughput-scaling)
+- [Load test with increasing concurrency](#load-test-with-increasing-concurrency)
+  - [Lab 3: Cache Effectiveness](#lab-3-cache-effectiveness)
+- [📈 Performance Decision Framework](#-performance-decision-framework)
+  - [Optimization Priority Matrix](#optimization-priority-matrix)
+  - [Scaling Decision Tree](#scaling-decision-tree)
+- [🔍 Performance Debugging](#-performance-debugging)
+  - [Common Performance Issues](#common-performance-issues)
+  - [Performance Tools](#performance-tools)
+- [📚 Performance Resources](#-performance-resources)
+  - [Essential Reading](#essential-reading)
+  - [Papers & Articles](#papers-articles)
+  - [Performance Blogs](#performance-blogs)
+- [💡 Performance Best Practices](#-performance-best-practices)
+- [🏁 Performance Benchmarks](#-performance-benchmarks)
+  - [Target Metrics](#target-metrics)
+- [⏱️ Time Investment](#-time-investment)
+
+
+
+! Scale to Millions"
+ This path focuses on building systems that perform at scale.
+
+**Reading time:** ~5 minutes
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Performance Journey](#-performance-journey)
+  - [Phase 1: Performance Foundations (1 week)](#phase-1-performance-foundations-1-week)
+  - [Phase 2: Optimization Techniques (2 weeks)](#phase-2-optimization-techniques-2-weeks)
+    - [Week 2: Caching Strategies](#week-2-caching-strategies)
+    - [Week 3: Load Distribution](#week-3-load-distribution)
+  - [Phase 3: Scaling Strategies (2 weeks)](#phase-3-scaling-strategies-2-weeks)
+    - [Week 4: Horizontal Scaling](#week-4-horizontal-scaling)
+    - [Week 5: Performance Patterns](#week-5-performance-patterns)
+  - [Phase 4: Production Performance (1 week)](#phase-4-production-performance-1-week)
+    - [Week 6: Monitoring & Optimization](#week-6-monitoring-optimization)
+- [📊 Performance Projects](#-performance-projects)
+  - [Project 1: Build a High-Performance API](#project-1-build-a-high-performance-api)
+  - [Project 2: Optimize a Slow System](#project-2-optimize-a-slow-system)
+  - [Project 3: Design a Real-Time Analytics System](#project-3-design-a-real-time-analytics-system)
+- [🧪 Performance Labs](#-performance-labs)
+  - [Lab 1: Latency Optimization](#lab-1-latency-optimization)
+- [Measure baseline latency](#measure-baseline-latency)
+- [Implement optimizations:](#implement-optimizations)
+- [Measure improvement](#measure-improvement)
+- [Target: 90% latency reduction](#target-90-latency-reduction)
+  - [Lab 2: Throughput Scaling](#lab-2-throughput-scaling)
+- [Load test with increasing concurrency](#load-test-with-increasing-concurrency)
+  - [Lab 3: Cache Effectiveness](#lab-3-cache-effectiveness)
+- [📈 Performance Decision Framework](#-performance-decision-framework)
+  - [Optimization Priority Matrix](#optimization-priority-matrix)
+  - [Scaling Decision Tree](#scaling-decision-tree)
+- [🔍 Performance Debugging](#-performance-debugging)
+  - [Common Performance Issues](#common-performance-issues)
+  - [Performance Tools](#performance-tools)
+- [📚 Performance Resources](#-performance-resources)
+  - [Essential Reading](#essential-reading)
+  - [Papers & Articles](#papers-articles)
+  - [Performance Blogs](#performance-blogs)
+- [💡 Performance Best Practices](#-performance-best-practices)
+- [🏁 Performance Benchmarks](#-performance-benchmarks)
+  - [Target Metrics](#target-metrics)
+- [⏱️ Time Investment](#-time-investment)
+
+
 
 !!! abstract "Scale to Millions"
  This path focuses on building systems that perform at scale. Learn to optimize latency, maximize throughput, and scale systems from thousands to millions of users while maintaining performance.
@@ -216,22 +328,22 @@ architecture:
 
 ### Lab 1: Latency Optimization
 ```bash
-# Measure baseline latency
+## Measure baseline latency
 wrk -t12 -c400 -d30s http:/api.example.com/endpoint
 
-# Implement optimizations:
+## Implement optimizations:
 1. Add caching layer
 2. Optimize database queries
 3. Enable connection pooling
 4. Add response compression
 
-# Measure improvement
-# Target: 90% latency reduction
+## Measure improvement
+## Target: 90% latency reduction
 ```
 
 ### Lab 2: Throughput Scaling
 ```python
-# Load test with increasing concurrency
+## Load test with increasing concurrency
 for concurrent_users in [100, 1000, 10000, 100000]:
  run_load_test(concurrent_users)
  measure_throughput()

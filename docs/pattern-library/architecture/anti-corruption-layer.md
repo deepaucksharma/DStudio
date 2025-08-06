@@ -215,7 +215,7 @@ graph TD
 
 ## Implementation Patterns
 
-#### 1. Repository Pattern with ACL
+### 1. Repository Pattern with ACL
 
 ```mermaid
 graph TD

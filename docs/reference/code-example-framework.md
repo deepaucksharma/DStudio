@@ -11,6 +11,55 @@ tags:
 
 # Code Example Framework for Pattern Documentation
 
+## Table of Contents
+
+- [Overview](#overview)
+- [1. Language Selection Criteria](#1-language-selection-criteria)
+  - [Primary Languages (All Patterns)](#primary-languages-all-patterns)
+  - [Secondary Languages (Pattern-Specific)](#secondary-languages-pattern-specific)
+  - [Framework Selection Standards](#framework-selection-standards)
+- [2. Code Quality Standards](#2-code-quality-standards)
+  - [Production-Ready Requirements](#production-ready-requirements)
+- [✅ GOOD - Externalized configuration](#good-externalized-configuration)
+  - [Logging Standards](#logging-standards)
+  - [Performance Considerations](#performance-considerations)
+  - [Security Best Practices](#security-best-practices)
+- [✅ GOOD - Secure auth implementation](#good-secure-auth-implementation)
+- [3. Standard Code Structure Template](#3-standard-code-structure-template)
+  - [Component Structure](#component-structure)
+  - [Configuration Section Template](#configuration-section-template)
+- [Standard configuration structure](#standard-configuration-structure)
+  - [Core Implementation Template](#core-implementation-template)
+  - [Error Handling Template](#error-handling-template)
+- [Standard error handling structure](#standard-error-handling-structure)
+  - [Monitoring/Metrics Template](#monitoringmetrics-template)
+  - [Test Examples Template](#test-examples-template)
+- [4. Cloud Provider Integration Examples](#4-cloud-provider-integration-examples)
+  - [AWS Integration](#aws-integration)
+  - [Google Cloud Integration](#google-cloud-integration)
+- [GCP-specific implementation](#gcp-specific-implementation)
+  - [Azure Integration](#azure-integration)
+- [5. Code Presentation Standards](#5-code-presentation-standards)
+  - [Syntax Highlighting & Line Length](#syntax-highlighting-line-length)
+- [Code block standards](#code-block-standards)
+  - [Comment Standards](#comment-standards)
+  - [Variable Naming Conventions](#variable-naming-conventions)
+- [✅ GOOD - Clear, descriptive naming](#good-clear-descriptive-naming)
+- [6. Reusable Code Templates](#6-reusable-code-templates)
+  - [Circuit Breaker Template](#circuit-breaker-template)
+  - [API Gateway Template](#api-gateway-template)
+  - [Event Sourcing Template](#event-sourcing-template)
+- [Example aggregate implementation](#example-aggregate-implementation)
+- [Usage example](#usage-example)
+- [7. Integration Examples Summary](#7-integration-examples-summary)
+  - [Framework Integration Matrix](#framework-integration-matrix)
+  - [Cloud Platform Examples](#cloud-platform-examples)
+- [Implementation Guidelines](#implementation-guidelines)
+  - [Phase 1: Pattern Assessment (Week 1)](#phase-1-pattern-assessment-week-1)
+  - [Phase 2: Core Templates (Week 2-3)](#phase-2-core-templates-week-2-3)
+  - [Phase 3: Pattern Implementation (Week 4-8)](#phase-3-pattern-implementation-week-4-8)
+  - [Phase 4: Testing & Validation (Week 9-10)](#phase-4-testing-validation-week-9-10)
+
 ## Overview
 
 This framework establishes comprehensive standards for code examples in all 91 distributed systems patterns. The goal is to provide production-ready, concise, and complete implementations that demonstrate real-world usage.
@@ -98,7 +147,7 @@ public class CircuitBreakerService {
 
 #### Configuration Management
 ```python
-# ✅ GOOD - Externalized configuration
+## ✅ GOOD - Externalized configuration
 from dataclasses import dataclass
 from typing import Optional
 import os
@@ -116,7 +165,7 @@ class CircuitBreakerConfig:
             raise ValueError("Recovery timeout must be positive")
 ```
 
-#### Logging Standards
+### Logging Standards
 ```go
 / ✅ GOOD - Structured logging with context
 func (cb *CircuitBreaker) Execute(ctx context.Context, operation func() (interface{}, error)) (interface{}, error) {
@@ -283,7 +332,7 @@ public class ApiGatewayValidator {
 
 #### Authentication/Authorization
 ```python
-# ✅ GOOD - Secure auth implementation
+## ✅ GOOD - Secure auth implementation
 from functools import wraps
 import jwt
 from cryptography.hazmat.primitives import hashes
@@ -372,7 +421,7 @@ pattern-implementation/
 ### Configuration Section Template
 
 ```yaml
-# Standard configuration structure
+## Standard configuration structure
 pattern_name:
   # Core functionality
   enabled: true
@@ -475,7 +524,7 @@ public class PatternImplementation implements PatternInterface {
 ### Error Handling Template
 
 ```python
-# Standard error handling structure
+## Standard error handling structure
 class PatternException(Exception):
     """Base exception for pattern-related errors"""
     
@@ -737,7 +786,7 @@ public class AwsPatternImplementation implements PatternInterface {
 ### Google Cloud Integration
 
 ```python
-# GCP-specific implementation
+## GCP-specific implementation
 from google.cloud import pubsub_v1, firestore, monitoring_v3
 from google.cloud.functions_v1 import CloudFunctionsServiceClient
 
@@ -867,7 +916,7 @@ public class AzurePatternImplementation
 ### Syntax Highlighting & Line Length
 
 ```yaml
-# Code block standards
+## Code block standards
 code_standards:
   max_line_length: 100  # Characters per line
   indentation: 2        # Spaces for YAML, 4 for most languages
@@ -935,7 +984,7 @@ public class ProductionCircuitBreaker {
 ### Variable Naming Conventions
 
 ```python
-# ✅ GOOD - Clear, descriptive naming
+## ✅ GOOD - Clear, descriptive naming
 class EventSourcingRepository:
     def __init__(self, event_store_client: EventStoreClient, snapshot_frequency: int = 100):
         self._event_store_client = event_store_client
@@ -2046,7 +2095,7 @@ class Repository:
         
         aggregate.mark_events_as_committed()
 
-# Example aggregate implementation
+## Example aggregate implementation
 class BankAccount(AggregateRoot):
     def __init__(self, account_id: str):
         super().__init__(account_id)
@@ -2106,7 +2155,7 @@ class BankAccount(AggregateRoot):
     def _handle_accountclosed(self, event_data: Dict[str, Any]):
         self.is_closed = True
 
-# Usage example
+## Usage example
 async def example_usage():
     # Setup
     event_store = PostgresEventStore(connection_pool)

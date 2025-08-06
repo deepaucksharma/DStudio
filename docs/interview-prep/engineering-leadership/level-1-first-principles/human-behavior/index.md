@@ -1,9 +1,96 @@
 ---
 title: Human Behavior
 description: Human Behavior overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # First Principle #3: Human Behavior
+
+
+
+## Overview
+
+Human Behavior
+description: Human Behavior overview and navigation
+---
+
+# First Principle #3: Human Behavior
+
+## Table of Contents
+
+- [Definition](#definition)
+- [The Human Reality in Engineering](#the-human-reality-in-engineering)
+  - [The Paradox](#the-paradox)
+  - [The Multiplier Effect](#the-multiplier-effect)
+- [Core Concepts of Human Behavior](#core-concepts-of-human-behavior)
+  - [1. Motivation Theory](#1-motivation-theory)
+    - [Intrinsic vs.
+
+**Reading time:** ~14 minutes
+
+## Table of Contents
+
+- [Definition](#definition)
+- [The Human Reality in Engineering](#the-human-reality-in-engineering)
+  - [The Paradox](#the-paradox)
+  - [The Multiplier Effect](#the-multiplier-effect)
+- [Core Concepts of Human Behavior](#core-concepts-of-human-behavior)
+  - [1. Motivation Theory](#1-motivation-theory)
+    - [Intrinsic vs. Extrinsic Motivation](#intrinsic-vs-extrinsic-motivation)
+  - [2. Psychological Safety (Amy Edmondson) - The Google Project Aristotle Discovery](#2-psychological-safety-amy-edmondson-the-google-project-aristotle-discovery)
+    - [The Four Stages](#the-four-stages)
+  - [3. Trust Dynamics](#3-trust-dynamics)
+    - [The Trust Equation](#the-trust-equation)
+  - [4. Change Management](#4-change-management)
+    - [The Change Curve (Kübler-Ross adapted)](#the-change-curve-kübler-ross-adapted)
+- [Real-World Human Behavior Stories](#real-world-human-behavior-stories)
+  - [Case Study 1: The Netflix "Keeper Test" - When High Performance Meets Human Reality](#case-study-1-the-netflix-keeper-test-when-high-performance-meets-human-reality)
+  - [Case Study 2: Spotify's "Psychological Safety First" Incident Response](#case-study-2-spotifys-psychological-safety-first-incident-response)
+  - [Case Study 3: Stack Overflow's "Impostor Syndrome Recovery Program"](#case-study-3-stack-overflows-impostor-syndrome-recovery-program)
+- [Behavioral Patterns in Engineering Teams](#behavioral-patterns-in-engineering-teams)
+  - [Common Patterns by Context](#common-patterns-by-context)
+  - [Psychological Patterns to Recognize](#psychological-patterns-to-recognize)
+- [Frameworks for Managing Human Behavior](#frameworks-for-managing-human-behavior)
+  - [1. The SCARF Model (David Rock)](#1-the-scarf-model-david-rock)
+  - [2. Situational Leadership (Blanchard & Hersey)](#2-situational-leadership-blanchard-hersey)
+  - [3. The Five Dysfunctions of a Team (Lencioni)](#3-the-five-dysfunctions-of-a-team-lencioni)
+- [Practical Human Behavior Tools](#practical-human-behavior-tools)
+  - [1. One-on-Ones That Matter](#1-one-on-ones-that-matter)
+- [One-on-One Template](#one-on-one-template)
+  - [2. Team Health Metrics](#2-team-health-metrics)
+  - [3. Conflict Resolution Framework](#3-conflict-resolution-framework)
+- [The Dark Side: Organizational Dysfunction](#the-dark-side-organizational-dysfunction)
+  - [Politics and Power Dynamics](#politics-and-power-dynamics)
+  - [Cognitive Biases in Teams](#cognitive-biases-in-teams)
+  - [Toxic Behaviors](#toxic-behaviors)
+- [Building Human-Centric Engineering Culture](#building-human-centric-engineering-culture)
+  - [Core Practices](#core-practices)
+  - [Measuring Cultural Health](#measuring-cultural-health)
+    - [Leading Indicators](#leading-indicators)
+    - [Lagging Indicators](#lagging-indicators)
+- [Interview Applications](#interview-applications)
+  - [Demonstrating Human Behavior Mastery](#demonstrating-human-behavior-mastery)
+    - [Story Categories](#story-categories)
+    - [Power Phrases](#power-phrases)
+  - [Real Interview Example: The Microservice Migration Disaster Recovery](#real-interview-example-the-microservice-migration-disaster-recovery)
+- [Connection to Other Principles](#connection-to-other-principles)
+- [Human Behavior Interview Toolkit](#human-behavior-interview-toolkit)
+  - [Five Essential Human Behavior Stories to Prepare](#five-essential-human-behavior-stories-to-prepare)
+  - [Human Behavior Power Phrases for Interviews](#human-behavior-power-phrases-for-interviews)
+  - [The "Human Behavior Archaeology" Framework](#the-human-behavior-archaeology-framework)
+- [Self-Development Plan](#self-development-plan)
+  - [This Week](#this-week)
+  - [This Month](#this-month)
+  - [This Quarter](#this-quarter)
+- [Application in Other Levels](#application-in-other-levels)
+  - [Level II: Core Business Concepts](#level-ii-core-business-concepts)
+  - [Level III: Engineering Applications](#level-iii-engineering-applications)
+  - [Level IV: Interview Execution](#level-iv-interview-execution)
+- [Next Steps](#next-steps)
+
+
 
 > "Culture eats strategy for breakfast." - Peter Drucker
 

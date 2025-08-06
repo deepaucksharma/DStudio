@@ -46,6 +46,70 @@ modern_examples:
 
 # Apache Cassandra: Masterless Distributed Database
 
+## Table of Contents
+
+- [Why Cassandra Matters](#why-cassandra-matters)
+- [Part 1: The Physics of Masterless Architecture](#part-1-the-physics-of-masterless-architecture)
+  - [Visual Architecture Overview](#visual-architecture-overview)
+  - [Architecture Impact Matrix](#architecture-impact-matrix)
+  - [CAP Trade-offs Visualized](#cap-trade-offs-visualized)
+- [Part 2: Core Architecture Components](#part-2-core-architecture-components)
+  - [Consistent Hashing Ring](#consistent-hashing-ring)
+  - [How Data Finds Its Home](#how-data-finds-its-home)
+  - [Gossip Protocol for Membership](#gossip-protocol-for-membership)
+  - [Gossip Protocol Visualized](#gossip-protocol-visualized)
+  - [Data Model and Storage Engine](#data-model-and-storage-engine)
+    - [Partition Key Design](#partition-key-design)
+    - [LSM Tree Storage Engine](#lsm-tree-storage-engine)
+- [Part 3: Consistency and Replication](#part-3-consistency-and-replication)
+  - [Tunable Consistency Levels](#tunable-consistency-levels)
+- [Banking application - Strong consistency required](#banking-application-strong-consistency-required)
+- [Social media feed - Eventual consistency acceptable](#social-media-feed-eventual-consistency-acceptable)
+- [Analytics query - Read latest data](#analytics-query-read-latest-data)
+  - [Anti-Entropy and Repair](#anti-entropy-and-repair)
+- [Part 4: Performance and Scaling Patterns](#part-4-performance-and-scaling-patterns)
+  - [Linear Scalability](#linear-scalability)
+  - [Data Modeling Best Practices](#data-modeling-best-practices)
+    - [Query-First Design](#query-first-design)
+  - [Data Modeling Decision Matrix](#data-modeling-decision-matrix)
+- [Part 5: Real-World Production Challenges](#part-5-real-world-production-challenges)
+  - [Netflix's Zero-Downtime Migration](#netflixs-zero-downtime-migration)
+  - [Migration Success Factors](#migration-success-factors)
+  - [Discord's Scaling Story](#discords-scaling-story)
+- [Part 6: Operational Excellence](#part-6-operational-excellence)
+  - [Monitoring and Alerting](#monitoring-and-alerting)
+- [cassandra-alerts.yml](#cassandra-alertsyml)
+  - [Backup and Disaster Recovery](#backup-and-disaster-recovery)
+    - [Incremental Backup Strategy](#incremental-backup-strategy)
+- [!/bin/bash](#binbash)
+- [Cassandra backup automation](#cassandra-backup-automation)
+- [Create snapshot](#create-snapshot)
+- [Find snapshot directory](#find-snapshot-directory)
+- [Compress and upload to S3](#compress-and-upload-to-s3)
+- [Clean up local snapshot](#clean-up-local-snapshot)
+- [Rotate old backups (keep 7 days locally)](#rotate-old-backups-keep-7-days-locally)
+  - [Security Configuration](#security-configuration)
+    - [Authentication and Authorization](#authentication-and-authorization)
+- [cassandra.yaml security configuration](#cassandrayaml-security-configuration)
+- [Enable encryption](#enable-encryption)
+- [Part 7: Key Takeaways and Design Principles](#part-7-key-takeaways-and-design-principles)
+  - [Cassandra Design Philosophy](#cassandra-design-philosophy)
+- [Decision Guide](#decision-guide)
+  - [Use Case Fit Matrix](#use-case-fit-matrix)
+  - [Cost Analysis](#cost-analysis)
+  - [Performance Optimization Checklist](#performance-optimization-checklist)
+- [Conclusion](#conclusion)
+- [Related Topics](#related-topics)
+  - [Related Laws & Axioms](#related-laws-axioms)
+  - [Related Patterns](#related-patterns)
+  - [Related Pillars](#related-pillars)
+  - [Quantitative Analysis](#quantitative-analysis)
+  - [Case Studies](#case-studies)
+  - [Further Reading](#further-reading)
+- [External Resources](#external-resources)
+
+
+
 !!! abstract "The Cassandra Story"
     **🎯 Single Achievement**: First database to achieve true linear scaling
     **📊 Scale**: Netflix: 2,500 nodes, 420TB, 4.5M reads/sec
@@ -379,21 +443,21 @@ graph TB
 **Consistency Examples:**
 
 ```python
-# Banking application - Strong consistency required
+## Banking application - Strong consistency required
 result = session.execute(
  "UPDATE accounts SET balance = ? WHERE account_id = ?",
  [new_balance, account_id],
  consistency_level=ConsistencyLevel.QUORUM
 )
 
-# Social media feed - Eventual consistency acceptable
+## Social media feed - Eventual consistency acceptable
 result = session.execute(
  "INSERT INTO user_timeline (user_id, post_id, timestamp) VALUES (?, ?, ?)",
  [user_id, post_id, now],
  consistency_level=ConsistencyLevel.ONE
 )
 
-# Analytics query - Read latest data
+## Analytics query - Read latest data
 result = session.execute(
  "SELECT COUNT(*) FROM page_views WHERE date = ?",
  [today],
@@ -705,7 +769,7 @@ graph TB
 **Critical Alerts Configuration:**
 
 ```yaml
-# cassandra-alerts.yml
+## cassandra-alerts.yml
 alerts:
  - name: CassandraNodeDown
  expr: up{job="cassandra"} == 0
@@ -760,28 +824,28 @@ graph LR
 **Backup Script Example:**
 
 ```bash
-# !/bin/bash
-# Cassandra backup automation
+## !/bin/bash
+## Cassandra backup automation
 
 KEYSPACE="user_data"
 BAKUP_DIR="/backup/cassandra"
 S3_BUCKET="company-cassandra-backups"
 DATE=$(date +%Y%m%d_%H%M%S)
 
-# Create snapshot
+## Create snapshot
 nodetool snapshot -t $DATE $KEYSPACE
 
-# Find snapshot directory
+## Find snapshot directory
 SNAPSHOT_DIR=$(find /var/lib/cassandra/data/$KEYSPACE -name $DATE)
 
-# Compress and upload to S3
+## Compress and upload to S3
 tar -czf $BAKUP_DIR/snapshot_$DATE.tar.gz $SNAPSHOT_DIR
 aws s3 cp $BAKUP_DIR/snapshot_$DATE.tar.gz s3:/$S3_BUCKET/snapshots/
 
-# Clean up local snapshot
+## Clean up local snapshot
 nodetool clearsnapshot -t $DATE $KEYSPACE
 
-# Rotate old backups (keep 7 days locally)
+## Rotate old backups (keep 7 days locally)
 find $BAKUP_DIR -name "snapshot_*.tar.gz" -mtime +7 -delete
 
 echo "Backup completed: snapshot_$DATE.tar.gz"
@@ -792,12 +856,12 @@ echo "Backup completed: snapshot_$DATE.tar.gz"
 #### Authentication and Authorization
 
 ```yaml
-# cassandra.yaml security configuration
+## cassandra.yaml security configuration
 authenticator: PasswordAuthenticator
 authorizer: CassandraAuthorizer
 role_manager: CassandraRoleManager
 
-# Enable encryption
+## Enable encryption
 server_encryption_options:
  internode_encryption: all
  keystore: /path/to/keystore.jks

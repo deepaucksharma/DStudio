@@ -70,6 +70,42 @@ lessons_learned:
 
 # Migration: From Batch to Stream Processing
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [The Batch Processing Legacy](#the-batch-processing-legacy)
+  - [Classic Batch Architecture](#classic-batch-architecture)
+  - [Why Batch Worked (And Still Does)](#why-batch-worked-and-still-does)
+- [Stream Processing Benefits](#stream-processing-benefits)
+  - [Real-Time Architecture](#real-time-architecture)
+- [Migration Patterns](#migration-patterns)
+  - [Pattern 1: Parallel Run (Recommended)](#pattern-1-parallel-run-recommended)
+  - [Pattern 2: Lambda Architecture](#pattern-2-lambda-architecture)
+  - [Pattern 3: Kappa Architecture](#pattern-3-kappa-architecture)
+- [Technical Implementation](#technical-implementation)
+  - [From Batch ETL to Streaming](#from-batch-etl-to-streaming)
+  - [Handling Late Data](#handling-late-data)
+  - [Exactly-Once Processing](#exactly-once-processing)
+- [Common Challenges](#common-challenges)
+  - [Challenge 1: State Management](#challenge-1-state-management)
+  - [Challenge 2: Testing Complexity](#challenge-2-testing-complexity)
+  - [Challenge 3: Cost Management](#challenge-3-cost-management)
+- [Decision Framework](#decision-framework)
+- [Best Practices](#best-practices)
+  - [Do's and Don'ts](#dos-and-donts)
+  - [Migration Checklist](#migration-checklist)
+- [Real-World Examples](#real-world-examples)
+  - [Success: Real-Time Fraud Detection](#success-real-time-fraud-detection)
+- [Before: Batch (next day detection)](#before-batch-next-day-detection)
+- [After: Streaming (instant detection)](#after-streaming-instant-detection)
+  - [Failure: Over-Engineering Analytics](#failure-over-engineering-analytics)
+- [Unnecessary streaming complexity](#unnecessary-streaming-complexity)
+- [Modern Guidance](#modern-guidance)
+  - [Hybrid Approach](#hybrid-approach)
+- [Related Resources](#related-resources)
+
+
+
 !!! warning "Excellence Badge"
     🥉 **Bronze Tier**: Understand the trade-offs before migrating
 
@@ -513,7 +549,7 @@ graph TD
 ### Success: Real-Time Fraud Detection
 
 ```python
-# Before: Batch (next day detection)
+## Before: Batch (next day detection)
 def batch_fraud_detection():
     # Run at 2 AM
     yesterday_transactions = load_transactions(date=yesterday)
@@ -522,7 +558,7 @@ def batch_fraud_detection():
     # Alert next morning - too late!
     send_fraud_alerts(fraud_scores)
 
-# After: Streaming (instant detection)
+## After: Streaming (instant detection)
 @stream_processor
 def stream_fraud_detection(transaction):
     # Real-time feature calculation
@@ -540,7 +576,7 @@ def stream_fraud_detection(transaction):
 ### Failure: Over-Engineering Analytics
 
 ```python
-# Unnecessary streaming complexity
+## Unnecessary streaming complexity
 class OverEngineeredAnalytics:
     """
     Monthly reports don't need real-time processing!

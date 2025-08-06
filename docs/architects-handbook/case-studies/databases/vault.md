@@ -68,6 +68,65 @@ best_for:
 
 # HashiCorp Vault: Zero-Trust Secrets Management at Scale
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Business Context & Problem Space](#business-context-problem-space)
+  - [The Traditional Secrets Management Problem](#the-traditional-secrets-management-problem)
+  - [Vault's Zero-Trust Solution](#vaults-zero-trust-solution)
+  - [Industry Adoption Timeline](#industry-adoption-timeline)
+- [Core Architecture Deep Dive](#core-architecture-deep-dive)
+  - [Vault Cluster Architecture](#vault-cluster-architecture)
+  - [Detailed Component Implementation](#detailed-component-implementation)
+    - [Core Storage Engine](#core-storage-engine)
+    - [Dynamic Secret Engine Implementation](#dynamic-secret-engine-implementation)
+  - [Unsealing & Key Management](#unsealing-key-management)
+    - [Shamir Secret Sharing Implementation](#shamir-secret-sharing-implementation)
+- [Advanced Security Features](#advanced-security-features)
+  - [Transit Encryption Service](#transit-encryption-service)
+  - [Zero-Trust Policy Engine](#zero-trust-policy-engine)
+- [Performance Optimization & Scaling](#performance-optimization-scaling)
+  - [High-Performance Vault Cluster Configuration](#high-performance-vault-cluster-configuration)
+- [Production Vault cluster configuration](#production-vault-cluster-configuration)
+- [Cluster configuration](#cluster-configuration)
+- [Performance tuning](#performance-tuning)
+- [Caching configuration](#caching-configuration)
+- [Listener configuration with performance optimizations](#listener-configuration-with-performance-optimizations)
+- [Telemetry for monitoring](#telemetry-for-monitoring)
+- [Plugin directory for custom secret engines](#plugin-directory-for-custom-secret-engines)
+- [Logging](#logging)
+  - [Performance Benchmarking Results (2025)](#performance-benchmarking-results-2025)
+- [Production Deployment Patterns](#production-deployment-patterns)
+  - [Multi-Cloud Disaster Recovery](#multi-cloud-disaster-recovery)
+- [Multi-cloud Vault deployment with disaster recovery](#multi-cloud-vault-deployment-with-disaster-recovery)
+- [Cross-cloud networking](#cross-cloud-networking)
+- [Disaster recovery replication](#disaster-recovery-replication)
+- [Automated failover configuration](#automated-failover-configuration)
+  - [Kubernetes Integration](#kubernetes-integration)
+- [Vault Kubernetes deployment with CSI driver](#vault-kubernetes-deployment-with-csi-driver)
+- [Vault CSI Provider for secret injection](#vault-csi-provider-for-secret-injection)
+- [Example application using Vault secrets](#example-application-using-vault-secrets)
+- [Cost Analysis & ROI](#cost-analysis-roi)
+  - [TCO Comparison: Vault vs Alternatives](#tco-comparison-vault-vs-alternatives)
+- [Example analysis for mid-size company](#example-analysis-for-mid-size-company)
+- [Results typically show:](#results-typically-show)
+- [1. Vault Enterprise: Best for large enterprises with compliance needs](#1-vault-enterprise-best-for-large-enterprises-with-compliance-needs)
+- [2. Vault Cloud: Best for mid-size companies wanting managed service](#2-vault-cloud-best-for-mid-size-companies-wanting-managed-service)
+- [3. AWS Secrets Manager: Good for AWS-only environments](#3-aws-secrets-manager-good-for-aws-only-environments)
+- [4. Traditional Config: Highest total cost due to security incidents](#4-traditional-config-highest-total-cost-due-to-security-incidents)
+  - [ROI Analysis Results (2025)](#roi-analysis-results-2025)
+- [Future Roadmap & Emerging Trends](#future-roadmap-emerging-trends)
+  - [2025-2030 Innovation Pipeline](#2025-2030-innovation-pipeline)
+- [Key Takeaways for Architects](#key-takeaways-for-architects)
+  - [Implementation Checklist](#implementation-checklist)
+- [Cross-References & Related Topics](#cross-references-related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns  ](#related-patterns-)
+  - [Related Case Studies](#related-case-studies)
+- [External Resources](#external-resources)
+
+
+
 !!! success "Excellence Badge"
     🥈 **Silver Tier**: Industry-leading secrets management with proven enterprise adoption
 
@@ -1104,7 +1163,7 @@ class VaultPolicyEngine:
 ### High-Performance Vault Cluster Configuration
 
 ```yaml
-# Production Vault cluster configuration
+## Production Vault cluster configuration
 storage "raft" {
   path = "/opt/vault/data"
   
@@ -1123,15 +1182,15 @@ storage "raft" {
   }
 }
 
-# Cluster configuration
+## Cluster configuration
 cluster_addr = "https://vault-node-1:8201"
 api_addr = "https://vault-node-1:8200"
 
-# Performance tuning
+## Performance tuning
 default_lease_ttl = "1h"
 max_lease_ttl = "24h"
 
-# Caching configuration
+## Caching configuration
 cache {
   size = "1GB"
   
@@ -1148,7 +1207,7 @@ cache {
   }
 }
 
-# Listener configuration with performance optimizations
+## Listener configuration with performance optimizations
 listener "tcp" {
   address = "0.0.0.0:8200"
   tls_cert_file = "/etc/vault/tls/vault.crt"
@@ -1163,7 +1222,7 @@ listener "tcp" {
   max_request_duration = "90s"
 }
 
-# Telemetry for monitoring
+## Telemetry for monitoring
 telemetry {
   prometheus_retention_time = "30s"
   disable_hostname = false
@@ -1173,10 +1232,10 @@ telemetry {
   statsite_address = "localhost:8125"
 }
 
-# Plugin directory for custom secret engines
+## Plugin directory for custom secret engines
 plugin_directory = "/opt/vault/plugins"
 
-# Logging
+## Logging
 log_level = "INFO"
 log_format = "json"
 ```
@@ -1240,7 +1299,7 @@ log_format = "json"
 ### Multi-Cloud Disaster Recovery
 
 ```terraform
-# Multi-cloud Vault deployment with disaster recovery
+## Multi-cloud Vault deployment with disaster recovery
 module "vault_primary" {
   source = "./modules/vault-cluster"
   
@@ -1282,7 +1341,7 @@ module "vault_dr" {
   replication_token = vault_mount.dr_replication.accessor
 }
 
-# Cross-cloud networking
+## Cross-cloud networking
 resource "aws_vpc_peering_connection" "vault_dr" {
   vpc_id = module.vault_primary.vpc_id
   peer_vpc_id = module.vault_dr.vpc_id
@@ -1293,7 +1352,7 @@ resource "aws_vpc_peering_connection" "vault_dr" {
   }
 }
 
-# Disaster recovery replication
+## Disaster recovery replication
 resource "vault_mount" "dr_replication" {
   type = "replication"
   path = "sys/replication/dr"
@@ -1305,7 +1364,7 @@ resource "vault_mount" "dr_replication" {
   }
 }
 
-# Automated failover configuration
+## Automated failover configuration
 resource "aws_route53_health_check" "vault_primary" {
   fqdn = module.vault_primary.load_balancer_dns
   port = 8200
@@ -1351,7 +1410,7 @@ resource "aws_route53_record" "vault_failover_dr" {
 ### Kubernetes Integration
 
 ```yaml
-# Vault Kubernetes deployment with CSI driver
+## Vault Kubernetes deployment with CSI driver
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -1443,7 +1502,7 @@ spec:
           storage: 100Gi
 
 ---
-# Vault CSI Provider for secret injection
+## Vault CSI Provider for secret injection
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -1511,7 +1570,7 @@ spec:
         kubernetes.io/os: linux
 
 ---
-# Example application using Vault secrets
+## Example application using Vault secrets
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1711,7 +1770,7 @@ class VaultTCOCalculator:
             'cheapest_cost': cheapest[1]['total_5_year_cost']
         }
 
-# Example analysis for mid-size company
+## Example analysis for mid-size company
 analyzer = VaultTCOCalculator(
     organization_size=500,  # 500 employees
     secret_volume=10000,    # 10K secrets managed daily
@@ -1720,11 +1779,11 @@ analyzer = VaultTCOCalculator(
 
 analysis = analyzer.compare_solutions()
 
-# Results typically show:
-# 1. Vault Enterprise: Best for large enterprises with compliance needs
-# 2. Vault Cloud: Best for mid-size companies wanting managed service
-# 3. AWS Secrets Manager: Good for AWS-only environments
-# 4. Traditional Config: Highest total cost due to security incidents
+## Results typically show:
+## 1. Vault Enterprise: Best for large enterprises with compliance needs
+## 2. Vault Cloud: Best for mid-size companies wanting managed service
+## 3. AWS Secrets Manager: Good for AWS-only environments
+## 4. Traditional Config: Highest total cost due to security incidents
 ```
 
 ### ROI Analysis Results (2025)

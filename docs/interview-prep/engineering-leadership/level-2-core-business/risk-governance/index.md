@@ -1,9 +1,88 @@
 ---
 title: Risk Governance
 description: Risk Governance overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Business Concept #5: Risk & Governance
+
+
+
+## Overview
+
+Risk Governance
+description: Risk Governance overview and navigation
+---
+
+# Business Concept #5: Risk & Governance
+
+## Table of Contents
+
+- [Definition](#definition)
+- [Core Risk Management Frameworks](#core-risk-management-frameworks)
+  - [1. COSO ERM Framework](#1-coso-erm-framework)
+  - [2.
+
+**Reading time:** ~9 minutes
+
+## Table of Contents
+
+- [Definition](#definition)
+- [Core Risk Management Frameworks](#core-risk-management-frameworks)
+  - [1. COSO ERM Framework](#1-coso-erm-framework)
+  - [2. ISO 31000 Risk Management](#2-iso-31000-risk-management)
+  - [3. Three Lines of Defense Model](#3-three-lines-of-defense-model)
+  - [4. FAIR (Factor Analysis of Information Risk)](#4-fair-factor-analysis-of-information-risk)
+- [Types of Risk in Engineering](#types-of-risk-in-engineering)
+  - [1. Technical Risk](#1-technical-risk)
+  - [2. Security Risk](#2-security-risk)
+  - [3. Compliance Risk](#3-compliance-risk)
+  - [4. Operational Risk](#4-operational-risk)
+- [Risk Assessment Methodologies](#risk-assessment-methodologies)
+  - [1. Risk Matrix Approach](#1-risk-matrix-approach)
+  - [2. Quantitative Risk Analysis](#2-quantitative-risk-analysis)
+- [Estimating project delay risk](#estimating-project-delay-risk)
+  - [3. Failure Mode and Effects Analysis (FMEA)](#3-failure-mode-and-effects-analysis-fmea)
+- [Governance Structures](#governance-structures)
+  - [1. RACI Matrix for Tech Decisions](#1-raci-matrix-for-tech-decisions)
+  - [2. Technical Governance Bodies](#2-technical-governance-bodies)
+  - [3. Decision Rights Framework](#3-decision-rights-framework)
+- [Crisis Management](#crisis-management)
+  - [1. Crisis Response Framework](#1-crisis-response-framework)
+  - [2. Crisis Communication](#2-crisis-communication)
+  - [3. War Room Protocols](#3-war-room-protocols)
+- [Business Continuity Planning](#business-continuity-planning)
+  - [1. BCP Framework](#1-bcp-framework)
+  - [2. Recovery Objectives](#2-recovery-objectives)
+  - [3. Disaster Recovery Patterns](#3-disaster-recovery-patterns)
+- [Security Governance](#security-governance)
+  - [1. Security Development Lifecycle (SDL)](#1-security-development-lifecycle-sdl)
+  - [2. Zero Trust Implementation](#2-zero-trust-implementation)
+  - [3. Security Metrics & KPIs](#3-security-metrics-kpis)
+- [Audit & Controls](#audit-controls)
+  - [1. Control Framework](#1-control-framework)
+  - [2. Audit Preparation](#2-audit-preparation)
+  - [3. Continuous Compliance](#3-continuous-compliance)
+- [Board Reporting for Technical Leaders](#board-reporting-for-technical-leaders)
+  - [1. Executive Risk Dashboard](#1-executive-risk-dashboard)
+  - [2. Board Communication](#2-board-communication)
+  - [3. Metrics That Matter to Boards](#3-metrics-that-matter-to-boards)
+- [Interview Excellence: Risk & Governance](#interview-excellence-risk-governance)
+  - [Story Framework](#story-framework)
+  - [Power Phrases](#power-phrases)
+  - [Example Topics](#example-topics)
+- [Developing Risk & Governance Expertise](#developing-risk-governance-expertise)
+  - [Learning Path](#learning-path)
+  - [Recommended Resources](#recommended-resources)
+- [Risk & Governance in Practice](#risk-governance-in-practice)
+  - [Startup Context](#startup-context)
+  - [Enterprise Context](#enterprise-context)
+  - [High-Growth Context](#high-growth-context)
+- [Connection to Other Concepts](#connection-to-other-concepts)
+
+
 
 > "The biggest risk is not taking any risk. In a world that's changing really quickly, the only strategy that is guaranteed to fail is not taking risks." - Mark Zuckerberg
 
@@ -171,7 +250,7 @@ L=Low, M=Medium, H=High, C=Critical
 
 **Monte Carlo Simulation Example**:
 ```python
-# Estimating project delay risk
+## Estimating project delay risk
 import numpy as np
 
 def simulate_project_risk(n_simulations=10000):

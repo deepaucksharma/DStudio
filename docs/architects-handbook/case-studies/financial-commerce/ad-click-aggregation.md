@@ -253,20 +253,20 @@ graph TD
 
 **Multi-Stage Processing**:
 ```python
-# Stage 1: Validation and Enrichment
+## Stage 1: Validation and Enrichment
 def validate_and_enrich(event):
-# Validate required fields
+## Validate required fields
     if not all(k in event for k in ['event_id', 'ad_id', 'timestamp']):
         return None
     
-# Enrich with additional data
+## Enrich with additional data
     event['advertiser'] = lookup_advertiser(event['ad_id'])
     event['campaign'] = lookup_campaign(event['ad_id'])
     event['fraud_score'] = calculate_fraud_score(event)
     
     return event
 
-# Stage 2: Deduplication
+## Stage 2: Deduplication
 class ClickDeduplicator:
     def __init__(self, window_minutes=10):
         self.seen = BloomFilter(capacity=10_000_000, error_rate=0.001)
@@ -279,7 +279,7 @@ class ClickDeduplicator:
         self.seen.add(key)
         return False
 
-# Stage 3: Fraud Detection
+## Stage 3: Fraud Detection
 def detect_fraud(events_window):
     fraud_signals = {
         'rapid_clicks': len(events_window) > 10,  # >10 clicks in window
@@ -485,7 +485,7 @@ class HyperLogLogAggregator:
     def estimate_cardinality(self):
         raw_estimate = self.m * self.m / sum(2**(-x) for x in self.buckets)
         
-# Apply bias correction
+## Apply bias correction
         if raw_estimate <= 2.5 * self.m:
             zeros = self.buckets.count(0)
             if zeros != 0:
@@ -509,15 +509,15 @@ class OptimizedClickWriter:
         self.compression = 'snappy'
         
     def write_batch(self, events):
-# Convert to columnar format
+## Convert to columnar format
         df = pd.DataFrame(events)
         
-# Optimize data types
+## Optimize data types
         df['timestamp'] = pd.to_datetime(df['timestamp'])
         df['advertiser_id'] = df['advertiser_id'].astype('category')
         df['publisher_id'] = df['publisher_id'].astype('category')
         
-# Write as Parquet with compression
+## Write as Parquet with compression
         table = pa.Table.from_pandas(df)
         pq.write_table(
             table,
@@ -599,7 +599,7 @@ class ClickPatternDetector:
             interval = clicks[i].timestamp - clicks[i-1].timestamp
             intervals.append(interval.total_seconds())
         
-# Suspicious if many clicks < 1 second apart
+## Suspicious if many clicks < 1 second apart
         rapid_clicks = sum(1 for i in intervals if i < 1.0)
         return rapid_clicks / len(intervals)
     
@@ -610,11 +610,11 @@ class ClickPatternDetector:
         intervals = [clicks[i].timestamp - clicks[i-1].timestamp 
                      for i in range(1, len(clicks))]
         
-# Check for regular intervals (bot behavior)
+## Check for regular intervals (bot behavior)
         interval_variance = statistics.variance([i.total_seconds() 
                                                for i in intervals])
         
-# Low variance suggests bot
+## Low variance suggests bot
         return 1.0 if interval_variance < 0.1 else 0.0
 ```
 
@@ -649,14 +649,14 @@ dashboards:
 
 **Reprocessing Historical Data**:
 ```bash
-# Replay specific time range
+## Replay specific time range
 ./replay-clicks.sh \
   --start="2024-01-15T00:00:00Z" \
   --end="2024-01-15T23:59:59Z" \
   --speed=10x \
   --target=reprocessing-pipeline
 
-# Monitor progress
+## Monitor progress
 watch -n 5 './check-replay-progress.sh'
 ```
 
@@ -717,5 +717,5 @@ watch -n 5 './check-replay-progress.sh'
 
 - [Google AdWords Architecture](https://research.google/pubs/pub36632/)
 - [Stream Processing with Apache Flink](https://www.oreilly.com/library/view/stream-processing-with/9781491974285/)
-- [Lambda Architecture](http://lambda-architecture.net/)
+- [Lambda Architecture - Big Data Book by Nathan Marz](https://www.manning.com/books/big-data)
 - [Probabilistic Data Structures](https://doi.org/10.1145/2213556.2213574/)

@@ -57,6 +57,48 @@ lessons_learned:
 
 # Uber's Real-Time Location System: Scale and Architecture Deep Dive
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [System Overview](#system-overview)
+  - [Business Context](#business-context)
+  - [High-Level Architecture](#high-level-architecture)
+- [Mapping to Fundamental Laws](#mapping-to-fundamental-laws)
+  - [Law Analysis](#law-analysis)
+- [Design Deep Dive](#design-deep-dive)
+  - [Data Architecture](#data-architecture)
+  - [Scaling Strategy](#scaling-strategy)
+- [Failure Scenarios & Lessons](#failure-scenarios-lessons)
+- [Performance Characteristics](#performance-characteristics)
+  - [Latency Breakdown](#latency-breakdown)
+  - [Resource Utilization](#resource-utilization)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring & Observability](#monitoring-observability)
+  - [Deployment Strategy](#deployment-strategy)
+- [Key Innovations](#key-innovations)
+- [Pattern Excellence Analysis](#pattern-excellence-analysis)
+  - [Gold Patterns Powering Real-Time Location](#gold-patterns-powering-real-time-location)
+  - [Silver Patterns for Optimization](#silver-patterns-for-optimization)
+  - [Bronze Pattern Evolution](#bronze-pattern-evolution)
+- [Related Topics](#related-topics)
+  - [Related Laws & Axioms](#related-laws-axioms)
+  - [Related Patterns](#related-patterns)
+  - [Related Pillars](#related-pillars)
+  - [Case Studies](#case-studies)
+- [Takeaways for Your System](#takeaways-for-your-system)
+- [Cross-References to Fundamental Laws](#cross-references-to-fundamental-laws)
+  - [Related Laws (Part I.md)](#related-laws-part-imd)
+  - [Related Pillars (Part II)](#related-pillars-part-ii)
+  - [Related Patterns (Part III)](#related-patterns-part-iii)
+- [Excellence Resources](#excellence-resources)
+  - [Implementation Guides](#implementation-guides)
+  - [Related Case Studies](#related-case-studies)
+  - [Pattern Comparisons](#pattern-comparisons)
+- [Further Reading](#further-reading)
+- [Discussion Questions](#discussion-questions)
+
+
+
 !!! success "Excellence Badge"
     🥇 **Gold Tier**: Battle-tested real-time location tracking at planetary scale
 

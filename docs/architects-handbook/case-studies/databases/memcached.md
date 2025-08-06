@@ -110,25 +110,25 @@ graph TB
 ### 1. Protocol Simplicity
 
 ```bash
-# Text protocol - human readable
+## Text protocol - human readable
 telnet localhost 11211
 
-# Store
+## Store
 set mykey 0 3600 5
 hello
 STORED
 
-# Retrieve  
+## Retrieve  
 get mykey
 VALUE mykey 0 5
 hello
 END
 
-# Delete
+## Delete
 delete mykey
 DELETED
 
-# Increment
+## Increment
 incr counter 1
 1
 ```
@@ -184,7 +184,7 @@ def get_user(user_id):
         # Cache miss - fetch from database
         user = db.query("SELECT * FROM users WHERE id = ?", user_id)
         
-        # Store in cache for next time
+        ## Store in cache for next time
         memcached.set(key, user, expire=3600)  # 1 hour TTL
     
     return user
@@ -219,7 +219,7 @@ class MemcachedPool:
         with self.lock:
             self.pool.append(client)
 
-# Usage
+## Usage
 pool = MemcachedPool(['127.0.0.1:11211', '127.0.0.1:11212'])
 client = pool.get_client()
 try:
@@ -323,13 +323,13 @@ graph LR
 ### 3. Limited Data Types
 
 ```python
-# Memcached: Only strings
+## Memcached: Only strings
 memcached.set("counter", "1")
 value = int(memcached.get("counter"))
 value += 1
 memcached.set("counter", str(value))  # Race condition!
 
-# Redis: Native types
+## Redis: Native types
 redis.incr("counter")  # Atomic!
 redis.lpush("queue", "item")
 redis.sadd("set", "member")
@@ -341,7 +341,7 @@ redis.hset("hash", "field", "value")
 ### Moving to Redis
 
 ```python
-# Compatibility layer
+## Compatibility layer
 class MemcachedToRedis:
     def __init__(self, redis_client):
         self.redis = redis_client
@@ -409,7 +409,7 @@ class MemcachedCircuitBreaker:
 ### 2. Monitor Key Metrics
 
 ```bash
-# Stats command output
+## Stats command output
 stats
 STAT uptime 86400
 STAT curr_connections 10

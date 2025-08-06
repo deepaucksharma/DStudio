@@ -50,6 +50,53 @@ type: pattern
 
 # API Gateway Pattern
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [Complete API Gateway Architecture](#complete-api-gateway-architecture)
+- [Request Flow Scenarios](#request-flow-scenarios)
+  - [Successful Authenticated Request Flow](#successful-authenticated-request-flow)
+  - [Rate Limited Request Flow](#rate-limited-request-flow)
+  - [Circuit Breaker Open Flow](#circuit-breaker-open-flow)
+  - [Cache Hit Optimization Flow](#cache-hit-optimization-flow)
+- [Routing Decision Trees](#routing-decision-trees)
+  - [Path-Based Routing Strategy](#path-based-routing-strategy)
+  - [Header-Based Routing with Canary Deployment](#header-based-routing-with-canary-deployment)
+  - [Query Parameter and Method-Based Routing](#query-parameter-and-method-based-routing)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+  - [The Story](#the-story)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Security Layer Architecture](#security-layer-architecture)
+  - [Multi-Layer Security Model](#multi-layer-security-model)
+  - [OAuth 2.0 / OpenID Connect Flow](#oauth-20-openid-connect-flow)
+  - [API Key Management Strategy](#api-key-management-strategy)
+  - [The Problem Space](#the-problem-space)
+- [Performance Optimization Architecture](#performance-optimization-architecture)
+  - [Multi-Level Caching Strategy](#multi-level-caching-strategy)
+  - [Response Aggregation & Composition](#response-aggregation-composition)
+  - [Circuit Breaker Pattern Implementation](#circuit-breaker-pattern-implementation)
+  - [Load Balancing Strategies Comparison](#load-balancing-strategies-comparison)
+- [API Gateway Solutions Comparison](#api-gateway-solutions-comparison)
+  - [Enterprise Gateway Solutions](#enterprise-gateway-solutions)
+  - [Feature Matrix Comparison](#feature-matrix-comparison)
+  - [Architecture Decision Matrix](#architecture-decision-matrix)
+  - [Cost-Performance Analysis](#cost-performance-analysis)
+  - [Netflix's Multi-Region Architecture](#netflixs-multi-region-architecture)
+  - [Uber's Edge Gateway Strategy](#ubers-edge-gateway-strategy)
+  - [Amazon's API Gateway Multi-Tier Architecture](#amazons-api-gateway-multi-tier-architecture)
+- [Scaling Patterns & Multi-Region Deployment](#scaling-patterns-multi-region-deployment)
+  - [Horizontal Scaling Strategy](#horizontal-scaling-strategy)
+  - [Multi-Region Failover Strategy](#multi-region-failover-strategy)
+  - [Performance Metrics & SLA Targets](#performance-metrics-sla-targets)
+- [Decision Matrix](#decision-matrix)
+- [Production Implementation Insights](#production-implementation-insights)
+  - [Netflix: Zuul Evolution Strategy](#netflix-zuul-evolution-strategy)
+  - [Amazon: Multi-Tier Gateway Strategy](#amazon-multi-tier-gateway-strategy)
+  - [Uber: City-Based Edge Architecture](#uber-city-based-edge-architecture)
+
 !!! success "🏆 Gold Standard Pattern"
     **Single Entry Point for Microservices** • Netflix, Amazon, Uber proven at 50B+ scale
     

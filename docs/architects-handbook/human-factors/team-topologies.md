@@ -1,17 +1,87 @@
 ---
 title: Team Topologies for Distributed Systems
 description: Team Topologies provides four fundamental team types and three interaction
-  modes to help organizations design their team structures for fast flow o...
 type: human-factors
 difficulty: beginner
 reading_time: 30 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
-
 # Team Topologies for Distributed Systems
+
+
+
+## Overview
+
+Team Topologies for Distributed Systems
+description: Team Topologies provides four fundamental team types and three interaction
+  modes to help organizations design their team structures for fast flow o. Team Topologies for Distributed Systems
+
+## Table of Contents
+
+- [Understanding Team Topologies](#understanding-team-topologies)
+- [The Four Team Types](#the-four-team-types)
+  - [1.
+
+**Reading time:** ~11 minutes
+
+## Table of Contents
+
+- [Understanding Team Topologies](#understanding-team-topologies)
+- [The Four Team Types](#the-four-team-types)
+  - [1. Stream-Aligned Teams](#1-stream-aligned-teams)
+  - [2. Platform Teams](#2-platform-teams)
+  - [3. Enabling Teams](#3-enabling-teams)
+  - [4. Complicated Subsystem Teams](#4-complicated-subsystem-teams)
+- [Team Interaction Modes](#team-interaction-modes)
+- [Conway's Law and System Design](#conways-law-and-system-design)
+  - [Implications for Distributed Systems](#implications-for-distributed-systems)
+- [Check service ownership](#check-service-ownership)
+- [Check team dependencies](#check-team-dependencies)
+- [Cognitive Load Management](#cognitive-load-management)
+  - [Types of Cognitive Load](#types-of-cognitive-load)
+  - [Managing Team Cognitive Load](#managing-team-cognitive-load)
+- [Threshold based on team size](#threshold-based-on-team-size)
+- [Platform Team Patterns](#platform-team-patterns)
+  - [Building Effective Platforms](#building-effective-platforms)
+  - [Platform as a Product](#platform-as-a-product)
+- [Use same product management techniques](#use-same-product-management-techniques)
+- [as external products](#as-external-products)
+- [Team API and Boundaries](#team-api-and-boundaries)
+  - [Defining Team APIs](#defining-team-apis)
+- [Organizational Evolution](#organizational-evolution)
+  - [Team Structure Selection Decision Matrix](#team-structure-selection-decision-matrix)
+  - [Scaling Patterns](#scaling-patterns)
+- [Recommend split](#recommend-split)
+- [Analyze service dependencies](#analyze-service-dependencies)
+- [Anti-Patterns to Avoid](#anti-patterns-to-avoid)
+  - [1. Shared Services Team](#1-shared-services-team)
+  - [2. Architecture Team](#2-architecture-team)
+  - [3. Dev vs Ops Split](#3-dev-vs-ops-split)
+  - [4. Component Teams](#4-component-teams)
+- [Measuring Team Effectiveness](#measuring-team-effectiveness)
+- [Visual Org Transition Templates](#visual-org-transition-templates)
+  - [Transition from Component to Stream-Aligned Teams](#transition-from-component-to-stream-aligned-teams)
+  - [Organizational Transition Roadmap](#organizational-transition-roadmap)
+- [Case Study: Distributed System Team Design](#case-study-distributed-system-team-design)
+  - [Before: Component Teams](#before-component-teams)
+  - [After: Stream-Aligned Teams](#after-stream-aligned-teams)
+  - [Results](#results)
+- [👥 Practical Application](#-practical-application)
+  - [Exercise 1: Current State Assessment](#exercise-1-current-state-assessment)
+  - [Exercise 2: Implementation Planning](#exercise-2-implementation-planning)
+  - [Exercise 3: Simulation Exercise](#exercise-3-simulation-exercise)
+- [Process Development](#process-development)
+  - [Team Workshop Design](#team-workshop-design)
+  - [Measurement & Iteration](#measurement-iteration)
+- [Leadership Application](#leadership-application)
+
+
 
 **Organizing teams for effective distributed systems development**
 
@@ -227,7 +297,7 @@ class ConwayAnalyzer:
     def analyze_alignment(self, teams, services):
         misalignments = []
 
-# Check service ownership
+## Check service ownership
         for service in services:
             owners = self.find_service_owners(service, teams)
 
@@ -245,7 +315,7 @@ class ConwayAnalyzer:
                     'impact': 'Coordination overhead'
                 })
 
-# Check team dependencies
+## Check team dependencies
         for team in teams:
             dependencies = self.analyze_team_dependencies(team)
 
@@ -284,7 +354,7 @@ class CognitiveLoadCalculator:
 
         total_load = sum(load_factors.values())
 
-# Threshold based on team size
+## Threshold based on team size
         capacity = team.size * 50  # 50 points per person
 
         return {
@@ -349,8 +419,8 @@ class PlatformProduct:
         }
 
     def prioritize_features(self):
-# Use same product management techniques
-# as external products
+## Use same product management techniques
+## as external products
         return sorted(self.features,
                      key=lambda f: f.user_value / f.effort,
                      reverse=True)
@@ -443,13 +513,13 @@ class OrganizationalScaling:
         }
 
         if sum(indicators.values()) >= 3:
-# Recommend split
+## Recommend split
             return self.suggest_split_strategy(team)
 
         return None
 
     def suggest_split_strategy(self, team):
-# Analyze service dependencies
+## Analyze service dependencies
         clusters = self.find_service_clusters(team.services)
 
         return {

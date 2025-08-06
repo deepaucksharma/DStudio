@@ -1,9 +1,79 @@
 ---
 title: Strategy
 description: Strategy overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Business Concept #1: Strategy
+
+
+
+## Overview
+
+Strategy
+description: Strategy overview and navigation
+---
+
+# Business Concept #1: Strategy
+
+## Table of Contents
+
+- [Definition](#definition)
+- [Core Strategic Frameworks](#core-strategic-frameworks)
+  - [1. Porter's Five Forces](#1-porters-five-forces)
+  - [2.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [Definition](#definition)
+- [Core Strategic Frameworks](#core-strategic-frameworks)
+  - [1. Porter's Five Forces](#1-porters-five-forces)
+  - [2. Blue Ocean Strategy](#2-blue-ocean-strategy)
+  - [3. Disruption Theory (Christensen)](#3-disruption-theory-christensen)
+  - [4. Platform Strategy](#4-platform-strategy)
+- [Strategic Thinking for Engineering Leaders](#strategic-thinking-for-engineering-leaders)
+  - [1. Technical Strategy Components](#1-technical-strategy-components)
+  - [2. The Strategy Stack](#2-the-strategy-stack)
+  - [3. Strategic Decision Frameworks](#3-strategic-decision-frameworks)
+    - [Build vs. Buy vs. Partner](#build-vs-buy-vs-partner)
+    - [Technical Debt as Strategic Choice](#technical-debt-as-strategic-choice)
+- [Strategic Patterns in Engineering](#strategic-patterns-in-engineering)
+  - [Pattern 1: The Platform Play](#pattern-1-the-platform-play)
+  - [Pattern 2: The Open Source Gambit](#pattern-2-the-open-source-gambit)
+  - [Pattern 3: The Data Network Effect](#pattern-3-the-data-network-effect)
+  - [Pattern 4: The Developer Experience Moat](#pattern-4-the-developer-experience-moat)
+- [Strategic Planning Process](#strategic-planning-process)
+  - [1. Environmental Scanning](#1-environmental-scanning)
+  - [2. Strategic Options Generation](#2-strategic-options-generation)
+  - [3. Strategy Communication](#3-strategy-communication)
+- [Technical Strategy One-Pager](#technical-strategy-one-pager)
+- [Common Strategic Failures](#common-strategic-failures)
+  - [1. Strategy vs. Planning Confusion](#1-strategy-vs-planning-confusion)
+  - [2. Technology for Technology's Sake](#2-technology-for-technologys-sake)
+  - [3. Ignoring Organizational Reality](#3-ignoring-organizational-reality)
+  - [4. Lack of Courage](#4-lack-of-courage)
+- [Strategic Thinking in Action](#strategic-thinking-in-action)
+  - [Case Study: Technical Platform Strategy](#case-study-technical-platform-strategy)
+- [Interview Mastery: Demonstrating Strategic Thinking](#interview-mastery-demonstrating-strategic-thinking)
+  - [Strategic Story Structure](#strategic-story-structure)
+  - [Power Phrases](#power-phrases)
+  - [Red Flags to Avoid](#red-flags-to-avoid)
+- [Developing Strategic Thinking](#developing-strategic-thinking)
+  - [Daily Practices](#daily-practices)
+  - [Weekly Exercises](#weekly-exercises)
+  - [Quarterly Development](#quarterly-development)
+  - [Recommended Resources](#recommended-resources)
+- [Connection to First Principles](#connection-to-first-principles)
+- [Connection to Other Business Concepts](#connection-to-other-business-concepts)
+- [Application in Level III](#application-in-level-iii)
+- [Interview Application (Level IV)](#interview-application-level-iv)
+- [Next Steps](#next-steps)
+
+
 
 > "Strategy is about making choices, trade-offs; it's about deliberately choosing to be different." - Michael Porter
 

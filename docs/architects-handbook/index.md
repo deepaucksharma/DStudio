@@ -1,9 +1,56 @@
 ---
 title: Architects Handbook
 description: Architects Handbook overview and navigation
+category: root
+tags: [root]
+date: 2025-08-07
 ---
 
 # Architect's Handbook
+
+
+
+## Overview
+
+Architects Handbook
+description: Architects Handbook overview and navigation
+---
+
+# Architect's Handbook
+
+## Table of Contents
+
+- [From Theory to Production: Your Journey](#from-theory-to-production-your-journey)
+- [Your Learning Path](#your-learning-path)
+- [📚 Sections](#-sections)
+- [🏆 Excellence Framework](#-excellence-framework)
+  - [Maturity Progression](#maturity-progression)
+- [📊 Quick Tools](#-quick-tools)
+- [📖 Featured Resources](#-featured-resources)
+  - [Recent Case Studies](#recent-case-studies)
+  - [Popular Playbooks](#popular-playbooks)
+
+
+
+Bridge theory to practice with real-world case studies, implementation guides, and quantitative tools. From Theory to Production: Your Journey
+
+Understanding distributed systems theory is just the beginning.
+
+**Reading time:** ~3 minutes
+
+## Table of Contents
+
+- [From Theory to Production: Your Journey](#from-theory-to-production-your-journey)
+- [Your Learning Path](#your-learning-path)
+- [📚 Sections](#-sections)
+- [🏆 Excellence Framework](#-excellence-framework)
+  - [Maturity Progression](#maturity-progression)
+- [📊 Quick Tools](#-quick-tools)
+- [📖 Featured Resources](#-featured-resources)
+  - [Recent Case Studies](#recent-case-studies)
+  - [Popular Playbooks](#popular-playbooks)
+
+
 
 Bridge theory to practice with real-world case studies, implementation guides, and quantitative tools.
 

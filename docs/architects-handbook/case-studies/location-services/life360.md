@@ -12,6 +12,30 @@ key_patterns:
 
 # Life360: Continuous Family Location Tracking at Scale
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Business Context & Family Safety Evolution](#business-context-family-safety-evolution)
+  - [From Occasional Check-ins to Continuous Awareness](#from-occasional-check-ins-to-continuous-awareness)
+  - [Scale Challenges in Family Location Services](#scale-challenges-in-family-location-services)
+- [Deep Architecture Analysis](#deep-architecture-analysis)
+  - [Battery-Optimized Location Tracking](#battery-optimized-location-tracking)
+  - [Geofencing Engine at Scale](#geofencing-engine-at-scale)
+  - [Driving Behavior Analysis](#driving-behavior-analysis)
+- [Emergency Response & Crash Detection](#emergency-response-crash-detection)
+  - [Advanced Crash Detection System](#advanced-crash-detection-system)
+- [Performance Analysis & Real-World Impact](#performance-analysis-real-world-impact)
+  - [Battery Optimization Results (2025)](#battery-optimization-results-2025)
+- [Key Takeaways for Location Service Architects](#key-takeaways-for-location-service-architects)
+  - [Implementation Guidelines](#implementation-guidelines)
+- [Cross-References & Related Topics](#cross-references-related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns  ](#related-patterns-)
+  - [Related Case Studies](#related-case-studies)
+- [External Resources](#external-resources)
+
+
+
 !!! success "Excellence Badge"
     🥈 **Silver Tier**: Leading consumer location platform with innovative battery optimization and family safety features
 

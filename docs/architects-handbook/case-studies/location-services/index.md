@@ -5,6 +5,57 @@ description: Mapping platforms, location tracking, and geospatial data processin
 
 # Location Services & Geospatial Systems
 
+## Table of Contents
+
+- [Overview](#overview)
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Case Studies](#-case-studies)
+  - [🗺️ Mapping Platforms](#-mapping-platforms)
+    - [**[Google Maps](google-maps.md)**](#google-mapsgoogle-mapsmd)
+    - [**[Google Maps System Design](google-maps-system.md)**  ](#google-maps-system-designgoogle-maps-systemmd-)
+    - [**[Apple Maps](apple-maps.md)**](#apple-mapsapple-mapsmd)
+    - [**[HERE Maps](here-maps.md)**](#here-mapshere-mapsmd)
+    - [**[OpenStreetMap](openstreetmap.md)**  ](#openstreetmapopenstreetmapmd-)
+  - [📍 Location Tracking](#-location-tracking)
+    - [**[Uber Location Services](uber-location.md)**](#uber-location-servicesuber-locationmd)
+    - [**[Find My Device](find-my-device.md)**](#find-my-devicefind-my-devicemd)
+    - [**[Life360](life360.md)**](#life360life360md)
+  - [🎯 Proximity Services  ](#-proximity-services-)
+    - [**[Proximity Service](proximity-service.md)**](#proximity-serviceproximity-servicemd)
+    - [**[Nearby Friends](nearby-friends.md)**](#nearby-friendsnearby-friendsmd)
+    - [**[Snap Map](snap-map.md)**](#snap-mapsnap-mapmd)
+  - [🚗 Transportation & Navigation](#-transportation-navigation)
+    - [**[Uber Maps](uber-maps.md)**  ](#uber-mapsuber-mapsmd-)
+  - [📊 Analytics & Insights](#-analytics-insights)
+    - [**[Strava Heatmaps](strava-heatmaps.md)**](#strava-heatmapsstrava-heatmapsmd)
+- [🔄 Progressive Learning Path](#-progressive-learning-path)
+  - [Foundation Track (Beginner)](#foundation-track-beginner)
+  - [Intermediate Track  ](#intermediate-track-)
+  - [Advanced Track](#advanced-track)
+  - [Expert Track](#expert-track)
+- [🌍 Geospatial Architecture Patterns](#-geospatial-architecture-patterns)
+  - [Spatial Indexing](#spatial-indexing)
+  - [Location Privacy](#location-privacy)
+  - [Real-time Processing](#real-time-processing)
+  - [Map Data Management](#map-data-management)
+- [🗺️ Scale & Performance Comparison](#-scale-performance-comparison)
+- [🔗 Cross-References](#-cross-references)
+  - [Related Patterns  ](#related-patterns-)
+  - [Quantitative Analysis](#quantitative-analysis)
+  - [Human Factors](#human-factors)
+- [🎯 Location Services Success Metrics](#-location-services-success-metrics)
+  - [Technical Metrics](#technical-metrics)
+  - [Privacy Metrics  ](#privacy-metrics-)
+  - [Business Metrics](#business-metrics)
+- [🚀 Common Location Services Challenges](#-common-location-services-challenges)
+  - [Challenge: Location Privacy](#challenge-location-privacy)
+  - [Challenge: Battery Optimization  ](#challenge-battery-optimization-)
+  - [Challenge: Indoor Positioning](#challenge-indoor-positioning)
+  - [Challenge: Global Scale](#challenge-global-scale)
+  - [Challenge: Real-time Updates](#challenge-real-time-updates)
+
+
+
 Distributed systems that process location data, provide mapping services, and enable location-aware applications.
 
 ## Overview

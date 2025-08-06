@@ -23,7 +23,7 @@ Consent management systems provide centralized consent collection, storage, and 
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class ConsentManager:
     def __init__(self):
         pass

@@ -1,9 +1,59 @@
 ---
 title: Meta
 description: Meta overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Meta Engineering Leadership Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Interview Process Structure](#interview-process-structure)
+  - [IC6/M1 to M2/Director Process](#ic6m1-to-m2director-process)
+  - [Key Assessment Areas](#key-assessment-areas)
+- [Core Meta Values for Leaders](#core-meta-values-for-leaders)
+  - [1. Move Fast](#1-move-fast)
+  - [2. Focus on Impact](#2-focus-on-impact)
+  - [3. Be Bold](#3-be-bold)
+  - [4. Be Open](#4-be-open)
+- [Technical Leadership Interview Deep Dive](#technical-leadership-interview-deep-dive)
+  - [Systems Design at Meta Scale](#systems-design-at-meta-scale)
+  - [Architecture Review Process](#architecture-review-process)
+- [Behavioral Interview Categories](#behavioral-interview-categories)
+  - [Core Leadership Areas](#core-leadership-areas)
+    - [1. Rapid Decision Making](#1-rapid-decision-making)
+    - [2. Cross-functional Collaboration](#2-cross-functional-collaboration)
+    - [3. Scaling Teams and Systems](#3-scaling-teams-and-systems)
+- [Level-Specific Expectations](#level-specific-expectations)
+  - [IC6/M1 (Staff Engineer/Engineering Manager)](#ic6m1-staff-engineerengineering-manager)
+  - [M2 (Senior Engineering Manager)](#m2-senior-engineering-manager)
+  - [Director+ (M3/M4)](#director-m3m4)
+- [Common Interview Questions](#common-interview-questions)
+  - [Technical Leadership](#technical-leadership)
+  - [Impact Focus](#impact-focus)
+  - [Move Fast](#move-fast)
+  - [Collaboration](#collaboration)
+- [Meta-Specific Preparation Tips](#meta-specific-preparation-tips)
+  - [Research Focus Areas](#research-focus-areas)
+  - [Interview Day Strategy](#interview-day-strategy)
+  - [Red Flags to Avoid](#red-flags-to-avoid)
+  - [Success Indicators](#success-indicators)
+- [Meta Culture Deep Dive](#meta-culture-deep-dive)
+  - ["Nothing at Meta is Someone Else's Problem"](#nothing-at-meta-is-someone-elses-problem)
+  - ["Meta, Metamates, Me"](#meta-metamates-me)
+  - [Move Fast Together](#move-fast-together)
+- [Preparation Timeline](#preparation-timeline)
+  - [6 Weeks Before](#6-weeks-before)
+  - [3 Weeks Before](#3-weeks-before)
+  - [1 Week Before](#1-week-before)
+  - [Day Of](#day-of)
+- [Sample Story Structure](#sample-story-structure)
+  - [High-Impact Technical Leadership Story](#high-impact-technical-leadership-story)
+
+
 
 ## Overview
 

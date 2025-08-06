@@ -1,6 +1,6 @@
 ---
-title: Migration Strategies Guide: Evolving Systems Safely
-description: ```mermaid graph TD A[Migration Strategy] --> B[Assessment] A --> C[Planning] A --> D[Execution] A --> E[Validation]
+title: "Migration Strategies Guide: Evolving Systems Safely"
+description: "Comprehensive guide for safely evolving systems with proven migration patterns, risk mitigation strategies, and implementation frameworks."
 type: guide
 ---
 
@@ -587,3 +587,5 @@ class MigrationDashboard:
 - [Migration Playbooks](../architects-handbook/implementation-playbooks/migrations/)
 - [Case Studies](../architects-handbook/case-studies/)
 - [Saga Pattern](../../pattern-library/data-management/saga/) (Gold)
+```
+```

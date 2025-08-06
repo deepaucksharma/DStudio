@@ -215,7 +215,7 @@ graph LR
 ### 2. Multi-Version Concurrency Control (MVCC)
 
 ```python
-# Simplified version reconciliation
+## Simplified version reconciliation
 class DynamoDBItem:
     def __init__(self, key, value, version_vector):
         self.key = key
@@ -400,7 +400,7 @@ graph LR
 ### Auto-Scaling Magic
 
 ```python
-# Simplified auto-scaling algorithm
+## Simplified auto-scaling algorithm
 class DynamoDBAutoScaler:
     def __init__(self, table):
         self.table = table

@@ -1,6 +1,9 @@
 ---
 title: Human Factors
 description: Human Factors overview and navigation
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Human Factors

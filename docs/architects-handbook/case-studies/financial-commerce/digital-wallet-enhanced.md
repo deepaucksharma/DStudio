@@ -70,6 +70,211 @@ best_for:
 
 # Digital Wallet - System Design Case Study
 
+## Table of Contents
+
+- [1. Problem Statement](#1-problem-statement)
+  - [Real-World Context](#real-world-context)
+- [2. Requirements Analysis](#2-requirements-analysis)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Law Mapping](#law-mapping)
+- [3. Architecture Evolution](#3-architecture-evolution)
+  - [Stage 1: Basic Wallet System (10K users)](#stage-1-basic-wallet-system-10k-users)
+  - [Stage 2: Distributed Architecture (1M users)](#stage-2-distributed-architecture-1m-users)
+  - [Stage 3: Global Scale Architecture (100M+ users)](#stage-3-global-scale-architecture-100m-users)
+- [4. Detailed Component Design](#4-detailed-component-design)
+  - [4.1 Distributed Ledger System](#41-distributed-ledger-system)
+- [Validate amount](#validate-amount)
+- [Get account shards](#get-account-shards)
+- [Acquire distributed locks (ordered to prevent deadlock)](#acquire-distributed-locks-ordered-to-prevent-deadlock)
+- [Begin distributed transaction](#begin-distributed-transaction)
+- [Same shard - single database transaction](#same-shard-single-database-transaction)
+- [Cross-shard - 2PC protocol](#cross-shard-2pc-protocol)
+- [Release locks in reverse order](#release-locks-in-reverse-order)
+- [Get current balances](#get-current-balances)
+- [Update balances](#update-balances)
+- [Update sender balance](#update-sender-balance)
+- [Update receiver balance](#update-receiver-balance)
+- [Record ledger entries](#record-ledger-entries)
+- [Debit entry](#debit-entry)
+- [Credit entry](#credit-entry)
+- [Record transaction](#record-transaction)
+- [Phase 1: Prepare](#phase-1-prepare)
+- [Check prepare results](#check-prepare-results)
+- [Abort transaction](#abort-transaction)
+- [Phase 2: Commit](#phase-2-commit)
+- [This is bad - inconsistent state](#this-is-bad-inconsistent-state)
+  - [Check cache first](#check-cache-first)
+- [Get from database](#get-from-database)
+  - [Cache for 1 minute](#cache-for-1-minute)
+  - [4.2 Payment Processing Engine](#42-payment-processing-engine)
+- [Rate limiting](#rate-limiting)
+- [Fraud check](#fraud-check)
+- [Route based on payment type](#route-based-on-payment-type)
+- [Check if recipient exists](#check-if-recipient-exists)
+- [Check sender balance](#check-sender-balance)
+- [Try to pull from funding source](#try-to-pull-from-funding-source)
+- [Execute transfer](#execute-transfer)
+- [Send notifications](#send-notifications)
+- [Get merchant account](#get-merchant-account)
+- [Calculate fees](#calculate-fees)
+  - [Check balance including fees](#check-balance-including-fees)
+- [1. Deduct full amount from payer](#1-deduct-full-amount-from-payer)
+- [2. Pay merchant (amount - merchant fee)](#2-pay-merchant-amount-merchant-fee)
+- [3. Record fees](#3-record-fees)
+- [Generate receipt](#generate-receipt)
+  - [4.3 Fraud Detection System](#43-fraud-detection-system)
+- [Extract features](#extract-features)
+- [ML-based scoring](#ml-based-scoring)
+- [Rule-based checks](#rule-based-checks)
+- [Velocity checks](#velocity-checks)
+- [Device risk](#device-risk)
+- [Combine scores](#combine-scores)
+- [Determine risk level](#determine-risk-level)
+- [Payment features](#payment-features)
+- [Account history features](#account-history-features)
+- [Recipient features](#recipient-features)
+- [Location features](#location-features)
+- [Device features](#device-features)
+- [In production, load actual trained model](#in-production-load-actual-trained-model)
+- [model.load_weights('fraud_detection_model.h5')](#modelload_weightsfraud_detection_modelh5)
+  - [4.4 Multi-Currency Support](#44-multi-currency-support)
+- [Get current exchange rate](#get-current-exchange-rate)
+- [Calculate amounts](#calculate-amounts)
+  - [Check balance](#check-balance)
+- [Execute exchange as atomic operation](#execute-exchange-as-atomic-operation)
+- [Debit source currency](#debit-source-currency)
+- [Credit target currency](#credit-target-currency)
+- [Record exchange transaction](#record-exchange-transaction)
+- [Rollback on failure](#rollback-on-failure)
+- [Check cache](#check-cache)
+- [Get fresh rate](#get-fresh-rate)
+  - [Cache for 1 minute](#cache-for-1-minute)
+- [Create zero-balance entry](#create-zero-balance-entry)
+- [Set up currency-specific limits](#set-up-currency-specific-limits)
+  - [4.5 QR Code Payment System](#45-qr-code-payment-system)
+- [Create QR payload](#create-qr-payload)
+- [Encrypt payload](#encrypt-payload)
+- [Generate QR code](#generate-qr-code)
+- [Create image](#create-image)
+- [Convert to base64](#convert-to-base64)
+- [Cache QR data](#cache-qr-data)
+- [Extract encrypted payload](#extract-encrypted-payload)
+- [Decrypt payload](#decrypt-payload)
+- [Validate QR](#validate-qr)
+- [Check expiration](#check-expiration)
+- [Get merchant details](#get-merchant-details)
+- [Verify PIN](#verify-pin)
+- [Get QR details](#get-qr-details)
+- [Mark QR as used](#mark-qr-as-used)
+  - [Process payment](#process-payment)
+- [5. Advanced Features](#5-advanced-features)
+  - [5.1 Bill Splitting](#51-bill-splitting)
+- [Validate participants and calculate shares](#validate-participants-and-calculate-shares)
+- [Validate total](#validate-total)
+- [Create split bill](#create-split-bill)
+- [Store in cache and database](#store-in-cache-and-database)
+- [Notify participants](#notify-participants)
+- [Get split bill](#get-split-bill)
+- [Find participant's share](#find-participants-share)
+  - [Process payment](#process-payment)
+- [Update participant status](#update-participant-status)
+- [Check if all paid](#check-if-all-paid)
+- [Update cache and database](#update-cache-and-database)
+- [Notify creator](#notify-creator)
+  - [5.2 Rewards and Cashback System](#52-rewards-and-cashback-system)
+- [Get applicable reward rules](#get-applicable-reward-rules)
+- [Apply caps](#apply-caps)
+- [Apply cashback](#apply-cashback)
+  - [Check balance](#check-balance)
+- [Get redemption value](#get-redemption-value)
+- [100 points = $1](#100-points-1)
+- [Deduct points](#deduct-points)
+- [Credit cash](#credit-cash)
+- [Handle gift card redemption](#handle-gift-card-redemption)
+  - [5.3 Scheduled Payments](#53-scheduled-payments)
+- [Validate recipient](#validate-recipient)
+- [Create scheduled payment](#create-scheduled-payment)
+- [Store in database](#store-in-database)
+- [Schedule first execution](#schedule-first-execution)
+- [Recurring payment](#recurring-payment)
+- [Get schedule details](#get-schedule-details)
+  - [Process payment](#process-payment)
+- [Update execution history](#update-execution-history)
+- [Check if this was the last execution](#check-if-this-was-the-last-execution)
+- [Record failure](#record-failure)
+- [Retry logic](#retry-logic)
+- [6. Security Implementation](#6-security-implementation)
+  - [6.1 Biometric Authentication](#61-biometric-authentication)
+- [Verify device security](#verify-device-security)
+- [Process biometric data](#process-biometric-data)
+- [Store encrypted template](#store-encrypted-template)
+- [Get enrolled templates](#get-enrolled-templates)
+- [Process provided biometric](#process-provided-biometric)
+- [Compare against enrolled templates](#compare-against-enrolled-templates)
+- [Update last used](#update-last-used)
+  - [6.2 Transaction Limits and Controls](#62-transaction-limits-and-controls)
+- [Get user's limit profile](#get-users-limit-profile)
+- [Get current usage](#get-current-usage)
+- [Check single transaction limit](#check-single-transaction-limit)
+- [Check daily limit](#check-daily-limit)
+- [Check monthly limit](#check-monthly-limit)
+- [Check velocity (transactions per time period)](#check-velocity-transactions-per-time-period)
+- [7. Performance Optimizations](#7-performance-optimizations)
+  - [7.1 Read-Through Caching](#71-read-through-caching)
+- [L1: Process local cache](#l1-process-local-cache)
+- [L2: Redis cache](#l2-redis-cache)
+- [L3: Database](#l3-database)
+- [Populate caches](#populate-caches)
+  - [7.2 Batch Processing](#72-batch-processing)
+- [Group by currency and validate](#group-by-currency-and-validate)
+- [Pre-fetch all account balances](#pre-fetch-all-account-balances)
+  - [Process payments with pre-fetched data](#process-payments-with-pre-fetched-data)
+- [8. Monitoring and Analytics](#8-monitoring-and-analytics)
+  - [8.1 Real-time Transaction Monitoring](#81-real-time-transaction-monitoring)
+- [Collect metrics](#collect-metrics)
+- [Check for anomalies](#check-for-anomalies)
+- [Update dashboards](#update-dashboards)
+  - [8.2 Financial Reconciliation](#82-financial-reconciliation)
+- [Sum of all account balances](#sum-of-all-account-balances)
+- [Sum of all ledger entries](#sum-of-all-ledger-entries)
+  - [Check balance](#check-balance)
+- [Find specific accounts with issues](#find-specific-accounts-with-issues)
+- [Verify all transactions balance](#verify-all-transactions-balance)
+- [External reconciliation](#external-reconciliation)
+- [8. Consistency Deep Dive for Digital Wallets](#8-consistency-deep-dive-for-digital-wallets)
+  - [8.1 The Wallet Consistency Challenge](#81-the-wallet-consistency-challenge)
+  - [8.2 Consistency Models by Operation Type](#82-consistency-models-by-operation-type)
+  - [8.3 Distributed Transaction Architecture](#83-distributed-transaction-architecture)
+  - [8.4 Multi-Region Wallet Consistency](#84-multi-region-wallet-consistency)
+  - [8.5 Balance Consistency State Machine](#85-balance-consistency-state-machine)
+  - [8.6 Handling Concurrent Transactions](#86-handling-concurrent-transactions)
+  - [8.7 Saga Pattern for Complex Wallet Operations](#87-saga-pattern-for-complex-wallet-operations)
+  - [8.8 Event Sourcing for Transaction History](#88-event-sourcing-for-transaction-history)
+  - [8.9 Consistency Monitoring Dashboard](#89-consistency-monitoring-dashboard)
+  - [8.10 Best Practices for Wallet Consistency](#810-best-practices-for-wallet-consistency)
+  - [8.11 Handling Split-Brain Scenarios](#811-handling-split-brain-scenarios)
+- [9. Failure Scenarios and Recovery](#9-failure-scenarios-and-recovery)
+  - [9.1 Handling Double Spending](#91-handling-double-spending)
+- [Try to acquire lock with transaction ID](#try-to-acquire-lock-with-transaction-id)
+- [Transaction already being processed](#transaction-already-being-processed)
+- [Wait for in-progress transaction](#wait-for-in-progress-transaction)
+  - [9.2 Disaster Recovery](#92-disaster-recovery)
+- [Stop traffic to failed region](#stop-traffic-to-failed-region)
+- [Promote read replicas in other regions](#promote-read-replicas-in-other-regions)
+- [Restore critical data from backups](#restore-critical-data-from-backups)
+- [Verify data integrity](#verify-data-integrity)
+- [Resume operations](#resume-operations)
+- [10. Real-World Patterns and Lessons](#10-real-world-patterns-and-lessons)
+  - [10.1 PayPal's Money Movement Architecture](#101-paypals-money-movement-architecture)
+  - [10.2 Venmo's Social Feed](#102-venmos-social-feed)
+- [11. Alternative Architectures](#11-alternative-architectures)
+  - [11.1 Blockchain-Based Wallets](#111-blockchain-based-wallets)
+  - [11.2 Central Bank Digital Currency (CBDC)](#112-central-bank-digital-currency-cbdc)
+- [12. Industry Insights](#12-industry-insights)
+  - [Key Success Factors](#key-success-factors)
+  - [Future Trends](#future-trends)
+
 !!! example "Excellence Badge"
     🥈 **Silver Tier**: Proven at enterprise scale with solid architectural choices
 
@@ -289,15 +494,15 @@ class DistributedLedger:
         if not transaction_id:
             transaction_id = str(uuid.uuid4())
         
-# Validate amount
+## Validate amount
         if amount <= 0:
             raise ValueError("Transfer amount must be positive")
         
-# Get account shards
+## Get account shards
         from_shard = self.sharding_strategy.get_shard(from_account)
         to_shard = self.sharding_strategy.get_shard(to_account)
         
-# Acquire distributed locks (ordered to prevent deadlock)
+## Acquire distributed locks (ordered to prevent deadlock)
         lock_ids = sorted([from_account, to_account])
         locks = []
         
@@ -309,9 +514,9 @@ class DistributedLedger:
                 )
                 locks.append(lock)
             
-# Begin distributed transaction
+## Begin distributed transaction
             if from_shard == to_shard:
-# Same shard - single database transaction
+## Same shard - single database transaction
                 result = await self._transfer_same_shard(
                     from_account,
                     to_account,
@@ -321,7 +526,7 @@ class DistributedLedger:
                     from_shard
                 )
             else:
-# Cross-shard - 2PC protocol
+## Cross-shard - 2PC protocol
                 result = await self._transfer_cross_shard(
                     from_account,
                     to_account,
@@ -335,7 +540,7 @@ class DistributedLedger:
             return result
             
         finally:
-# Release locks in reverse order
+## Release locks in reverse order
             for lock in reversed(locks):
                 await self.lock_manager.release_lock(lock)
     
@@ -347,7 +552,7 @@ class DistributedLedger:
         db = self.db_clusters[shard]
         
         async with db.transaction() as txn:
-# Get current balances
+## Get current balances
             from_balance = await txn.fetchval(
                 """
                 SELECT balance FROM account_balances 
@@ -371,11 +576,11 @@ class DistributedLedger:
                 to_account, currency
             ) or Decimal('0')
             
-# Update balances
+## Update balances
             new_from_balance = from_balance - amount
             new_to_balance = to_balance + amount
             
-# Update sender balance
+## Update sender balance
             await txn.execute(
                 """
                 UPDATE account_balances 
@@ -385,7 +590,7 @@ class DistributedLedger:
                 new_from_balance, datetime.utcnow(), from_account, currency
             )
             
-# Update receiver balance
+## Update receiver balance
             await txn.execute(
                 """
                 INSERT INTO account_balances (account_id, currency, balance, updated_at)
@@ -396,10 +601,10 @@ class DistributedLedger:
                 to_account, currency, new_to_balance, datetime.utcnow()
             )
             
-# Record ledger entries
+## Record ledger entries
             timestamp = datetime.utcnow()
             
-# Debit entry
+## Debit entry
             await txn.execute(
                 """
                 INSERT INTO ledger_entries 
@@ -411,7 +616,7 @@ class DistributedLedger:
                 amount, new_from_balance, 'DEBIT', timestamp
             )
             
-# Credit entry
+## Credit entry
             await txn.execute(
                 """
                 INSERT INTO ledger_entries 
@@ -423,7 +628,7 @@ class DistributedLedger:
                 amount, new_to_balance, 'CREDIT', timestamp
             )
             
-# Record transaction
+## Record transaction
             await txn.execute(
                 """
                 INSERT INTO transactions 
@@ -449,20 +654,20 @@ class DistributedLedger:
                                     from_shard: str, to_shard: str) -> TransferResult:
         """Transfer across database shards using 2PC"""
         
-# Phase 1: Prepare
+## Phase 1: Prepare
         prepare_results = await asyncio.gather(
             self._prepare_debit(from_account, amount, currency, transaction_id, from_shard),
             self._prepare_credit(to_account, amount, currency, transaction_id, to_shard),
             return_exceptions=True
         )
         
-# Check prepare results
+## Check prepare results
         if any(isinstance(r, Exception) for r in prepare_results):
-# Abort transaction
+## Abort transaction
             await self._abort_transaction(transaction_id, [from_shard, to_shard])
             raise prepare_results[0] if isinstance(prepare_results[0], Exception) else prepare_results[1]
         
-# Phase 2: Commit
+## Phase 2: Commit
         commit_results = await asyncio.gather(
             self._commit_transaction(transaction_id, from_shard),
             self._commit_transaction(transaction_id, to_shard),
@@ -470,7 +675,7 @@ class DistributedLedger:
         )
         
         if any(isinstance(r, Exception) for r in commit_results):
-# This is bad - inconsistent state
+## This is bad - inconsistent state
             await self._handle_commit_failure(transaction_id, commit_results)
             raise InconsistentStateError("Commit phase failed")
         
@@ -485,13 +690,13 @@ class DistributedLedger:
     async def get_balance(self, account_id: str, currency: str) -> Decimal:
         """Get account balance with read-through cache"""
         
-# Check cache first
+### Check cache first
         cache_key = f"balance:{account_id}:{currency}"
         cached = await self.cache.get(cache_key)
         if cached is not None:
             return Decimal(cached)
         
-# Get from database
+## Get from database
         shard = self.sharding_strategy.get_shard(account_id)
         db = self.db_clusters[shard]
         
@@ -506,7 +711,7 @@ class DistributedLedger:
         if balance is None:
             balance = Decimal('0')
         
-# Cache for 1 minute
+### Cache for 1 minute
         await self.cache.setex(cache_key, 60, str(balance))
         
         return balance
@@ -574,20 +779,20 @@ class PaymentProcessor:
     async def process_payment(self, payment_request: PaymentRequest) -> PaymentResult:
         """Process a payment request"""
         
-# Rate limiting
+## Rate limiting
         if not await self.rate_limiter.check_limit(
             payment_request.payer_account,
             payment_request.amount
         ):
             raise RateLimitExceededError("Payment rate limit exceeded")
         
-# Fraud check
+## Fraud check
         fraud_score = await self.fraud_engine.analyze_payment(payment_request)
         if fraud_score.risk_level == 'HIGH':
             await self._handle_high_risk_payment(payment_request, fraud_score)
             raise PaymentBlockedError("Payment blocked for security review")
         
-# Route based on payment type
+## Route based on payment type
         if payment_request.payment_type == 'P2P':
             return await self._process_p2p_payment(payment_request)
         elif payment_request.payment_type == 'MERCHANT':
@@ -602,21 +807,21 @@ class PaymentProcessor:
     async def _process_p2p_payment(self, request: PaymentRequest) -> PaymentResult:
         """Process peer-to-peer payment"""
         
-# Check if recipient exists
+## Check if recipient exists
         recipient = await self._get_recipient(request.recipient_identifier)
         if not recipient:
             raise RecipientNotFoundError(
                 f"Recipient not found: {request.recipient_identifier}"
             )
         
-# Check sender balance
+## Check sender balance
         balance = await self.ledger.get_balance(
             request.payer_account,
             request.currency
         )
         
         if balance < request.amount:
-# Try to pull from funding source
+## Try to pull from funding source
             funding_result = await self._pull_from_funding_source(
                 request.payer_account,
                 request.amount - balance,
@@ -626,7 +831,7 @@ class PaymentProcessor:
             if not funding_result.success:
                 raise InsufficientFundsError("Insufficient funds")
         
-# Execute transfer
+## Execute transfer
         transfer_result = await self.ledger.transfer_funds(
             from_account=request.payer_account,
             to_account=recipient.account_id,
@@ -635,7 +840,7 @@ class PaymentProcessor:
             transaction_id=request.transaction_id
         )
         
-# Send notifications
+## Send notifications
         await self._send_payment_notifications(
             request.payer_account,
             recipient.account_id,
@@ -655,12 +860,12 @@ class PaymentProcessor:
     async def _process_merchant_payment(self, request: PaymentRequest) -> PaymentResult:
         """Process merchant payment with fees"""
         
-# Get merchant account
+## Get merchant account
         merchant = await self._get_merchant(request.merchant_id)
         if not merchant:
             raise MerchantNotFoundError(f"Merchant not found: {request.merchant_id}")
         
-# Calculate fees
+## Calculate fees
         fee_calculator = FeeCalculator()
         fees = fee_calculator.calculate_merchant_fees(
             amount=request.amount,
@@ -668,7 +873,7 @@ class PaymentProcessor:
             payment_method=request.funding_source
         )
         
-# Check balance including fees
+### Check balance including fees
         total_amount = request.amount + fees.payer_fee
         balance = await self.ledger.get_balance(
             request.payer_account,
@@ -680,8 +885,8 @@ class PaymentProcessor:
                 f"Insufficient funds. Need {total_amount}, have {balance}"
             )
         
-# Process payment with fee split
-# 1. Deduct full amount from payer
+#### Process payment with fee split
+## 1. Deduct full amount from payer
         await self.ledger.transfer_funds(
             from_account=request.payer_account,
             to_account='HOLDING_ACCOUNT',
@@ -689,7 +894,7 @@ class PaymentProcessor:
             currency=request.currency
         )
         
-# 2. Pay merchant (amount - merchant fee)
+## 2. Pay merchant (amount - merchant fee)
         merchant_amount = request.amount - fees.merchant_fee
         await self.ledger.transfer_funds(
             from_account='HOLDING_ACCOUNT',
@@ -698,7 +903,7 @@ class PaymentProcessor:
             currency=request.currency
         )
         
-# 3. Record fees
+## 3. Record fees
         await self.ledger.transfer_funds(
             from_account='HOLDING_ACCOUNT',
             to_account='FEE_ACCOUNT',
@@ -706,7 +911,7 @@ class PaymentProcessor:
             currency=request.currency
         )
         
-# Generate receipt
+## Generate receipt
         receipt = await self._generate_receipt(
             request,
             merchant,
@@ -742,29 +947,29 @@ class FraudDetectionEngine:
     async def analyze_payment(self, payment: PaymentRequest) -> FraudScore:
         """Analyze payment for fraud risk"""
         
-# Extract features
+## Extract features
         features = await self._extract_features(payment)
         
-# ML-based scoring
+## ML-based scoring
         ml_score = self.ml_model.predict_proba(features.reshape(1, -1))[0][1]
         
-# Rule-based checks
+## Rule-based checks
         rule_violations = await self.rule_engine.check_payment(payment)
         
-# Velocity checks
+## Velocity checks
         velocity_score = await self.velocity_checker.check_velocity(
             payment.payer_account,
             payment.amount,
             payment.timestamp
         )
         
-# Device risk
+## Device risk
         device_score = await self.device_fingerprinting.get_device_risk(
             payment.device_id,
             payment.ip_address
         )
         
-# Combine scores
+## Combine scores
         final_score = self._combine_risk_scores(
             ml_score=ml_score,
             rule_score=len(rule_violations) * 0.2,
@@ -772,7 +977,7 @@ class FraudDetectionEngine:
             device_score=device_score
         )
         
-# Determine risk level
+## Determine risk level
         if final_score > 0.8:
             risk_level = 'HIGH'
         elif final_score > 0.5:
@@ -799,7 +1004,7 @@ class FraudDetectionEngine:
         
         features = []
         
-# Payment features
+## Payment features
         features.extend([
             float(payment.amount),
             self._encode_currency(payment.currency),
@@ -808,7 +1013,7 @@ class FraudDetectionEngine:
             payment.timestamp.weekday() / 7.0
         ])
         
-# Account history features
+## Account history features
         account_stats = await self._get_account_statistics(payment.payer_account)
         features.extend([
             account_stats['transaction_count_30d'],
@@ -818,7 +1023,7 @@ class FraudDetectionEngine:
             account_stats['unique_recipients_30d']
         ])
         
-# Recipient features
+## Recipient features
         if payment.recipient_identifier:
             recipient_risk = await self._get_recipient_risk_score(
                 payment.recipient_identifier
@@ -827,7 +1032,7 @@ class FraudDetectionEngine:
         else:
             features.append(0.5)  # Neutral score
         
-# Location features
+## Location features
         location_features = await self._get_location_features(
             payment.ip_address,
             payment.payer_account
@@ -838,7 +1043,7 @@ class FraudDetectionEngine:
             location_features['is_high_risk_country']
         ])
         
-# Device features
+## Device features
         device_features = await self._get_device_features(payment.device_id)
         features.extend([
             device_features['is_rooted'],
@@ -852,7 +1057,7 @@ class FraudDetectionEngine:
     def _load_fraud_model(self):
         """Load pre-trained fraud detection model"""
         
-# In production, load actual trained model
+## In production, load actual trained model
         model = tf.keras.Sequential([
             tf.keras.layers.Dense(128, activation='relu', input_shape=(25,)),
             tf.keras.layers.Dropout(0.3),
@@ -862,7 +1067,7 @@ class FraudDetectionEngine:
             tf.keras.layers.Dense(1, activation='sigmoid')
         ])
         
-# model.load_weights('fraud_detection_model.h5')
+## model.load_weights('fraud_detection_model.h5')
         return model
 ```
 
@@ -883,14 +1088,14 @@ class MultiCurrencyManager:
                                amount: Decimal) -> ExchangeResult:
         """Exchange currency within wallet"""
         
-# Get current exchange rate
+## Get current exchange rate
         rate = await self.rate_provider.get_rate(from_currency, to_currency)
         if not rate:
             raise ExchangeRateUnavailableError(
                 f"No rate available for {from_currency} to {to_currency}"
             )
         
-# Calculate amounts
+## Calculate amounts
         gross_to_amount = amount * rate.mid_rate
         fee = self.fee_calculator.calculate_fee(
             amount=amount,
@@ -899,18 +1104,18 @@ class MultiCurrencyManager:
         )
         net_to_amount = gross_to_amount - fee
         
-# Check balance
+### Check balance
         balance = await self.ledger.get_balance(account_id, from_currency)
         if balance < amount:
             raise InsufficientFundsError(
                 f"Insufficient {from_currency} balance"
             )
         
-# Execute exchange as atomic operation
+## Execute exchange as atomic operation
         exchange_id = str(uuid.uuid4())
         
         try:
-# Debit source currency
+## Debit source currency
             await self.ledger.debit_account(
                 account_id=account_id,
                 currency=from_currency,
@@ -919,7 +1124,7 @@ class MultiCurrencyManager:
                 description=f"Exchange to {to_currency}"
             )
             
-# Credit target currency
+## Credit target currency
             await self.ledger.credit_account(
                 account_id=account_id,
                 currency=to_currency,
@@ -928,7 +1133,7 @@ class MultiCurrencyManager:
                 description=f"Exchange from {from_currency}"
             )
             
-# Record exchange transaction
+## Record exchange transaction
             await self._record_exchange(
                 exchange_id=exchange_id,
                 account_id=account_id,
@@ -950,7 +1155,7 @@ class MultiCurrencyManager:
             )
             
         except Exception as e:
-# Rollback on failure
+## Rollback on failure
             await self._rollback_exchange(exchange_id)
             raise
     
@@ -958,16 +1163,16 @@ class MultiCurrencyManager:
                                to_currency: str) -> ExchangeRate:
         """Get current exchange rate with caching"""
         
-# Check cache
+## Check cache
         cache_key = f"rate:{from_currency}:{to_currency}"
         cached_rate = await self.cache.get(cache_key)
         if cached_rate:
             return ExchangeRate.from_dict(cached_rate)
         
-# Get fresh rate
+## Get fresh rate
         rate = await self.rate_provider.get_rate(from_currency, to_currency)
         
-# Cache for 1 minute
+### Cache for 1 minute
         await self.cache.setex(
             cache_key,
             60,
@@ -981,14 +1186,14 @@ class MultiCurrencyManager:
         """Initialize multi-currency wallet"""
         
         for currency in currencies:
-# Create zero-balance entry
+## Create zero-balance entry
             await self.ledger.create_balance_entry(
                 account_id=account_id,
                 currency=currency,
                 initial_balance=Decimal('0')
             )
             
-# Set up currency-specific limits
+## Set up currency-specific limits
             await self._set_currency_limits(account_id, currency)
 ```
 
@@ -1014,7 +1219,7 @@ class QRPaymentManager:
         
         qr_id = str(uuid.uuid4())
         
-# Create QR payload
+## Create QR payload
         payload = {
             'version': '1.0',
             'type': 'PAYMENT',
@@ -1027,12 +1232,12 @@ class QRPaymentManager:
             'expires_at': (datetime.utcnow() + timedelta(minutes=5)).isoformat()
         }
         
-# Encrypt payload
+## Encrypt payload
         encrypted_payload = self.cipher.encrypt(
             json.dumps(payload).encode()
         )
         
-# Generate QR code
+## Generate QR code
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -1044,15 +1249,15 @@ class QRPaymentManager:
         qr.add_data(qr_data)
         qr.make(fit=True)
         
-# Create image
+## Create image
         img = qr.make_image(fill_color="black", back_color="white")
         
-# Convert to base64
+## Convert to base64
         buffer = BytesIO()
         img.save(buffer, format='PNG')
         img_base64 = base64.b64encode(buffer.getvalue()).decode()
         
-# Cache QR data
+## Cache QR data
         await self.qr_cache.store(
             qr_id,
             payload,
@@ -1073,30 +1278,30 @@ class QRPaymentManager:
         """Process scanned QR code"""
         
         try:
-# Extract encrypted payload
+## Extract encrypted payload
             if not qr_data.startswith('wallet://pay/'):
                 raise InvalidQRCodeError("Invalid QR format")
             
             encrypted_data = qr_data.replace('wallet://pay/', '')
             encrypted_bytes = base64.urlsafe_b64decode(encrypted_data)
             
-# Decrypt payload
+## Decrypt payload
             decrypted_data = self.cipher.decrypt(encrypted_bytes)
             payload = json.loads(decrypted_data)
             
-# Validate QR
+## Validate QR
             qr_id = payload['qr_id']
             cached_data = await self.qr_cache.get(qr_id)
             
             if not cached_data:
                 raise ExpiredQRCodeError("QR code has expired")
             
-# Check expiration
+## Check expiration
             expires_at = datetime.fromisoformat(payload['expires_at'])
             if datetime.utcnow() > expires_at:
                 raise ExpiredQRCodeError("QR code has expired")
             
-# Get merchant details
+## Get merchant details
             merchant = await self._get_merchant(payload['merchant_id'])
             
             return QRScanResult(
@@ -1118,19 +1323,19 @@ class QRPaymentManager:
                                  pin: str) -> PaymentResult:
         """Complete payment initiated by QR scan"""
         
-# Verify PIN
+## Verify PIN
         if not await self._verify_transaction_pin(payer_account, pin):
             raise InvalidPINError("Invalid transaction PIN")
         
-# Get QR details
+## Get QR details
         qr_data = await self.qr_cache.get(qr_id)
         if not qr_data:
             raise InvalidQRCodeError("Invalid or expired QR code")
         
-# Mark QR as used
+## Mark QR as used
         await self.qr_cache.mark_used(qr_id)
         
-# Process payment
+### Process payment
         payment_request = PaymentRequest(
             payer_account=payer_account,
             merchant_id=qr_data['merchant_id'],
@@ -1166,7 +1371,7 @@ class BillSplittingService:
         
         split_id = str(uuid.uuid4())
         
-# Validate participants and calculate shares
+## Validate participants and calculate shares
         validated_participants = []
         total_shares = Decimal('0')
         
@@ -1187,11 +1392,11 @@ class BillSplittingService:
             
             total_shares += share
         
-# Validate total
+## Validate total
         if abs(total_shares - total_amount) > Decimal('0.01'):
             raise ValueError(f"Shares {total_shares} don't match total {total_amount}")
         
-# Create split bill
+## Create split bill
         split_bill = SplitBill(
             split_id=split_id,
             creator_id=creator_id,
@@ -1203,11 +1408,11 @@ class BillSplittingService:
             status='ACTIVE'
         )
         
-# Store in cache and database
+## Store in cache and database
         await self.split_cache.store(split_id, split_bill)
         await self._persist_split_bill(split_bill)
         
-# Notify participants
+## Notify participants
         for participant in validated_participants:
             if participant['user_id'] != creator_id:
                 await self.notifications.send_split_request(
@@ -1222,12 +1427,12 @@ class BillSplittingService:
                              payment_method: str = 'BALANCE') -> PaymentResult:
         """Pay individual share of split bill"""
         
-# Get split bill
+## Get split bill
         split_bill = await self.split_cache.get(split_id)
         if not split_bill:
             raise SplitBillNotFoundError(f"Split bill {split_id} not found")
         
-# Find participant's share
+## Find participant's share
         participant = None
         for p in split_bill.participants:
             if p['user_id'] == payer_id:
@@ -1240,7 +1445,7 @@ class BillSplittingService:
         if participant['status'] == 'PAID':
             raise AlreadyPaidError("Share already paid")
         
-# Process payment
+### Process payment
         payment_result = await self.ledger.transfer_funds(
             from_account=payer_id,
             to_account=split_bill.creator_id,
@@ -1253,20 +1458,20 @@ class BillSplittingService:
             }
         )
         
-# Update participant status
+## Update participant status
         participant['status'] = 'PAID'
         participant['paid_at'] = datetime.utcnow()
         
-# Check if all paid
+## Check if all paid
         all_paid = all(p['status'] == 'PAID' for p in split_bill.participants)
         if all_paid:
             split_bill.status = 'COMPLETED'
         
-# Update cache and database
+## Update cache and database
         await self.split_cache.store(split_id, split_bill)
         await self._update_split_bill(split_bill)
         
-# Notify creator
+## Notify creator
         await self.notifications.send_split_payment_notification(
             user_id=split_bill.creator_id,
             payer_name=participant['name'],
@@ -1290,7 +1495,7 @@ class RewardsEngine:
     async def process_transaction_rewards(self, transaction: Transaction) -> RewardResult:
         """Calculate and apply rewards for a transaction"""
         
-# Get applicable reward rules
+## Get applicable reward rules
         rules = await self.reward_rules.get_applicable_rules(
             transaction_type=transaction.type,
             merchant_category=transaction.merchant_category,
@@ -1305,7 +1510,7 @@ class RewardsEngine:
             if rule.type == 'CASHBACK_PERCENTAGE':
                 reward_amount = transaction.amount * (rule.value / 100)
                 
-# Apply caps
+## Apply caps
                 if rule.max_reward:
                     reward_amount = min(reward_amount, rule.max_reward)
                 
@@ -1343,7 +1548,7 @@ class RewardsEngine:
                         'rule': rule.name
                     })
         
-# Apply cashback
+## Apply cashback
         if total_rewards > 0:
             await self.ledger.credit_account(
                 account_id=transaction.user_id,
@@ -1365,24 +1570,24 @@ class RewardsEngine:
                            redemption_type: str) -> RedemptionResult:
         """Redeem loyalty points"""
         
-# Check balance
+### Check balance
         balance = await self.points_manager.get_balance(user_id)
         if balance < points:
             raise InsufficientPointsError(f"Need {points}, have {balance}")
         
-# Get redemption value
+## Get redemption value
         if redemption_type == 'CASH':
-# 100 points = $1
+## 100 points = $1
             cash_value = Decimal(points) / 100
             
-# Deduct points
+## Deduct points
             await self.points_manager.deduct_points(
                 user_id=user_id,
                 points=points,
                 reason='CASH_REDEMPTION'
             )
             
-# Credit cash
+## Credit cash
             await self.ledger.credit_account(
                 account_id=user_id,
                 currency='USD',
@@ -1397,7 +1602,7 @@ class RewardsEngine:
             )
             
         elif redemption_type == 'GIFT_CARD':
-# Handle gift card redemption
+## Handle gift card redemption
             gift_card = await self._create_gift_card(points)
             
             await self.points_manager.deduct_points(
@@ -1430,10 +1635,10 @@ class ScheduledPaymentManager:
         
         schedule_id = str(uuid.uuid4())
         
-# Validate recipient
+## Validate recipient
         recipient = await self._validate_recipient(schedule_request.recipient)
         
-# Create scheduled payment
+## Create scheduled payment
         scheduled_payment = ScheduledPayment(
             schedule_id=schedule_id,
             payer_account=schedule_request.payer_account,
@@ -1447,10 +1652,10 @@ class ScheduledPaymentManager:
             status='ACTIVE'
         )
         
-# Store in database
+## Store in database
         await self._store_scheduled_payment(scheduled_payment)
         
-# Schedule first execution
+## Schedule first execution
         if schedule_request.frequency == 'ONCE':
             await self.scheduler.schedule_job(
                 job_id=f"payment:{schedule_id}",
@@ -1459,7 +1664,7 @@ class ScheduledPaymentManager:
                 payload={'schedule_id': schedule_id}
             )
         else:
-# Recurring payment
+## Recurring payment
             await self.scheduler.schedule_recurring_job(
                 job_id=f"payment:{schedule_id}",
                 cron_expression=self._get_cron_expression(schedule_request.frequency),
@@ -1474,7 +1679,7 @@ class ScheduledPaymentManager:
     async def execute_scheduled_payment(self, schedule_id: str) -> PaymentResult:
         """Execute a scheduled payment"""
         
-# Get schedule details
+## Get schedule details
         schedule = await self._get_scheduled_payment(schedule_id)
         
         if schedule.status != 'ACTIVE':
@@ -1482,7 +1687,7 @@ class ScheduledPaymentManager:
             return None
         
         try:
-# Process payment
+### Process payment
             payment_request = PaymentRequest(
                 payer_account=schedule.payer_account,
                 recipient_account=schedule.recipient_account,
@@ -1495,10 +1700,10 @@ class ScheduledPaymentManager:
             
             result = await self.payment_processor.process_payment(payment_request)
             
-# Update execution history
+## Update execution history
             await self._record_execution(schedule_id, result, success=True)
             
-# Check if this was the last execution
+## Check if this was the last execution
             if schedule.frequency == 'ONCE' or \
                (schedule.end_date and datetime.utcnow() >= schedule.end_date):
                 await self._complete_schedule(schedule_id)
@@ -1506,10 +1711,10 @@ class ScheduledPaymentManager:
             return result
             
         except Exception as e:
-# Record failure
+## Record failure
             await self._record_execution(schedule_id, None, success=False, error=str(e))
             
-# Retry logic
+## Retry logic
             await self._handle_payment_failure(schedule_id, e)
             
             raise
@@ -1530,11 +1735,11 @@ class BiometricAuthManager:
                               biometric_data: BiometricData) -> EnrollmentResult:
         """Enroll user's biometric data"""
         
-# Verify device security
+## Verify device security
         if not await self.device_attestation.verify_device(biometric_data.device_id):
             raise InsecureDeviceError("Device does not meet security requirements")
         
-# Process biometric data
+## Process biometric data
         if biometric_data.type == 'FINGERPRINT':
             template = await self._process_fingerprint(biometric_data.raw_data)
         elif biometric_data.type == 'FACE':
@@ -1542,7 +1747,7 @@ class BiometricAuthManager:
         else:
             raise UnsupportedBiometricError(f"Type {biometric_data.type} not supported")
         
-# Store encrypted template
+## Store encrypted template
         encrypted_template = await self._encrypt_biometric_template(template)
         
         enrollment = BiometricEnrollment(
@@ -1566,7 +1771,7 @@ class BiometricAuthManager:
                               biometric_data: BiometricData) -> bool:
         """Verify biometric for transaction"""
         
-# Get enrolled templates
+## Get enrolled templates
         enrollments = await self.biometric_store.get_user_enrollments(
             user_id,
             biometric_data.type
@@ -1575,13 +1780,13 @@ class BiometricAuthManager:
         if not enrollments:
             return False
         
-# Process provided biometric
+## Process provided biometric
         if biometric_data.type == 'FINGERPRINT':
             provided_template = await self._process_fingerprint(biometric_data.raw_data)
         elif biometric_data.type == 'FACE':
             provided_template = await self._process_face_data(biometric_data.raw_data)
         
-# Compare against enrolled templates
+## Compare against enrolled templates
         for enrollment in enrollments:
             stored_template = await self._decrypt_biometric_template(
                 enrollment.encrypted_template
@@ -1590,7 +1795,7 @@ class BiometricAuthManager:
             similarity = self._calculate_similarity(provided_template, stored_template)
             
             if similarity > self._get_threshold(biometric_data.type):
-# Update last used
+## Update last used
                 await self.biometric_store.update_last_used(enrollment.enrollment_id)
                 return True
         
@@ -1611,10 +1816,10 @@ class TransactionLimitManager:
                                      transaction_type: str) -> LimitCheckResult:
         """Check if transaction is within limits"""
         
-# Get user's limit profile
+## Get user's limit profile
         limit_profile = await self.limit_store.get_user_limits(user_id)
         
-# Get current usage
+## Get current usage
         daily_usage = await self.velocity_tracker.get_daily_usage(
             user_id,
             transaction_type
@@ -1624,7 +1829,7 @@ class TransactionLimitManager:
             transaction_type
         )
         
-# Check single transaction limit
+## Check single transaction limit
         single_limit = limit_profile.get_limit('single_transaction', transaction_type)
         if amount > single_limit:
             return LimitCheckResult(
@@ -1632,7 +1837,7 @@ class TransactionLimitManager:
                 reason=f"Exceeds single transaction limit of {single_limit}"
             )
         
-# Check daily limit
+## Check daily limit
         daily_limit = limit_profile.get_limit('daily', transaction_type)
         if daily_usage + amount > daily_limit:
             return LimitCheckResult(
@@ -1640,7 +1845,7 @@ class TransactionLimitManager:
                 reason=f"Exceeds daily limit. Used {daily_usage} of {daily_limit}"
             )
         
-# Check monthly limit
+## Check monthly limit
         monthly_limit = limit_profile.get_limit('monthly', transaction_type)
         if monthly_usage + amount > monthly_limit:
             return LimitCheckResult(
@@ -1648,7 +1853,7 @@ class TransactionLimitManager:
                 reason=f"Exceeds monthly limit. Used {monthly_usage} of {monthly_limit}"
             )
         
-# Check velocity (transactions per time period)
+## Check velocity (transactions per time period)
         velocity_check = await self._check_velocity_limits(
             user_id,
             transaction_type
@@ -1694,23 +1899,23 @@ class WalletCacheManager:
     async def get_account_data(self, account_id: str) -> AccountData:
         """Get account data with caching"""
         
-# L1: Process local cache
+## L1: Process local cache
         cache_key = f"account:{account_id}"
         cached = self.local_cache.get(cache_key)
         if cached:
             return cached
         
-# L2: Redis cache
+## L2: Redis cache
         cached_json = await self.redis_cache.get(cache_key)
         if cached_json:
             account_data = AccountData.from_json(cached_json)
             self.local_cache.set(cache_key, account_data, ttl=30)
             return account_data
         
-# L3: Database
+## L3: Database
         account_data = await self._load_from_database(account_id)
         
-# Populate caches
+## Populate caches
         await self.redis_cache.setex(
             cache_key,
             300,  # 5 minutes
@@ -1729,12 +1934,12 @@ class BatchPaymentProcessor:
     async def process_batch_payments(self, payments: List[PaymentRequest]) -> BatchResult:
         """Process multiple payments efficiently"""
         
-# Group by currency and validate
+## Group by currency and validate
         grouped = self._group_by_currency(payments)
         
         results = []
         for currency, currency_payments in grouped.items():
-# Pre-fetch all account balances
+## Pre-fetch all account balances
             account_ids = set()
             for payment in currency_payments:
                 account_ids.add(payment.payer_account)
@@ -1745,7 +1950,7 @@ class BatchPaymentProcessor:
                 currency
             )
             
-# Process payments with pre-fetched data
+### Process payments with pre-fetched data
             for payment in currency_payments:
                 result = await self._process_with_cached_balance(
                     payment,
@@ -1777,7 +1982,7 @@ class TransactionMonitor:
         """Monitor real-time transaction stream"""
         
         async for transaction in self.get_transaction_stream():
-# Collect metrics
+## Collect metrics
             await self.metrics_collector.record({
                 'transaction_id': transaction.id,
                 'amount': float(transaction.amount),
@@ -1787,7 +1992,7 @@ class TransactionMonitor:
                 'timestamp': transaction.timestamp
             })
             
-# Check for anomalies
+## Check for anomalies
             if await self.anomaly_detector.is_anomalous(transaction):
                 await self.alert_manager.send_alert(
                     level='WARNING',
@@ -1795,7 +2000,7 @@ class TransactionMonitor:
                     details=transaction.to_dict()
                 )
             
-# Update dashboards
+## Update dashboards
             await self._update_grafana_dashboards(transaction)
 ```
 
@@ -1809,13 +2014,13 @@ class FinancialReconciliation:
         
         report = ReconciliationReport(date=date)
         
-# Sum of all account balances
+## Sum of all account balances
         total_user_balances = await self._calculate_total_balances()
         
-# Sum of all ledger entries
+## Sum of all ledger entries
         ledger_total = await self._calculate_ledger_total()
         
-# Check balance
+### Check balance
         discrepancy = total_user_balances - ledger_total
         
         if abs(discrepancy) > Decimal('0.01'):
@@ -1824,11 +2029,11 @@ class FinancialReconciliation:
                 f"User balances: {total_user_balances}, Ledger: {ledger_total}"
             )
             
-# Find specific accounts with issues
+## Find specific accounts with issues
             problem_accounts = await self._find_balance_discrepancies()
             report.problem_accounts = problem_accounts
         
-# Verify all transactions balance
+## Verify all transactions balance
         unbalanced_transactions = await self._find_unbalanced_transactions(date)
         if unbalanced_transactions:
             report.add_discrepancy(
@@ -1836,7 +2041,7 @@ class FinancialReconciliation:
                 f"Found {len(unbalanced_transactions)} unbalanced transactions"
             )
         
-# External reconciliation
+## External reconciliation
         bank_reconciliation = await self._reconcile_with_bank_statements(date)
         report.bank_reconciliation = bank_reconciliation
         
@@ -2148,7 +2353,7 @@ class DoubleSpendingPrevention:
     async def prevent_double_spend(self, transaction_id: str) -> bool:
         """Ensure transaction is processed exactly once"""
         
-# Try to acquire lock with transaction ID
+## Try to acquire lock with transaction ID
         lock_key = f"txn_lock:{transaction_id}"
         lock_acquired = await self.redis.set(
             lock_key,
@@ -2158,14 +2363,14 @@ class DoubleSpendingPrevention:
         )
         
         if not lock_acquired:
-# Transaction already being processed
+## Transaction already being processed
             existing = await self._get_transaction_status(transaction_id)
             if existing and existing.status == 'COMPLETED':
                 raise DuplicateTransactionError(
                     f"Transaction {transaction_id} already completed"
                 )
             else:
-# Wait for in-progress transaction
+## Wait for in-progress transaction
                 return await self._wait_for_transaction(transaction_id)
         
         return True
@@ -2181,22 +2386,22 @@ class DisasterRecoveryManager:
         
         logger.critical(f"Initiating failover from region {failed_region}")
         
-# Stop traffic to failed region
+## Stop traffic to failed region
         await self.load_balancer.remove_region(failed_region)
         
-# Promote read replicas in other regions
+## Promote read replicas in other regions
         for region in self.healthy_regions:
             await self.database_manager.promote_replica(region)
         
-# Restore critical data from backups
+## Restore critical data from backups
         await self._restore_recent_transactions(failed_region)
         
-# Verify data integrity
+## Verify data integrity
         integrity_check = await self._verify_financial_integrity()
         if not integrity_check.passed:
             await self._initiate_manual_reconciliation()
         
-# Resume operations
+## Resume operations
         await self._resume_operations_in_healthy_regions()
 ```
 

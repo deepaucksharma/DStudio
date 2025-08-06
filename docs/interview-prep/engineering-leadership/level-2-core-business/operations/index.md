@@ -1,9 +1,77 @@
 ---
 title: Operations
 description: Operations overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Business Concept #3: Operations
+
+
+
+## Overview
+
+Operations
+description: Operations overview and navigation
+---
+
+# Business Concept #3: Operations
+
+## Table of Contents
+
+- [Definition](#definition)
+- [Core Operations Frameworks](#core-operations-frameworks)
+  - [1. Lean Principles](#1-lean-principles)
+  - [2.
+
+**Reading time:** ~6 minutes
+
+## Table of Contents
+
+- [Definition](#definition)
+- [Core Operations Frameworks](#core-operations-frameworks)
+  - [1. Lean Principles](#1-lean-principles)
+  - [2. Theory of Constraints (Goldratt)](#2-theory-of-constraints-goldratt)
+  - [3. DevOps & Site Reliability Engineering](#3-devops-site-reliability-engineering)
+  - [4. Six Sigma / DMAIC](#4-six-sigma-dmaic)
+- [Operational Excellence Dimensions](#operational-excellence-dimensions)
+  - [1. System Reliability](#1-system-reliability)
+  - [2. Performance Engineering](#2-performance-engineering)
+  - [3. Deployment Excellence](#3-deployment-excellence)
+  - [4. Incident Management](#4-incident-management)
+- [Operational Metrics & KPIs](#operational-metrics-kpis)
+  - [The DORA Metrics](#the-dora-metrics)
+  - [Business-Aligned Metrics](#business-aligned-metrics)
+  - [Leading vs. Lagging Indicators](#leading-vs-lagging-indicators)
+- [Building Operational Culture](#building-operational-culture)
+  - [1. Ownership Mindset](#1-ownership-mindset)
+  - [2. Continuous Improvement](#2-continuous-improvement)
+  - [3. Operational Readiness](#3-operational-readiness)
+- [Scaling Operations](#scaling-operations)
+  - [1. From Startup to Scale](#1-from-startup-to-scale)
+  - [2. Platform Engineering](#2-platform-engineering)
+  - [3. Operational Maturity Model](#3-operational-maturity-model)
+- [Common Operational Pitfalls](#common-operational-pitfalls)
+  - [1. The Hero Culture](#1-the-hero-culture)
+  - [2. Tool Fetishism](#2-tool-fetishism)
+  - [3. Metric Mania](#3-metric-mania)
+  - [4. Process Prison](#4-process-prison)
+  - [5. Perfection Paralysis](#5-perfection-paralysis)
+- [Interview Excellence: Operational Stories](#interview-excellence-operational-stories)
+  - [Story Categories](#story-categories)
+  - [The Operational Story Framework](#the-operational-story-framework)
+  - [Power Phrases](#power-phrases)
+- [Developing Operational Excellence](#developing-operational-excellence)
+  - [Skills Development Path](#skills-development-path)
+  - [Recommended Resources](#recommended-resources)
+- [Operations in Different Contexts](#operations-in-different-contexts)
+  - [Startup Operations](#startup-operations)
+  - [Enterprise Operations](#enterprise-operations)
+  - [High-Growth Operations](#high-growth-operations)
+- [Connection to Other Concepts](#connection-to-other-concepts)
+
+
 
 > "Excellence is not a singular act, but a habit. You are what you repeatedly do." - Aristotle (via Will Durant)
 

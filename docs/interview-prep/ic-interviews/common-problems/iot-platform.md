@@ -1,6 +1,25 @@
 ---
 title: Design an IoT Platform
 description: Build a scalable Internet of Things platform for device management and
+type: system-design-problem
+difficulty: advanced
+reading_time: 60 min
+prerequisites: 
+status: complete
+last_updated: 2025-08-04
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
+---
+
+# Design an IoT Platform
+
+
+
+## Overview
+
+Design an IoT Platform
+description: Build a scalable Internet of Things platform for device management and
   data processing
 type: system-design-problem
 difficulty: advanced
@@ -14,6 +33,79 @@ last_updated: 2025-08-04
 ---
 
 # Design an IoT Platform
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Device Diversity Challenges](#device-diversity-challenges)
+  - [Data Volume & Velocity](#data-volume-velocity)
+  - [Security & Compliance](#security-compliance)
+  - [Operational Complexity](#operational-complexity)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Services Architecture](#core-services-architecture)
+    - [1. Device Management Service](#1-device-management-service)
+    - [2.
+
+**Reading time:** ~9 minutes
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Device Diversity Challenges](#device-diversity-challenges)
+  - [Data Volume & Velocity](#data-volume-velocity)
+  - [Security & Compliance](#security-compliance)
+  - [Operational Complexity](#operational-complexity)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Services Architecture](#core-services-architecture)
+    - [1. Device Management Service](#1-device-management-service)
+    - [2. Message Ingestion Service](#2-message-ingestion-service)
+    - [3. Stream Processing Service](#3-stream-processing-service)
+  - [Data Models](#data-models)
+    - [Device Schema](#device-schema)
+    - [Time Series Data Schema](#time-series-data-schema)
+    - [Alert Rules Schema](#alert-rules-schema)
+- [Relevant Patterns from Pattern Library](#relevant-patterns-from-pattern-library)
+  - [Core Patterns](#core-patterns)
+    - [1. Event Sourcing for Device State](#1-event-sourcing-for-device-state)
+    - [2. Stream Processing](#2-stream-processing)
+    - [3. Time Series Database](#3-time-series-database)
+    - [4. Message Queue](#4-message-queue)
+  - [Supporting Patterns](#supporting-patterns)
+    - [5. API Gateway](#5-api-gateway)
+    - [6. Circuit Breaker](#6-circuit-breaker)
+    - [7. Database Sharding](#7-database-sharding)
+    - [8. Load Balancing](#8-load-balancing)
+- [Common Pitfalls to Avoid](#common-pitfalls-to-avoid)
+  - [1. Protocol Complexity Overload](#1-protocol-complexity-overload)
+  - [2. Database Hotspots](#2-database-hotspots)
+  - [3. Message Ordering Issues](#3-message-ordering-issues)
+  - [4. Security Token Management](#4-security-token-management)
+  - [5. Data Retention Explosion](#5-data-retention-explosion)
+- [What Interviewers Look For](#what-interviewers-look-for)
+  - [Architecture Design (35%)](#architecture-design-35)
+  - [Scalability Planning (25%)](#scalability-planning-25)
+  - [Real-time Processing (20%)](#real-time-processing-20)
+  - [Operational Concerns (20%)](#operational-concerns-20)
+- [Advanced Follow-up Questions](#advanced-follow-up-questions)
+  - [Edge Computing Integration](#edge-computing-integration)
+  - [Device Fleet Management](#device-fleet-management)
+  - [Multi-Protocol Support](#multi-protocol-support)
+  - [Data Quality & Validation](#data-quality-validation)
+- [Key Metrics to Monitor](#key-metrics-to-monitor)
+  - [Device Health Metrics](#device-health-metrics)
+  - [Platform Performance Metrics](#platform-performance-metrics)
+  - [Business Metrics](#business-metrics)
+  - [Security Metrics](#security-metrics)
+
+
 
 ## Problem Statement
 

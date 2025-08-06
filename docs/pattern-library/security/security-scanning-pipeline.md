@@ -141,7 +141,7 @@ Test Categories:
 
 1. **Pipeline Infrastructure**
 ```yaml
-# GitLab CI security pipeline
+## GitLab CI security pipeline
 stages:
   - build
   - security-scan
@@ -182,7 +182,7 @@ security-secrets:
 
 2. **Security Gate Configuration**
 ```python
-# Security gate implementation
+## Security gate implementation
 import json
 from typing import Dict, List, Tuple
 from enum import Enum
@@ -255,7 +255,7 @@ class SecurityGate:
                 return True
         return False
 
-# Example usage
+## Example usage
 config = {
     'thresholds': {
         'sast': {
@@ -281,7 +281,7 @@ gate = SecurityGate(config)
 
 1. **SAST Integration**
 ```yaml
-# SonarQube integration
+## SonarQube integration
 sonarqube-scan:
   stage: security-scan
   image: sonarqube:latest
@@ -306,15 +306,15 @@ sonarqube-scan:
 2. **Container Scanning**
 ```bash
 #!/bin/bash
-# Container vulnerability scanning script
+## Container vulnerability scanning script
 
 IMAGE_NAME=$1
 REPORT_FILE="container-scan-report.json"
 
-# Scan with Trivy
+## Scan with Trivy
 trivy image --format json --output $REPORT_FILE $IMAGE_NAME
 
-# Parse results and apply policy
+## Parse results and apply policy
 python3 << EOF
 import json
 
@@ -350,7 +350,7 @@ EOF
 
 1. **Automated Remediation**
 ```python
-# Automated vulnerability remediation
+## Automated vulnerability remediation
 import requests
 import json
 from typing import Dict, List
@@ -448,7 +448,7 @@ class AutoRemediation:
 
 2. **Security Metrics Dashboard**
 ```python
-# Security metrics collection
+## Security metrics collection
 import time
 from dataclasses import dataclass
 from typing import Dict, List
@@ -514,7 +514,7 @@ class SecurityMetricsCollector:
 
 1. **ML-Based False Positive Reduction**
 ```python
-# Machine learning for false positive detection
+## Machine learning for false positive detection
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer

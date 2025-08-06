@@ -61,6 +61,36 @@ lessons_learned:
 
 # Apache Kafka: Scale and Architecture Deep Dive
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Patterns Demonstrated](#patterns-demonstrated)
+- [System Overview](#system-overview)
+  - [Business Context](#business-context)
+  - [High-Level Architecture](#high-level-architecture)
+- [Mapping to Fundamental Laws](#mapping-to-fundamental-laws)
+  - [Law Analysis](#law-analysis)
+- [Design Deep Dive](#design-deep-dive)
+  - [Data Architecture](#data-architecture)
+  - [Event Sourcing Implementation](#event-sourcing-implementation)
+  - [Scaling Strategy](#scaling-strategy)
+- [Failure Scenarios & Lessons](#failure-scenarios-lessons)
+- [Performance Characteristics](#performance-characteristics)
+  - [Latency Breakdown](#latency-breakdown)
+  - [Resource Utilization](#resource-utilization)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring & Observability](#monitoring-observability)
+  - [Deployment Strategy](#deployment-strategy)
+  - [Pub-Sub Pattern at Scale](#pub-sub-pattern-at-scale)
+  - [Partitioning Strategy](#partitioning-strategy)
+- [Key Innovations](#key-innovations)
+- [Applicable Patterns](#applicable-patterns)
+- [Takeaways for Your System](#takeaways-for-your-system)
+- [Further Reading](#further-reading)
+- [Discussion Questions](#discussion-questions)
+
+
+
 !!! success "Excellence Badge"
     🥇 **Gold Tier**: Battle-tested event streaming platform processing trillions of events daily
 

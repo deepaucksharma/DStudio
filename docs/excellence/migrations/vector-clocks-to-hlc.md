@@ -215,11 +215,11 @@ graph LR
 
 ### 3. Timestamp Comparison
 ```python
-# ❌ Wrong: Comparing with wall clock
+## ❌ Wrong: Comparing with wall clock
 if hlc_timestamp > time.time():
     # This is incorrect!
 
-# ✅ Correct: Always use HLC comparison
+## ✅ Correct: Always use HLC comparison
 if hlc1.compare(hlc2) > 0:
     # hlc1 is after hlc2
 ```

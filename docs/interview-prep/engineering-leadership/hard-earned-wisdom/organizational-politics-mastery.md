@@ -2,9 +2,83 @@
 title: Organizational Politics: The Game You Must Master
 description: Technical excellence gets you to senior engineer. People management gets you to manager. But mastering organizational politics? That's what separates
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Organizational Politics: The Game You Must Master
+
+
+
+## Overview
+
+Organizational Politics: The Game You Must Master
+description: Technical excellence gets you to senior engineer. People management gets you to manager.
+
+**Reading time:** ~16 minutes
+
+## Table of Contents
+
+- [The Uncomfortable Truth](#the-uncomfortable-truth)
+- [🎯 Framework Integration: Systems Thinking Meets Political Reality](#-framework-integration-systems-thinking-meets-political-reality)
+  - [The Political System Map](#the-political-system-map)
+  - [Strategy Development in Political Context](#strategy-development-in-political-context)
+  - [OODA Loop for Political Maneuvering](#ooda-loop-for-political-maneuvering)
+- [🎭 The Political Landscape Decoder](#-the-political-landscape-decoder)
+  - [The Real Org Chart](#the-real-org-chart)
+  - [The Power Currency Exchange](#the-power-currency-exchange)
+- [🕸️ Building Your Power Network](#-building-your-power-network)
+  - [The Strategic Coffee Map](#the-strategic-coffee-map)
+  - [Information as Weapon and Shield](#information-as-weapon-and-shield)
+  - [The Alliance Architecture](#the-alliance-architecture)
+- [⚔️ Political Combat Techniques](#-political-combat-techniques)
+  - [The Character Assassination Defense](#the-character-assassination-defense)
+  - [The Credit Theft Recovery](#the-credit-theft-recovery)
+  - [The Budget Battle Playbook](#the-budget-battle-playbook)
+  - [The Reorg Survival Guide](#the-reorg-survival-guide)
+- [🎪 Advanced Political Maneuvers](#-advanced-political-maneuvers)
+  - [The Kingmaker Strategy](#the-kingmaker-strategy)
+  - [The Strategic Failure](#the-strategic-failure)
+  - [The Information Arbitrage](#the-information-arbitrage)
+- [🎖️ Principle Conflicts in Political Navigation](#-principle-conflicts-in-political-navigation)
+  - [When Core Principles Collide](#when-core-principles-collide)
+  - [The Decision-Making Framework Under Political Pressure](#the-decision-making-framework-under-political-pressure)
+  - [Human Behavior in Political Context](#human-behavior-in-political-context)
+- [🏛️ The Executive Translation Layer](#-the-executive-translation-layer)
+  - [Speaking Power](#speaking-power)
+  - [The Executive Presence Formula](#the-executive-presence-formula)
+  - [Managing Executive Relationships](#managing-executive-relationships)
+- [🎰 High-Stakes Political Moments](#-high-stakes-political-moments)
+  - [The Coup Attempt](#the-coup-attempt)
+  - [The Political Sacrifice](#the-political-sacrifice)
+- [🎓 Level-Specific Political Wisdom](#-level-specific-political-wisdom)
+  - [Manager Level: Learning the Game](#manager-level-learning-the-game)
+  - [Senior Manager Level: Playing to Win](#senior-manager-level-playing-to-win)
+  - [Director Level: The Power Broker](#director-level-the-power-broker)
+  - [VP Level: The Strategic Politician](#vp-level-the-strategic-politician)
+- [🧠 Sophisticated Mental Models for Political Mastery](#-sophisticated-mental-models-for-political-mastery)
+  - [The Godfather Framework](#the-godfather-framework)
+  - [The Game of Thrones Model](#the-game-of-thrones-model)
+  - [The Machiavellian Matrix](#the-machiavellian-matrix)
+- [🎯 Interview Application: Political Stories](#-interview-application-political-stories)
+  - [Translating Politics for Interviews](#translating-politics-for-interviews)
+- [🎓 Political Mastery Lessons](#-political-mastery-lessons)
+  - [The Ten Laws of Organizational Politics](#the-ten-laws-of-organizational-politics)
+  - [The Dark Arts You'll Need](#the-dark-arts-youll-need)
+- [📚 War Stories from the Trenches](#-war-stories-from-the-trenches)
+  - [The Great Betrayal of 2018](#the-great-betrayal-of-2018)
+  - [The Budget Coup of 2020](#the-budget-coup-of-2020)
+  - [The Promotion Block of 2019](#the-promotion-block-of-2019)
+- [🛡️ Protecting Your Soul](#-protecting-your-soul)
+  - [Staying Human in the Game](#staying-human-in-the-game)
+- [🎯 Final Wisdom: The Integration](#-final-wisdom-the-integration)
+  - [The Political Leader's Paradox](#the-political-leaders-paradox)
+  - [Systems Thinking + Strategy = Political Mastery](#systems-thinking-strategy-political-mastery)
+  - [The Integrity Question](#the-integrity-question)
+  - [The Ultimate Truth](#the-ultimate-truth)
+
+
 
 ## The Uncomfortable Truth
 

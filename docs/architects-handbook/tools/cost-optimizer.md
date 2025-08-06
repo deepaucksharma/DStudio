@@ -1,10 +1,51 @@
 ---
-title: Cost Optimization Calculator
+title: "Cost Optimization Calculator"
+description: "Optimize infrastructure costs with peak traffic analysis, resource rightsizing, and cloud cost modeling for distributed systems."
+type: documentation
+---
+
+# Cost Optimization Calculator
+
+
+
+## Overview
+
+Cost Optimization Calculator
 description: *Peak traffic as multiple of average*
 type: documentation
 ---
 
 # Cost Optimization Calculator
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Workload Characteristics](#workload-characteristics)
+  - [Resource Requirements](#resource-requirements)
+  - [Cost Parameters](#cost-parameters)
+- [Cost Optimization Strategies](#cost-optimization-strategies)
+- [Hidden Costs to Consider](#hidden-costs-to-consider)
+- [Related Resources](#related-resources)
+
+
+
+! Interactive Calculator"
+ <h2>💵 Distributed Systems Cost Optimizer</h2>
+<p>Compare on-premise vs cloud costs, calculate TCO, and find optimal resource allocation for your distributed system.
+
+**Reading time:** ~10 minutes
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Workload Characteristics](#workload-characteristics)
+  - [Resource Requirements](#resource-requirements)
+  - [Cost Parameters](#cost-parameters)
+- [Cost Optimization Strategies](#cost-optimization-strategies)
+- [Hidden Costs to Consider](#hidden-costs-to-consider)
+- [Related Resources](#related-resources)
+
+
 
 !!! info "Interactive Calculator"
  <h2>💵 Distributed Systems Cost Optimizer</h2>

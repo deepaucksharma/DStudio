@@ -33,6 +33,39 @@ production_checklist:
 
 # Distributed Unique ID Generator
 
+## Table of Contents
+
+- [Challenge Statement](#challenge-statement)
+- [Part 1: Concept Map](#part-1-concept-map)
+  - [🗺 System Overview](#system-overview)
+  - [Law Analysis](#law-analysis)
+  - [Law Mapping Summary](#law-mapping-summary)
+  - [🏛 Pillar Mapping](#pillar-mapping)
+  - [Pattern Application](#pattern-application)
+  - [Architecture Alternatives](#architecture-alternatives)
+  - [Architecture Trade-offs](#architecture-trade-offs)
+  - [Performance Comparison](#performance-comparison)
+  - [Migration Strategies](#migration-strategies)
+- [Part 2: Architecture & Trade-offs](#part-2-architecture-trade-offs)
+  - [Core Architecture](#core-architecture)
+  - [Key Design Trade-offs](#key-design-trade-offs)
+  - [Alternative Architectures](#alternative-architectures)
+- [UUID v1: MAC address + timestamp](#uuid-v1-mac-address-timestamp)
+- [UUID v4: Random](#uuid-v4-random)
+- [UUID v6: Reordered v1 for database indexing](#uuid-v6-reordered-v1-for-database-indexing)
+  - [Option 3: Database Sequences](#option-3-database-sequences)
+- [64-bit ID:](#64-bit-id)
+- [- 41 bits: timestamp (ms)](#41-bits-timestamp-ms)
+- [- 13 bits: shard ID](#13-bits-shard-id)
+- [- 10 bits: auto-increment](#10-bits-auto-increment)
+- [Time component](#time-component)
+- [Get next sequence for this millisecond](#get-next-sequence-for-this-millisecond)
+- [Compose ID](#compose-id)
+  - [Performance Characteristics](#performance-characteristics)
+  - [🎓 Key Lessons](#key-lessons)
+  - [🔗 Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 References](#references)
+
 ## Challenge Statement
 Design a system to generate millions of unique IDs per second across datacenters with optional ordering, minimal coordination, and clock skew protection.
 
@@ -1162,13 +1195,13 @@ graph LR
 
 #### Option 2: UUID (Various Versions)
 ```python
-# UUID v1: MAC address + timestamp
+## UUID v1: MAC address + timestamp
 uuid.uuid1()  # f47ac10b-58cc-4372-a567-0e02b2c3d479
 
-# UUID v4: Random
+## UUID v4: Random
 uuid.uuid4()  # 6ba7b810-9dad-11d1-80b4-00c04fd430c8
 
-# UUID v6: Reordered v1 for database indexing
+## UUID v6: Reordered v1 for database indexing
 uuid.uuid6()  # 1ea58cc4-7ac1-6f47-b567-0e02b2c3d479
 ```
 
@@ -1187,7 +1220,7 @@ uuid.uuid6()  # 1ea58cc4-7ac1-6f47-b567-0e02b2c3d479
 
 **When to use**: Simplicity critical, no ordering needs
 
-#### Option 3: Database Sequences
+### Option 3: Database Sequences
 ```sql
 -- PostgreSQL
 CREATE SEQUENCE user_id_seq;
@@ -1250,20 +1283,20 @@ graph TB
 
 #### Option 5: Hybrid (Instagram's Approach)
 ```python
-# 64-bit ID:
-# - 41 bits: timestamp (ms)
-# - 13 bits: shard ID
-# - 10 bits: auto-increment
+## 64-bit ID:
+## - 41 bits: timestamp (ms)
+## - 13 bits: shard ID
+## - 10 bits: auto-increment
 
 def generate_instagram_id(shard_id, timestamp_ms):
-# Time component
+## Time component
     epoch = 1314220021721  # Instagram epoch
     time_bits = timestamp_ms - epoch
     
-# Get next sequence for this millisecond
+## Get next sequence for this millisecond
     sequence = get_next_sequence(shard_id, timestamp_ms)
     
-# Compose ID
+## Compose ID
     id_value = (time_bits << 23) | (shard_id << 10) | sequence
     return id_value
 ```

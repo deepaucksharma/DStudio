@@ -2,9 +2,125 @@
 title: Common Algorithm Patterns
 description: This reference covers the most frequently tested algorithmic patterns in coding interviews.
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Common Algorithm Patterns
+
+
+
+## Overview
+
+Common Algorithm Patterns
+description: This reference covers the most frequently tested algorithmic patterns in coding interviews. Common Algorithm Patterns
+
+## Table of Contents
+
+- [Array & String Patterns](#array-string-patterns)
+  - [Two Pointers](#two-pointers)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+  - [Sliding Window](#sliding-window)
+    - [Template (Fixed Size)](#template-fixed-size)
+    - [Template (Variable Size)](#template-variable-size)
+    - [Common Problems](#common-problems)
+  - [Prefix Sum](#prefix-sum)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+- [Tree & Graph Patterns](#tree-graph-patterns)
+  - [Tree Traversal (DFS)](#tree-traversal-dfs)
+    - [Templates](#templates)
+- [Preorder (Root → Left → Right)](#preorder-root-left-right)
+- [Inorder (Left → Root → Right) ](#inorder-left-root-right-)
+- [Postorder (Left → Right → Root)](#postorder-left-right-root)
+  - [Common Problems](#common-problems)
+  - [Tree Traversal (BFS)](#tree-traversal-bfs)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+  - [Graph DFS](#graph-dfs)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+  - [Graph BFS](#graph-bfs)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+- [Dynamic Programming Patterns](#dynamic-programming-patterns)
+  - [1D DP](#1d-dp)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+  - [2D DP](#2d-dp)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+- [Searching & Sorting Patterns](#searching-sorting-patterns)
+  - [Binary Search](#binary-search)
+    - [Template (Exact Match)](#template-exact-match)
+    - [Template (Find Boundary)](#template-find-boundary)
+    - [Common Problems](#common-problems)
+- [Backtracking Pattern](#backtracking-pattern)
+  - [Template](#template)
+    - [Common Problems](#common-problems)
+- [Complexity Quick Reference](#complexity-quick-reference)
+  - [Time Complexities by Pattern](#time-complexities-by-pattern)
+  - [Space Complexities](#space-complexities)
+- [Pattern Recognition Guide](#pattern-recognition-guide)
+
+
+
+This reference covers the most frequently tested algorithmic patterns in coding interviews.
+
+**Reading time:** ~6 minutes
+
+## Table of Contents
+
+- [Array & String Patterns](#array-string-patterns)
+  - [Two Pointers](#two-pointers)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+  - [Sliding Window](#sliding-window)
+    - [Template (Fixed Size)](#template-fixed-size)
+    - [Template (Variable Size)](#template-variable-size)
+    - [Common Problems](#common-problems)
+  - [Prefix Sum](#prefix-sum)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+- [Tree & Graph Patterns](#tree-graph-patterns)
+  - [Tree Traversal (DFS)](#tree-traversal-dfs)
+    - [Templates](#templates)
+- [Preorder (Root → Left → Right)](#preorder-root-left-right)
+- [Inorder (Left → Root → Right) ](#inorder-left-root-right-)
+- [Postorder (Left → Right → Root)](#postorder-left-right-root)
+  - [Common Problems](#common-problems)
+  - [Tree Traversal (BFS)](#tree-traversal-bfs)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+  - [Graph DFS](#graph-dfs)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+  - [Graph BFS](#graph-bfs)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+- [Dynamic Programming Patterns](#dynamic-programming-patterns)
+  - [1D DP](#1d-dp)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+  - [2D DP](#2d-dp)
+    - [Template](#template)
+    - [Common Problems](#common-problems)
+- [Searching & Sorting Patterns](#searching-sorting-patterns)
+  - [Binary Search](#binary-search)
+    - [Template (Exact Match)](#template-exact-match)
+    - [Template (Find Boundary)](#template-find-boundary)
+    - [Common Problems](#common-problems)
+- [Backtracking Pattern](#backtracking-pattern)
+  - [Template](#template)
+    - [Common Problems](#common-problems)
+- [Complexity Quick Reference](#complexity-quick-reference)
+  - [Time Complexities by Pattern](#time-complexities-by-pattern)
+  - [Space Complexities](#space-complexities)
+- [Pattern Recognition Guide](#pattern-recognition-guide)
+
+
 
 This reference covers the most frequently tested algorithmic patterns in coding interviews.
 
@@ -112,7 +228,7 @@ def prefix_sum(arr):
 
 #### Templates
 ```python
-# Preorder (Root → Left → Right)
+## Preorder (Root → Left → Right)
 def preorder(root):
     if not root:
         return []
@@ -122,7 +238,7 @@ def preorder(root):
     result.extend(preorder(root.right))
     return result
 
-# Inorder (Left → Root → Right) 
+## Inorder (Left → Root → Right) 
 def inorder(root):
     if not root:
         return []
@@ -132,7 +248,7 @@ def inorder(root):
     result.extend(inorder(root.right))
     return result
 
-# Postorder (Left → Right → Root)
+## Postorder (Left → Right → Root)
 def postorder(root):
     if not root:
         return []
@@ -143,7 +259,7 @@ def postorder(root):
     return result
 ```
 
-#### Common Problems
+### Common Problems
 - **Binary tree paths** - Preorder with path tracking
 - **Validate BST** - Inorder with sorted check
 - **Tree diameter** - Postorder with height calculation
@@ -402,7 +518,7 @@ def find_first_occurrence(arr, target):
 
 **Use when**: Exploring all possible solutions with pruning.
 
-#### Template
+### Template
 ```python
 def backtrack(candidates, path, result, start=0):
     # Base case - found valid solution

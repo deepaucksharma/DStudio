@@ -1,9 +1,86 @@
 ---
 title: Battery Models
 description: Quantitative models for power consumption and battery optimization
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Battery Models
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Core Concepts](#core-concepts)
+  - [Power Consumption Components](#power-consumption-components)
+  - [Battery Discharge Model](#battery-discharge-model)
+- [Component power consumption (mW)](#component-power-consumption-mw)
+- [Battery life in hours](#battery-life-in-hours)
+- [Power cost of sync operation](#power-cost-of-sync-operation)
+- [Optimal interval balances energy and latency](#optimal-interval-balances-energy-and-latency)
+- [Power State Transitions](#power-state-transitions)
+  - [Mobile Radio State Machine](#mobile-radio-state-machine)
+  - [Tail Energy Overhead](#tail-energy-overhead)
+- [Compare with batching](#compare-with-batching)
+- [Optimization Strategies](#optimization-strategies)
+  - [1. Batching and Coalescing](#1-batching-and-coalescing)
+- [Start batch timer](#start-batch-timer)
+- [Send all requests together](#send-all-requests-together)
+- [Single radio activation for multiple requests](#single-radio-activation-for-multiple-requests)
+  - [2. Adaptive Synchronization](#2-adaptive-synchronization)
+- [Battery level factor](#battery-level-factor)
+- [Charging state](#charging-state)
+- [User activity](#user-activity)
+- [Data freshness](#data-freshness)
+  - [3. Location Services Optimization](#3-location-services-optimization)
+- [Fallback to least accurate](#fallback-to-least-accurate)
+- [Prioritize power efficiency](#prioritize-power-efficiency)
+- [Prioritize accuracy](#prioritize-accuracy)
+- [Far away - use cell towers](#far-away-use-cell-towers)
+- [Approaching - use WiFi](#approaching-use-wifi)
+- [Very close - use GPS](#very-close-use-gps)
+- [Real-World Applications](#real-world-applications)
+  - [1. Mobile Messaging App](#1-mobile-messaging-app)
+- [Send immediately](#send-immediately)
+- [Queue for batching](#queue-for-batching)
+- [Flush queue](#flush-queue)
+- [Schedule batch send](#schedule-batch-send)
+  - [2. IoT Sensor Network](#2-iot-sensor-network)
+- [Power-optimized sensor configuration](#power-optimized-sensor-configuration)
+  - [3. Edge Computing Workload](#3-edge-computing-workload)
+- [Energy cost estimation](#energy-cost-estimation)
+- [Latency estimation](#latency-estimation)
+- [Decision matrix](#decision-matrix)
+- [Critical battery - minimize energy](#critical-battery-minimize-energy)
+- [Poor network - compute locally](#poor-network-compute-locally)
+- [Significant speed advantage in cloud](#significant-speed-advantage-in-cloud)
+- [Default to local to save bandwidth](#default-to-local-to-save-bandwidth)
+- [Mathematical Models](#mathematical-models)
+  - [Peukert's Law for Battery Capacity](#peukerts-law-for-battery-capacity)
+- [Example: 3000mAh battery rated at 0.2C (600mA)](#example-3000mah-battery-rated-at-02c-600ma)
+- [At high discharge (2000mA)](#at-high-discharge-2000ma)
+- [Output: ~2400mAh (20% reduction)](#output-2400mah-20-reduction)
+  - [Energy-Delay Product Optimization](#energy-delay-product-optimization)
+- [Voltage scales with frequency (simplified)](#voltage-scales-with-frequency-simplified)
+- [Dynamic power](#dynamic-power)
+- [Execution time](#execution-time)
+- [Energy-delay product](#energy-delay-product)
+- [Best Practices](#best-practices)
+  - [1. Profile Power Consumption](#1-profile-power-consumption)
+  - [2. Implement Progressive Degradation](#2-implement-progressive-degradation)
+  - [3. Leverage Platform APIs](#3-leverage-platform-apis)
+- [Android example](#android-example)
+- [Enter battery saver mode](#enter-battery-saver-mode)
+  - [4. Design for Offline-First](#4-design-for-offline-first)
+- [Testing and Monitoring](#testing-and-monitoring)
+  - [Battery Testing Framework](#battery-testing-framework)
+- [Run test scenario](#run-test-scenario)
+- [Log power metrics](#log-power-metrics)
+- [Calculate battery life](#calculate-battery-life)
+- [Related Models](#related-models)
+- [References](#references)
+
+
 
 > 🚧 This quantitative model documentation is planned for future development.
 
@@ -53,7 +130,7 @@ class BatteryModel:
         self.voltage = voltage
         self.capacity_wh = (capacity_mah * voltage) / 1000
         
-# Component power consumption (mW)
+## Component power consumption (mW)
         self.power_profile = {
             'cpu_active': 2000,      # 2W active
             'cpu_idle': 100,         # 100mW idle
@@ -74,20 +151,20 @@ class BatteryModel:
             if component in self.power_profile:
                 total_power += self.power_profile[component] * duty_cycle
         
-# Battery life in hours
+## Battery life in hours
         battery_life_hours = (self.capacity_wh * 1000) / total_power
         return battery_life_hours
     
     def optimize_sync_interval(self, data_size_kb, latency_tolerance_s):
         """Optimize sync interval for battery vs latency trade-off."""
-# Power cost of sync operation
+## Power cost of sync operation
         sync_duration = data_size_kb / 100  # Assume 100KB/s
         sync_energy = (
             self.power_profile['cpu_active'] * sync_duration +
             self.power_profile['wifi_active'] * sync_duration
         ) / 3600  # Convert to mWh
         
-# Optimal interval balances energy and latency
+## Optimal interval balances energy and latency
         optimal_interval = min(
             latency_tolerance_s,
             max(60, sync_energy * 100)  # Heuristic
@@ -122,7 +199,7 @@ def calculate_tail_energy(transfers_per_hour, tail_duration=10):
     energy_per_tail = (tail_power * tail_duration) / 3600  # mWh
     total_tail_energy = energy_per_tail * transfers_per_hour
     
-# Compare with batching
+## Compare with batching
     batched_transfers = max(1, transfers_per_hour / 10)
     batched_tail_energy = energy_per_tail * batched_transfers
     
@@ -152,7 +229,7 @@ class NetworkBatcher:
         self.pending_requests.append(request)
         
         if not self.timer:
-# Start batch timer
+## Start batch timer
             self.timer = schedule_timer(
                 self.batch_window_ms,
                 self.flush_batch
@@ -162,12 +239,12 @@ class NetworkBatcher:
         if not self.pending_requests:
             return
         
-# Send all requests together
+## Send all requests together
         batch = self.pending_requests
         self.pending_requests = []
         self.timer = None
         
-# Single radio activation for multiple requests
+## Single radio activation for multiple requests
         send_batch_request(batch)
 ```
 
@@ -187,21 +264,21 @@ class AdaptiveSync:
         """Dynamically adjust sync interval."""
         base_interval = self.min_interval
         
-# Battery level factor
+## Battery level factor
         if battery_percent < 20:
             base_interval *= 4
         elif battery_percent < 50:
             base_interval *= 2
         
-# Charging state
+## Charging state
         if is_charging:
             base_interval = self.min_interval
         
-# User activity
+## User activity
         if not user_active:
             base_interval *= 3
         
-# Data freshness
+## Data freshness
         base_interval /= data_freshness_priority
         
         return max(self.min_interval, min(self.max_interval, base_interval))
@@ -228,26 +305,26 @@ class LocationOptimizer:
         ]
         
         if not suitable_providers:
-# Fallback to least accurate
+## Fallback to least accurate
             return 'cell'
         
         if battery_level < 20:
-# Prioritize power efficiency
+## Prioritize power efficiency
             return min(suitable_providers, key=lambda x: x[1]['power'])[0]
         else:
-# Prioritize accuracy
+## Prioritize accuracy
             return min(suitable_providers, key=lambda x: x[1]['accuracy'])[0]
     
     def geofence_strategy(self, fence_radius, current_distance):
         """Adaptive location polling for geofencing."""
         if current_distance > fence_radius * 2:
-# Far away - use cell towers
+## Far away - use cell towers
             return {'provider': 'cell', 'interval': 300}  # 5 min
         elif current_distance > fence_radius:
-# Approaching - use WiFi
+## Approaching - use WiFi
             return {'provider': 'wifi', 'interval': 60}   # 1 min
         else:
-# Very close - use GPS
+## Very close - use GPS
             return {'provider': 'gps', 'interval': 10}    # 10 sec
 ```
 
@@ -268,24 +345,24 @@ class MessagingBatteryOptimizer:
         battery_level = get_battery_level()
         
         if priority == 'high' or battery_level > 80:
-# Send immediately
+## Send immediately
             return self.send_now(message)
         
-# Queue for batching
+## Queue for batching
         self.message_queue.append(message)
         
         if len(self.message_queue) >= 10 or battery_level < 20:
-# Flush queue
+## Flush queue
             return self.flush_message_queue()
         
-# Schedule batch send
+## Schedule batch send
         schedule_batch_send(delay=30)
 ```
 
 ### 2. IoT Sensor Network
 
 ```yaml
-# Power-optimized sensor configuration
+## Power-optimized sensor configuration
 sensor_profiles:
   ultra_low_power:
     sample_rate: 0.1  # Hz
@@ -312,29 +389,29 @@ sensor_profiles:
 def decide_computation_location(task, battery_level, network_quality):
     """Decide whether to compute locally or offload to cloud."""
     
-# Energy cost estimation
+## Energy cost estimation
     local_energy = estimate_local_computation_energy(task)
     offload_energy = estimate_transmission_energy(task.data_size)
     
-# Latency estimation
+## Latency estimation
     local_latency = estimate_local_computation_time(task)
     offload_latency = (
         estimate_transmission_time(task.data_size, network_quality) +
         estimate_cloud_computation_time(task)
     )
     
-# Decision matrix
+## Decision matrix
     if battery_level < 20:
-# Critical battery - minimize energy
+## Critical battery - minimize energy
         return 'cloud' if offload_energy < local_energy else 'local'
     elif network_quality < 0.3:
-# Poor network - compute locally
+## Poor network - compute locally
         return 'local'
     elif local_latency > offload_latency * 2:
-# Significant speed advantage in cloud
+## Significant speed advantage in cloud
         return 'cloud'
     else:
-# Default to local to save bandwidth
+## Default to local to save bandwidth
         return 'local'
 ```
 
@@ -353,14 +430,14 @@ def peukert_capacity(nominal_capacity, nominal_current, actual_current,
     effective_capacity = nominal_capacity * capacity_ratio
     return effective_capacity
 
-# Example: 3000mAh battery rated at 0.2C (600mA)
+## Example: 3000mAh battery rated at 0.2C (600mA)
 nominal = 3000  # mAh
 rated_current = 600  # mA
 
-# At high discharge (2000mA)
+## At high discharge (2000mA)
 high_discharge_capacity = peukert_capacity(nominal, rated_current, 2000)
 print(f"Effective capacity at 2A: {high_discharge_capacity:.0f}mAh")
-# Output: ~2400mAh (20% reduction)
+## Output: ~2400mAh (20% reduction)
 ```
 
 ### Energy-Delay Product Optimization
@@ -373,17 +450,17 @@ def energy_delay_product(frequency, voltage, task_cycles):
     t = cycles / f
     EDP = E * t = C * V^2 * cycles
     """
-# Voltage scales with frequency (simplified)
+## Voltage scales with frequency (simplified)
     voltage = 0.6 + 0.4 * (frequency / 2.0)  # 0.6V to 1.0V
     
-# Dynamic power
+## Dynamic power
     capacitance = 1e-9  # 1nF simplified
     energy = capacitance * voltage**2 * task_cycles
     
-# Execution time
+## Execution time
     delay = task_cycles / (frequency * 1e9)
     
-# Energy-delay product
+## Energy-delay product
     edp = energy * delay
     
     return {
@@ -409,9 +486,9 @@ def energy_delay_product(frequency, voltage, task_cycles):
 
 ### 3. Leverage Platform APIs
 ```python
-# Android example
+## Android example
 if battery_level < 15:
-# Enter battery saver mode
+## Enter battery saver mode
     disable_background_sync()
     reduce_animation_frame_rate()
     dim_screen_brightness()
@@ -435,11 +512,11 @@ class BatteryTestHarness:
         initial_level = get_battery_level()
         start_time = time.time()
         
-# Run test scenario
+## Run test scenario
         while get_battery_level() > 10:
             test_scenario.execute_iteration()
             
-# Log power metrics
+## Log power metrics
             self.log_metrics({
                 'timestamp': time.time(),
                 'battery_level': get_battery_level(),
@@ -450,7 +527,7 @@ class BatteryTestHarness:
             
             time.sleep(60)  # Check every minute
         
-# Calculate battery life
+## Calculate battery life
         duration_hours = (time.time() - start_time) / 3600
         drain_rate = (initial_level - 10) / duration_hours
         

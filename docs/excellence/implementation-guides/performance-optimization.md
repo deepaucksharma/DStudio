@@ -1,6 +1,6 @@
 ---
-title: Performance Optimization Guide: Speed at Scale
-description: ```mermaid graph TD A[Performance Optimization] --> B[Measure] A --> C[Analyze] A --> D[Optimize] A --> E[Validate]
+title: "Performance Optimization Guide: Speed at Scale"
+description: "Systematic approach to performance optimization with measurement frameworks, analysis techniques, and proven optimization patterns."
 type: guide
 ---
 
@@ -604,3 +604,5 @@ graph TD
 - [Auto-scaling](../../pattern-library/scaling/auto-scaling/) (Silver)
 - [Edge Computing](../../pattern-library/scaling/edge-computing/) (Gold)
 - [Performance Testing Tools](../reference/performance-tools.md)
+```
+```

@@ -10,6 +10,35 @@ tags: [cost-optimization, monitoring, automation, performance, capacity-planning
 
 # Resource Rightsizing
 
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+- [Solution Overview](#solution-overview)
+- [Architecture Components](#architecture-components)
+  - [1. Monitoring and Data Collection](#1-monitoring-and-data-collection)
+  - [2. Analysis Engine](#2-analysis-engine)
+  - [3. Recommendation System](#3-recommendation-system)
+- [Implementation Guide](#implementation-guide)
+  - [Phase 1: Monitoring Infrastructure (Weeks 1-2)](#phase-1-monitoring-infrastructure-weeks-1-2)
+- [enhanced_monitoring.py](#enhanced_monitoringpy)
+  - [Usage example](#usage-example)
+- [prometheus-rightsizing-rules.yaml](#prometheus-rightsizing-rulesyaml)
+  - [Phase 2: Analysis and Recommendation Engine (Weeks 3-4)](#phase-2-analysis-and-recommendation-engine-weeks-3-4)
+- [rightsizing_analyzer.py](#rightsizing_analyzerpy)
+  - [Usage example](#usage-example)
+- [Real-World Examples](#real-world-examples)
+  - [Capital One Implementation](#capital-one-implementation)
+  - [Lyft Implementation](#lyft-implementation)
+- [Metrics and Success Criteria](#metrics-and-success-criteria)
+  - [Optimization Metrics](#optimization-metrics)
+  - [Performance Impact](#performance-impact)
+- [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
+  - [1. Insufficient Historical Data](#1-insufficient-historical-data)
+  - [2. Ignoring Application-Specific Requirements](#2-ignoring-application-specific-requirements)
+  - [3. Over-Optimization](#3-over-optimization)
+- [Related Patterns](#related-patterns)
+- [Further Reading](#further-reading)
+
 ## Problem Statement
 
 Cloud resources are often over-provisioned due to uncertain demand, safety margins, and lack of visibility into actual usage patterns. This leads to significant cost waste - studies show 35-45% of cloud spend goes to unused or underutilized resources.
@@ -157,7 +186,7 @@ Recommendation Types:
 
 1. **CloudWatch Enhanced Monitoring**
 ```python
-# enhanced_monitoring.py
+## enhanced_monitoring.py
 import boto3
 import time
 from datetime import datetime, timedelta
@@ -411,7 +440,7 @@ class EnhancedResourceMonitor:
             except Exception as e:
                 print(f"Error exporting metrics for {date_key}: {e}")
 
-# Usage example
+### Usage example
 if __name__ == "__main__":
     monitor = EnhancedResourceMonitor(['us-west-2', 'us-east-1'])
     
@@ -434,7 +463,7 @@ if __name__ == "__main__":
 
 2. **Prometheus Integration**
 ```yaml
-# prometheus-rightsizing-rules.yaml
+## prometheus-rightsizing-rules.yaml
 groups:
   - name: rightsizing.rules
     rules:
@@ -524,7 +553,7 @@ groups:
 
 1. **Rightsizing Analysis Engine**
 ```python
-# rightsizing_analyzer.py
+## rightsizing_analyzer.py
 import pandas as pd
 import numpy as np
 from typing import Dict, List, Tuple, Optional
@@ -926,7 +955,7 @@ class RightsizingAnalyzer:
             'us-east-1:c5.large': 0.085
         }
 
-# Usage example
+### Usage example
 if __name__ == "__main__":
     # Sample metrics data
     sample_metrics = [

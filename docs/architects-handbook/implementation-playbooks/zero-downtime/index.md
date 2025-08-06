@@ -1,6 +1,9 @@
 ---
 title: Zero Downtime Playbook
 description: Implementation guide for zero downtime
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Zero Downtime Playbook

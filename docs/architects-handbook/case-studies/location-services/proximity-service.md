@@ -19,6 +19,156 @@ key_patterns:
 
 # 📍 Proximity Service Design (Yelp/Google Places)
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Architecture Evolution](#architecture-evolution)
+  - [Phase 1: Simple Database Queries (2004-2007)](#phase-1-simple-database-queries-2004-2007)
+  - [Phase 2: Basic Geospatial Indexing (2007-2010)](#phase-2-basic-geospatial-indexing-2007-2010)
+  - [Phase 3: Distributed Geospatial System (2010-2015)](#phase-3-distributed-geospatial-system-2010-2015)
+  - [Phase 4: Modern Real-time Architecture (2015-Present)](#phase-4-modern-real-time-architecture-2015-present)
+- [Part 1: Concept Map - The Physics of Space and Time](#part-1-concept-map-the-physics-of-space-and-time)
+  - [Law 2: Asynchronous Reality - The Speed of Location](#law-2-asynchronous-reality-the-speed-of-location)
+  - [Law 4: Trade-offs - The Curse of Dimensionality](#law-4-trade-offs-the-curse-of-dimensionality)
+  - [Law 1: Failure - Location Service Availability](#law-1-failure-location-service-availability)
+  - [Law 3: Emergence - Parallel Spatial Queries](#law-3-emergence-parallel-spatial-queries)
+  - [Law 4: Trade-offs - Global Consistency](#law-4-trade-offs-global-consistency)
+  - [Law 5: Epistemology - Location Service Monitoring](#law-5-epistemology-location-service-monitoring)
+  - [Law 6: Human-API - Intuitive Location UX](#law-6-human-api-intuitive-location-ux)
+  - [Law 7: Economics - Balancing Cost and Coverage](#law-7-economics-balancing-cost-and-coverage)
+- [Part 2: Comprehensive Law Analysis Matrix](#part-2-comprehensive-law-analysis-matrix)
+  - [Law Mapping for Core Design Decisions](#law-mapping-for-core-design-decisions)
+  - [Detailed Law Impact Analysis](#detailed-law-impact-analysis)
+  - [Architecture Decision Framework](#architecture-decision-framework)
+- [Core Components Deep Dive](#core-components-deep-dive)
+  - [1. Spatial Indexing Systems](#1-spatial-indexing-systems)
+- [Convert to radians](#convert-to-radians)
+- [H3 uses a gnomonic projection centered at each face](#h3-uses-a-gnomonic-projection-centered-at-each-face)
+- [This is a simplified version](#this-is-a-simplified-version)
+- [Start with center hexagon](#start-with-center-hexagon)
+- [Expand k rings](#expand-k-rings)
+- [Get 6 immediate neighbors](#get-6-immediate-neighbors)
+- [Calculate coverage efficiency](#calculate-coverage-efficiency)
+- [Check if point is within boundary](#check-if-point-is-within-boundary)
+- [If capacity not reached and not divided](#if-capacity-not-reached-and-not-divided)
+- [Need to subdivide](#need-to-subdivide)
+- [Try inserting into children](#try-inserting-into-children)
+- [Check if search range intersects this quad](#check-if-search-range-intersects-this-quad)
+- [Check points at this level](#check-points-at-this-level)
+- [If subdivided, check children](#if-subdivided-check-children)
+- [level: (avg_area_km2, avg_edge_km, num_cells)](#level-avg_area_km2-avg_edge_km-num_cells)
+- [Convert to unit sphere coordinates](#convert-to-unit-sphere-coordinates)
+- [Convert to Cartesian coordinates](#convert-to-cartesian-coordinates)
+- [Project onto cube face and get cell ID](#project-onto-cube-face-and-get-cell-id)
+- [Start with coarse cells](#start-with-coarse-cells)
+- [Check if cell intersects region](#check-if-cell-intersects-region)
+- [Check if we should subdivide](#check-if-we-should-subdivide)
+- [Add children to candidates](#add-children-to-candidates)
+- [Add to covering](#add-to-covering)
+  - [2. Proximity Query Engine](#2-proximity-query-engine)
+- [1. Check cache](#1-check-cache)
+- [2. Choose optimal index](#2-choose-optimal-index)
+- [3. Query spatial index](#3-query-spatial-index)
+- [4. Apply filters](#4-apply-filters)
+- [5. Calculate exact distances](#5-calculate-exact-distances)
+- [6. Rank results](#6-rank-results)
+- [7. Apply limit](#7-apply-limit)
+- [8. Cache results](#8-cache-results)
+- [Small radius - use H3 for precision](#small-radius-use-h3-for-precision)
+- [Medium radius - use S2 for efficiency](#medium-radius-use-s2-for-efficiency)
+- [Sparse category - use R-tree](#sparse-category-use-r-tree)
+- [Large radius or dense - use QuadTree](#large-radius-or-dense-use-quadtree)
+- [Convert radius to hex rings](#convert-radius-to-hex-rings)
+- [Get all hexagons in range](#get-all-hexagons-in-range)
+- [Fetch POIs from hexagons](#fetch-pois-from-hexagons)
+- [Create S2 cap for radius query](#create-s2-cap-for-radius-query)
+- [Get covering cells](#get-covering-cells)
+- [Extract features for each POI](#extract-features-for-each-poi)
+- [Get model predictions](#get-model-predictions)
+- [Combine with business logic](#combine-with-business-logic)
+- [Sort by score](#sort-by-score)
+  - [3. Real-time Updates](#3-real-time-updates)
+- [Get update with timeout](#get-update-with-timeout)
+- [Process if batch full](#process-if-batch-full)
+- [Process whatever we have](#process-whatever-we-have)
+- [Group by spatial index updates needed](#group-by-spatial-index-updates-needed)
+- [Determine which indices need updating](#determine-which-indices-need-updating)
+- [Calculate index operations](#calculate-index-operations)
+- [Apply updates in parallel](#apply-updates-in-parallel)
+- [Invalidate affected caches](#invalidate-affected-caches)
+  - [4. Geospatial Aggregation](#4-geospatial-aggregation)
+- [Get all hexagons in bounds](#get-all-hexagons-in-bounds)
+- [Count POIs per hexagon](#count-pois-per-hexagon)
+- [Normalize for visualization](#normalize-for-visualization)
+- [Find competitors in radius](#find-competitors-in-radius)
+- [Calculate metrics](#calculate-metrics)
+- [Law Mapping & Design Decisions](#law-mapping-design-decisions)
+  - [Comprehensive Design Decision Matrix](#comprehensive-design-decision-matrix)
+- [Alternative Architectures](#alternative-architectures)
+  - [Alternative 1: Single Global R-Tree](#alternative-1-single-global-r-tree)
+  - [Alternative 2: Pure Geohash System](#alternative-2-pure-geohash-system)
+  - [Alternative 3: Graph-Based Approach](#alternative-3-graph-based-approach)
+  - [Alternative 4: ML-First Architecture](#alternative-4-ml-first-architecture)
+- [Performance Optimization](#performance-optimization)
+  - [Query Optimization Strategies](#query-optimization-strategies)
+- [1. Analyze query characteristics](#1-analyze-query-characteristics)
+- [2. Generate candidate plans](#2-generate-candidate-plans)
+- [Plan A: Use H3 index](#plan-a-use-h3-index)
+- [Plan B: Use S2 index](#plan-b-use-s2-index)
+- [Plan C: Use QuadTree](#plan-c-use-quadtree)
+- [3. Estimate costs](#3-estimate-costs)
+- [4. Choose best plan](#4-choose-best-plan)
+- [5. Add optimizations](#5-add-optimizations)
+- [Analyze query logs](#analyze-query-logs)
+- [Find hot spots using DBSCAN clustering](#find-hot-spots-using-dbscan-clustering)
+- [Get cluster center weighted by query count](#get-cluster-center-weighted-by-query-count)
+- [Common radius values](#common-radius-values)
+- [Popular categories](#popular-categories)
+- [Pre-compute all combinations](#pre-compute-all-combinations)
+- [Failure Scenarios & Recovery](#failure-scenarios-recovery)
+  - [Common Failure Modes](#common-failure-modes)
+- [1. Mark index as unavailable](#1-mark-index-as-unavailable)
+- [2. Switch to backup index](#2-switch-to-backup-index)
+- [3. Rebuild from source of truth](#3-rebuild-from-source-of-truth)
+- [4. Validate rebuilt index](#4-validate-rebuilt-index)
+- [1. Identify affected shards](#1-identify-affected-shards)
+- [2. Redirect to nearby regions](#2-redirect-to-nearby-regions)
+- [1. Enable aggressive caching](#1-enable-aggressive-caching)
+- [2. Reduce result precision](#2-reduce-result-precision)
+- [3. Rate limit by client](#3-rate-limit-by-client)
+- [Key Design Insights](#key-design-insights)
+  - [1. 🗺 **No Single Spatial Index Rules All**](#1-no-single-spatial-index-rules-all)
+  - [2. **Caching is Critical**](#2-caching-is-critical)
+  - [3. **Real-time Updates Matter**](#3-real-time-updates-matter)
+  - [4. **Precision vs Performance**](#4-precision-vs-performance)
+  - [5. **Geographic Sharding Natural**](#5-geographic-sharding-natural)
+- [Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 Relevant Laws](#-relevant-laws)
+  - [🏛 Related Patterns](#-related-patterns)
+  - [Quantitative Models](#quantitative-models)
+  - [Similar Case Studies](#similar-case-studies)
+- [Part 3: Architecture Alternatives - Exploring the Design Space](#part-3-architecture-alternatives-exploring-the-design-space)
+  - [Current Architecture: Geohash-Based System](#current-architecture-geohash-based-system)
+  - [Alternative Architecture 1: Quadtree-Based System](#alternative-architecture-1-quadtree-based-system)
+  - [Alternative Architecture 2: R-tree Based System](#alternative-architecture-2-r-tree-based-system)
+  - [Alternative Architecture 3: Grid-Based System](#alternative-architecture-3-grid-based-system)
+  - [Alternative Architecture 4: Hybrid ML-Enhanced System](#alternative-architecture-4-hybrid-ml-enhanced-system)
+  - [Recommended Architecture: Multi-Index Hybrid System](#recommended-architecture-multi-index-hybrid-system)
+  - [Alternative Architecture 5: Hierarchical Grid System](#alternative-architecture-5-hierarchical-grid-system)
+- [Part 4: Comprehensive Trade-off Comparison](#part-4-comprehensive-trade-off-comparison)
+  - [Performance Comparison Matrix](#performance-comparison-matrix)
+  - [Law-Based Architecture Selection Guide](#law-based-architecture-selection-guide)
+  - [Cost-Benefit Analysis by Scale](#cost-benefit-analysis-by-scale)
+  - [Implementation Complexity vs Performance Gains](#implementation-complexity-vs-performance-gains)
+  - [Failure Mode Analysis](#failure-mode-analysis)
+  - [Real-World Architecture Evolution Path](#real-world-architecture-evolution-path)
+  - [Decision Matrix for Architecture Selection](#decision-matrix-for-architecture-selection)
+  - [Implementation Considerations](#implementation-considerations)
+- [Conclusion](#conclusion)
+- [References](#references)
+
+
+
 **The Challenge**: Find millions of points of interest near any location with <100ms latency at global scale
 
 !!! info "Case Study Overview"
@@ -570,12 +720,12 @@ class HexagonalGrid:
         
     def point_to_h3(self, lat: float, lng: float, resolution: int) -> str:
         """Convert lat/lng to H3 index at given resolution"""
-# Convert to radians
+## Convert to radians
         lat_rad = math.radians(lat)
         lng_rad = math.radians(lng)
         
-# H3 uses a gnomonic projection centered at each face
-# This is a simplified version
+## H3 uses a gnomonic projection centered at each face
+## This is a simplified version
         h3_index = self._lat_lng_to_h3_internal(lat_rad, lng_rad, resolution)
         
         return h3_index
@@ -584,15 +734,15 @@ class HexagonalGrid:
         """Get all hexagons within k rings"""
         neighbors = set()
         
-# Start with center hexagon
+## Start with center hexagon
         current_ring = {h3_index}
         neighbors.add(h3_index)
         
-# Expand k rings
+## Expand k rings
         for _ in range(k_ring):
             next_ring = set()
             for hex_id in current_ring:
-# Get 6 immediate neighbors
+## Get 6 immediate neighbors
                 for neighbor in self._get_immediate_neighbors(hex_id):
                     if neighbor not in neighbors:
                         next_ring.add(neighbor)
@@ -614,7 +764,7 @@ class HexagonalGrid:
                 h3_index = self.point_to_h3(lat, lng, resolution)
                 hexagons.add(h3_index)
             
-# Calculate coverage efficiency
+## Calculate coverage efficiency
             area_covered = len(hexagons) * self.avg_hex_area_km2[resolution]
             points_per_hex = len(points) / len(hexagons)
             
@@ -642,20 +792,20 @@ class QuadTreeIndex:
         
     def insert(self, point: Point) -> bool:
         """Insert a point into the quadtree"""
-# Check if point is within boundary
+## Check if point is within boundary
         if not self.boundary.contains(point):
             return False
             
-# If capacity not reached and not divided
+## If capacity not reached and not divided
         if len(self.points) < self.capacity and not self.divided:
             self.points.append(point)
             return True
             
-# Need to subdivide
+## Need to subdivide
         if not self.divided:
             self._subdivide()
             
-# Try inserting into children
+## Try inserting into children
         return (self.northeast.insert(point) or
                 self.northwest.insert(point) or
                 self.southeast.insert(point) or
@@ -665,16 +815,16 @@ class QuadTreeIndex:
         """Find all points within search range"""
         found_points = []
         
-# Check if search range intersects this quad
+## Check if search range intersects this quad
         if not self.boundary.intersects_circle(search_range):
             return found_points
             
-# Check points at this level
+## Check points at this level
         for point in self.points:
             if search_range.contains(point):
                 found_points.append(point)
                 
-# If subdivided, check children
+## If subdivided, check children
         if self.divided:
             found_points.extend(self.northeast.query_range(search_range))
             found_points.extend(self.northwest.query_range(search_range))
@@ -688,7 +838,7 @@ class S2CellIndex:
     
     def __init__(self):
         self.level_stats = {
-# level: (avg_area_km2, avg_edge_km, num_cells)
+## level: (avg_area_km2, avg_edge_km, num_cells)
             0: (85011012.19, 7842.0, 6),
             5: (517.31, 40.7, 98304),
             10: (1.99, 1.4, 25165824),
@@ -700,16 +850,16 @@ class S2CellIndex:
         
     def point_to_cell_id(self, lat: float, lng: float, level: int) -> int:
         """Convert lat/lng to S2 cell ID at given level"""
-# Convert to unit sphere coordinates
+## Convert to unit sphere coordinates
         phi = math.radians(lat)
         theta = math.radians(lng)
         
-# Convert to Cartesian coordinates
+## Convert to Cartesian coordinates
         x = math.cos(phi) * math.cos(theta)
         y = math.cos(phi) * math.sin(theta)
         z = math.sin(phi)
         
-# Project onto cube face and get cell ID
+## Project onto cube face and get cell ID
         face, u, v = self._xyz_to_face_uv(x, y, z)
         cell_id = self._face_uv_to_cell_id(face, u, v, level)
         
@@ -722,21 +872,21 @@ class S2CellIndex:
         """Get S2 cells covering a region"""
         covering = []
         
-# Start with coarse cells
+## Start with coarse cells
         candidates = self._get_initial_candidates(region, min_level)
         
         while candidates and len(covering) < max_cells:
             cell = candidates.pop(0)
             
-# Check if cell intersects region
+## Check if cell intersects region
             if self._cell_intersects_region(cell, region):
-# Check if we should subdivide
+## Check if we should subdivide
                 if cell.level < max_level and self._should_subdivide(cell, region):
-# Add children to candidates
+## Add children to candidates
                     for child in self._get_children(cell):
                         candidates.append(child)
                 else:
-# Add to covering
+## Add to covering
                     covering.append(cell.id)
                     
         return covering
@@ -763,27 +913,27 @@ class ProximityQueryEngine:
                          category: str = None,
                          limit: int = 20) -> List[POI]:
         """Find nearby points of interest"""
-# 1. Check cache
+## 1. Check cache
         cache_key = self._generate_cache_key(lat, lng, radius_m, category)
         cached = await self.cache.get(cache_key)
         if cached:
             return cached
             
-# 2. Choose optimal index
+## 2. Choose optimal index
         index_type = self._select_index(radius_m, category)
         
-# 3. Query spatial index
+## 3. Query spatial index
         candidates = await self._query_spatial_index(
             index_type, lat, lng, radius_m
         )
         
-# 4. Apply filters
+## 4. Apply filters
         filtered = self._apply_filters(candidates, category)
         
-# 5. Calculate exact distances
+## 5. Calculate exact distances
         with_distances = self._calculate_distances(filtered, lat, lng)
         
-# 6. Rank results
+## 6. Rank results
         ranked = await self.ranker.rank(
             with_distances,
             user_lat=lat,
@@ -791,10 +941,10 @@ class ProximityQueryEngine:
             query_category=category
         )
         
-# 7. Apply limit
+## 7. Apply limit
         results = ranked[:limit]
         
-# 8. Cache results
+## 8. Cache results
         await self.cache.set(cache_key, results, ttl=300)
         
         return results
@@ -802,16 +952,16 @@ class ProximityQueryEngine:
     def _select_index(self, radius_m: int, category: str) -> str:
         """Select optimal spatial index based on query"""
         if radius_m < 500:
-# Small radius - use H3 for precision
+## Small radius - use H3 for precision
             return 'h3'
         elif radius_m < 5000:
-# Medium radius - use S2 for efficiency
+## Medium radius - use S2 for efficiency
             return 's2'
         elif category and self._is_sparse_category(category):
-# Sparse category - use R-tree
+## Sparse category - use R-tree
             return 'rtree'
         else:
-# Large radius or dense - use QuadTree
+## Large radius or dense - use QuadTree
             return 'quadtree'
     
     async def _query_spatial_index(self, index_type: str,
@@ -821,23 +971,23 @@ class ProximityQueryEngine:
         index = self.spatial_indices[index_type]
         
         if index_type == 'h3':
-# Convert radius to hex rings
+## Convert radius to hex rings
             resolution = self._radius_to_h3_resolution(radius_m)
             center_hex = index.point_to_h3(lat, lng, resolution)
             k_ring = self._radius_to_k_ring(radius_m, resolution)
             
-# Get all hexagons in range
+## Get all hexagons in range
             hexagons = index.get_neighbors(center_hex, k_ring)
             
-# Fetch POIs from hexagons
+## Fetch POIs from hexagons
             return await self._fetch_pois_from_hexagons(hexagons)
             
         elif index_type == 's2':
-# Create S2 cap for radius query
+## Create S2 cap for radius query
             level = self._radius_to_s2_level(radius_m)
             center_cell = index.point_to_cell_id(lat, lng, level)
             
-# Get covering cells
+## Get covering cells
             covering = index.get_covering_for_cap(
                 lat, lng, radius_m, min_level=level-2, max_level=level+2
             )
@@ -853,7 +1003,7 @@ class ProximityRanker:
         
     async def rank(self, pois: List[POI], **context) -> List[POI]:
         """Rank POIs based on relevance"""
-# Extract features for each POI
+## Extract features for each POI
         features = []
         for poi in pois:
             feature_vector = self.feature_extractor.extract(
@@ -865,10 +1015,10 @@ class ProximityRanker:
             )
             features.append(feature_vector)
             
-# Get model predictions
+## Get model predictions
         scores = self.model.predict(features)
         
-# Combine with business logic
+## Combine with business logic
         final_scores = []
         for i, poi in enumerate(pois):
             score = self._combine_scores(
@@ -880,7 +1030,7 @@ class ProximityRanker:
             )
             final_scores.append((score, poi))
             
-# Sort by score
+## Sort by score
         final_scores.sort(key=lambda x: x[0], reverse=True)
         
         return [poi for _, poi in final_scores]
@@ -916,21 +1066,21 @@ class RealTimeLocationUpdater:
         
         while True:
             try:
-# Get update with timeout
+## Get update with timeout
                 update = await asyncio.wait_for(
                     self.update_queue.get(),
                     timeout=self.batch_interval
                 )
                 batch.append(update)
                 
-# Process if batch full
+## Process if batch full
                 if len(batch) >= self.batch_size:
                     await self._process_batch(batch)
                     batch = []
                     last_process = time.time()
                     
             except asyncio.TimeoutError:
-# Process whatever we have
+## Process whatever we have
                 if batch and time.time() - last_process >= self.batch_interval:
                     await self._process_batch(batch)
                     batch = []
@@ -938,15 +1088,15 @@ class RealTimeLocationUpdater:
     
     async def _process_batch(self, updates: List[LocationUpdate]):
         """Process a batch of updates efficiently"""
-# Group by spatial index updates needed
+## Group by spatial index updates needed
         index_updates = defaultdict(list)
         
         for update in updates:
-# Determine which indices need updating
+## Determine which indices need updating
             old_cells = self._get_affected_cells(update.old_location)
             new_cells = self._get_affected_cells(update.new_location)
             
-# Calculate index operations
+## Calculate index operations
             to_remove = old_cells - new_cells
             to_add = new_cells - old_cells
             
@@ -955,7 +1105,7 @@ class RealTimeLocationUpdater:
             for cell in to_add:
                 index_updates[cell].append(('add', update.poi_id))
                 
-# Apply updates in parallel
+## Apply updates in parallel
         tasks = []
         for cell, operations in index_updates.items():
             task = self._update_cell_index(cell, operations)
@@ -963,7 +1113,7 @@ class RealTimeLocationUpdater:
             
         await asyncio.gather(*tasks)
         
-# Invalidate affected caches
+## Invalidate affected caches
         await self._invalidate_caches(updates)
 ```
 
@@ -987,10 +1137,10 @@ class GeospatialAggregator:
         """Generate POI density heatmap"""
         resolution = self.aggregation_levels[level]
         
-# Get all hexagons in bounds
+## Get all hexagons in bounds
         hexagons = self._get_hexagons_in_bounds(bounds, resolution)
         
-# Count POIs per hexagon
+## Count POIs per hexagon
         hex_counts = {}
         for hex_id in hexagons:
             count = await self._count_pois_in_hexagon(
@@ -1000,7 +1150,7 @@ class GeospatialAggregator:
             if count > 0:
                 hex_counts[hex_id] = count
                 
-# Normalize for visualization
+## Normalize for visualization
         max_count = max(hex_counts.values()) if hex_counts else 1
         
         heatmap_data = []
@@ -1031,14 +1181,14 @@ class SpatialAnalytics:
     async def analyze_competitor_density(self, poi: POI,
                                        radius_m: int = 1000) -> CompetitorAnalysis:
         """Analyze competitor density around a POI"""
-# Find competitors in radius
+## Find competitors in radius
         competitors = await self.find_competitors(
             poi.location,
             poi.category,
             radius_m
         )
         
-# Calculate metrics
+## Calculate metrics
         analysis = CompetitorAnalysis(
             poi_id=poi.id,
             competitor_count=len(competitors),
@@ -1218,34 +1368,34 @@ class QueryOptimizer:
         
     async def optimize_query(self, query: ProximityQuery) -> ExecutionPlan:
         """Generate optimal execution plan"""
-# 1. Analyze query characteristics
+## 1. Analyze query characteristics
         analysis = self._analyze_query(query)
         
-# 2. Generate candidate plans
+## 2. Generate candidate plans
         plans = []
         
-# Plan A: Use H3 index
+## Plan A: Use H3 index
         if analysis.radius_m < 5000:
             h3_plan = self._generate_h3_plan(query, analysis)
             plans.append(h3_plan)
             
-# Plan B: Use S2 index
+## Plan B: Use S2 index
         s2_plan = self._generate_s2_plan(query, analysis)
         plans.append(s2_plan)
         
-# Plan C: Use QuadTree
+## Plan C: Use QuadTree
         if analysis.expected_results > 100:
             quad_plan = self._generate_quadtree_plan(query, analysis)
             plans.append(quad_plan)
             
-# 3. Estimate costs
+## 3. Estimate costs
         for plan in plans:
             plan.estimated_cost = await self.cost_estimator.estimate(plan)
             
-# 4. Choose best plan
+## 4. Choose best plan
         best_plan = min(plans, key=lambda p: p.estimated_cost)
         
-# 5. Add optimizations
+## 5. Add optimizations
         if analysis.is_popular_query:
             best_plan = self._add_caching(best_plan)
             
@@ -1263,10 +1413,10 @@ class SpatialCacheWarmer:
         
     async def identify_hot_spots(self) -> List[Location]:
         """Identify frequently queried locations"""
-# Analyze query logs
+## Analyze query logs
         query_counts = await self._get_query_counts_by_location()
         
-# Find hot spots using DBSCAN clustering
+## Find hot spots using DBSCAN clustering
         hot_spots = []
         clusters = DBSCAN(eps=0.01, min_samples=10).fit(
             [[loc.lat, loc.lng] for loc, _ in query_counts]
@@ -1282,7 +1432,7 @@ class SpatialCacheWarmer:
                 if label == cluster_id
             ]
             
-# Get cluster center weighted by query count
+## Get cluster center weighted by query count
             center = self._weighted_center(cluster_points)
             hot_spots.append(center)
             
@@ -1292,13 +1442,13 @@ class SpatialCacheWarmer:
         """Pre-compute results for hot spots"""
         hot_spots = await self.identify_hot_spots()
         
-# Common radius values
+## Common radius values
         radii = [500, 1000, 2000, 5000]
         
-# Popular categories
+## Popular categories
         categories = ['restaurant', 'coffee', 'gas_station', 'atm']
         
-# Pre-compute all combinations
+## Pre-compute all combinations
         tasks = []
         for location in hot_spots:
             for radius in radii:
@@ -1322,16 +1472,16 @@ class SpatialCacheWarmer:
    ```python
    class IndexRecovery:
        async def recover_corrupted_index(self, index_type: str):
-# 1. Mark index as unavailable
+## 1. Mark index as unavailable
            await self.mark_index_status(index_type, 'rebuilding')
            
-# 2. Switch to backup index
+## 2. Switch to backup index
            await self.route_to_backup(index_type)
            
-# 3. Rebuild from source of truth
+## 3. Rebuild from source of truth
            await self.rebuild_index_from_database(index_type)
            
-# 4. Validate rebuilt index
+## 4. Validate rebuilt index
            if await self.validate_index(index_type):
                await self.mark_index_status(index_type, 'active')
    ```
@@ -1340,10 +1490,10 @@ class SpatialCacheWarmer:
    ```python
    class GeoPartitionHandler:
        async def handle_region_outage(self, affected_region: str):
-# 1. Identify affected shards
+## 1. Identify affected shards
            affected_shards = self.get_shards_for_region(affected_region)
            
-# 2. Redirect to nearby regions
+## 2. Redirect to nearby regions
            for shard in affected_shards:
                backup_shard = self.find_closest_backup(shard)
                await self.redirect_traffic(shard, backup_shard)
@@ -1353,13 +1503,13 @@ class SpatialCacheWarmer:
    ```python
    class QueryStormMitigation:
        async def handle_query_storm(self, location: Location):
-# 1. Enable aggressive caching
+## 1. Enable aggressive caching
            await self.cache.set_ttl(location, ttl=3600)
            
-# 2. Reduce result precision
+## 2. Reduce result precision
            await self.enable_approximate_mode(location)
            
-# 3. Rate limit by client
+## 3. Rate limit by client
            await self.rate_limiter.enable_strict_mode()
    ```
 

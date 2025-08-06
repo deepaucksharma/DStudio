@@ -5,6 +5,40 @@ description: Tools overview and navigation
 
 # Interactive Tools & Calculators
 
+
+
+## Overview
+
+Tools
+description: Tools overview and navigation
+---
+
+# Interactive Tools & Calculators
+
+## Table of Contents
+
+- [Quick Links to Theory](#quick-links-to-theory)
+- [How to Use These Tools](#how-to-use-these-tools)
+- [Coming Soon](#coming-soon)
+- [Contribute](#contribute)
+
+
+
+<div class="tools-intro">
+<h2>🛠️ Distributed Systems Calculators</h2>
+<p>Interactive tools to help you make data-driven decisions for your distributed systems. Based on the mathematical principles from our <a href=".
+
+**Reading time:** ~2 minutes
+
+## Table of Contents
+
+- [Quick Links to Theory](#quick-links-to-theory)
+- [How to Use These Tools](#how-to-use-these-tools)
+- [Coming Soon](#coming-soon)
+- [Contribute](#contribute)
+
+
+
 <div class="tools-intro">
 <h2>🛠️ Distributed Systems Calculators</h2>
 <p>Interactive tools to help you make data-driven decisions for your distributed systems. Based on the mathematical principles from our <a href="../quantitative-analysis/index.md">Quantitative Toolkit</a>.</p>

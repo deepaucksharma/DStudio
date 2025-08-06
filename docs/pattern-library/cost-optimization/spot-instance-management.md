@@ -10,6 +10,37 @@ tags: [cost-optimization, cloud, aws, azure, gcp, compute, fault-tolerance]
 
 # Spot Instance Management
 
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+- [Solution Overview](#solution-overview)
+- [Architecture Components](#architecture-components)
+  - [1. Workload Classification](#1-workload-classification)
+  - [2. Instance Diversification Strategy](#2-instance-diversification-strategy)
+  - [3. Interruption Management](#3-interruption-management)
+- [Implementation Guide](#implementation-guide)
+  - [Phase 1: AWS Spot Fleet Setup (Weeks 1-2)](#phase-1-aws-spot-fleet-setup-weeks-1-2)
+- [spot-fleet-config.yaml](#spot-fleet-configyaml)
+- [EKS managed node group with spot instances](#eks-managed-node-group-with-spot-instances)
+  - [Phase 2: Interruption Handling (Weeks 3-4)](#phase-2-interruption-handling-weeks-3-4)
+- [spot_interruption_handler.py](#spot_interruption_handlerpy)
+- [Application deployment with spot tolerance](#application-deployment-with-spot-tolerance)
+  - [Phase 3: Cost Monitoring and Optimization (Weeks 5-6)](#phase-3-cost-monitoring-and-optimization-weeks-5-6)
+- [spot_price_monitor.py](#spot_price_monitorpy)
+- [Usage example](#usage-example)
+- [Real-World Examples](#real-world-examples)
+  - [Airbnb Implementation](#airbnb-implementation)
+  - [Pinterest Implementation](#pinterest-implementation)
+- [Metrics and Success Criteria](#metrics-and-success-criteria)
+  - [Cost Metrics](#cost-metrics)
+  - [Financial Impact](#financial-impact)
+- [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
+  - [1. Over-reliance on Single Instance Type](#1-over-reliance-on-single-instance-type)
+  - [2. Poor Interruption Handling](#2-poor-interruption-handling)
+  - [3. Workload Suitability Issues](#3-workload-suitability-issues)
+- [Related Patterns](#related-patterns)
+- [Further Reading](#further-reading)
+
 ## Problem Statement
 
 Cloud compute costs can represent 60-80% of infrastructure spending. On-demand instances provide reliability but at premium pricing. Organizations need cost-effective compute solutions without sacrificing application performance or availability.
@@ -150,7 +181,7 @@ Interruption Handling:
 
 1. **Spot Fleet Configuration**
 ```yaml
-# spot-fleet-config.yaml
+## spot-fleet-config.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -200,7 +231,7 @@ data:
 
 2. **Kubernetes Spot Node Groups**
 ```yaml
-# EKS managed node group with spot instances
+## EKS managed node group with spot instances
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
@@ -259,7 +290,7 @@ nodeGroups:
 1. **Spot Interruption Handler**
 ```python
 #!/usr/bin/env python3
-# spot_interruption_handler.py
+## spot_interruption_handler.py
 
 import requests
 import time
@@ -564,7 +595,7 @@ if __name__ == "__main__":
 
 2. **Kubernetes Spot Tolerations**
 ```yaml
-# Application deployment with spot tolerance
+## Application deployment with spot tolerance
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -652,7 +683,7 @@ spec:
 
 1. **Spot Price Monitoring**
 ```python
-# spot_price_monitor.py
+## spot_price_monitor.py
 import boto3
 import time
 from datetime import datetime, timedelta
@@ -909,7 +940,7 @@ class SpotPriceMonitor:
         else:
             return "poor_value"
 
-# Usage example
+## Usage example
 if __name__ == "__main__":
     monitor = SpotPriceMonitor(region='us-west-2')
     

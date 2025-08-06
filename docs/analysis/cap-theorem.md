@@ -1,6 +1,10 @@
 ---
 title: Cap Theorem
 redirect_to: /architects-handbook/quantitative-analysis/cap-theorem/
+description: Documentation for Cap Theorem
+category: analysis
+tags: [analysis]
+date: 2025-08-07
 ---
 
 # Cap Theorem

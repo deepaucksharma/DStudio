@@ -58,6 +58,99 @@ lessons_learned:
 
 # YouTube's Video Platform Architecture
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Part 1: Concept Map - The Physics of Video at Scale](#part-1-concept-map-the-physics-of-video-at-scale)
+  - [Law 2: Asynchronous Reality - The Buffering Boundary](#law-2-asynchronous-reality-the-buffering-boundary)
+  - [Law 4: Trade-offs - The Exabyte Challenge](#law-4-trade-offs-the-exabyte-challenge)
+  - [Law 1: Failure - Resilience at Every Layer](#law-1-failure-resilience-at-every-layer)
+  - [Law 3: Emergence - Parallel Everything](#law-3-emergence-parallel-everything)
+  - [Law 4: Trade-offs - Global Consistency](#law-4-trade-offs-global-consistency)
+  - [Law 5: Epistemology - Understanding the Platform](#law-5-epistemology-understanding-the-platform)
+  - [Law 6: Human-API - Creator and Viewer Experience](#law-6-human-api-creator-and-viewer-experience)
+  - [Law 7: Economics - Balancing Cost and Quality](#law-7-economics-balancing-cost-and-quality)
+- [Part 2: Architecture - Building Video at Scale](#part-2-architecture-building-video-at-scale)
+- [Architecture Evolution](#architecture-evolution)
+  - [Phase 1: Single Server Origin (2005-2006)](#phase-1-single-server-origin-2005-2006)
+  - [Phase 2: Basic CDN Integration (2006-2008)](#phase-2-basic-cdn-integration-2006-2008)
+  - [Phase 3: Sharded Architecture (2008-2012)](#phase-3-sharded-architecture-2008-2012)
+  - [Phase 4: Modern Microservices Architecture (2012-Present)](#phase-4-modern-microservices-architecture-2012-present)
+- [Scale Metrics & Performance](#scale-metrics-performance)
+  - [Current Scale](#current-scale)
+  - [Performance Targets](#performance-targets)
+- [Core Components Deep Dive](#core-components-deep-dive)
+  - [1. Video Upload Pipeline](#1-video-upload-pipeline)
+- [1. Initialize resumable session](#1-initialize-resumable-session)
+- [2. Split into chunks](#2-split-into-chunks)
+- [3. Upload chunks in parallel](#3-upload-chunks-in-parallel)
+- [Retry failed chunks](#retry-failed-chunks)
+- [4. Finalize upload](#4-finalize-upload)
+- [5. Trigger processing pipeline](#5-trigger-processing-pipeline)
+  - [2. Storage Architecture](#2-storage-architecture)
+- [1. Predict access pattern](#1-predict-access-pattern)
+- [2. Initial placement](#2-initial-placement)
+- [High viral probability - aggressive caching](#high-viral-probability-aggressive-caching)
+- [Normal video - standard placement](#normal-video-standard-placement)
+- [3. Schedule tier migrations](#3-schedule-tier-migrations)
+  - [3. CDN & Edge Architecture](#3-cdn-edge-architecture)
+  - [Current Architecture: The Distributed Video Pipeline](#current-architecture-the-distributed-video-pipeline)
+  - [Alternative Architecture 1: Peer-to-Peer Hybrid](#alternative-architecture-1-peer-to-peer-hybrid)
+  - [Alternative Architecture 2: Edge Computing](#alternative-architecture-2-edge-computing)
+  - [Alternative Architecture 3: Blockchain-Based](#alternative-architecture-3-blockchain-based)
+  - [Alternative Architecture 4: AI-First Architecture](#alternative-architecture-4-ai-first-architecture)
+  - [Recommended Architecture: Multi-Tier Adaptive System](#recommended-architecture-multi-tier-adaptive-system)
+  - [4. Recommendation System](#4-recommendation-system)
+- [1. Gather user signals](#1-gather-user-signals)
+- [2. Get candidates from each model](#2-get-candidates-from-each-model)
+- [3. Ensemble ranking](#3-ensemble-ranking)
+- [4. Apply business rules](#4-apply-business-rules)
+- [5. Diversify results](#5-diversify-results)
+  - [5. Video Delivery Optimization](#5-video-delivery-optimization)
+- [1. Estimate sustainable bandwidth](#1-estimate-sustainable-bandwidth)
+- [2. Calculate quality for bandwidth](#2-calculate-quality-for-bandwidth)
+- [3. Apply buffer-based rules](#3-apply-buffer-based-rules)
+- [Emergency - drop quality](#emergency-drop-quality)
+- [Plenty of buffer - can increase](#plenty-of-buffer-can-increase)
+- [4. Smooth quality transitions](#4-smooth-quality-transitions)
+- [Avoid jarring jumps](#avoid-jarring-jumps)
+  - [Implementation Considerations](#implementation-considerations)
+- [Law Mapping & Design Decisions](#law-mapping-design-decisions)
+  - [Comprehensive Design Decision Matrix](#comprehensive-design-decision-matrix)
+  - [Law Implementation Priority](#law-implementation-priority)
+- [Architecture Alternatives Analysis](#architecture-alternatives-analysis)
+  - [Alternative 1: Peer-to-Peer Video Network](#alternative-1-peer-to-peer-video-network)
+  - [Alternative 2: Edge-First Processing](#alternative-2-edge-first-processing)
+  - [Alternative 3: Blockchain-Based Decentralized Platform](#alternative-3-blockchain-based-decentralized-platform)
+  - [Alternative 4: AI-Optimized Architecture](#alternative-4-ai-optimized-architecture)
+  - [Alternative 5: Quantum-Ready Future Architecture](#alternative-5-quantum-ready-future-architecture)
+- [Comparative Trade-off Analysis](#comparative-trade-off-analysis)
+  - [Architecture Comparison Matrix](#architecture-comparison-matrix)
+  - [Decision Framework](#decision-framework)
+  - [Risk Assessment Matrix](#risk-assessment-matrix)
+- [Production Metrics & Monitoring](#production-metrics-monitoring)
+  - [Key Performance Indicators](#key-performance-indicators)
+- [Update Prometheus metrics](#update-prometheus-metrics)
+- [Alert on poor quality](#alert-on-poor-quality)
+  - [Real-time Monitoring Dashboard](#real-time-monitoring-dashboard)
+- [Failure Scenarios](#failure-scenarios)
+- [Key Design Insights](#key-design-insights)
+  - [1. **Latency is User Experience**](#1-latency-is-user-experience)
+  - [2. 💾 **Tiered Storage is Essential**](#2-tiered-storage-is-essential)
+  - [3. **Design for Partial Failures**](#3-design-for-partial-failures)
+  - [4. 🤖 **ML Drives Everything**](#4-ml-drives-everything)
+  - [5. **Economics at Scale**](#5-economics-at-scale)
+- [Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 Relevant Laws (Part I)](#-relevant-laws-part-i)
+  - [🏛 Related Patterns (Part III)](#-related-patterns-part-iii)
+  - [Quantitative Models](#quantitative-models)
+  - [👥 Human Factors Considerations](#-human-factors-considerations)
+  - [Similar Case Studies](#similar-case-studies)
+- [References](#references)
+- [Conclusion](#conclusion)
+
+
+
 !!! success "Excellence Badge"
     🥇 **Gold Tier**: Battle-tested at internet scale serving 2B+ users globally
 
@@ -592,28 +685,28 @@ class ResumableUploadService:
         
     async def upload_video(self, video_path: str, metadata: dict) -> str:
         """Upload video with automatic chunking and retry"""
-# 1. Initialize resumable session
+## 1. Initialize resumable session
         session_id = await self._init_session(metadata)
         
-# 2. Split into chunks
+## 2. Split into chunks
         chunks = self._split_video(video_path)
         
-# 3. Upload chunks in parallel
+## 3. Upload chunks in parallel
         upload_tasks = []
         for i in range(0, len(chunks), self.parallel_chunks):
             batch = chunks[i:i + self.parallel_chunks]
             tasks = [self._upload_chunk(session_id, chunk) for chunk in batch]
             results = await asyncio.gather(*tasks, return_exceptions=True)
             
-# Retry failed chunks
+## Retry failed chunks
             for idx, result in enumerate(results):
                 if isinstance(result, Exception):
                     await self._retry_chunk(session_id, batch[idx])
         
-# 4. Finalize upload
+## 4. Finalize upload
         video_id = await self._finalize_upload(session_id)
         
-# 5. Trigger processing pipeline
+## 5. Trigger processing pipeline
         await self._trigger_processing(video_id)
         
         return video_id
@@ -652,19 +745,19 @@ class TieredStorageManager:
         
     async def store_video(self, video_id: str, files: dict):
         """Store video files across tiers based on predicted access"""
-# 1. Predict access pattern
+## 1. Predict access pattern
         access_prediction = await self._predict_access_pattern(video_id)
         
-# 2. Initial placement
+## 2. Initial placement
         if access_prediction['viral_probability'] > 0.7:
-# High viral probability - aggressive caching
+## High viral probability - aggressive caching
             await self._store_in_tier('hot', files, replication=5)
             await self._pre_warm_cdn(video_id, files)
         else:
-# Normal video - standard placement
+## Normal video - standard placement
             await self._store_in_tier('hot', files)
         
-# 3. Schedule tier migrations
+## 3. Schedule tier migrations
         await self._schedule_migration(video_id, 'hot', 'warm', days=7)
         await self._schedule_migration(video_id, 'warm', 'cold', days=90)
 ```
@@ -921,11 +1014,11 @@ class VideoRecommendationEngine:
         
     async def get_recommendations(self, user_id: str, context: dict) -> List[str]:
         """Generate personalized video recommendations"""
-# 1. Gather user signals
+## 1. Gather user signals
         user_history = await self._get_watch_history(user_id)
         user_interests = await self._get_user_interests(user_id)
         
-# 2. Get candidates from each model
+## 2. Get candidates from each model
         candidates = {}
         for name, model in self.models.items():
             candidates[name] = await model.predict(
@@ -935,13 +1028,13 @@ class VideoRecommendationEngine:
                 context
             )
         
-# 3. Ensemble ranking
+## 3. Ensemble ranking
         final_scores = self._ensemble_rank(candidates)
         
-# 4. Apply business rules
+## 4. Apply business rules
         filtered = await self._apply_filters(final_scores, user_id)
         
-# 5. Diversify results
+## 5. Diversify results
         diversified = self._diversify_results(filtered)
         
         return [video['id'] for video in diversified[:20]]
@@ -963,28 +1056,28 @@ class AdaptiveBitrateStreaming:
                       buffer_level: float, 
                       current_quality: int) -> int:
         """Select optimal quality based on conditions"""
-# 1. Estimate sustainable bandwidth
+## 1. Estimate sustainable bandwidth
         sustainable_bw = self._estimate_sustainable_bandwidth(
             current_bandwidth
         )
         
-# 2. Calculate quality for bandwidth
+## 2. Calculate quality for bandwidth
         target_quality = self._bandwidth_to_quality(sustainable_bw)
         
-# 3. Apply buffer-based rules
+## 3. Apply buffer-based rules
         if buffer_level < self.buffer_min:
-# Emergency - drop quality
+## Emergency - drop quality
             target_quality = min(target_quality, 360)
         elif buffer_level > self.buffer_target:
-# Plenty of buffer - can increase
+## Plenty of buffer - can increase
             target_quality = min(
                 target_quality + 1, 
                 self.quality_levels[-1]
             )
             
-# 4. Smooth quality transitions
+## 4. Smooth quality transitions
         if abs(target_quality - current_quality) > 2:
-# Avoid jarring jumps
+## Avoid jarring jumps
             direction = 1 if target_quality > current_quality else -1
             target_quality = current_quality + (2 * direction)
             
@@ -1309,13 +1402,13 @@ class VideoQualityMetrics:
             'quality_switches': self._count_quality_switches(events)
         }
         
-# Update Prometheus metrics
+## Update Prometheus metrics
         self.metrics['startup_time'].observe(metrics['startup_time'])
         self.metrics['rebuffer_ratio'].set(
             metrics['rebuffer_time'] / session['duration']
         )
         
-# Alert on poor quality
+## Alert on poor quality
         if metrics['rebuffer_time'] > session['duration'] * 0.02:
             await self._alert_quality_degradation(session_id, metrics)
 ```

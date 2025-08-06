@@ -31,6 +31,110 @@ production_checklist:
 
 # 📨 Distributed Message Queue Design (Kafka/RabbitMQ)
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Architecture Evolution](#architecture-evolution)
+  - [Phase 1: Simple In-Memory Queue (2008-2010)](#phase-1-simple-in-memory-queue-2008-2010)
+  - [Phase 2: Persistent Queue with WAL (2010-2011)](#phase-2-persistent-queue-with-wal-2010-2011)
+  - [Phase 3: Distributed Architecture (2011-2014)](#phase-3-distributed-architecture-2011-2014)
+  - [Phase 4: Modern Streaming Platform (2014-Present)](#phase-4-modern-streaming-platform-2014-present)
+- [Concept Map](#concept-map)
+- [Key Design Decisions](#key-design-decisions)
+  - [1. Storage Architecture](#1-storage-architecture)
+  - [2. Partitioning Strategy](#2-partitioning-strategy)
+- [Round-robin for keyless messages](#round-robin-for-keyless-messages)
+- [Hash-based partitioning for keyed messages](#hash-based-partitioning-for-keyed-messages)
+  - [3. Replication Protocol](#3-replication-protocol)
+  - [4. Consumer Group Coordination](#4-consumer-group-coordination)
+- [Technical Deep Dives](#technical-deep-dives)
+  - [Zero-Copy Transfer](#zero-copy-transfer)
+  - [Write Path Optimization](#write-path-optimization)
+  - [Exactly-Once Semantics](#exactly-once-semantics)
+- [Core Components Deep Dive](#core-components-deep-dive)
+  - [1. Log-Structured Storage Engine](#1-log-structured-storage-engine)
+- [Memory-mapped files for performance](#memory-mapped-files-for-performance)
+- [Add messages to batch](#add-messages-to-batch)
+- [Compress batch](#compress-batch)
+- [Write to log file](#write-to-log-file)
+- [Update indices](#update-indices)
+  - [2. Replication Protocol](#2-replication-protocol)
+- [1. Stop fetching as follower](#1-stop-fetching-as-follower)
+- [2. Initialize leader state](#2-initialize-leader-state)
+- [3. Start accepting produces](#3-start-accepting-produces)
+- [4. Wait for ISR to catch up](#4-wait-for-isr-to-catch-up)
+  - [3. Consumer Group Coordination](#3-consumer-group-coordination)
+- [1. Add/update member](#1-addupdate-member)
+- [2. Trigger rebalance if needed](#2-trigger-rebalance-if-needed)
+- [3. Elect leader if needed](#3-elect-leader-if-needed)
+- [4. Wait for all members](#4-wait-for-all-members)
+- [5. Return response](#5-return-response)
+  - [4. Stream Processing Integration](#4-stream-processing-integration)
+  - [5. Performance Optimization](#5-performance-optimization)
+- [Open log file](#open-log-file)
+- [Seek to offset](#seek-to-offset)
+- [Use sendfile for zero-copy transfer](#use-sendfile-for-zero-copy-transfer)
+- [Performance Characteristics](#performance-characteristics)
+  - [Throughput Benchmarks](#throughput-benchmarks)
+  - [Storage Efficiency](#storage-efficiency)
+- [Failure Scenarios](#failure-scenarios)
+  - [1. Broker Failure](#1-broker-failure)
+  - [2. Network Partition](#2-network-partition)
+  - [3. Consumer Failure](#3-consumer-failure)
+- [Monitoring and Operations](#monitoring-and-operations)
+  - [Key Metrics](#key-metrics)
+  - [Operational Playbook](#operational-playbook)
+- [1. Add new broker](#1-add-new-broker)
+- [2. Reassign partitions](#2-reassign-partitions)
+- [3. Monitor progress](#3-monitor-progress)
+- [Lessons Learned](#lessons-learned)
+  - [1. Sequential I/O is King](#1-sequential-io-is-king)
+  - [2. Batching Everywhere](#2-batching-everywhere)
+  - [3. Replication != Backup](#3-replication-backup)
+  - [4. Partition Count Matters](#4-partition-count-matters)
+  - [5. Monitor Consumer Lag](#5-monitor-consumer-lag)
+- [Law Mapping & Design Decisions](#law-mapping-design-decisions)
+  - [Comprehensive Design Decision Matrix](#comprehensive-design-decision-matrix)
+- [Alternative Architectures](#alternative-architectures)
+  - [Alternative 1: Traditional Message Queue (RabbitMQ Style)](#alternative-1-traditional-message-queue-rabbitmq-style)
+  - [Alternative 2: In-Memory Pub/Sub (Redis Style)](#alternative-2-in-memory-pubsub-redis-style)
+  - [Alternative 3: Cloud-Native (AWS SQS/SNS Style)](#alternative-3-cloud-native-aws-sqssns-style)
+  - [Alternative 4: Event Store (EventStore/Axon Style)](#alternative-4-event-store-eventstoreaxon-style)
+- [Performance & Monitoring](#performance-monitoring)
+  - [Key Performance Metrics](#key-performance-metrics)
+- [Throughput metrics](#throughput-metrics)
+- [Latency metrics](#latency-metrics)
+- [Consumer metrics](#consumer-metrics)
+  - [Monitoring Dashboard](#monitoring-dashboard)
+- [Consistency Deep Dive for Message Queues](#consistency-deep-dive-for-message-queues)
+  - [Consistency Challenges in Distributed Queues](#consistency-challenges-in-distributed-queues)
+  - [Message Ordering Guarantees](#message-ordering-guarantees)
+  - [Consistency Models by Use Case](#consistency-models-by-use-case)
+  - [Kafka's Consistency Architecture](#kafkas-consistency-architecture)
+  - [Consumer Group Coordination](#consumer-group-coordination)
+  - [Exactly-Once Semantics Implementation](#exactly-once-semantics-implementation)
+  - [Multi-DC Replication Consistency](#multi-dc-replication-consistency)
+  - [Handling Network Partitions](#handling-network-partitions)
+  - [Consistency Monitoring Dashboard](#consistency-monitoring-dashboard)
+  - [Message Queue Consistency Patterns](#message-queue-consistency-patterns)
+  - [Best Practices for Queue Consistency](#best-practices-for-queue-consistency)
+- [Failure Scenarios & Recovery](#failure-scenarios-recovery)
+  - [Common Failure Modes](#common-failure-modes)
+- [1. Detect failed broker](#1-detect-failed-broker)
+- [2. Trigger leader election for affected partitions](#2-trigger-leader-election-for-affected-partitions)
+- [1. Detect split brain](#1-detect-split-brain)
+- [2. Fence minority partition](#2-fence-minority-partition)
+- [Trade-offs and Decisions](#trade-offs-and-decisions)
+- [Key Design Insights](#key-design-insights)
+- [🔗 Related Concepts & Deep Dives](#-related-concepts-deep-dives)
+  - [Laws Applied](#laws-applied)
+  - [Related Patterns](#related-patterns)
+  - [Quantitative Models](#quantitative-models)
+  - [Similar Case Studies](#similar-case-studies)
+- [References](#references)
+
+
+
 **Challenge**: Build a distributed message broker handling millions of messages/sec with durability
 
 !!! info "Case Study Sources"
@@ -298,10 +402,10 @@ Benefits:
 ```python
 def get_partition(key, num_partitions):
     if key is None:
-# Round-robin for keyless messages
+## Round-robin for keyless messages
         return round_robin_counter % num_partitions
     else:
-# Hash-based partitioning for keyed messages
+## Hash-based partitioning for keyed messages
         return hash(key) % num_partitions
 ```
 
@@ -430,7 +534,7 @@ class LogSegment:
         self.index_file = f"{log_dir}/{base_offset}.index"
         self.timeindex_file = f"{log_dir}/{base_offset}.timeindex"
         
-# Memory-mapped files for performance
+## Memory-mapped files for performance
         self.log_mmap = None
         self.index_mmap = None
         self.current_position = 0
@@ -440,7 +544,7 @@ class LogSegment:
         """Append messages to log segment"""
         batch = MessageBatch()
         
-# Add messages to batch
+## Add messages to batch
         for msg in messages:
             batch.add(
                 offset=self.current_offset,
@@ -451,15 +555,15 @@ class LogSegment:
             )
             self.current_offset += 1
             
-# Compress batch
+## Compress batch
         compressed = self._compress_batch(batch)
         
-# Write to log file
+## Write to log file
         start_position = self.current_position
         bytes_written = await self._write_to_log(compressed)
         self.current_position += bytes_written
         
-# Update indices
+## Update indices
         await self._update_indices(
             batch.first_offset,
             batch.last_offset,
@@ -484,22 +588,22 @@ class ReplicationManager:
         
     async def become_leader(self, topic_partition: TopicPartition):
         """Handle leader election"""
-# 1. Stop fetching as follower
+## 1. Stop fetching as follower
         if topic_partition in self.replica_fetchers:
             await self.replica_fetchers[topic_partition].stop()
             del self.replica_fetchers[topic_partition]
             
-# 2. Initialize leader state
+## 2. Initialize leader state
         leader_replica = LeaderReplica(
             topic_partition,
             self.broker_id
         )
         self.leader_replicas[topic_partition] = leader_replica
         
-# 3. Start accepting produces
+## 3. Start accepting produces
         await leader_replica.start_accepting_produces()
         
-# 4. Wait for ISR to catch up
+## 4. Wait for ISR to catch up
         await leader_replica.wait_for_isr_catchup()
 ```
 
@@ -519,21 +623,21 @@ class ConsumerGroupCoordinator:
     async def handle_join_group(self, member_id: str,
                                metadata: ConsumerMetadata) -> JoinGroupResponse:
         """Handle consumer joining group"""
-# 1. Add/update member
+## 1. Add/update member
         self.members[member_id] = metadata
         
-# 2. Trigger rebalance if needed
+## 2. Trigger rebalance if needed
         if self._should_rebalance():
             await self._trigger_rebalance()
             
-# 3. Elect leader if needed
+## 3. Elect leader if needed
         if not self.leader_id:
             self.leader_id = self._elect_leader()
             
-# 4. Wait for all members
+## 4. Wait for all members
         await self._wait_for_members()
         
-# 5. Return response
+## 5. Return response
         return JoinGroupResponse(
             generation_id=self.generation_id,
             leader_id=self.leader_id,
@@ -576,13 +680,13 @@ class ZeroCopyTransfer:
                                 offset: int,
                                 length: int):
         """Transfer log data directly to socket"""
-# Open log file
+## Open log file
         with open(log_segment.log_file, 'rb') as f:
-# Seek to offset
+## Seek to offset
             position = log_segment.index.lookup(offset)
             f.seek(position)
             
-# Use sendfile for zero-copy transfer
+## Use sendfile for zero-copy transfer
             await socket.sendfile(f, position, length)
 ```
 
@@ -682,15 +786,15 @@ Rebalancing Result:
 
 **Adding Capacity**:
 ```bash
-# 1. Add new broker
+## 1. Add new broker
 kafka-server-start.sh config/server-new.properties
 
-# 2. Reassign partitions
+## 2. Reassign partitions
 kafka-reassign-partitions.sh \
   --reassignment-json-file expand-cluster-plan.json \
   --execute
 
-# 3. Monitor progress
+## 3. Monitor progress
 kafka-reassign-partitions.sh \
   --reassignment-json-file expand-cluster-plan.json \
   --verify
@@ -874,7 +978,7 @@ class MessageQueueMetrics:
     
     def __init__(self):
         self.metrics = {
-# Throughput metrics
+## Throughput metrics
             'messages_in_rate': Rate(
                 'mq_messages_in_per_sec',
                 'Messages produced per second'
@@ -884,7 +988,7 @@ class MessageQueueMetrics:
                 'Messages consumed per second'
             ),
             
-# Latency metrics
+## Latency metrics
             'produce_latency': Histogram(
                 'mq_produce_latency_ms',
                 'Time to produce message',
@@ -896,7 +1000,7 @@ class MessageQueueMetrics:
                 buckets=[10, 50, 100, 500, 1000, 5000]
             ),
             
-# Consumer metrics
+## Consumer metrics
             'consumer_lag': Gauge(
                 'mq_consumer_lag_messages',
                 'Consumer lag in messages',
@@ -1243,9 +1347,9 @@ graph LR
    ```python
    class BrokerFailureHandler:
        async def handle_broker_failure(self, failed_broker_id: int):
-# 1. Detect failed broker
+## 1. Detect failed broker
            if not await self.is_broker_alive(failed_broker_id):
-# 2. Trigger leader election for affected partitions
+## 2. Trigger leader election for affected partitions
                affected_partitions = self.get_broker_partitions(failed_broker_id)
                
                for partition in affected_partitions:
@@ -1257,9 +1361,9 @@ graph LR
    ```python
    class NetworkPartitionHandler:
        async def handle_network_partition(self, partitioned_brokers: List[int]):
-# 1. Detect split brain
+## 1. Detect split brain
            if self.is_split_brain(partitioned_brokers):
-# 2. Fence minority partition
+## 2. Fence minority partition
                minority = self.find_minority_partition(partitioned_brokers)
                await self.fence_brokers(minority)
    ```

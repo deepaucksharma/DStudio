@@ -12,6 +12,30 @@ key_patterns:
 
 # HERE Maps: Automotive-Grade Location Intelligence
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Business Context & Automotive Evolution](#business-context-automotive-evolution)
+  - [From Consumer Maps to Autonomous Driving Infrastructure](#from-consumer-maps-to-autonomous-driving-infrastructure)
+  - [Autonomous Driving Requirements vs Traditional Navigation](#autonomous-driving-requirements-vs-traditional-navigation)
+- [Deep Architecture Analysis](#deep-architecture-analysis)
+  - [HD Map Data Pipeline Architecture](#hd-map-data-pipeline-architecture)
+  - [Vehicle Sensor Data Integration](#vehicle-sensor-data-integration)
+- [Enterprise Fleet Management Integration](#enterprise-fleet-management-integration)
+  - [Fleet Optimization with HD Maps](#fleet-optimization-with-hd-maps)
+- [Performance Analysis & Real-World Metrics](#performance-analysis-real-world-metrics)
+  - [HD Map Performance Characteristics (2025)](#hd-map-performance-characteristics-2025)
+  - [Cost Analysis: HD Maps vs Traditional Navigation](#cost-analysis-hd-maps-vs-traditional-navigation)
+- [Key Takeaways for Automotive Architects](#key-takeaways-for-automotive-architects)
+  - [Implementation Decision Matrix](#implementation-decision-matrix)
+- [Cross-References & Related Topics](#cross-references-related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns  ](#related-patterns-)
+  - [Related Case Studies](#related-case-studies)
+- [External Resources](#external-resources)
+
+
+
 !!! success "Excellence Badge"
     🥈 **Silver Tier**: Industry-leading HD mapping and sensor fusion for autonomous vehicles with enterprise-grade reliability
 

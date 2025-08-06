@@ -1,6 +1,25 @@
 ---
 title: Incident Response
 description: Managing system failures within cognitive limits - applying Law 6 when
+type: human-factors
+difficulty: beginner
+reading_time: 25 min
+prerequisites: 
+status: complete
+last_updated: 2025-07-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Incident Response
+
+
+
+## Overview
+
+Incident Response
+description: Managing system failures within cognitive limits - applying Law 6 when
   stress reduces capacity by 80%
 type: human-factors
 difficulty: beginner
@@ -13,6 +32,77 @@ last_updated: 2025-07-23
 
 
 # Incident Response
+
+## Table of Contents
+
+- [Incident Response at a Glance](#incident-response-at-a-glance)
+- [Incident Severity Levels](#incident-severity-levels)
+  - [Severity Classification Decision Tree](#severity-classification-decision-tree)
+- [Incident Response Lifecycle (Cognitive Load Aware)](#incident-response-lifecycle-cognitive-load-aware)
+- [Incident Response Roles Matrix](#incident-response-roles-matrix)
+- [Response Procedures](#response-procedures)
+  - [Initial Response Checklist](#initial-response-checklist)
+  - [Visual Incident Flow Diagram](#visual-incident-flow-diagram)
+- [Communication Templates (Copy-Paste Ready)](#communication-templates-copy-paste-ready)
+  - [🔴 SEV-1 Initial Message (< 5 min)](#-sev-1-initial-message-5-min)
+  - [🟡 Update Message (Every 30 min)](#-update-message-every-30-min)
+  - [✅ Resolution Message](#-resolution-message)
+  - [Communication Decision Matrix](#communication-decision-matrix)
+    - [Update Communication](#update-communication)
+    - [Resolution Communication](#resolution-communication)
+- [Incident Response Automation](#incident-response-automation)
+- [On-Call Best Practices](#on-call-best-practices)
+  - [1. On-Call Rotation](#1-on-call-rotation)
+  - [2.
+
+**Reading time:** ~12 minutes
+
+## Table of Contents
+
+- [Incident Response at a Glance](#incident-response-at-a-glance)
+- [Incident Severity Levels](#incident-severity-levels)
+  - [Severity Classification Decision Tree](#severity-classification-decision-tree)
+- [Incident Response Lifecycle (Cognitive Load Aware)](#incident-response-lifecycle-cognitive-load-aware)
+- [Incident Response Roles Matrix](#incident-response-roles-matrix)
+- [Response Procedures](#response-procedures)
+  - [Initial Response Checklist](#initial-response-checklist)
+  - [Visual Incident Flow Diagram](#visual-incident-flow-diagram)
+- [Communication Templates (Copy-Paste Ready)](#communication-templates-copy-paste-ready)
+  - [🔴 SEV-1 Initial Message (< 5 min)](#-sev-1-initial-message-5-min)
+  - [🟡 Update Message (Every 30 min)](#-update-message-every-30-min)
+  - [✅ Resolution Message](#-resolution-message)
+  - [Communication Decision Matrix](#communication-decision-matrix)
+    - [Update Communication](#update-communication)
+    - [Resolution Communication](#resolution-communication)
+- [Incident Response Automation](#incident-response-automation)
+- [On-Call Best Practices](#on-call-best-practices)
+  - [1. On-Call Rotation](#1-on-call-rotation)
+  - [2. On-Call Kit](#2-on-call-kit)
+  - [3. Escalation Policies](#3-escalation-policies)
+- [Runbook Template (Optimized for Stress)](#runbook-template-optimized-for-stress)
+  - [🚨 HIGH MEMORY - QUICK FIX](#-high-memory-quick-fix)
+- [COPY THIS ENTIRE BLOCK:](#copy-this-entire-block)
+  - [🚨 DATABASE CONNECTIONS FULL](#-database-connections-full)
+  - [🚨 EMERGENCY ROLLBACK](#-emergency-rollback)
+- [ONE COMMAND TO ROLLBACK:](#one-command-to-rollback)
+- [CHECK STATUS:](#check-status)
+- [Visual Runbook Index](#visual-runbook-index)
+- [Law Impact Analysis](#law-impact-analysis)
+- [Incident Response Decision Tree](#incident-response-decision-tree)
+- [Incident Classification Framework](#incident-classification-framework)
+  - [Severity Assessment Matrix](#severity-assessment-matrix)
+  - [Response Requirements by Severity](#response-requirements-by-severity)
+- [Incident Metrics That Matter](#incident-metrics-that-matter)
+  - [Real-Time Performance Dashboard](#real-time-performance-dashboard)
+  - [Metrics Scorecard](#metrics-scorecard)
+  - [Cost Impact Analysis](#cost-impact-analysis)
+- [Communication Strategy Matrix](#communication-strategy-matrix)
+  - [Stakeholder Communication Plan](#stakeholder-communication-plan)
+  - [Incident Timeline Tracking](#incident-timeline-tracking)
+- [Role Responsibility RACI Matrix](#role-responsibility-raci-matrix)
+- [Learning and Improvement](#learning-and-improvement)
+
+
 
 !!! abstract "Incident Response Philosophy"
     **🎯 Core Truth**: Under stress, cognitive capacity drops 80%
@@ -368,7 +458,7 @@ flowchart TD
 
 ### 🚨 HIGH MEMORY - QUICK FIX
 ```bash
-# COPY THIS ENTIRE BLOCK:
+## COPY THIS ENTIRE BLOCK:
 kubectl rollout restart deployment/service-name && \
 kubectl scale deployment/service-name --replicas=+2 && \
 echo "Restarted and scaled. Check metrics in 2 min."
@@ -389,10 +479,10 @@ SELECT pg_reload_conf();
 
 ### 🚨 EMERGENCY ROLLBACK
 ```bash
-# ONE COMMAND TO ROLLBACK:
+## ONE COMMAND TO ROLLBACK:
 kubectl rollout undo deployment/service-name
 
-# CHECK STATUS:
+## CHECK STATUS:
 kubectl rollout status deployment/service-name
 ```
 

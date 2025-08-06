@@ -20,7 +20,7 @@ Canary deployment is a pattern for rolling out releases to a subset of users or 
 
 ### Traffic Routing
 ```yaml
-# Example: Kubernetes canary with Istio
+## Example: Kubernetes canary with Istio
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 spec:

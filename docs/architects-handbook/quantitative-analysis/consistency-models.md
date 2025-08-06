@@ -17,6 +17,109 @@ last_updated: 2025-01-23
 
 # Consistency Models Deep-Dive
 
+
+
+## Overview
+
+Consistency Models Deep-Dive
+description: Mathematical formulations and practical trade-offs of different consistency
+  guarantees in distributed systems
+type: quantitative
+difficulty: advanced
+reading_time: 60 min
+prerequisites:
+- cap-theorem
+- distributed-consensus
+- vector-clocks
+pattern_type: consistency-spectrum
+status: complete
+last_updated: 2025-01-23
+---
+
+
+# Consistency Models Deep-Dive
+
+## Table of Contents
+
+- [Quick Example](#quick-example)
+- [Mathematical Foundations](#mathematical-foundations)
+  - [Formal Definitions](#formal-definitions)
+  - [Visualization of Guarantees](#visualization-of-guarantees)
+- [Consistency Model Hierarchy](#consistency-model-hierarchy)
+- [Quantifying Consistency](#quantifying-consistency)
+  - [Probabilistic Consistency (PBS)](#probabilistic-consistency-pbs)
+  - [k-Atomicity](#k-atomicity)
+- [Causal Consistency](#causal-consistency)
+  - [Vector Clocks Implementation](#vector-clocks-implementation)
+- [Consistency Latency Trade-offs](#consistency-latency-trade-offs)
+  - [Latency by Consistency Level](#latency-by-consistency-level)
+  - [Consistency SLA Calculator](#consistency-sla-calculator)
+- [Session Guarantees](#session-guarantees)
+- [Tunable Consistency](#tunable-consistency)
+  - [Quorum-Based Systems](#quorum-based-systems)
+  - [Consistency Level Performance](#consistency-level-performance)
+- [Real-World Consistency Patterns](#real-world-consistency-patterns)
+  - [Social Media Timeline](#social-media-timeline)
+  - [E-Commerce Inventory](#e-commerce-inventory)
+- [Monitoring Consistency](#monitoring-consistency)
+  - [Consistency Metrics](#consistency-metrics)
+- [Choosing Consistency Models](#choosing-consistency-models)
+  - [Decision Framework](#decision-framework)
+- [Key Takeaways](#key-takeaways)
+- [Related Topics](#related-topics)
+
+
+
+**From eventual to linearizable: quantifying consistency guarantees**
+
+! Consistency Spectrum"
+
+ <div class="formula-highlight">
+ <h2>Consistency ≈ Ordering + Visibility + Durability</h2>
+
+| Model | Ordering | Visibility | Example |
+|-------|----------|------------|---------|
+| **Linearizable** | Total order + real-time | Immediate | Distributed lock |
+| **Sequential** | Total order | Eventually | Configuration store |
+| **Causal** | Partial order | Causal | Social media comments |
+| **Eventual** | No guarantees | Eventually | DNS updates |
+
+
+!
+
+**Reading time:** ~14 minutes
+
+## Table of Contents
+
+- [Quick Example](#quick-example)
+- [Mathematical Foundations](#mathematical-foundations)
+  - [Formal Definitions](#formal-definitions)
+  - [Visualization of Guarantees](#visualization-of-guarantees)
+- [Consistency Model Hierarchy](#consistency-model-hierarchy)
+- [Quantifying Consistency](#quantifying-consistency)
+  - [Probabilistic Consistency (PBS)](#probabilistic-consistency-pbs)
+  - [k-Atomicity](#k-atomicity)
+- [Causal Consistency](#causal-consistency)
+  - [Vector Clocks Implementation](#vector-clocks-implementation)
+- [Consistency Latency Trade-offs](#consistency-latency-trade-offs)
+  - [Latency by Consistency Level](#latency-by-consistency-level)
+  - [Consistency SLA Calculator](#consistency-sla-calculator)
+- [Session Guarantees](#session-guarantees)
+- [Tunable Consistency](#tunable-consistency)
+  - [Quorum-Based Systems](#quorum-based-systems)
+  - [Consistency Level Performance](#consistency-level-performance)
+- [Real-World Consistency Patterns](#real-world-consistency-patterns)
+  - [Social Media Timeline](#social-media-timeline)
+  - [E-Commerce Inventory](#e-commerce-inventory)
+- [Monitoring Consistency](#monitoring-consistency)
+  - [Consistency Metrics](#consistency-metrics)
+- [Choosing Consistency Models](#choosing-consistency-models)
+  - [Decision Framework](#decision-framework)
+- [Key Takeaways](#key-takeaways)
+- [Related Topics](#related-topics)
+
+
+
 **From eventual to linearizable: quantifying consistency guarantees**
 
 !!! abstract "🔄 Consistency Spectrum"

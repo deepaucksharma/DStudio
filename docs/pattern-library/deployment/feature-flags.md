@@ -239,7 +239,7 @@ async function initializeApp() {
 
 2. **Server-side Implementation**
 ```python
-# Python server-side implementation
+## Python server-side implementation
 import ldclient
 from ldclient.config import Config
 from ldclient import Context
@@ -338,7 +338,7 @@ class FeatureFlagManager:
         """
         self.client.close()
 
-# Flask integration example
+## Flask integration example
 from flask import Flask, request, jsonify
 from functools import wraps
 
@@ -584,7 +584,7 @@ const MyComponent: React.FC = () => {
 
 2. **A/B Testing Integration**
 ```python
-# A/B testing with feature flags
+## A/B testing with feature flags
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 from enum import Enum
@@ -776,7 +776,7 @@ class ExperimentManager:
         # In practice, you'd use your feature flag service's API
         pass
 
-# Usage example
+## Usage example
 class CheckoutExperiment:
     def __init__(self, experiment_manager: ExperimentManager):
         self.experiment_manager = experiment_manager

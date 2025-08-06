@@ -157,7 +157,7 @@ graph TB
 ### Basic Lakehouse Implementation
 
 ```python
-# Data Lakehouse implementation with Delta Lake and Spark
+## Data Lakehouse implementation with Delta Lake and Spark
 from pyspark.sql import SparkSession
 from delta.tables import *
 import pyspark.sql.functions as F
@@ -435,7 +435,7 @@ class LakehouseGovernance:
         # In production, integrate with access control systems
         self.lakehouse.logger.info(f"Enabled column-level security for {table_name}")
 
-# Usage example
+## Usage example
 def main():
     # Initialize lakehouse
     lakehouse = DataLakehouse(

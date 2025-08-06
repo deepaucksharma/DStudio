@@ -52,6 +52,38 @@ deprecation:
 
 # Apache ZooKeeper: Distributed Coordination Service
 
+## Table of Contents
+
+- [Why ZooKeeper Mattered](#why-zookeeper-mattered)
+- [Architecture Overview](#architecture-overview)
+- [Core Concepts](#core-concepts)
+  - [1. ZNode Data Model](#1-znode-data-model)
+  - [2. ZNode Types](#2-znode-types)
+  - [3. Common Recipes](#3-common-recipes)
+    - [Leader Election](#leader-election)
+    - [Distributed Lock](#distributed-lock)
+- [ZAB Protocol (ZooKeeper Atomic Broadcast)](#zab-protocol-zookeeper-atomic-broadcast)
+- [Production Patterns](#production-patterns)
+  - [Configuration Management](#configuration-management)
+  - [Service Discovery](#service-discovery)
+- [Operational Challenges](#operational-challenges)
+  - [Challenge 1: The ZooKeeper Tax](#challenge-1-the-zookeeper-tax)
+  - [Challenge 2: Connection Storms](#challenge-2-connection-storms)
+  - [Challenge 3: Data Size Limitations](#challenge-3-data-size-limitations)
+- [Anti-pattern: Large data in ZooKeeper](#anti-pattern-large-data-in-zookeeper)
+- [Pattern: Store reference](#pattern-store-reference)
+- [Why Bronze Tier?](#why-bronze-tier)
+  - [Limitations Leading to Deprecation](#limitations-leading-to-deprecation)
+  - [Modern Alternatives Comparison](#modern-alternatives-comparison)
+- [Migration Path](#migration-path)
+  - [Moving to etcd](#moving-to-etcd)
+- [Lessons Learned](#lessons-learned)
+- [Best Practices (If Still Using)](#best-practices-if-still-using)
+- [Related Topics](#related-topics)
+- [References](#references)
+
+
+
 !!! abstract "The ZooKeeper Story"
     **🎯 Single Achievement**: First widely-adopted coordination service
     **📊 Scale**: Yahoo: 50+ ZK clusters, 1000s of clients each
@@ -304,14 +336,14 @@ graph LR
 ### Challenge 3: Data Size Limitations
 
 ```python
-# Anti-pattern: Large data in ZooKeeper
+## Anti-pattern: Large data in ZooKeeper
 try:
     # ZNode limit: 1MB
     zk.create("/data/large_file", huge_data)  # FAILS!
 except ZookeeperError:
     pass
 
-# Pattern: Store reference
+## Pattern: Store reference
 data_ref = {
     "location": "s3:/bucket/large_file",
     "size": 1073741824,

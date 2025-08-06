@@ -12,6 +12,134 @@ last_updated: 2025-07-20
 
 # Cache Economics Sheet
 
+
+
+## Overview
+
+Cache Economics Sheet
+description: 'The fundamental equation for cache profitability:'
+type: quantitative
+difficulty: beginner
+reading_time: 40 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+
+# Cache Economics Sheet
+
+## Table of Contents
+
+- [Cache Break-Even Formula](#cache-break-even-formula)
+- [Cache Sizing Economics](#cache-sizing-economics)
+  - [Memory Cost Analysis](#memory-cost-analysis)
+  - [Hit Rate Impact](#hit-rate-impact)
+- [Cache Pattern Economics](#cache-pattern-economics)
+- [Cache-Aside ROI](#cache-aside-roi)
+- [Write-Through ROI](#write-through-roi)
+- [Write-Back ROI](#write-back-roi)
+- [Real-World Cache Economics](#real-world-cache-economics)
+  - [CDN Edge Caching](#cdn-edge-caching)
+  - [Application Cache Tiers](#application-cache-tiers)
+  - [Database Query Cache](#database-query-cache)
+- [Cache Invalidation Costs](#cache-invalidation-costs)
+- [Cache Optimization Strategies](#cache-optimization-strategies)
+  - [Adaptive TTL](#adaptive-ttl)
+  - [Selective Caching](#selective-caching)
+  - [Pre-warming Economics](#pre-warming-economics)
+- [Cache Sizing Optimization](#cache-sizing-optimization)
+  - [Working Set Analysis](#working-set-analysis)
+  - [Memory vs Hit Rate](#memory-vs-hit-rate)
+  - [Multi-Level Cache Sizing](#multi-level-cache-sizing)
+- [L1: CPU cache (free but tiny)](#l1-cpu-cache-free-but-tiny)
+- [L2: Application memory](#l2-application-memory)
+- [L3: Redis](#l3-redis)
+- [Cache ROI Calculator](#cache-roi-calculator)
+  - [Input Parameters](#input-parameters)
+  - [Example Calculation](#example-calculation)
+- [Key Decision Factors](#key-decision-factors)
+- [Key Takeaways](#key-takeaways)
+
+
+
+**When caching saves money**
+
+## Cache Break-Even Formula
+
+! Cache Break-Even Formula"
+
+ <div>
+ <div>
+ <strong>Cache is profitable when:</strong><br>
+ <span>(Cache Cost) < (Saved Backend Cost) + (Saved Latency Cost)</span>
+ 
+ <table class="responsive-table">
+ <thead>
+ <tr>
+ <th>Component</th>
+ <th>Formula</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td data-label="Component"><strong>Cache Cost</strong></td>
+ <td data-label="Formula">Memory$ + CPU$ + Network$</td>
+ </tr>
+ <tr>
+ <td data-label="Component"><strong>Saved Backend</strong></td>
+ <td data-label="Formula">(Hit Rate) × (Requests) × (Backend $/request)</td>
+ </tr>
+ <tr>
+ <td data-label="Component"><strong>Saved Latency</strong></td>
+ <td data-label="Formula">(Hit Rate) × (Requests) × (Latency Reduction) × ($/ms)</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+</div>
+
+## Cache Sizing Economics
+
+### Memory Cost Analysis
+!
+
+**Reading time:** ~11 minutes
+
+## Table of Contents
+
+- [Cache Break-Even Formula](#cache-break-even-formula)
+- [Cache Sizing Economics](#cache-sizing-economics)
+  - [Memory Cost Analysis](#memory-cost-analysis)
+  - [Hit Rate Impact](#hit-rate-impact)
+- [Cache Pattern Economics](#cache-pattern-economics)
+- [Cache-Aside ROI](#cache-aside-roi)
+- [Write-Through ROI](#write-through-roi)
+- [Write-Back ROI](#write-back-roi)
+- [Real-World Cache Economics](#real-world-cache-economics)
+  - [CDN Edge Caching](#cdn-edge-caching)
+  - [Application Cache Tiers](#application-cache-tiers)
+  - [Database Query Cache](#database-query-cache)
+- [Cache Invalidation Costs](#cache-invalidation-costs)
+- [Cache Optimization Strategies](#cache-optimization-strategies)
+  - [Adaptive TTL](#adaptive-ttl)
+  - [Selective Caching](#selective-caching)
+  - [Pre-warming Economics](#pre-warming-economics)
+- [Cache Sizing Optimization](#cache-sizing-optimization)
+  - [Working Set Analysis](#working-set-analysis)
+  - [Memory vs Hit Rate](#memory-vs-hit-rate)
+  - [Multi-Level Cache Sizing](#multi-level-cache-sizing)
+- [L1: CPU cache (free but tiny)](#l1-cpu-cache-free-but-tiny)
+- [L2: Application memory](#l2-application-memory)
+- [L3: Redis](#l3-redis)
+- [Cache ROI Calculator](#cache-roi-calculator)
+  - [Input Parameters](#input-parameters)
+  - [Example Calculation](#example-calculation)
+- [Key Decision Factors](#key-decision-factors)
+- [Key Takeaways](#key-takeaways)
+
+
+
 **When caching saves money**
 
 ## Cache Break-Even Formula
@@ -212,17 +340,17 @@ last_updated: 2025-07-20
 ## Cache Pattern Economics
 
 ```python
-# Cache-Aside ROI
+## Cache-Aside ROI
 Costs: 2 ops on miss, 1 on hit, infrastructure
 Benefits: Reduced backend load, lower latency
 Break-even hit rate: 60-70%
 
-# Write-Through ROI
+## Write-Through ROI
 Costs: Double writes, consistency management
 Benefits: Always fresh, no misses
 Break-even: read/write > 3:1
 
-# Write-Back ROI
+## Write-Back ROI
 Costs: Data loss risk, complex recovery
 Benefits: Write performance, backend protection
 Break-even: write-heavy + loss-tolerant
@@ -467,17 +595,17 @@ Pareto: 20% of keys = 80% of requests
 ### Multi-Level Cache Sizing
 ```python
 def optimize_cache_sizes(budget, access_pattern):
-# L1: CPU cache (free but tiny)
+## L1: CPU cache (free but tiny)
  l1_size = min(cpu_cache_available, hot_working_set)
 
-# L2: Application memory
+## L2: Application memory
  l2_cost_per_gb = $5
  l2_size = optimize_for_hit_rate(
  budget * 0.3, # 30% of budget
  l2_cost_per_gb
  )
 
-# L3: Redis
+## L3: Redis
  l3_cost_per_gb = $50
  l3_size = optimize_for_hit_rate(
  budget * 0.7, # 70% of budget

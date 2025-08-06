@@ -1,9 +1,51 @@
 ---
 title: Level 2 Core Business
 description: Level 2 Core Business overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Level II: Core Business Concepts - The Strategic "How"
+
+## Table of Contents
+
+- [Overview](#overview)
+- [The Five Essential Disciplines](#the-five-essential-disciplines)
+  - [2. [Leadership](../hard-earned-wisdom/human-cost-leadership.md)  ](#2-leadershiphard-earned-wisdomhuman-cost-leadershipmd-)
+  - [3. [Operations](operations/)](#3-operationsoperations)
+  - [4. [Finance](finance/)](#4-financefinance)
+  - [5. [Risk & Governance](risk-governance/)](#5-risk-governancerisk-governance)
+- [Integration: How Business Concepts Connect](#integration-how-business-concepts-connect)
+- [Why Engineering Leaders Need Business Concepts](#why-engineering-leaders-need-business-concepts)
+  - [1. **Speaking the Language of Business**](#1-speaking-the-language-of-business)
+  - [2. **Making Better Decisions**](#2-making-better-decisions)
+  - [3. **Leading at Scale**](#3-leading-at-scale)
+  - [4. **Career Advancement**](#4-career-advancement)
+- [The Engineering Leader's Business Toolkit](#the-engineering-leaders-business-toolkit)
+  - [Essential Capabilities by Level](#essential-capabilities-by-level)
+- [Common Anti-Patterns](#common-anti-patterns)
+  - [1. **The Pure Technologist**](#1-the-pure-technologist)
+  - [2. **The MBA Wannabe**](#2-the-mba-wannabe)
+  - [3. **The Framework Junkie**](#3-the-framework-junkie)
+  - [4. **The Silo Thinker**](#4-the-silo-thinker)
+- [Learning Path Through Business Concepts](#learning-path-through-business-concepts)
+  - [Foundation Building (Months 1-3)](#foundation-building-months-1-3)
+  - [Advanced Development (Months 4-6)](#advanced-development-months-4-6)
+  - [Mastery Practice (Ongoing)](#mastery-practice-ongoing)
+- [Real-World Integration Exercise](#real-world-integration-exercise)
+- [Interview Excellence Through Business Concepts](#interview-excellence-through-business-concepts)
+  - [The Executive Mindset](#the-executive-mindset)
+  - [Power Phrases by Discipline](#power-phrases-by-discipline)
+- [Self-Assessment](#self-assessment)
+- [The Path to Business Mastery](#the-path-to-business-mastery)
+- [Connecting Business Concepts to First Principles](#connecting-business-concepts-to-first-principles)
+- [Next Steps](#next-steps)
+  - [For Engineering Managers](#for-engineering-managers)
+  - [For Senior Managers & Directors](#for-senior-managers-directors)
+  - [Interview Preparation](#interview-preparation)
+
+
 
 > "First principles tell us why to act. Business concepts tell us how to win." - Synthesis of MBA Wisdom
 

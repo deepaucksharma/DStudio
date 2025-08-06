@@ -6,6 +6,26 @@ difficulty: advanced
 reading_time: 20 min
 status: complete
 last_updated: 2025-08-06
+prerequisites: 
+outcomes: 
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Platform Engineer Learning Path
+
+
+
+## Overview
+
+Platform Engineer Learning Path
+description: An intensive 8-week journey through platform engineering, developer experience, and internal tooling that accelerates engineering organizations
+type: learning-path
+difficulty: advanced
+reading_time: 20 min
+status: complete
+last_updated: 2025-08-06
 prerequisites:
   - 3+ years software development experience
   - Understanding of cloud infrastructure
@@ -20,6 +40,105 @@ outcomes:
 ---
 
 # Platform Engineer Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🎯 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Developer Experience Fundamentals 🏗️](#week-1-2-developer-experience-fundamentals-)
+  - [Week 3-4: Internal Platform Design ⚙️](#week-3-4-internal-platform-design-)
+  - [Week 5-6: Self-Service Workflows 🔧](#week-5-6-self-service-workflows-)
+  - [Week 7-8: Advanced Platform & Metrics 🚀](#week-7-8-advanced-platform-metrics-)
+- [🛠️ Hands-On Labs & Projects](#-hands-on-labs-projects)
+  - [Weekly Project Structure](#weekly-project-structure)
+  - [Real-World Platform Scenarios](#real-world-platform-scenarios)
+- [📊 Assessment & Developer Feedback](#-assessment-developer-feedback)
+  - [Weekly Skills Assessment](#weekly-skills-assessment)
+  - [DORA + SPACE Metrics Implementation](#dora-space-metrics-implementation)
+- [💼 Career Development & Platform Leadership](#-career-development-platform-leadership)
+  - [Platform Engineering Interview Questions](#platform-engineering-interview-questions)
+  - [Platform Engineer Portfolio Projects](#platform-engineer-portfolio-projects)
+  - [Salary & Compensation Insights](#salary-compensation-insights)
+- [👥 Platform Community & Mentorship](#-platform-community-mentorship)
+  - [Platform Engineering Study Groups](#platform-engineering-study-groups)
+  - [Expert Mentorship Network](#expert-mentorship-network)
+  - [Community Resources](#community-resources)
+- [🎓 Success Stories & Impact Metrics](#-success-stories-impact-metrics)
+  - [Recent Graduate Achievements](#recent-graduate-achievements)
+  - [Platform Impact Metrics](#platform-impact-metrics)
+- [🚀 Advanced Platform Patterns](#-advanced-platform-patterns)
+  - [Cutting-Edge Platform Technologies](#cutting-edge-platform-technologies)
+  - [Emerging Platform Trends](#emerging-platform-trends)
+- [📚 Essential Platform Engineering Library](#-essential-platform-engineering-library)
+  - [Must-Read Books (Priority Order)](#must-read-books-priority-order)
+  - [Essential Platform Resources](#essential-platform-resources)
+- [🏁 Capstone Project: Enterprise Platform](#-capstone-project-enterprise-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Requirements](#technical-requirements)
+  - [Success Criteria](#success-criteria)
+  - [Evaluation Framework](#evaluation-framework)
+- [🎉 Next Steps & Platform Mastery](#-next-steps-platform-mastery)
+  - [Advanced Specialization Paths](#advanced-specialization-paths)
+  - [Career Progression Opportunities](#career-progression-opportunities)
+  - [Continued Learning Recommendations](#continued-learning-recommendations)
+- [💡 Platform Engineering Principles](#-platform-engineering-principles)
+  - [Core Platform Values](#core-platform-values)
+  - [Platform Engineering Mantras](#platform-engineering-mantras)
+
+
+
+! Accelerate Engineering Excellence"
+    This intensive 8-week path transforms engineers into platform engineers who build the tools, systems, and workflows that make engineering organizations 10x more productive.
+
+**Reading time:** ~16 minutes
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🎯 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Developer Experience Fundamentals 🏗️](#week-1-2-developer-experience-fundamentals-)
+  - [Week 3-4: Internal Platform Design ⚙️](#week-3-4-internal-platform-design-)
+  - [Week 5-6: Self-Service Workflows 🔧](#week-5-6-self-service-workflows-)
+  - [Week 7-8: Advanced Platform & Metrics 🚀](#week-7-8-advanced-platform-metrics-)
+- [🛠️ Hands-On Labs & Projects](#-hands-on-labs-projects)
+  - [Weekly Project Structure](#weekly-project-structure)
+  - [Real-World Platform Scenarios](#real-world-platform-scenarios)
+- [📊 Assessment & Developer Feedback](#-assessment-developer-feedback)
+  - [Weekly Skills Assessment](#weekly-skills-assessment)
+  - [DORA + SPACE Metrics Implementation](#dora-space-metrics-implementation)
+- [💼 Career Development & Platform Leadership](#-career-development-platform-leadership)
+  - [Platform Engineering Interview Questions](#platform-engineering-interview-questions)
+  - [Platform Engineer Portfolio Projects](#platform-engineer-portfolio-projects)
+  - [Salary & Compensation Insights](#salary-compensation-insights)
+- [👥 Platform Community & Mentorship](#-platform-community-mentorship)
+  - [Platform Engineering Study Groups](#platform-engineering-study-groups)
+  - [Expert Mentorship Network](#expert-mentorship-network)
+  - [Community Resources](#community-resources)
+- [🎓 Success Stories & Impact Metrics](#-success-stories-impact-metrics)
+  - [Recent Graduate Achievements](#recent-graduate-achievements)
+  - [Platform Impact Metrics](#platform-impact-metrics)
+- [🚀 Advanced Platform Patterns](#-advanced-platform-patterns)
+  - [Cutting-Edge Platform Technologies](#cutting-edge-platform-technologies)
+  - [Emerging Platform Trends](#emerging-platform-trends)
+- [📚 Essential Platform Engineering Library](#-essential-platform-engineering-library)
+  - [Must-Read Books (Priority Order)](#must-read-books-priority-order)
+  - [Essential Platform Resources](#essential-platform-resources)
+- [🏁 Capstone Project: Enterprise Platform](#-capstone-project-enterprise-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Requirements](#technical-requirements)
+  - [Success Criteria](#success-criteria)
+  - [Evaluation Framework](#evaluation-framework)
+- [🎉 Next Steps & Platform Mastery](#-next-steps-platform-mastery)
+  - [Advanced Specialization Paths](#advanced-specialization-paths)
+  - [Career Progression Opportunities](#career-progression-opportunities)
+  - [Continued Learning Recommendations](#continued-learning-recommendations)
+- [💡 Platform Engineering Principles](#-platform-engineering-principles)
+  - [Core Platform Values](#core-platform-values)
+  - [Platform Engineering Mantras](#platform-engineering-mantras)
+
+
 
 !!! abstract "Accelerate Engineering Excellence"
     This intensive 8-week path transforms engineers into platform engineers who build the tools, systems, and workflows that make engineering organizations 10x more productive. Learn the patterns used by Google, Netflix, and Spotify to scale their engineering cultures.

@@ -6,6 +6,26 @@ difficulty: intermediate
 reading_time: 25 min
 status: complete
 last_updated: 2025-08-06
+prerequisites: 
+outcomes: 
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# DevOps & SRE Learning Path
+
+
+
+## Overview
+
+DevOps & SRE Learning Path
+description: A comprehensive 10-week journey through Site Reliability Engineering, infrastructure automation, and operational excellence
+type: learning-path
+difficulty: intermediate
+reading_time: 25 min
+status: complete
+last_updated: 2025-08-06
 prerequisites:
   - 2+ years software development experience
   - Basic understanding of distributed systems
@@ -20,6 +40,105 @@ outcomes:
 ---
 
 # DevOps & SRE Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [📊 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Infrastructure Foundation 🏗️](#week-1-2-infrastructure-foundation-)
+  - [📈 Week 1-2 Progress Tracker](#-week-1-2-progress-tracker)
+  - [Week 3-4: CI/CD & Automation ⚙️](#week-3-4-cicd-automation-)
+  - [Week 5-6: Observability & Monitoring 📊](#week-5-6-observability-monitoring-)
+  - [Week 7-8: SRE Practices & Reliability 🛡️](#week-7-8-sre-practices-reliability-)
+  - [Week 9-10: Advanced Topics & Capstone 🚀](#week-9-10-advanced-topics-capstone-)
+- [🏆 Hands-On Labs & Projects](#-hands-on-labs-projects)
+  - [Weekly Lab Schedule](#weekly-lab-schedule)
+- [📊 Assessment & Certification](#-assessment-certification)
+  - [Weekly Assessments](#weekly-assessments)
+  - [Industry Certification Alignment](#industry-certification-alignment)
+- [💼 Career & Interview Preparation](#-career-interview-preparation)
+  - [Interview Question Bank](#interview-question-bank)
+  - [Portfolio Projects](#portfolio-projects)
+- [📚 Study Group & Community Resources](#-study-group-community-resources)
+  - [Weekly Study Groups](#weekly-study-groups)
+  - [Mentorship Program](#mentorship-program)
+  - [Community Resources](#community-resources)
+- [🎓 Success Stories & Career Outcomes](#-success-stories-career-outcomes)
+  - [Graduate Outcomes (Last 6 Months)](#graduate-outcomes-last-6-months)
+  - [Skills Development Metrics](#skills-development-metrics)
+- [🚀 Next Steps After Completion](#-next-steps-after-completion)
+  - [Immediate Actions (Week 11)](#immediate-actions-week-11)
+  - [Advanced Specialization Paths](#advanced-specialization-paths)
+- [💡 Success Tips & Best Practices](#-success-tips-best-practices)
+  - [Learning Strategies](#learning-strategies)
+  - [Common Pitfalls to Avoid](#common-pitfalls-to-avoid)
+  - [Time Management](#time-management)
+- [📖 Essential Reading List](#-essential-reading-list)
+  - [Books (Priority Order)](#books-priority-order)
+  - [Blogs & Resources](#blogs-resources)
+  - [Podcasts](#podcasts)
+- [🎯 Final Assessment](#-final-assessment)
+  - [Capstone Project Requirements](#capstone-project-requirements)
+  - [Evaluation Rubric](#evaluation-rubric)
+- [🏁 Graduation & Next Steps](#-graduation-next-steps)
+  - [Certification](#certification)
+  - [Career Opportunities](#career-opportunities)
+  - [Continued Learning Path](#continued-learning-path)
+
+
+
+! Build Systems That Never Sleep"
+    This 10-week intensive path transforms software engineers into Site Reliability Engineers and DevOps practitioners.
+
+**Reading time:** ~15 minutes
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [📊 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: Infrastructure Foundation 🏗️](#week-1-2-infrastructure-foundation-)
+  - [📈 Week 1-2 Progress Tracker](#-week-1-2-progress-tracker)
+  - [Week 3-4: CI/CD & Automation ⚙️](#week-3-4-cicd-automation-)
+  - [Week 5-6: Observability & Monitoring 📊](#week-5-6-observability-monitoring-)
+  - [Week 7-8: SRE Practices & Reliability 🛡️](#week-7-8-sre-practices-reliability-)
+  - [Week 9-10: Advanced Topics & Capstone 🚀](#week-9-10-advanced-topics-capstone-)
+- [🏆 Hands-On Labs & Projects](#-hands-on-labs-projects)
+  - [Weekly Lab Schedule](#weekly-lab-schedule)
+- [📊 Assessment & Certification](#-assessment-certification)
+  - [Weekly Assessments](#weekly-assessments)
+  - [Industry Certification Alignment](#industry-certification-alignment)
+- [💼 Career & Interview Preparation](#-career-interview-preparation)
+  - [Interview Question Bank](#interview-question-bank)
+  - [Portfolio Projects](#portfolio-projects)
+- [📚 Study Group & Community Resources](#-study-group-community-resources)
+  - [Weekly Study Groups](#weekly-study-groups)
+  - [Mentorship Program](#mentorship-program)
+  - [Community Resources](#community-resources)
+- [🎓 Success Stories & Career Outcomes](#-success-stories-career-outcomes)
+  - [Graduate Outcomes (Last 6 Months)](#graduate-outcomes-last-6-months)
+  - [Skills Development Metrics](#skills-development-metrics)
+- [🚀 Next Steps After Completion](#-next-steps-after-completion)
+  - [Immediate Actions (Week 11)](#immediate-actions-week-11)
+  - [Advanced Specialization Paths](#advanced-specialization-paths)
+- [💡 Success Tips & Best Practices](#-success-tips-best-practices)
+  - [Learning Strategies](#learning-strategies)
+  - [Common Pitfalls to Avoid](#common-pitfalls-to-avoid)
+  - [Time Management](#time-management)
+- [📖 Essential Reading List](#-essential-reading-list)
+  - [Books (Priority Order)](#books-priority-order)
+  - [Blogs & Resources](#blogs-resources)
+  - [Podcasts](#podcasts)
+- [🎯 Final Assessment](#-final-assessment)
+  - [Capstone Project Requirements](#capstone-project-requirements)
+  - [Evaluation Rubric](#evaluation-rubric)
+- [🏁 Graduation & Next Steps](#-graduation-next-steps)
+  - [Certification](#certification)
+  - [Career Opportunities](#career-opportunities)
+  - [Continued Learning Path](#continued-learning-path)
+
+
 
 !!! abstract "Build Systems That Never Sleep"
     This 10-week intensive path transforms software engineers into Site Reliability Engineers and DevOps practitioners. Learn to build, deploy, monitor, and maintain systems that serve millions while sleeping peacefully at night.

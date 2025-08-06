@@ -6,6 +6,55 @@ type: documentation
 
 # Geo-Distribution Planner
 
+
+
+## Overview
+
+Geo-Distribution Planner
+description: Multi-region latency optimization, data residency, and cost analysis
+type: documentation
+---
+
+# Geo-Distribution Planner
+
+## Table of Contents
+
+- [Interactive Planner](#interactive-planner)
+  - [Global Traffic Distribution](#global-traffic-distribution)
+  - [Latency Requirements](#latency-requirements)
+  - [Data Residency & Compliance](#data-residency-compliance)
+  - [Cost Optimization](#cost-optimization)
+  - [Infrastructure Configuration](#infrastructure-configuration)
+- [Understanding Geographic Distribution](#understanding-geographic-distribution)
+  - [Latency Components](#latency-components)
+  - [Regional Considerations](#regional-considerations)
+  - [Cost Optimization Strategies](#cost-optimization-strategies)
+- [Related Resources](#related-resources)
+
+
+
+! Advanced Geographic Distribution Calculator"
+    <h2>🌍 Multi-Region Deployment Planner</h2>
+    <p>Optimize global infrastructure deployment with latency analysis, data residency compliance, and cost optimization.
+
+**Reading time:** ~17 minutes
+
+## Table of Contents
+
+- [Interactive Planner](#interactive-planner)
+  - [Global Traffic Distribution](#global-traffic-distribution)
+  - [Latency Requirements](#latency-requirements)
+  - [Data Residency & Compliance](#data-residency-compliance)
+  - [Cost Optimization](#cost-optimization)
+  - [Infrastructure Configuration](#infrastructure-configuration)
+- [Understanding Geographic Distribution](#understanding-geographic-distribution)
+  - [Latency Components](#latency-components)
+  - [Regional Considerations](#regional-considerations)
+  - [Cost Optimization Strategies](#cost-optimization-strategies)
+- [Related Resources](#related-resources)
+
+
+
 !!! info "Advanced Geographic Distribution Calculator"
     <h2>🌍 Multi-Region Deployment Planner</h2>
     <p>Optimize global infrastructure deployment with latency analysis, data residency compliance, and cost optimization.</p>

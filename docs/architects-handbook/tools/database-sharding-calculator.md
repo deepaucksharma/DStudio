@@ -6,6 +6,55 @@ type: documentation
 
 # Database Sharding Calculator
 
+
+
+## Overview
+
+Database Sharding Calculator
+description: Shard key selection, distribution analysis, and rebalancing cost estimation
+type: documentation
+---
+
+# Database Sharding Calculator
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Database Configuration](#database-configuration)
+  - [Sharding Strategy](#sharding-strategy)
+  - [Cluster Configuration](#cluster-configuration)
+  - [Performance Requirements](#performance-requirements)
+  - [Cost & Infrastructure](#cost-infrastructure)
+- [Understanding Database Sharding](#understanding-database-sharding)
+  - [Sharding Strategies](#sharding-strategies)
+  - [Shard Key Selection Criteria](#shard-key-selection-criteria)
+  - [Rebalancing Strategies](#rebalancing-strategies)
+- [Related Resources](#related-resources)
+
+
+
+! Advanced Database Sharding Analysis"
+    <h2>🗃️ Database Sharding Strategy Calculator</h2>
+    <p>Analyze shard key effectiveness, distribution patterns, hotspot detection, and rebalancing costs for horizontal database scaling.
+
+**Reading time:** ~23 minutes
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Database Configuration](#database-configuration)
+  - [Sharding Strategy](#sharding-strategy)
+  - [Cluster Configuration](#cluster-configuration)
+  - [Performance Requirements](#performance-requirements)
+  - [Cost & Infrastructure](#cost-infrastructure)
+- [Understanding Database Sharding](#understanding-database-sharding)
+  - [Sharding Strategies](#sharding-strategies)
+  - [Shard Key Selection Criteria](#shard-key-selection-criteria)
+  - [Rebalancing Strategies](#rebalancing-strategies)
+- [Related Resources](#related-resources)
+
+
+
 !!! info "Advanced Database Sharding Analysis"
     <h2>🗃️ Database Sharding Strategy Calculator</h2>
     <p>Analyze shard key effectiveness, distribution patterns, hotspot detection, and rebalancing costs for horizontal database scaling.</p>

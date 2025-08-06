@@ -141,7 +141,7 @@ graph TB
 ### 1. Idempotency as a First-Class Concept
 
 ```ruby
-# Every API request can include an idempotency key
+## Every API request can include an idempotency key
 class PaymentProcessor
   def create_charge(params, idempotency_key: nil)
     # Check if we've seen this key before
@@ -451,7 +451,7 @@ sequenceDiagram
 ### Error Handling Philosophy
 
 ```ruby
-# Stripe's error handling provides maximum information
+## Stripe's error handling provides maximum information
 module Stripe
   class Error < StandardError
     attr_reader :message, :type, :code, :param, :detail

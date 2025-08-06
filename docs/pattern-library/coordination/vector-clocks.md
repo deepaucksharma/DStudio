@@ -23,7 +23,7 @@ Vector clocks assign each node a logical clock vector, incrementing local time o
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class VectorClock:
     def __init__(self):
         pass

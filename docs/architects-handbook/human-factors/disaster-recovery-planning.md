@@ -4,15 +4,89 @@ description: Comprehensive disaster recovery strategies, RTO/RPO optimization, c
 type: human-factors
 difficulty: advanced
 reading_time: 35 min
-prerequisites:
-  - chaos-engineering.md
-  - incident-response.md
-  - oncall-culture.md
+prerequisites: 
 status: complete
 last_updated: 2025-08-06
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Disaster Recovery Planning for Distributed Systems
+
+
+
+## Overview
+
+Disaster Recovery Planning for Distributed Systems
+description: Comprehensive disaster recovery strategies, RTO/RPO optimization, chaos testing, GameDay practices, and organizational resilience patterns
+type: human-factors
+difficulty: advanced
+reading_time: 35 min
+prerequisites:
+  - chaos-engineering. Disaster Recovery Planning for Distributed Systems
+
+## Table of Contents
+
+- [Understanding Disaster Recovery Scope](#understanding-disaster-recovery-scope)
+  - [Disaster Categories](#disaster-categories)
+  - [RTO/RPO Framework](#rtorpo-framework)
+- [Advanced DR Architecture Patterns](#advanced-dr-architecture-patterns)
+  - [Multi-Region Active-Active](#multi-region-active-active)
+  - [Disaster Recovery Orchestration](#disaster-recovery-orchestration)
+- [GameDay Disaster Scenarios](#gameday-disaster-scenarios)
+  - [Scenario Design Framework](#scenario-design-framework)
+- [Real GameDay Scenario Examples](#real-gameday-scenario-examples)
+  - [GameDay Execution Framework](#gameday-execution-framework)
+- [Organizational Disaster Response](#organizational-disaster-response)
+  - [Crisis Management Structure](#crisis-management-structure)
+  - [Decision Framework Under Extreme Pressure](#decision-framework-under-extreme-pressure)
+- [Advanced Recovery Techniques](#advanced-recovery-techniques)
+  - [Cross-Region Data Recovery](#cross-region-data-recovery)
+  - [Real-Time Recovery Metrics](#real-time-recovery-metrics)
+- [Disaster Recovery Culture and Training](#disaster-recovery-culture-and-training)
+  - [Continuous DR Preparedness](#continuous-dr-preparedness)
+  - [Psychological Preparedness](#psychological-preparedness)
+- [ROI and Business Case for DR Investment](#roi-and-business-case-for-dr-investment)
+  - [DR Investment Portfolio Analysis](#dr-investment-portfolio-analysis)
+- [Measuring DR Program Success](#measuring-dr-program-success)
+  - [Comprehensive DR Metrics Framework](#comprehensive-dr-metrics-framework)
+
+
+
+**Building organizational and technical resilience for catastrophic failure scenarios**
+
+> *"In disaster recovery, hope is not a strategy—preparation, practice, and process are.
+
+**Reading time:** ~14 minutes
+
+## Table of Contents
+
+- [Understanding Disaster Recovery Scope](#understanding-disaster-recovery-scope)
+  - [Disaster Categories](#disaster-categories)
+  - [RTO/RPO Framework](#rtorpo-framework)
+- [Advanced DR Architecture Patterns](#advanced-dr-architecture-patterns)
+  - [Multi-Region Active-Active](#multi-region-active-active)
+  - [Disaster Recovery Orchestration](#disaster-recovery-orchestration)
+- [GameDay Disaster Scenarios](#gameday-disaster-scenarios)
+  - [Scenario Design Framework](#scenario-design-framework)
+- [Real GameDay Scenario Examples](#real-gameday-scenario-examples)
+  - [GameDay Execution Framework](#gameday-execution-framework)
+- [Organizational Disaster Response](#organizational-disaster-response)
+  - [Crisis Management Structure](#crisis-management-structure)
+  - [Decision Framework Under Extreme Pressure](#decision-framework-under-extreme-pressure)
+- [Advanced Recovery Techniques](#advanced-recovery-techniques)
+  - [Cross-Region Data Recovery](#cross-region-data-recovery)
+  - [Real-Time Recovery Metrics](#real-time-recovery-metrics)
+- [Disaster Recovery Culture and Training](#disaster-recovery-culture-and-training)
+  - [Continuous DR Preparedness](#continuous-dr-preparedness)
+  - [Psychological Preparedness](#psychological-preparedness)
+- [ROI and Business Case for DR Investment](#roi-and-business-case-for-dr-investment)
+  - [DR Investment Portfolio Analysis](#dr-investment-portfolio-analysis)
+- [Measuring DR Program Success](#measuring-dr-program-success)
+  - [Comprehensive DR Metrics Framework](#comprehensive-dr-metrics-framework)
+
+
 
 **Building organizational and technical resilience for catastrophic failure scenarios**
 
@@ -385,7 +459,7 @@ class GameDayScenarioDesigner:
         
         return timeline
 
-# Real GameDay Scenario Examples
+## Real GameDay Scenario Examples
 gameday_scenarios = {
     "payment_processor_outage": {
         "title": "Critical Payment Processor Failure During Black Friday",

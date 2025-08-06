@@ -1,9 +1,54 @@
 ---
 title: Level 1 First Principles
 description: Level 1 First Principles overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Level I: First Principles - The Foundational "Why"
+
+## Table of Contents
+
+- [Overview](#overview)
+- [The System's View: The Meta-Principle](#the-systems-view-the-meta-principle)
+  - [Organizations as Living Systems](#organizations-as-living-systems)
+  - [System Mapping: The Leader's Diagnostic Tool](#system-mapping-the-leaders-diagnostic-tool)
+  - [System Archetypes: Common Organizational Patterns](#system-archetypes-common-organizational-patterns)
+  - [High-Leverage Intervention Points](#high-leverage-intervention-points)
+- [The Five Universal Principles](#the-five-universal-principles)
+  - [1. [Value Creation](../engineering-leadership/level-1-first-principles/value-creation/)](#1-value-creationengineering-leadershiplevel-1-first-principlesvalue-creation)
+  - [2. [Decision-Making](../engineering-leadership/level-1-first-principles/decision-making/) ](#2-decision-makingengineering-leadershiplevel-1-first-principlesdecision-making-)
+  - [3. [Human Behavior](../engineering-leadership/level-1-first-principles/human-behavior/)](#3-human-behaviorengineering-leadershiplevel-1-first-principleshuman-behavior)
+  - [4. [Systems Thinking](../engineering-leadership/level-1-first-principles/systems-thinking/)](#4-systems-thinkingengineering-leadershiplevel-1-first-principlessystems-thinking)
+  - [5. [Integrity & Ethics](../engineering-leadership/level-1-first-principles/integrity-ethics/)](#5-integrity-ethicsengineering-leadershiplevel-1-first-principlesintegrity-ethics)
+- [Practical Applications: System Mapping Toolkit](#practical-applications-system-mapping-toolkit)
+  - [System Mapping Exercises](#system-mapping-exercises)
+  - [Diagnostic Toolkit: Recognizing System Patterns](#diagnostic-toolkit-recognizing-system-patterns)
+  - [First Experiments: Testing System Changes](#first-experiments-testing-system-changes)
+- [Why First Principles Matter for Engineering Leaders](#why-first-principles-matter-for-engineering-leaders)
+  - [1. **Navigate Ambiguity with Systems Lens**](#1-navigate-ambiguity-with-systems-lens)
+  - [2. **Resolve Conflicts Through System Design**](#2-resolve-conflicts-through-system-design)
+  - [3. **Scale Judgment Through System Architecture**](#3-scale-judgment-through-system-architecture)
+  - [4. **Interview Differentiation Through Systems Thinking**](#4-interview-differentiation-through-systems-thinking)
+- [How These Principles Interconnect](#how-these-principles-interconnect)
+- [Applying First Principles: A Systems-Informed Case Study](#applying-first-principles-a-systems-informed-case-study)
+  - [Systems Thinking in Action](#systems-thinking-in-action)
+- [Learning Path Through First Principles](#learning-path-through-first-principles)
+  - [Week 1-2: Systems Foundation + Deep Dive Each Principle](#week-1-2-systems-foundation-deep-dive-each-principle)
+  - [Week 3-4: Integration + System Mapping Practice](#week-3-4-integration-system-mapping-practice)
+  - [Week 5-6: Interview Preparation + Systems Demonstration](#week-5-6-interview-preparation-systems-demonstration)
+- [Common Misconceptions](#common-misconceptions)
+- [Self-Assessment Questions](#self-assessment-questions)
+- [The Path Forward](#the-path-forward)
+- [Cross-Principle Integration](#cross-principle-integration)
+- [Next Steps](#next-steps)
+  - [For New Engineering Managers](#for-new-engineering-managers)
+  - [For Senior Managers](#for-senior-managers)
+  - [For Directors and Above](#for-directors-and-above)
+  - [Interview Preparation Path](#interview-preparation-path)
+
+
 
 > These universal laws govern effective leadership and business. They are the ultimate justification for any action you take as an engineering leader.
 

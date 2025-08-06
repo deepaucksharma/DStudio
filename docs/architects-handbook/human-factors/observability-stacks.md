@@ -1,6 +1,25 @@
 ---
 title: Observability Stacks
 description: Making distributed knowledge visible while respecting cognitive limits
+type: human-factors
+difficulty: beginner
+reading_time: 25 min
+prerequisites: 
+status: complete
+last_updated: 2025-07-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Observability Stacks
+
+
+
+## Overview
+
+Observability Stacks
+description: Making distributed knowledge visible while respecting cognitive limits
   - Laws 5 & 6 in practice
 type: human-factors
 difficulty: beginner
@@ -14,6 +33,52 @@ last_updated: 2025-07-23
 
 
 # Observability Stacks
+
+## Table of Contents
+
+- [The Observability Triad (Laws 5 & 6 United)](#the-observability-triad-laws-5-6-united)
+- [Modern Observability Stack](#modern-observability-stack)
+  - [Metrics Layer](#metrics-layer)
+  - [Logging Layer](#logging-layer)
+  - [Tracing Layer](#tracing-layer)
+- [Reference Architecture](#reference-architecture)
+- [Implementation Guide](#implementation-guide)
+  - [1. Instrument Applications](#1-instrument-applications)
+  - [2.
+
+**Reading time:** ~10 minutes
+
+## Table of Contents
+
+- [The Observability Triad (Laws 5 & 6 United)](#the-observability-triad-laws-5-6-united)
+- [Modern Observability Stack](#modern-observability-stack)
+  - [Metrics Layer](#metrics-layer)
+  - [Logging Layer](#logging-layer)
+  - [Tracing Layer](#tracing-layer)
+- [Reference Architecture](#reference-architecture)
+- [Implementation Guide](#implementation-guide)
+  - [1. Instrument Applications](#1-instrument-applications)
+  - [2. Optimize Collection](#2-optimize-collection)
+  - [3. Design Dashboards](#3-design-dashboards)
+- [Observability Patterns](#observability-patterns)
+  - [1. Correlation IDs](#1-correlation-ids)
+  - [2. Service Dependency Mapping](#2-service-dependency-mapping)
+  - [3. Anomaly Detection](#3-anomaly-detection)
+- [Cost Optimization](#cost-optimization)
+  - [Metrics Costs](#metrics-costs)
+  - [Log Costs](#log-costs)
+  - [Trace Costs](#trace-costs)
+- [Troubleshooting with Observability](#troubleshooting-with-observability)
+  - [Investigation Flow](#investigation-flow)
+- [Observability Maturity (Laws 5 & 6 Progression)](#observability-maturity-laws-5-6-progression)
+  - [Level 1: Reactive (High Cognitive Load)](#level-1-reactive-high-cognitive-load)
+  - [Level 2: Proactive (Reducing Load)](#level-2-proactive-reducing-load)
+  - [Level 3: Predictive (Cognitive Optimization)](#level-3-predictive-cognitive-optimization)
+  - [Level 4: Prescriptive (Cognitive Augmentation)](#level-4-prescriptive-cognitive-augmentation)
+- [Best Practices (Respecting Laws 5 & 6)](#best-practices-respecting-laws-5-6)
+- [Key Takeaways](#key-takeaways)
+
+
 
 **You can't fix what you can't see - Making Law 5 (Distributed Knowledge) comprehensible via Law 6 (Cognitive Load)**
 

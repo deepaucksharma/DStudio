@@ -1,6 +1,6 @@
 ---
-title: Resilience-First Engineering: Building Systems That Survive
-description: ```mermaid graph TD A[Resilience Foundation] --> B[Failure Detection] A --> C[Failure Isolation] A --> D[Failure Recovery]
+title: "Resilience-First Engineering: Building Systems That Survive"
+description: "Build systems that survive failure with comprehensive resilience patterns, failure detection, isolation, and recovery strategies."
 type: guide
 ---
 
@@ -107,7 +107,7 @@ class CircuitBreaker:
 
 **Resource Isolation Strategy**
 ```yaml
-# Kubernetes Resource Isolation
+## Kubernetes Resource Isolation
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -133,7 +133,7 @@ spec:
 ### 3. Timeout Cascade Prevention
 
 ```python
-# Timeout budget allocation
+## Timeout budget allocation
 class TimeoutBudget:
     def __init__(self, total_timeout=3000):  # 3 seconds total
         self.total = total_timeout
@@ -350,3 +350,5 @@ graph TD
 - [Bulkhead Pattern](../../pattern-library/resilience/bulkhead/) (Gold)
 - [Chaos Engineering](../architects-handbook/human-factors/chaos-engineering.md)
 - [Cell-based Architecture](../../pattern-library/architecture/cell-based/) (Gold)
+```
+```

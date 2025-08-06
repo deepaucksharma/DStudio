@@ -25,23 +25,23 @@ The DStudio documentation uses a comprehensive validation system that checks:
 ### Run All Validations
 
 ```bash
-# Run comprehensive validation with all checks
+## Run comprehensive validation with all checks
 ./scripts/validate-all.sh
 ```
 
 ### Run Specific Validation
 
 ```bash
-# Navigation and link validation only
+## Navigation and link validation only
 python3 scripts/comprehensive-navigation-validator.py
 
-# With verbose output
+## With verbose output
 python3 scripts/comprehensive-navigation-validator.py --verbose
 
-# Auto-fix broken links
+## Auto-fix broken links
 python3 scripts/comprehensive-navigation-validator.py --fix
 
-# Generate JSON report
+## Generate JSON report
 python3 scripts/comprehensive-navigation-validator.py --report json --output report.json
 ```
 
@@ -143,7 +143,7 @@ Machine-readable format for automation:
 #### Markdown Report
 Formatted for documentation or issue tracking:
 ```markdown
-# Navigation and Link Validation Report
+## Navigation and Link Validation Report
 
 **Health Grade:** B (Score: 85/100)
 
@@ -285,7 +285,7 @@ Run validation:
 
 For large documentation sets:
 ```bash
-# Validate specific directory only
+## Validate specific directory only
 python3 scripts/comprehensive-navigation-validator.py --path docs/patterns
 ```
 
@@ -293,7 +293,7 @@ python3 scripts/comprehensive-navigation-validator.py --path docs/patterns
 
 Exclude certain patterns:
 ```python
-# In validator configuration
+## In validator configuration
 EXCLUDE_PATTERNS = [
     'docs/archive/**',
     'docs/drafts/**'
@@ -304,7 +304,7 @@ EXCLUDE_PATTERNS = [
 
 For very large sites:
 ```bash
-# Increase Python memory limit
+## Increase Python memory limit
 export PYTHONMEMORY=4G
 python3 scripts/comprehensive-navigation-validator.py
 ```
@@ -324,7 +324,7 @@ class CustomValidator(ComprehensiveValidator):
 ### Integration with Other Tools
 
 ```bash
-# Generate report for further processing
+## Generate report for further processing
 python3 scripts/comprehensive-navigation-validator.py --report json | \
     jq '.broken_links[] | select(.type == "broken_link")'
 ```
@@ -333,7 +333,7 @@ python3 scripts/comprehensive-navigation-validator.py --report json | \
 
 Add to crontab:
 ```bash
-# Run daily at 2 AM
+## Run daily at 2 AM
 0 2 * * * cd /path/to/DStudio && ./scripts/validate-all.sh
 ```
 

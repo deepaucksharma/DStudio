@@ -136,7 +136,7 @@ Choreography coordinates distributed services through event reactions without ce
 <summary>📄 View python code (10 lines)</summary>
 
 ```python
-# Choreography event handling (simplified)
+## Choreography event handling (simplified)
 def handle_order_created(event):
     """Shows service reaction to events"""
     # Each service reacts independently

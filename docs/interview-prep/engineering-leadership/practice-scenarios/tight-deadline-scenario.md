@@ -2,9 +2,85 @@
 title: Tight Deadline Pressure - Practice Scenario
 description: Your CEO has committed to demonstrating a major feature to the board in 3 weeks, but your team estimates it will take 8 weeks to build properly. The c
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Tight Deadline Pressure - Practice Scenario
+
+
+
+## Overview
+
+Tight Deadline Pressure - Practice Scenario
+description: Your CEO has committed to demonstrating a major feature to the board in 3 weeks, but your team estimates it will take 8 weeks to build properly. The c
+type: interview-guide
+---
+
+# Tight Deadline Pressure - Practice Scenario
+
+## Table of Contents
+
+- [Scenario Overview](#scenario-overview)
+- [Context and Complexity](#context-and-complexity)
+  - [The Players](#the-players)
+  - [The Situation](#the-situation)
+  - [The Technical Challenge](#the-technical-challenge)
+- [Interview Deep Dive Questions](#interview-deep-dive-questions)
+  - [1.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [Scenario Overview](#scenario-overview)
+- [Context and Complexity](#context-and-complexity)
+  - [The Players](#the-players)
+  - [The Situation](#the-situation)
+  - [The Technical Challenge](#the-technical-challenge)
+- [Interview Deep Dive Questions](#interview-deep-dive-questions)
+  - [1. Immediate Response Strategy](#1-immediate-response-strategy)
+  - [2. Negotiation Strategy](#2-negotiation-strategy)
+    - [With CEO](#with-ceo)
+    - [With Team](#with-team)
+  - [3. Resource Optimization](#3-resource-optimization)
+    - [Week 1: Foundation Sprint](#week-1-foundation-sprint)
+    - [Week 2: Integration Sprint  ](#week-2-integration-sprint-)
+    - [Week 3: Polish Sprint](#week-3-polish-sprint)
+  - [4. Risk Management](#4-risk-management)
+    - [Technical Risks](#technical-risks)
+    - [Business Risks](#business-risks)
+    - [Political Risks](#political-risks)
+  - [5. Team Morale and Sustainability](#5-team-morale-and-sustainability)
+    - [Daily Team Management](#daily-team-management)
+    - [Stress Indicators and Response](#stress-indicators-and-response)
+    - [Recovery Planning](#recovery-planning)
+- [Advanced Scenarios and Complications](#advanced-scenarios-and-complications)
+  - [Escalation: "The demo fails during the board meeting"](#escalation-the-demo-fails-during-the-board-meeting)
+  - [Complication: "Team member quits mid-sprint"](#complication-team-member-quits-mid-sprint)
+  - [Plot Twist: "Board loves demo and wants it in production next week"](#plot-twist-board-loves-demo-and-wants-it-in-production-next-week)
+- [Level-Specific Approaches](#level-specific-approaches)
+  - [For Engineering Manager (L6/Senior Manager)](#for-engineering-manager-l6senior-manager)
+  - [For Director (L7)](#for-director-l7)
+- [Company-Specific Variations](#company-specific-variations)
+  - [Amazon Approach](#amazon-approach)
+  - [Google Approach](#google-approach)
+  - [Meta Approach](#meta-approach)
+- [Success Metrics and Evaluation](#success-metrics-and-evaluation)
+  - [Short-term Success (Demo Day)](#short-term-success-demo-day)
+  - [Medium-term Success (1 month)](#medium-term-success-1-month)
+  - [Long-term Success (6 months)](#long-term-success-6-months)
+- [Behavioral Competencies Demonstrated](#behavioral-competencies-demonstrated)
+  - [Leadership Under Pressure](#leadership-under-pressure)
+  - [Technical-Business Translation](#technical-business-translation)
+  - [People Management Excellence](#people-management-excellence)
+- [Common Interview Follow-ups](#common-interview-follow-ups)
+- [Key Takeaways for Interview](#key-takeaways-for-interview)
+  - [What Great Looks Like](#what-great-looks-like)
+  - [Red Flags to Avoid](#red-flags-to-avoid)
+
+
 
 ## Scenario Overview
 

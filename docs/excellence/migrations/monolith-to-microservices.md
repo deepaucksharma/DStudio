@@ -148,7 +148,7 @@ sequenceDiagram
 ### Implementation Example
 
 ```python
-# Strangler Fig Proxy Implementation
+## Strangler Fig Proxy Implementation
 from flask import Flask, request, jsonify
 import requests
 import random
@@ -326,7 +326,7 @@ class DataMigrationOrchestrator:
 ### Handling Distributed Transactions
 
 ```yaml
-# Transaction patterns ranked by preference
+## Transaction patterns ranked by preference
 transaction_patterns:
   1_saga_orchestration:
     description: "Preferred for long-running business transactions"
@@ -372,7 +372,7 @@ transaction_patterns:
 ### Service Mesh Implementation
 
 ```yaml
-# Istio service mesh configuration
+## Istio service mesh configuration
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
@@ -462,7 +462,7 @@ graph LR
 ### 2. Chatty Services
 
 ```python
-# Anti-pattern: Chatty service calls
+## Anti-pattern: Chatty service calls
 class ChattyOrderService:
     def get_order_details(self, order_id):
         order = self.get_order(order_id)  # Call 1
@@ -477,7 +477,7 @@ class ChattyOrderService:
         
         return OrderDetails(order, user, items, shipping)
 
-# Better: Aggregated API with caching
+## Better: Aggregated API with caching
 class OptimizedOrderService:
     def get_order_details(self, order_id):
         # Use GraphQL or BFF pattern to aggregate
@@ -525,7 +525,7 @@ VALUES ('reserved', ?, ?, NOW());
 ### 4. Synchronous Cascading Failures
 
 ```python
-# Anti-pattern: No circuit breakers
+## Anti-pattern: No circuit breakers
 class FragileService:
     def process_order(self, order):
         # If payment service is down, entire order fails
@@ -534,7 +534,7 @@ class FragileService:
         shipping_result = shipping_service.schedule(order)
         return OrderResult(payment_result, inventory_result, shipping_result)
 
-# Better: Circuit breakers and timeouts
+## Better: Circuit breakers and timeouts
 class ResilientService:
     def __init__(self):
         self.payment_breaker = CircuitBreaker(
@@ -609,7 +609,7 @@ results:
 **Migration Strategy:** Domain-driven with regulatory compliance
 
 ```python
-# Compliance-aware migration approach
+## Compliance-aware migration approach
 class RegulatoryMigrationStrategy:
     def __init__(self):
         self.audit_requirements = {

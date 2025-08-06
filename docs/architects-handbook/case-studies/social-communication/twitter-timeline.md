@@ -69,6 +69,38 @@ lessons_learned:
 
 # Twitter Timeline: Scaling the Home Timeline
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [The Evolution](#the-evolution)
+  - [Phase 1: Pull Model (2006-2010)](#phase-1-pull-model-2006-2010)
+  - [Phase 2: Push Model (2010-2012)](#phase-2-push-model-2010-2012)
+  - [Phase 3: Hybrid Model (2012-Present)](#phase-3-hybrid-model-2012-present)
+- [Architecture Deep Dive](#architecture-deep-dive)
+  - [Core Components](#core-components)
+  - [Timeline Storage Structure](#timeline-storage-structure)
+  - [Fanout Process](#fanout-process)
+- [Performance Optimizations](#performance-optimizations)
+  - [Multi-Level Caching](#multi-level-caching)
+  - [Write Amplification Analysis](#write-amplification-analysis)
+  - [Optimization Techniques](#optimization-techniques)
+- [Challenges and Solutions](#challenges-and-solutions)
+  - [Challenge 1: Celebrity Tweet Storms](#challenge-1-celebrity-tweet-storms)
+  - [Challenge 2: Thundering Herd](#challenge-2-thundering-herd)
+- [Trade-off Analysis](#trade-off-analysis)
+  - [Push vs Pull vs Hybrid](#push-vs-pull-vs-hybrid)
+  - [Decision Matrix](#decision-matrix)
+- [Lessons Learned](#lessons-learned)
+  - [Key Insights](#key-insights)
+  - [What Worked](#what-worked)
+  - [What Didn't Work](#what-didnt-work)
+- [Implementation Guide](#implementation-guide)
+  - [For Your Application](#for-your-application)
+  - [Monitoring Metrics](#monitoring-metrics)
+- [Related Resources](#related-resources)
+
+
+
 !!! success "Excellence Badge"
     🥈 **Silver Tier**: Proven patterns with careful trade-off management
 

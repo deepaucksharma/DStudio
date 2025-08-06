@@ -1,9 +1,62 @@
 ---
 title: Behavioral
 description: Behavioral overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Behavioral Interview Mastery Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Connection to Framework Foundation](#connection-to-framework-foundation)
+  - [First Principles (Level I)](#first-principles-level-i)
+  - [Business Concepts (Level II)](#business-concepts-level-ii)
+  - [Applications (Level III)](#applications-level-iii)
+- [Interview Structure & Expectations](#interview-structure-expectations)
+  - [Format Breakdown](#format-breakdown)
+  - [What Interviewers Assess](#what-interviewers-assess)
+- [Question Categories & Frameworks](#question-categories-frameworks)
+  - [1. Leadership & People Management](#1-leadership-people-management)
+  - [2. Technical Decision Making](#2-technical-decision-making)
+  - [3. Crisis Management](#3-crisis-management)
+  - [4. Organizational Change](#4-organizational-change)
+  - [5. Cross-functional Leadership](#5-cross-functional-leadership)
+- [Advanced Behavioral Techniques](#advanced-behavioral-techniques)
+  - [The Pivot Method](#the-pivot-method)
+  - [The Depth Ladder](#the-depth-ladder)
+  - [The Failure Framework](#the-failure-framework)
+- [Behavioral Interview Scorecard](#behavioral-interview-scorecard)
+  - [Self-Assessment Checklist](#self-assessment-checklist)
+- [Common Follow-Up Questions](#common-follow-up-questions)
+  - [For Any Story](#for-any-story)
+  - [For People Stories](#for-people-stories)
+  - [For Technical Stories](#for-technical-stories)
+  - [For Business Stories](#for-business-stories)
+- [Level-Specific Expectations](#level-specific-expectations)
+  - [L5 Senior Manager (IC6 equivalent)](#l5-senior-manager-ic6-equivalent)
+  - [L6 Director (IC7 equivalent)  ](#l6-director-ic7-equivalent-)
+  - [L7+ VP (IC8+ equivalent)](#l7-vp-ic8-equivalent)
+- [Mock Interview Practice Guide](#mock-interview-practice-guide)
+  - [Solo Practice Structure (30 minutes daily)](#solo-practice-structure-30-minutes-daily)
+  - [Partner Practice Format (60 minutes)](#partner-practice-format-60-minutes)
+- [Red Flags & Recovery Strategies](#red-flags-recovery-strategies)
+  - [If You're Rambling](#if-youre-rambling)
+  - [If You Forgot Key Details](#if-you-forgot-key-details)
+  - [If Asked About a Weakness](#if-asked-about-a-weakness)
+  - [If You Don't Have an Example](#if-you-dont-have-an-example)
+- [Story Examples by Principle](#story-examples-by-principle)
+  - [Value Creation Stories](#value-creation-stories)
+  - [Human Behavior Stories](#human-behavior-stories)
+  - [Decision-Making Stories](#decision-making-stories)
+  - [Systems Thinking Stories](#systems-thinking-stories)
+  - [Integrity Stories](#integrity-stories)
+- [Practice Resources](#practice-resources)
+- [Next Steps](#next-steps)
+
+
 
 ## Overview
 

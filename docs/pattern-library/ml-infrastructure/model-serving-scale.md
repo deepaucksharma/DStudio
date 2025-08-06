@@ -59,6 +59,42 @@ type: pattern
 
 # Model Serving at Scale
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+- [Level 1: Intuition (5 min) {#intuition}](#level-1-intuition-5-min-intuition)
+  - [The Story](#the-story)
+  - [Visual Metaphor](#visual-metaphor)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Level 2: Foundation (10 min) {#foundation}](#level-2-foundation-10-min-foundation)
+  - [The Problem Space](#the-problem-space)
+  - [How It Works](#how-it-works)
+  - [Basic Example](#basic-example)
+- [Model serving with basic scaling](#model-serving-with-basic-scaling)
+- [Usage with auto-scaling considerations](#usage-with-auto-scaling-considerations)
+- [Level 3: Deep Dive (15 min) {#deep-dive}](#level-3-deep-dive-15-min-deep-dive)
+  - [Implementation Details](#implementation-details)
+  - [Advanced Optimization Techniques](#advanced-optimization-techniques)
+- [Model optimization for production serving](#model-optimization-for-production-serving)
+  - [Common Pitfalls](#common-pitfalls)
+  - [Production Considerations](#production-considerations)
+- [Level 4: Expert (20 min) {#expert}](#level-4-expert-20-min-expert)
+  - [Advanced Deployment Strategies](#advanced-deployment-strategies)
+  - [Advanced Monitoring & Observability](#advanced-monitoring-observability)
+- [Advanced model monitoring with drift detection](#advanced-model-monitoring-with-drift-detection)
+- [Level 5: Mastery (30 min) {#mastery}](#level-5-mastery-30-min-mastery)
+  - [Real-World Case Studies](#real-world-case-studies)
+  - [Pattern Evolution and Future Directions](#pattern-evolution-and-future-directions)
+  - [Pattern Combinations](#pattern-combinations)
+- [Quick Reference](#quick-reference)
+  - [Decision Matrix](#decision-matrix)
+  - [Implementation Roadmap](#implementation-roadmap)
+  - [Related Resources](#related-resources)
+
 !!! info "🥇 Gold Tier Pattern" 
     **Production ML Infrastructure** • Critical for ML-driven applications at scale
     
@@ -231,7 +267,7 @@ graph TD
 ### Basic Example
 
 ```python
-# Model serving with basic scaling
+## Model serving with basic scaling
 from transformers import AutoTokenizer, AutoModel
 import torch
 from concurrent.futures import ThreadPoolExecutor
@@ -269,7 +305,7 @@ class ScalableModelServer:
         """Single prediction with batching optimization"""
         return (await self.predict_batch([text]))[0]
 
-# Usage with auto-scaling considerations
+## Usage with auto-scaling considerations
 server = ScalableModelServer("bert-base-uncased", max_workers=8)
 ```
 
@@ -318,7 +354,7 @@ sequenceDiagram
 #### 1. Model Quantization and Optimization
 
 ```python
-# Model optimization for production serving
+## Model optimization for production serving
 import torch
 from torch.quantization import quantize_dynamic
 import tensorrt as trt  # NVIDIA TensorRT for GPU optimization
@@ -448,7 +484,7 @@ graph TB
 #### Model Drift Detection
 
 ```python
-# Advanced model monitoring with drift detection
+## Advanced model monitoring with drift detection
 from scipy import stats
 import numpy as np
 from dataclasses import dataclass

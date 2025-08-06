@@ -248,7 +248,7 @@ graph LR
 ### 2. Intelligent Codec Selection
 
 ```python
-# Simplified codec selection algorithm
+## Simplified codec selection algorithm
 class CodecSelector:
     def select_optimal_codec(self, connection_stats, device_info):
         codecs = {

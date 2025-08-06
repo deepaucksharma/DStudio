@@ -6,6 +6,26 @@ difficulty: advanced
 reading_time: 20 min
 status: complete
 last_updated: 2025-08-06
+prerequisites: 
+outcomes: 
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# ML Infrastructure Learning Path
+
+
+
+## Overview
+
+ML Infrastructure Learning Path
+description: An intensive 8-week journey through ML operations, model serving, feature stores, and the infrastructure that powers AI at scale
+type: learning-path
+difficulty: advanced
+reading_time: 20 min
+status: complete
+last_updated: 2025-08-06
 prerequisites:
   - 3+ years software development experience
   - Basic machine learning knowledge
@@ -20,6 +40,109 @@ outcomes:
 ---
 
 # ML Infrastructure Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🧠 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: MLOps Fundamentals 🏗️](#week-1-2-mlops-fundamentals-)
+  - [Week 3-4: Feature Stores & Data Management 📊](#week-3-4-feature-stores-data-management-)
+  - [Week 5-6: Model Serving & Real-time ML ⚡](#week-5-6-model-serving-real-time-ml-)
+  - [Week 7-8: Advanced ML Systems & LLM Infrastructure 🚀](#week-7-8-advanced-ml-systems-llm-infrastructure-)
+- [🛠️ Hands-On Labs & Real-World Projects](#-hands-on-labs-real-world-projects)
+  - [Weekly Lab Structure](#weekly-lab-structure)
+  - [Industry-Relevant ML Scenarios](#industry-relevant-ml-scenarios)
+- [📊 Assessment & Practical Evaluation](#-assessment-practical-evaluation)
+  - [Weekly Assessments](#weekly-assessments)
+  - [ML Infrastructure Metrics](#ml-infrastructure-metrics)
+- [💼 Career Development & ML Engineering Interviews](#-career-development-ml-engineering-interviews)
+  - [ML Infrastructure Interview Questions](#ml-infrastructure-interview-questions)
+  - [ML Infrastructure Portfolio Projects](#ml-infrastructure-portfolio-projects)
+  - [Salary Insights & Market Demand](#salary-insights-market-demand)
+- [👥 ML Community & Expert Network](#-ml-community-expert-network)
+  - [Specialized Study Groups](#specialized-study-groups)
+  - [Expert Mentorship Program](#expert-mentorship-program)
+  - [Community Resources & Conferences](#community-resources-conferences)
+- [🎓 Success Stories & Industry Impact](#-success-stories-industry-impact)
+  - [Recent Graduate Achievements](#recent-graduate-achievements)
+  - [Graduate Impact Metrics](#graduate-impact-metrics)
+- [🚀 Cutting-Edge ML Infrastructure Trends](#-cutting-edge-ml-infrastructure-trends)
+  - [Emerging Technologies in AI Infrastructure](#emerging-technologies-in-ai-infrastructure)
+  - [2025 AI Infrastructure Predictions](#2025-ai-infrastructure-predictions)
+- [📚 Essential ML Infrastructure Library](#-essential-ml-infrastructure-library)
+  - [Must-Read Books & Papers](#must-read-books-papers)
+  - [Technical Resources & Documentation](#technical-resources-documentation)
+- [🏁 Capstone Project: Enterprise AI/ML Platform](#-capstone-project-enterprise-aiml-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Architecture Requirements](#technical-architecture-requirements)
+  - [Performance & Scale Requirements](#performance-scale-requirements)
+  - [Evaluation Framework](#evaluation-framework)
+  - [Deliverables & Documentation](#deliverables-documentation)
+- [🎉 Graduation & Advanced Specializations](#-graduation-advanced-specializations)
+  - [Certification & Recognition](#certification-recognition)
+  - [Career Advancement Opportunities](#career-advancement-opportunities)
+  - [Advanced Learning Pathways](#advanced-learning-pathways)
+  - [Continued Learning Recommendations](#continued-learning-recommendations)
+- [💡 ML Infrastructure Principles](#-ml-infrastructure-principles)
+  - [Core ML Infrastructure Values](#core-ml-infrastructure-values)
+  - [ML Infrastructure Mantras](#ml-infrastructure-mantras)
+
+
+
+! Scale AI from Prototype to Production"
+    This intensive 8-week path transforms engineers into ML infrastructure specialists who build the systems that power AI at companies like OpenAI, Tesla, and Netflix.
+
+**Reading time:** ~18 minutes
+
+## Table of Contents
+
+- [🎯 Learning Path Overview](#-learning-path-overview)
+- [🧠 Prerequisites Assessment](#-prerequisites-assessment)
+- [🗺️ Week-by-Week Curriculum](#-week-by-week-curriculum)
+  - [Week 1-2: MLOps Fundamentals 🏗️](#week-1-2-mlops-fundamentals-)
+  - [Week 3-4: Feature Stores & Data Management 📊](#week-3-4-feature-stores-data-management-)
+  - [Week 5-6: Model Serving & Real-time ML ⚡](#week-5-6-model-serving-real-time-ml-)
+  - [Week 7-8: Advanced ML Systems & LLM Infrastructure 🚀](#week-7-8-advanced-ml-systems-llm-infrastructure-)
+- [🛠️ Hands-On Labs & Real-World Projects](#-hands-on-labs-real-world-projects)
+  - [Weekly Lab Structure](#weekly-lab-structure)
+  - [Industry-Relevant ML Scenarios](#industry-relevant-ml-scenarios)
+- [📊 Assessment & Practical Evaluation](#-assessment-practical-evaluation)
+  - [Weekly Assessments](#weekly-assessments)
+  - [ML Infrastructure Metrics](#ml-infrastructure-metrics)
+- [💼 Career Development & ML Engineering Interviews](#-career-development-ml-engineering-interviews)
+  - [ML Infrastructure Interview Questions](#ml-infrastructure-interview-questions)
+  - [ML Infrastructure Portfolio Projects](#ml-infrastructure-portfolio-projects)
+  - [Salary Insights & Market Demand](#salary-insights-market-demand)
+- [👥 ML Community & Expert Network](#-ml-community-expert-network)
+  - [Specialized Study Groups](#specialized-study-groups)
+  - [Expert Mentorship Program](#expert-mentorship-program)
+  - [Community Resources & Conferences](#community-resources-conferences)
+- [🎓 Success Stories & Industry Impact](#-success-stories-industry-impact)
+  - [Recent Graduate Achievements](#recent-graduate-achievements)
+  - [Graduate Impact Metrics](#graduate-impact-metrics)
+- [🚀 Cutting-Edge ML Infrastructure Trends](#-cutting-edge-ml-infrastructure-trends)
+  - [Emerging Technologies in AI Infrastructure](#emerging-technologies-in-ai-infrastructure)
+  - [2025 AI Infrastructure Predictions](#2025-ai-infrastructure-predictions)
+- [📚 Essential ML Infrastructure Library](#-essential-ml-infrastructure-library)
+  - [Must-Read Books & Papers](#must-read-books-papers)
+  - [Technical Resources & Documentation](#technical-resources-documentation)
+- [🏁 Capstone Project: Enterprise AI/ML Platform](#-capstone-project-enterprise-aiml-platform)
+  - [Project Overview](#project-overview)
+  - [Technical Architecture Requirements](#technical-architecture-requirements)
+  - [Performance & Scale Requirements](#performance-scale-requirements)
+  - [Evaluation Framework](#evaluation-framework)
+  - [Deliverables & Documentation](#deliverables-documentation)
+- [🎉 Graduation & Advanced Specializations](#-graduation-advanced-specializations)
+  - [Certification & Recognition](#certification-recognition)
+  - [Career Advancement Opportunities](#career-advancement-opportunities)
+  - [Advanced Learning Pathways](#advanced-learning-pathways)
+  - [Continued Learning Recommendations](#continued-learning-recommendations)
+- [💡 ML Infrastructure Principles](#-ml-infrastructure-principles)
+  - [Core ML Infrastructure Values](#core-ml-infrastructure-values)
+  - [ML Infrastructure Mantras](#ml-infrastructure-mantras)
+
+
 
 !!! abstract "Scale AI from Prototype to Production"
     This intensive 8-week path transforms engineers into ML infrastructure specialists who build the systems that power AI at companies like OpenAI, Tesla, and Netflix. Learn to scale machine learning from notebook experiments to production systems serving billions of predictions.

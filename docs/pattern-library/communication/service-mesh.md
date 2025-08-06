@@ -128,7 +128,7 @@ Service mesh is like a modern phone network. You don't build telephone infrastru
 <details>
 <summary>📄 View implementation code</summary>
 
-# Health-aware load balancing
+## Health-aware load balancing
 class MeshLoadBalancer:
     def configure_health_checking(self):
         return {

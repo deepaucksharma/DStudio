@@ -20,7 +20,7 @@ Blue-green deployment eliminates downtime and reduces risk by running two identi
 
 ### Load Balancer Switch
 ```nginx
-# Nginx configuration
+## Nginx configuration
 upstream backend {
     # Switch between blue and green
     server green.internal.com;  # Currently active
@@ -30,7 +30,7 @@ upstream backend {
 
 ### DNS Switch
 ```python
-# Route53 weighted routing
+## Route53 weighted routing
 def switch_to_green():
     route53.change_resource_record_sets(
         ChangeBatch={
@@ -76,3 +76,8 @@ def switch_to_green():
 - [Feature Flags](feature-flags.md)
 - [Database Migration Patterns](../data-management/migration-patterns.md)
 
+## See Also
+
+- [Pattern Decision Matrix](/pattern-library/pattern-decision-matrix)
+- [Pattern Comparison Tool](/pattern-library/pattern-comparison-tool)
+- [CRDT (Conflict-free Replicated Data Types)](/pattern-library/data-management/crdt)

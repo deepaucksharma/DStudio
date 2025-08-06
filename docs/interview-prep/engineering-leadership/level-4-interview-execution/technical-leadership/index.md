@@ -1,9 +1,46 @@
 ---
 title: Technical Leadership
 description: Technical Leadership overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Technical Leadership Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Interview Format & Expectations](#interview-format-expectations)
+  - [Structure](#structure)
+  - [Assessment Dimensions](#assessment-dimensions)
+- [Technical Leadership Scenarios](#technical-leadership-scenarios)
+  - [1. Architecture Evolution](#1-architecture-evolution)
+  - [2. Technical Decision Making](#2-technical-decision-making)
+  - [3. Technical Crisis Leadership](#3-technical-crisis-leadership)
+  - [4. Innovation & R&D Leadership](#4-innovation-rd-leadership)
+- [Technical Leadership Competencies](#technical-leadership-competencies)
+  - [1. System Design at Scale](#1-system-design-at-scale)
+  - [2. Technical Strategy](#2-technical-strategy)
+  - [3. Engineering Excellence](#3-engineering-excellence)
+- [Technical Communication](#technical-communication)
+  - [Explaining Complex Concepts](#explaining-complex-concepts)
+  - [Whiteboarding Best Practices](#whiteboarding-best-practices)
+- [Level-Specific Technical Expectations](#level-specific-technical-expectations)
+  - [Senior Manager (L5/IC6)](#senior-manager-l5ic6)
+  - [Director (L6/IC7)](#director-l6ic7)
+  - [VP+ (L7+/IC8+)](#vp-l7ic8)
+- [Common Technical Leadership Questions](#common-technical-leadership-questions)
+  - [Architecture & Scale](#architecture-scale)
+  - [Technical Debt & Quality](#technical-debt-quality)
+  - [Team & Culture](#team-culture)
+  - [Innovation & Future](#innovation-future)
+- [Preparation Strategies](#preparation-strategies)
+  - [Technical Deep Dives](#technical-deep-dives)
+  - [Industry Knowledge](#industry-knowledge)
+  - [Mock Interview Practice](#mock-interview-practice)
+
+
 
 ## Overview
 

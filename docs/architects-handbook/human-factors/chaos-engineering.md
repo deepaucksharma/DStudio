@@ -1,19 +1,65 @@
 ---
 title: Chaos Engineering
 description: Scientific approach to discovering system weaknesses through controlled
+type: human-factors
+difficulty: intermediate
+reading_time: 20 min
+prerequisites: 
+status: complete
+last_updated: 2025-07-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Chaos Engineering
+
+
+
+## Overview
+
+Chaos Engineering
+description: Scientific approach to discovering system weaknesses through controlled
   experiments while respecting cognitive limits
 type: human-factors
 difficulty: intermediate
 reading_time: 20 min
 prerequisites:
-- core-principles/laws/cognitive-load/index.md
-- core-principles/laws/correlated-failure/index.md
-status: complete
-last_updated: 2025-07-23
----
+- core-principles/laws/cognitive-load/index. Chaos Engineering
+
+## Table of Contents
+
+- [Core Principles (Aligned with Law 1: Failure & Law 6: Human-API)](#core-principles-aligned-with-law-1-failure-law-6-human-api)
+- [Chaos Experiment Lifecycle](#chaos-experiment-lifecycle)
+  - [1.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [Core Principles (Aligned with Law 1: Failure & Law 6: Human-API)](#core-principles-aligned-with-law-1-failure-law-6-human-api)
+- [Chaos Experiment Lifecycle](#chaos-experiment-lifecycle)
+  - [1. Steady State Definition](#1-steady-state-definition)
+  - [2. Hypothesis Formation](#2-hypothesis-formation)
+  - [3. Experiment Design](#3-experiment-design)
+- [Chaos Experiments Catalog](#chaos-experiments-catalog)
+  - [Infrastructure Chaos](#infrastructure-chaos)
+  - [Application Chaos](#application-chaos)
+- [GameDay Planning](#gameday-planning)
+  - [Pre-GameDay Checklist](#pre-gameday-checklist)
+  - [GameDay Roles (Law 6: Human-API Distribution)](#gameday-roles-law-6-human-api-distribution)
+  - [GameDay Timeline](#gameday-timeline)
+- [Real GameDay Example](#real-gameday-example)
+  - [Payment Service Region Failure](#payment-service-region-failure)
+- [Chaos Maturity Model](#chaos-maturity-model)
+- [Chaos Engineering Tools](#chaos-engineering-tools)
+- [Measuring Chaos Success](#measuring-chaos-success)
+  - [ROI Calculation](#roi-calculation)
+- [Best Practices (Law 6: Human-API Aware)](#best-practices-law-6-human-api-aware)
+- [Common Pitfalls](#common-pitfalls)
+- [Key Takeaways (Grounded in Law 1: Failure & Law 6: Human-API)](#key-takeaways-grounded-in-law-1-failure-law-6-human-api)
 
 
-# Chaos Engineering
 
 **Breaking things on purpose to build confidence within cognitive limits (Law 6: Human-API 🤯)**
 

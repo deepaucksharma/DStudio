@@ -23,7 +23,7 @@ Spatial indexing uses specialized data structures like R-trees, QuadTrees, or ge
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class SpatialIndex:
     def __init__(self):
         pass

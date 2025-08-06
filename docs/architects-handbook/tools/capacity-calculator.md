@@ -1,10 +1,50 @@
 ---
-title: Capacity Planning Calculator
+title: "Capacity Planning Calculator"
+description: "Plan system capacity with peak traffic analysis, resource utilization models, and scaling thresholds for distributed architectures."
+type: documentation
+---
+
+# Capacity Planning Calculator
+
+
+
+## Overview
+
+Capacity Planning Calculator
 description: *Peak traffic as multiple of average*
 type: documentation
 ---
 
 # Capacity Planning Calculator
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Current System Metrics](#current-system-metrics)
+  - [Growth Projections](#growth-projections)
+  - [Resource Constraints](#resource-constraints)
+- [Capacity Planning Principles](#capacity-planning-principles)
+  - [1. Little's Law Application](#1-littles-law-application)
+  - [2.
+
+**Reading time:** ~14 minutes
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [Current System Metrics](#current-system-metrics)
+  - [Growth Projections](#growth-projections)
+  - [Resource Constraints](#resource-constraints)
+- [Capacity Planning Principles](#capacity-planning-principles)
+  - [1. Little's Law Application](#1-littles-law-application)
+  - [2. Utilization Law](#2-utilization-law)
+  - [3. Response Time Modeling](#3-response-time-modeling)
+  - [4. Scaling Laws](#4-scaling-laws)
+- [Capacity Planning Strategies](#capacity-planning-strategies)
+- [Warning Signs](#warning-signs)
+- [Related Resources](#related-resources)
+
+
 
 !!! info "Interactive Calculator"
  <h2>📈 Capacity Planning Calculator</h2>

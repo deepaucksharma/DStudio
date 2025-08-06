@@ -16,6 +16,94 @@ last_updated: 2025-01-23
 
 # Network Theory for Distributed Systems
 
+
+
+## Overview
+
+Network Theory for Distributed Systems
+description: Graph theory, network models, and communication patterns for understanding
+  distributed system topologies
+type: quantitative
+difficulty: intermediate
+reading_time: 40 min
+prerequisites:
+- graph-theory-basics
+- probability
+pattern_type: various
+status: complete
+last_updated: 2025-01-23
+---
+
+
+# Network Theory for Distributed Systems
+
+## Table of Contents
+
+- [Visual Network Models](#visual-network-models)
+- [Fundamental Network Metrics](#fundamental-network-metrics)
+  - [1. Degree Distribution](#1-degree-distribution)
+  - [2.
+
+**Reading time:** ~7 minutes
+
+## Table of Contents
+
+- [Visual Network Models](#visual-network-models)
+- [Fundamental Network Metrics](#fundamental-network-metrics)
+  - [1. Degree Distribution](#1-degree-distribution)
+  - [2. Path Metrics](#2-path-metrics)
+- [Example: Data center network](#example-data-center-network)
+- [Diameter: 6 (worst-case hops)](#diameter-6-worst-case-hops)
+- [Avg path: 3.2 (typical communication)](#avg-path-32-typical-communication)
+- [Clustering: 0.15 (triangles/triples)](#clustering-015-trianglestriples)
+- [Network Models in Distributed Systems](#network-models-in-distributed-systems)
+  - [1. Small World Networks](#1-small-world-networks)
+- [Start with ring lattice](#start-with-ring-lattice)
+- [Properties:](#properties)
+- [p=0: Regular lattice (high clustering, long paths)](#p0-regular-lattice-high-clustering-long-paths)
+- [p=1: Random graph (low clustering, short paths)](#p1-random-graph-low-clustering-short-paths)
+- [0<p<1: Small world (high clustering, short paths)](#0p1-small-world-high-clustering-short-paths)
+  - [2. Scale-Free Networks](#2-scale-free-networks)
+- [Power-law degree distribution](#power-law-degree-distribution)
+- [P(k) ~ k^(-3) for BA model](#pk-k-3-for-ba-model)
+- [Few hubs, many low-degree nodes](#few-hubs-many-low-degree-nodes)
+- [Communication Patterns](#communication-patterns)
+  - [1. Broadcast Algorithms](#1-broadcast-algorithms)
+  - [2. Epidemic Spread Models](#2-epidemic-spread-models)
+- [Try to infect neighbors](#try-to-infect-neighbors)
+- [Try to recover](#try-to-recover)
+- [Network Reliability](#network-reliability)
+  - [1. Failure Propagation](#1-failure-propagation)
+  - [2. Percolation Theory](#2-percolation-theory)
+- [Network Flow Algorithms](#network-flow-algorithms)
+  - [1. Max Flow Problem](#1-max-flow-problem)
+- [Ford-Fulkerson algorithm](#ford-fulkerson-algorithm)
+- [Find bottlenecks (min cut)](#find-bottlenecks-min-cut)
+- [Identify critical edges](#identify-critical-edges)
+  - [2. Load Balancing](#2-load-balancing)
+- [Distributed System Topologies](#distributed-system-topologies)
+  - [1. Data Center Networks](#1-data-center-networks)
+  - [2. P2P Network Structures](#2-p2p-network-structures)
+- [Consensus Network Requirements](#consensus-network-requirements)
+  - [Byzantine Fault Tolerance](#byzantine-fault-tolerance)
+- [Requirement: n > 3f](#requirement-n-3f)
+- [Rounds needed: f + 1](#rounds-needed-f-1)
+- [Message complexity: O(n²) per round](#message-complexity-on²-per-round)
+- [Network Partitioning](#network-partitioning)
+  - [Detecting Partitions](#detecting-partitions)
+- [Performance Analysis](#performance-analysis)
+  - [Network Latency Model](#network-latency-model)
+- [Speed of light in fiber: ~200,000 km/s](#speed-of-light-in-fiber-200000-kms)
+- [Total latency](#total-latency)
+- [Examples:](#examples)
+- [Same city (10km): ~0.1ms RTT](#same-city-10km-01ms-rtt)
+- [Cross-country (4000km): ~40ms RTT](#cross-country-4000km-40ms-rtt)
+- [Cross-ocean (10000km): ~100ms RTT](#cross-ocean-10000km-100ms-rtt)
+- [Key Insights](#key-insights)
+- [Related Topics](#related-topics)
+
+
+
 !!! abstract "🎯 Core Principle"
  Network theory provides mathematical tools to analyze communication patterns, failure propagation, and information flow in distributed systems. Understanding network properties helps design more resilient and efficient architectures.
 
@@ -79,10 +167,10 @@ def network_metrics(graph):
  }
  return metrics
 
-# Example: Data center network
-# Diameter: 6 (worst-case hops)
-# Avg path: 3.2 (typical communication)
-# Clustering: 0.15 (triangles/triples)
+## Example: Data center network
+## Diameter: 6 (worst-case hops)
+## Avg path: 3.2 (typical communication)
+## Clustering: 0.15 (triangles/triples)
 ```
 
 ## Network Models in Distributed Systems
@@ -116,13 +204,13 @@ def small_world_network(n, k, p):
  k: initial neighbors
  p: rewiring probability
  """
-# Start with ring lattice
+## Start with ring lattice
  G = nx.watts_strogatz_graph(n, k, p)
  
-# Properties:
-# p=0: Regular lattice (high clustering, long paths)
-# p=1: Random graph (low clustering, short paths)
-# 0<p<1: Small world (high clustering, short paths)
+## Properties:
+## p=0: Regular lattice (high clustering, long paths)
+## p=1: Random graph (low clustering, short paths)
+## 0<p<1: Small world (high clustering, short paths)
  return G
 ```
 
@@ -137,9 +225,9 @@ def scale_free_growth(initial_nodes=3, total_nodes=1000, m=2):
  """Generate scale-free network via preferential attachment"""
  G = nx.barabasi_albert_graph(total_nodes, m)
  
-# Power-law degree distribution
-# P(k) ~ k^(-3) for BA model
-# Few hubs, many low-degree nodes
+## Power-law degree distribution
+## P(k) ~ k^(-3) for BA model
+## Few hubs, many low-degree nodes
  return G
 ```
 
@@ -197,12 +285,12 @@ def epidemic_spread(graph, infection_prob=0.1, recovery_prob=0.05):
  
  for node in graph.nodes():
  if states[node] == 'I':
-# Try to infect neighbors
+## Try to infect neighbors
  for neighbor in graph.neighbors(node):
  if states[neighbor] == 'S' and random.random() < infection_prob:
  new_states[neighbor] = 'I'
  
-# Try to recover
+## Try to recover
  if random.random() < recovery_prob:
  new_states[node] = 'R' # Recovered
  
@@ -252,13 +340,13 @@ graph TB
 ```python
 def max_flow_analysis(graph, source, sink):
  """Analyze maximum flow in network"""
-# Ford-Fulkerson algorithm
+## Ford-Fulkerson algorithm
  flow_value, flow_dict = nx.maximum_flow(graph, source, sink)
  
-# Find bottlenecks (min cut)
+## Find bottlenecks (min cut)
  cut_value, (reachable, non_reachable) = nx.minimum_cut(graph, source, sink)
  
-# Identify critical edges
+## Identify critical edges
  critical_edges = []
  for u, v in graph.edges():
  if u in reachable and v in non_reachable:
@@ -382,14 +470,14 @@ def byzantine_generals(n, f):
  n: total nodes
  f: byzantine nodes
  """
-# Requirement: n > 3f
+## Requirement: n > 3f
  if n <= 3 * f:
  return "No consensus possible"
  
-# Rounds needed: f + 1
+## Rounds needed: f + 1
  rounds = f + 1
  
-# Message complexity: O(n²) per round
+## Message complexity: O(n²) per round
  messages = rounds * n * (n - 1)
  
  return {
@@ -435,10 +523,10 @@ graph TB
 ```python
 def network_latency(distance_km, processing_ms=1, queuing_ms=0):
  """Total latency calculation"""
-# Speed of light in fiber: ~200,000 km/s
+## Speed of light in fiber: ~200,000 km/s
  propagation_ms = distance_km / 200
  
-# Total latency
+## Total latency
  total_ms = propagation_ms + processing_ms + queuing_ms
  
  return {
@@ -449,10 +537,10 @@ def network_latency(distance_km, processing_ms=1, queuing_ms=0):
  'round_trip': f'{2 * total_ms:.1f}ms'
  }
 
-# Examples:
-# Same city (10km): ~0.1ms RTT
-# Cross-country (4000km): ~40ms RTT
-# Cross-ocean (10000km): ~100ms RTT
+## Examples:
+## Same city (10km): ~0.1ms RTT
+## Cross-country (4000km): ~40ms RTT
+## Cross-ocean (10000km): ~100ms RTT
 ```
 
 ## Key Insights

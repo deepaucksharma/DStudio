@@ -2,6 +2,9 @@
 title: Google Interview Guide
 description: > **Note**: This company-specific guide is under construction.
 type: documentation
+category: company-specific
+tags: [company-specific]
+date: 2025-08-07
 ---
 
 # Google Interview Guide

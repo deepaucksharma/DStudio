@@ -98,7 +98,7 @@ parallel_running_strategy:
 ### Week 5-6: Service Migration
 
 ```python
-# Example: Order Service Migration
+## Example: Order Service Migration
 class OrderSagaOrchestrator:
     def __init__(self):
         self.state_store = SagaStateStore()
@@ -274,18 +274,18 @@ monitoring_queries:
 
 ```bash
 #!/bin/bash
-# emergency-rollback.sh
+## emergency-rollback.sh
 
-# 1. Stop new traffic to saga orchestrator
+## 1. Stop new traffic to saga orchestrator
 kubectl scale deployment saga-orchestrator --replicas=0
 
-# 2. Redirect traffic to 2PC path
+## 2. Redirect traffic to 2PC path
 kubectl patch configmap app-config --patch '{"data":{"transaction.mode":"2pc"}}'
 
-# 3. Process in-flight sagas
+## 3. Process in-flight sagas
 ./drain-sagas.sh --timeout=5m
 
-# 4. Monitor system stability
+## 4. Monitor system stability
 ./monitor-rollback.sh --duration=30m
 ```
 

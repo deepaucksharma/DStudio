@@ -157,7 +157,7 @@ classDiagram
 <details>
 <summary>📄 View implementation code</summary>
 
-# Load balancing core concept
+## Load balancing core concept
 class LoadBalancer:
     def __init__(self):
         self.servers = []

@@ -49,6 +49,43 @@ type: pattern
 
 # Caching Strategies
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+- [Level 1: Intuition (5 min) {#intuition}](#level-1-intuition-5-min-intuition)
+  - [The Story](#the-story)
+  - [Visual Metaphor](#visual-metaphor)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Level 2: Foundation (10 min) {#foundation}](#level-2-foundation-10-min-foundation)
+  - [The Problem Space](#the-problem-space)
+  - [How It Works](#how-it-works)
+  - [Cache Invalidation Flow Strategies](#cache-invalidation-flow-strategies)
+- [Level 3: Deep Dive (15 min) {#deep-dive}](#level-3-deep-dive-15-min-deep-dive)
+  - [Cache Consistency Patterns](#cache-consistency-patterns)
+  - [Implementation Details](#implementation-details)
+  - [Common Pitfalls](#common-pitfalls)
+  - [Production Considerations](#production-considerations)
+- [Level 4: Expert (20 min) {#expert}](#level-4-expert-20-min-expert)
+  - [Real-World Caching Architectures](#real-world-caching-architectures)
+  - [Cost-Benefit Analysis Matrix](#cost-benefit-analysis-matrix)
+  - [Advanced Techniques](#advanced-techniques)
+  - [Monitoring & Observability](#monitoring-observability)
+- [Level 5: Mastery (30 min) {#mastery}](#level-5-mastery-30-min-mastery)
+  - [Real-World Case Studies](#real-world-case-studies)
+  - [Cache Evolution Roadmap](#cache-evolution-roadmap)
+  - [Pattern Combinations](#pattern-combinations)
+- [Quick Reference](#quick-reference)
+  - [Cache Strategy Selection Matrix](#cache-strategy-selection-matrix)
+  - [Architecture Comparison Matrix](#architecture-comparison-matrix)
+  - [Implementation Decision Framework](#implementation-decision-framework)
+  - [Implementation Checklist](#implementation-checklist)
+  - [Related Resources](#related-resources)
+- [Related Laws](#related-laws)
+
 !!! success "🏆 Gold Standard Pattern"
     **Strategic data storage for blazing performance through intelligent caching** • Facebook, Netflix, Reddit proven at scale
     

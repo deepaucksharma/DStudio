@@ -7,10 +7,89 @@ reading_time: 10 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Numerical Problem Set
+
+
+
+## Overview
+
+Numerical Problem Set
+description: Practice problems with real-world parameters
+type: quantitative
+difficulty: advanced
+reading_time: 10 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
 
 
 # Numerical Problem Set
+
+## Table of Contents
+
+- [Problem 1: API Gateway Sizing](#problem-1-api-gateway-sizing)
+- [Problem 2: Cache Hit Rate Economics](#problem-2-cache-hit-rate-economics)
+- [Problem 3: Distributed Consensus Latency](#problem-3-distributed-consensus-latency)
+- [Problem 4: Queue Depth Under Load](#problem-4-queue-depth-under-load)
+- [Problem 5: Multi-Region Availability](#problem-5-multi-region-availability)
+- [Problem 6: Sharding Overhead](#problem-6-sharding-overhead)
+- [Problem 7: Autoscaling Economics](#problem-7-autoscaling-economics)
+- [Problem 8: Little's Law Application](#problem-8-littles-law-application)
+- [Problem 9: Circuit Breaker Tuning](#problem-9-circuit-breaker-tuning)
+- [Problem 10: Capacity Planning](#problem-10-capacity-planning)
+- [Key Patterns from Problems](#key-patterns-from-problems)
+
+
+
+**Practice problems with real-world parameters**
+
+## Problem 1: API Gateway Sizing
+
+**Given:**
+- Expected traffic: 50,000 requests/second
+- Response time target: < 100ms (p99)
+- Each request: 10KB in, 50KB out
+- Processing time: 5ms CPU per request
+
+**Calculate:**
+a) Minimum servers needed
+b) Network bandwidth required
+c) Connection pool size
+d) Monthly data transfer cost ($0. GB)
+
+<details>
+<summary>Solution</summary>
+
+a) **Minimum servers needed:**
+- CPU time per request: 5ms
+- Requests per CPU per second: 1000ms/5ms = 200
+- Total CPUs needed: 50,000/200 = 250 CPUs
+- With 8 CPUs per server: 250/8 = 32 servers
+- Add 40% safety margin: 32 × 1.
+
+**Reading time:** ~8 minutes
+
+## Table of Contents
+
+- [Problem 1: API Gateway Sizing](#problem-1-api-gateway-sizing)
+- [Problem 2: Cache Hit Rate Economics](#problem-2-cache-hit-rate-economics)
+- [Problem 3: Distributed Consensus Latency](#problem-3-distributed-consensus-latency)
+- [Problem 4: Queue Depth Under Load](#problem-4-queue-depth-under-load)
+- [Problem 5: Multi-Region Availability](#problem-5-multi-region-availability)
+- [Problem 6: Sharding Overhead](#problem-6-sharding-overhead)
+- [Problem 7: Autoscaling Economics](#problem-7-autoscaling-economics)
+- [Problem 8: Little's Law Application](#problem-8-littles-law-application)
+- [Problem 9: Circuit Breaker Tuning](#problem-9-circuit-breaker-tuning)
+- [Problem 10: Capacity Planning](#problem-10-capacity-planning)
+- [Key Patterns from Problems](#key-patterns-from-problems)
+
+
 
 **Practice problems with real-world parameters**
 

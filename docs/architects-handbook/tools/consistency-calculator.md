@@ -1,10 +1,65 @@
 ---
-title: Consistency Calculator
+title: "Consistency Calculator"
+description: "Calculate optimal consistency levels, replication factors, and CAP theorem trade-offs for distributed data systems."
+type: documentation
+---
+
+# Consistency Calculator
+
+
+
+## Overview
+
+Consistency Calculator
 description: *Number of data replicas*
 type: documentation
 ---
 
 # Consistency Calculator
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [System Configuration](#system-configuration)
+  - [Consistency Model](#consistency-model)
+  - [Workload Characteristics](#workload-characteristics)
+  - [Failure Tolerance](#failure-tolerance)
+- [CAP Theorem Visualizer](#cap-theorem-visualizer)
+- [Understanding Consistency Models](#understanding-consistency-models)
+  - [Consistency Spectrum](#consistency-spectrum)
+- [Quorum Mathematics](#quorum-mathematics)
+  - [Basic Quorum Rules](#basic-quorum-rules)
+  - [Common Quorum Configurations](#common-quorum-configurations)
+- [Decision Framework](#decision-framework)
+- [Real-World Examples](#real-world-examples)
+- [Related Resources](#related-resources)
+
+
+
+! Interactive Calculator"
+ <h2>🔄 Consistency Trade-off Calculator</h2>
+<p>Explore CAP theorem trade-offs, calculate consistency guarantees, and understand the costs of different consistency models.
+
+**Reading time:** ~16 minutes
+
+## Table of Contents
+
+- [Interactive Calculator](#interactive-calculator)
+  - [System Configuration](#system-configuration)
+  - [Consistency Model](#consistency-model)
+  - [Workload Characteristics](#workload-characteristics)
+  - [Failure Tolerance](#failure-tolerance)
+- [CAP Theorem Visualizer](#cap-theorem-visualizer)
+- [Understanding Consistency Models](#understanding-consistency-models)
+  - [Consistency Spectrum](#consistency-spectrum)
+- [Quorum Mathematics](#quorum-mathematics)
+  - [Basic Quorum Rules](#basic-quorum-rules)
+  - [Common Quorum Configurations](#common-quorum-configurations)
+- [Decision Framework](#decision-framework)
+- [Real-World Examples](#real-world-examples)
+- [Related Resources](#related-resources)
+
+
 
 !!! info "Interactive Calculator"
  <h2>🔄 Consistency Trade-off Calculator</h2>

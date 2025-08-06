@@ -54,6 +54,56 @@ lessons_learned:
 
 # Amazon Aurora: Cloud-Native Database Revolution
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Business Context & Innovation Drivers](#business-context-innovation-drivers)
+  - [The Traditional Database Limitations](#the-traditional-database-limitations)
+  - [Aurora's Revolutionary Approach](#auroras-revolutionary-approach)
+  - [Market Evolution Timeline](#market-evolution-timeline)
+- [Deep Architecture Analysis](#deep-architecture-analysis)
+  - [Storage-Compute Separation Implementation](#storage-compute-separation-implementation)
+  - [Fast Cloning Implementation](#fast-cloning-implementation)
+  - [Backtracking Implementation](#backtracking-implementation)
+- [Performance Optimization & Scaling](#performance-optimization-scaling)
+  - [2025 Performance Benchmarks](#2025-performance-benchmarks)
+  - [Real-World Performance Analysis](#real-world-performance-analysis)
+- [Cost Optimization Strategies](#cost-optimization-strategies)
+  - [Aurora Cost Model Analysis (2025)](#aurora-cost-model-analysis-2025)
+- [Failure Analysis & Lessons Learned](#failure-analysis-lessons-learned)
+  - [Historic Incidents & Recovery Patterns](#historic-incidents-recovery-patterns)
+    - [Case Study: Aurora Storage Layer Corruption (2019)](#case-study-aurora-storage-layer-corruption-2019)
+    - [Aurora vs Traditional Database Recovery](#aurora-vs-traditional-database-recovery)
+  - [Architectural Decision Records (ADRs)](#architectural-decision-records-adrs)
+    - [ADR-001: Storage-Compute Separation](#adr-001-storage-compute-separation)
+- [ADR-001: Implement Storage-Compute Separation Architecture](#adr-001-implement-storage-compute-separation-architecture)
+- [Status: ACCEPTED (2013-08-15)](#status-accepted-2013-08-15)
+- [Context](#context)
+- [Decision](#decision)
+- [Consequences](#consequences)
+  - [Positive](#positive)
+  - [Negative](#negative)
+- [Implementation](#implementation)
+  - [ADR-002: Quorum-Based Replication](#adr-002-quorum-based-replication)
+- [ADR-002: 6-Way Quorum Replication Across 3 Availability Zones](#adr-002-6-way-quorum-replication-across-3-availability-zones)
+- [Status: ACCEPTED (2013-10-01)](#status-accepted-2013-10-01)
+- [Context](#context)
+- [Decision](#decision)
+- [Mathematical Foundation](#mathematical-foundation)
+- [Implementation Challenges](#implementation-challenges)
+- [Future Evolution & 2025-2030 Roadmap](#future-evolution-2025-2030-roadmap)
+  - [Next-Generation Features](#next-generation-features)
+  - [Technology Evolution Predictions](#technology-evolution-predictions)
+- [Key Takeaways for System Architects](#key-takeaways-for-system-architects)
+  - [Implementation Decision Matrix](#implementation-decision-matrix)
+- [Cross-References & Related Topics](#cross-references-related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns  ](#related-patterns-)
+  - [Related Case Studies](#related-case-studies)
+- [External Resources](#external-resources)
+
+
+
 !!! success "Excellence Badge"
     🥇 **Gold Tier**: Revolutionary cloud-native architecture that redefined distributed database design
 
@@ -385,7 +435,7 @@ public:
             
             / Apply records in LSN order
             std::sort(relevant_records.begin(), relevant_records.end(),
-                     [](const LogRecord& a, const LogRecord& b) {
+                     [Const Logrecord& A, Const Logrecord& B](const LogRecord& a, const LogRecord& b) {
                          return a.lsn < b.lsn;
                      });
             
@@ -1542,7 +1592,7 @@ class AuroraCostOptimizer:
 #### ADR-001: Storage-Compute Separation
 
 ```markdown
-# ADR-001: Implement Storage-Compute Separation Architecture
+## ADR-001: Implement Storage-Compute Separation Architecture
 
 ## Status: ACCEPTED (2013-08-15)
 
@@ -1582,10 +1632,10 @@ Implement revolutionary storage-compute separation architecture:
 - Comprehensive monitoring and health checking
 ```
 
-#### ADR-002: Quorum-Based Replication
+### ADR-002: Quorum-Based Replication
 
 ```markdown
-# ADR-002: 6-Way Quorum Replication Across 3 Availability Zones
+## ADR-002: 6-Way Quorum Replication Across 3 Availability Zones
 
 ## Status: ACCEPTED (2013-10-01)
 

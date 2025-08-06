@@ -2,9 +2,53 @@
 title: Complete Engineering Leadership Mock Interview Guide
 description: This guide provides a full mock interview experience for Engineering Manager/Director positions at FAANG companies. Use this to practice with peers or
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Complete Engineering Leadership Mock Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Interview Loop Structure](#interview-loop-structure)
+  - [Typical FAANG EM/Director Interview Loop](#typical-faang-emdirector-interview-loop)
+- [Round 1: Hiring Manager Interview](#round-1-hiring-manager-interview)
+  - [Opening (10 minutes)](#opening-10-minutes)
+  - [Leadership Philosophy (15 minutes)](#leadership-philosophy-15-minutes)
+  - [Specific Scenario (20 minutes)](#specific-scenario-20-minutes)
+  - [Your Questions (15 minutes)](#your-questions-15-minutes)
+- [Round 2: People Management Deep Dive](#round-2-people-management-deep-dive)
+  - [Performance Management (20 minutes)](#performance-management-20-minutes)
+  - [Team Building (15 minutes)](#team-building-15-minutes)
+  - [Diversity & Inclusion (10 minutes)](#diversity-inclusion-10-minutes)
+- [Round 3: Technical Leadership](#round-3-technical-leadership)
+  - [Architecture Decision (20 minutes)](#architecture-decision-20-minutes)
+  - [Technical Depth (15 minutes)](#technical-depth-15-minutes)
+  - [Innovation (10 minutes)](#innovation-10-minutes)
+- [Round 4: System Design](#round-4-system-design)
+  - [Problem: Design a Global Engineering Organization](#problem-design-a-global-engineering-organization)
+- [Round 5: Cross-functional Partnership](#round-5-cross-functional-partnership)
+  - [Stakeholder Management (20 minutes)](#stakeholder-management-20-minutes)
+  - [Product Partnership (15 minutes)](#product-partnership-15-minutes)
+  - [Executive Communication (10 minutes)](#executive-communication-10-minutes)
+- [Round 6: Bar Raiser Interview](#round-6-bar-raiser-interview)
+  - [Culture Fit Assessment (20 minutes)](#culture-fit-assessment-20-minutes)
+  - [Raising the Bar (20 minutes)](#raising-the-bar-20-minutes)
+  - [Your Questions (20 minutes)](#your-questions-20-minutes)
+- [Post-Interview Debrief](#post-interview-debrief)
+  - [Self-Assessment Checklist](#self-assessment-checklist)
+  - [Common Feedback Patterns](#common-feedback-patterns)
+    - [Positive Signals](#positive-signals)
+    - [Areas for Improvement](#areas-for-improvement)
+  - [Next Steps](#next-steps)
+- [Final Tips](#final-tips)
+  - [Energy Management](#energy-management)
+  - [Authenticity](#authenticity)
+  - [Confidence Builders](#confidence-builders)
+
+
 
 ## Overview
 

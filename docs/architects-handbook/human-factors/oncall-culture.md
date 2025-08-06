@@ -7,10 +7,115 @@ reading_time: 15 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# On-Call Culture
+
+
+
+## Overview
+
+On-Call Culture
+description: Practices and systems for sustainable 24/7 service support
+type: human-factors
+difficulty: beginner
+reading_time: 15 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
 
 
 # On-Call Culture
+
+## Table of Contents
+
+- [Core Principles](#core-principles)
+- [Building Healthy On-Call Rotations](#building-healthy-on-call-rotations)
+  - [Rotation Models](#rotation-models)
+  - [Optimal Rotation Size](#optimal-rotation-size)
+- [On-Call Compensation](#on-call-compensation)
+  - [Example Compensation Structure](#example-compensation-structure)
+- [Alert Quality and Hygiene](#alert-quality-and-hygiene)
+  - [Alert Quality Metrics](#alert-quality-metrics)
+  - [Alert Standards](#alert-standards)
+- [On-Call Tools and Automation](#on-call-tools-and-automation)
+  - [Essential On-Call Toolkit](#essential-on-call-toolkit)
+  - [Automation Opportunities](#automation-opportunities)
+- [Post to incident channel](#post-to-incident-channel)
+- [Suggest likely causes](#suggest-likely-causes)
+- [Psychological Safety and Support](#psychological-safety-and-support)
+  - [Supporting On-Call Engineers](#supporting-on-call-engineers)
+  - [Preventing Burnout](#preventing-burnout)
+- [Law Impact Analysis](#law-impact-analysis)
+- [On-Call Health Assessment Framework](#on-call-health-assessment-framework)
+- [On-Call Load Distribution Analysis](#on-call-load-distribution-analysis)
+  - [Weekly Load Heatmap](#weekly-load-heatmap)
+  - [Decision Matrix: Rotation Model Selection](#decision-matrix-rotation-model-selection)
+- [Alert Quality Scoring System](#alert-quality-scoring-system)
+- [Measuring On-Call Health](#measuring-on-call-health)
+  - [Key Metrics](#key-metrics)
+  - [Regular Surveys](#regular-surveys)
+- [Track trends over time](#track-trends-over-time)
+- [Identify problem areas](#identify-problem-areas)
+- [Generate action items](#generate-action-items)
+- [On-Call Burnout Prevention Framework](#on-call-burnout-prevention-framework)
+  - [Burnout Risk Assessment](#burnout-risk-assessment)
+  - [Intervention Strategies by Risk Level](#intervention-strategies-by-risk-level)
+- [Cost-Benefit Analysis of On-Call Improvements](#cost-benefit-analysis-of-on-call-improvements)
+- [Best Practices](#best-practices)
+
+
+
+**Building sustainable and effective on-call practices**
+
+> *"On-call should be a responsibility, not a punishment. Core Principles
+
+1.
+
+**Reading time:** ~7 minutes
+
+## Table of Contents
+
+- [Core Principles](#core-principles)
+- [Building Healthy On-Call Rotations](#building-healthy-on-call-rotations)
+  - [Rotation Models](#rotation-models)
+  - [Optimal Rotation Size](#optimal-rotation-size)
+- [On-Call Compensation](#on-call-compensation)
+  - [Example Compensation Structure](#example-compensation-structure)
+- [Alert Quality and Hygiene](#alert-quality-and-hygiene)
+  - [Alert Quality Metrics](#alert-quality-metrics)
+  - [Alert Standards](#alert-standards)
+- [On-Call Tools and Automation](#on-call-tools-and-automation)
+  - [Essential On-Call Toolkit](#essential-on-call-toolkit)
+  - [Automation Opportunities](#automation-opportunities)
+- [Post to incident channel](#post-to-incident-channel)
+- [Suggest likely causes](#suggest-likely-causes)
+- [Psychological Safety and Support](#psychological-safety-and-support)
+  - [Supporting On-Call Engineers](#supporting-on-call-engineers)
+  - [Preventing Burnout](#preventing-burnout)
+- [Law Impact Analysis](#law-impact-analysis)
+- [On-Call Health Assessment Framework](#on-call-health-assessment-framework)
+- [On-Call Load Distribution Analysis](#on-call-load-distribution-analysis)
+  - [Weekly Load Heatmap](#weekly-load-heatmap)
+  - [Decision Matrix: Rotation Model Selection](#decision-matrix-rotation-model-selection)
+- [Alert Quality Scoring System](#alert-quality-scoring-system)
+- [Measuring On-Call Health](#measuring-on-call-health)
+  - [Key Metrics](#key-metrics)
+  - [Regular Surveys](#regular-surveys)
+- [Track trends over time](#track-trends-over-time)
+- [Identify problem areas](#identify-problem-areas)
+- [Generate action items](#generate-action-items)
+- [On-Call Burnout Prevention Framework](#on-call-burnout-prevention-framework)
+  - [Burnout Risk Assessment](#burnout-risk-assessment)
+  - [Intervention Strategies by Risk Level](#intervention-strategies-by-risk-level)
+- [Cost-Benefit Analysis of On-Call Improvements](#cost-benefit-analysis-of-on-call-improvements)
+- [Best Practices](#best-practices)
+
+
 
 **Building sustainable and effective on-call practices**
 
@@ -187,10 +292,10 @@ class OnCallAutomation:
             'similar_incidents': self.find_similar_incidents(alert)
         }
 
-# Post to incident channel
+## Post to incident channel
         self.post_diagnostics(alert.incident_channel, diagnostics)
 
-# Suggest likely causes
+## Suggest likely causes
         causes = self.analyze_diagnostics(diagnostics)
         return causes
 
@@ -365,9 +470,9 @@ class OnCallSurvey:
     ]
 
     def analyze_responses(self, responses):
-# Track trends over time
-# Identify problem areas
-# Generate action items
+## Track trends over time
+## Identify problem areas
+## Generate action items
         pass
 ```
 

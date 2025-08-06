@@ -37,18 +37,18 @@ Multiple security layers prevent single-point failures.
 
 **Vulnerability: Information Disclosure**
 ```python
-# BAD: Exposes internal service details
+## BAD: Exposes internal service details
 def circuit_breaker_fallback():
     return {"error": "Database connection failed on db-server-1.internal:5432"}
 
-# GOOD: Generic error message
+## GOOD: Generic error message
 def circuit_breaker_fallback():
     return {"error": "Service temporarily unavailable", "retry_after": 60}
 ```
 
 **Vulnerability: Denial of Service**
 ```python
-# Protection: Rate limit circuit breaker triggers
+## Protection: Rate limit circuit breaker triggers
 class SecureCircuitBreaker:
     def __init__(self, max_trips_per_hour=10):
         self.max_trips_per_hour = max_trips_per_hour
@@ -56,7 +56,7 @@ class SecureCircuitBreaker:
 
     def can_trip(self):
         now = time.time()
-# Remove trips older than 1 hour
+## Remove trips older than 1 hour
         self.trip_times = [t for t in self.trip_times if now - t < 3600]
         return len(self.trip_times) < self.max_trips_per_hour
 ```
@@ -67,7 +67,7 @@ class SecureCircuitBreaker:
 
 **Vulnerability: Amplification Attacks**
 ```python
-# BAD: Unbounded retries can amplify attacks
+## BAD: Unbounded retries can amplify attacks
 def vulnerable_retry(func, max_attempts=float('inf')):
     attempt = 0
     while attempt < max_attempts:
@@ -77,7 +77,7 @@ def vulnerable_retry(func, max_attempts=float('inf')):
             attempt += 1
             time.sleep(2 ** attempt)  # Exponential backoff
 
-# GOOD: Bounded retries with jitter
+## GOOD: Bounded retries with jitter
 def secure_retry(func, max_attempts=3, base_delay=1.0):
     for attempt in range(max_attempts):
         try:
@@ -85,7 +85,7 @@ def secure_retry(func, max_attempts=3, base_delay=1.0):
         except Exception as e:
             if attempt == max_attempts - 1:
                 raise
-# Add jitter to prevent synchronized retries
+## Add jitter to prevent synchronized retries
             delay = base_delay * (2 ** attempt) * (0.5 + random.random() * 0.5)
             time.sleep(min(delay, 60))  # Cap maximum delay
 ```
@@ -96,17 +96,17 @@ def secure_retry(func, max_attempts=3, base_delay=1.0):
 
 **Vulnerability: Compensation Action Exploitation**
 ```python
-# Security considerations for saga compensation
+## Security considerations for saga compensation
 class SecureSaga:
     def execute_compensation(self, action, original_user):
-# Verify the user still has permission to perform compensation
+## Verify the user still has permission to perform compensation
         if not self.auth_service.can_compensate(original_user, action):
             raise SecurityError("User no longer authorized for compensation")
 
-# Log compensation for audit trail
+## Log compensation for audit trail
         self.audit_log.log_compensation(action, original_user)
 
-# Execute with additional validation
+## Execute with additional validation
         return action.compensate()
 ```
 
@@ -118,11 +118,11 @@ class SecureSaga:
 ```python
 class SecureEventStore:
     def store_event(self, event, user_context):
-# Encrypt sensitive data in events
+## Encrypt sensitive data in events
         if event.contains_pii():
             event = self.crypto.encrypt_pii_fields(event)
 
-# Add security metadata
+## Add security metadata
         event.metadata.update({
             'user_id': user_context.user_id,
             'timestamp': time.time(),
@@ -133,12 +133,12 @@ class SecureEventStore:
         return self.event_store.append(event)
 
     def read_events(self, stream_id, user_context):
-# Check read permissions
+## Check read permissions
         if not self.auth.can_read_stream(user_context, stream_id):
             raise AuthorizationError()
 
         events = self.event_store.read(stream_id)
-# Decrypt events for authorized users
+## Decrypt events for authorized users
         return [self.decrypt_if_authorized(e, user_context) for e in events]
 ```
 
@@ -175,7 +175,7 @@ class SecureJWTManager:
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
 
-# Check if token is blacklisted
+## Check if token is blacklisted
             if payload['jti'] in self.blacklist:
                 raise jwt.InvalidTokenError("Token is blacklisted")
 
@@ -226,7 +226,7 @@ class OAuth2Handler:
         self.auth_server_url = auth_server_url
 
     def exchange_code_for_token(self, authorization_code, redirect_uri):
-# Use PKCE for additional security
+## Use PKCE for additional security
         token_request = {
             'grant_type': 'authorization_code',
             'code': authorization_code,
@@ -262,14 +262,14 @@ import socket
 def create_secure_context():
     context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
 
-# Require strong TLS versions
+## Require strong TLS versions
     context.minimum_version = ssl.TLSVersion.TLSv1_2
 
-# Require certificate verification
+## Require certificate verification
     context.check_hostname = True
     context.verify_mode = ssl.CERT_REQUIRED
 
-# Strong cipher suites
+## Strong cipher suites
     context.set_ciphers('ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS')
 
     return context
@@ -285,7 +285,7 @@ def secure_client_connection(hostname, port):
 
 **Mutual TLS Implementation**:
 ```yaml
-# Istio security policy example
+## Istio security policy example
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
@@ -339,7 +339,7 @@ class EncryptedField:
             return None
         return self.fernet.decrypt(ciphertext.encode()).decode()
 
-# Usage in ORM
+## Usage in ORM
 class User(Model):
     username = CharField()
     encrypted_ssn = CharField()  # Stored encrypted
@@ -401,7 +401,7 @@ class SecurityMonitor:
     def detect_anomalies(self, current_metrics):
         alerts = []
 
-# Check for brute force attacks
+## Check for brute force attacks
         if current_metrics.get('failed_logins', 0) > self.alert_thresholds['failed_logins']:
             alerts.append({
                 'type': 'BRUTE_FORCE_ATTACK',
@@ -409,7 +409,7 @@ class SecurityMonitor:
                 'details': f"High failed login rate: {current_metrics['failed_logins']}/min"
             })
 
-# Check for unusual access patterns
+## Check for unusual access patterns
         access_pattern_score = self.calculate_access_pattern_score(current_metrics)
         if access_pattern_score > self.alert_thresholds['unusual_access_patterns']:
             alerts.append({
@@ -430,7 +430,7 @@ class SecurityMonitor:
             'user_agent': self.get_user_agent()
         }
 
-# Send to security information and event management (SIEM)
+## Send to security information and event management (SIEM)
         self.siem_client.send(security_log)
 ```
 
@@ -443,7 +443,7 @@ class AuditLogger:
         self.logger = logging.getLogger(logger_name)
         self.logger.setLevel(logging.INFO)
 
-# Ensure logs are tamper-evident
+## Ensure logs are tamper-evident
         handler = RotatingFileHandler(
             'security_audit.log',
             maxBytes=100*1024*1024,  # 100MB
@@ -471,7 +471,7 @@ class AuditLogger:
         self.logger.info(json.dumps(audit_entry))
 
     def hash_user_id(self, user_id):
-# Hash user ID for privacy while maintaining auditability
+## Hash user ID for privacy while maintaining auditability
         return hashlib.sha256(f"{user_id}{self.salt}".encode()).hexdigest()[:16]
 ```
 

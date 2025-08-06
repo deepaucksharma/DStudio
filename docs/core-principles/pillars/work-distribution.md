@@ -12,6 +12,56 @@ last_updated: 2025-07-29
 
 # Pillar 1: Distribution of Work
 
+## Table of Contents
+
+- [🔥 The One-Inch Punch](#the-one-inch-punch)
+- [The Coordination Tax Visualized](#the-coordination-tax-visualized)
+- [🌊 The Cascade of Delusion](#the-cascade-of-delusion)
+- [The Work Distribution Delusion Pyramid](#the-work-distribution-delusion-pyramid)
+- [💀 The Five Specters of Work Distribution](#the-five-specters-of-work-distribution)
+  - [Specter 1: The Thundering Herd](#specter-1-the-thundering-herd)
+  - [Specter 2: The Starvation Spiral](#specter-2-the-starvation-spiral)
+  - [Specter 3: The Head-of-Line Massacre](#specter-3-the-head-of-line-massacre)
+  - [Specter 4: The Work Affinity Trap](#specter-4-the-work-affinity-trap)
+  - [Specter 5: The Distributed Deadlock](#specter-5-the-distributed-deadlock)
+- [The Brutal Truth About Parallelization](#the-brutal-truth-about-parallelization)
+- [Amdahl's Law: The Iron Ceiling](#amdahls-law-the-iron-ceiling)
+- [The Universal Scalability Law: Beyond Amdahl](#the-universal-scalability-law-beyond-amdahl)
+- [Queue Theory Reality Check](#queue-theory-reality-check)
+- [The Architecture of Sadness](#the-architecture-of-sadness)
+  - [What You Drew on the Whiteboard:](#what-you-drew-on-the-whiteboard)
+  - [What Actually Happens:](#what-actually-happens)
+- [Dashboard Reality Bridge](#dashboard-reality-bridge)
+- [The Patterns That Actually Work](#the-patterns-that-actually-work)
+  - [Pattern 1: Controlled Concurrency](#pattern-1-controlled-concurrency)
+  - [Pattern 2: Work Stealing That Works](#pattern-2-work-stealing-that-works)
+  - [Pattern 3: Batching for Survival](#pattern-3-batching-for-survival)
+- [Real-World Examples That Got It Right](#real-world-examples-that-got-it-right)
+  - [Spotify: From Monolith to Music 🎵](#spotify-from-monolith-to-music)
+  - [Uber: The H3 Hexagon Magic 🗺️](#uber-the-h3-hexagon-magic)
+  - [Discord: 100M Messages Without Breaking a Sweat 💬](#discord-100m-messages-without-breaking-a-sweat)
+  - [Google MapReduce: The Pattern That Changed Everything 🌍](#google-mapreduce-the-pattern-that-changed-everything)
+- [Implementation Patterns That Actually Work 🛠️](#implementation-patterns-that-actually-work)
+  - [Work Stealing: The Self-Balancing Magic](#work-stealing-the-self-balancing-magic)
+  - [Consistent Hashing: Distributed Work Without Drama](#consistent-hashing-distributed-work-without-drama)
+  - [Batch Processing: The 100x Performance Hack](#batch-processing-the-100x-performance-hack)
+- [Anti-Patterns: How NOT to Distribute Work 🚫](#anti-patterns-how-not-to-distribute-work)
+  - [The Distributed Monolith: Worst of Both Worlds](#the-distributed-monolith-worst-of-both-worlds)
+  - [The N+1 Query Disaster: Death by 1000 Cuts](#the-n1-query-disaster-death-by-1000-cuts)
+- [WRONG: O(N) calls](#wrong-on-calls)
+- [RIGHT: O(1) calls](#right-o1-calls)
+- [The Migration Path to Sanity](#the-migration-path-to-sanity)
+- [War Story: When Facebook Learned Coordination Costs](#war-story-when-facebook-learned-coordination-costs)
+- [Exercises: Put Theory Into Practice](#exercises-put-theory-into-practice)
+  - [Exercise 1: Design a Video Processing Pipeline](#exercise-1-design-a-video-processing-pipeline)
+  - [Exercise 2: The Thundering Herd](#exercise-2-the-thundering-herd)
+  - [Exercise 3: The Hot Partition](#exercise-3-the-hot-partition)
+- [The Uncomfortable Questions](#the-uncomfortable-questions)
+- [The Truth That Changes Everything](#the-truth-that-changes-everything)
+- [Your Next Actions](#your-next-actions)
+- [The Final Revelation](#the-final-revelation)
+- [Related Topics](#related-topics)
+
 ## 🔥 The One-Inch Punch
 
 > **Your 1000-node system is actually a 50-node system. Coordination ate the other 950.**
@@ -714,11 +764,11 @@ for post in get_posts():             posts = get_posts()
 
 THE PATTERN:
 ────────────
-# WRONG: O(N) calls
+## WRONG: O(N) calls
 for item in items:
     enrich(item)  # Network call!
 
-# RIGHT: O(1) calls  
+## RIGHT: O(1) calls  
 ids = [item.id for item in items]
 enriched = batch_enrich(ids)  # One call!
 

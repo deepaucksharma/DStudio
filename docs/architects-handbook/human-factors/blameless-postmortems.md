@@ -1,6 +1,25 @@
 ---
 title: Blameless Postmortems
 description: A structured review of incidents focusing on systemic issues rather than
+type: human-factors
+difficulty: beginner
+reading_time: 10 min
+prerequisites: 
+status: complete
+last_updated: 2025-07-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Blameless Postmortems
+
+
+
+## Overview
+
+Blameless Postmortems
+description: A structured review of incidents focusing on systemic issues rather than
   individual blame, designed to prevent future failures while respecting cognitive
   limits
 type: human-factors
@@ -15,6 +34,70 @@ last_updated: 2025-07-23
 
 
 # Blameless Postmortems
+
+## Table of Contents
+
+- [What is a Blameless Postmortem? Key Principles (Aligned with Law 6: Human-API)](#key-principles-aligned-with-law-6-human-api)
+  - [1.
+
+**Reading time:** ~9 minutes
+
+## Table of Contents
+
+- [What is a Blameless Postmortem?](#what-is-a-blameless-postmortem)
+- [Key Principles (Aligned with Law 6: Human-API)](#key-principles-aligned-with-law-6-human-api)
+  - [1. Systems Thinking](#1-systems-thinking)
+  - [2. Psychological Safety](#2-psychological-safety)
+  - [3. Learning Culture](#3-learning-culture)
+- [Postmortem Process Decision Tree](#postmortem-process-decision-tree)
+- [Postmortem Timeline Visualization Template](#postmortem-timeline-visualization-template)
+- [Postmortem Process](#postmortem-process)
+  - [1. Incident Timeline](#1-incident-timeline)
+- [Timeline](#timeline)
+  - [2. The Five Whys](#2-the-five-whys)
+  - [3. Contributing Factors](#3-contributing-factors)
+- [Postmortem Template](#postmortem-template)
+- [Incident Postmortem: [Title]](#incident-postmortem-title)
+- [Incident Summary](#incident-summary)
+- [What Happened?](#what-happened)
+- [Timeline](#timeline)
+- [What Went Well](#what-went-well)
+- [What Could Be Improved](#what-could-be-improved)
+- [Action Items](#action-items)
+- [Lessons Learned](#lessons-learned)
+- [Common Anti-Patterns](#common-anti-patterns)
+  - [1. The Blame Game](#1-the-blame-game)
+  - [2. Single Root Cause](#2-single-root-cause)
+  - [3. Individual Action Items](#3-individual-action-items)
+- [Creating Psychological Safety](#creating-psychological-safety)
+- [Postmortem Metrics](#postmortem-metrics)
+- [Tools and Automation](#tools-and-automation)
+- [Add alerts](#add-alerts)
+- [Add deployments](#add-deployments)
+- [Sort by time](#sort-by-time)
+- [Law Impact Analysis](#law-impact-analysis)
+- [Postmortem Effectiveness Matrix](#postmortem-effectiveness-matrix)
+- [Decision Framework: When to Conduct a Postmortem](#decision-framework-when-to-conduct-a-postmortem)
+- [Contributing Factors Analysis Framework](#contributing-factors-analysis-framework)
+  - [The Swiss Cheese Model](#the-swiss-cheese-model)
+  - [Factor Categories Table](#factor-categories-table)
+- [Cultural Transformation](#cultural-transformation)
+- [Postmortem Quality Metrics Dashboard](#postmortem-quality-metrics-dashboard)
+- [Action Item Prioritization Matrix](#action-item-prioritization-matrix)
+- [Real-World Examples](#real-world-examples)
+  - [Example 1: Database Outage](#example-1-database-outage)
+  - [Example 2: Config Error](#example-2-config-error)
+- [References and Further Reading](#references-and-further-reading)
+- [👥 Practical Application](#-practical-application)
+  - [Exercise 1: Current State Assessment](#exercise-1-current-state-assessment)
+  - [Exercise 2: Implementation Planning](#exercise-2-implementation-planning)
+  - [Exercise 3: Simulation Exercise](#exercise-3-simulation-exercise)
+- [Process Development](#process-development)
+  - [Team Workshop Design](#team-workshop-design)
+  - [Measurement & Iteration](#measurement-iteration)
+- [Leadership Application](#leadership-application)
+
+
 
 **Learning from failures without finger-pointing (Law 6: Human-API 🤯)**
 
@@ -143,7 +226,7 @@ Why? → Performance testing not prioritized
 ## Postmortem Template
 
 ```markdown
-# Incident Postmortem: [Title]
+## Incident Postmortem: [Title]
 
 ## Incident Summary
 - **Date**:
@@ -226,7 +309,7 @@ class PostmortemAutomation:
         """Auto-generate timeline from various sources"""
         events = []
 
-# Add alerts
+## Add alerts
         for alert in incident_data['alerts']:
             events.append({
                 'time': alert['timestamp'],
@@ -234,7 +317,7 @@ class PostmortemAutomation:
                 'source': 'monitoring'
             })
 
-# Add deployments
+## Add deployments
         for deploy in incident_data['deployments']:
             events.append({
                 'time': deploy['timestamp'],
@@ -242,7 +325,7 @@ class PostmortemAutomation:
                 'source': 'ci/cd'
             })
 
-# Sort by time
+## Sort by time
         return sorted(events, key=lambda x: x['time'])
 ```
 

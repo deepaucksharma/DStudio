@@ -1,6 +1,9 @@
 ---
 title: Migration Checklist Playbook
 description: Implementation guide for migration checklist
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Migration Checklist Playbook

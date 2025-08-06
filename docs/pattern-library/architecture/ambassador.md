@@ -137,7 +137,7 @@ graph TD
 
 ## Implementation Strategies
 
-#### 1. Standalone Service Ambassador
+### 1. Standalone Service Ambassador
 
 #### 2. Sidecar Ambassador
 

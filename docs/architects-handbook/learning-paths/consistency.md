@@ -7,9 +7,113 @@ difficulty: intermediate
 reading_time: 12 min
 status: complete
 last_updated: 2025-07-25
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Consistency & Coordination Learning Path
+
+
+
+## Overview
+
+Consistency & Coordination Learning Path
+description: Master distributed consistency, consensus, and coordination patterns
+type: learning-path
+topic: consistency
+difficulty: intermediate
+reading_time: 12 min
+status: complete
+last_updated: 2025-07-25
+---
+
+# Consistency & Coordination Learning Path
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Consistency Journey](#-consistency-journey)
+  - [Phase 1: Theoretical Foundations (1 week)](#phase-1-theoretical-foundations-1-week)
+  - [Phase 2: Consensus Algorithms (2 weeks)](#phase-2-consensus-algorithms-2-weeks)
+    - [Week 2: Classical Consensus](#week-2-classical-consensus)
+    - [Week 3: Coordination Patterns](#week-3-coordination-patterns)
+  - [Phase 3: Consistency in Practice (2 weeks)](#phase-3-consistency-in-practice-2-weeks)
+    - [Week 4: Data Consistency](#week-4-data-consistency)
+    - [Week 5: Advanced Patterns](#week-5-advanced-patterns)
+  - [Phase 4: Production Challenges (1 week)](#phase-4-production-challenges-1-week)
+    - [Week 6: Common Issues & Solutions](#week-6-common-issues-solutions)
+- [📊 Hands-On Projects](#-hands-on-projects)
+  - [Project 1: Build a Distributed Lock Service](#project-1-build-a-distributed-lock-service)
+- [Implement these components:](#implement-these-components)
+  - [Project 2: Implement Vector Clocks](#project-2-implement-vector-clocks)
+- [Build a system that:](#build-a-system-that)
+  - [Project 3: Design a Consistent Key-Value Store](#project-3-design-a-consistent-key-value-store)
+- [Features to implement:](#features-to-implement)
+- [🧪 Lab Exercises](#-lab-exercises)
+  - [Exercise 1: CAP Theorem Exploration](#exercise-1-cap-theorem-exploration)
+  - [Exercise 2: Consensus Performance](#exercise-2-consensus-performance)
+  - [Exercise 3: Clock Skew Impact](#exercise-3-clock-skew-impact)
+- [📈 Consistency Decision Framework](#-consistency-decision-framework)
+  - [Choosing Consistency Levels](#choosing-consistency-levels)
+  - [Pattern Selection Guide](#pattern-selection-guide)
+- [🔍 Debugging Consistency Issues](#-debugging-consistency-issues)
+  - [Common Symptoms](#common-symptoms)
+  - [Debugging Tools](#debugging-tools)
+- [📚 Deep Dive Resources](#-deep-dive-resources)
+  - [Papers](#papers)
+  - [Books](#books)
+  - [Courses](#courses)
+- [💡 Expert Tips](#-expert-tips)
+- [⏱️ Time Investment](#-time-investment)
+
+
+
+! Master Distributed Agreement"
+ This focused path covers everything you need to know about consistency in distributed systems - from theoretical foundations to practical implementations.
+
+**Reading time:** ~4 minutes
+
+## Table of Contents
+
+- [🎯 Learning Objectives](#-learning-objectives)
+- [📚 Prerequisites](#-prerequisites)
+- [🗺️ Consistency Journey](#-consistency-journey)
+  - [Phase 1: Theoretical Foundations (1 week)](#phase-1-theoretical-foundations-1-week)
+  - [Phase 2: Consensus Algorithms (2 weeks)](#phase-2-consensus-algorithms-2-weeks)
+    - [Week 2: Classical Consensus](#week-2-classical-consensus)
+    - [Week 3: Coordination Patterns](#week-3-coordination-patterns)
+  - [Phase 3: Consistency in Practice (2 weeks)](#phase-3-consistency-in-practice-2-weeks)
+    - [Week 4: Data Consistency](#week-4-data-consistency)
+    - [Week 5: Advanced Patterns](#week-5-advanced-patterns)
+  - [Phase 4: Production Challenges (1 week)](#phase-4-production-challenges-1-week)
+    - [Week 6: Common Issues & Solutions](#week-6-common-issues-solutions)
+- [📊 Hands-On Projects](#-hands-on-projects)
+  - [Project 1: Build a Distributed Lock Service](#project-1-build-a-distributed-lock-service)
+- [Implement these components:](#implement-these-components)
+  - [Project 2: Implement Vector Clocks](#project-2-implement-vector-clocks)
+- [Build a system that:](#build-a-system-that)
+  - [Project 3: Design a Consistent Key-Value Store](#project-3-design-a-consistent-key-value-store)
+- [Features to implement:](#features-to-implement)
+- [🧪 Lab Exercises](#-lab-exercises)
+  - [Exercise 1: CAP Theorem Exploration](#exercise-1-cap-theorem-exploration)
+  - [Exercise 2: Consensus Performance](#exercise-2-consensus-performance)
+  - [Exercise 3: Clock Skew Impact](#exercise-3-clock-skew-impact)
+- [📈 Consistency Decision Framework](#-consistency-decision-framework)
+  - [Choosing Consistency Levels](#choosing-consistency-levels)
+  - [Pattern Selection Guide](#pattern-selection-guide)
+- [🔍 Debugging Consistency Issues](#-debugging-consistency-issues)
+  - [Common Symptoms](#common-symptoms)
+  - [Debugging Tools](#debugging-tools)
+- [📚 Deep Dive Resources](#-deep-dive-resources)
+  - [Papers](#papers)
+  - [Books](#books)
+  - [Courses](#courses)
+- [💡 Expert Tips](#-expert-tips)
+- [⏱️ Time Investment](#-time-investment)
+
+
 
 !!! abstract "Master Distributed Agreement"
  This focused path covers everything you need to know about consistency in distributed systems - from theoretical foundations to practical implementations. Perfect for engineers working on distributed databases, coordination services, or transactional systems.
@@ -167,7 +271,7 @@ By completing this path, you will:
 
 ### Project 1: Build a Distributed Lock Service
 ```python
-# Implement these components:
+## Implement these components:
 1. Leader election using Raft
 2. Lock acquisition protocol
 3. Lease management
@@ -177,7 +281,7 @@ By completing this path, you will:
 
 ### Project 2: Implement Vector Clocks
 ```python
-# Build a system that:
+## Build a system that:
 1. Tracks causality between events
 2. Detects concurrent updates
 3. Merges vector clocks
@@ -186,7 +290,7 @@ By completing this path, you will:
 
 ### Project 3: Design a Consistent Key-Value Store
 ```python
-# Features to implement:
+## Features to implement:
 1. Tunable consistency levels
 2. Read/write quorums
 3. Hinted handoff

@@ -57,6 +57,43 @@ lessons_learned:
 
 # Netflix Streaming: Scale and Architecture Deep Dive
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [System Overview](#system-overview)
+  - [Business Context](#business-context)
+  - [High-Level Architecture](#high-level-architecture)
+- [Mapping to Fundamental Laws](#mapping-to-fundamental-laws)
+  - [Law Analysis](#law-analysis)
+- [Design Deep Dive](#design-deep-dive)
+  - [Data Architecture](#data-architecture)
+  - [Scaling Strategy](#scaling-strategy)
+- [Failure Scenarios & Lessons](#failure-scenarios-lessons)
+  - [Circuit Breaker Pattern in Action](#circuit-breaker-pattern-in-action)
+  - [Load Balancing at Scale](#load-balancing-at-scale)
+- [Performance Characteristics](#performance-characteristics)
+  - [Latency Breakdown](#latency-breakdown)
+  - [Resource Utilization](#resource-utilization)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring & Observability](#monitoring-observability)
+  - [Deployment Strategy](#deployment-strategy)
+- [Caching Strategy Deep Dive](#caching-strategy-deep-dive)
+  - [Cache Hierarchy](#cache-hierarchy)
+- [Key Innovations](#key-innovations)
+- [Pattern Excellence Analysis](#pattern-excellence-analysis)
+  - [Gold Patterns in Production](#gold-patterns-in-production)
+  - [Silver Patterns Supporting Scale](#silver-patterns-supporting-scale)
+  - [Bronze Pattern Migration](#bronze-pattern-migration)
+- [Takeaways for Your System](#takeaways-for-your-system)
+- [Excellence Resources](#excellence-resources)
+  - [Implementation Guides](#implementation-guides)
+  - [Related Case Studies](#related-case-studies)
+  - [Pattern Deep Dives](#pattern-deep-dives)
+- [Further Reading](#further-reading)
+- [Discussion Questions](#discussion-questions)
+
+
+
 !!! success "Excellence Badge"
     🥇 **Gold Tier**: Battle-tested at internet scale with proven reliability
 

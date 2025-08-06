@@ -2,9 +2,71 @@
 title: Practice Scenario: Managing Through Reorganization
 description: You've been managing a team of 12 engineers working on a core platform service. The company just announced a major reorganization:
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Practice Scenario: Managing Through Reorganization
+
+
+
+## Overview
+
+Practice Scenario: Managing Through Reorganization
+description: You've been managing a team of 12 engineers working on a core platform service. The company just announced a major reorganization:
+type: interview-guide
+---
+
+# Practice Scenario: Managing Through Reorganization
+
+## Table of Contents
+
+- [🔄 Scenario Setup](#-scenario-setup)
+- [💭 Interview Question Framing](#-interview-question-framing)
+- [🎯 Answer Framework (STAR)](#-answer-framework-star)
+  - [Situation](#situation)
+  - [Task](#task)
+  - [Action](#action)
+  - [Result](#result)
+- [🤔 Common Follow-up Questions](#-common-follow-up-questions)
+  - [Q: "How did you decide who stayed and who moved?
+
+**Reading time:** ~5 minutes
+
+## Table of Contents
+
+- [🔄 Scenario Setup](#-scenario-setup)
+- [💭 Interview Question Framing](#-interview-question-framing)
+- [🎯 Answer Framework (STAR)](#-answer-framework-star)
+  - [Situation](#situation)
+  - [Task](#task)
+  - [Action](#action)
+  - [Result](#result)
+- [🤔 Common Follow-up Questions](#-common-follow-up-questions)
+  - [Q: "How did you decide who stayed and who moved?"](#q-how-did-you-decide-who-stayed-and-who-moved)
+  - [Q: "What was the hardest part of this transition?"](#q-what-was-the-hardest-part-of-this-transition)
+  - [Q: "How did you handle engineers who were unhappy with their placement?"](#q-how-did-you-handle-engineers-who-were-unhappy-with-their-placement)
+  - [Q: "What would you do differently?"](#q-what-would-you-do-differently)
+- [✅ What Interviewers Look For](#-what-interviewers-look-for)
+  - [🟢 Green Flags](#-green-flags)
+  - [Evaluation Criteria by Level](#evaluation-criteria-by-level)
+- [🚫 Red Flags to Avoid](#-red-flags-to-avoid)
+  - [❌ Never Say](#-never-say)
+  - [⚠️ Avoid These Behaviors](#-avoid-these-behaviors)
+- [📊 Level-Specific Variations](#-level-specific-variations)
+  - [New Engineering Manager (L5)](#new-engineering-manager-l5)
+  - [Senior Engineering Manager (L7)](#senior-engineering-manager-l7)
+  - [Director (L8+)](#director-l8)
+- [💡 Key Principles Demonstrated](#-key-principles-demonstrated)
+  - [🎯 Primary Principles](#-primary-principles)
+  - [🎯 Secondary Principles](#-secondary-principles)
+- [📝 Preparation Notes](#-preparation-notes)
+  - [Story Development Questions](#story-development-questions)
+  - [Practice Elements](#practice-elements)
+  - [Connection to Other Stories](#connection-to-other-stories)
+
+
 
 ## 🔄 Scenario Setup
 

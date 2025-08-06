@@ -6,6 +6,51 @@ type: documentation
 
 # Collision Probability
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Core Concepts](#core-concepts)
+  - [Birthday Paradox](#birthday-paradox)
+  - [50% Collision Threshold](#50-collision-threshold)
+- [Hash Collision Models](#hash-collision-models)
+  - [Uniform Hashing](#uniform-hashing)
+  - [Load Factor Analysis](#load-factor-analysis)
+  - [Chaining vs Open Addressing](#chaining-vs-open-addressing)
+- [Distributed System Collisions](#distributed-system-collisions)
+  - [UUID Collisions](#uuid-collisions)
+  - [Consistent Hashing](#consistent-hashing)
+  - [Vector Clock Collisions](#vector-clock-collisions)
+- [Probability Calculations](#probability-calculations)
+  - [Exact Formulas](#exact-formulas)
+  - [Approximations](#approximations)
+- [Bloom Filter Collisions](#bloom-filter-collisions)
+  - [False Positive Rate](#false-positive-rate)
+  - [Capacity Planning](#capacity-planning)
+- [Cryptographic Collisions](#cryptographic-collisions)
+  - [Hash Function Security](#hash-function-security)
+  - [Merkle Tree Collisions](#merkle-tree-collisions)
+- [Network Protocol Collisions](#network-protocol-collisions)
+  - [MAC Address Collisions](#mac-address-collisions)
+  - [TCP Sequence Numbers](#tcp-sequence-numbers)
+- [Collision Resolution](#collision-resolution)
+  - [Quadratic Probing](#quadratic-probing)
+  - [Cuckoo Hashing](#cuckoo-hashing)
+- [Real-World Applications](#real-world-applications)
+  - [Git Commit Hashes](#git-commit-hashes)
+  - [Distributed Tracing](#distributed-tracing)
+  - [Database Sharding](#database-sharding)
+- [Design Guidelines](#design-guidelines)
+  - [Choosing Hash Sizes](#choosing-hash-sizes)
+  - [Safety Margins](#safety-margins)
+  - [Collision Handling](#collision-handling)
+- [Advanced Topics](#advanced-topics)
+  - [Minimal Perfect Hashing](#minimal-perfect-hashing)
+  - [Locality-Sensitive Hashing](#locality-sensitive-hashing)
+  - [Quantum Collision Finding](#quantum-collision-finding)
+- [Related Topics](#related-topics)
+
+
+
 ## Overview
 
 Collision probability is fundamental to distributed systems design, affecting everything from hash tables to distributed consensus. Understanding the mathematics helps design systems that minimize conflicts and handle them gracefully.

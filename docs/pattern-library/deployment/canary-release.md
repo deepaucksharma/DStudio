@@ -10,6 +10,38 @@ tags: [deployment, risk-mitigation, gradual-rollout, monitoring, a-b-testing]
 
 # Canary Release
 
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+- [Solution Overview](#solution-overview)
+- [Architecture Components](#architecture-components)
+  - [1. Traffic Routing](#1-traffic-routing)
+  - [2. Monitoring and Analysis](#2-monitoring-and-analysis)
+  - [3. Decision Engine](#3-decision-engine)
+- [Implementation Guide](#implementation-guide)
+  - [Phase 1: Infrastructure Setup (Weeks 1-2)](#phase-1-infrastructure-setup-weeks-1-2)
+- [Istio VirtualService for canary deployment](#istio-virtualservice-for-canary-deployment)
+- [Stable version deployment](#stable-version-deployment)
+- [Canary version deployment](#canary-version-deployment)
+  - [Phase 2: Canary Controller (Weeks 3-4)](#phase-2-canary-controller-weeks-3-4)
+- [canary_controller.py - Automated canary deployment controller](#canary_controllerpy-automated-canary-deployment-controller)
+- [Example usage](#example-usage)
+  - [Phase 3: Advanced Analysis (Weeks 5-6)](#phase-3-advanced-analysis-weeks-5-6)
+- [statistical_analysis.py - Statistical significance testing for canary releases](#statistical_analysispy-statistical-significance-testing-for-canary-releases)
+- [Example integration with canary controller](#example-integration-with-canary-controller)
+- [Real-World Examples](#real-world-examples)
+  - [Google Implementation](#google-implementation)
+  - [Facebook Implementation](#facebook-implementation)
+- [Metrics and Success Criteria](#metrics-and-success-criteria)
+  - [Deployment Metrics](#deployment-metrics)
+  - [Cost Analysis](#cost-analysis)
+- [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
+  - [1. Insufficient Statistical Power](#1-insufficient-statistical-power)
+  - [2. Traffic Imbalance Issues](#2-traffic-imbalance-issues)
+  - [3. Alert Fatigue](#3-alert-fatigue)
+- [Related Patterns](#related-patterns)
+- [Further Reading](#further-reading)
+
 ## Problem Statement
 
 Deploying new software versions to all users simultaneously creates significant risk of widespread failures, performance degradation, or user experience issues. Traditional deployment approaches lack the ability to validate changes with real user traffic before full rollout.
@@ -141,7 +173,7 @@ Rollout Criteria:
 
 1. **Istio Service Mesh Setup**
 ```yaml
-# Istio VirtualService for canary deployment
+## Istio VirtualService for canary deployment
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -186,7 +218,7 @@ spec:
 
 2. **Kubernetes Deployment Setup**
 ```yaml
-# Stable version deployment
+## Stable version deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -231,7 +263,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
 ---
-# Canary version deployment
+## Canary version deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -282,7 +314,7 @@ spec:
 1. **Automated Canary Controller**
 ```python
 #!/usr/bin/env python3
-# canary_controller.py - Automated canary deployment controller
+## canary_controller.py - Automated canary deployment controller
 
 import time
 import json
@@ -679,7 +711,7 @@ spec:
         print("🎉 Canary deployment completed successfully!")
         return True
 
-# Example usage
+## Example usage
 if __name__ == "__main__":
     # Configuration
     config = CanaryConfig(
@@ -723,7 +755,7 @@ if __name__ == "__main__":
 
 1. **Statistical Analysis System**
 ```python
-# statistical_analysis.py - Statistical significance testing for canary releases
+## statistical_analysis.py - Statistical significance testing for canary releases
 
 import numpy as np
 from scipy import stats
@@ -928,7 +960,7 @@ class CanaryStatisticalAnalyzer:
         except:
             return 0.5
 
-# Example integration with canary controller
+## Example integration with canary controller
 class EnhancedCanaryController(CanaryController):
     def __init__(self, config: CanaryConfig, prometheus_client: PrometheusClient):
         super().__init__(config, prometheus_client)

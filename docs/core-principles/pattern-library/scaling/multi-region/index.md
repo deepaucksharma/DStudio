@@ -9,3 +9,7 @@ redirect_to: /pattern-library/scaling/geo-distribution/
     Please visit [pattern-library/scaling/geo-distribution](../../pattern-library/scaling/geo-distribution.md)
 
 <meta http-equiv="refresh" content="0; url=/{metadata["redirect"]}/">
+
+## See Also
+
+- [Pillar 2: Distribution of State](/core-principles/pillars/state-distribution)

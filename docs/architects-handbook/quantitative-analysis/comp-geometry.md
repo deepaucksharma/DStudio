@@ -2,9 +2,54 @@
 title: Computational Geometry for Distributed Systems
 description: Computational geometry provides essential algorithms for spatial data processing in distributed systems, from geospatial queries to load balancing in
 type: documentation
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Computational Geometry for Distributed Systems
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Core Concepts](#core-concepts)
+  - [Spatial Data Structures](#spatial-data-structures)
+  - [Complexity Bounds](#complexity-bounds)
+- [Geometric Algorithms](#geometric-algorithms)
+  - [Voronoi Diagrams](#voronoi-diagrams)
+  - [R-Trees](#r-trees)
+  - [KD-Trees](#kd-trees)
+- [Geospatial Indexing](#geospatial-indexing)
+  - [Geohashing](#geohashing)
+  - [H3 Hexagonal Grid](#h3-hexagonal-grid)
+  - [S2 Geometry](#s2-geometry)
+- [Distance Calculations](#distance-calculations)
+  - [Haversine Distance](#haversine-distance)
+  - [Vincenty's Formula](#vincentys-formula)
+  - [Manhattan Distance](#manhattan-distance)
+- [Distributed Geometric Algorithms](#distributed-geometric-algorithms)
+  - [Spatial Partitioning](#spatial-partitioning)
+  - [Parallel Convex Hull](#parallel-convex-hull)
+  - [Distributed k-NN](#distributed-k-nn)
+- [Load Balancing](#load-balancing)
+  - [Space-Filling Curves](#space-filling-curves)
+  - [Consistent Hashing with Geometry](#consistent-hashing-with-geometry)
+- [Real-World Applications](#real-world-applications)
+  - [Uber H3](#uber-h3)
+- [Get hexagons within radius](#get-hexagons-within-radius)
+- [Cover polygon](#cover-polygon)
+  - [MongoDB Geospatial](#mongodb-geospatial)
+  - [PostGIS Operations](#postgis-operations)
+- [Performance Optimization](#performance-optimization)
+  - [Spatial Approximations](#spatial-approximations)
+  - [Caching Strategies](#caching-strategies)
+- [Advanced Topics](#advanced-topics)
+  - [Distributed Triangulation](#distributed-triangulation)
+  - [Geometric Streaming](#geometric-streaming)
+  - [Uncertain Geometry](#uncertain-geometry)
+- [Related Topics](#related-topics)
+
+
 
 ## Overview
 
@@ -266,11 +311,11 @@ Load = arc_length / (2π)
 ### Uber H3
 
 ```python
-# Get hexagons within radius
+## Get hexagons within radius
 origin = h3.geo_to_h3(lat, lng, resolution=9)
 radius_hexes = h3.k_ring(origin, k=2)
 
-# Cover polygon
+## Cover polygon
 polygon_hexes = h3.polyfill(polygon, resolution=9)
 ```
 

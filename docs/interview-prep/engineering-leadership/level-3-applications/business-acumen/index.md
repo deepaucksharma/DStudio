@@ -1,9 +1,72 @@
 ---
 title: Business Acumen
 description: Business Acumen overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Business Acumen
+
+
+
+## Overview
+
+Business Acumen
+description: Business Acumen overview and navigation
+---
+
+# Business Acumen
+
+## Table of Contents
+
+- [Aligning Engineering Excellence with Business Success](#aligning-engineering-excellence-with-business-success)
+- [Core Competencies](#core-competencies)
+  - [1. Business Metrics & KPIs](#1-business-metrics-kpis)
+  - [2.
+
+**Reading time:** ~3 minutes
+
+## Table of Contents
+
+- [Aligning Engineering Excellence with Business Success](#aligning-engineering-excellence-with-business-success)
+- [Core Competencies](#core-competencies)
+  - [1. Business Metrics & KPIs](#1-business-metrics-kpis)
+  - [2. Financial Management](#2-financial-management)
+  - [3. Stakeholder Management](#3-stakeholder-management)
+  - [4. Strategic Planning](#4-strategic-planning)
+  - [5. Product Partnership](#5-product-partnership)
+- [Common Scenarios](#common-scenarios)
+  - [Scenario 1: Budget Reduction](#scenario-1-budget-reduction)
+  - [Scenario 2: Build vs Buy Decision](#scenario-2-build-vs-buy-decision)
+  - [Scenario 3: Executive Presentation](#scenario-3-executive-presentation)
+- [Interview Question Patterns](#interview-question-patterns)
+  - [Business Strategy Questions](#business-strategy-questions)
+  - [Financial Questions](#financial-questions)
+  - [Stakeholder Questions](#stakeholder-questions)
+- [Excellence Indicators](#excellence-indicators)
+- [Key Business Frameworks](#key-business-frameworks)
+  - [1. Engineering ROI Model](#1-engineering-roi-model)
+  - [2. Stakeholder Influence Matrix](#2-stakeholder-influence-matrix)
+  - [3. Technology Investment Framework](#3-technology-investment-framework)
+- [Communication Templates](#communication-templates)
+  - [Executive Summary Format](#executive-summary-format)
+  - [Board Presentation Structure](#board-presentation-structure)
+- [Anti-Patterns to Avoid](#anti-patterns-to-avoid)
+- [Business Acumen Toolkit](#business-acumen-toolkit)
+  - [Analysis Tools](#analysis-tools)
+  - [Communication Resources](#communication-resources)
+- [Practice Exercises](#practice-exercises)
+- [Resources](#resources)
+  - [Essential Business Knowledge](#essential-business-knowledge)
+  - [Finance for Engineers](#finance-for-engineers)
+- [Business Understanding](#business-understanding)
+- [Product Business Alignment](#product-business-alignment)
+- [Stakeholder Management](#stakeholder-management)
+- [Strategic Planning](#strategic-planning)
+- [Next Steps](#next-steps)
+
+
 
 ## Aligning Engineering Excellence with Business Success
 

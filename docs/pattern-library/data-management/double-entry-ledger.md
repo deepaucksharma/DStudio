@@ -23,7 +23,7 @@ Double-entry bookkeeping records every transaction as both a debit and credit, e
 ## Implementation
 
 ```python
-# Example implementation
+## Example implementation
 class DoubleEntryLedger:
     def __init__(self):
         pass

@@ -53,6 +53,43 @@ lessons_learned:
 
 # Amazon DynamoDB: Scale and Architecture Deep Dive
 
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [System Overview](#system-overview)
+  - [Business Challenge Matrix](#business-challenge-matrix)
+  - [High-Level Architecture](#high-level-architecture)
+- [Mapping to Fundamental Laws](#mapping-to-fundamental-laws)
+  - [Law Analysis](#law-analysis)
+- [Design Deep Dive](#design-deep-dive)
+  - [Data Architecture](#data-architecture)
+  - [Scaling Strategy](#scaling-strategy)
+- [Failure Scenarios & Lessons](#failure-scenarios-lessons)
+- [The $10M Lesson: 2015 Outage](#the-10m-lesson-2015-outage)
+  - [Failure Timeline](#failure-timeline)
+  - [Prevention Matrix](#prevention-matrix)
+- [Performance Characteristics](#performance-characteristics)
+  - [Performance Profile](#performance-profile)
+  - [Resource Utilization](#resource-utilization)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring & Observability](#monitoring-observability)
+  - [Deployment Strategy](#deployment-strategy)
+- [Key Innovations](#key-innovations)
+  - [Innovation Impact Matrix](#innovation-impact-matrix)
+- [Applicable Patterns](#applicable-patterns)
+- [Related Topics](#related-topics)
+  - [Related Laws & Axioms](#related-laws-axioms)
+  - [Related Patterns](#related-patterns)
+  - [Related Pillars](#related-pillars)
+  - [Case Studies](#case-studies)
+- [Decision Guide](#decision-guide)
+  - [When to Use DynamoDB Patterns](#when-to-use-dynamodb-patterns)
+  - [Cost-Benefit Analysis](#cost-benefit-analysis)
+- [Further Reading](#further-reading)
+- [Discussion Questions](#discussion-questions)
+
+
+
 !!! abstract "Quick Facts"
 | Metric | Value |
  |--------|-------|

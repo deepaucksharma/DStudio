@@ -25,6 +25,132 @@ production_checklist:
 
 # 📄 Design Google Docs
 
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+- [1. Problem Clarification Questions](#1-problem-clarification-questions)
+- [2. Functional Requirements](#2-functional-requirements)
+- [3. Non-Functional Requirements](#3-non-functional-requirements)
+- [4. Capacity Estimation](#4-capacity-estimation)
+  - [Storage Requirements](#storage-requirements)
+  - [Bandwidth Requirements](#bandwidth-requirements)
+  - [Compute Requirements](#compute-requirements)
+- [5. API Design](#5-api-design)
+  - [Document APIs](#document-apis)
+- [Create document](#create-document)
+- [Get document](#get-document)
+  - [Real-time Collaboration](#real-time-collaboration)
+- [WebSocket connection for real-time updates](#websocket-connection-for-real-time-updates)
+- [Client sends operation](#client-sends-operation)
+- [Server broadcasts transformed operation](#server-broadcasts-transformed-operation)
+- [Cursor/selection updates](#cursorselection-updates)
+- [Presence updates](#presence-updates)
+  - [Version History](#version-history)
+  - [Get document history](#get-document-history)
+- [Get specific revision](#get-specific-revision)
+- [Compare revisions](#compare-revisions)
+- [Restore revision](#restore-revision)
+  - [Permissions](#permissions)
+- [Share document](#share-document)
+- [List permissions](#list-permissions)
+- [Update permission](#update-permission)
+- [6. Data Model](#6-data-model)
+  - [Document Structure](#document-structure)
+- [Document metadata (Spanner)](#document-metadata-spanner)
+- [Document content (Distributed storage)](#document-content-distributed-storage)
+- [Operation log (Bigtable - time series)](#operation-log-bigtable-time-series)
+- [Active sessions (Redis)](#active-sessions-redis)
+- [Permissions (Spanner)](#permissions-spanner)
+  - [Operational Transform Data](#operational-transform-data)
+- [OT Operation format](#ot-operation-format)
+- [One of: retain, insert, delete](#one-of-retain-insert-delete)
+- [Transform state](#transform-state)
+- [7. High-Level Architecture](#7-high-level-architecture)
+- [8. Detailed Design](#8-detailed-design)
+  - [Operational Transform Engine](#operational-transform-engine)
+- [1. Get operations since client's revision](#1-get-operations-since-clients-revision)
+- [2. Transform client operation against concurrent operations](#2-transform-client-operation-against-concurrent-operations)
+- [3. Apply to document](#3-apply-to-document)
+- [4. Store operation](#4-store-operation)
+- [Both retain](#both-retain)
+- [op1 inserts, op2 retains](#op1-inserts-op2-retains)
+- [op1 retains, op2 inserts](#op1-retains-op2-inserts)
+- [Both insert - use priority](#both-insert-use-priority)
+- [Both delete same content](#both-delete-same-content)
+- [Handle other cases...](#handle-other-cases)
+  - [Real-time Synchronization](#real-time-synchronization)
+- [1. Create session](#1-create-session)
+- [2. Add to document sessions](#2-add-to-document-sessions)
+- [3. Send initial state](#3-send-initial-state)
+- [4. Notify others of new collaborator](#4-notify-others-of-new-collaborator)
+- [5. Handle messages](#5-handle-messages)
+- [Clean up on disconnect](#clean-up-on-disconnect)
+- [1. Create client operation](#1-create-client-operation)
+- [2. Transform and apply](#2-transform-and-apply)
+- [3. Acknowledge to sender](#3-acknowledge-to-sender)
+- [4. Broadcast to other clients](#4-broadcast-to-other-clients)
+- [5. Update session revision](#5-update-session-revision)
+- [Send error to client](#send-error-to-client)
+- [Send to all sessions except sender](#send-to-all-sessions-except-sender)
+  - [Offline Support and Sync](#offline-support-and-sync)
+- [1. Get all server operations since last known revision](#1-get-all-server-operations-since-last-known-revision)
+- [2. Transform offline operations against server operations](#2-transform-offline-operations-against-server-operations)
+- [Transform against each server operation](#transform-against-each-server-operation)
+- [3. Apply transformed offline operations](#3-apply-transformed-offline-operations)
+- [Handle unresolvable conflicts](#handle-unresolvable-conflicts)
+- [4. Return sync result](#4-return-sync-result)
+- [Get current document state](#get-current-document-state)
+- [Get recent operations for conflict resolution](#get-recent-operations-for-conflict-resolution)
+- [Create offline package](#create-offline-package)
+  - [Version History and Time Travel](#version-history-and-time-travel)
+- [1. Find nearest snapshot before revision](#1-find-nearest-snapshot-before-revision)
+- [Start from empty document](#start-from-empty-document)
+- [2. Apply operations from snapshot to target revision](#2-apply-operations-from-snapshot-to-target-revision)
+  - [Get document at revision](#get-document-at-revision)
+- [Store snapshot](#store-snapshot)
+- [Build revision graph](#build-revision-graph)
+  - [Permission Management](#permission-management)
+- [Check cache first](#check-cache-first)
+- [Load from database](#load-from-database)
+- [Check if document is public](#check-if-document-is-public)
+- [Cache permission](#cache-permission)
+  - [Rich Text and Media Support](#rich-text-and-media-support)
+- [Handle embedded objects](#handle-embedded-objects)
+- [Text content](#text-content)
+- [Upload base64 image](#upload-base64-image)
+- [Add responsive variants](#add-responsive-variants)
+- [9. Scale Considerations](#9-scale-considerations)
+  - [Global Architecture](#global-architecture)
+  - [Sharding Strategy](#sharding-strategy)
+- [Hash-based sharding for even distribution](#hash-based-sharding-for-even-distribution)
+- [Operations sharded by document and time](#operations-sharded-by-document-and-time)
+  - [Performance Optimizations](#performance-optimizations)
+- [1. Preload frequently accessed documents](#1-preload-frequently-accessed-documents)
+- [2. Generate static preview for read-only users](#2-generate-static-preview-for-read-only-users)
+- [3. Compress operation history](#3-compress-operation-history)
+- [10. Trade-offs and Alternatives](#10-trade-offs-and-alternatives)
+  - [Architecture Decisions](#architecture-decisions)
+  - [Alternative Architectures](#alternative-architectures)
+    - [Alternative 1: CRDT-based Architecture](#alternative-1-crdt-based-architecture)
+    - [Alternative 2: Git-like Architecture](#alternative-2-git-like-architecture)
+- [11. Monitoring and Analytics](#11-monitoring-and-analytics)
+  - [Key Metrics](#key-metrics)
+- [Performance metrics](#performance-metrics)
+- [Scale metrics](#scale-metrics)
+- [Quality metrics](#quality-metrics)
+- [Business metrics](#business-metrics)
+  - [Real-time Dashboard](#real-time-dashboard)
+- [12. Security and Privacy](#12-security-and-privacy)
+  - [Security Measures](#security-measures)
+- [1. Encrypt sensitive content](#1-encrypt-sensitive-content)
+- [2. Audit log access](#2-audit-log-access)
+- [3. Apply DLP scanning](#3-apply-dlp-scanning)
+  - [Privacy Features](#privacy-features)
+- [Conclusion](#conclusion)
+  - [Interview Tips](#interview-tips)
+
+
+
 ## Problem Statement
 
 Design a real-time collaborative document editing system that:
@@ -135,7 +261,7 @@ WebSocket Connections:
 ### Document APIs
 
 ```python
-# Create document
+## Create document
 POST /api/v1/documents
 Headers: Authorization: Bearer {token}
 Body: {
@@ -157,7 +283,7 @@ Response: {
   "edit_url": "https://docs.google.com/document/d/doc_abc123/edit"
 }
 
-# Get document
+## Get document
 GET /api/v1/documents/{document_id}?revision={revision_number}
 
 Response: {
@@ -180,10 +306,10 @@ Response: {
 ### Real-time Collaboration
 
 ```python
-# WebSocket connection for real-time updates
+## WebSocket connection for real-time updates
 ws://docs.google.com/api/v1/documents/{document_id}/stream
 
-# Client sends operation
+## Client sends operation
 {
   "type": "operation",
   "operation": {
@@ -197,7 +323,7 @@ ws://docs.google.com/api/v1/documents/{document_id}/stream
   "client_id": "client_xyz"
 }
 
-# Server broadcasts transformed operation
+## Server broadcasts transformed operation
 {
   "type": "operation",
   "operation": {
@@ -208,7 +334,7 @@ ws://docs.google.com/api/v1/documents/{document_id}/stream
   "timestamp": "2024-01-20T10:00:00.123Z"
 }
 
-# Cursor/selection updates
+## Cursor/selection updates
 {
   "type": "cursor",
   "user_id": "user123",
@@ -216,7 +342,7 @@ ws://docs.google.com/api/v1/documents/{document_id}/stream
   "selection": {"start": 150, "end": 160}
 }
 
-# Presence updates
+## Presence updates
 {
   "type": "presence",
   "action": "join|leave",
@@ -231,7 +357,7 @@ ws://docs.google.com/api/v1/documents/{document_id}/stream
 ### Version History
 
 ```python
-# Get document history
+### Get document history
 GET /api/v1/documents/{document_id}/history?limit=50
 
 Response: {
@@ -246,13 +372,13 @@ Response: {
   ]
 }
 
-# Get specific revision
+## Get specific revision
 GET /api/v1/documents/{document_id}/revisions/{revision}
 
-# Compare revisions
+## Compare revisions
 GET /api/v1/documents/{document_id}/diff?from=40&to=43
 
-# Restore revision
+## Restore revision
 POST /api/v1/documents/{document_id}/restore
 Body: {
   "revision": 40,
@@ -263,7 +389,7 @@ Body: {
 ### Permissions
 
 ```python
-# Share document
+## Share document
 POST /api/v1/documents/{document_id}/permissions
 Body: {
   "email": "collaborator@example.com",
@@ -272,10 +398,10 @@ Body: {
   "message": "Please review this document"
 }
 
-# List permissions
+## List permissions
 GET /api/v1/documents/{document_id}/permissions
 
-# Update permission
+## Update permission
 PUT /api/v1/documents/{document_id}/permissions/{permission_id}
 Body: {
   "role": "viewer"
@@ -287,7 +413,7 @@ Body: {
 ### Document Structure
 
 ```python
-# Document metadata (Spanner)
+## Document metadata (Spanner)
 class Document:
     document_id: str
     title: str
@@ -299,14 +425,14 @@ class Document:
     is_deleted: bool
     parent_folder_id: str
     
-# Document content (Distributed storage)
+## Document content (Distributed storage)
 class DocumentContent:
     document_id: str
     revision: int
     content: dict  # Delta format or custom
     checksum: str
     
-# Operation log (Bigtable - time series)
+## Operation log (Bigtable - time series)
 class Operation:
     document_id: str
     revision: int
@@ -316,7 +442,7 @@ class Operation:
     client_id: str
     parent_revision: int
     
-# Active sessions (Redis)
+## Active sessions (Redis)
 class EditSession:
     session_id: str
     document_id: str
@@ -326,7 +452,7 @@ class EditSession:
     selection: dict
     last_seen: datetime
     
-# Permissions (Spanner)
+## Permissions (Spanner)
 class Permission:
     permission_id: str
     document_id: str
@@ -339,18 +465,18 @@ class Permission:
 ### Operational Transform Data
 
 ```python
-# OT Operation format
+## OT Operation format
 class OTOperation:
     ops: List[Op]
     
 class Op:
-# One of: retain, insert, delete
+## One of: retain, insert, delete
     retain: Optional[int]
     insert: Optional[str]
     delete: Optional[int]
     attributes: Optional[dict]  # formatting
     
-# Transform state
+## Transform state
 class TransformState:
     document_id: str
     server_revision: int
@@ -427,13 +553,13 @@ class OperationalTransform:
         
     def handle_client_operation(self, client_op: ClientOperation) -> ServerOperation:
         """Process operation from client"""
-# 1. Get operations since client's revision
+## 1. Get operations since client's revision
         concurrent_ops = self.operations_log.get_operations_since(
             client_op.document_id,
             client_op.base_revision
         )
         
-# 2. Transform client operation against concurrent operations
+## 2. Transform client operation against concurrent operations
         transformed_op = client_op.operation
         for server_op in concurrent_ops:
             transformed_op, _ = self.transform(
@@ -442,12 +568,12 @@ class OperationalTransform:
                 'left'  # client op takes priority
             )
             
-# 3. Apply to document
+## 3. Apply to document
         new_revision = self.operations_log.get_latest_revision(
             client_op.document_id
         ) + 1
         
-# 4. Store operation
+## 4. Store operation
         server_operation = ServerOperation(
             document_id=client_op.document_id,
             revision=new_revision,
@@ -486,7 +612,7 @@ class OperationalTransform:
             component2 = ops2[i2]
             
             if 'retain' in component1 and 'retain' in component2:
-# Both retain
+## Both retain
                 length = min(component1['retain'], component2['retain'])
                 transformed_ops1.append({'retain': length})
                 transformed_ops2.append({'retain': length})
@@ -500,19 +626,19 @@ class OperationalTransform:
                     i2 += 1
                     
             elif 'insert' in component1 and 'retain' in component2:
-# op1 inserts, op2 retains
+## op1 inserts, op2 retains
                 transformed_ops1.append(component1)
                 transformed_ops2.append({'retain': len(component1['insert'])})
                 i1 += 1
                 
             elif 'retain' in component1 and 'insert' in component2:
-# op1 retains, op2 inserts
+## op1 retains, op2 inserts
                 transformed_ops1.append({'retain': len(component2['insert'])})
                 transformed_ops2.append(component2)
                 i2 += 1
                 
             elif 'insert' in component1 and 'insert' in component2:
-# Both insert - use priority
+## Both insert - use priority
                 if priority == 'left':
                     transformed_ops1.append(component1)
                     transformed_ops2.append({'retain': len(component1['insert'])})
@@ -523,7 +649,7 @@ class OperationalTransform:
                     i2 += 1
                     
             elif 'delete' in component1 and 'delete' in component2:
-# Both delete same content
+## Both delete same content
                 length = min(component1['delete'], component2['delete'])
                 component1['delete'] -= length
                 component2['delete'] -= length
@@ -533,7 +659,7 @@ class OperationalTransform:
                 if component2['delete'] == 0:
                     i2 += 1
                     
-# Handle other cases...
+## Handle other cases...
             
         return (
             Operation(ops=self._compress_ops(transformed_ops1)),
@@ -574,7 +700,7 @@ class RealtimeDocumentSync:
     async def handle_websocket_connection(self, ws: WebSocket, 
                                         document_id: str, user_id: str):
         """Handle new WebSocket connection"""
-# 1. Create session
+## 1. Create session
         session = EditSession(
             session_id=str(uuid.uuid4()),
             document_id=document_id,
@@ -583,23 +709,23 @@ class RealtimeDocumentSync:
             last_revision=0
         )
         
-# 2. Add to document sessions
+## 2. Add to document sessions
         if document_id not in self.document_sessions:
             self.document_sessions[document_id] = set()
         self.document_sessions[document_id].add(session)
         
-# 3. Send initial state
+## 3. Send initial state
         await self._send_initial_state(session)
         
-# 4. Notify others of new collaborator
+## 4. Notify others of new collaborator
         await self._broadcast_presence(document_id, 'join', user_id)
         
-# 5. Handle messages
+## 5. Handle messages
         try:
             async for message in ws:
                 await self._handle_message(session, message)
         finally:
-# Clean up on disconnect
+## Clean up on disconnect
             self.document_sessions[document_id].remove(session)
             await self._broadcast_presence(document_id, 'leave', user_id)
     
@@ -618,7 +744,7 @@ class RealtimeDocumentSync:
             
     async def _handle_operation(self, session: EditSession, message: dict):
         """Handle document edit operation"""
-# 1. Create client operation
+## 1. Create client operation
         client_op = ClientOperation(
             document_id=session.document_id,
             operation=Operation(ops=message['operation']['ops']),
@@ -627,29 +753,29 @@ class RealtimeDocumentSync:
             client_id=message.get('client_id')
         )
         
-# 2. Transform and apply
+## 2. Transform and apply
         try:
             server_op = self.ot_engine.handle_client_operation(client_op)
             
-# 3. Acknowledge to sender
+## 3. Acknowledge to sender
             await session.websocket.send_json({
                 'type': 'ack',
                 'client_id': client_op.client_id,
                 'revision': server_op.revision
             })
             
-# 4. Broadcast to other clients
+## 4. Broadcast to other clients
             await self._broadcast_operation(
                 session.document_id,
                 server_op,
                 exclude_session=session
             )
             
-# 5. Update session revision
+## 5. Update session revision
             session.last_revision = server_op.revision
             
         except TransformException as e:
-# Send error to client
+## Send error to client
             await session.websocket.send_json({
                 'type': 'error',
                 'error': str(e),
@@ -673,7 +799,7 @@ class RealtimeDocumentSync:
             'timestamp': operation.timestamp.isoformat()
         }
         
-# Send to all sessions except sender
+## Send to all sessions except sender
         tasks = []
         for session in self.document_sessions[document_id]:
             if session != exclude_session:
@@ -694,19 +820,19 @@ class OfflineDocumentSync:
                                   offline_operations: List[Operation],
                                   last_known_revision: int) -> SyncResult:
         """Sync document after being offline"""
-# 1. Get all server operations since last known revision
+## 1. Get all server operations since last known revision
         server_ops = await self.operation_store.get_operations_since(
             document_id,
             last_known_revision
         )
         
-# 2. Transform offline operations against server operations
+## 2. Transform offline operations against server operations
         transformed_offline_ops = []
         
         for offline_op in offline_operations:
             transformed = offline_op
             
-# Transform against each server operation
+## Transform against each server operation
             for server_op in server_ops:
                 transformed, _ = self.ot_engine.transform(
                     transformed,
@@ -716,7 +842,7 @@ class OfflineDocumentSync:
                 
             transformed_offline_ops.append(transformed)
         
-# 3. Apply transformed offline operations
+## 3. Apply transformed offline operations
         applied_ops = []
         current_revision = last_known_revision + len(server_ops)
         
@@ -730,14 +856,14 @@ class OfflineDocumentSync:
                 applied_ops.append(server_op)
                 current_revision += 1
             except ConflictException as e:
-# Handle unresolvable conflicts
+## Handle unresolvable conflicts
                 conflict = self.conflict_resolver.create_conflict_branch(
                     document_id,
                     op,
                     e
                 )
                 
-# 4. Return sync result
+## 4. Return sync result
         return SyncResult(
             success=True,
             new_revision=current_revision,
@@ -748,16 +874,16 @@ class OfflineDocumentSync:
     
     async def download_for_offline(self, document_id: str) -> OfflineDocument:
         """Prepare document for offline editing"""
-# Get current document state
+## Get current document state
         document = await self.document_service.get_document(document_id)
         
-# Get recent operations for conflict resolution
+## Get recent operations for conflict resolution
         recent_ops = await self.operation_store.get_recent_operations(
             document_id,
             limit=1000  # Last 1000 operations
         )
         
-# Create offline package
+## Create offline package
         return OfflineDocument(
             document_id=document_id,
             content=document.content,
@@ -779,21 +905,21 @@ class DocumentHistory:
     async def get_document_at_revision(self, document_id: str, 
                                      revision: int) -> Document:
         """Reconstruct document at specific revision"""
-# 1. Find nearest snapshot before revision
+## 1. Find nearest snapshot before revision
         snapshot = await self.snapshot_store.get_nearest_snapshot(
             document_id,
             revision
         )
         
         if not snapshot:
-# Start from empty document
+## Start from empty document
             document_state = Document(content="")
             start_revision = 0
         else:
             document_state = snapshot.document
             start_revision = snapshot.revision
             
-# 2. Apply operations from snapshot to target revision
+## 2. Apply operations from snapshot to target revision
         operations = await self.operation_store.get_operations_range(
             document_id,
             start_revision + 1,
@@ -810,10 +936,10 @@ class DocumentHistory:
     
     async def create_snapshot(self, document_id: str, revision: int):
         """Create document snapshot for faster history access"""
-# Get document at revision
+### Get document at revision
         document = await self.get_document_at_revision(document_id, revision)
         
-# Store snapshot
+## Store snapshot
         snapshot = DocumentSnapshot(
             document_id=document_id,
             revision=revision,
@@ -833,7 +959,7 @@ class DocumentHistory:
             end_revision
         )
         
-# Build revision graph
+## Build revision graph
         nodes = []
         for op in operations:
             node = RevisionNode(
@@ -860,27 +986,27 @@ class PermissionService:
                              user_id: str, 
                              action: str) -> bool:
         """Check if user has permission for action"""
-# Check cache first
+## Check cache first
         cache_key = f"{document_id}:{user_id}"
         cached_perm = await self.cache.get(cache_key)
         
         if cached_perm:
             return self._has_permission(cached_perm, action)
             
-# Load from database
+## Load from database
         permission = await self.permission_store.get_user_permission(
             document_id,
             user_id
         )
         
         if not permission:
-# Check if document is public
+## Check if document is public
             doc = await self.document_service.get_document(document_id)
             if doc.is_public and action == 'view':
                 return True
             return False
             
-# Cache permission
+## Cache permission
         await self.cache.set(cache_key, permission, ttl=300)
         
         return self._has_permission(permission, action)
@@ -913,7 +1039,7 @@ class RichTextProcessor:
         for op in content.get('ops', []):
             if 'insert' in op:
                 if isinstance(op['insert'], dict):
-# Handle embedded objects
+## Handle embedded objects
                     if 'image' in op['insert']:
                         processed_op = await self._process_image(op)
                     elif 'video' in op['insert']:
@@ -923,7 +1049,7 @@ class RichTextProcessor:
                     else:
                         processed_op = op
                 else:
-# Text content
+## Text content
                     processed_op = self._process_text(op)
             else:
                 processed_op = op
@@ -937,11 +1063,11 @@ class RichTextProcessor:
         image_data = op['insert']['image']
         
         if image_data.startswith('data:'):
-# Upload base64 image
+## Upload base64 image
             url = await self.media_store.upload_image(image_data)
             op['insert']['image'] = url
             
-# Add responsive variants
+## Add responsive variants
         if 'attributes' not in op:
             op['attributes'] = {}
             
@@ -1004,13 +1130,13 @@ class DocumentSharding:
         
     def get_document_shard(self, document_id: str) -> str:
         """Determine shard for document"""
-# Hash-based sharding for even distribution
+## Hash-based sharding for even distribution
         shard_id = hash(document_id) % self.shard_count
         return f"shard_{shard_id}"
         
     def get_operation_shard(self, document_id: str, timestamp: datetime) -> str:
         """Time-based sharding for operations"""
-# Operations sharded by document and time
+## Operations sharded by document and time
         doc_shard = self.get_document_shard(document_id)
         time_bucket = timestamp.strftime("%Y%m")
         return f"{doc_shard}_{time_bucket}"
@@ -1032,16 +1158,16 @@ class PerformanceOptimizer:
         
     async def optimize_document_loading(self, document_id: str):
         """Optimize document load performance"""
-# 1. Preload frequently accessed documents
+## 1. Preload frequently accessed documents
         access_frequency = await self.get_access_frequency(document_id)
         if access_frequency > 100:  # Hot document
             await self.cache.preload(document_id)
             
-# 2. Generate static preview for read-only users
+## 2. Generate static preview for read-only users
         preview = await self.generate_static_preview(document_id)
         await self.cdn.cache(f"preview_{document_id}", preview)
         
-# 3. Compress operation history
+## 3. Compress operation history
         old_operations = await self.get_old_operations(document_id)
         compressed = await self.compress_operations(old_operations)
         await self.archive_operations(document_id, compressed)
@@ -1101,22 +1227,22 @@ graph TB
 class GoogleDocsMetrics:
     def __init__(self):
         self.metrics = {
-# Performance metrics
+## Performance metrics
             'operation_latency': Histogram('docs_operation_ms'),
             'sync_latency': Histogram('docs_sync_latency_ms'),
             'document_load_time': Histogram('docs_load_time_ms'),
             
-# Scale metrics
+## Scale metrics
             'concurrent_editors': Gauge('docs_concurrent_editors'),
             'operations_per_second': Counter('docs_ops_per_sec'),
             'active_documents': Gauge('docs_active_documents'),
             
-# Quality metrics
+## Quality metrics
             'conflict_rate': Gauge('docs_conflicts_per_hour'),
             'sync_failures': Counter('docs_sync_failures'),
             'data_loss_incidents': Counter('docs_data_loss'),
             
-# Business metrics
+## Business metrics
             'documents_created': Counter('docs_created_daily'),
             'collaboration_sessions': Counter('docs_collab_sessions'),
             'storage_used': Gauge('docs_storage_bytes')
@@ -1152,14 +1278,14 @@ class DocumentSecurity:
         
     async def secure_document(self, document: Document):
         """Apply security measures to document"""
-# 1. Encrypt sensitive content
+## 1. Encrypt sensitive content
         if document.is_confidential:
             document.content = await self.encryption.encrypt(
                 document.content,
                 document.encryption_key
             )
             
-# 2. Audit log access
+## 2. Audit log access
         await self.audit_log.log_access(
             document_id=document.id,
             user_id=current_user.id,
@@ -1167,7 +1293,7 @@ class DocumentSecurity:
             ip_address=request.remote_addr
         )
         
-# 3. Apply DLP scanning
+## 3. Apply DLP scanning
         dlp_result = await self.dlp_scanner.scan(document.content)
         if dlp_result.has_sensitive_data:
             await self.handle_dlp_violation(document, dlp_result)

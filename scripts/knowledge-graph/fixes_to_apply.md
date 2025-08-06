@@ -1,40 +1,68 @@
 # Documentation Issues and Fixes
-Generated: 2025-08-06T16:02:27.035788
+Generated: 2025-08-07T04:22:15.045037
 
 ## Summary
 
-- Total pages: 627
-- Pages with issues: 579 (92.3%)
-- Total issues: 5931
+- Total pages: 640
+- Pages with issues: 578 (90.3%)
+- Total issues: 8292
 - Auto-fixable issues: 3
 
 ## Issues by Severity
 
-### ERROR: 4591 issues
+### ERROR: 5885 issues
 
-- **broken_internal_link**: 4573 occurrences
-- **unclosed_code_block**: 18 occurrences
+- **broken_internal_link**: 5866 occurrences
+- **unclosed_code_block**: 19 occurrences
 
-### WARNING: 577 issues
+### WARNING: 1548 issues
 
-- **duplicate_heading_anchor**: 332 occurrences
-- **placeholder_content**: 103 occurrences
-- **short_content**: 84 occurrences
-- **invalid_frontmatter**: 52 occurrences
-- **broken_external_link**: 4 occurrences
+- **duplicate_heading_anchor**: 694 occurrences
+- **heading_hierarchy_skip**: 470 occurrences
+- **short_content**: 162 occurrences
+- **placeholder_content**: 104 occurrences
+- **invalid_frontmatter**: 78 occurrences
+- **broken_external_link**: 26 occurrences
+- **broken_anchor_link**: 12 occurrences
 - **empty_link_text**: 2 occurrences (🤖 2 auto-fixable)
 
-### INFO: 763 issues
+### INFO: 617 issues
 
-- **heading_hierarchy_skip**: 480 occurrences
-- **long_code_block**: 153 occurrences
-- **long_content**: 93 occurrences
-- **todo_marker**: 36 occurrences
+- **long_code_block**: 323 occurrences
+- **long_content**: 210 occurrences
+- **heading_hierarchy_skip**: 45 occurrences
+- **todo_marker**: 38 occurrences
 - **insecure_http_link**: 1 occurrences (🤖 1 auto-fixable)
 
 ## Detailed Fixes
 
-### broken_internal_link (4573 occurrences)
+### duplicate_heading_anchor (232 occurrences)
+
+**Severity**: low
+
+**Example**: Duplicate anchor: focus-areas from heading "Focus Areas"
+
+**Fix**: Make heading unique or use explicit anchor
+
+**Sample pages affected**:
+- `pattern-library/pattern-synthesis-guide`
+- `pattern-library/visual-asset-creation-plan`
+- `pattern-library/pattern-relationship-map`
+
+### heading_hierarchy_skip (10 occurrences)
+
+**Severity**: low
+
+**Example**: Heading level jumps from H1 to H4
+
+**Fix**: Use sequential heading levels
+
+**Sample pages affected**:
+- `pattern-library/architecture/event-driven`
+- `pattern-library/architecture/backends-for-frontends`
+- `pattern-library/architecture/valet-key`
+
+### broken_internal_link (5866 occurrences)
 
 **Severity**: error
 
@@ -44,10 +72,10 @@ Generated: 2025-08-06T16:02:27.035788
 
 **Sample pages affected**:
 - `incident-response`
-- `index`
-- `human-factors`
+- `monolith-to-microservices`
+- `latency-calculator`
 
-### unclosed_code_block (18 occurrences)
+### unclosed_code_block (19 occurrences)
 
 **Severity**: error
 
@@ -60,7 +88,7 @@ Generated: 2025-08-06T16:02:27.035788
 - `architects-handbook/case-studies/social-communication/notification-system`
 - `architects-handbook/case-studies/monitoring-observability/rate-limiter`
 
-### duplicate_heading_anchor (332 occurrences)
+### duplicate_heading_anchor (694 occurrences)
 
 **Severity**: warning
 
@@ -73,20 +101,20 @@ Generated: 2025-08-06T16:02:27.035788
 - `interview-prep/engineering-leadership/company-specific/microsoft/index`
 - `interview-prep/engineering-leadership/level-1-first-principles/decision-making/index`
 
-### placeholder_content (103 occurrences)
+### heading_hierarchy_skip (470 occurrences)
 
 **Severity**: warning
 
-**Example**: Found placeholder text: coming soon
+**Example**: Heading level jumps from H1 to H4
 
-**Fix**: Replace with actual content
+**Fix**: Use sequential heading levels
 
 **Sample pages affected**:
-- `interview-prep/ic-interviews/cheatsheets/system-design-checklist/index`
-- `interview-prep/ic-interviews/behavioral/index`
-- `interview-prep/ic-interviews/common-problems/index`
+- `CALCULATOR_VALIDATION_TESTING_PLAN`
+- `interview-prep/engineering-leadership/hard-earned-wisdom/crisis-leadership-reality`
+- `interview-prep/engineering-leadership/level-1-first-principles/value-creation/index`
 
-### short_content (84 occurrences)
+### short_content (162 occurrences)
 
 **Severity**: warning
 
@@ -99,7 +127,20 @@ Generated: 2025-08-06T16:02:27.035788
 - `human-factors`
 - `monolith-to-microservices`
 
-### invalid_frontmatter (52 occurrences)
+### placeholder_content (104 occurrences)
+
+**Severity**: warning
+
+**Example**: Found placeholder text: coming soon
+
+**Fix**: Replace with actual content
+
+**Sample pages affected**:
+- `interview-prep/ic-interviews/cheatsheets/system-design-checklist/index`
+- `interview-prep/ic-interviews/behavioral/index`
+- `interview-prep/ic-interviews/common-problems/index`
+
+### invalid_frontmatter (78 occurrences)
 
 **Severity**: warning
 
@@ -112,7 +153,7 @@ Generated: 2025-08-06T16:02:27.035788
 - `interview-prep/ic-interviews/behavioral/by-level`
 - `interview-prep/ic-interviews/behavioral/scenarios`
 
-### broken_external_link (4 occurrences)
+### broken_external_link (26 occurrences)
 
 **Severity**: warning
 
@@ -123,6 +164,20 @@ Generated: 2025-08-06T16:02:27.035788
 **Sample pages affected**:
 - `architects-handbook/case-studies/financial-commerce/ad-click-aggregation`
 - `architects-handbook/case-studies/financial-commerce/stock-exchange`
+- `architects-handbook/learning-paths/data-engineer`
+
+### broken_anchor_link (12 occurrences)
+
+**Severity**: warning
+
+**Example**: Anchor #one-week-prep not found in interview-prep/engineering-leadership/navigation-guide
+
+**Fix**: Add heading with anchor one-week-prep or fix the link
+
+**Sample pages affected**:
+- `interview-prep/ENGINEERING_LEADERSHIP_INTERVIEW_FRAMEWORK`
+- `interview-prep/engineering-leadership/FRAMEWORK_ORGANIZATION`
+- `interview-prep/engineering-leadership/navigation-guide`
 
 ### empty_link_text (2 occurrences)
 
@@ -136,20 +191,7 @@ Generated: 2025-08-06T16:02:27.035788
 - `architects-handbook/case-studies/databases/amazon-aurora`
 - `architects-handbook/case-studies/elite-engineering/figma-crdt-collaboration`
 
-### heading_hierarchy_skip (480 occurrences)
-
-**Severity**: info
-
-**Example**: Heading level jumps from H1 to H4
-
-**Fix**: Use sequential heading levels
-
-**Sample pages affected**:
-- `CALCULATOR_VALIDATION_TESTING_PLAN`
-- `interview-prep/engineering-leadership/hard-earned-wisdom/crisis-leadership-reality`
-- `interview-prep/engineering-leadership/level-1-first-principles/value-creation/index`
-
-### long_code_block (153 occurrences)
+### long_code_block (323 occurrences)
 
 **Severity**: info
 
@@ -162,7 +204,7 @@ Generated: 2025-08-06T16:02:27.035788
 - `architects-handbook/human-factors/security-incident-response`
 - `architects-handbook/human-factors/disaster-recovery-planning`
 
-### long_content (93 occurrences)
+### long_content (210 occurrences)
 
 **Severity**: info
 
@@ -175,7 +217,20 @@ Generated: 2025-08-06T16:02:27.035788
 - `interview-prep/engineering-leadership/hard-earned-wisdom/organizational-politics-mastery`
 - `interview-prep/engineering-leadership/hard-earned-wisdom/human-cost-leadership`
 
-### todo_marker (36 occurrences)
+### heading_hierarchy_skip (45 occurrences)
+
+**Severity**: info
+
+**Example**: Heading level jumps from H1 to H4
+
+**Fix**: Use sequential heading levels
+
+**Sample pages affected**:
+- `company-specific/apple/index`
+- `pattern-library/pattern-antipatterns-guide`
+- `pattern-library/architecture/anti-corruption-layer`
+
+### todo_marker (38 occurrences)
 
 **Severity**: info
 
@@ -201,23 +256,23 @@ Generated: 2025-08-06T16:02:27.035788
 
 ## Pages Needing Most Attention
 
-- **Request Batching/Pipelining** (`pattern-library/scaling/request-batching`): Quality 0/100, 45 issues
-- **Deduplication** (`pattern-library/data-management/deduplication`): Quality 44/100, 22 issues
-- **Common Algorithm Patterns** (`interview-prep/coding-interviews/algorithm-patterns`): Quality 45/100, 19 issues
-- **Leader-Follower Pattern** (`pattern-library/coordination/leader-follower`): Quality 45/100, 27 issues
-- **Valet Key Pattern** (`pattern-library/architecture/valet-key`): Quality 47/100, 25 issues
-- **Logical Clocks (Lamport Clocks)** (`pattern-library/coordination/logical-clocks`): Quality 47/100, 25 issues
-- **Lambda Architecture** (`pattern-library/architecture/lambda-architecture`): Quality 49/100, 17 issues
-- **Strangler Fig** (`pattern-library/architecture/strangler-fig`): Quality 49/100, 25 issues
-- **Digital Wallet System** (`architects-handbook/case-studies/financial-commerce/digital-wallet-enhanced`): Quality 56/100, 23 issues
-- **Quick Start Guide: From Zero to Production Excellence** (`excellence/implementation-guides/quick-start-guide`): Quality 57/100, 19 issues
-- **Quality Assurance Implementation Guide** (`architects-handbook/QUALITY_IMPLEMENTATION_GUIDE`): Quality 60/100, 16 issues
-- **Pattern Anti-Patterns Guide - What Not to Do** (`pattern-library/pattern-antipatterns-guide`): Quality 60/100, 15 issues
-- **Pattern Combination Recipes - Proven Architectural Stacks** (`pattern-library/pattern-combination-recipes`): Quality 61/100, 13 issues
-- **Pattern Relationship Map - Visual Guide to Pattern Connections** (`pattern-library/pattern-relationship-map`): Quality 61/100, 13 issues
-- **Runbooks & Playbooks** (`architects-handbook/human-factors/runbooks-playbooks`): Quality 63/100, 13 issues
-- **Scatter-Gather** (`pattern-library/scaling/scatter-gather`): Quality 64/100, 16 issues
-- **Search Autocomplete System Design** (`architects-handbook/case-studies/search-analytics/search-autocomplete`): Quality 66/100, 39 issues
-- **S3-like Object Storage System** (`architects-handbook/case-studies/infrastructure/s3-object-storage-enhanced`): Quality 68/100, 18 issues
-- **Gaming Leaderboard System** (`architects-handbook/case-studies/search-analytics/gaming-leaderboard-enhanced`): Quality 68/100, 18 issues
-- **Distributed Notification System** (`architects-handbook/case-studies/social-communication/notification-system`): Quality 68/100, 33 issues
+- **Request Batching/Pipelining** (`pattern-library/scaling/request-batching`): Quality 0/100, 78 issues
+- **Deduplication** (`pattern-library/data-management/deduplication`): Quality 44/100, 44 issues
+- **Common Algorithm Patterns** (`interview-prep/coding-interviews/algorithm-patterns`): Quality 46/100, 37 issues
+- **Valet Key Pattern** (`pattern-library/architecture/valet-key`): Quality 47/100, 42 issues
+- **Lambda Architecture** (`pattern-library/architecture/lambda-architecture`): Quality 49/100, 34 issues
+- **Strangler Fig** (`pattern-library/architecture/strangler-fig`): Quality 49/100, 38 issues
+- **Leader-Follower Pattern** (`pattern-library/coordination/leader-follower`): Quality 49/100, 48 issues
+- **Logical Clocks (Lamport Clocks)** (`pattern-library/coordination/logical-clocks`): Quality 49/100, 39 issues
+- **Engineering Leadership Levels Across Tech Companies** (`interview-prep/engineering-leadership/level-specific/level-expectations`): Quality 50/100, 22 issues
+- **Pattern Combination Recipes - Proven Architectural Stacks** (`pattern-library/pattern-combination-recipes`): Quality 61/100, 26 issues
+- **Pattern Relationship Map - Visual Guide to Pattern Connections** (`pattern-library/pattern-relationship-map`): Quality 61/100, 26 issues
+- **Runbooks & Playbooks** (`architects-handbook/human-factors/runbooks-playbooks`): Quality 63/100, 24 issues
+- **Scatter-Gather** (`pattern-library/scaling/scatter-gather`): Quality 64/100, 24 issues
+- **Pattern Anti-Patterns Guide - What Not to Do** (`pattern-library/pattern-antipatterns-guide`): Quality 68/100, 26 issues
+- **Structured Learning Path Template** (`architects-handbook/templates/structured-learning-path-example`): Quality 70/100, 47 issues
+- **Law 2: The Law of Asynchronous Reality** (`core-principles/laws/asynchronous-reality`): Quality 73/100, 13 issues
+- **Law 1: The Law of Inevitable and Correlated Failure** (`core-principles/laws/correlated-failure`): Quality 74/100, 32 issues
+- **Digital Wallet System** (`architects-handbook/case-studies/financial-commerce/digital-wallet-enhanced`): Quality 76/100, 36 issues
+- **Pattern Implementation Roadmap - Your Path to Distributed Systems Mastery** (`pattern-library/pattern-implementation-roadmap`): Quality 76/100, 42 issues
+- **Information Theory** (`architects-handbook/quantitative-analysis/information-theory`): Quality 77/100, 14 issues

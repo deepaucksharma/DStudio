@@ -1,6 +1,25 @@
 ---
 title: Org-Structure Physics
 description: How Conway's Law shapes system architecture - understanding the relationship
+type: human-factors
+difficulty: beginner
+reading_time: 60 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Org-Structure Physics
+
+
+
+## Overview
+
+Org-Structure Physics
+description: How Conway's Law shapes system architecture - understanding the relationship
   between organizational and technical structures
 type: human-factors
 difficulty: beginner
@@ -12,6 +31,63 @@ last_updated: 2025-07-20
 
 
 # Org-Structure Physics
+
+## Table of Contents
+
+- [Conway's Law](#conways-law)
+- [Why Conway's Law is Inevitable](#why-conways-law-is-inevitable)
+  - [Communication Bandwidth Reality](#communication-bandwidth-reality)
+  - [The Physics of Organizational Gravity](#the-physics-of-organizational-gravity)
+- [Organizational Patterns](#organizational-patterns)
+  - [1. Functional Organization](#1-functional-organization)
+  - [2.
+
+**Reading time:** ~7 minutes
+
+## Table of Contents
+
+- [Conway's Law](#conways-law)
+- [Why Conway's Law is Inevitable](#why-conways-law-is-inevitable)
+  - [Communication Bandwidth Reality](#communication-bandwidth-reality)
+  - [The Physics of Organizational Gravity](#the-physics-of-organizational-gravity)
+- [Organizational Patterns](#organizational-patterns)
+  - [1. Functional Organization](#1-functional-organization)
+  - [2. Product Teams](#2-product-teams)
+  - [3. Platform Model](#3-platform-model)
+  - [4. Matrix Organization](#4-matrix-organization)
+- [Team Topologies](#team-topologies)
+  - [Stream-Aligned Teams](#stream-aligned-teams)
+  - [Platform Teams](#platform-teams)
+  - [Enabling Teams](#enabling-teams)
+  - [Complicated Subsystem Teams](#complicated-subsystem-teams)
+- [Communication Patterns](#communication-patterns)
+  - [Team Interaction Modes](#team-interaction-modes)
+  - [Choosing Interaction Modes](#choosing-interaction-modes)
+- [The Inverse Conway Maneuver](#the-inverse-conway-maneuver)
+  - [Definition](#definition)
+  - [Process](#process)
+  - [Example: Monolith to Microservices](#example-monolith-to-microservices)
+- [1. Identify bounded contexts](#1-identify-bounded-contexts)
+- [2. Create teams per context](#2-create-teams-per-context)
+- [3. Teams extract their services](#3-teams-extract-their-services)
+- [Architecture emerges naturally](#architecture-emerges-naturally)
+- [Anti-Patterns Recognition Matrix](#anti-patterns-recognition-matrix)
+  - [Visual Anti-Pattern Detection](#visual-anti-pattern-detection)
+- [Scaling Patterns](#scaling-patterns)
+  - [Dunbar's Number](#dunbars-number)
+  - [Scaling Models](#scaling-models)
+- [Organizational Health Dashboard](#organizational-health-dashboard)
+  - [Team Effectiveness Metrics](#team-effectiveness-metrics)
+  - [Communication Overhead Analysis](#communication-overhead-analysis)
+  - [Conway Alignment Score](#conway-alignment-score)
+- [Best Practices](#best-practices)
+- [Case Study: Ride-Sharing Transformation](#case-study-ride-sharing-transformation)
+  - [Before: Functional Silos](#before-functional-silos)
+  - [After: Stream-Aligned Teams](#after-stream-aligned-teams)
+  - [Transformation Metrics](#transformation-metrics)
+- [Key Takeaways](#key-takeaways)
+
+
 
 **Conway's Law in action: You ship your org chart**
 
@@ -305,7 +381,7 @@ Single Team → Monolith
 ```
 **Transition:**
 ```python
-# 1. Identify bounded contexts
+## 1. Identify bounded contexts
 contexts = [
     "user_management",
     "order_processing",
@@ -313,7 +389,7 @@ contexts = [
     "notifications"
 ]
 
-# 2. Create teams per context
+## 2. Create teams per context
 for context in contexts:
     create_team(
         name=f"{context}_team",
@@ -321,8 +397,8 @@ for context in contexts:
         ownership=context
     )
 
-# 3. Teams extract their services
-# Architecture emerges naturally
+## 3. Teams extract their services
+## Architecture emerges naturally
 ```
 
 **After:**

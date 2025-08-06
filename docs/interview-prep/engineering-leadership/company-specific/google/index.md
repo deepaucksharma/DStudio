@@ -1,9 +1,51 @@
 ---
 title: Google
 description: Google overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Google Engineering Leadership Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Interview Process Structure](#interview-process-structure)
+  - [L6 (Staff) to L8 (Director+) Process](#l6-staff-to-l8-director-process)
+  - [Key Assessment Areas](#key-assessment-areas)
+- [Core Google Values for Leaders](#core-google-values-for-leaders)
+  - [1. Focus on the User](#1-focus-on-the-user)
+  - [2. Think 10x, Not 10%](#2-think-10x-not-10)
+  - [3. Technical Excellence](#3-technical-excellence)
+  - [4. Collaboration and Inclusion](#4-collaboration-and-inclusion)
+- [Technical Leadership Interview Deep Dive](#technical-leadership-interview-deep-dive)
+  - [System Design for Leaders](#system-design-for-leaders)
+  - [Architecture Review Scenarios](#architecture-review-scenarios)
+- [Googleyness Behavioral Interviews](#googleyness-behavioral-interviews)
+  - [Core Behavioral Areas](#core-behavioral-areas)
+    - [1. Collaboration Across Boundaries](#1-collaboration-across-boundaries)
+    - [2. Intellectual Humility](#2-intellectual-humility)
+    - [3. Conscientiousness](#3-conscientiousness)
+- [Level-Specific Expectations](#level-specific-expectations)
+  - [L6 (Staff Engineering Manager)](#l6-staff-engineering-manager)
+  - [L7 (Senior Staff/Principal Engineering Manager)](#l7-senior-staffprincipal-engineering-manager)
+  - [L8 (Director of Engineering)](#l8-director-of-engineering)
+- [Common Interview Questions](#common-interview-questions)
+  - [Technical Leadership](#technical-leadership)
+  - [Googleyness](#googleyness)
+  - [General Cognitive Ability](#general-cognitive-ability)
+- [Google-Specific Preparation Tips](#google-specific-preparation-tips)
+  - [Research Focus Areas](#research-focus-areas)
+  - [Interview Day Strategy](#interview-day-strategy)
+  - [Red Flags to Avoid](#red-flags-to-avoid)
+  - [Success Indicators](#success-indicators)
+- [Final Preparation Checklist](#final-preparation-checklist)
+  - [4 Weeks Before](#4-weeks-before)
+  - [2 Weeks Before](#2-weeks-before)
+  - [Day Of](#day-of)
+
+
 
 ## Overview
 

@@ -4,6 +4,25 @@ description: 'Think: Runbook = Recipe, Playbook = Cooking principles'
 type: human-factors
 difficulty: intermediate
 reading_time: 55 min
+prerequisites: 
+status: complete
+last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Runbooks & Playbooks
+
+
+
+## Overview
+
+Runbooks & Playbooks
+description: 'Think: Runbook = Recipe, Playbook = Cooking principles'
+type: human-factors
+difficulty: intermediate
+reading_time: 55 min
 prerequisites:
 - laws/axiom4-tradeoffs
 - laws/axiom6-human-api
@@ -14,6 +33,115 @@ last_updated: 2025-07-20
 
 
 # Runbooks & Playbooks
+
+## Table of Contents
+
+- [What's the Difference? Anatomy of a Great Runbook](#anatomy-of-a-great-runbook)
+  - [Essential Components](#essential-components)
+- [Service: Payment Gateway High Latency](#service-payment-gateway-high-latency)
+- [Quick Actions (First 5 minutes)](#quick-actions-first-5-minutes)
+- [Symptoms](#symptoms)
+- [Immediate Mitigation](#immediate-mitigation)
+- [1.
+
+**Reading time:** ~13 minutes
+
+## Table of Contents
+
+- [What's the Difference?](#whats-the-difference)
+- [Anatomy of a Great Runbook](#anatomy-of-a-great-runbook)
+  - [Essential Components](#essential-components)
+- [Service: Payment Gateway High Latency](#service-payment-gateway-high-latency)
+- [Quick Actions (First 5 minutes)](#quick-actions-first-5-minutes)
+- [Symptoms](#symptoms)
+- [Immediate Mitigation](#immediate-mitigation)
+- [1. Increase timeout temporarily](#1-increase-timeout-temporarily)
+- [2. Enable circuit breaker](#2-enable-circuit-breaker)
+- [3. Switch to degraded mode](#3-switch-to-degraded-mode)
+- [Investigation Steps](#investigation-steps)
+- [Resolution Paths](#resolution-paths)
+  - [Path A: Database Overload](#path-a-database-overload)
+  - [Path B: Third-party API Degradation](#path-b-third-party-api-degradation)
+  - [Path C: Memory Pressure](#path-c-memory-pressure)
+- [Rollback Procedures](#rollback-procedures)
+- [Revert to last known good version](#revert-to-last-known-good-version)
+- [Verification](#verification)
+- [Follow-up Actions](#follow-up-actions)
+  - [Key Elements](#key-elements)
+- [Runbook Best Practices](#runbook-best-practices)
+  - [1. Test Under Stress](#1-test-under-stress)
+- [Commands must be copy-pasteable](#commands-must-be-copy-pasteable)
+- [Links must work](#links-must-work)
+- [Conditions must be measurable](#conditions-must-be-measurable)
+  - [2. Keep Updated](#2-keep-updated)
+- [runbook-freshness.yaml](#runbook-freshnessyaml)
+- [Check all runbooks for staleness](#check-all-runbooks-for-staleness)
+- [Verify all commands still valid](#verify-all-commands-still-valid)
+  - [3. Runbook Driven Development](#3-runbook-driven-development)
+- [1. Write runbook](#1-write-runbook)
+- [2. Implement monitoring from runbook](#2-implement-monitoring-from-runbook)
+- [3. Build dashboards](#3-build-dashboards)
+- [4. Implement feature](#4-implement-feature)
+- [5. Verify runbook](#5-verify-runbook)
+- [Playbook Patterns](#playbook-patterns)
+  - [Investigation Playbook](#investigation-playbook)
+- [General Investigation Playbook](#general-investigation-playbook)
+- [Start Wide, Narrow Down](#start-wide-narrow-down)
+  - [1. Establish Timeline](#1-establish-timeline)
+  - [2. What Changed?](#2-what-changed)
+- [Recent deploys](#recent-deploys)
+- [Config changes](#config-changes)
+- [Infrastructure events](#infrastructure-events)
+  - [3. Blast Radius](#3-blast-radius)
+  - [4. Correlation Hunt](#4-correlation-hunt)
+- [Investigation Tools](#investigation-tools)
+  - [Distributed Grep](#distributed-grep)
+  - [Time Series Correlation](#time-series-correlation)
+  - [Hypothesis Testing](#hypothesis-testing)
+  - [Performance Playbook](#performance-playbook)
+- [Performance Investigation Playbook](#performance-investigation-playbook)
+- [Measure First](#measure-first)
+  - [2. Component Breakdown](#2-component-breakdown)
+  - [3. Resource Saturation](#3-resource-saturation)
+- [Common Bottlenecks](#common-bottlenecks)
+  - [N+1 Queries](#n1-queries)
+  - [Lock Contention](#lock-contention)
+  - [GC Pauses](#gc-pauses)
+- [Check GC logs](#check-gc-logs)
+  - [Incident Command Playbook](#incident-command-playbook)
+- [Major Incident Commander Playbook](#major-incident-commander-playbook)
+- [Immediate Actions (First 5 Minutes)](#immediate-actions-first-5-minutes)
+- [Running the Incident](#running-the-incident)
+  - [Battle Rhythm](#battle-rhythm)
+  - [Decision Framework](#decision-framework)
+  - [Communication Templates](#communication-templates)
+- [Incident Roles](#incident-roles)
+  - [Incident Commander](#incident-commander)
+  - [Tech Lead](#tech-lead)
+  - [Scribe](#scribe)
+  - [Communications Lead](#communications-lead)
+- [Automation Integration](#automation-integration)
+  - [Executable Runbooks](#executable-runbooks)
+  - [Executable Runbooks](#executable-runbooks)
+  - [ChatOps Integration](#chatops-integration)
+  - [ChatOps Integration](#chatops-integration)
+- [Runbook Library Structure](#runbook-library-structure)
+  - [Organization](#organization)
+- [Runbook Library Structure](#runbook-library-structure)
+  - [Organization](#organization)
+  - [Runbook Metadata](#runbook-metadata)
+  - [Runbook Metadata](#runbook-metadata)
+- [Testing Runbooks](#testing-runbooks)
+  - [Chaos Day Validation](#chaos-day-validation)
+- [Testing Runbooks](#testing-runbooks)
+  - [Chaos Day Validation](#chaos-day-validation)
+  - [Regular Drills](#regular-drills)
+  - [Regular Drills](#regular-drills)
+- [Best Practices](#best-practices)
+- [Metrics for Runbooks](#metrics-for-runbooks)
+- [Key Takeaways](#key-takeaways)
+
+
 
 **Turning chaos into checklist**
 
@@ -29,7 +157,7 @@ Runbook = Recipe, Playbook = Cooking principles
 ### Essential Components
 
 ```markdown
-# Service: Payment Gateway High Latency
+## Service: Payment Gateway High Latency
 
 ## Quick Actions (First 5 minutes)
 1. Check dashboard: https://dash.internal/payments
@@ -43,13 +171,13 @@ Runbook = Recipe, Playbook = Cooking principles
 
 ## Immediate Mitigation
 ```bash
-# 1. Increase timeout temporarily
+## 1. Increase timeout temporarily
 kubectl set env deployment/api-gateway PAYMENT_TIMEOUT=5000
 
-# 2. Enable circuit breaker
+## 2. Enable circuit breaker
 curl -X POST https://admin/circuit-breaker/payment/enable
 
-# 3. Switch to degraded mode
+## 3. Switch to degraded mode
 ./scripts/enable-cached-payment-tokens.sh
 ```proto
 ## Investigation Steps
@@ -99,10 +227,10 @@ Then:
 ## Rollback Procedures
 Last resort if mitigation fails:
 ```bash
-# Revert to last known good version
+## Revert to last known good version
 ./deploy/rollback.sh payment-gateway
 
-# Verification
+## Verification
 curl https://payment-gateway/health | jq .version
 ```bash
 ## Follow-up Actions
@@ -132,19 +260,19 @@ class RunbookValidator:
     def test_runbook(self, runbook_path):
         checks = []
 
-# Commands must be copy-pasteable
+## Commands must be copy-pasteable
         commands = extract_code_blocks(runbook_path)
         for cmd in commands:
             if has_placeholder(cmd):
                 checks.append(f"Command has placeholder: {cmd}")
 
-# Links must work
+## Links must work
         links = extract_links(runbook_path)
         for link in links:
             if not is_reachable(link):
                 checks.append(f"Dead link: {link}")
 
-# Conditions must be measurable
+## Conditions must be measurable
         if_thens = extract_conditionals(runbook_path)
         for condition in if_thens:
             if not is_measurable(condition):
@@ -156,7 +284,7 @@ class RunbookValidator:
 ### 2. Keep Updated
 
 ```yaml
-# runbook-freshness.yaml
+## runbook-freshness.yaml
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -174,13 +302,13 @@ spec:
             - python
             - -c
             - |
-# Check all runbooks for staleness
+## Check all runbooks for staleness
               for runbook in /runbooks/*.md:
                   last_modified = get_last_modified(runbook)
                   if days_ago(last_modified) > 90:
                       alert_team(f"{runbook} not updated in 90+ days")
 
-# Verify all commands still valid
+## Verify all commands still valid
                   test_runbook_commands(runbook)
 ```
 
@@ -190,21 +318,21 @@ Write runbook first:
 
 ```python
 def implement_feature(feature_name):
-# 1. Write runbook
+## 1. Write runbook
     runbook = write_operational_guide(feature_name)
 
-# 2. Implement monitoring from runbook
+## 2. Implement monitoring from runbook
     for alert in runbook.alerts_needed:
         implement_alert(alert)
 
-# 3. Build dashboards
+## 3. Build dashboards
     for metric in runbook.key_metrics:
         add_to_dashboard(metric)
 
-# 4. Implement feature
+## 4. Implement feature
     implement_actual_feature(feature_name)
 
-# 5. Verify runbook
+## 5. Verify runbook
     chaos_test_with_runbook(feature_name, runbook)
 ```
 
@@ -215,7 +343,7 @@ def implement_feature(feature_name):
 For when you don't know what's wrong:
 
 ```markdown
-# General Investigation Playbook
+## General Investigation Playbook
 
 ## Start Wide, Narrow Down
 
@@ -228,14 +356,14 @@ For when you don't know what's wrong:
 
 ### 2. What Changed?
 ```bash
-# Recent deploys
+## Recent deploys
 kubectl get deployments -A -o json | \
   jq '.items[] | select(.metadata.creationTimestamp > (now - 3600))'
 
-# Config changes
+## Config changes
 git log --since="2 hours ago" -- config/
 
-# Infrastructure events
+## Infrastructure events
 aws ec2 describe-instances --filters "Name=launch-time,Values=>2024-01-01"
 ```bash
 ### 3. Blast Radius
@@ -332,7 +460,7 @@ flowchart TD
 When things are slow:
 
 ```markdown
-# Performance Investigation Playbook
+## Performance Investigation Playbook
 
 ## Measure First
 Never assume - always measure:
@@ -443,7 +571,7 @@ WHERE waiting.wait_event_type = 'Lock';
 ### GC Pauses
 Symptom: Periodic freezes
 ```bash
-# Check GC logs
+## Check GC logs
 grep "Full GC" app.log | awk '{print $10}' | stats
 ```bash
 ```
@@ -453,7 +581,7 @@ grep "Full GC" app.log | awk '{print $10}' | stats
 For managing major incidents:
 
 ```markdown
-# Major Incident Commander Playbook
+## Major Incident Commander Playbook
 
 ## Immediate Actions (First 5 Minutes)
 

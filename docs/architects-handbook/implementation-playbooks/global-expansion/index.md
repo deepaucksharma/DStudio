@@ -1,6 +1,9 @@
 ---
 title: Global Expansion Playbook
 description: Implementation guide for global expansion
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Global Expansion Playbook

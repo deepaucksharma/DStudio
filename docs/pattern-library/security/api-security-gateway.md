@@ -123,11 +123,11 @@ Threat Intelligence:
 
 1. **Deploy Kong Gateway**
 ```bash
-# Install Kong on Kubernetes
+## Install Kong on Kubernetes
 kubectl create namespace kong
 kubectl apply -f https://bit.ly/kong-ingress-dbless
 
-# Configure basic gateway
+## Configure basic gateway
 kubectl apply -f - <<EOF
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
@@ -277,7 +277,7 @@ protocol: http
 
 1. **Security Monitoring**
 ```python
-# Security monitoring service
+## Security monitoring service
 import asyncio
 import logging
 from dataclasses import dataclass
@@ -371,7 +371,7 @@ class SecurityMonitor:
 
 2. **Analytics Dashboard**
 ```yaml
-# Prometheus metrics configuration
+## Prometheus metrics configuration
 monitoring:
   metrics:
     - name: api_requests_total

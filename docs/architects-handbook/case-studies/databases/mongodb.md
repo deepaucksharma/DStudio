@@ -46,6 +46,37 @@ excellence_guides:
 
 # MongoDB: Document Database at Scale
 
+## Table of Contents
+
+- [Why MongoDB Matters](#why-mongodb-matters)
+- [Architecture Overview](#architecture-overview)
+- [Core Design Decisions](#core-design-decisions)
+  - [1. Document Model](#1-document-model)
+  - [2. Replica Set Architecture](#2-replica-set-architecture)
+  - [3. Sharding Strategy](#3-sharding-strategy)
+- [Scaling Patterns](#scaling-patterns)
+  - [Horizontal Scaling with Sharding](#horizontal-scaling-with-sharding)
+  - [Read Scaling Patterns](#read-scaling-patterns)
+- [Production Challenges](#production-challenges)
+  - [Challenge 1: The Shard Key Mistake](#challenge-1-the-shard-key-mistake)
+  - [Challenge 2: Unbounded Array Growth](#challenge-2-unbounded-array-growth)
+  - [Challenge 3: Multi-Document Transactions](#challenge-3-multi-document-transactions)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring Critical Metrics](#monitoring-critical-metrics)
+  - [Backup Strategies](#backup-strategies)
+- [Best Practices](#best-practices)
+  - [Schema Design Patterns](#schema-design-patterns)
+- [Modern Features](#modern-features)
+  - [Change Streams](#change-streams)
+  - [Aggregation Pipeline](#aggregation-pipeline)
+- [Decision Framework](#decision-framework)
+  - [When to Use MongoDB](#when-to-use-mongodb)
+- [Lessons Learned](#lessons-learned)
+- [Related Topics](#related-topics)
+- [References](#references)
+
+
+
 !!! abstract "The MongoDB Story"
     **🎯 Single Achievement**: Popularized document databases for developers
     **📊 Scale**: Baidu: 1,000+ node cluster, 10PB+ data

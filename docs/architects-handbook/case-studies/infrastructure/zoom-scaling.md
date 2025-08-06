@@ -316,7 +316,7 @@ graph LR
 ### Server Resource Management
 
 ```python
-# CPU allocation strategy
+## CPU allocation strategy
 class ResourceAllocator:
     def allocate_meeting_resources(self, meeting_size):
         if meeting_size <= 10:

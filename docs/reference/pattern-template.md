@@ -47,7 +47,7 @@ related_pillars: [work, state, truth, control, intelligence]
 
 ### 1. Pattern Header
 ```markdown
-# Pattern Name
+## Pattern Name
 
 !!! success "🏆 Gold Standard Pattern" OR !!! info "🥈 Silver Tier Pattern" OR !!! warning "🥉 Bronze Tier Pattern"
     **Brief tagline** • Companies using it at scale

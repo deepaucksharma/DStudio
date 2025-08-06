@@ -1,10 +1,47 @@
 ---
-title: The Engineering Leadership Framework: A First-Principles Synthesis
-description: > A comprehensive framework integrating elite business school principles with engineering leadership practice
+title: "The Engineering Leadership Framework: A First-Principles Synthesis"
+description: "A comprehensive framework integrating elite business school principles with engineering leadership practice for technical leaders."
 type: interview-guide
+category: interview-prep
+tags: ["interview-prep"]
+date: 2025-08-07
 ---
 
 # The Engineering Leadership Framework: A First-Principles Synthesis
+
+## Table of Contents
+
+- [Overview](#overview)
+- [The Four-Level Architecture](#the-four-level-architecture)
+- [Level I: First Principles (The Foundational "Why")](#level-i-first-principles-the-foundational-why)
+  - [1. [Value Creation](../interview-prep/engineering-leadership/level-1-first-principles/value-creation/)](#1-value-creationinterview-prepengineering-leadershiplevel-1-first-principlesvalue-creation)
+  - [2. [Decision-Making](../interview-prep/engineering-leadership/level-1-first-principles/decision-making/)](#2-decision-makinginterview-prepengineering-leadershiplevel-1-first-principlesdecision-making)
+  - [3. [Human Behavior](../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/)](#3-human-behaviorinterview-prepengineering-leadershiplevel-1-first-principleshuman-behavior)
+  - [4. [Systems Thinking](../interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/)](#4-systems-thinkinginterview-prepengineering-leadershiplevel-1-first-principlessystems-thinking)
+  - [5. [Integrity & Ethics](../interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/)](#5-integrity-ethicsinterview-prepengineering-leadershiplevel-1-first-principlesintegrity-ethics)
+- [Level II: Core Business Concepts (The Strategic "How")](#level-ii-core-business-concepts-the-strategic-how)
+- [Level III: Engineering Leadership Applications (The Practical "What")](#level-iii-engineering-leadership-applications-the-practical-what)
+  - [1. [People Management](../interview-prep/engineering-leadership/level-3-applications/people-management/)](#1-people-managementinterview-prepengineering-leadershiplevel-3-applicationspeople-management)
+  - [2. [Technical Leadership & Strategy](../interview-prep/engineering-leadership/level-3-applications/technical-leadership/)](#2-technical-leadership-strategyinterview-prepengineering-leadershiplevel-3-applicationstechnical-leadership)
+  - [3. [Organizational Design & Scaling](../interview-prep/engineering-leadership/level-3-applications/organizational-design/)](#3-organizational-design-scalinginterview-prepengineering-leadershiplevel-3-applicationsorganizational-design)
+  - [4. [Business Acumen & Cross-Functional](../interview-prep/engineering-leadership/level-3-applications/business-acumen/)](#4-business-acumen-cross-functionalinterview-prepengineering-leadershiplevel-3-applicationsbusiness-acumen)
+- [Level IV: Interview Preparation & Execution (The "Proof")](#level-iv-interview-preparation-execution-the-proof)
+  - [A. [What Each Interview Type Proves](../interview-prep/engineering-leadership/level-4-interview-execution/)](#a-what-each-interview-type-provesinterview-prepengineering-leadershiplevel-4-interview-execution)
+  - [B. Your Execution Toolkit](#b-your-execution-toolkit)
+    - [[The STAR-I+ Framework](../interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/)](#the-star-i-frameworkinterview-prepengineering-leadershiplevel-4-interview-executiontoolsstar-framework)
+    - [[Portfolio of 8-10 Signature Stories](../interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/)](#portfolio-of-8-10-signature-storiesinterview-prepengineering-leadershiplevel-4-interview-executiontoolsstory-portfolio)
+    - [[First-Principle Hooks](../interview-prep/engineering-leadership/level-4-interview-execution/tools/principle-hooks/)](#first-principle-hooksinterview-prepengineering-leadershiplevel-4-interview-executiontoolsprinciple-hooks)
+    - [[Interactive Practice Tools](../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/)](#interactive-practice-toolsinterview-prepengineering-leadershiplevel-4-interview-executiontoolsinteractive)
+- [Navigation Guide](#navigation-guide)
+  - [Quick Overview by Experience Level](#quick-overview-by-experience-level)
+  - [By Interview Timeline](#by-interview-timeline)
+  - [By Learning Style](#by-learning-style)
+- [The Integration Challenge](#the-integration-challenge)
+- [Cross-Level Examples](#cross-level-examples)
+  - [Example: Building a Platform Team](#example-building-a-platform-team)
+- [Beyond the Framework: Hard-Earned Wisdom](#beyond-the-framework-hard-earned-wisdom)
+
+
 
 > A comprehensive framework integrating elite business school principles with engineering leadership practice
 

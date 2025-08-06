@@ -1,6 +1,10 @@
 ---
 title: Amazon Dynamo
 redirect_to: /architects-handbook/case-studies/databases/amazon-dynamo/
+description: Documentation for Amazon Dynamo
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Amazon Dynamo

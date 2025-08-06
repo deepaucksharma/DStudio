@@ -4,6 +4,25 @@ description: Build a scalable ML model serving platform for real-time and batch 
 type: system-design-problem
 difficulty: advanced
 reading_time: 60 min
+prerequisites: 
+status: complete
+last_updated: 2025-08-04
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
+---
+
+# Design a Machine Learning Serving System
+
+
+
+## Overview
+
+Design a Machine Learning Serving System
+description: Build a scalable ML model serving platform for real-time and batch inference
+type: system-design-problem
+difficulty: advanced
+reading_time: 60 min
 prerequisites:
 - pattern-library/model-versioning
 - pattern-library/feature-store
@@ -13,6 +32,79 @@ last_updated: 2025-08-04
 ---
 
 # Design a Machine Learning Serving System
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Model Complexity Challenges](#model-complexity-challenges)
+  - [Performance Requirements](#performance-requirements)
+  - [Operational Complexity](#operational-complexity)
+  - [Data Pipeline Integration](#data-pipeline-integration)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Services Architecture](#core-services-architecture)
+    - [1. Model Registry Service](#1-model-registry-service)
+    - [2.
+
+**Reading time:** ~9 minutes
+
+## Table of Contents
+
+- [Problem Statement](#problem-statement)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Key Considerations & Constraints](#key-considerations-constraints)
+  - [Model Complexity Challenges](#model-complexity-challenges)
+  - [Performance Requirements](#performance-requirements)
+  - [Operational Complexity](#operational-complexity)
+  - [Data Pipeline Integration](#data-pipeline-integration)
+- [High-Level Architecture Approach](#high-level-architecture-approach)
+  - [System Architecture](#system-architecture)
+  - [Core Services Architecture](#core-services-architecture)
+    - [1. Model Registry Service](#1-model-registry-service)
+    - [2. Online Serving Service](#2-online-serving-service)
+    - [3. Feature Store Service](#3-feature-store-service)
+  - [Data Models](#data-models)
+    - [Model Registry Schema](#model-registry-schema)
+    - [Feature Store Schema](#feature-store-schema)
+    - [Monitoring Schema](#monitoring-schema)
+- [Relevant Patterns from Pattern Library](#relevant-patterns-from-pattern-library)
+  - [Core Patterns](#core-patterns)
+    - [1. Model Versioning & Registry](#1-model-versioning-registry)
+    - [2. Feature Store](#2-feature-store)
+    - [3. Circuit Breaker](#3-circuit-breaker)
+    - [4. Load Balancing](#4-load-balancing)
+  - [Supporting Patterns](#supporting-patterns)
+    - [5. API Gateway](#5-api-gateway)
+    - [6. Caching](#6-caching)
+    - [7. Event Sourcing](#7-event-sourcing)
+    - [8. Bulkhead Pattern](#8-bulkhead-pattern)
+- [Common Pitfalls to Avoid](#common-pitfalls-to-avoid)
+  - [1. Training-Serving Skew](#1-training-serving-skew)
+  - [2. Model Version Chaos](#2-model-version-chaos)
+  - [3. Cold Start Latency](#3-cold-start-latency)
+  - [4. Resource Overprovisioning](#4-resource-overprovisioning)
+  - [5. Data Drift Blindness](#5-data-drift-blindness)
+- [What Interviewers Look For](#what-interviewers-look-for)
+  - [Architecture Design (30%)](#architecture-design-30)
+  - [ML-Specific Knowledge (25%)](#ml-specific-knowledge-25)
+  - [Operational Excellence (25%)](#operational-excellence-25)
+  - [Real-time Systems (20%)](#real-time-systems-20)
+- [Advanced Follow-up Questions](#advanced-follow-up-questions)
+  - [Model Optimization & Acceleration](#model-optimization-acceleration)
+  - [Multi-Model Serving](#multi-model-serving)
+  - [A/B Testing & Experimentation](#ab-testing-experimentation)
+  - [Feature Store Architecture](#feature-store-architecture)
+- [Key Metrics to Monitor](#key-metrics-to-monitor)
+  - [Model Performance Metrics](#model-performance-metrics)
+  - [Infrastructure Metrics](#infrastructure-metrics)
+  - [Data Quality Metrics](#data-quality-metrics)
+  - [Business Metrics](#business-metrics)
+
+
 
 ## Problem Statement
 

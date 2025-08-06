@@ -1,10 +1,62 @@
 ---
-title: Level-Specific IC Behavioral Preparation
-description: **Primary Emphasis**: Execution, learning, basic collaboration - **Technical Growth**: Demonstrating rapid learning and skill development
+title: "Level-Specific IC Behavioral Preparation"
+description: "Behavioral interview preparation tailored by career level, from junior engineers focused on execution and learning to senior engineers demonstrating technical leadership."
 type: interview-guide
+category: interview-prep
+tags: ["interview-prep"]
+date: 2025-08-07
+reading_time: "10 min"
 ---
 
 # Level-Specific IC Behavioral Preparation
+
+**Reading time:** ~10 minutes
+
+## Table of Contents
+
+- [L3 (Junior/Mid-Level) - SDE I/II, E3/E4](#l3-juniormid-level-sde-iii-e3e4)
+  - [Focus Areas](#focus-areas)
+  - [Key Behavioral Themes](#key-behavioral-themes)
+    - [1. Learning Agility](#1-learning-agility)
+    - [2. Code Quality and Ownership](#2-code-quality-and-ownership)
+    - [3. Collaboration Within Team](#3-collaboration-within-team)
+  - [L3 Success Patterns](#l3-success-patterns)
+    - [Technical Competence](#technical-competence)
+    - [Collaboration Skills](#collaboration-skills)
+    - [Growth Mindset](#growth-mindset)
+  - [Common L3 Mistakes](#common-l3-mistakes)
+  - [L3 Story Portfolio](#l3-story-portfolio)
+- [L4 (Senior) - SDE III, E5](#l4-senior-sde-iii-e5)
+  - [Focus Areas](#focus-areas)
+  - [Key Behavioral Themes](#key-behavioral-themes)
+    - [1. Technical Leadership](#1-technical-leadership)
+    - [2. Mentoring and Knowledge Sharing](#2-mentoring-and-knowledge-sharing)
+    - [3. Cross-Team Collaboration](#3-cross-team-collaboration)
+  - [L4 Success Patterns](#l4-success-patterns)
+    - [Technical Leadership](#technical-leadership)
+    - [People Impact](#people-impact)
+    - [Project Ownership](#project-ownership)
+  - [Common L4 Mistakes](#common-l4-mistakes)
+- [L5 (Staff/Principal) - Senior SDE, E6/E7](#l5-staffprincipal-senior-sde-e6e7)
+  - [Focus Areas](#focus-areas)
+  - [Key Behavioral Themes](#key-behavioral-themes)
+    - [1. Strategic Technical Leadership](#1-strategic-technical-leadership)
+    - [2. Cross-Organizational Influence](#2-cross-organizational-influence)
+    - [3. Complex Problem Solving](#3-complex-problem-solving)
+  - [L5 Success Patterns](#l5-success-patterns)
+    - [Strategic Impact](#strategic-impact)
+    - [Organizational Influence](#organizational-influence)
+    - [Complex Systems](#complex-systems)
+  - [Common L5 Mistakes](#common-l5-mistakes)
+  - [L5 Story Portfolio](#l5-story-portfolio)
+- [Level Transition Indicators](#level-transition-indicators)
+  - [L3 → L4 Transition Signs](#l3-l4-transition-signs)
+  - [L4 → L5 Transition Signs](#l4-l5-transition-signs)
+- [Interview Preparation by Level](#interview-preparation-by-level)
+  - [Story Portfolio Recommendations](#story-portfolio-recommendations)
+  - [Practice Recommendations](#practice-recommendations)
+
+
 
 ## L3 (Junior/Mid-Level) - SDE I/II, E3/E4
 

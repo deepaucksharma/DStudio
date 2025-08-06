@@ -86,7 +86,7 @@ flowchart TD
 **System Flow:** Input → Processing → Output
 
 python
-# Production-ready Snowflake
+## Production-ready Snowflake
 class SnowflakeGenerator:
 **Implementation available in production systems**
 
@@ -96,3 +96,5 @@ graph TD
 
 ```
 
+
+```

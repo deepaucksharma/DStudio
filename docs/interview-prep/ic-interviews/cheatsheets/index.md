@@ -1,9 +1,47 @@
 ---
 title: Cheatsheets
 description: Cheatsheets overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # System Design Cheatsheets
+
+## Table of Contents
+
+- [Overview](#overview)
+- [📚 Essential Cheatsheets](#-essential-cheatsheets)
+- [📊 Numbers Every Engineer Should Know](#-numbers-every-engineer-should-know)
+  - [Latency Numbers (2024)](#latency-numbers-2024)
+  - [Capacity Planning](#capacity-planning)
+  - [Data Sizes](#data-sizes)
+- [🏗️ System Design Patterns](#-system-design-patterns)
+  - [Scalability Patterns](#scalability-patterns)
+  - [Reliability Patterns](#reliability-patterns)
+  - [Data Patterns](#data-patterns)
+- [🎯 Decision Trees](#-decision-trees)
+  - [Database Selection](#database-selection)
+  - [Caching Strategy](#caching-strategy)
+  - [Communication Pattern](#communication-pattern)
+- [📐 Architecture Templates](#-architecture-templates)
+  - [Basic 3-Tier](#basic-3-tier)
+  - [Microservices](#microservices)
+  - [Real-time System](#real-time-system)
+- [🔧 Technology Choices](#-technology-choices)
+  - [Message Queues](#message-queues)
+  - [Databases](#databases)
+  - [Load Balancers](#load-balancers)
+- [⚡ Quick Formulas](#-quick-formulas)
+  - [Availability](#availability)
+  - [Little's Law](#littles-law)
+  - [Storage](#storage)
+  - [Bandwidth](#bandwidth)
+- [🚀 Interview Tips](#-interview-tips)
+  - [Do's](#dos)
+  - [Don'ts](#donts)
+
+
 
 Quick reference guides for system design interviews.
 

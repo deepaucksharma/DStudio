@@ -1,6 +1,26 @@
 ---
 title: CAP Theorem Deep-Dive
 description: 'The fundamental trade-off in distributed systems: you can have at most
+type: quantitative
+difficulty: intermediate
+reading_time: 45 min
+prerequisites: 
+pattern_type: fundamental-theorem
+status: complete
+last_updated: 2025-01-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# CAP Theorem Deep-Dive
+
+
+
+## Overview
+
+CAP Theorem Deep-Dive
+description: 'The fundamental trade-off in distributed systems: you can have at most
   two of Consistency, Availability, and Partition tolerance'
 type: quantitative
 difficulty: intermediate
@@ -16,6 +36,83 @@ last_updated: 2025-01-23
 
 
 # CAP Theorem Deep-Dive
+
+## Table of Contents
+
+- [The Trade-off in Action: Real Examples](#the-trade-off-in-action-real-examples)
+  - [Banking System (CP Choice)](#banking-system-cp-choice)
+  - [Social Media (AP Choice)  ](#social-media-ap-choice-)
+  - [Production Impact: The Cost of Choices](#production-impact-the-cost-of-choices)
+- [The Mathematical Foundation](#the-mathematical-foundation)
+  - [Formal Proof Sketch](#formal-proof-sketch)
+- [CAP Combinations in Practice](#cap-combinations-in-practice)
+  - [CP Systems (Consistency + Partition Tolerance)](#cp-systems-consistency-partition-tolerance)
+  - [AP Systems (Availability + Partition Tolerance)](#ap-systems-availability-partition-tolerance)
+  - [CA Systems (Consistency + Availability)](#ca-systems-consistency-availability)
+- [Quantifying CAP Trade-offs](#quantifying-cap-trade-offs)
+  - [Consistency Cost Calculator](#consistency-cost-calculator)
+  - [Availability Calculation](#availability-calculation)
+- [PACELC Extension](#pacelc-extension)
+- [Real-World CAP Decisions](#real-world-cap-decisions)
+  - [Banking System Design](#banking-system-design)
+  - [E-commerce Platform](#e-commerce-platform)
+- [Practical CAP Calculations](#practical-cap-calculations)
+  - [Network Partition Probability](#network-partition-probability)
+  - [Consistency Window Calculator](#consistency-window-calculator)
+- [CAP in Modern Systems](#cap-in-modern-systems)
+  - [Multi-Region Deployments](#multi-region-deployments)
+  - [Tunable Consistency](#tunable-consistency)
+- [Key Takeaways](#key-takeaways)
+- [Related Topics](#related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns](#related-patterns)
+  - [Quantitative Analysis](#quantitative-analysis)
+  - [Case Studies](#case-studies)
+  - [Further Reading](#further-reading)
+
+
+
+**The impossible trinity of distributed systems**
+
+! Eric Brewer's Insight (PODC 2000)"
+    "The CAP theorem states that any networked shared-data system can have at most two of three desirable properties: consistency, availability, and partition tolerance.
+
+**Reading time:** ~11 minutes
+
+## Table of Contents
+
+- [The Trade-off in Action: Real Examples](#the-trade-off-in-action-real-examples)
+  - [Banking System (CP Choice)](#banking-system-cp-choice)
+  - [Social Media (AP Choice)  ](#social-media-ap-choice-)
+  - [Production Impact: The Cost of Choices](#production-impact-the-cost-of-choices)
+- [The Mathematical Foundation](#the-mathematical-foundation)
+  - [Formal Proof Sketch](#formal-proof-sketch)
+- [CAP Combinations in Practice](#cap-combinations-in-practice)
+  - [CP Systems (Consistency + Partition Tolerance)](#cp-systems-consistency-partition-tolerance)
+  - [AP Systems (Availability + Partition Tolerance)](#ap-systems-availability-partition-tolerance)
+  - [CA Systems (Consistency + Availability)](#ca-systems-consistency-availability)
+- [Quantifying CAP Trade-offs](#quantifying-cap-trade-offs)
+  - [Consistency Cost Calculator](#consistency-cost-calculator)
+  - [Availability Calculation](#availability-calculation)
+- [PACELC Extension](#pacelc-extension)
+- [Real-World CAP Decisions](#real-world-cap-decisions)
+  - [Banking System Design](#banking-system-design)
+  - [E-commerce Platform](#e-commerce-platform)
+- [Practical CAP Calculations](#practical-cap-calculations)
+  - [Network Partition Probability](#network-partition-probability)
+  - [Consistency Window Calculator](#consistency-window-calculator)
+- [CAP in Modern Systems](#cap-in-modern-systems)
+  - [Multi-Region Deployments](#multi-region-deployments)
+  - [Tunable Consistency](#tunable-consistency)
+- [Key Takeaways](#key-takeaways)
+- [Related Topics](#related-topics)
+  - [Related Laws](#related-laws)
+  - [Related Patterns](#related-patterns)
+  - [Quantitative Analysis](#quantitative-analysis)
+  - [Case Studies](#case-studies)
+  - [Further Reading](#further-reading)
+
+
 
 **The impossible trinity of distributed systems**
 

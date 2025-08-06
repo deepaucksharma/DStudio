@@ -1,6 +1,25 @@
 ---
 title: SRE Practices
 description: Site Reliability Engineering treats operations as a software problem
+type: human-factors
+difficulty: beginner
+reading_time: 25 min
+prerequisites: 
+status: complete
+last_updated: 2025-07-23
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# SRE Practices
+
+
+
+## Overview
+
+SRE Practices
+description: Site Reliability Engineering treats operations as a software problem
   while respecting cognitive limits
 type: human-factors
 difficulty: beginner
@@ -13,6 +32,89 @@ last_updated: 2025-07-23
 
 
 # SRE Practices
+
+## Table of Contents
+
+- [Core SRE Tenets (Aligned with Law 6: Human-API)](#core-sre-tenets-aligned-with-law-6-human-api)
+- [Error Budgets](#error-budgets)
+  - [The Fundamental Equation](#the-fundamental-equation)
+  - [Real-World Error Budget Examples](#real-world-error-budget-examples)
+  - [Using Error Budgets](#using-error-budgets)
+  - [Error Budget Policy Decision Tree](#error-budget-policy-decision-tree)
+- [SLI/SLO/SLA Hierarchy](#slislosla-hierarchy)
+  - [Visual Workflow: SLI/SLO/SLA Relationship](#visual-workflow-slislosla-relationship)
+  - [Choosing Good SLIs](#choosing-good-slis)
+  - [Setting SLOs](#setting-slos)
+- [Toil Elimination](#toil-elimination)
+  - [What is Toil? Toil Budget](#toil-budget)
+  - [Automation Examples](#automation-examples)
+- [On-Call Excellence](#on-call-excellence)
+  - [On-Call Principles](#on-call-principles)
+  - [Effective Handoffs (Cognitive Load Transfer)](#effective-handoffs-cognitive-load-transfer)
+  - [Alert Quality (Respecting Cognitive Load)](#alert-quality-respecting-cognitive-load)
+- [Postmortem Culture](#postmortem-culture)
+  - [Blameless Postmortems](#blameless-postmortems)
+  - [Postmortem Metrics (Cognitive Load Indicators)](#postmortem-metrics-cognitive-load-indicators)
+- [Change Management](#change-management)
+  - [Safe Changes](#safe-changes)
+  - [Progressive Rollouts](#progressive-rollouts)
+- [Capacity Planning](#capacity-planning)
+  - [Forecasting Model](#forecasting-model)
+  - [Leading Indicators](#leading-indicators)
+- [SRE Tools & Practices](#sre-tools-practices)
+  - [Chaos Engineering](#chaos-engineering)
+  - [Observability](#observability)
+  - [Runbooks](#runbooks)
+- [Best Practices (Law 6: Human-API Aware)](#best-practices-law-6-human-api-aware)
+- [Key Takeaways (Grounded in Law 6)](#key-takeaways-grounded-in-law-6)
+
+
+
+**Running systems reliably at scale while respecting Law 6: Human-API 🤯**
+
+## Core SRE Tenets (Aligned with Law 6: Human-API)
+
+1.
+
+**Reading time:** ~13 minutes
+
+## Table of Contents
+
+- [Core SRE Tenets (Aligned with Law 6: Human-API)](#core-sre-tenets-aligned-with-law-6-human-api)
+- [Error Budgets](#error-budgets)
+  - [The Fundamental Equation](#the-fundamental-equation)
+  - [Real-World Error Budget Examples](#real-world-error-budget-examples)
+  - [Using Error Budgets](#using-error-budgets)
+  - [Error Budget Policy Decision Tree](#error-budget-policy-decision-tree)
+- [SLI/SLO/SLA Hierarchy](#slislosla-hierarchy)
+  - [Visual Workflow: SLI/SLO/SLA Relationship](#visual-workflow-slislosla-relationship)
+  - [Choosing Good SLIs](#choosing-good-slis)
+  - [Setting SLOs](#setting-slos)
+- [Toil Elimination](#toil-elimination)
+  - [What is Toil?](#what-is-toil)
+  - [Toil Budget](#toil-budget)
+  - [Automation Examples](#automation-examples)
+- [On-Call Excellence](#on-call-excellence)
+  - [On-Call Principles](#on-call-principles)
+  - [Effective Handoffs (Cognitive Load Transfer)](#effective-handoffs-cognitive-load-transfer)
+  - [Alert Quality (Respecting Cognitive Load)](#alert-quality-respecting-cognitive-load)
+- [Postmortem Culture](#postmortem-culture)
+  - [Blameless Postmortems](#blameless-postmortems)
+  - [Postmortem Metrics (Cognitive Load Indicators)](#postmortem-metrics-cognitive-load-indicators)
+- [Change Management](#change-management)
+  - [Safe Changes](#safe-changes)
+  - [Progressive Rollouts](#progressive-rollouts)
+- [Capacity Planning](#capacity-planning)
+  - [Forecasting Model](#forecasting-model)
+  - [Leading Indicators](#leading-indicators)
+- [SRE Tools & Practices](#sre-tools-practices)
+  - [Chaos Engineering](#chaos-engineering)
+  - [Observability](#observability)
+  - [Runbooks](#runbooks)
+- [Best Practices (Law 6: Human-API Aware)](#best-practices-law-6-human-api-aware)
+- [Key Takeaways (Grounded in Law 6)](#key-takeaways-grounded-in-law-6)
+
+
 
 **Running systems reliably at scale while respecting Law 6: Human-API 🤯**
 

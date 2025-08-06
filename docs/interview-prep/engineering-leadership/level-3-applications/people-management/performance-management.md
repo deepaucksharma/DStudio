@@ -2,9 +2,69 @@
 title: Performance Management: Beyond the HR Fairy Tales
 description: HR will tell you performance management is about "growth and development." The reality? It's about protecting the company from lawsuits while getting
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Performance Management: Beyond the HR Fairy Tales
+
+
+
+## Overview
+
+Performance Management: Beyond the HR Fairy Tales
+description: HR will tell you performance management is about "growth and development. The reality?
+
+**Reading time:** ~9 minutes
+
+## Table of Contents
+
+- [The Ugly Truth About Performance](#the-ugly-truth-about-performance)
+- [🎭 The Performance Theater](#-the-performance-theater)
+  - [The Annual Review Charade](#the-annual-review-charade)
+- [💀 The PIP Reality: Performance Improvement or Pathway to Exit?](#-the-pip-reality-performance-improvement-or-pathway-to-exit)
+  - [The Truth About PIPs](#the-truth-about-pips)
+  - [The Three Types of PIPs](#the-three-types-of-pips)
+    - [1. The Legal CYA PIP](#1-the-legal-cya-pip)
+    - [2. The Wake-Up Call PIP](#2-the-wake-up-call-pip)
+    - [3. The Political PIP](#3-the-political-pip)
+  - [The PIP Playbook](#the-pip-playbook)
+    - [Week -4: Pre-PIP Preparation](#week-4-pre-pip-preparation)
+    - [Week 0: PIP Delivery](#week-0-pip-delivery)
+    - [During PIP: The Delicate Balance](#during-pip-the-delicate-balance)
+    - [PIP Outcomes](#pip-outcomes)
+- [🗡️ Managing Out: The Other Dark Arts](#-managing-out-the-other-dark-arts)
+  - [The Brilliant Jerk Dilemma](#the-brilliant-jerk-dilemma)
+  - [The Founder's Friend Problem](#the-founders-friend-problem)
+  - [The Political Hire](#the-political-hire)
+- [😈 The Calibration Game](#-the-calibration-game)
+  - [How Stack Ranking Really Works](#how-stack-ranking-really-works)
+  - [Winning at Calibration](#winning-at-calibration)
+- [🎪 The Promotion Circus](#-the-promotion-circus)
+  - [Why Promotions Really Happen](#why-promotions-really-happen)
+  - [The Promotion Packet Reality](#the-promotion-packet-reality)
+- [Promotion Justification: [Name] to [Level]](#promotion-justification-name-to-level)
+- [Executive Summary](#executive-summary)
+- [Business Impact](#business-impact)
+- [Scope Expansion](#scope-expansion)
+- [Leadership Evidence](#leadership-evidence)
+- [Retention Risk](#retention-risk)
+- [Peer Comparison](#peer-comparison)
+- [💔 The Termination Talk](#-the-termination-talk)
+  - [The Most Humane Way to Fire Someone](#the-most-humane-way-to-fire-someone)
+- [🛡️ Protecting Yourself](#-protecting-yourself)
+  - [Document Everything](#document-everything)
+  - [The Paper Trail](#the-paper-trail)
+- [📖 Lessons from the Trenches](#-lessons-from-the-trenches)
+  - [The Time I Didn't Fire Someone Fast Enough](#the-time-i-didnt-fire-someone-fast-enough)
+  - [The PIP That Actually Worked](#the-pip-that-actually-worked)
+  - [The Brilliant Jerk I Couldn't Save](#the-brilliant-jerk-i-couldnt-save)
+- [🎯 Final Truths](#-final-truths)
+  - [The Three Rules of Performance Management](#the-three-rules-of-performance-management)
+  - [The Ultimate Reality](#the-ultimate-reality)
+
+
 
 ## The Ugly Truth About Performance
 
@@ -261,7 +321,7 @@ Everyone: "How about that guy who's leaving anyway?"
 
 **What Goes in the Packet**:
 ```markdown
-# Promotion Justification: [Name] to [Level]
+## Promotion Justification: [Name] to [Level]
 
 ## Executive Summary
 One paragraph hitting: business impact, scope increase, 

@@ -2,9 +2,104 @@
 title: Performance Management: Beyond the HR Fairy Tales
 description: HR will tell you performance management is about "growth and development." The reality? It's about protecting the company from lawsuits while getting
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Performance Management: Beyond the HR Fairy Tales
+
+
+
+## Overview
+
+Performance Management: Beyond the HR Fairy Tales
+description: HR will tell you performance management is about "growth and development. The reality?
+
+**Reading time:** ~20 minutes
+
+## Table of Contents
+
+- [The Ugly Truth About Performance](#the-ugly-truth-about-performance)
+- [🔄 Framework Integration: Where Theory Meets Reality](#-framework-integration-where-theory-meets-reality)
+  - [How Performance Management Challenges Core Principles](#how-performance-management-challenges-core-principles)
+    - [Human Behavior Reality](#human-behavior-reality)
+    - [Value Creation Paradox](#value-creation-paradox)
+    - [Operations vs. Leadership Tension](#operations-vs-leadership-tension)
+- [🚨 When Principles Collide: The Impossible Choices](#-when-principles-collide-the-impossible-choices)
+  - [Fairness vs. Business Needs](#fairness-vs-business-needs)
+  - [Transparency vs. Confidentiality](#transparency-vs-confidentiality)
+- [🎭 The Performance Theater](#-the-performance-theater)
+  - [The Annual Review Charade](#the-annual-review-charade)
+- [💀 The PIP Reality: Performance Improvement or Pathway to Exit?](#-the-pip-reality-performance-improvement-or-pathway-to-exit)
+  - [The Truth About PIPs](#the-truth-about-pips)
+  - [The Complex Scenarios Nobody Talks About](#the-complex-scenarios-nobody-talks-about)
+    - [Managing Out a Co-Founder](#managing-out-a-co-founder)
+    - [The Protected Class Termination](#the-protected-class-termination)
+    - [The High Performer Having a Breakdown](#the-high-performer-having-a-breakdown)
+  - [The Three Types of PIPs](#the-three-types-of-pips)
+    - [1. The Legal CYA PIP](#1-the-legal-cya-pip)
+    - [2. The Wake-Up Call PIP](#2-the-wake-up-call-pip)
+    - [3. The Political PIP](#3-the-political-pip)
+  - [The PIP Playbook](#the-pip-playbook)
+    - [Week -4: Pre-PIP Preparation](#week-4-pre-pip-preparation)
+    - [Week 0: PIP Delivery](#week-0-pip-delivery)
+    - [During PIP: The Delicate Balance](#during-pip-the-delicate-balance)
+    - [PIP Outcomes](#pip-outcomes)
+- [💸 The Hidden Costs: What Nobody Calculates](#-the-hidden-costs-what-nobody-calculates)
+  - [The Survivor Guilt Syndrome](#the-survivor-guilt-syndrome)
+  - [Team Morale Trajectory](#team-morale-trajectory)
+- [🗡️ Managing Out: The Other Dark Arts](#-managing-out-the-other-dark-arts)
+  - [🎓 Level-Specific Wisdom: What You Learn When](#-level-specific-wisdom-what-you-learn-when)
+    - [Senior Manager Level](#senior-manager-level)
+    - [Director Level](#director-level)
+    - [VP Level](#vp-level)
+    - [C-Level](#c-level)
+  - [The Brilliant Jerk Dilemma](#the-brilliant-jerk-dilemma)
+  - [The Founder's Friend Problem](#the-founders-friend-problem)
+  - [The Political Hire](#the-political-hire)
+- [😈 The Calibration Game](#-the-calibration-game)
+  - [How Stack Ranking Really Works](#how-stack-ranking-really-works)
+  - [Winning at Calibration](#winning-at-calibration)
+- [🎪 The Promotion Circus](#-the-promotion-circus)
+  - [Why Promotions Really Happen](#why-promotions-really-happen)
+  - [The Promotion Packet Reality](#the-promotion-packet-reality)
+- [Promotion Justification: [Name] to [Level]](#promotion-justification-name-to-level)
+- [Executive Summary](#executive-summary)
+- [Business Impact](#business-impact)
+- [Scope Expansion](#scope-expansion)
+- [Leadership Evidence](#leadership-evidence)
+- [Retention Risk](#retention-risk)
+- [Peer Comparison](#peer-comparison)
+- [💔 The Termination Talk](#-the-termination-talk)
+  - [The Most Humane Way to Fire Someone](#the-most-humane-way-to-fire-someone)
+- [🛡️ Protecting Yourself](#-protecting-yourself)
+  - [Document Everything](#document-everything)
+  - [The Paper Trail](#the-paper-trail)
+- [🗣️ Sophisticated Frameworks for Difficult Conversations](#-sophisticated-frameworks-for-difficult-conversations)
+  - [The BRIDGE Framework for PIPs](#the-bridge-framework-for-pips)
+  - [The CARE Model for Terminations](#the-care-model-for-terminations)
+  - [The NAVIGATE Framework for Complex Situations](#the-navigate-framework-for-complex-situations)
+- [🎤 Interview Guidance: Discussing This Sensitively](#-interview-guidance-discussing-this-sensitively)
+  - [When They Ask About Managing Poor Performers](#when-they-ask-about-managing-poor-performers)
+  - [When They Probe About Specific Situations](#when-they-probe-about-specific-situations)
+  - [Red Flags to Avoid](#red-flags-to-avoid)
+- [📖 Lessons from the Trenches](#-lessons-from-the-trenches)
+  - [The Time I Didn't Fire Someone Fast Enough](#the-time-i-didnt-fire-someone-fast-enough)
+  - [The PIP That Actually Worked](#the-pip-that-actually-worked)
+  - [The Brilliant Jerk I Couldn't Save](#the-brilliant-jerk-i-couldnt-save)
+- [🏛️ When Experience Becomes Wisdom](#-when-experience-becomes-wisdom)
+  - [The Evolution of Your Thinking](#the-evolution-of-your-thinking)
+  - [The Meta-Lessons](#the-meta-lessons)
+- [🎯 Final Truths](#-final-truths)
+  - [The Three Rules of Performance Management](#the-three-rules-of-performance-management)
+  - [The Ultimate Reality](#the-ultimate-reality)
+- [🎓 Interview Pro Tips: Advanced Handling](#-interview-pro-tips-advanced-handling)
+  - [When They Ask: "Tell me about a time you had to manage someone out"](#when-they-ask-tell-me-about-a-time-you-had-to-manage-someone-out)
+  - [The Questions That Show Sophistication](#the-questions-that-show-sophistication)
+  - [The Stories That Resonate](#the-stories-that-resonate)
+
+
 
 ## The Ugly Truth About Performance
 
@@ -563,7 +658,7 @@ Everyone: "How about that guy who's leaving anyway?"
 
 **What Goes in the Packet**:
 ```markdown
-# Promotion Justification: [Name] to [Level]
+## Promotion Justification: [Name] to [Level]
 
 ## Executive Summary
 One paragraph hitting: business impact, scope increase, 

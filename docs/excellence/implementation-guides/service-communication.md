@@ -1,6 +1,6 @@
 ---
-title: Service Communication Guide: Patterns for Scale
-description: ```mermaid graph TD A[Service Communication] --> B[Synchronous] A --> C[Asynchronous]
+title: "Service Communication Guide: Patterns for Scale"
+description: "Master service communication with synchronous and asynchronous patterns, from REST APIs to event-driven architectures at scale."
 type: guide
 ---
 
@@ -527,3 +527,5 @@ graph TD
 - [Event-Driven Pattern](../../pattern-library/architecture/event-driven/) (Gold)
 - [gRPC Best Practices](../../pattern-library/communication/grpc/)
 - [WebSocket Pattern](../../pattern-library/communication/websocket/) (Silver)
+```
+```

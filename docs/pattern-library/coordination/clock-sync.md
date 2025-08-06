@@ -124,7 +124,7 @@ Clock Synchronization maintains approximate time consistency across distributed 
 <details>
 <summary>📄 View decision logic</summary>
 
-# Simplified NTP client implementation
+## Simplified NTP client implementation
 def sync_with_time_server(server_address):
     """Basic time synchronization with NTP protocol"""
     # Record timestamps (NTP 4-timestamp model)

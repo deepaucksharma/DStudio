@@ -1,6 +1,9 @@
 ---
 title: Monolith To Microservices Playbook
 description: Implementation guide for monolith to microservices
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Monolith To Microservices Playbook

@@ -1,6 +1,25 @@
 ---
 title: Queueing Models (M/M/1)
 description: Mathematical models for understanding system behavior under load - M/M/1
+type: quantitative
+difficulty: beginner
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
+---
+
+# Queueing Models (M/M/1)
+
+
+
+## Overview
+
+Queueing Models (M/M/1)
+description: Mathematical models for understanding system behavior under load - M/M/1
   notation for Markovian arrivals, Markovian service times, 1 server
 type: quantitative
 difficulty: beginner
@@ -12,6 +31,109 @@ last_updated: 2025-07-20
 
 
 # Queueing Models (M/M/1)
+
+## Table of Contents
+
+- [M/M/1 Basics](#mm1-basics)
+- [Fundamental Formulas](#fundamental-formulas)
+  - [Average Queue Length](#average-queue-length)
+  - [Average Wait Time](#average-wait-time)
+  - [Response Time Distribution](#response-time-distribution)
+- [The Knee of the Curve](#the-knee-of-the-curve)
+- [M/M/c Multi-Server Queue](#mmc-multi-server-queue)
+  - [Erlang C Formula](#erlang-c-formula)
+  - [Impact](#impact)
+- [Real-World Applications](#real-world-applications)
+  - [API Server Sizing](#api-server-sizing)
+  - [Database Connection Pool](#database-connection-pool)
+  - [Message Queue Sizing](#message-queue-sizing)
+- [When M/M/1 Breaks](#when-mm1-breaks)
+- [Queue Management](#queue-management)
+- [Advanced Patterns](#advanced-patterns)
+- [Practical Guidelines](#practical-guidelines)
+  - [Sizing for Latency](#sizing-for-latency)
+  - [Key Metrics](#key-metrics)
+  - [Capacity Planning](#capacity-planning)
+- [Law Connections](#law-connections)
+  - [Law 4: Trade-offs](#law-4-trade-offs)
+  - [Law 1: Failure](#law-1-failure)
+  - [Law 4: Trade-offs (Ordering Constraints/index)](#law-4-trade-offs-ordering-constraintsindex)
+- [FIFO Queue Ordering](#fifo-queue-ordering)
+- [Order preserved, but wait times compound](#order-preserved-but-wait-times-compound)
+  - [Law 5: Epistemology](#law-5-epistemology)
+- [Visual Queue Dynamics](#visual-queue-dynamics)
+  - [The Knee of the Curve - Interactive View](#the-knee-of-the-curve-interactive-view)
+  - [Queue Behavior Visualization](#queue-behavior-visualization)
+- [Decision Framework: Queue Configuration](#decision-framework-queue-configuration)
+- [Real-World Application: Load Balancer Design](#real-world-application-load-balancer-design)
+  - [Capacity Planning Visualization](#capacity-planning-visualization)
+- [Current State Analysis](#current-state-analysis)
+- [Growth Scenarios](#growth-scenarios)
+- [Advanced Visualization: Multi-Queue System](#advanced-visualization-multi-queue-system)
+- [Key Takeaways](#key-takeaways)
+- [Related Concepts](#related-concepts)
+
+
+
+**When will your system hit the wall? M/M/1 Basics
+
+**M/M/1** = Markovian arrivals / Markovian service / 1 server
+
+$$\rho = \frac{\lambda}{\mu} \text{ (utilization)}$$
+
+Where:
+- $\lambda$ = arrival rate
+- $\mu$ = service rate
+
+## Fundamental Formulas
+
+### Average Queue Length
+!
+
+**Reading time:** ~20 minutes
+
+## Table of Contents
+
+- [M/M/1 Basics](#mm1-basics)
+- [Fundamental Formulas](#fundamental-formulas)
+  - [Average Queue Length](#average-queue-length)
+  - [Average Wait Time](#average-wait-time)
+  - [Response Time Distribution](#response-time-distribution)
+- [The Knee of the Curve](#the-knee-of-the-curve)
+- [M/M/c Multi-Server Queue](#mmc-multi-server-queue)
+  - [Erlang C Formula](#erlang-c-formula)
+  - [Impact](#impact)
+- [Real-World Applications](#real-world-applications)
+  - [API Server Sizing](#api-server-sizing)
+  - [Database Connection Pool](#database-connection-pool)
+  - [Message Queue Sizing](#message-queue-sizing)
+- [When M/M/1 Breaks](#when-mm1-breaks)
+- [Queue Management](#queue-management)
+- [Advanced Patterns](#advanced-patterns)
+- [Practical Guidelines](#practical-guidelines)
+  - [Sizing for Latency](#sizing-for-latency)
+  - [Key Metrics](#key-metrics)
+  - [Capacity Planning](#capacity-planning)
+- [Law Connections](#law-connections)
+  - [Law 4: Trade-offs](#law-4-trade-offs)
+  - [Law 1: Failure](#law-1-failure)
+  - [Law 4: Trade-offs (Ordering Constraints/index)](#law-4-trade-offs-ordering-constraintsindex)
+- [FIFO Queue Ordering](#fifo-queue-ordering)
+- [Order preserved, but wait times compound](#order-preserved-but-wait-times-compound)
+  - [Law 5: Epistemology](#law-5-epistemology)
+- [Visual Queue Dynamics](#visual-queue-dynamics)
+  - [The Knee of the Curve - Interactive View](#the-knee-of-the-curve-interactive-view)
+  - [Queue Behavior Visualization](#queue-behavior-visualization)
+- [Decision Framework: Queue Configuration](#decision-framework-queue-configuration)
+- [Real-World Application: Load Balancer Design](#real-world-application-load-balancer-design)
+  - [Capacity Planning Visualization](#capacity-planning-visualization)
+- [Current State Analysis](#current-state-analysis)
+- [Growth Scenarios](#growth-scenarios)
+- [Advanced Visualization: Multi-Queue System](#advanced-visualization-multi-queue-system)
+- [Key Takeaways](#key-takeaways)
+- [Related Concepts](#related-concepts)
+
+
 
 **When will your system hit the wall?**
 
@@ -565,11 +687,11 @@ graph LR
 
 ### Law 4: Trade-offs (Ordering Constraints/index)
 ```python
-# FIFO Queue Ordering
+## FIFO Queue Ordering
 Customer 1 arrives at t=0, waits 0ms
 Customer 2 arrives at t=1, waits 10ms
 Customer 3 arrives at t=2, waits 20ms
-# Order preserved, but wait times compound
+## Order preserved, but wait times compound
 ```
 
 ### Law 5: Epistemology
@@ -664,13 +786,13 @@ graph TB
 ### Capacity Planning Visualization
 
 ```python
-# Current State Analysis
+## Current State Analysis
 Current Load: 1000 req/s
 Service Time: 50ms
 Servers: 60
 Utilization: 83% ⚠️
 
-# Growth Scenarios
+## Growth Scenarios
 ┌─────────────┬──────────┬────────────┬─────────────┐
 │ Growth │ New Load │ Servers │ Queue Time │
 ├─────────────┼──────────┼────────────┼─────────────┤

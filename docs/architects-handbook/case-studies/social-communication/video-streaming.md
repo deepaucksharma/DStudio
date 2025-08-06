@@ -82,3 +82,9 @@ This case study would explore the architecture of large-scale video streaming pl
 - Netflix Technology Blog on Open Connect
 - AWS re:Invent talks on video streaming
 - YouTube Engineering Blog
+
+## See Also
+
+- [Observability Stacks](/architects-handbook/human-factors/observability-stacks)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [Learning Paths](/architects-handbook/learning-paths)

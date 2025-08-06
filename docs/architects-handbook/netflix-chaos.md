@@ -1,6 +1,10 @@
 ---
 title: Netflix Chaos
 redirect_to: /architects-handbook/case-studies/elite-engineering/netflix-chaos/
+description: Documentation for Netflix Chaos
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Netflix Chaos

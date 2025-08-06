@@ -59,6 +59,49 @@ type: pattern
 
 # Model Versioning and Rollback
 
+## Table of Contents
+
+- [Essential Question](#essential-question)
+- [When to Use / When NOT to Use](#when-to-use-when-not-to-use)
+  - [✅ Use When](#use-when)
+  - [❌ DON'T Use When](#dont-use-when)
+- [Level 1: Intuition (5 min) {#intuition}](#level-1-intuition-5-min-intuition)
+  - [The Story](#the-story)
+  - [Visual Metaphor](#visual-metaphor)
+  - [Core Insight](#core-insight)
+  - [In One Sentence](#in-one-sentence)
+- [Level 2: Foundation (10 min) {#foundation}](#level-2-foundation-10-min-foundation)
+  - [The Problem Space](#the-problem-space)
+  - [How It Works](#how-it-works)
+  - [Basic Example](#basic-example)
+- [Model versioning and rollback implementation](#model-versioning-and-rollback-implementation)
+- [Performance monitoring for automatic rollback](#performance-monitoring-for-automatic-rollback)
+- [Usage example](#usage-example)
+- [Register new model version](#register-new-model-version)
+- [Deploy as canary](#deploy-as-canary)
+- [Monitor performance](#monitor-performance)
+- [Level 3: Deep Dive (15 min) {#deep-dive}](#level-3-deep-dive-15-min-deep-dive)
+  - [Implementation Details](#implementation-details)
+  - [Advanced Implementation Patterns](#advanced-implementation-patterns)
+- [Advanced rollback decision engine with machine learning](#advanced-rollback-decision-engine-with-machine-learning)
+- [Usage in production monitoring](#usage-in-production-monitoring)
+- [Example performance assessment](#example-performance-assessment)
+  - [Common Pitfalls](#common-pitfalls)
+  - [Production Considerations](#production-considerations)
+- [Level 4: Expert (20 min) {#expert}](#level-4-expert-20-min-expert)
+  - [Advanced Deployment Strategies](#advanced-deployment-strategies)
+  - [Advanced Optimization Strategies](#advanced-optimization-strategies)
+- [Predictive rollback using early warning signals](#predictive-rollback-using-early-warning-signals)
+- [Integration with deployment controller](#integration-with-deployment-controller)
+- [Level 5: Mastery (30 min) {#mastery}](#level-5-mastery-30-min-mastery)
+  - [Real-World Case Studies](#real-world-case-studies)
+  - [Pattern Evolution and Future Directions](#pattern-evolution-and-future-directions)
+  - [Pattern Combinations](#pattern-combinations)
+- [Quick Reference](#quick-reference)
+  - [Decision Matrix](#decision-matrix)
+  - [Implementation Roadmap](#implementation-roadmap)
+  - [Related Resources](#related-resources)
+
 !!! info "🥈 Silver Tier Pattern"
     **Production ML Safety** • Essential for reliable model deployments
     
@@ -217,7 +260,7 @@ graph TD
 ### Basic Example
 
 ```python
-# Model versioning and rollback implementation
+## Model versioning and rollback implementation
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, List, Optional, Any
@@ -371,7 +414,7 @@ class DeploymentController:
             return max(prod_versions, key=lambda x: x.traffic_allocation).version
         return None
 
-# Performance monitoring for automatic rollback
+## Performance monitoring for automatic rollback
 class ModelPerformanceMonitor:
     def __init__(self, controller: DeploymentController):
         self.controller = controller
@@ -446,12 +489,12 @@ class ModelPerformanceMonitor:
         except Exception as e:
             logging.error(f"Failed to execute automatic rollback: {e}")
 
-# Usage example
+## Usage example
 registry = ModelRegistry()
 controller = DeploymentController(registry)
 monitor = ModelPerformanceMonitor(controller)
 
-# Register new model version
+## Register new model version
 new_model = ModelVersion(
     version="2.1.0",
     model_path="/models/recommendation_v2.1.0.pkl", 
@@ -463,10 +506,10 @@ new_model = ModelVersion(
 
 registry.register_model("recommendation_model", new_model)
 
-# Deploy as canary
+## Deploy as canary
 controller.deploy_canary("recommendation_model", "2.1.0", traffic_percent=5.0)
 
-# Monitor performance
+## Monitor performance
 monitor.record_performance("recommendation_model", "2.1.0", {
     "accuracy": 0.78,  # Significant drop - will trigger rollback
     "latency_p95": 120,
@@ -533,7 +576,7 @@ graph TD
 #### 1. Intelligent Rollback Decision Engine
 
 ```python
-# Advanced rollback decision engine with machine learning
+## Advanced rollback decision engine with machine learning
 from typing import Dict, List, Tuple, Optional
 import numpy as np
 from sklearn.ensemble import IsolationForest
@@ -696,10 +739,10 @@ class IntelligentRollbackEngine:
             
         return "; ".join(reasons) if reasons else f"Overall risk score: {risk_score:.2f}"
 
-# Usage in production monitoring
+## Usage in production monitoring
 engine = IntelligentRollbackEngine()
 
-# Example performance assessment
+## Example performance assessment
 current_performance = PerformanceWindow(
     start_time=datetime.now() - timedelta(minutes=5),
     end_time=datetime.now(),
@@ -803,7 +846,7 @@ graph TB
 #### 1. Predictive Rollback System
 
 ```python
-# Predictive rollback using early warning signals
+## Predictive rollback using early warning signals
 from typing import Dict, List, Tuple
 import pandas as pd
 import numpy as np
@@ -955,7 +998,7 @@ class PredictiveRollbackSystem:
         
         return explanation
 
-# Integration with deployment controller
+## Integration with deployment controller
 class PredictiveDeploymentController(DeploymentController):
     def __init__(self, registry: ModelRegistry, 
                  predictive_system: PredictiveRollbackSystem):

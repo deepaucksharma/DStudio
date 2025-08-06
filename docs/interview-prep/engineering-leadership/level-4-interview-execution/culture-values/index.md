@@ -1,9 +1,51 @@
 ---
 title: Culture Values
 description: Culture Values overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Culture & Values Interview Guide
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Modern Culture Interview Philosophy](#modern-culture-interview-philosophy)
+  - [From Fit to Add](#from-fit-to-add)
+  - [Assessment Dimensions](#assessment-dimensions)
+- [Company Culture Frameworks](#company-culture-frameworks)
+  - [Amazon: Leadership Principles Deep Dive](#amazon-leadership-principles-deep-dive)
+  - [Google: Innovation & Collaboration](#google-innovation-collaboration)
+  - [Meta: Move Fast & Be Bold](#meta-move-fast-be-bold)
+  - [Netflix: Freedom & Responsibility](#netflix-freedom-responsibility)
+- [Culture Interview Question Categories](#culture-interview-question-categories)
+  - [1. Values in Action](#1-values-in-action)
+  - [2. Cultural Transformation](#2-cultural-transformation)
+  - [3. Diversity, Equity & Inclusion](#3-diversity-equity-inclusion)
+  - [4. Ethical Decision Making](#4-ethical-decision-making)
+  - [5. Failure & Growth Mindset](#5-failure-growth-mindset)
+- [Advanced Cultural Competencies](#advanced-cultural-competencies)
+  - [Building Psychological Safety](#building-psychological-safety)
+  - [Remote/Hybrid Culture](#remotehybrid-culture)
+  - [Cultural Due Diligence](#cultural-due-diligence)
+- [Level-Specific Cultural Expectations](#level-specific-cultural-expectations)
+  - [Senior Manager (L5)](#senior-manager-l5)
+  - [Director (L6)](#director-l6)
+  - [VP+ (L7+)](#vp-l7)
+- [Cultural Red Flags & Recovery](#cultural-red-flags-recovery)
+  - [If You Clash with Stated Values](#if-you-clash-with-stated-values)
+  - [If You Lack Diversity Experience](#if-you-lack-diversity-experience)
+  - [If Asked About Cultural Conflicts](#if-asked-about-cultural-conflicts)
+- [Culture Interview Preparation](#culture-interview-preparation)
+  - [Values Alignment Worksheet](#values-alignment-worksheet)
+  - [Cultural Story Portfolio](#cultural-story-portfolio)
+  - [Mock Interview Practice](#mock-interview-practice)
+- [Authenticity Framework](#authenticity-framework)
+  - [Being Genuine While Strategic](#being-genuine-while-strategic)
+  - [The Values-Action Matrix](#the-values-action-matrix)
+
+
 
 ## Overview
 

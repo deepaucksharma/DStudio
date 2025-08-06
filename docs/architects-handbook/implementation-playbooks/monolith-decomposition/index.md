@@ -1,6 +1,9 @@
 ---
 title: Monolith Decomposition Playbook
 description: Implementation guide for monolith decomposition
+category: architects-handbook
+tags: [architects-handbook]
+date: 2025-08-07
 ---
 
 # Monolith Decomposition Playbook

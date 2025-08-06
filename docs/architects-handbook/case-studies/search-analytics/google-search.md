@@ -129,7 +129,7 @@ Query Processing:
 ### Search API
 
 ```python
-# Main search endpoint
+## Main search endpoint
 GET /search?q={query}&start={offset}&num={count}&lang={language}
 
 Response:
@@ -150,7 +150,7 @@ Response:
   "spelling_suggestion": null
 }
 
-# Autocomplete API
+## Autocomplete API
 GET /suggest?q={partial_query}
 
 Response:
@@ -162,7 +162,7 @@ Response:
   ]
 }
 
-# Instant answers API
+## Instant answers API
 GET /instant?q={query}
 
 Response:
@@ -180,7 +180,7 @@ Response:
 ### Page Storage
 
 ```python
-# Document store for crawled pages
+## Document store for crawled pages
 class WebPage:
     page_id: str  # SHA-256 of URL
     url: str
@@ -197,7 +197,7 @@ class WebPage:
     inbound_links: List[str]
     outbound_links: List[str]
 
-# Inverted Index
+## Inverted Index
 class InvertedIndex:
     term: str
     document_postings: List[Posting]
@@ -212,7 +212,7 @@ class Posting:
 ### URL Frontier (Crawl Queue)
 
 ```python
-# Priority queue for URLs to crawl
+## Priority queue for URLs to crawl
 class URLFrontier:
     url: str
     priority: float  # based on PageRank, update frequency
@@ -288,13 +288,13 @@ class DistributedCrawler:
     async def crawl_batch(self):
         """Main crawler loop"""
         while True:
-# Get URLs from frontier
+## Get URLs from frontier
             urls = await self.url_frontier.get_batch(size=1000)
             
-# Group by domain for politeness
+## Group by domain for politeness
             domain_groups = self._group_by_domain(urls)
             
-# Crawl each domain with delays
+## Crawl each domain with delays
             tasks = []
             for domain, domain_urls in domain_groups.items():
                 task = self._crawl_domain(domain, domain_urls)
@@ -305,7 +305,7 @@ class DistributedCrawler:
     
     async def _crawl_domain(self, domain: str, urls: List[str]):
         """Crawl URLs from single domain with politeness"""
-# Check robots.txt
+## Check robots.txt
         robots_rules = await self.robots_checker.get_rules(domain)
         
         results = []
@@ -313,15 +313,15 @@ class DistributedCrawler:
             if not robots_rules.can_fetch(url):
                 continue
                 
-# DNS lookup with caching
+## DNS lookup with caching
             ip = await self.dns_cache.resolve(domain)
             
-# Fetch page
+## Fetch page
             page = await self._fetch_page(url, ip)
             if page:
                 results.append(page)
                 
-# Politeness delay
+## Politeness delay
             await asyncio.sleep(robots_rules.crawl_delay)
             
         return results
@@ -334,7 +334,7 @@ class DistributedCrawler:
         for tag in soup.find_all(['a', 'link']):
             href = tag.get('href')
             if href:
-# Normalize URL
+## Normalize URL
                 absolute_url = urljoin(page.url, href)
                 normalized = self._normalize_url(absolute_url)
                 links.append(normalized)
@@ -352,25 +352,25 @@ class IndexingPipeline:
         
     async def process_page(self, page: WebPage):
         """Process single page through indexing pipeline"""
-# 1. Clean and extract text
+## 1. Clean and extract text
         cleaned_text = self.text_processor.clean_html(page.html)
         
-# 2. Language detection
+## 2. Language detection
         language = self.text_processor.detect_language(cleaned_text)
         
-# 3. Tokenization and normalization
+## 3. Tokenization and normalization
         tokens = self.text_processor.tokenize(cleaned_text, language)
         
-# 4. Calculate term statistics
+## 4. Calculate term statistics
         term_stats = self._calculate_term_stats(tokens)
         
-# 5. Update inverted index
+## 5. Update inverted index
         await self.index_writer.update_inverted_index(
             page.page_id,
             term_stats
         )
         
-# 6. Update forward index
+## 6. Update forward index
         await self.index_writer.update_forward_index(
             page.page_id,
             {
@@ -389,7 +389,7 @@ class IndexingPipeline:
         for pos, token in enumerate(tokens):
             term_positions[token].append(pos)
             
-# Calculate TF-IDF (IDF comes from global stats)
+## Calculate TF-IDF (IDF comes from global stats)
         stats = {}
         doc_length = len(tokens)
         
@@ -415,20 +415,20 @@ class QueryProcessor:
         
     async def process_query(self, query: str, user_context: dict):
         """Process user query into structured search"""
-# 1. Spell correction
+## 1. Spell correction
         corrected = self.spell_checker.correct(query)
         
-# 2. Query parsing (detect intent, entities)
+## 2. Query parsing (detect intent, entities)
         parsed = self.query_parser.parse(corrected)
         
-# 3. Query expansion
+## 3. Query expansion
         expanded_terms = []
         for term in parsed.terms:
-# Add synonyms
+## Add synonyms
             synonyms = self.synonym_expander.get_synonyms(term)
             expanded_terms.extend(synonyms[:3])  # Top 3 synonyms
             
-# 4. Build retrieval query
+## 4. Build retrieval query
         retrieval_query = {
             'must_terms': parsed.required_terms,
             'should_terms': parsed.optional_terms + expanded_terms,
@@ -453,10 +453,10 @@ class DistributedIndexRetriever:
         
     async def retrieve(self, query: dict, num_results: int = 1000):
         """Retrieve documents matching query from distributed index"""
-# 1. Identify relevant shards using bloom filters
+## 1. Identify relevant shards using bloom filters
         relevant_shards = self._identify_shards(query['must_terms'])
         
-# 2. Parallel shard queries
+## 2. Parallel shard queries
         shard_tasks = []
         for shard_id in relevant_shards:
             task = self._query_shard(shard_id, query, num_results / len(relevant_shards))
@@ -464,10 +464,10 @@ class DistributedIndexRetriever:
             
         shard_results = await asyncio.gather(*shard_tasks)
         
-# 3. Merge results from shards
+## 3. Merge results from shards
         merged_results = self._merge_shard_results(shard_results)
         
-# 4. Apply global filters
+## 4. Apply global filters
         filtered = self._apply_filters(merged_results, query['filters'])
         
         return filtered[:num_results]
@@ -498,23 +498,23 @@ class RankingEngine:
         ranked_results = []
         
         for result in results:
-# 1. Text relevance score (TF-IDF, BM25)
+## 1. Text relevance score (TF-IDF, BM25)
             text_score = self._calculate_text_relevance(
                 query, 
                 result.matched_terms,
                 result.document_stats
             )
             
-# 2. PageRank score
+## 2. PageRank score
             pagerank = self.pagerank_scores.get(result.doc_id, 0.0)
             
-# 3. Freshness score
+## 3. Freshness score
             freshness = self._calculate_freshness(result.last_modified)
             
-# 4. Click-through rate (from logs)
+## 4. Click-through rate (from logs)
             ctr = await self._get_historical_ctr(query, result.url)
             
-# 5. ML features
+## 5. ML features
             ml_features = {
                 'text_relevance': text_score,
                 'pagerank': pagerank,
@@ -529,10 +529,10 @@ class RankingEngine:
                 )
             }
             
-# 6. ML model prediction
+## 6. ML model prediction
             ml_score = self.ml_model.predict([ml_features])[0]
             
-# 7. Final score combination
+## 7. Final score combination
             final_score = (
                 0.4 * text_score +
                 0.2 * pagerank +
@@ -543,7 +543,7 @@ class RankingEngine:
             
             ranked_results.append((final_score, result))
             
-# Sort by score
+## Sort by score
         ranked_results.sort(key=lambda x: x[0], reverse=True)
         
         return [result for score, result in ranked_results]
@@ -561,18 +561,18 @@ class PageRankCalculator:
         """Calculate PageRank scores for all pages"""
         num_pages = len(link_graph.nodes)
         
-# Initialize scores
+## Initialize scores
         scores = {node: 1.0 / num_pages for node in link_graph.nodes}
         
-# Iterative calculation
+## Iterative calculation
         for _ in range(self.iterations):
             new_scores = {}
             
             for node in link_graph.nodes:
-# Base score (random surfer)
+## Base score (random surfer)
                 base_score = (1 - self.damping_factor) / num_pages
                 
-# Inbound link score
+## Inbound link score
                 link_score = 0
                 for inbound in link_graph.get_inbound_links(node):
                     outbound_count = len(link_graph.get_outbound_links(inbound))
@@ -625,17 +625,17 @@ class MultiLevelCache:
         self.l3_cache = CDN()  # Global edge
         
     async def get(self, query: str) -> Optional[SearchResults]:
-# L1: Local memory (1ms)
+## L1: Local memory (1ms)
         if query in self.l1_cache:
             return self.l1_cache[query]
             
-# L2: Redis cluster (10ms)
+## L2: Redis cluster (10ms)
         results = await self.l2_cache.get(query)
         if results:
             self.l1_cache[query] = results
             return results
             
-# L3: CDN edge cache (50ms)
+## L3: CDN edge cache (50ms)
         results = await self.l3_cache.get(query)
         if results:
             await self._populate_lower_caches(query, results)
@@ -659,15 +659,15 @@ class RealTimeIndexer:
         async for message in self.kafka_consumer:
             page = self._deserialize(message)
             
-# Check if high-priority
+## Check if high-priority
             if self._is_high_priority(page):
-# Immediate indexing
+## Immediate indexing
                 await self._index_immediately(page)
                 
-# Update caches
+## Update caches
                 await self._invalidate_related_caches(page)
                 
-# Detect trending topics
+## Detect trending topics
             trending_terms = self.trending_detector.extract_trending(page)
             if trending_terms:
                 await self._boost_trending_terms(trending_terms)
@@ -725,19 +725,19 @@ class SearchMetrics:
     
     def __init__(self):
         self.metrics = {
-# Latency metrics
+## Latency metrics
             'query_latency_p50': Histogram('search_latency_ms', 'p50'),
             'query_latency_p99': Histogram('search_latency_ms', 'p99'),
             
-# Throughput metrics
+## Throughput metrics
             'queries_per_second': Counter('search_qps'),
             'crawl_pages_per_day': Counter('crawl_pages_daily'),
             
-# Quality metrics
+## Quality metrics
             'click_through_rate': Gauge('search_ctr'),
             'zero_result_rate': Gauge('search_zero_results'),
             
-# System health
+## System health
             'index_size_bytes': Gauge('index_size'),
             'crawler_success_rate': Gauge('crawler_success'),
             'indexing_lag_seconds': Gauge('indexing_lag')

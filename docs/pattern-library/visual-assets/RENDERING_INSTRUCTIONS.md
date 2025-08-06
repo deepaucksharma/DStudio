@@ -11,25 +11,25 @@ description: 'TODO: Add description'
 
 ### Install Mermaid CLI
 ```bash
-# Using npm
+## Using npm
 npm install -g @mermaid-js/mermaid-cli
 
-# Using yarn
+## Using yarn
 yarn global add @mermaid-js/mermaid-cli
 
-# Verify installation
+## Verify installation
 mmdc --version
 ```
 
 ### Install Image Processing Tools
 ```bash
-# On Ubuntu/Debian
+## On Ubuntu/Debian
 sudo apt-get install inkscape imagemagick optipng
 
-# On macOS
+## On macOS
 brew install inkscape imagemagick optipng
 
-# On Windows (using Chocolatey)
+## On Windows (using Chocolatey)
 choco install inkscape imagemagick optipng
 ```
 
@@ -37,34 +37,34 @@ choco install inkscape imagemagick optipng
 
 ### 1. Convert Mermaid to SVG
 ```bash
-# Basic conversion
+## Basic conversion
 mmdc -i circuit-breaker/state-machine.mmd -o circuit-breaker/state-machine.svg
 
-# With custom theme
+## With custom theme
 mmdc -i circuit-breaker/state-machine.mmd -o circuit-breaker/state-machine.svg -t dark
 
-# With transparent background
+## With transparent background
 mmdc -i circuit-breaker/state-machine.mmd -o circuit-breaker/state-machine.svg -b transparent
 
-# High quality with custom config
+## High quality with custom config
 mmdc -i circuit-breaker/state-machine.mmd -o circuit-breaker/state-machine.svg -c mermaid-config.json
 ```
 
 ### 2. Convert SVG to PNG
 ```bash
-# Using Inkscape (recommended for quality)
+## Using Inkscape (recommended for quality)
 inkscape circuit-breaker/state-machine.svg --export-png=circuit-breaker/state-machine.png --export-dpi=300
 
-# Using ImageMagick
+## Using ImageMagick
 convert -density 300 -background transparent circuit-breaker/state-machine.svg circuit-breaker/state-machine.png
 ```
 
 ### 3. Optimize Files
 ```bash
-# Optimize SVG
+## Optimize SVG
 svgo circuit-breaker/state-machine.svg -o circuit-breaker/state-machine.min.svg
 
-# Optimize PNG
+## Optimize PNG
 optipng -o7 circuit-breaker/state-machine.png
 ```
 
@@ -73,23 +73,23 @@ optipng -o7 circuit-breaker/state-machine.png
 ### Render All Diagrams
 ```bash
 #!/bin/bash
-# render-all.sh
+## render-all.sh
 
-# Find all .mmd files and convert to SVG
+## Find all .mmd files and convert to SVG
 find . -name "*.mmd" -type f | while read file; do
     output="${file%.mmd}.svg"
     echo "Converting $file to $output"
     mmdc -i "$file" -o "$output" -b transparent
 done
 
-# Convert all SVGs to PNGs
+## Convert all SVGs to PNGs
 find . -name "*.svg" -type f | while read file; do
     output="${file%.svg}.png"
     echo "Converting $file to $output"
     inkscape "$file" --export-png="$output" --export-dpi=300
 done
 
-# Optimize all files
+## Optimize all files
 find . -name "*.svg" -type f -exec svgo {} \;
 find . -name "*.png" -type f -exec optipng -o7 {} \;
 ```
@@ -189,3 +189,15 @@ Create `mermaid-config.json`:
    - Check Mermaid syntax
    - Update mermaid-cli to latest version
    - Verify all dependencies are installed
+
+## See Also
+
+- [Pattern Decision Matrix](/pattern-library/pattern-decision-matrix)
+- [Pattern Comparison Tool](/pattern-library/pattern-comparison-tool)
+- [CRDT (Conflict-free Replicated Data Types)](/pattern-library/data-management/crdt)
+
+## See Also
+
+- [Eventual Consistency](/pattern-library/data-management/eventual-consistency)
+- [Event Streaming](/pattern-library/architecture/event-streaming)
+- [Rate Limiting Pattern](/pattern-library/scaling/rate-limiting)

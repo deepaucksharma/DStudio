@@ -268,9 +268,9 @@ The CSS framework provides:
 
 ### ❌ Don't Do This
 ```markdown
-# Page Title
-# Another H1 on Same Page  <!-- Wrong -->
-#### Skipping H2 and H3     <!-- Wrong -->
+### Page Title
+## Another H1 on Same Page  <!-- Wrong -->
+### Skipping H2 and H3     <!-- Wrong -->
 ## Section Title            <!-- Missing anchor ID -->
 
 | Too | Many | Columns | For | Mobile | Display |
@@ -278,7 +278,7 @@ The CSS framework provides:
 
 ### ✅ Do This Instead  
 ```markdown
-# Page Title
+### Page Title
 ## Main Section {#main-section}
 ### Subsection {#subsection}
 

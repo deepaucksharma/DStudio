@@ -363,6 +363,15 @@ nav:
     - Law 5 - Distributed Knowledge: core-principles/laws/distributed-knowledge.md
     - Law 6 - Cognitive Load: core-principles/laws/cognitive-load.md
     - Law 7 - Economic Reality: core-principles/laws/economic-reality.md
+    - Interactive Tests:
+      - Overview: core-principles/laws/tests/index.md
+      - Law 1 Learning Module: core-principles/laws/tests/correlated-failure-test.md
+      - Law 1 Mastery Exam: core-principles/laws/tests/correlated-failure-exam.md
+      - Law 1 Exam Set 2: core-principles/laws/tests/correlated-failure-exam-set-2.md
+      - Law 2 Learning Module: core-principles/laws/tests/asynchronous-reality-test.md
+      - Law 2 Mastery Exam: core-principles/laws/tests/asynchronous-reality-exam.md
+      - Law 3 Learning Module: core-principles/laws/tests/emergent-chaos-test.md
+      - Law 3 Mastery Exam: core-principles/laws/tests/emergent-chaos-exam.md
   - The 5 Pillars:
     - All Pillars Overview: core-principles/pillars/index.md
     - Pillar 1 - Work Distribution: core-principles/pillars/work-distribution.md
@@ -810,10 +819,10 @@ nav:
   - Overview: interview-prep/index.md
   - Engineering Leadership:
     - Overview: interview-prep/engineering-leadership/index.md
-    - Interview Framework: interview-prep/ENGINEERING_LEADERSHIP_INTERVIEW_FRAMEWORK.md
-    - Framework Organization: interview-prep/engineering-leadership/FRAMEWORK_ORGANIZATION.md
+    - 🎯 Master Framework: interview-prep/ENGINEERING_LEADERSHIP_INTERVIEW_FRAMEWORK.md
+    - 📊 Framework Organization: interview-prep/engineering-leadership/FRAMEWORK_ORGANIZATION.md
     - 🧭 Navigation Guide: interview-prep/engineering-leadership/navigation-guide.md
-    - Framework Overview: interview-prep/engineering-leadership/framework-index.md
+    - 📖 Quick Reference: interview-prep/engineering-leadership/framework-index.md
     - First Principles:
       - Overview: interview-prep/engineering-leadership/level-1-first-principles/index.md
       - Value Creation: interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md

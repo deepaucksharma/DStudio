@@ -47,6 +47,66 @@ excellence_guides:
 
 # etcd: Distributed Key-Value Store for Kubernetes
 
+## Table of Contents
+
+- [Why etcd Matters](#why-etcd-matters)
+- [Architecture Overview](#architecture-overview)
+- [Core Design Principles](#core-design-principles)
+  - [1. Simple Key-Value Model](#1-simple-key-value-model)
+  - [2. Powerful Watch Mechanism](#2-powerful-watch-mechanism)
+  - [3. Raft Consensus Protocol](#3-raft-consensus-protocol)
+- [Kubernetes Integration](#kubernetes-integration)
+  - [etcd as Kubernetes' Brain](#etcd-as-kubernetes-brain)
+  - [Kubernetes Storage Patterns](#kubernetes-storage-patterns)
+- [How Kubernetes uses etcd](#how-kubernetes-uses-etcd)
+- [Production Patterns](#production-patterns)
+  - [High Availability Setup](#high-availability-setup)
+    - [Performance Tuning](#performance-tuning)
+- [etcd configuration for production](#etcd-configuration-for-production)
+- [Network](#network)
+- [Cluster](#cluster)
+  - [Performance](#performance)
+- [Compaction](#compaction)
+- [Snapshots](#snapshots)
+- [Operational Excellence](#operational-excellence)
+  - [Monitoring Critical Metrics](#monitoring-critical-metrics)
+- [Key metrics to watch](#key-metrics-to-watch)
+  - [Cluster health](#cluster-health)
+  - [Performance](#performance)
+- [Resource usage](#resource-usage)
+- [Request metrics](#request-metrics)
+  - [Backup and Disaster Recovery](#backup-and-disaster-recovery)
+- [Production backup script](#production-backup-script)
+- [Take snapshot](#take-snapshot)
+- [Verify snapshot](#verify-snapshot)
+- [Upload to S3](#upload-to-s3)
+- [Cleanup old local snapshots (keep 7 days)](#cleanup-old-local-snapshots-keep-7-days)
+- [Common Challenges](#common-challenges)
+  - [Challenge 1: Database Size Limits](#challenge-1-database-size-limits)
+- [Check current usage](#check-current-usage)
+- [Defragment to reclaim space](#defragment-to-reclaim-space)
+- [Increase quota](#increase-quota)
+  - [Challenge 2: Network Partitions](#challenge-2-network-partitions)
+  - [Challenge 3: Watch Event Storms](#challenge-3-watch-event-storms)
+- [Best Practices](#best-practices)
+  - [1. Deployment Guidelines](#1-deployment-guidelines)
+  - [2. Security Configuration](#2-security-configuration)
+- [TLS for all communication](#tls-for-all-communication)
+- [Enable RBAC](#enable-rbac)
+  - [3. Performance Optimization](#3-performance-optimization)
+- [Decision Framework](#decision-framework)
+  - [When to Use etcd](#when-to-use-etcd)
+- [Modern Enhancements](#modern-enhancements)
+  - [Learner Nodes (3.4+)](#learner-nodes-34)
+- [Add learner node (non-voting)](#add-learner-node-non-voting)
+- [Promote to voting member after sync](#promote-to-voting-member-after-sync)
+  - [Downgrade Protection](#downgrade-protection)
+- [Key Takeaways](#key-takeaways)
+- [Related Topics](#related-topics)
+- [References](#references)
+
+
+
 !!! abstract "The etcd Story"
     **🎯 Single Achievement**: Became the brain of Kubernetes
     **📊 Scale**: 1M+ Kubernetes clusters worldwide
@@ -214,7 +274,7 @@ graph TB
 ### Kubernetes Storage Patterns
 
 ```yaml
-# How Kubernetes uses etcd
+## How Kubernetes uses etcd
 /registry/
   ├── pods/
   │   ├── default/
@@ -260,33 +320,33 @@ graph TB
     ETCD3 <--> ETCD1
 ```
 
-### Performance Tuning
+#### Performance Tuning
 
 ```yaml
-# etcd configuration for production
+## etcd configuration for production
 name: 'etcd-1'
 data-dir: '/var/lib/etcd'
 
-# Network
+## Network
 listen-client-urls: 'https://0.0.0.0:2379'
 listen-peer-urls: 'https://0.0.0.0:2380'
 
-# Cluster
+## Cluster
 initial-cluster: 'etcd-1=https://10.0.1.10:2380,etcd-2=https://10.0.2.10:2380,etcd-3=https://10.0.3.10:2380'
 initial-cluster-state: 'new'
 
-# Performance
+### Performance
 quota-backend-bytes: 8589934592  # 8GB
 max-request-bytes: 1572864        # 1.5MB
 grpc-keepalive-min-time: '5s'
 grpc-keepalive-interval: '2h'
 grpc-keepalive-timeout: '20s'
 
-# Compaction
+## Compaction
 auto-compaction-mode: 'periodic'
 auto-compaction-retention: '1h'
 
-# Snapshots
+## Snapshots
 snapshot-count: 10000
 max-snapshots: 5
 ```
@@ -296,23 +356,23 @@ max-snapshots: 5
 ### Monitoring Critical Metrics
 
 ```prometheus
-# Key metrics to watch
+## Key metrics to watch
 
-# Cluster health
+### Cluster health
 etcd_server_has_leader
 etcd_server_health_failures
 
-# Performance
+### Performance
 etcd_disk_wal_fsync_duration_seconds_bucket
 etcd_disk_backend_commit_duration_seconds_bucket
 etcd_network_peer_round_trip_time_seconds
 
-# Resource usage
+## Resource usage
 etcd_mvcc_db_total_size_in_bytes
 etcd_server_quota_backend_bytes
 process_resident_memory_bytes
 
-# Request metrics
+## Request metrics
 etcd_grpc_requests_total
 etcd_grpc_request_duration_seconds
 ```
@@ -321,14 +381,14 @@ etcd_grpc_request_duration_seconds
 
 ```bash
 #!/bin/bash
-# Production backup script
+## Production backup script
 
 ETCDCTL_API=3
 ENDPOINTS="https://10.0.1.10:2379,https://10.0.2.10:2379,https://10.0.3.10:2379"
 BACKUP_DIR="/backup/etcd"
 DATE=$(date +%Y%m%d_%H%M%S)
 
-# Take snapshot
+## Take snapshot
 etcdctl \
   --endpoints=$ENDPOINTS \
   --cacert=/etc/etcd/ca.crt \
@@ -336,14 +396,14 @@ etcdctl \
   --key=/etc/etcd/server.key \
   snapshot save "${BACKUP_DIR}/snapshot_${DATE}.db"
 
-# Verify snapshot
+## Verify snapshot
 etcdctl snapshot status "${BACKUP_DIR}/snapshot_${DATE}.db"
 
-# Upload to S3
+## Upload to S3
 aws s3 cp "${BACKUP_DIR}/snapshot_${DATE}.db" \
   "s3:/backup-bucket/etcd/snapshot_${DATE}.db"
 
-# Cleanup old local snapshots (keep 7 days)
+## Cleanup old local snapshots (keep 7 days)
 find $BACKUP_DIR -name "snapshot_*.db" -mtime +7 -delete
 ```
 
@@ -357,13 +417,13 @@ find $BACKUP_DIR -name "snapshot_*.db" -mtime +7 -delete
     **Solution**: Increase quota-backend-bytes or implement pruning
 
 ```bash
-# Check current usage
+## Check current usage
 etcdctl endpoint status --write-out=table
 
-# Defragment to reclaim space
+## Defragment to reclaim space
 etcdctl defrag
 
-# Increase quota
+## Increase quota
 etcd --quota-backend-bytes=16884901888  # 16GB
 ```
 
@@ -421,7 +481,7 @@ for wresp := range rch {
 ### 2. Security Configuration
 
 ```yaml
-# TLS for all communication
+## TLS for all communication
 client-transport-security:
   cert-file: /etc/etcd/server.crt
   key-file: /etc/etcd/server.key
@@ -434,7 +494,7 @@ peer-transport-security:
   trusted-ca-file: /etc/etcd/ca.crt
   client-cert-auth: true
 
-# Enable RBAC
+## Enable RBAC
 auth-token: jwt,pub-key=/etc/etcd/jwt-key.pub,sign-method=RS256
 ```
 
@@ -491,11 +551,11 @@ _, err := client.Txn(ctx).Then(ops...).Commit()
 ### Learner Nodes (3.4+)
 
 ```bash
-# Add learner node (non-voting)
+## Add learner node (non-voting)
 etcdctl member add node4 --learner \
   --peer-urls=https://10.0.4.10:2380
 
-# Promote to voting member after sync
+## Promote to voting member after sync
 etcdctl member promote <member-id>
 ```
 

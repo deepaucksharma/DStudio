@@ -1,9 +1,55 @@
 ---
 title: Principle Hooks
 description: Principle Hooks overview and navigation
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Principle Hooks: Aligning Stories with Company Values
+
+## Table of Contents
+
+- [Overview](#overview)
+- [The Hook Framework](#the-hook-framework)
+  - [Structure of a Principle Hook](#structure-of-a-principle-hook)
+- [Company-Specific Principle Hooks](#company-specific-principle-hooks)
+  - [Amazon Leadership Principles](#amazon-leadership-principles)
+    - [Customer Obsession](#customer-obsession)
+    - [Ownership](#ownership)
+    - [Invent and Simplify](#invent-and-simplify)
+  - [Google Values](#google-values)
+    - [Focus on the User](#focus-on-the-user)
+    - [Democracy on the Web](#democracy-on-the-web)
+  - [Meta Values](#meta-values)
+    - [Move Fast](#move-fast)
+    - [Be Bold  ](#be-bold-)
+- [Advanced Hook Techniques](#advanced-hook-techniques)
+  - [The Triple Hook](#the-triple-hook)
+  - [The Counter-Principle Hook](#the-counter-principle-hook)
+  - [The Evolution Hook](#the-evolution-hook)
+- [Principle Hook Patterns by Interview Stage](#principle-hook-patterns-by-interview-stage)
+  - [Phone Screen](#phone-screen)
+  - [Behavioral Rounds](#behavioral-rounds)
+  - [Executive Rounds](#executive-rounds)
+- [Authenticity Framework](#authenticity-framework)
+  - [Do's and Don'ts](#dos-and-donts)
+  - [Natural Integration Techniques](#natural-integration-techniques)
+- [Practice Exercises](#practice-exercises)
+  - [Exercise 1: Principle Mapping](#exercise-1-principle-mapping)
+  - [Exercise 2: Principle Tensions](#exercise-2-principle-tensions)
+  - [Exercise 3: Cultural Translation](#exercise-3-cultural-translation)
+- [Company Deep Dives](#company-deep-dives)
+  - [Amazon's Hidden Principles](#amazons-hidden-principles)
+  - [Google's Unwritten Rules](#googles-unwritten-rules)
+  - [Meta's Cultural Nuances](#metas-cultural-nuances)
+- [Red Flags to Avoid](#red-flags-to-avoid)
+  - [Over-Indexing](#over-indexing)
+  - [Misunderstanding Principles  ](#misunderstanding-principles-)
+  - [Performative Alignment](#performative-alignment)
+- [Integration Worksheet](#integration-worksheet)
+
+
 
 ## Overview
 

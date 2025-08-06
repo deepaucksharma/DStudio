@@ -1,7 +1,11 @@
 ---
-title: System Design Checklist
-description: - [ ] **Core Features** (3-5 main functions) - [ ] Primary use cases identified - [ ] User types defined
+title: "System Design Checklist"
+description: "Complete checklist for system design interviews covering requirements gathering, capacity estimation, high-level design, and detailed architecture."
 type: interview-guide
+category: interview-prep
+tags: ["interview-prep", "system-design"]
+date: 2025-08-07
+reading_time: "5 min"
 ---
 
 # System Design Checklist

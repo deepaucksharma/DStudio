@@ -2,9 +2,72 @@
 title: Practice Scenario: Delivering Bad News
 description: You're the Engineering Manager for a team that's been working on a major product initiative for 8 months. The project involves:
 type: interview-guide
+category: interview-prep
+tags: [interview-prep]
+date: 2025-08-07
 ---
 
 # Practice Scenario: Delivering Bad News
+
+
+
+## Overview
+
+Practice Scenario: Delivering Bad News
+description: You're the Engineering Manager for a team that's been working on a major product initiative for 8 months. The project involves:
+type: interview-guide
+---
+
+# Practice Scenario: Delivering Bad News
+
+## Table of Contents
+
+- [📰 Scenario Setup](#-scenario-setup)
+- [💭 Interview Question Framing](#-interview-question-framing)
+- [🎯 Answer Framework (STAR)](#-answer-framework-star)
+  - [Situation](#situation)
+  - [Task](#task)
+  - [Action](#action)
+  - [Result](#result)
+- [🤔 Common Follow-up Questions](#-common-follow-up-questions)
+  - [Q: "How did you decide who to lay off?
+
+**Reading time:** ~6 minutes
+
+## Table of Contents
+
+- [📰 Scenario Setup](#-scenario-setup)
+- [💭 Interview Question Framing](#-interview-question-framing)
+- [🎯 Answer Framework (STAR)](#-answer-framework-star)
+  - [Situation](#situation)
+  - [Task](#task)
+  - [Action](#action)
+  - [Result](#result)
+- [🤔 Common Follow-up Questions](#-common-follow-up-questions)
+  - [Q: "How did you decide who to lay off?"](#q-how-did-you-decide-who-to-lay-off)
+  - [Q: "What was the hardest conversation?"](#q-what-was-the-hardest-conversation)
+  - [Q: "How did you handle your own emotions?"](#q-how-did-you-handle-your-own-emotions)
+  - [Q: "Did you disagree with the decision?"](#q-did-you-disagree-with-the-decision)
+- [✅ What Interviewers Look For](#-what-interviewers-look-for)
+  - [🟢 Green Flags](#-green-flags)
+  - [Evaluation Criteria by Level](#evaluation-criteria-by-level)
+- [🚫 Red Flags to Avoid](#-red-flags-to-avoid)
+  - [❌ Never Say](#-never-say)
+  - [⚠️ Problematic Patterns](#-problematic-patterns)
+- [📊 Level-Specific Variations](#-level-specific-variations)
+  - [New Engineering Manager (L5)](#new-engineering-manager-l5)
+  - [Senior Engineering Manager (L7)](#senior-engineering-manager-l7)
+  - [Director (L8+)](#director-l8)
+- [💡 Key Principles Demonstrated](#-key-principles-demonstrated)
+  - [🎯 Primary Principles](#-primary-principles)
+  - [🎯 Secondary Principles](#-secondary-principles)
+- [📝 Preparation Notes](#-preparation-notes)
+  - [Story Development Questions](#story-development-questions)
+  - [Metrics to Prepare](#metrics-to-prepare)
+  - [Practice Elements](#practice-elements)
+  - [Story Variants](#story-variants)
+
+
 
 ## 📰 Scenario Setup
 

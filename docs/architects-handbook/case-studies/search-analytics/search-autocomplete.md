@@ -32,6 +32,150 @@ production_checklist:
 
 # Search Autocomplete System Design
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Core Concepts](#core-concepts)
+  - [Law 2: Asynchronous Reality - The 100ms Perception Barrier](#law-2-asynchronous-reality-the-100ms-perception-barrier)
+- [Navigate to prefix node](#navigate-to-prefix-node)
+- [Return pre-computed suggestions if available](#return-pre-computed-suggestions-if-available)
+- [Otherwise, DFS to find all words](#otherwise-dfs-to-find-all-words)
+- [Sort by frequency](#sort-by-frequency)
+- [Edge cache (5ms)](#edge-cache-5ms)
+- [Regional cache (20ms)](#regional-cache-20ms)
+- [Populate edge cache](#populate-edge-cache)
+- [Global cache (50ms)](#global-cache-50ms)
+- [Populate lower caches](#populate-lower-caches)
+  - [Law 4: Trade-offs - The Vocabulary Explosion](#law-4-trade-offs-the-vocabulary-explosion)
+- [Trie node overhead](#trie-node-overhead)
+- [Precomputed suggestions](#precomputed-suggestions)
+- [Frequency data](#frequency-data)
+- [Check if we can follow an existing edge](#check-if-we-can-follow-an-existing-edge)
+- [Complete match, continue with child](#complete-match-continue-with-child)
+- [Partial match, split edge](#partial-match-split-edge)
+- [Create new edge](#create-new-edge)
+- [For prefix search, we need to query all shards](#for-prefix-search-we-need-to-query-all-shards)
+- [Merge results from all shards](#merge-results-from-all-shards)
+  - [Sort by frequency and return top N](#sort-by-frequency-and-return-top-n)
+  - [Law 1: Failure - Graceful Degradation](#law-1-failure-graceful-degradation)
+- [Try primary system](#try-primary-system)
+- [Fallback to secondary](#fallback-to-secondary)
+- [Last resort: static suggestions](#last-resort-static-suggestions)
+- [Common prefixes with cached results](#common-prefixes-with-cached-results)
+- [... more prefixes](#more-prefixes)
+- [Check if timeout has passed](#check-if-timeout-has-passed)
+  - [Law 3: Emergence - Handling Parallel Queries](#law-3-emergence-handling-parallel-queries)
+- [Deduplicate identical queries](#deduplicate-identical-queries)
+- [Limit concurrent searches](#limit-concurrent-searches)
+- [Use thread-local storage for connection pooling](#use-thread-local-storage-for-connection-pooling)
+- [Wait for existing computation](#wait-for-existing-computation)
+- [Create future for this computation](#create-future-for-this-computation)
+- [Compute result](#compute-result)
+- [Clean up after TTL](#clean-up-after-ttl)
+- [Create workers](#create-workers)
+- [Distribute terms to workers](#distribute-terms-to-workers)
+- [Signal completion](#signal-completion)
+- [Wait for workers](#wait-for-workers)
+- [Merge partial tries](#merge-partial-tries)
+  - [Law 4: Trade-offs - Global Consistency](#law-4-trade-offs-global-consistency)
+- [Update regional index immediately](#update-regional-index-immediately)
+- [Queue for global aggregation](#queue-for-global-aggregation)
+- [Periodic sync to other regions](#periodic-sync-to-other-regions)
+- [Aggregate top terms from each region](#aggregate-top-terms-from-each-region)
+- [Get top 1000 terms from each region](#get-top-1000-terms-from-each-region)
+- [Merge and identify globally popular terms](#merge-and-identify-globally-popular-terms)
+- [Update global popular list](#update-global-popular-list)
+- [Propagate top global terms to all regions](#propagate-top-global-terms-to-all-regions)
+- [Propagate to other nodes](#propagate-to-other-nodes)
+- [Sort by score](#sort-by-score)
+  - [Law 5: Epistemology - Understanding Search Patterns](#law-5-epistemology-understanding-search-patterns)
+- [Update metrics](#update-metrics)
+- [Click-through rate](#click-through-rate)
+- [Latency tracking](#latency-tracking)
+- [Coverage](#coverage)
+- [Update baseline (exponential moving average)](#update-baseline-exponential-moving-average)
+- [Check if frequency increased dramatically](#check-if-frequency-increased-dramatically)
+  - [Law 6: Human-API - Natural Query Understanding](#law-6-human-api-natural-query-understanding)
+- [Calculate typing speed](#calculate-typing-speed)
+- [Detect hesitation (might indicate typo)](#detect-hesitation-might-indicate-typo)
+- [Check patterns](#check-patterns)
+- [Use user history](#use-user-history)
+- [Score each suggestion](#score-each-suggestion)
+- [Boost if previously clicked](#boost-if-previously-clicked)
+- [Reduce if previously ignored](#reduce-if-previously-ignored)
+- [Time-based relevance](#time-based-relevance)
+- [Sort by personalized score](#sort-by-personalized-score)
+  - [Law 7: Economics - Balancing Quality and Cost](#law-7-economics-balancing-quality-and-cost)
+- [Costs](#costs)
+- [Storage (assuming 3x replication)](#storage-assuming-3x-replication)
+- [Bandwidth (assuming 1KB per query response)](#bandwidth-assuming-1kb-per-query-response)
+- [Cache costs](#cache-costs)
+- [Revenue (from improved search leading to more clicks)](#revenue-from-improved-search-leading-to-more-clicks)
+- [Calculate what we can afford](#calculate-what-we-can-afford)
+- [Choose quality level](#choose-quality-level)
+- [Architecture Evolution](#architecture-evolution)
+- [Architecture Evolution](#architecture-evolution)
+  - [Phase 1: Simple Prefix Matching (2004-2006)](#phase-1-simple-prefix-matching-2004-2006)
+  - [Phase 2: Trie-Based In-Memory Solution (2006-2010)](#phase-2-trie-based-in-memory-solution-2006-2010)
+  - [Phase 3: Distributed Architecture (2010-2015)](#phase-3-distributed-architecture-2010-2015)
+  - [Phase 4: Modern Multi-Model Architecture (2015-Present)](#phase-4-modern-multi-model-architecture-2015-present)
+- [Core Components Deep Dive](#core-components-deep-dive)
+  - [Current Architecture: The Distributed Trie System](#current-architecture-the-distributed-trie-system)
+  - [Alternative Architecture 1: Bloom Filter + Database](#alternative-architecture-1-bloom-filter-database)
+- [Check bloom filter first](#check-bloom-filter-first)
+- [Query database](#query-database)
+  - [Alternative Architecture 2: FST (Finite State Transducer)](#alternative-architecture-2-fst-finite-state-transducer)
+  - [Alternative Architecture 3: Elasticsearch-Based](#alternative-architecture-3-elasticsearch-based)
+  - [Alternative Architecture 4: Neural Language Model](#alternative-architecture-4-neural-language-model)
+- [Generate using neural model](#generate-using-neural-model)
+- [Law Mapping & Design Decisions](#law-mapping-design-decisions)
+  - [Comprehensive Design Decision Matrix](#comprehensive-design-decision-matrix)
+  - [Recommended Hybrid Architecture](#recommended-hybrid-architecture)
+  - [Implementation Details](#implementation-details)
+- [1. Check client cache (0ms)](#1-check-client-cache-0ms)
+- [2. Check edge cache (5ms)](#2-check-edge-cache-5ms)
+- [3. Hot path - common queries (10ms)](#3-hot-path-common-queries-10ms)
+- [4. Cold path - distributed search (50ms)](#4-cold-path-distributed-search-50ms)
+- [ML ranking](#ml-ranking)
+- [5. Fallback - static suggestions](#5-fallback-static-suggestions)
+- [First few characters determine if likely common](#first-few-characters-determine-if-likely-common)
+- [Performance Optimization Techniques](#performance-optimization-techniques)
+  - [1. Query Processing Pipeline](#1-query-processing-pipeline)
+- [1. Input validation](#1-input-validation)
+- [2. Normalize input](#2-normalize-input)
+- [3. Check bloom filter](#3-check-bloom-filter)
+- [4. Parallel search strategies](#4-parallel-search-strategies)
+- [5. Race with timeout](#5-race-with-timeout)
+- [6. Merge and rank](#6-merge-and-rank)
+- [Filter out exceptions](#filter-out-exceptions)
+- [Return whatever completed](#return-whatever-completed)
+  - [2. Memory Optimization](#2-memory-optimization)
+- [Use array instead of dict for common characters](#use-array-instead-of-dict-for-common-characters)
+- [Find chains of single-child nodes](#find-chains-of-single-child-nodes)
+- [Follow single-child chain](#follow-single-child-chain)
+- [Store compressed path](#store-compressed-path)
+  - [3. Distributed Coordination](#3-distributed-coordination)
+- [1. Find responsible nodes](#1-find-responsible-nodes)
+- [2. Try primary with circuit breaker](#2-try-primary-with-circuit-breaker)
+- [3. Fallback to replicas](#3-fallback-to-replicas)
+- [4. Use degraded mode](#4-use-degraded-mode)
+- [Failure Handling & Recovery](#failure-handling-recovery)
+  - [Common Failure Scenarios](#common-failure-scenarios)
+- [1. Remove from rotation](#1-remove-from-rotation)
+- [2. Redistribute load](#2-redistribute-load)
+- [3. Trigger rebuild on new server](#3-trigger-rebuild-on-new-server)
+- [Use probabilistic early expiration](#use-probabilistic-early-expiration)
+- [Refresh in background](#refresh-in-background)
+- [Fallback to frequency-based ranking](#fallback-to-frequency-based-ranking)
+- [Key Design Insights](#key-design-insights)
+- [Related Concepts & Deep Dives](#related-concepts-deep-dives)
+  - [📚 Relevant Laws](#relevant-laws)
+  - [🏛 Related Patterns](#related-patterns)
+  - [Quantitative Models](#quantitative-models)
+  - [Similar Case Studies](#similar-case-studies)
+- [References](#references)
+- [Conclusion](#conclusion)
+
 **Challenge**: Provide real-time search suggestions for billions of queries with <100ms latency
 
 !!! info "Case Study Sources"
@@ -105,22 +249,22 @@ class OptimizedTrie:
         """Ultra-fast prefix search"""
         start_time = time.time()
         
-# Navigate to prefix node
+## Navigate to prefix node
         node = self.root
         for char in prefix.lower():
             if char not in node.children:
                 return []
             node = node.children[char]
         
-# Return pre-computed suggestions if available
+## Return pre-computed suggestions if available
         if node.top_suggestions:
             return node.top_suggestions[:limit]
         
-# Otherwise, DFS to find all words
+## Otherwise, DFS to find all words
         suggestions = []
         self._dfs(node, prefix, suggestions)
         
-# Sort by frequency
+## Sort by frequency
         suggestions.sort(key=lambda x: x[1], reverse=True)
         
         search_time = (time.time() - start_time) * 1000
@@ -166,7 +310,7 @@ class EdgeCacheStrategy:
         """Get suggestions with latency tracking"""
         cache_key = query.query.lower()
         
-# Edge cache (5ms)
+## Edge cache (5ms)
         edge_location = self._get_edge_location(query.location)
         if edge_location in self.edge_caches:
             if cache_key in self.edge_caches[edge_location]:
@@ -175,7 +319,7 @@ class EdgeCacheStrategy:
         
         self.cache_stats['edge']['misses'] += 1
         
-# Regional cache (20ms)
+## Regional cache (20ms)
         region = self._get_region(query.location)
         await asyncio.sleep(0.015)  # Simulate network latency
         
@@ -183,19 +327,19 @@ class EdgeCacheStrategy:
             if cache_key in self.regional_caches[region]:
                 self.cache_stats['regional']['hits'] += 1
                 suggestions = self.regional_caches[region][cache_key]
-# Populate edge cache
+## Populate edge cache
                 self._populate_edge_cache(edge_location, cache_key, suggestions)
                 return suggestions, 20
         
         self.cache_stats['regional']['misses'] += 1
         
-# Global cache (50ms)
+## Global cache (50ms)
         await asyncio.sleep(0.03)  # Additional latency
         
         if cache_key in self.global_cache:
             self.cache_stats['global']['hits'] += 1
             suggestions = self.global_cache[cache_key]
-# Populate lower caches
+## Populate lower caches
             self._populate_regional_cache(region, cache_key, suggestions)
             self._populate_edge_cache(edge_location, cache_key, suggestions)
             return suggestions, 50
@@ -225,17 +369,17 @@ class CapacityOptimizer:
                                    avg_term_length: int = 10,
                                    suggestions_per_term: int = 10) -> Dict:
         """Estimate memory needs for autocomplete index"""
-# Trie node overhead
+## Trie node overhead
         bytes_per_node = 40  # Python object overhead
         avg_nodes_per_term = avg_term_length * 0.7  # Sharing factor
         
         trie_size = unique_terms * avg_nodes_per_term * bytes_per_node
         
-# Precomputed suggestions
+## Precomputed suggestions
         suggestion_size = (avg_term_length + 8) * suggestions_per_term  # text + score
         cache_size = unique_terms * suggestion_size
         
-# Frequency data
+## Frequency data
         frequency_size = unique_terms * 8  # 64-bit integers
         
         total_size = trie_size + cache_size + frequency_size
@@ -270,19 +414,19 @@ class CompressedTrie:
         while i < len(word):
             found = False
             
-# Check if we can follow an existing edge
+## Check if we can follow an existing edge
             for edge_label, child in node['edges'].items():
                 common_len = self._common_prefix_length(word[i:], edge_label)
                 
                 if common_len > 0:
                     if common_len == len(edge_label):
-# Complete match, continue with child
+## Complete match, continue with child
                         node = child
                         i += common_len
                         found = True
                         break
                     else:
-# Partial match, split edge
+## Partial match, split edge
                         self._split_edge(node, edge_label, common_len)
                         node = node['edges'][edge_label[:common_len]]
                         i += common_len
@@ -290,7 +434,7 @@ class CompressedTrie:
                         break
             
             if not found:
-# Create new edge
+## Create new edge
                 new_node = self._create_node()
                 node['edges'][word[i:]] = new_node
                 new_node['value'] = word
@@ -329,19 +473,19 @@ class ShardedAutocomplete:
     
     async def search(self, prefix: str, limit: int = 10) -> List[Tuple[str, int]]:
         """Search across all shards"""
-# For prefix search, we need to query all shards
+## For prefix search, we need to query all shards
         tasks = []
         for shard in self.shards:
             tasks.append(self._search_shard(shard, prefix, limit))
         
         all_results = await asyncio.gather(*tasks)
         
-# Merge results from all shards
+## Merge results from all shards
         merged = []
         for results in all_results:
             merged.extend(results)
         
-# Sort by frequency and return top N
+### Sort by frequency and return top N
         merged.sort(key=lambda x: x[1], reverse=True)
         return merged[:limit]
 ```
@@ -366,20 +510,20 @@ class ResilientAutocomplete:
     async def get_suggestions(self, query: str) -> List[Suggestion]:
         """Get suggestions with fallback strategies"""
         try:
-# Try primary system
+## Try primary system
             if self.circuit_breaker.is_closed():
                 return await self._get_primary_suggestions(query)
         except Exception as e:
             self.circuit_breaker.record_failure()
             print(f"Primary system failed: {e}")
         
-# Fallback to secondary
+## Fallback to secondary
         try:
             return await self._get_fallback_suggestions(query)
         except Exception as e:
             print(f"Fallback system failed: {e}")
         
-# Last resort: static suggestions
+## Last resort: static suggestions
         return self._get_static_suggestions(query)
     
     async def _get_primary_suggestions(self, query: str) -> List[Suggestion]:
@@ -397,12 +541,12 @@ class ResilientAutocomplete:
     
     def _get_static_suggestions(self, query: str) -> List[Suggestion]:
         """Return pre-computed popular suggestions"""
-# Common prefixes with cached results
+## Common prefixes with cached results
         static_prefixes = {
             'a': ['amazon', 'apple', 'american airlines'],
             'b': ['best buy', 'bank of america', 'bitcoin'],
             'c': ['covid', 'craigslist', 'cnn'],
-# ... more prefixes
+## ... more prefixes
         }
         
         prefix = query[0].lower() if query else ''
@@ -427,7 +571,7 @@ class CircuitBreaker:
     def is_closed(self) -> bool:
         """Check if circuit is closed (normal operation)"""
         if self.state == 'open':
-# Check if timeout has passed
+## Check if timeout has passed
             if time.time() - self.last_failure_time > self.timeout:
                 self.state = 'half-open'
                 return True
@@ -467,7 +611,7 @@ class ConcurrentSearchHandler:
         
     async def handle_search(self, query: SearchQuery) -> List[Suggestion]:
         """Process search with concurrency control"""
-# Deduplicate identical queries
+## Deduplicate identical queries
         dedup_key = f"{query.query}:{query.user_id}"
         existing = await self.query_deduplicator.get_or_compute(
             dedup_key,
@@ -477,13 +621,13 @@ class ConcurrentSearchHandler:
         if existing is not None:
             return existing
         
-# Limit concurrent searches
+## Limit concurrent searches
         async with self.semaphore:
             return await self._process_search(query)
     
     async def _process_search(self, query: SearchQuery) -> List[Suggestion]:
         """Process individual search request"""
-# Use thread-local storage for connection pooling
+## Use thread-local storage for connection pooling
         if not hasattr(self.thread_local, 'search_index'):
             self.thread_local.search_index = OptimizedTrie()
         
@@ -506,19 +650,19 @@ class QueryDeduplicator:
     async def get_or_compute(self, key: str, compute_func):
         """Return cached result or compute once"""
         if key in self.pending:
-# Wait for existing computation
+## Wait for existing computation
             return await self.pending[key]
         
-# Create future for this computation
+## Create future for this computation
         future = asyncio.create_future()
         self.pending[key] = future
         
         try:
-# Compute result
+## Compute result
             result = await compute_func()
             future.set_result(result)
             
-# Clean up after TTL
+## Clean up after TTL
             asyncio.create_task(self._cleanup_key(key))
             
             return result
@@ -540,7 +684,7 @@ class ParallelIndexBuilder:
         
     async def build_index(self, terms: List[Tuple[str, int]]) -> OptimizedTrie:
         """Build trie index in parallel"""
-# Create workers
+## Create workers
         workers = []
         partial_tries = []
         
@@ -552,19 +696,19 @@ class ParallelIndexBuilder:
             )
             workers.append(worker)
         
-# Distribute terms to workers
+## Distribute terms to workers
         for i, term_freq in enumerate(terms):
             worker_id = i % self.worker_count
             await self.build_queue.put((worker_id, term_freq))
         
-# Signal completion
+## Signal completion
         for i in range(self.worker_count):
             await self.build_queue.put((i, None))
         
-# Wait for workers
+## Wait for workers
         await asyncio.gather(*workers)
         
-# Merge partial tries
+## Merge partial tries
         return self._merge_tries(partial_tries)
     
     async def _build_worker(self, worker_id: int, trie: OptimizedTrie):
@@ -599,39 +743,39 @@ class GlobalAutocompleteCoordinator:
         
     async def update_term_frequency(self, term: str, region: str, delta: int):
         """Update term frequency with eventual consistency"""
-# Update regional index immediately
+## Update regional index immediately
         regional_index = self.regional_indices[region]
         regional_index.insert(term, delta)  # Simplified - add to frequency
         
-# Queue for global aggregation
+## Queue for global aggregation
         await self._queue_global_update(term, delta)
         
-# Periodic sync to other regions
+## Periodic sync to other regions
         if time.time() % self.sync_interval < 1:
             await self._sync_regions()
     
     async def _sync_regions(self):
         """Synchronize popular terms across regions"""
-# Aggregate top terms from each region
+## Aggregate top terms from each region
         regional_top_terms = {}
         
         for region, index in self.regional_indices.items():
-# Get top 1000 terms from each region
+## Get top 1000 terms from each region
             top_terms = index.search_prefix("", limit=1000)
             regional_top_terms[region] = top_terms
         
-# Merge and identify globally popular terms
+## Merge and identify globally popular terms
         term_frequencies = defaultdict(int)
         for region, terms in regional_top_terms.items():
             for term, freq in terms:
                 term_frequencies[term] += freq
         
-# Update global popular list
+## Update global popular list
         self.global_popular.clear()
         for term, freq in term_frequencies.items():
             self.global_popular.add((term, freq))
         
-# Propagate top global terms to all regions
+## Propagate top global terms to all regions
         top_global = list(self.global_popular[:100])
         for region, index in self.regional_indices.items():
             for term, freq in top_global:
@@ -654,7 +798,7 @@ class ConsistentRanking:
         self.ranking_models[model_id] = parameters
         self.version_vector[model_id] = version
         
-# Propagate to other nodes
+## Propagate to other nodes
         await self._propagate_model_update(model_id, parameters, version)
     
     def rank_suggestions(self, suggestions: List[Suggestion], 
@@ -666,7 +810,7 @@ class ConsistentRanking:
             score = self._calculate_score(suggestion, context)
             scored_suggestions.append((suggestion, score))
         
-# Sort by score
+## Sort by score
         scored_suggestions.sort(key=lambda x: x[1], reverse=True)
         
         return [s[0] for s in scored_suggestions]
@@ -701,22 +845,22 @@ class SearchAnalytics:
             'user_id': event['user_id']
         })
         
-# Update metrics
+## Update metrics
         await self._update_metrics(event)
     
     async def _update_metrics(self, event: Dict):
         """Update quality metrics"""
-# Click-through rate
+## Click-through rate
         if event.get('clicked'):
             query_prefix = event['query'][:3]  # Group by prefix
             self.click_through_rates[query_prefix] += 0.01  # Smoothed
         
-# Latency tracking
+## Latency tracking
         self.latency_percentiles.append(event['latency'])
         if len(self.latency_percentiles) > 10000:
             self.latency_percentiles.pop(0)
         
-# Coverage
+## Coverage
         has_suggestions = len(event['suggestions']) > 0
         self.quality_metrics['coverage'] = (
             0.99 * self.quality_metrics['coverage'] + 
@@ -753,7 +897,7 @@ class AnomalyDetector:
                 'severity': 'high'
             }
         
-# Update baseline (exponential moving average)
+## Update baseline (exponential moving average)
         self.baseline_qps = 0.95 * self.baseline_qps + 0.05 * current_qps
         return None
     
@@ -765,7 +909,7 @@ class AnomalyDetector:
         if len(history) < 10:
             return False
         
-# Check if frequency increased dramatically
+## Check if frequency increased dramatically
         recent_avg = sum(list(history)[-5:]) / 5
         historical_avg = sum(list(history)[-10:-5]) / 5
         
@@ -795,7 +939,7 @@ class TypingPatternAnalyzer:
         if len(keystrokes) < 2:
             return {}
         
-# Calculate typing speed
+## Calculate typing speed
         speeds = []
         for i in range(1, len(keystrokes)):
             time_diff = keystrokes[i]['timestamp'] - keystrokes[i-1]['timestamp']
@@ -805,7 +949,7 @@ class TypingPatternAnalyzer:
         avg_speed = sum(speeds) / len(speeds) if speeds else 0
         self.typing_speeds[user_id].append(avg_speed)
         
-# Detect hesitation (might indicate typo)
+## Detect hesitation (might indicate typo)
         hesitations = []
         for i in range(1, len(keystrokes)):
             if keystrokes[i]['key'] == 'backspace':
@@ -833,14 +977,14 @@ class IntentPredictor:
         """Predict query intent"""
         query_lower = query.lower()
         
-# Check patterns
+## Check patterns
         for intent, patterns in self.intent_patterns.items():
             for pattern in patterns:
                 if pattern in query_lower:
                     self.user_intent_history[user_id][intent] += 1
                     return intent
         
-# Use user history
+## Use user history
         if user_id in self.user_intent_history:
             intents = self.user_intent_history[user_id]
             if intents:
@@ -866,20 +1010,20 @@ class PersonalizedRanker:
         """Personalize suggestion ranking"""
         profile = self.user_profiles[user_id]
         
-# Score each suggestion
+## Score each suggestion
         scored = []
         for suggestion in suggestions:
             score = suggestion.score
             
-# Boost if previously clicked
+## Boost if previously clicked
             if suggestion.text in profile['clicked_suggestions']:
                 score *= 1.5
             
-# Reduce if previously ignored
+## Reduce if previously ignored
             if suggestion.text in profile['ignored_suggestions']:
                 score *= 0.5
             
-# Time-based relevance
+## Time-based relevance
             if context.get('time_of_day'):
                 score *= self._time_relevance_factor(
                     suggestion.text, 
@@ -888,7 +1032,7 @@ class PersonalizedRanker:
             
             scored.append((suggestion, score))
         
-# Sort by personalized score
+## Sort by personalized score
         scored.sort(key=lambda x: x[1], reverse=True)
         
         return [s[0] for s in scored]
@@ -919,23 +1063,23 @@ class AutocompleteEconomics:
                                 index_size_gb: float,
                                 cache_hit_rate: float) -> Dict:
         """Calculate economics of autocomplete system"""
-# Costs
+## Costs
         compute_cost = daily_queries * self.cost_model['compute_per_query']
         
-# Storage (assuming 3x replication)
+## Storage (assuming 3x replication)
         storage_cost = index_size_gb * 3 * self.cost_model['storage_per_gb'] / 30
         
-# Bandwidth (assuming 1KB per query response)
+## Bandwidth (assuming 1KB per query response)
         bandwidth_gb = (daily_queries * 1) / 1e9
         bandwidth_cost = bandwidth_gb * self.cost_model['bandwidth_per_gb']
         
-# Cache costs
+## Cache costs
         cache_size_gb = index_size_gb * 0.1  # 10% in cache
         cache_cost = cache_size_gb * self.cost_model['cache_per_gb'] / 30
         
         total_daily_cost = compute_cost + storage_cost + bandwidth_cost + cache_cost
         
-# Revenue (from improved search leading to more clicks)
+## Revenue (from improved search leading to more clicks)
         improved_clicks = daily_queries * 0.001  # 0.1% improvement
         daily_revenue = improved_clicks * self.revenue_model['revenue_per_click']
         
@@ -964,10 +1108,10 @@ class QualityVsCostOptimizer:
         daily_queries = expected_qps * 86400
         daily_budget = self.budget
         
-# Calculate what we can afford
+## Calculate what we can afford
         cost_per_query = daily_budget / daily_queries
         
-# Choose quality level
+## Choose quality level
         selected_level = 'basic'
         for level, specs in self.quality_levels.items():
             if specs['cost'] <= cost_per_query * 1000:  # Cost per 1000
@@ -1221,7 +1365,7 @@ class BloomFilterArchitecture:
         self.database = {}  # Full suggestion data
         
     async def search(self, prefix: str) -> List[str]:
-# Check bloom filter first
+## Check bloom filter first
         for i in range(1, len(prefix) + 1):
             sub_prefix = prefix[:i]
             if sub_prefix not in self.bloom_filters:
@@ -1230,7 +1374,7 @@ class BloomFilterArchitecture:
             if not self.bloom_filters[sub_prefix].contains(prefix):
                 return []  # Definitely no suggestions
         
-# Query database
+## Query database
         return await self.query_database(prefix)
 ```
 
@@ -1331,7 +1475,7 @@ class NeuralAutocomplete:
         if prefix in self.cache:
             return self.cache[prefix]
         
-# Generate using neural model
+## Generate using neural model
         suggestions = await self.model.complete(
             prefix,
             num_suggestions=10,
@@ -1427,18 +1571,18 @@ class HybridAutocompleteSystem:
         """Get suggestions with <100ms latency"""
         start_time = time.time()
         
-# 1. Check client cache (0ms)
+## 1. Check client cache (0ms)
         client_cached = self.cache_layers['client'].get(query.query)
         if client_cached:
             return client_cached
         
-# 2. Check edge cache (5ms)
+## 2. Check edge cache (5ms)
         edge_cached = await self.cache_layers['edge'].get(query.query)
         if edge_cached:
             self._update_client_cache(query.query, edge_cached)
             return edge_cached
         
-# 3. Hot path - common queries (10ms)
+## 3. Hot path - common queries (10ms)
         if self._is_common_query(query.query):
             suggestions = self.hot_trie.search_prefix(query.query)
             if suggestions:
@@ -1446,25 +1590,25 @@ class HybridAutocompleteSystem:
                 self._update_caches(query.query, ranked)
                 return ranked
         
-# 4. Cold path - distributed search (50ms)
+## 4. Cold path - distributed search (50ms)
         try:
             suggestions = await asyncio.wait_for(
                 self.cold_storage.search(query.query),
                 timeout=0.05  # 50ms timeout
             )
             
-# ML ranking
+## ML ranking
             ranked = await self.ml_ranker.rank(suggestions, query)
             self._update_caches(query.query, ranked)
             return ranked
             
         except asyncio.TimeoutError:
-# 5. Fallback - static suggestions
+## 5. Fallback - static suggestions
             return self._get_fallback_suggestions(query.query)
     
     def _is_common_query(self, query: str) -> bool:
         """Check if query is in hot dataset"""
-# First few characters determine if likely common
+## First few characters determine if likely common
         prefix = query[:2].lower() if len(query) >= 2 else query
         common_prefixes = {'go', 'fa', 'yo', 'am', 'ne', 'tw'}
         return prefix in common_prefixes
@@ -1498,31 +1642,31 @@ class OptimizedQueryProcessor:
     async def process_query(self, prefix: str, 
                           context: dict) -> List[str]:
         """Process autocomplete query with optimizations"""
-# 1. Input validation
+## 1. Input validation
         if len(prefix) < self.min_prefix_length:
             return []
             
-# 2. Normalize input
+## 2. Normalize input
         normalized = self._normalize_query(prefix)
         
-# 3. Check bloom filter
+## 3. Check bloom filter
         if not self.bloom_filter.might_contain(normalized[:3]):
             return []  # Early exit for non-existent prefixes
         
-# 4. Parallel search strategies
+## 4. Parallel search strategies
         strategies = [
             self._exact_prefix_search(normalized),
             self._fuzzy_search(normalized),
             self._semantic_search(normalized)
         ]
         
-# 5. Race with timeout
+## 5. Race with timeout
         results = await self._race_with_timeout(
             strategies, 
             self.timeout_ms
         )
         
-# 6. Merge and rank
+## 6. Merge and rank
         merged = self._merge_results(results)
         ranked = await self._rank_results(merged, context)
         
@@ -1537,11 +1681,11 @@ class OptimizedQueryProcessor:
                 timeout=timeout_ms / 1000
             )
             
-# Filter out exceptions
+## Filter out exceptions
             return [r for r in results if not isinstance(r, Exception)]
             
         except asyncio.TimeoutError:
-# Return whatever completed
+## Return whatever completed
             return [
                 task.result() 
                 for task in tasks 
@@ -1556,7 +1700,7 @@ class CompactTrie:
     """Memory-efficient trie implementation"""
     
     def __init__(self):
-# Use array instead of dict for common characters
+## Use array instead of dict for common characters
         self.children_array = [None] * 26  # a-z
         self.children_dict = {}  # Other characters
         self.suggestions = None  # Lazy load
@@ -1567,20 +1711,20 @@ class CompactTrie:
         if self.is_compressed:
             return
             
-# Find chains of single-child nodes
+## Find chains of single-child nodes
         compressed_children = {}
         
         for char, child in self._iterate_children():
             chain = [char]
             current = child
             
-# Follow single-child chain
+## Follow single-child chain
             while current._child_count() == 1 and not current.suggestions:
                 next_char, next_child = next(current._iterate_children())
                 chain.append(next_char)
                 current = next_child
             
-# Store compressed path
+## Store compressed path
             if len(chain) > 1:
                 compressed_children[''.join(chain)] = current
             else:
@@ -1605,18 +1749,18 @@ class DistributedAutocomplete:
         
     async def route_query(self, prefix: str) -> List[str]:
         """Route query to appropriate service"""
-# 1. Find responsible nodes
+## 1. Find responsible nodes
         primary = self.consistent_hash.get_node(prefix)
         replicas = self.consistent_hash.get_replicas(prefix, count=2)
         
-# 2. Try primary with circuit breaker
+## 2. Try primary with circuit breaker
         if self._is_healthy(primary):
             try:
                 return await self._query_node(primary, prefix)
             except Exception as e:
                 self._record_failure(primary)
         
-# 3. Fallback to replicas
+## 3. Fallback to replicas
         for replica in replicas:
             if self._is_healthy(replica):
                 try:
@@ -1624,7 +1768,7 @@ class DistributedAutocomplete:
                 except Exception:
                     self._record_failure(replica)
         
-# 4. Use degraded mode
+## 4. Use degraded mode
         return await self._degraded_suggestions(prefix)
 ```
 
@@ -1636,13 +1780,13 @@ class DistributedAutocomplete:
    ```python
    class TrieServerRecovery:
        async def handle_server_failure(self, failed_server: str):
-# 1. Remove from rotation
+## 1. Remove from rotation
            await self.load_balancer.remove_server(failed_server)
            
-# 2. Redistribute load
+## 2. Redistribute load
            await self.consistent_hash.remove_node(failed_server)
            
-# 3. Trigger rebuild on new server
+## 3. Trigger rebuild on new server
            await self.rebuild_trie_on_standby()
    ```
 
@@ -1650,11 +1794,11 @@ class DistributedAutocomplete:
    ```python
    class CacheStampedeProtection:
        async def get_with_protection(self, key: str):
-# Use probabilistic early expiration
+## Use probabilistic early expiration
            value, expiry = await self.cache.get_with_expiry(key)
            
            if value and self._should_refresh(expiry):
-# Refresh in background
+## Refresh in background
                asyncio.create_task(self._refresh_cache(key))
                
            return value
@@ -1667,7 +1811,7 @@ class DistributedAutocomplete:
            try:
                return await self.ml_ranker.rank(suggestions)
            except ModelException:
-# Fallback to frequency-based ranking
+## Fallback to frequency-based ranking
                return self.frequency_ranker.rank(suggestions)
    ```
 

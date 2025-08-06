@@ -131,7 +131,7 @@ Distributed Lock **ensures mutual exclusion** by **coordinating through a centra
 <summary>📄 View python code (10 lines)</summary>
 
 ```python
-# Minimal distributed lock implementation
+## Minimal distributed lock implementation
 def acquire_lock(resource_id, ttl_seconds=30):
     """Acquire exclusive lock with automatic expiration"""
     lock_key = f"lock:{resource_id}"

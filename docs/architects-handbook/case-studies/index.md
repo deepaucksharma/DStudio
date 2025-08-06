@@ -5,6 +5,42 @@ description: Case Studies overview and navigation
 
 # Case Studies
 
+## Table of Contents
+
+- [Overview](#overview)
+- [📚 Case Studies by Domain](#-case-studies-by-domain)
+  - [🗂️ Domain Navigation](#-domain-navigation)
+  - [🗄️ Databases & Storage](#-databases-storage)
+  - [📨 Messaging & Streaming](#-messaging-streaming)
+  - [📍 Location Services](#-location-services)
+  - [🏗️ Infrastructure & Platform  ](#-infrastructure-platform-)
+  - [💬 Social & Communication](#-social-communication)
+  - [💰 Financial & Commerce](#-financial-commerce)
+  - [🔍 Search & Analytics](#-search-analytics)
+  - [📊 Monitoring & Observability](#-monitoring-observability)
+  - [🏥 Healthcare Systems](#-healthcare-systems)
+  - [🎮 Gaming Systems](#-gaming-systems)
+  - [📦 Logistics & Supply Chain](#-logistics-supply-chain)
+  - [🏆 Elite Engineering](#-elite-engineering)
+- [🎯 By Problem Domain](#-by-problem-domain)
+  - [Scale Challenges](#scale-challenges)
+  - [Consistency Challenges](#consistency-challenges)
+  - [Latency Challenges](#latency-challenges)
+- [📊 Pattern Usage](#-pattern-usage)
+- [🔍 How to Use These Studies](#-how-to-use-these-studies)
+- [📈 Scale Comparison](#-scale-comparison)
+- [🎯 Learning Paths & Quick Navigation](#-learning-paths-quick-navigation)
+  - [🌱 Getting Started (Choose Your Path)](#-getting-started-choose-your-path)
+  - [🏃‍♀️ Advanced Practitioners](#-advanced-practitioners)
+  - [🏆 Industry Deep Dives](#-industry-deep-dives)
+- [🔍 Study Selection Filters](#-study-selection-filters)
+  - [By Difficulty Level  ](#by-difficulty-level-)
+  - [By Time Investment](#by-time-investment)
+  - [By Architecture Pattern Focus](#by-architecture-pattern-focus)
+  - [Cross-Domain Themes](#cross-domain-themes)
+
+
+
 Learn from real distributed systems implementations at scale.
 
 ## Overview
