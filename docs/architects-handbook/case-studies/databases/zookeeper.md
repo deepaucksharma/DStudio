@@ -39,7 +39,7 @@ patterns_used:
 excellence_guides:
 - migration/zookeeper-to-etcd
 - operational/coordination-services
-- pattern-library/modern-consensus
+- ../../../pattern-library/modern-consensus
 deprecation:
   status: Gradually being replaced
   alternatives:
@@ -394,10 +394,10 @@ for wresp := range rch {
 ## Related Topics
 
 - [etcd Case Study](../etcd.md) - Modern alternative
-- [Consensus Patterns](../pattern-library/coordination/consensus.md) - Raft vs ZAB
-- [Leader Election](../pattern-library/coordination/leader-election.md) - Common ZK recipe
-- [Service Discovery](../pattern-library/communication/service-discovery.md) - ZK patterns
-- [Distributed Locks](../pattern-library/coordination/distributed-lock.md) - Lock recipes
+- [Consensus Patterns](../../../pattern-library/coordination/consensus.md) - Raft vs ZAB
+- [Leader Election](../../../pattern-library/coordination/leader-election.md) - Common ZK recipe
+- [Service Discovery](../../../pattern-library/communication/service-discovery.md) - ZK patterns
+- [Distributed Locks](../../../pattern-library/coordination/distributed-lock.md) - Lock recipes
 
 ## References
 

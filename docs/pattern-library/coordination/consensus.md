@@ -319,6 +319,16 @@ No deterministic consensus algorithm can guarantee both safety and liveness in a
 
 ---
 
+## Related Laws
+
+This pattern directly addresses several fundamental distributed systems laws:
+
+- **[Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/)**: Consensus algorithms must handle node failures and network partitions without losing safety or liveness guarantees
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)**: The FLP impossibility result shows that consensus cannot guarantee both safety and liveness in purely asynchronous systems, requiring partial synchrony assumptions
+- **[Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/)**: Multiple concurrent consensus attempts can create complex emergent behaviors like competing leaders or split votes that require sophisticated handling
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Consensus embodies the CAP theorem trade-offs - strong consistency requires sacrificing availability during partitions
+- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/)**: The fundamental challenge of reaching agreement when no single node has complete knowledge of the system state
+
 ## Related Laws & Pillars
 
 ### Fundamental Laws

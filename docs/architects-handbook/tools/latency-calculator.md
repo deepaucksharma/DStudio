@@ -61,7 +61,13 @@ type: documentation
 <input type="number" id="diskIO" value="5" min="0" step="1">
 
 
+<div class="button-group">
 <button type="button" onclick="calculateLatency()" class="calc-button">Calculate Latency</button>
+<button type="button" onclick="saveConfiguration()" class="save-button">Save Config</button>
+<button type="button" onclick="loadConfiguration()" class="load-button">Load Config</button>
+<button type="button" onclick="exportResults()" class="export-button">Export Results</button>
+<button type="button" onclick="resetInputs()" class="reset-button">Reset</button>
+</div>
 </form>
 
 <div id="results" class="results-panel">
@@ -167,7 +173,7 @@ Total = Network + Queueing + Processing + Serialization + I/O
 
 - [Little's Law in Practice](quantitative/littles-law)
 - [Latency Numbers Every Programmer Should Know](quantitative/latency-ladder)
-- [Performance Patterns](../pattern-library/#performance)
+- [Performance Patterns](../../pattern-library/#performance)
 - Network Optimization Pattern (Coming Soon)
 
 <script>
@@ -546,6 +552,223 @@ document.addEventListener('DOMContentLoaded', function() {
  });
  });
 });
+
+// Enhanced functionality with persistence and export
+let latencyHistory = [];
+let calculationResults = null;
+
+function saveConfiguration() {
+    const config = {
+        distance: document.getElementById('distance').value,
+        hops: document.getElementById('hops').value,
+        hopDelay: document.getElementById('hopDelay').value,
+        serviceTime: document.getElementById('serviceTime').value,
+        throughput: document.getElementById('throughput').value,
+        servers: document.getElementById('servers').value,
+        serialization: document.getElementById('serialization').value,
+        diskIO: document.getElementById('diskIO').value,
+        timestamp: new Date().toISOString()
+    };
+    
+    localStorage.setItem('latencyCalculatorConfig', JSON.stringify(config));
+    showNotification('Configuration saved successfully!', 'success');
+}
+
+function loadConfiguration() {
+    const savedConfig = localStorage.getItem('latencyCalculatorConfig');
+    if (savedConfig) {
+        const config = JSON.parse(savedConfig);
+        
+        Object.keys(config).forEach(key => {
+            const element = document.getElementById(key);
+            if (element && key !== 'timestamp') {
+                element.value = config[key];
+            }
+        });
+        
+        showNotification(`Configuration loaded from ${new Date(config.timestamp).toLocaleDateString()}`, 'success');
+    } else {
+        showNotification('No saved configuration found', 'warning');
+    }
+}
+
+function exportResults() {
+    if (!calculationResults) {
+        showNotification('Please calculate latency first', 'warning');
+        return;
+    }
+    
+    const exportData = {
+        timestamp: new Date().toISOString(),
+        configuration: {
+            distance: document.getElementById('distance').value,
+            hops: document.getElementById('hops').value,
+            hopDelay: document.getElementById('hopDelay').value,
+            serviceTime: document.getElementById('serviceTime').value,
+            throughput: document.getElementById('throughput').value,
+            servers: document.getElementById('servers').value,
+            serialization: document.getElementById('serialization').value,
+            diskIO: document.getElementById('diskIO').value
+        },
+        results: calculationResults
+    };
+    
+    const csvContent = generateCSV(exportData);
+    downloadFile(csvContent, 'latency-analysis.csv', 'text/csv');
+    showNotification('Results exported successfully!', 'success');
+}
+
+function generateCSV(data) {
+    let csv = 'Component,Value (ms),Percentage\n';
+    
+    if (data.results && data.results.components) {
+        data.results.components.forEach(component => {
+            const percentage = (component.value / data.results.totalLatency * 100).toFixed(2);
+            csv += `${component.name},${component.value.toFixed(2)},${percentage}%\n`;
+        });
+    }
+    
+    csv += `\nTotal Latency,${data.results ? data.results.totalLatency.toFixed(2) : 'N/A'},100%\n`;
+    csv += `Utilization,${data.results ? (data.results.utilization * 100).toFixed(2) : 'N/A'}%,\n`;
+    
+    return csv;
+}
+
+function downloadFile(content, filename, contentType) {
+    const blob = new Blob([content], { type: contentType });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+function resetInputs() {
+    document.getElementById('distance').value = '1000';
+    document.getElementById('hops').value = '5';
+    document.getElementById('hopDelay').value = '0.5';
+    document.getElementById('serviceTime').value = '10';
+    document.getElementById('throughput').value = '80';
+    document.getElementById('servers').value = '1';
+    document.getElementById('serialization').value = '2';
+    document.getElementById('diskIO').value = '5';
+    
+    document.getElementById('results').innerHTML = '';
+    calculationResults = null;
+    showNotification('Inputs reset to defaults', 'info');
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => document.body.removeChild(notification), 300);
+    }, 3000);
+}
 </script>
+
+<style>
+.calculator-tool {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.calc-button, .save-button, .load-button, .export-button, .reset-button {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.calc-button { background: #007bff; color: white; }
+.save-button { background: #28a745; color: white; }
+.load-button { background: #17a2b8; color: white; }
+.export-button { background: #fd7e14; color: white; }
+.reset-button { background: #6c757d; color: white; }
+
+.calc-button:hover { background: #0056b3; }
+.save-button:hover { background: #1e7e34; }
+.load-button:hover { background: #117a8b; }
+.export-button:hover { background: #e8590c; }
+.reset-button:hover { background: #545b62; }
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.notification.show { transform: translateX(0); }
+.notification.success { background: #28a745; }
+.notification.warning { background: #ffc107; color: #212529; }
+.notification.info { background: #17a2b8; }
+.notification.error { background: #dc3545; }
+
+.results-panel {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+input[type="number"] {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+@media (max-width: 768px) {
+    .calculator-tool { margin: 0 10px; padding: 15px; }
+    .button-group { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .calc-button, .save-button, .load-button, .export-button, .reset-button {
+        padding: 10px 8px; font-size: 12px;
+    }
+    .notification { right: 10px; left: 10px; }
+}
+
+@media (max-width: 480px) {
+    .button-group { grid-template-columns: 1fr; }
+    .calculator-tool { padding: 10px; }
+    input[type="number"] { padding: 8px; }
+}
+</style>
 
 </div>

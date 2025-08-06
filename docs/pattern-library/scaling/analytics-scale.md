@@ -303,8 +303,8 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Distributed processing
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/law4/) - Performance vs. cost trade-offs
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Distributed processing
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Performance vs. cost trade-offs
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     

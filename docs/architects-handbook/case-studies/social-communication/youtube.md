@@ -364,9 +364,9 @@ Browser → Apache Server → Local Files → Flash Player
 - Flash dependency
 
 **Patterns Violated**: 
-- No [Load Balancing](../pattern-library/scaling/load-balancing.md)
-- No [Caching Strategy](../pattern-library/scaling/caching-strategies.md)
-- No [Fault Tolerance](../pattern-library/resilience/fault-tolerance.md)
+- No [Load Balancing](../../../pattern-library/scaling/load-balancing.md)
+- No [Caching Strategy](../../../pattern-library/scaling/caching-strategies.md)
+- No [Fault Tolerance](../../../pattern-library/resilience/fault-tolerance.md)
 
 ### Phase 2: Basic CDN Integration (2006-2008)
 
@@ -402,7 +402,7 @@ graph TB
 - **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](../core-principles/pillars/work-distribution/index.md))
 - **Choice**: Pay for CDN to achieve global scale
 - **Result**: 70% reduction in origin bandwidth
-- **Pattern Applied**: [Edge Computing](../pattern-library/scaling/edge-computing.md)
+- **Pattern Applied**: [Edge Computing](../../../pattern-library/scaling/edge-computing.md)
 
 According to Google's reports¹, this reduced average latency from 800ms to 200ms globally.
 
@@ -1407,18 +1407,18 @@ graph TB
 - **[Law 7: Economics](../../../core-principles/laws/economic-reality/)** - Bandwidth costs (40% of total) drive compression and quality optimization
 
 ### 🏛 Related Patterns (Part III)
-- **[Edge Computing](../pattern-library/scaling/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs
+- **[Edge Computing](../../../pattern-library/scaling/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs
 - **CDN Strategy (Coming Soon)** - Multi-CDN architecture with intelligent routing
-- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Anycast routing and geo-aware traffic distribution
-- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Multi-tier caching from edge to origin
-- **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - Video processing pipeline triggered by upload events
-- **[Auto-Scaling](../pattern-library/scaling/auto-scaling.md)** - Dynamic compute allocation for transcoding workloads
-- **[Graceful Degradation](../pattern-library/resilience/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
+- **[Load Balancing](../../../pattern-library/scaling/load-balancing.md)** - Anycast routing and geo-aware traffic distribution
+- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** - Multi-tier caching from edge to origin
+- **[Event-Driven Architecture](../../../pattern-library/architecture/event-driven.md)** - Video processing pipeline triggered by upload events
+- **[Auto-Scaling](../../../pattern-library/scaling/auto-scaling.md)** - Dynamic compute allocation for transcoding workloads
+- **[Graceful Degradation](../../../pattern-library/resilience/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
 
 ### Quantitative Models
 - **[Power Laws](../quantitative-analysis/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers
-- **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
-- **[Queueing Theory](../../quantitative-analysis/queueing-models.md.md)** - Transcoding queue optimization for different video priorities
+- **[Little's Law](../../quantitative-analysis/littles-law.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
+- **[Queueing Theory](../../quantitative-analysis/queueing-models.md)** - Transcoding queue optimization for different video priorities
 - **[Information Theory](../quantitative-analysis/information-theory.md)** - Video compression algorithms and bandwidth optimization
 
 ### 👥 Human Factors Considerations

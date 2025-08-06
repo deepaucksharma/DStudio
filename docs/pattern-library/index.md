@@ -5,7 +5,7 @@ title: Index
 description: 'TODO: Add description'
 ---
 
-# Pattern Library: 91 Battle-Tested Solutions
+# Pattern Library: 103 Battle-Tested Solutions
 
 <div class="pattern-hero">
     <h2>🏗️ Build Reliable Distributed Systems with Proven Patterns</h2>
@@ -86,14 +86,14 @@ graph LR
 <div class="pattern-explorer-enhanced">
     <div class="explorer-header">
         <h3>🎯 Smart Pattern Discovery</h3>
-        <p>Find the right pattern based on our analysis of 96 patterns across 60 years of distributed systems</p>
+        <p>Find the right pattern based on our analysis of 103 patterns across 60 years of distributed systems</p>
     </div>
     
     <div class="pattern-filter-container">
         <div class="filter-header">
             <input type="text" id="pattern-search" placeholder="Try: 'failure', 'scale', 'netflix', 'consistency', 'real-time'..." />
             <div class="pattern-count">
-                Showing <span id="filtered-count">0</span> of <span id="total-count">91</span> patterns
+                Showing <span id="filtered-count">0</span> of <span id="total-count">103</span> patterns
             </div>
         </div>
         
@@ -117,9 +117,9 @@ graph LR
                 <label>Excellence Tier:</label>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="tier" data-value="all">All</button>
-                    <button class="filter-btn" data-filter="tier" data-value="gold">🥇 Gold (31)</button>
-                    <button class="filter-btn" data-filter="tier" data-value="silver">🥈 Silver (70)</button>
-                    <button class="filter-btn" data-filter="tier" data-value="bronze">🥉 Bronze (11)</button>
+                    <button class="filter-btn" data-filter="tier" data-value="gold">🥇 Gold (50)</button>
+                    <button class="filter-btn" data-filter="tier" data-value="silver">🥈 Silver (46)</button>
+                    <button class="filter-btn" data-filter="tier" data-value="bronze">🥉 Bronze (7)</button>
                 </div>
             </div>
             
@@ -133,6 +133,9 @@ graph LR
                     <button class="filter-btn" data-filter="category" data-value="scaling">Scaling (19)</button>
                     <button class="filter-btn" data-filter="category" data-value="architecture">Architecture (16)</button>
                     <button class="filter-btn" data-filter="category" data-value="coordination">Coordination (15)</button>
+                    <button class="filter-btn" data-filter="category" data-value="security">Security (5)</button>
+                    <button class="filter-btn" data-filter="category" data-value="deployment">Deployment (5)</button>
+                    <button class="filter-btn" data-filter="category" data-value="cost-optimization">Cost Optimization (2)</button>
                 </div>
             </div>
             
@@ -217,22 +220,22 @@ graph LR
 
 <div class="stats-grid">
     <div class="stat-card">
-        <div class="stat-number">91</div>
+        <div class="stat-number">103</div>
         <div class="stat-label">Total Patterns</div>
         <div class="stat-detail">Covering all distributed systems challenges</div>
     </div>
     <div class="stat-card gold">
-        <div class="stat-number">31</div>
+        <div class="stat-number">50</div>
         <div class="stat-label">🥇 Gold Patterns</div>
         <div class="stat-detail">Battle-tested at massive scale</div>
     </div>
     <div class="stat-card silver">
-        <div class="stat-number">70</div>
+        <div class="stat-number">46</div>
         <div class="stat-label">🥈 Silver Patterns</div>
         <div class="stat-detail">Specialized solutions</div>
     </div>
     <div class="stat-card bronze">
-        <div class="stat-number">11</div>
+        <div class="stat-number">7</div>
         <div class="stat-label">🥉 Bronze Patterns</div>
         <div class="stat-detail">Legacy with alternatives</div>
     </div>
@@ -357,6 +360,36 @@ graph LR
     
     💡 **Best For**: Coordination, distributed state management, consistency guarantees
 
+- :material-security:{ .lg } **[Security Patterns](security/)** (5 patterns)
+    
+    ---
+    
+    Protecting systems and data from threats with layered security approaches
+    
+    🥇 **Top Gold**: Zero-Trust Architecture, API Security Gateway, Secrets Management
+    
+    💡 **Best For**: Security-critical systems, compliance requirements, threat mitigation
+
+- :material-rocket-launch:{ .lg } **[Deployment Patterns](deployment/)** (5 patterns)
+    
+    ---
+    
+    Safe and reliable software delivery with zero-downtime deployments
+    
+    🥇 **Top Gold**: Blue-Green Deployment, Canary Release, Feature Flags
+    
+    💡 **Best For**: Continuous delivery, risk mitigation, feature management
+
+- :material-currency-usd:{ .lg } **[Cost Optimization Patterns](cost-optimization/)** (2 patterns)
+    
+    ---
+    
+    Reducing cloud infrastructure costs while maintaining performance and reliability
+    
+    🥇 **Top Gold**: Spot Instance Management, Resource Rightsizing
+    
+    💡 **Best For**: Cloud cost reduction, resource efficiency, operational optimization
+
 </div>
 
 ## 🏆 Excellence Tiers
@@ -365,9 +398,9 @@ Understanding our classification system helps you choose the right patterns for 
 
 | Tier | Criteria | What You Get | Use When |
 |------|----------|--------------|----------|
-| 🥇 **Gold** (31 patterns) | Production-proven at massive scale by tech giants | Production checklists, real-world scale examples, performance benchmarks | Building mission-critical systems, handling millions of users |
-| 🥈 **Silver** (70 patterns) | Solid patterns with proven track record in specific domains | Detailed trade-offs, implementation guides, best-fit scenarios | Solving specialized problems, domain-specific challenges |  
-| 🥉 **Bronze** (11 patterns) | Legacy patterns or niche use cases | Migration paths to modern alternatives, deprecation guidance | Maintaining legacy systems, understanding historical context |
+| 🥇 **Gold** (50 patterns) | Production-proven at massive scale by tech giants | Production checklists, real-world scale examples, performance benchmarks | Building mission-critical systems, handling millions of users |
+| 🥈 **Silver** (46 patterns) | Solid patterns with proven track record in specific domains | Detailed trade-offs, implementation guides, best-fit scenarios | Solving specialized problems, domain-specific challenges |  
+| 🥉 **Bronze** (7 patterns) | Legacy patterns or niche use cases | Migration paths to modern alternatives, deprecation guidance | Maintaining legacy systems, understanding historical context |
 
 ### Pattern Selection Guide
 
@@ -474,3 +507,254 @@ Compliance: Immutable Logs + Two-Person Rule
     <p>Start with the <a href="#pattern-explorer">Pattern Explorer</a> above or dive into our <a href="resilience/">Resilience Patterns</a> for immediate impact.</p>
     <p><em>Remember: The best pattern is the simplest one that solves your problem.</em></p>
 </div>
+
+<script>
+// Pattern filtering for the pattern library page
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait for patterns to be loaded from pattern-filtering.js
+    if (typeof patterns === 'undefined') {
+        console.error('Patterns not loaded. Make sure pattern-filtering.js is included.');
+        return;
+    }
+
+    let currentFilters = {
+        search: '',
+        tier: 'all',
+        category: 'all',
+        status: 'all',
+        problem: '',
+        relevance: '',
+        company: ''
+    };
+
+    // Load saved filters
+    const savedFilters = localStorage.getItem('patternFilters');
+    if (savedFilters) {
+        try {
+            currentFilters = Object.assign(currentFilters, JSON.parse(savedFilters));
+        } catch (e) {
+            console.error('Error loading saved filters:', e);
+        }
+    }
+
+    // Initialize pattern grid
+    initializePatternGrid();
+    setupEventListeners();
+    applyCurrentFilters();
+
+    function initializePatternGrid() {
+        const grid = document.getElementById('pattern-grid');
+        if (grid) {
+            grid.innerHTML = ''; // Clear loading message
+        }
+    }
+
+    function setupEventListeners() {
+        // Search input
+        const searchBox = document.getElementById('pattern-search');
+        if (searchBox) {
+            searchBox.value = currentFilters.search;
+            searchBox.addEventListener('input', function(e) {
+                currentFilters.search = e.target.value.toLowerCase();
+                applyCurrentFilters();
+            });
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const filterType = this.getAttribute('data-filter');
+                const filterValue = this.getAttribute('data-value');
+                
+                // Update active state
+                const parent = this.parentElement;
+                parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentFilters[filterType] = filterValue;
+                applyCurrentFilters();
+            });
+        });
+
+        // Quick filters
+        window.applyQuickFilter = function(type) {
+            // Reset filters first
+            Object.keys(currentFilters).forEach(key => {
+                currentFilters[key] = key === 'tier' || key === 'category' || key === 'status' ? 'all' : '';
+            });
+
+            switch(type) {
+                case 'elite':
+                    currentFilters.tier = 'gold';
+                    break;
+                case 'beginner':
+                    currentFilters.tier = 'gold';
+                    currentFilters.category = 'resilience';
+                    break;
+                case 'trending':
+                    currentFilters.relevance = 'growing';
+                    break;
+                case 'avoid':
+                    currentFilters.tier = 'bronze';
+                    break;
+            }
+
+            updateFilterUI();
+            applyCurrentFilters();
+        };
+
+        // Reset filters
+        window.resetFilters = function() {
+            Object.keys(currentFilters).forEach(key => {
+                currentFilters[key] = key === 'tier' || key === 'category' || key === 'status' ? 'all' : '';
+            });
+            
+            const searchBox = document.getElementById('pattern-search');
+            if (searchBox) searchBox.value = '';
+            
+            updateFilterUI();
+            applyCurrentFilters();
+            localStorage.removeItem('patternFilters');
+        };
+
+        // Sort functionality
+        window.sortPatterns = function() {
+            const sortSelect = document.getElementById('pattern-sort');
+            if (!sortSelect) return;
+            
+            const sortValue = sortSelect.value;
+            let sortedPatterns = [...patterns];
+            
+            switch(sortValue) {
+                case 'name':
+                    sortedPatterns.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'excellence':
+                    const tierOrder = {gold: 1, silver: 2, bronze: 3};
+                    sortedPatterns.sort((a, b) => tierOrder[a.tier] - tierOrder[b.tier]);
+                    break;
+                case 'adoption':
+                    const statusOrder = {recommended: 1, 'use-with-expertise': 2, 'use-with-caution': 3, legacy: 4};
+                    sortedPatterns.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+                    break;
+            }
+            
+            displayFilteredPatterns(filterPatterns(sortedPatterns));
+        };
+    }
+
+    function updateFilterUI() {
+        // Update filter buttons
+        document.querySelectorAll('.filter-btn').forEach(function(btn) {
+            const filterType = btn.getAttribute('data-filter');
+            const filterValue = btn.getAttribute('data-value');
+            
+            if (currentFilters[filterType] === filterValue) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    function filterPatterns(patternList) {
+        let filtered = patternList || patterns;
+
+        // Search filter
+        if (currentFilters.search) {
+            filtered = filtered.filter(p => 
+                p.name.toLowerCase().includes(currentFilters.search) ||
+                p.description.toLowerCase().includes(currentFilters.search) ||
+                (p.tags && p.tags.some(tag => tag.toLowerCase().includes(currentFilters.search)))
+            );
+        }
+
+        // Tier filter
+        if (currentFilters.tier !== 'all') {
+            filtered = filtered.filter(p => p.tier === currentFilters.tier);
+        }
+
+        // Category filter
+        if (currentFilters.category !== 'all') {
+            filtered = filtered.filter(p => p.category === currentFilters.category);
+        }
+
+        // Status filter
+        if (currentFilters.status !== 'all') {
+            filtered = filtered.filter(p => p.status === currentFilters.status);
+        }
+
+        // Problem domain filter
+        if (currentFilters.problem) {
+            const problemKeywords = {
+                'failure': ['resilience', 'circuit', 'retry', 'fault', 'failure'],
+                'performance': ['cache', 'performance', 'optimization', 'speed'],
+                'scale': ['scaling', 'sharding', 'load', 'distribution'],
+                'consistency': ['consistency', 'saga', 'transaction', 'cqrs'],
+                'realtime': ['websocket', 'streaming', 'real-time', 'event']
+            };
+            
+            const keywords = problemKeywords[currentFilters.problem] || [];
+            filtered = filtered.filter(p => 
+                keywords.some(k => 
+                    p.name.toLowerCase().includes(k) || 
+                    p.description.toLowerCase().includes(k)
+                )
+            );
+        }
+
+        return filtered;
+    }
+
+    function applyCurrentFilters() {
+        const filtered = filterPatterns();
+        displayFilteredPatterns(filtered);
+        
+        // Update count
+        const countEl = document.getElementById('pattern-count');
+        if (countEl) {
+            countEl.textContent = `Showing ${filtered.length} of ${patterns.length} patterns`;
+        }
+        
+        // Save filters
+        localStorage.setItem('patternFilters', JSON.stringify(currentFilters));
+    }
+
+    function displayFilteredPatterns(filteredPatterns) {
+        const grid = document.getElementById('pattern-grid');
+        if (!grid) return;
+
+        if (filteredPatterns.length === 0) {
+            grid.innerHTML = `
+                <div class="no-results">
+                    <h3>No patterns found</h3>
+                    <p>Try adjusting your filters or search terms.</p>
+                    <button class="reset-filters-btn" onclick="resetFilters()">Reset All Filters</button>
+                </div>
+            `;
+            return;
+        }
+
+        const html = filteredPatterns.map(pattern => `
+            <div class="pattern-card ${pattern.tier}-tier">
+                <div class="pattern-header">
+                    <h3><a href="${pattern.url}">${pattern.name}</a></h3>
+                    <span class="tier-badge tier-${pattern.tier}">${pattern.tier.toUpperCase()}</span>
+                </div>
+                <p class="pattern-description">${pattern.description}</p>
+                <div class="pattern-meta">
+                    <span class="category-tag">${pattern.category}</span>
+                    <span class="status-tag status-${pattern.status}">${pattern.status}</span>
+                </div>
+                ${pattern.tags ? `
+                    <div class="pattern-tags">
+                        ${pattern.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}
+                    </div>
+                ` : ''}
+            </div>
+        `).join('');
+
+        grid.innerHTML = html;
+    }
+});
+</script>

@@ -219,7 +219,11 @@ After:  channel_id → bucket (1 of 4096) → shard (1 of 128)
 
 ## Related Laws
 
-- [Law: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)
+This pattern directly addresses several fundamental distributed systems laws:
+
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Sharding represents the classic trade-off between scalability and complexity - gaining horizontal scale at the cost of cross-shard operation difficulty
+- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/)**: Data is partitioned across shards, meaning no single node has complete knowledge of the dataset
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality/)**: Enables cost-effective scaling by allowing horizontal scaling on commodity hardware rather than expensive vertical scaling
 
 ## Related Patterns
 

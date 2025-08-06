@@ -208,7 +208,7 @@ A_total = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
 
 - [Availability Math Deep Dive](quantitative/availability-math)
 - [MTBF and MTTR Explained](quantitative/mtbf-mttr)
-- [Failover Pattern](../pattern-library/resilience/failover)
+- [Failover Pattern](../../pattern-library/resilience/failover)
 - Multi-Region Architecture (Coming Soon)
 - [Chaos Engineering](../../architects-handbook/human-factors/chaos-engineering.md)
 
@@ -262,6 +262,15 @@ function calculateAvailability() {
  const failoverTimeHours = inputs.failoverTime.value / 60; // Convert to hours
  
  // Calculate base component availability
+ const mtbf = inputs.mtbf.value;
+ const mttr = inputs.mttr.value;
+ const numComponents = inputs.numComponents.value;
+ const redundancyType = inputs.redundancyType.value;
+ const failoverTime = inputs.failoverTime.value;
+ const numRegions = inputs.numRegions.value;
+ const regionFailureRate = inputs.regionFailureRate.value;
+ const targetSLA = inputs.targetSLA.value;
+ 
  const componentAvailability = mtbf / (mtbf + mttr);
  
  // Calculate serial system availability
@@ -431,7 +440,7 @@ function calculateAvailability() {
  }
  
  if (mttr > 4) {
- resultsHTML += '<li>Reduce MTTR through automation - current ${mttr}h is high</li>';
+ resultsHTML += `<li>Reduce MTTR through automation - current ${mttr}h is high</li>`;
  }
  }
  
@@ -440,7 +449,7 @@ function calculateAvailability() {
  }
  
  if (failoverTime > 10 && redundancyType !== 'none') {
- resultsHTML += '<li>Failover time of ${failoverTime} minutes is high - aim for under 5 minutes</li>';
+ resultsHTML += `<li>Failover time of ${failoverTime} minutes is high - aim for under 5 minutes</li>`;
  }
  
  resultsHTML += `
@@ -470,6 +479,16 @@ function calculateNextRegion(currentAvail, regionFailureRate) {
  const regionAvail = 1 - regionFailureRate;
  const twoRegionAvail = 1 - Math.pow(1 - (currentAvail * regionAvail), 2);
  return (twoRegionAvail * 100).toFixed(3);
+}
+
+function displayAvailabilityErrors(errors) {
+ const resultsDiv = document.getElementById('results');
+ let errorHTML = '<div class="error-panel"><h3>❌ Validation Errors</h3><ul>';
+ errors.forEach(error => {
+ errorHTML += `<li>${error}</li>`;
+ });
+ errorHTML += '</ul></div>';
+ resultsDiv.innerHTML = errorHTML;
 }
 
 function drawAvailabilityChart(availability) {
@@ -527,5 +546,133 @@ function drawAvailabilityChart(availability) {
  ctx.fillText('Current', currentX - 25, barY + barHeight + 25);
 }
 </script>
+
+<style>
+.calculator-tool {
+ max-width: 1000px;
+ margin: 0 auto;
+ padding: 20px;
+ background: #f8f9fa;
+ border-radius: 8px;
+}
+
+.calc-button {
+ background: #007bff;
+ color: white;
+ border: none;
+ padding: 12px 24px;
+ border-radius: 4px;
+ cursor: pointer;
+ font-size: 16px;
+ margin-top: 20px;
+}
+
+.calc-button:hover {
+ background: #0056b3;
+}
+
+.results-panel {
+ margin-top: 20px;
+ padding: 20px;
+ background: white;
+ border-radius: 8px;
+ border: 1px solid #ddd;
+}
+
+.big-metric {
+ text-align: center;
+ padding: 20px;
+ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ color: white;
+ border-radius: 8px;
+ margin-bottom: 20px;
+}
+
+.metric-value {
+ font-size: 2.5em;
+ font-weight: bold;
+ line-height: 1.2;
+}
+
+.downtime-item {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 10px;
+ margin-top: 15px;
+ font-size: 0.9em;
+}
+
+.label {
+ font-weight: bold;
+}
+
+.value {
+ color: #ffd700;
+}
+
+.sla-met {
+ background: #d4edda;
+ border: 1px solid #c3e6cb;
+ color: #155724;
+ padding: 15px;
+ border-radius: 4px;
+ margin: 10px 0;
+}
+
+.error-panel {
+ background: #f8d7da;
+ border: 1px solid #f5c6cb;
+ color: #721c24;
+ padding: 15px;
+ border-radius: 4px;
+ margin: 10px 0;
+}
+
+.strategy-card {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+ gap: 20px;
+ margin: 20px 0;
+}
+
+.strategy-card > div {
+ background: white;
+ padding: 20px;
+ border-radius: 8px;
+ border-left: 4px solid #007bff;
+}
+
+.responsive-table {
+ width: 100%;
+ border-collapse: collapse;
+ margin: 15px 0;
+}
+
+.responsive-table th,
+.responsive-table td {
+ border: 1px solid #ddd;
+ padding: 12px;
+ text-align: left;
+}
+
+.responsive-table th {
+ background: #f8f9fa;
+ font-weight: bold;
+}
+
+@media (max-width: 768px) {
+ .calculator-tool {
+ padding: 10px;
+ }
+ 
+ .downtime-item {
+ grid-template-columns: 1fr;
+ }
+ 
+ .responsive-table {
+ font-size: 14px;
+ }
+}
+</style>
 
 </div>

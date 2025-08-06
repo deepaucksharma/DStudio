@@ -19,23 +19,42 @@ These case studies examine how leading technology companies have built and evolv
 
 ## 📚 Case Studies by Domain
 
+> **New!** Each domain now has a dedicated index page with learning paths, difficulty ratings, and cross-references.
+
+### 🗂️ Domain Navigation
+- **[🗄️ Databases & Storage](databases/index.md)** - 11 studies on distributed data systems
+- **[📨 Messaging & Streaming](messaging-streaming/index.md)** - 7 studies on event-driven architectures
+- **[📍 Location Services](location-services/index.md)** - 13 studies on geospatial systems
+- **[🏗️ Infrastructure & Platform](infrastructure/index.md)** - 10 studies on core distributed systems
+- **[💬 Social & Communication](social-communication/index.md)** - 14 studies on real-time systems
+- **[💰 Financial & Commerce](financial-commerce/index.md)** - 8 studies on payment & e-commerce
+- **[🔍 Search & Analytics](search-analytics/index.md)** - 7 studies on information retrieval
+- **[📊 Monitoring & Observability](monitoring-observability/index.md)** - 4 studies on system monitoring
+- **[🏥 Healthcare Systems](healthcare/index.md)** - 3 studies on medical technology architecture
+- **[🎮 Gaming Systems](gaming/index.md)** - 3 studies on real-time multiplayer architecture
+- **[📦 Logistics & Supply Chain](logistics/index.md)** - 3 studies on intelligent logistics systems
+- **[🏆 Elite Engineering](elite-engineering/index.md)** - 5 studies from industry leaders
+
+---
+
 ### 🗄️ Databases & Storage
+> **[Browse All Database Studies →](databases/index.md)**
+
 - **[Amazon Aurora](../../architects-handbook/case-studies/databases/amazon-aurora.md)** - MySQL/PostgreSQL-compatible relational database
-- **[Amazon Dynamo](../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - The original eventually consistent key-value store
-- **[Amazon DynamoDB](../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Distributed NoSQL database handling 10T+ requests/day
+- **[Amazon DynamoDB](../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Distributed NoSQL database handling 10T+ requests/day, evolved from Dynamo paper
 - **[Apache Cassandra](../../architects-handbook/case-studies/databases/cassandra.md)** - Wide-column distributed database for high write throughput
 - **[etcd](../../architects-handbook/case-studies/databases/etcd.md)** - Distributed key-value store for service discovery
-- **[Facebook Memcached](../../architects-handbook/case-studies/databases/memcached.md)** - Scaling memcached for social graphs
 - **[Google Spanner](../../architects-handbook/case-studies/databases/google-spanner.md)** - Globally distributed relational database with external consistency
 - **[Key-Value Store Design](../../architects-handbook/case-studies/databases/key-value-store.md)** - Building distributed key-value stores
-- **[Memcached Architecture](../../architects-handbook/case-studies/databases/memcached.md)** - Distributed memory caching system
+- **[Memcached at Facebook](../../architects-handbook/case-studies/databases/memcached.md)** - Scaling distributed memory caching for social graphs
 - **[MongoDB](../../architects-handbook/case-studies/databases/mongodb.md)** - Document-oriented distributed database
-- **[Redis Architecture](../../architects-handbook/case-studies/databases/redis-architecture.md)** - In-memory data structure store with sub-millisecond latency
-- **[Redis Deep Dive](../../architects-handbook/case-studies/databases/redis-architecture.md)** - Advanced Redis patterns and internals
+- **[Redis Architecture](../../architects-handbook/case-studies/databases/redis-architecture.md)** - In-memory data structure store with advanced patterns and sub-millisecond latency
 - **[HashiCorp Vault](../../architects-handbook/case-studies/databases/vault.md)** - Secrets management and data protection
 - **[Apache ZooKeeper](../../architects-handbook/case-studies/databases/zookeeper.md)** - Distributed coordination service
 
 ### 📨 Messaging & Streaming
+> **[Browse All Messaging Studies →](messaging-streaming/index.md)**
+
 - **[Apache Kafka](../../architects-handbook/case-studies/messaging-streaming/kafka.md)** - Distributed streaming platform processing trillions of events/day
 - **[Apache Spark](../../architects-handbook/case-studies/messaging-streaming/apache-spark.md)** - Unified analytics engine for big data
 - **[Batch to Streaming Migration](../../architects-handbook/case-studies/messaging-streaming/batch-to-streaming.md)** - Transitioning from batch to real-time
@@ -45,6 +64,8 @@ These case studies examine how leading technology companies have built and evolv
 - **[Event-Driven Architecture](../../architects-handbook/case-studies/messaging-streaming/polling-to-event-driven.md)** - Moving from polling to events
 
 ### 📍 Location Services
+> **[Browse All Location Studies →](location-services/index.md)**
+
 - **[Apple Maps](../../architects-handbook/case-studies/location-services/apple-maps.md)** - Mapping platform serving billions of queries
 - **[Find My Device](../../architects-handbook/case-studies/location-services/find-my-device.md)** - Global device tracking at scale
 - **[Google Maps](../../architects-handbook/case-studies/location-services/google-maps.md)** - World's largest mapping service
@@ -59,7 +80,9 @@ These case studies examine how leading technology companies have built and evolv
 - **[Uber Location Services](../../architects-handbook/case-studies/location-services/uber-location.md)** - Real-time geo-distributed system
 - **[Uber Maps](../../architects-handbook/case-studies/location-services/uber-maps.md)** - Custom mapping for ride-sharing
 
-### 🏗️ Infrastructure & Platform
+### 🏗️ Infrastructure & Platform  
+> **[Browse All Infrastructure Studies →](infrastructure/index.md)**
+
 - **[Blockchain Systems](../../architects-handbook/case-studies/infrastructure/blockchain.md)** - Distributed ledger technology
 - **[Consistent Hashing](../../architects-handbook/case-studies/infrastructure/consistent-hashing.md)** - Scalable data distribution
 - **[Kubernetes](../../architects-handbook/case-studies/infrastructure/kubernetes.md)** - Container orchestration at scale
@@ -72,6 +95,8 @@ These case studies examine how leading technology companies have built and evolv
 - **[Zoom Scaling](../../architects-handbook/case-studies/infrastructure/zoom-scaling.md)** - Video conferencing at massive scale
 
 ### 💬 Social & Communication
+> **[Browse All Social & Communication Studies →](social-communication/index.md)**
+
 - **[Chat System Architecture](../../architects-handbook/case-studies/social-communication/chat-system.md)** - Building real-time messaging
 - **[Chat Consistency Deep Dive](../../architects-handbook/case-studies/social-communication/consistency-deep-dive-chat.md)** - Message ordering guarantees
 - **[Distributed Email](../../architects-handbook/case-studies/social-communication/distributed-email-enhanced.md)** - Email infrastructure at scale
@@ -88,6 +113,8 @@ These case studies examine how leading technology companies have built and evolv
 - **[YouTube Architecture](../../architects-handbook/case-studies/social-communication/youtube.md)** - Video platform deep dive
 
 ### 💰 Financial & Commerce
+> **[Browse All Financial & Commerce Studies →](financial-commerce/index.md)**
+
 - **[Ad Click Aggregation](../../architects-handbook/case-studies/financial-commerce/ad-click-aggregation.md)** - Real-time ad analytics
 - **[Digital Wallet](../../architects-handbook/case-studies/financial-commerce/digital-wallet-enhanced.md)** - Payment infrastructure design
 - **[E-commerce Platform](../../architects-handbook/case-studies/financial-commerce/ecommerce-platform.md)** - Building online marketplaces
@@ -98,6 +125,8 @@ These case studies examine how leading technology companies have built and evolv
 - **[Stock Exchange](../../architects-handbook/case-studies/financial-commerce/stock-exchange.md)** - High-frequency trading systems
 
 ### 🔍 Search & Analytics
+> **[Browse All Search & Analytics Studies →](search-analytics/index.md)**
+
 - **[Elasticsearch](../../architects-handbook/case-studies/search-analytics/elasticsearch.md)** - Distributed search and analytics
 - **[Gaming Leaderboard](../../architects-handbook/case-studies/search-analytics/gaming-leaderboard-enhanced.md)** - Real-time ranking systems
 - **[Google Drive](../../architects-handbook/case-studies/search-analytics/google-drive.md)** - Cloud storage and sync
@@ -107,17 +136,41 @@ These case studies examine how leading technology companies have built and evolv
 - **[Spotify Recommendations](../../architects-handbook/case-studies/search-analytics/spotify-recommendations.md)** - ML-powered music discovery
 
 ### 📊 Monitoring & Observability
+> **[Browse All Monitoring Studies →](monitoring-observability/index.md)**
+
 - **[Metrics Monitoring](../../architects-handbook/case-studies/monitoring-observability/metrics-monitoring.md)** - Time-series data at scale
 - **[Prometheus Architecture](../../architects-handbook/case-studies/monitoring-observability/prometheus.md)** - Open-source monitoring
 - **[Prometheus vs DataDog](../../architects-handbook/case-studies/monitoring-observability/prometheus-datadog-enhanced.md)** - Monitoring comparison
 - **[Rate Limiter](../../architects-handbook/case-studies/monitoring-observability/rate-limiter.md)** - API rate limiting strategies
 
+### 🏥 Healthcare Systems
+> **[Browse All Healthcare Studies →](healthcare/index.md)**
+
+- **[Electronic Health Records (EHR) System](../../architects-handbook/case-studies/healthcare/ehr-system.md)** - Epic and Cerner implementations serving 250M+ patient records
+- **[Medical Imaging Pipeline](../../architects-handbook/case-studies/healthcare/medical-imaging-pipeline.md)** - DICOM processing, AI analysis, and global image distribution
+- **[Patient Privacy & HIPAA Compliance](../../architects-handbook/case-studies/healthcare/patient-privacy-hipaa.md)** - Zero-trust security, data governance, and compliance automation
+
+### 🎮 Gaming Systems
+> **[Browse All Gaming Studies →](gaming/index.md)**
+
+- **[MMO Game Architecture](../../architects-handbook/case-studies/gaming/mmo-game-architecture.md)** - World of Warcraft, Final Fantasy XIV, and Guild Wars 2 architectures
+- **[Real-time Game State Synchronization](../../architects-handbook/case-studies/gaming/real-time-game-sync.md)** - Counter-Strike, Valorant, and Fortnite networking architectures
+- **[Global Matchmaking Platform](../../architects-handbook/case-studies/gaming/global-matchmaking.md)** - League of Legends, Dota 2, and Overwatch matchmaking systems
+
+### 📦 Logistics & Supply Chain
+> **[Browse All Logistics Studies →](logistics/index.md)**
+
+- **[Real-time Package Tracking](../../architects-handbook/case-studies/logistics/real-time-package-tracking.md)** - FedEx, UPS, and Amazon tracking architectures serving billions of packages
+- **[Route Optimization Algorithms](../../architects-handbook/case-studies/logistics/route-optimization.md)** - UPS ORION, Amazon logistics, and DHL route planning systems
+- **[Warehouse Automation Systems](../../architects-handbook/case-studies/logistics/warehouse-automation.md)** - Amazon fulfillment centers, Alibaba smart warehouses, and Ocado robotics
+
 ### 🏆 Elite Engineering
+> **[Browse All Elite Engineering Studies →](elite-engineering/index.md)**
+
 - **[Amazon DynamoDB Evolution](../../architects-handbook/case-studies/elite-engineering/amazon-dynamodb-evolution.md)** - 15+ years of scaling
 - **[Discord Voice Infrastructure](../../architects-handbook/case-studies/elite-engineering/discord-voice-infrastructure.md)** - Low-latency voice chat
 - **[Figma CRDT Collaboration](../../architects-handbook/case-studies/elite-engineering/figma-crdt-collaboration.md)** - Real-time design collaboration
-- **[Netflix Chaos Engineering](../../architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering.md)** - Resilience through chaos
-- **[Netflix Chaos Practices](../../architects-handbook/case-studies/elite-engineering/netflix-chaos.md)** - Chaos engineering implementation
+- **[Netflix Chaos Engineering](../../architects-handbook/case-studies/elite-engineering/netflix-chaos.md)** - Resilience through chaos engineering practices and implementation
 - **[Stripe API Excellence](../../architects-handbook/case-studies/elite-engineering/stripe-api-excellence.md)** - Developer-first API design
 
 ## 🎯 By Problem Domain
@@ -184,14 +237,88 @@ These case studies examine how leading technology companies have built and evolv
 | **Redis** | 1M+ ops/sec single instance | In-memory, multiple data structures |
 | **Cassandra** | 1M+ writes/sec cluster | Wide-column, eventual consistency |
 
-## 📚 Quick Navigation
+## 🎯 Learning Paths & Quick Navigation
 
-- **New to Distributed Systems?** Start with [URL Shortener](../../architects-handbook/case-studies/infrastructure/url-shortener.md) or [Key-Value Store](../../architects-handbook/case-studies/databases/key-value-store.md)
-- **Building Social Platforms?** See [Chat System](../../architects-handbook/case-studies/social-communication/chat-system.md) and [News Feed](../../architects-handbook/case-studies/social-communication/news-feed.md)
-- **E-commerce Systems?** Check [Payment System](../../architects-handbook/case-studies/financial-commerce/payment-system.md) and [E-commerce Platform](../../architects-handbook/case-studies/financial-commerce/ecommerce-platform.md)
-- **Real-time Systems?** Explore [Video Streaming](../../architects-handbook/case-studies/social-communication/video-streaming.md) and [Notification System](../../architects-handbook/case-studies/social-communication/notification-system.md)
-- **Data Infrastructure?** Study [Kafka](../../architects-handbook/case-studies/messaging-streaming/kafka.md), [Elasticsearch](../../architects-handbook/case-studies/search-analytics/elasticsearch.md), and [Cassandra](../../architects-handbook/case-studies/databases/cassandra.md)
+### 🌱 Getting Started (Choose Your Path)
+
+**New to Distributed Systems?**
+- **Foundation Track**: [URL Shortener](infrastructure/url-shortener.md) → [Key-Value Store](databases/key-value-store.md) → [Consistent Hashing](infrastructure/consistent-hashing.md)
+- **Why Start Here**: Build intuition with simple, concrete systems before tackling complex architectures
+
+**Building Social/Communication Apps?**  
+- **Social Track**: [Chat System](social-communication/chat-system.md) → [Social Graph](social-communication/social-graph.md) → [News Feed](social-communication/news-feed.md)
+- **Why Start Here**: Learn real-time systems, graph modeling, and content distribution
+
+**E-commerce/Fintech Focus?**
+- **Commerce Track**: [E-commerce Platform](financial-commerce/ecommerce-platform.md) → [Payment System](financial-commerce/payment-system.md) → [Digital Wallet](financial-commerce/digital-wallet-enhanced.md)  
+- **Why Start Here**: Master transactional consistency, financial compliance, and high-stakes reliability
+
+**Data-Heavy Applications?**
+- **Data Track**: [Elasticsearch](search-analytics/elasticsearch.md) → [Kafka](messaging-streaming/kafka.md) → [Cassandra](databases/cassandra.md)
+- **Why Start Here**: Learn search, streaming, and NoSQL at scale
+
+**Location-Based Services?**
+- **Location Track**: [Proximity Service](location-services/proximity-service.md) → [Uber Location](location-services/uber-location.md) → [Google Maps](location-services/google-maps.md)
+- **Why Start Here**: Understand geospatial indexing, real-time tracking, and global mapping
+
+**Healthcare Technology?**
+- **Healthcare Track**: [EHR System](healthcare/ehr-system.md) → [Patient Privacy & HIPAA](healthcare/patient-privacy-hipaa.md) → [Medical Imaging Pipeline](healthcare/medical-imaging-pipeline.md)
+- **Why Start Here**: Learn regulatory compliance, data privacy, and specialized healthcare architectures
+
+**Gaming/Real-time Systems?**
+- **Gaming Track**: [Global Matchmaking](gaming/global-matchmaking.md) → [Real-time Game Sync](gaming/real-time-game-sync.md) → [MMO Architecture](gaming/mmo-game-architecture.md)
+- **Why Start Here**: Master low-latency networking, state synchronization, and massive concurrency
+
+**Logistics/Supply Chain?**
+- **Logistics Track**: [Package Tracking](logistics/real-time-package-tracking.md) → [Route Optimization](logistics/route-optimization.md) → [Warehouse Automation](logistics/warehouse-automation.md)
+- **Why Start Here**: Understand event processing, algorithmic optimization, and robotic coordination
+
+### 🏃‍♀️ Advanced Practitioners
+
+**Infrastructure Specialists**: Start with [Infrastructure Index](infrastructure/index.md)  
+**ML Engineers**: Focus on [Search & Analytics](search-analytics/index.md) systems  
+**Platform Engineers**: Explore [Messaging & Streaming](messaging-streaming/index.md)  
+**SREs**: Begin with [Monitoring & Observability](monitoring-observability/index.md)
+
+### 🏆 Industry Deep Dives
+
+Learn from the best with our [Elite Engineering](elite-engineering/index.md) case studies:
+- **Netflix**: Chaos engineering and microservices mastery
+- **Amazon**: DynamoDB evolution and operational excellence  
+- **Discord**: Real-time voice infrastructure at scale
+- **Figma**: CRDT-based collaborative editing
+- **Stripe**: API excellence and developer experience
 
 ---
 
-*Total: 84 case studies across 8 domains. Start with [Netflix Streaming Platform](../../architects-handbook/case-studies/messaging-streaming/netflix-streaming.md) for a comprehensive look at microservices and chaos engineering at massive scale.*
+## 🔍 Study Selection Filters
+
+### By Difficulty Level  
+- **⭐ Beginner** (15 studies): URL Shortener, E-commerce Platform, Life360, etc.
+- **⭐⭐ Intermediate** (25 studies): Consistent Hashing, Notification System, Gaming Leaderboard, etc.  
+- **⭐⭐⭐ Advanced** (35 studies): Payment System, Kafka, Uber Location, Chat System, etc.
+- **⭐⭐⭐⭐ Expert** (20 studies): Google Search, Kubernetes, YouTube, Spanner, etc.
+
+### By Time Investment
+- **⚡ Quick Studies** (<30 min): 12 foundational concepts
+- **🏃 Standard Studies** (30-60 min): 45 comprehensive deep-dives  
+- **📚 Deep Studies** (60-120 min): 15 expert-level explorations
+
+### By Architecture Pattern Focus
+- **Consistency**: Spanner, DynamoDB, Payment Systems, Chat Consistency
+- **Scale**: Google Search, YouTube, Netflix, DynamoDB  
+- **Real-time**: Chat, Discord, Uber Location, Video Streaming
+- **ML/AI**: Spotify Recommendations, Google Search, Content Moderation
+- **Security**: Payment Systems, Vault, Find My Device
+
+### Cross-Domain Themes
+- **🌍 Global Scale**: Google Search, Netflix, YouTube, Uber, WhatsApp
+- **🔒 High Security**: Payment systems, Vault, banking infrastructure
+- **⚡ Low Latency**: Redis, Discord, Uber, stock exchanges, gaming
+- **🤖 AI/ML Powered**: Search, recommendations, content moderation
+- **📱 Mobile-First**: Location services, messaging apps, social platforms
+
+---
+
+**Total: 88 case studies across 12 domains**  
+*💡 Tip: Use domain index pages for structured learning paths, or browse by pattern/difficulty for targeted skill building.*

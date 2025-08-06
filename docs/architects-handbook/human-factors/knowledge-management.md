@@ -121,8 +121,8 @@ Negative:
 - Storage requirements grow
 
 ## References
-- [Event Sourcing Pattern](../pattern-library/data-management/event-sourcing)
-- [CQRS Pattern](../pattern-library/data-management/cqrs)
+- [Event Sourcing Pattern](../../pattern-library/data-management/event-sourcing)
+- [CQRS Pattern](../../pattern-library/data-management/cqrs)
 ```
 
 ### 2. Living Documentation

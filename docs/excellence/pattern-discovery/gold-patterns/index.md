@@ -38,28 +38,28 @@ description: Production-proven patterns used by FAANG and leading tech companies
 
 <div class="pattern-category">
 
-#### [Circuit Breaker](../pattern-library/circuit-breaker/)
+#### [Circuit Breaker](../../../../pattern-library/resilience/circuit-breaker/)
 **Prevent cascade failures**
 - 🏢 Used by: Netflix (Hystrix), Amazon, Uber
 - 📊 Success Rate: 95%
 - ⚡ Impact: 10x resilience improvement
 - 📖 Implementation: 1-2 weeks
 
-#### [Retry with Backoff](../pattern-library/retry-backoff/)
+#### [Retry with Backoff](../../../../pattern-library/resilience/retry-backoff/)
 **Handle transient failures gracefully**
 - 🏢 Used by: Every cloud service
 - 📊 Success Rate: 98%
 - ⚡ Impact: 5x error reduction
 - 📖 Implementation: 2-3 days
 
-#### [Timeout](../pattern-library/timeout/)
+#### [Timeout](../../../../pattern-library/resilience/timeout/)
 **Fail fast, fail safe**
 - 🏢 Used by: All distributed systems
 - 📊 Success Rate: 99%
 - ⚡ Impact: Prevents resource exhaustion
 - 📖 Implementation: 1 day
 
-#### [Health Check](../pattern-library/health-check/)
+#### [Health Check](../../../../pattern-library/resilience/health-check/)
 **Know when services are ready**
 - 🏢 Used by: Kubernetes, AWS, Google Cloud
 - 📊 Success Rate: 99%
@@ -72,21 +72,21 @@ description: Production-proven patterns used by FAANG and leading tech companies
 
 <div class="pattern-category">
 
-#### [Caching Strategies](../pattern-library/caching-strategies/)
+#### [Caching Strategies](../../../../pattern-library/scaling/caching-strategies/)
 **Speed up everything**
 - 🏢 Used by: Facebook, LinkedIn, Twitter
 - 📊 Success Rate: 98%
 - ⚡ Impact: 100x latency reduction
 - 📖 Implementation: 1-2 weeks
 
-#### [Load Balancing](../pattern-library/load-balancing/)
+#### [Load Balancing](../../../../pattern-library/scaling/load-balancing/)
 **Distribute traffic evenly**
 - 🏢 Used by: Every scalable system
 - 📊 Success Rate: 99%
 - ⚡ Impact: Linear scalability
 - 📖 Implementation: 3-5 days
 
-#### [Auto-Scaling](../pattern-library/auto-scaling/)
+#### [Auto-Scaling](../../../../pattern-library/scaling/auto-scaling/)
 **Scale with demand**
 - 🏢 Used by: Netflix, Amazon, Google
 - 📊 Success Rate: 95%
@@ -99,7 +99,7 @@ description: Production-proven patterns used by FAANG and leading tech companies
 
 <div class="pattern-category">
 
-#### [Sharding](../pattern-library/sharding/)
+#### [Sharding](../../../../pattern-library/scaling/sharding/)
 **Horizontal data partitioning**
 - 🏢 Used by: MongoDB, Cassandra, DynamoDB
 - 📊 Success Rate: 92%
@@ -113,7 +113,7 @@ description: Production-proven patterns used by FAANG and leading tech companies
 - ⚡ Impact: Perfect auditability
 - 📖 Implementation: 3-4 weeks
 
-#### [Consistent Hashing](../pattern-library/consistent-hashing/)
+#### [Consistent Hashing](../../../../pattern-library/data-management/consistent-hashing/)
 **Stable data distribution**
 - 🏢 Used by: DynamoDB, Cassandra, Redis
 - 📊 Success Rate: 95%
@@ -126,21 +126,21 @@ description: Production-proven patterns used by FAANG and leading tech companies
 
 <div class="pattern-category">
 
-#### [API Gateway](../pattern-library/api-gateway/)
+#### [API Gateway](../../../../pattern-library/communication/api-gateway/)
 **Unified entry point**
 - 🏢 Used by: Netflix, Uber, Airbnb
 - 📊 Success Rate: 96%
 - ⚡ Impact: Simplified clients
 - 📖 Implementation: 2-3 weeks
 
-#### [Service Discovery](../pattern-library/service-discovery/)
+#### [Service Discovery](../../../../pattern-library/communication/service-discovery/)
 **Dynamic service location**
 - 🏢 Used by: All microservices
 - 📊 Success Rate: 94%
 - ⚡ Impact: Zero hardcoding
 - 📖 Implementation: 1-2 weeks
 
-#### [Event-Driven](../pattern-library/event-driven/)
+#### [Event-Driven](../../../../pattern-library/architecture/event-driven/)
 **Loose coupling at scale**
 - 🏢 Used by: Uber, LinkedIn, Twitter
 - 📊 Success Rate: 92%

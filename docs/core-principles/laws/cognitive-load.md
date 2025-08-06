@@ -11,6 +11,54 @@ reading_time: 10 min
 !!! quote "The Human Truth That Changes Everything"
     **Your engineers are not servers. They don't scale horizontally. They have 7±2 slots of working memory, not 64GB of RAM. They need sleep, not just disk space. When you design systems that ignore human limits, you design systems that fail.**
 
+## Physics Foundation: Information Theory and Human Channel Capacity
+
+```mermaid
+graph TB
+    subgraph "Miller's Law (1956)"
+        M1[Human Working Memory:<br/>7 ± 2 chunks]
+        M2[Information Processing:<br/>~50 bits/second]
+        M3[Channel Capacity:<br/>Limited by biology]
+        M1 --> M2 --> M3
+    end
+    
+    subgraph "Shannon's Channel Capacity"
+        S1[C = B log₂(1 + S/N)]
+        S2[B = Bandwidth (neural)]n        S3[S/N = Signal/Noise ratio]
+        S4[Human brain: ~10¹¹ neurons<br/>but conscious bandwidth: ~50 bits/s]
+        S1 --> S2 & S3 --> S4
+    end
+    
+    subgraph "Cognitive Load Types"
+        CL1[Intrinsic Load<br/>Essential complexity]
+        CL2[Extraneous Load<br/>Poor design]
+        CL3[Germane Load<br/>Learning/automation]
+        Total[Total Must Not Exceed<br/>Channel Capacity]
+        CL1 & CL2 & CL3 --> Total
+    end
+    
+    M3 --> S4
+    S4 --> Total
+    
+    style M1 fill:#ff6b6b
+    style S4 fill:#4ecdc4
+    style Total fill:#95e1d3
+```
+
+### The Physics of Human Cognition
+
+**Fundamental Limit**: Just as Shannon proved channels have finite capacity, Miller proved human working memory has hard limits:
+- **Working Memory**: 7 ± 2 items (not bytes, but meaningful chunks)
+- **Conscious Processing**: ~50 bits/second (vs unconscious: ~11 million bits/s)
+- **Attention**: Single-threaded processor with expensive context switching
+
+**Stress Degradation**:
+```
+Under stress: Capacity = Normal_Capacity × e^(-stress_level)
+At 3 AM: Effective_chunks ≈ 3-4 (not 7)
+Under pressure: Error_rate = 1 - e^(-cognitive_load/capacity)
+```
+
 ## 🧠 The Cognitive Load Scoring Framework
 
 ### Quick Team Health Assessment (30 seconds)
@@ -95,6 +143,38 @@ And they're breaking right now.
     | "Hero culture" | Sustainable workload | Your best people leave first |
     
     **This isn't a technical problem. It's a human problem. And humans are your most critical component.**
+
+## The Mathematics of Cognitive Overload
+
+```mermaid
+graph LR
+    subgraph "Yerkes-Dodson Law"
+        YD[Performance = f(Arousal)]
+        Low[Low Stress:<br/>Boredom]
+        Opt[Optimal:<br/>Flow State]
+        High[High Stress:<br/>Anxiety/Errors]
+        Low -->|Increasing| Opt -->|Overload| High
+    end
+    
+    subgraph "Cognitive Load Formula"
+        CL[Load = Σ(Complexity × Urgency × Uncertainty)]
+        Ex1[Example: 50 alerts ×<br/>"all critical" ×<br/>"no context" = Overload]
+        Ex2[Example: 5 alerts ×<br/>prioritized ×<br/>clear actions = Manageable]
+        CL --> Ex1 & Ex2
+    end
+    
+    subgraph "Error Rate Model"
+        ER[P(error) = 1 - e^(-λL/C)]
+        L[L = Current Load]
+        C[C = Capacity]
+        λ[λ = Stress multiplier]
+        ER --> L & C & λ
+    end
+    
+    style Opt fill:#4ecdc4
+    style High fill:#ff6b6b
+    style Ex2 fill:#95e1d3
+```
 
 ## The Cognitive Capacity Cliff
 
@@ -344,6 +424,58 @@ Result: 3x faster feature delivery
         Cognitive load within human limits
 ```
 
+## Hick's Law: The Decision Time Explosion
+
+```mermaid
+graph TB
+    subgraph "Hick's Law Formula"
+        H[RT = a + b × log₂(n)]
+        RT[Reaction Time]
+        n[Number of choices]
+        Ex[10 choices = 2x slower than 2 choices]
+        H --> RT & n --> Ex
+    end
+    
+    subgraph "Applied to Incidents"
+        I1[200 dashboards:<br/>RT = 15+ minutes]
+        I2[1 overview + drill-down:<br/>RT = 30 seconds]
+        I3[Speed improvement: 30x]
+        I1 --> I3
+        I2 --> I3
+    end
+    
+    subgraph "Design Implications"
+        D1[Binary decision trees]
+        D2[Progressive disclosure]
+        D3[Sensible defaults]
+        D4[Muscle memory paths]
+    end
+    
+    Ex --> I1 & I2
+    I3 --> D1 & D2 & D3 & D4
+    
+    style H fill:#ff6b6b
+    style I2 fill:#4ecdc4
+    style I3 fill:#95e1d3
+```
+
+### The 3 AM Equation
+
+```
+Effective_Capacity(t) = Base_Capacity × 
+                       Sleep_Debt_Factor(t) × 
+                       Stress_Factor(t) × 
+                       Interruption_Factor(t)
+
+Where:
+- Sleep_Debt_Factor = 0.75^(hours_missed/8)
+- Stress_Factor = e^(-stress_level/10)
+- Interruption_Factor = 0.8^(context_switches)
+
+Result at 3 AM after 3 pages:
+Effective_Capacity = 7 × 0.75 × 0.37 × 0.51 ≈ 1-2 chunks
+```
+
 ## Cognitive Load Monitoring
 
 ```python
@@ -491,6 +623,43 @@ python3 cognitive_load_analyzer.py --team YOUR_TEAM
 
 !!! success "Remember: Your Competitive Advantage"
     Companies that respect cognitive limits don't just retain talent—they attract it. In a world where everyone claims to care about "work-life balance," be the one that actually designs systems to support it. Your engineers will notice. Your competitors' engineers will notice too.
+
+## The Neuroscience of Alert Fatigue
+
+```mermaid
+graph TB
+    subgraph "Habituation Process"
+        S1[Stimulus (Alert)]
+        R1[Initial Response:<br/>Adrenaline spike]
+        R2[10th Response:<br/>Reduced attention]
+        R3[100th Response:<br/>Ignored completely]
+        S1 --> R1 --> R2 --> R3
+    end
+    
+    subgraph "Signal Detection Theory"
+        SD[d' = Z(hit rate) - Z(false alarm rate)]
+        Low[Low d': Can't distinguish<br/>real issues from noise]
+        High[High d': Clear signal<br/>from noise separation]
+        SD --> Low & High
+    end
+    
+    subgraph "Solution: Alert Design"
+        A1[Actionable]
+        A2[Urgent]
+        A3[Unique]
+        A4[Clear]
+        A5[Accurate]
+        Score[Score ≥ 20/25 to keep]
+        A1 & A2 & A3 & A4 & A5 --> Score
+    end
+    
+    R3 --> Low
+    High --> A1
+    
+    style R3 fill:#ff6b6b
+    style High fill:#4ecdc4
+    style Score fill:#95e1d3
+```
 
 ## Related Concepts
 

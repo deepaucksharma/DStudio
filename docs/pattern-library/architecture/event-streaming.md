@@ -334,8 +334,8 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Time and ordering challenges
-    - [Law 3: Emergent Chaos](../../core-principles/laws/law3/) - Complex system behaviors
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Time and ordering challenges
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Complex system behaviors
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     

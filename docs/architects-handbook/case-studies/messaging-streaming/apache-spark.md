@@ -40,7 +40,7 @@ patterns_used:
   - none: Modern architecture throughout
 excellence_guides:
 - scale/big-data-processing
-- pattern-library/distributed-computing
+- ../../../pattern-library/distributed-computing
 - operational/spark-excellence
 ---
 
@@ -579,8 +579,8 @@ spark.conf.set("spark.task.resource.gpu.amount", "0.25")
 ## Related Topics
 
 - [MapReduce](../../../architects-handbook/case-studies/messaging-streaming/mapreduce.md) - Predecessor comparison
-- [Distributed Computing](../pattern-library/distributed-computing) - Core concepts
-- [Stream Processing](../pattern-library/stream-processing) - Streaming patterns
+- [Distributed Computing](../../../pattern-library/distributed-computing) - Core concepts
+- [Stream Processing](../../../pattern-library/stream-processing) - Streaming patterns
 - [Apache Flink](flink) - Alternative engine
 - [Databricks](databricks.md) - Commercial Spark platform
 

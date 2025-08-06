@@ -1019,7 +1019,7 @@ ORDER BY hour DESC;
 
 ## Additional Resources
 
-- [Stream Processing Patterns](../../pattern-library/stream-processing.md)
-- [State Management in Streaming](../../pattern-library/stateful-streaming.md)
+- Stream Processing Patterns
+- State Management in Streaming
 - [Kafka Best Practices](../../infrastructure/kafka-operations.md)
 - [Flink Production Guide](../../infrastructure/flink-production.md)

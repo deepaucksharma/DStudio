@@ -396,12 +396,12 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/) - Knowledge consistency across nodes
 
 ### Related Patterns
-- [Consensus Algorithms](../pattern-library/coordination/consensus.md) - Achieving agreement despite CAP
-- [Leader Election](../pattern-library/coordination/leader-follower.md) - Maintaining consistency with leaders
-- [Eventual Consistency](../pattern-library/data-management/eventual-consistency.md) - AP system design patterns
-- [Quorum Consensus](../pattern-library/coordination/consensus.md) - Tunable consistency implementations
-- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Tracking causality in AP systems
-- [Conflict Resolution](../pattern-library/conflict-resolution.md) - Handling divergence in AP systems
+- [Consensus Algorithms](../../pattern-library/coordination/consensus.md) - Achieving agreement despite CAP
+- [Leader Election](../../pattern-library/coordination/leader-follower.md) - Maintaining consistency with leaders
+- [Eventual Consistency](../../pattern-library/data-management/eventual-consistency.md) - AP system design patterns
+- [Quorum Consensus](../../pattern-library/coordination/consensus.md) - Tunable consistency implementations
+- [Vector Clocks](../../pattern-library/coordination/logical-clocks.md) - Tracking causality in AP systems
+- [Conflict Resolution](../../pattern-library/conflict-resolution.md) - Handling divergence in AP systems
 
 ### Quantitative Analysis
 - [Consistency Models](../../architects-handbook/quantitative-analysis/consistency-models.md) - Deep dive into consistency levels
@@ -418,7 +418,7 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [CockroachDB](../case-studies/cockroachdb.md) - Modern CP distributed SQL
 
 ### Further Reading
-- [Distributed Database Design](../pattern-library/distributed-database.md) - Applying CAP to database systems
-- [Multi-Region Architecture](../pattern-library/scaling/multi-region.md) - CAP across geographic regions
-- [Microservices Consistency](../pattern-library/microservices-consistency.md) - CAP in service architectures
-- [Blockchain Consensus](../pattern-library/blockchain-consensus.md) - CAP theorem in blockchain systems
+- [Distributed Database Design](../../pattern-library/distributed-database.md) - Applying CAP to database systems
+- [Multi-Region Architecture](../../pattern-library/scaling/multi-region.md) - CAP across geographic regions
+- [Microservices Consistency](../../pattern-library/microservices-consistency.md) - CAP in service architectures
+- [Blockchain Consensus](../../pattern-library/blockchain-consensus.md) - CAP theorem in blockchain systems

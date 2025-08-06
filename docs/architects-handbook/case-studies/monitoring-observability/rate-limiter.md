@@ -8,7 +8,7 @@ reading_time: 25 min
 prerequisites:
 - correlated-failure
 - multidimensional-optimization
-- pattern-library/rate-limiting
+- ../../../pattern-library/scaling/rate-limiting.md
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -1030,8 +1030,8 @@ graph TD
 - [Gubernator](https://github.com/mailgun/gubernator) - High-performance distributed rate limiting
 
 **Related Patterns:**
-- [Token Bucket Algorithm](../pattern-library/scaling/rate-limiting)
-- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
+- [Token Bucket Algorithm](../../../pattern-library/scaling/rate-limiting)
+- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
 - [Consistent Hashing](../../../consistent-hashing.md)
 - Gossip Protocol (Coming Soon)
 
@@ -1047,13 +1047,13 @@ graph TD
 - **[Law 7: Economic Reality ](../../core-principles/laws/economic-reality/)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Rate Limiting](../pattern-library/scaling/rate-limiting)** - Core pattern implemented with token bucket algorithm
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects rate limiter from Redis failures
-- **[Bulkhead](../pattern-library/resilience/bulkhead)** - Isolates rate limit pools per tenant/API
-- **[Consistent Hashing](../pattern-library/scaling/sharding)** - Distributes users across rate limiter nodes
-- **[Caching Strategies](../pattern-library/scaling/caching-strategies)** - Local cache with TTL for performance
-- **[Health Check](../pattern-library/resilience/health-check)** - Monitors Redis connectivity and accuracy
-- **[Load Shedding](../pattern-library/resilience/load-shedding)** - Drops low-priority requests under extreme load
+- **[Rate Limiting](../../../pattern-library/scaling/rate-limiting)** - Core pattern implemented with token bucket algorithm
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Protects rate limiter from Redis failures
+- **[Bulkhead](../../../pattern-library/resilience/bulkhead)** - Isolates rate limit pools per tenant/API
+- **[Consistent Hashing](../../../pattern-library/scaling/sharding)** - Distributes users across rate limiter nodes
+- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies)** - Local cache with TTL for performance
+- **[Health Check](../../../pattern-library/resilience/health-check)** - Monitors Redis connectivity and accuracy
+- **[Load Shedding](../../../pattern-library/resilience/load-shedding)** - Drops low-priority requests under extreme load
 
 ### Quantitative Models
 - **[Little's Law](../quantitative-analysis/littles-law)** - Queue depth = arrival rate × processing time for pending checks
@@ -1070,5 +1070,5 @@ graph TD
 ### Similar Case Studies
 - **[Amazon DynamoDB](../amazon-dynamo.md)** - Similar distributed counting challenges
 - **[PayPal Payments](../../../architects-handbook/case-studies/financial-commerce/paypal-payments.md)** - Rate limiting prevents payment fraud
-- **[Consistent Hashing](../../../../pattern-library/data-management/consistent-hashing.md)** - Core technique for distributing rate limit state
-- **[News Feed System](news-feed.md.md)** - Rate limiting API calls for feed generation
+- **[Consistent Hashing](../../../../../../pattern-library/data-management/consistent-hashing.md)** - Core technique for distributing rate limit state
+- **[News Feed System](news-feed.md)** - Rate limiting API calls for feed generation

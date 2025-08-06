@@ -23,6 +23,7 @@ theme:
   - navigation.indexes
   - navigation.top
   - navigation.footer
+  - navigation.prune
   - toc.follow
   - toc.integrate
   - search.suggest
@@ -330,6 +331,7 @@ exclude_docs: 'templates/
   '
 nav:
 - Home: index.md
+- Start Here: start-here/index.md
 - Part 1 - Core Principles:
   - Overview: core-principles/index.md
   - The 7 Laws:
@@ -405,6 +407,8 @@ nav:
       - Distributed Storage: pattern-library/data-management/distributed-storage.md
       - Polyglot Persistence: pattern-library/data-management/polyglot-persistence.md
       - Data Lake: pattern-library/data-management/data-lake.md
+      - Data Lakehouse: pattern-library/data-management/data-lakehouse.md
+      - Stream Processing: pattern-library/data-management/stream-processing.md
       - Shared Database: pattern-library/data-management/shared-database.md
     - Data Structures & Optimization:
       - Bloom Filter: pattern-library/data-management/bloom-filter.md
@@ -429,6 +433,7 @@ nav:
       - Rate Limiting: pattern-library/scaling/rate-limiting.md
       - Backpressure: pattern-library/scaling/backpressure.md
       - Priority Queue: pattern-library/scaling/priority-queue.md
+      - Serverless Event Processing: pattern-library/scaling/serverless-event-processing.md
     - Geographic Distribution:
       - Multi-Region: pattern-library/scaling/multi-region.md
       - Edge Computing: pattern-library/scaling/edge-computing.md
@@ -450,6 +455,8 @@ nav:
       - Backends for Frontends: pattern-library/architecture/backends-for-frontends.md
       - Anti-Corruption Layer: pattern-library/architecture/anti-corruption-layer.md
       - Strangler Fig: pattern-library/architecture/strangler-fig.md
+      - Container Orchestration: pattern-library/architecture/container-orchestration.md
+      - GitOps Deployment: pattern-library/architecture/gitops-deployment.md
     - System Patterns:
       - Cell-Based Architecture: pattern-library/architecture/cell-based.md
       - Shared Nothing: pattern-library/architecture/shared-nothing.md
@@ -486,6 +493,29 @@ nav:
       - Distributed Queue: pattern-library/coordination/distributed-queue.md
       - State Watch: pattern-library/coordination/state-watch.md
       - Low High Water Marks: pattern-library/coordination/low-high-water-marks.md
+  - ML Infrastructure Patterns:
+    - Overview: pattern-library/ml-infrastructure/index.md
+    - Model Serving at Scale: pattern-library/ml-infrastructure/model-serving-scale.md
+    - Feature Store: pattern-library/ml-infrastructure/feature-store.md
+    - ML Pipeline Orchestration: pattern-library/ml-infrastructure/ml-pipeline-orchestration.md
+    - Model Versioning and Rollback: pattern-library/ml-infrastructure/model-versioning-rollback.md
+    - Distributed Training: pattern-library/ml-infrastructure/distributed-training.md
+  - Security Patterns:
+    - Overview: pattern-library/security/index.md
+    - Zero-Trust Architecture: pattern-library/security/zero-trust-architecture.md
+    - Secrets Management: pattern-library/security/secrets-management.md
+    - API Security Gateway: pattern-library/security/api-security-gateway.md
+    - Security Scanning Pipeline: pattern-library/security/security-scanning-pipeline.md
+    - Threat Modeling: pattern-library/security/threat-modeling.md
+  - Deployment Patterns:
+    - Overview: pattern-library/deployment/index.md
+    - Blue-Green Deployment: pattern-library/deployment/blue-green-deployment.md
+    - Canary Release: pattern-library/deployment/canary-release.md
+    - Feature Flags: pattern-library/deployment/feature-flags.md
+  - Cost Optimization Patterns:
+    - Overview: pattern-library/cost-optimization/index.md
+    - Spot Instance Management: pattern-library/cost-optimization/spot-instance-management.md
+    - Resource Rightsizing: pattern-library/cost-optimization/resource-rightsizing.md
 - Part 3 - Architect's Handbook:
   - Overview: architects-handbook/index.md
   - Case Studies:
@@ -494,6 +524,8 @@ nav:
       - News Feed: architects-handbook/case-studies/social-communication/news-feed.md
       - Payment System: architects-handbook/case-studies/financial-commerce/payment-system.md
       - Video Streaming: architects-handbook/case-studies/messaging-streaming/netflix-streaming.md
+    - Location Services:
+      - Overview: architects-handbook/case-studies/location-services/index.md
       - Uber Location: architects-handbook/case-studies/location-services/uber-location.md
       - Google Maps: architects-handbook/case-studies/location-services/google-maps.md
       - Apple Maps: architects-handbook/case-studies/location-services/apple-maps.md
@@ -508,6 +540,7 @@ nav:
       - Uber Maps: architects-handbook/case-studies/location-services/uber-maps.md
       - Google Maps System: architects-handbook/case-studies/location-services/google-maps-system.md
     - Financial & Commerce:
+      - Overview: architects-handbook/case-studies/financial-commerce/index.md
       - Ad Click Aggregation: architects-handbook/case-studies/financial-commerce/ad-click-aggregation.md
       - Digital Wallet Enhanced: architects-handbook/case-studies/financial-commerce/digital-wallet-enhanced.md
       - Ecommerce Platform: architects-handbook/case-studies/financial-commerce/ecommerce-platform.md
@@ -516,6 +549,7 @@ nav:
       - Shopify Flash Sales: architects-handbook/case-studies/financial-commerce/shopify-flash-sales.md
       - Stock Exchange: architects-handbook/case-studies/financial-commerce/stock-exchange.md
     - Social & Communication:
+      - Overview: architects-handbook/case-studies/social-communication/index.md
       - Chat System: architects-handbook/case-studies/social-communication/chat-system.md
       - Consistency Deep Dive Chat: architects-handbook/case-studies/social-communication/consistency-deep-dive-chat.md
       - Distributed Email Enhanced: architects-handbook/case-studies/social-communication/distributed-email-enhanced.md
@@ -529,7 +563,23 @@ nav:
       - Twitter Timeline: architects-handbook/case-studies/social-communication/twitter-timeline.md
       - Video Streaming: architects-handbook/case-studies/social-communication/video-streaming.md
       - Youtube: architects-handbook/case-studies/social-communication/youtube.md
+    - Healthcare Systems:
+      - Overview: architects-handbook/case-studies/healthcare/index.md
+      - EHR System Architecture: architects-handbook/case-studies/healthcare/ehr-system.md
+      - Medical Imaging Pipeline: architects-handbook/case-studies/healthcare/medical-imaging-pipeline.md
+      - HIPAA Compliance Architecture: architects-handbook/case-studies/healthcare/patient-privacy-hipaa.md
+    - Gaming Systems:
+      - Overview: architects-handbook/case-studies/gaming/index.md
+      - MMO Game Architecture: architects-handbook/case-studies/gaming/mmo-game-architecture.md
+      - Real-time Game Sync: architects-handbook/case-studies/gaming/real-time-game-sync.md
+      - Global Matchmaking: architects-handbook/case-studies/gaming/global-matchmaking.md
+    - Logistics & Supply Chain:
+      - Overview: architects-handbook/case-studies/logistics/index.md
+      - Package Tracking Systems: architects-handbook/case-studies/logistics/real-time-package-tracking.md
+      - Route Optimization: architects-handbook/case-studies/logistics/route-optimization.md
+      - Warehouse Automation: architects-handbook/case-studies/logistics/warehouse-automation.md
     - Search & Analytics:
+      - Overview: architects-handbook/case-studies/search-analytics/index.md
       - Elasticsearch: architects-handbook/case-studies/search-analytics/elasticsearch.md
       - Gaming Leaderboard Enhanced: architects-handbook/case-studies/search-analytics/gaming-leaderboard-enhanced.md
       - Google Drive: architects-handbook/case-studies/search-analytics/google-drive.md
@@ -539,11 +589,10 @@ nav:
       - Spotify Recommendations: architects-handbook/case-studies/search-analytics/spotify-recommendations.md
     - Elite Engineering:
       - Overview: architects-handbook/case-studies/elite-engineering/index.md
-      - Netflix Chaos Engineering: architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering.md
+      - Netflix Chaos Engineering: architects-handbook/case-studies/elite-engineering/netflix-chaos.md
       - Amazon DynamoDB Evolution: architects-handbook/case-studies/elite-engineering/amazon-dynamodb-evolution.md
       - Discord Voice Infrastructure: architects-handbook/case-studies/elite-engineering/discord-voice-infrastructure.md
       - Figma CRDT Collaboration: architects-handbook/case-studies/elite-engineering/figma-crdt-collaboration.md
-      - Netflix Chaos (Legacy): architects-handbook/case-studies/elite-engineering/netflix-chaos.md
       - Stripe API Excellence: architects-handbook/case-studies/elite-engineering/stripe-api-excellence.md
     - Technology Deep Dives:
       - Databases:
@@ -560,6 +609,7 @@ nav:
         - Memcached: architects-handbook/case-studies/databases/memcached.md
         - Key-Value Store Design: architects-handbook/case-studies/databases/key-value-store.md
       - Message Systems:
+        - Overview: architects-handbook/case-studies/messaging-streaming/index.md
         - Kafka: architects-handbook/case-studies/messaging-streaming/kafka.md
         - Distributed Message Queue: architects-handbook/case-studies/messaging-streaming/distributed-message-queue.md
         - Apache Spark: architects-handbook/case-studies/messaging-streaming/apache-spark.md
@@ -567,6 +617,7 @@ nav:
         - Batch to Streaming: architects-handbook/case-studies/messaging-streaming/batch-to-streaming.md
         - Polling to Event Driven: architects-handbook/case-studies/messaging-streaming/polling-to-event-driven.md
       - Infrastructure:
+        - Overview: architects-handbook/case-studies/infrastructure/index.md
         - Kubernetes: architects-handbook/case-studies/infrastructure/kubernetes.md
         - Prometheus: architects-handbook/case-studies/monitoring-observability/prometheus.md
         - URL Shortener: architects-handbook/case-studies/infrastructure/url-shortener.md
@@ -579,6 +630,7 @@ nav:
         - Zoom Scaling: architects-handbook/case-studies/infrastructure/zoom-scaling.md
         - Monolith to Microservices: architects-handbook/case-studies/infrastructure/monolith-to-microservices.md
       - Monitoring & Observability:
+        - Overview: architects-handbook/case-studies/monitoring-observability/index.md
         - Metrics Monitoring: architects-handbook/case-studies/monitoring-observability/metrics-monitoring.md
         - Prometheus Datadog Enhanced: architects-handbook/case-studies/monitoring-observability/prometheus-datadog-enhanced.md
         - Rate Limiter: architects-handbook/case-studies/monitoring-observability/rate-limiter.md
@@ -687,27 +739,53 @@ nav:
     - Blameless Postmortems: architects-handbook/human-factors/blameless-postmortems.md
     - On-Call Culture: architects-handbook/human-factors/oncall-culture.md
     - Incident Response: architects-handbook/human-factors/incident-response.md
+    - Disaster Recovery Planning: architects-handbook/human-factors/disaster-recovery-planning.md
+    - Security Incident Response: architects-handbook/human-factors/security-incident-response.md
     - SRE Practices: architects-handbook/human-factors/sre-practices.md
     - Team Topologies: architects-handbook/human-factors/team-topologies.md
     - Consistency Tuning: architects-handbook/human-factors/consistency-tuning.md
   - Learning Paths:
     - Overview: architects-handbook/learning-paths/index.md
-    - New Graduate Path: architects-handbook/learning-paths/new-graduate.md
-    - Senior Engineer Path: architects-handbook/learning-paths/senior-engineer.md
-    - Architect Path: architects-handbook/learning-paths/architect.md
-    - Manager Path: architects-handbook/learning-paths/manager.md
-    - Performance Focus: architects-handbook/learning-paths/performance.md
-    - Reliability Focus: architects-handbook/learning-paths/reliability.md
-    - Consistency Focus: architects-handbook/learning-paths/consistency.md
-    - Cost Optimization: architects-handbook/learning-paths/cost.md
+    - Role-Based Paths:
+      - New Graduate Path: architects-handbook/learning-paths/new-graduate.md
+      - Senior Engineer Path: architects-handbook/learning-paths/senior-engineer.md
+      - Architect Path: architects-handbook/learning-paths/architect.md
+      - Manager Path: architects-handbook/learning-paths/manager.md
+    - Specialization Paths:
+      - Cloud Migration Architect: architects-handbook/learning-paths/cloud-migration-architect.md
+      - Microservices Architect: architects-handbook/learning-paths/microservices-architect.md
+      - Data Platform Architect: architects-handbook/learning-paths/data-platform-architect.md
+      - Performance Engineer: architects-handbook/learning-paths/performance-engineer.md
+      - DevOps/SRE: architects-handbook/learning-paths/devops-sre.md
+      - Security Architect: architects-handbook/learning-paths/security-architect.md
+      - Platform Engineer: architects-handbook/learning-paths/platform-engineer.md
+      - Data Engineer: architects-handbook/learning-paths/data-engineer.md
+      - ML Infrastructure: architects-handbook/learning-paths/ml-infrastructure.md
+      - Real-time Systems: architects-handbook/learning-paths/real-time-systems.md
+      - Edge Computing: architects-handbook/learning-paths/edge-computing.md
+      - Blockchain Systems: architects-handbook/learning-paths/blockchain-systems.md
+      - Quantum Resilient: architects-handbook/learning-paths/quantum-resilient.md
+    - Focus Areas:
+      - Performance Focus: architects-handbook/learning-paths/performance.md
+      - Reliability Focus: architects-handbook/learning-paths/reliability.md
+      - Consistency Focus: architects-handbook/learning-paths/consistency.md
+      - Cost Optimization: architects-handbook/learning-paths/cost.md
   - Interactive Tools:
     - Overview: architects-handbook/tools/index.md
-    - Availability Calculator: architects-handbook/tools/availability-calculator.md
-    - Capacity Calculator: architects-handbook/tools/capacity-calculator.md
-    - Consistency Calculator: architects-handbook/tools/consistency-calculator.md
-    - Cost Optimizer: architects-handbook/tools/cost-optimizer.md
-    - Latency Calculator: architects-handbook/tools/latency-calculator.md
-    - Throughput Calculator: architects-handbook/tools/throughput-calculator.md
+    - Core Calculators:
+      - Availability Calculator: architects-handbook/tools/availability-calculator.md
+      - Capacity Calculator: architects-handbook/tools/capacity-calculator.md
+      - Consistency Calculator: architects-handbook/tools/consistency-calculator.md
+      - Cost Optimizer: architects-handbook/tools/cost-optimizer.md
+      - Latency Calculator: architects-handbook/tools/latency-calculator.md
+      - Throughput Calculator: architects-handbook/tools/throughput-calculator.md
+    - Advanced Tools:
+      - Cache Hierarchy Optimizer: architects-handbook/tools/cache-hierarchy-optimizer.md
+      - Database Sharding Calculator: architects-handbook/tools/database-sharding-calculator.md
+      - Geo-Distribution Planner: architects-handbook/tools/geo-distribution-planner.md
+      - Load Balancer Simulator: architects-handbook/tools/load-balancer-simulator.md
+      - Observability Cost Calculator: architects-handbook/tools/observability-cost-calculator.md
+      - Rate Limiting Calculator: architects-handbook/tools/rate-limiting-calculator.md
 - Part 4 - Interview Preparation:
   - Overview: interview-prep/index.md
   - Engineering Leadership:

@@ -38,7 +38,7 @@ patterns_used:
   - single-pass: No support for iterative algorithms
 excellence_guides:
 - migration/mapreduce-to-spark
-- pattern-library/modern-data-processing
+- ../../../pattern-library/modern-data-processing
 - historical/big-data-evolution
 deprecation:
   status: Replaced by modern frameworks
@@ -471,7 +471,7 @@ val wordCounts = textFile
 - [Apache Spark](../../../apache-spark.md) - Next-generation replacement
 - [Apache Flink](flink) - Stream-first processing
 - [HDFS](hdfs.md) - Distributed file system
-- [Distributed Computing](../pattern-library/distributed-computing) - Core concepts
+- [Distributed Computing](../../../pattern-library/distributed-computing) - Core concepts
 - [Google File System](gfs.md) - Storage layer
 
 ## References

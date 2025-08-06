@@ -5,7 +5,7 @@ description: Patterns to migrate away from, with clear paths to modern alternati
 
 # 🥉 Bronze Patterns - Legacy & Migration Targets
 
-**25 patterns that served us well but now have better alternatives. Learn what to migrate from and how.**
+**7 patterns that served us well but now have better alternatives. Learn what to migrate from and how.**
 
 <div class="bronze-intro">
     <p class="lead">Bronze patterns are legacy solutions that were once best practices but have been superseded by better approaches. Understanding them is crucial for maintaining existing systems and planning migrations.</p>
@@ -29,285 +29,120 @@ description: Patterns to migrate away from, with clear paths to modern alternati
 
 </div>
 
-## 🚨 Bronze Patterns to Migrate From
+## 🚨 The 7 Bronze Patterns
 
-### ❌ Distributed Transaction Patterns
+### 🏛️ Architecture Patterns
 
-<div class="pattern-category bronze-danger">
+<div class="pattern-category bronze-arch">
 
-#### [Two-Phase Commit (2PC)](../pattern-library/coordination/two-phase-commit/)
-**Distributed ACID transactions**
-- ⚠️ **Issues**: Blocking, coordinator failure, poor performance
-- ✅ **Migrate to**: [Saga Pattern](../pattern-library/data-management/saga/)
+#### [CAP Theorem](../../../../pattern-library/architecture/cap-theorem/)
+**Choose 2 of 3: Consistency, Availability, Partition Tolerance**
+- ⚠️ **Issues**: Oversimplified model, misleading trade-offs
+- ✅ **Migrate to**: PACELC theorem for nuanced understanding
+- 📊 **Migration Effort**: Low (conceptual shift)
+- 💡 **Still Valid For**: Initial system design discussions
+
+#### [Choreography](../../../../pattern-library/architecture/choreography/)
+**Services coordinate through events without central control**
+- ⚠️ **Issues**: Hard to debug, no clear flow visibility
+- ✅ **Migrate to**: [Saga](../../../../pattern-library/data-management/saga/) orchestration or hybrid approach
+- 📊 **Migration Effort**: Medium-High
+- 💡 **Still Valid For**: Simple, linear workflows
+
+#### [Lambda Architecture](../../../../pattern-library/architecture/lambda-architecture/)
+**Batch + streaming layers for data processing**
+- ⚠️ **Issues**: Complexity, duplicate logic, maintenance overhead
+- ✅ **Migrate to**: [Kappa Architecture](../../../../pattern-library/architecture/kappa-architecture/) or unified streaming
 - 📊 **Migration Effort**: High
-- 💡 **Still Valid For**: Small-scale, same-datacenter transactions
+- 💡 **Still Valid For**: Specific batch/stream hybrid needs
 
-**Migration Path:**
-```mermaid
-graph LR
-    A[2PC Transaction] --> B[Identify Boundaries]
-    B --> C[Design Saga Steps]
-    C --> D[Add Compensations]
-    D --> E[Saga Pattern]
-```
-
-#### [Distributed Locks](../pattern-library/coordination/distributed-lock/)
-**Global mutex across services**
-- ⚠️ **Issues**: Single point of failure, deadlocks, performance
-- ✅ **Migrate to**: [Optimistic Concurrency](../pattern-library/optimistic-locking/)
+#### [Kappa Architecture](../../../../pattern-library/architecture/kappa-architecture/)
+**Everything is a stream**
+- ⚠️ **Issues**: Not suitable for all use cases, reprocessing challenges
+- ✅ **Migrate to**: Modern stream processing with proper batch support
 - 📊 **Migration Effort**: Medium
-- 💡 **Still Valid For**: Leader election, short-held locks
+- 💡 **Still Valid For**: Pure streaming scenarios
 
 </div>
 
-### 🗄️ Legacy Architecture Patterns
+### 🗄️ Data Management Patterns
 
-<div class="pattern-category bronze-legacy">
+<div class="pattern-category bronze-data">
 
-#### [Shared Database](../pattern-library/data-management/shared-database/)
+#### [Shared Database](../../../../pattern-library/data-management/shared-database/)
 **Multiple services share one database**
 - ⚠️ **Issues**: Tight coupling, no isolation, scaling limits
-- ✅ **Migrate to**: [Database per Service](../pattern-library/database-per-service/)
+- ✅ **Migrate to**: [CQRS](../../../../pattern-library/data-management/cqrs/) + Service Isolation
 - 📊 **Migration Effort**: Very High
 - 💡 **Still Valid For**: Small, simple systems
 
-**Migration Strategy:**
-1. Identify service boundaries
-2. Add API layer
-3. Gradually extract data
-4. Implement sync mechanisms
-5. Cut over service by service
-
-#### [Thick Client](../pattern-library/thick-client/)
-**Heavy business logic in client**
-- ⚠️ **Issues**: Update nightmare, security risks, platform lock-in
-- ✅ **Migrate to**: [API-First](../pattern-library/api-gateway/) + Thin Client
+#### [Data Lake](../../../../pattern-library/data-management/data-lake/)
+**Store everything, figure it out later**
+- ⚠️ **Issues**: Data swamp risk, governance challenges
+- ✅ **Migrate to**: Data Mesh or structured lakehouse architecture
 - 📊 **Migration Effort**: High
-- 💡 **Still Valid For**: Specialized desktop apps
-
-#### [Stored Procedures](../pattern-library/stored-procedures/)
-**Business logic in database**
-- ⚠️ **Issues**: Testing difficulty, version control, vendor lock-in
-- ✅ **Migrate to**: Application layer logic
-- 📊 **Migration Effort**: Medium
-- 💡 **Still Valid For**: Performance-critical operations
+- 💡 **Still Valid For**: Research/exploration environments
 
 </div>
 
-### 📡 Outdated Communication Patterns
+### 🔄 Coordination Patterns
 
-<div class="pattern-category bronze-comm">
+<div class="pattern-category bronze-coord">
 
-#### [Polling](../pattern-library/polling/)
-**Repeatedly check for updates**
-- ⚠️ **Issues**: Inefficient, latency, resource waste
-- ✅ **Migrate to**: [WebSocket](../pattern-library/communication/websocket/) or [SSE](../pattern-library/communication/server-sent-events/)
-- 📊 **Migration Effort**: Low-Medium
-- 💡 **Still Valid For**: Infrequent checks, simple integrations
-
-#### [SOAP/XML-RPC](../pattern-library/soap/)
-**Heavy protocol for service communication**
-- ⚠️ **Issues**: Complexity, performance, tooling
-- ✅ **Migrate to**: REST or gRPC
-- 📊 **Migration Effort**: Medium
-- 💡 **Still Valid For**: Enterprise integrations
-
-#### [File-Based Integration](../pattern-library/file-integration/)
-**Share data via files**
-- ⚠️ **Issues**: Latency, error handling, monitoring
-- ✅ **Migrate to**: [Event Streaming](../pattern-library/event-streaming/)
-- 📊 **Migration Effort**: Medium-High
-- 💡 **Still Valid For**: Batch processing, legacy systems
+#### [Actor Model](../../../../pattern-library/coordination/actor-model/)
+**Isolated actors communicate via messages**
+- ⚠️ **Issues**: Debugging complexity, state management
+- ✅ **Migrate to**: Event-driven microservices with clear boundaries
+- 📊 **Migration Effort**: High
+- 💡 **Still Valid For**: Erlang/Elixir ecosystems, specific use cases
 
 </div>
 
-### 🔧 Deprecated Operational Patterns
+## 📋 Bronze Pattern Migration Priority
 
-<div class="pattern-category bronze-ops">
+| Pattern | Risk Level | Migration Urgency | Alternative |
+|---------|------------|-------------------|-------------|
+| Shared Database | 🔴 High | Immediate | CQRS + Service DB |
+| CAP Theorem | 🟡 Medium | As Needed | PACELC Understanding |
+| Lambda Architecture | 🟡 Medium | Planned | Unified Streaming |
+| Data Lake | 🟡 Medium | Planned | Data Mesh |
+| Choreography | 🟢 Low | Opportunistic | Orchestration |
+| Kappa Architecture | 🟢 Low | Evaluate | Modern Streaming |
+| Actor Model | 🟢 Low | Stable Systems | Keep if Working |
 
-#### [Manual Scaling](../pattern-library/manual-scaling/)
-**Human-operated capacity changes**
-- ⚠️ **Issues**: Slow response, human error, cost
-- ✅ **Migrate to**: [Auto-Scaling](../pattern-library/auto-scaling/)
-- 📊 **Migration Effort**: Low
-- 💡 **Still Valid For**: Predictable workloads
+## 🎯 Migration Best Practices
 
-#### [Singleton Pattern](../pattern-library/singleton/)
-**Single instance globally**
-- ⚠️ **Issues**: Testing, concurrency, scalability
-- ✅ **Migrate to**: Dependency injection
-- 📊 **Migration Effort**: Low-Medium
-- 💡 **Still Valid For**: True single resources
+### Before Migration
+1. **Document Current State** - Understand what you have
+2. **Measure Impact** - Know your metrics
+3. **Identify Dependencies** - Map all connections
+4. **Plan Rollback** - Have an escape route
 
-</div>
+### During Migration
+1. **Incremental Changes** - Small, safe steps
+2. **Feature Flags** - Control rollout
+3. **Parallel Run** - Validate before switching
+4. **Monitor Everything** - Watch for issues
 
-## 📋 Bronze Pattern Migration Matrix
+### After Migration
+1. **Clean Up** - Remove old code
+2. **Document Lessons** - Share knowledge
+3. **Update Monitoring** - New patterns, new metrics
+4. **Train Team** - Ensure everyone understands
 
-<div class="migration-matrix">
+## 🏁 Next Steps
 
-| Bronze Pattern | Gold Alternative | Migration Complexity | Business Impact |
-|----------------|-----------------|---------------------|-----------------|
-| **2PC** | Saga Pattern | High | High |
-| **Shared Database** | Database per Service | Very High | Very High |
-| **Thick Client** | API + Thin Client | High | Medium |
-| **Polling** | WebSocket/SSE | Low | Low |
-| **Manual Scaling** | Auto-Scaling | Low | High |
-| **Stored Procedures** | App Logic | Medium | Medium |
-| **File Integration** | Event Streaming | Medium | High |
+<div class="next-steps">
 
-</div>
+**Ready to migrate?** Check out our detailed migration guides:
 
-## 🚀 Migration Playbooks
+- [Monolith to Microservices](../../../migrations/monolith-to-microservices/)
+- [Shared Database to Service Isolation](../../../migrations/shared-database-to-microservices/)
+- [Batch to Streaming](../../../migrations/batch-to-streaming/)
 
-### Universal Migration Strategy
+**Need the modern alternatives?** Explore our Gold and Silver patterns:
 
-<div class="migration-steps">
-
-#### Phase 1: Assessment (Week 1-2)
-1. **Inventory Bronze Patterns**
-   - Scan codebase
-   - Document usage
-   - Assess business impact
-
-2. **Prioritize Migrations**
-   - Risk vs Effort matrix
-   - Business value
-   - Technical debt cost
-
-3. **Select First Target**
-   - Quick win candidate
-   - Learning opportunity
-   - Measurable impact
-
-#### Phase 2: Planning (Week 3-4)
-1. **Design Target State**
-   - Choose Gold/Silver pattern
-   - Architecture diagrams
-   - Migration phases
-
-2. **Risk Mitigation**
-   - Rollback strategy
-   - Data consistency
-   - Performance testing
-
-3. **Team Preparation**
-   - Training on new pattern
-   - Tooling setup
-   - Success metrics
-
-#### Phase 3: Execution (Varies)
-1. **Parallel Implementation**
-   - Build new alongside old
-   - Feature flags
-   - Gradual rollout
-
-2. **Data Migration**
-   - Dual writes
-   - Verification
-   - Cutover plan
-
-3. **Decommission Legacy**
-   - Monitor stability
-   - Remove old code
-   - Document lessons
+- [View Gold Patterns](../gold-patterns/) - Battle-tested solutions
+- [View Silver Patterns](../silver-patterns/) - Specialized patterns
 
 </div>
-
-### Specific Migration Guides
-
-<div class="specific-guides">
-
-**[2PC → Saga Migration Guide](../../../excellence/migrations/2pc-to-saga.md)**
-- Boundary identification
-- Compensation design
-- Testing strategies
-
-**[Shared DB → Database per Service](../../../excellence/migrations/shared-database-to-microservices.md)**
-- Service extraction
-- Data synchronization
-- Consistency patterns
-
-**[Polling → WebSocket Migration](../../../excellence/migrations/polling-to-websocket.md)**
-- Protocol upgrade
-- Fallback handling
-- Client updates
-
-</div>
-
-## ⚡ Quick Wins
-
-Start with these easy Bronze → Gold migrations:
-
-1. **Manual Scaling → Auto-Scaling**
-   - 1 week implementation
-   - Immediate cost savings
-   - Better reliability
-
-2. **Polling → WebSocket**
-   - 2 week implementation
-   - 90% resource reduction
-   - Better user experience
-
-3. **Singleton → Dependency Injection**
-   - 1 week refactoring
-   - Improved testability
-   - Better maintainability
-
-## 🎯 When Bronze Patterns Are Still Valid
-
-<div class="valid-use-cases">
-
-### Limited Scenarios
-Some Bronze patterns remain valid in specific contexts:
-
-**2PC**: When you need true ACID across 2-3 resources in same datacenter
-
-**Shared Database**: For simple CRUD apps with <5 developers
-
-**Stored Procedures**: For complex reports or data-intensive operations
-
-**File Integration**: When integrating with legacy systems that can't change
-
-### Decision Framework
-Keep Bronze patterns only when:
-- ✅ Migration cost exceeds benefit
-- ✅ System is being decommissioned
-- ✅ Specific constraints require it
-- ✅ Temporary solution with sunset date
-
-</div>
-
-## 📚 Learning from Bronze Patterns
-
-### Historical Lessons
-
-<div class="lessons">
-
-**Why They Were Popular**
-- Simpler times (monoliths)
-- Different constraints (on-premise)
-- Limited tooling
-- Smaller scale
-
-**Why We Moved On**
-- Cloud computing
-- Microservices
-- Better tooling
-- Scale requirements
-
-**What We Learned**
-- Decouple everything
-- Embrace eventual consistency
-- Design for failure
-- Automate operations
-
-</div>
-
----
-
-<div class="navigation-footer">
-    <a href="../silver-pattern-library/" class="md-button">← Silver Patterns</a>
-    <a href="../" class="md-button">Back to Discovery</a>
-    <a href="../../migrations/" class="md-button md-button--primary">Migration Guides →</a>
-</div>
-

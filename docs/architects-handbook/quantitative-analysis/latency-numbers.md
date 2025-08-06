@@ -641,5 +641,5 @@ You can't beat physics, but you can work with it.
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md) | [Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-models.md) | [Availability Math](../../architects-handbook/quantitative-analysis/availability-math.md)
-- **Patterns**: [Caching Strategies](../pattern-library/scaling/caching-strategies.md) | [Edge Computing](../pattern-library/scaling/edge-computing.md)
+- **Patterns**: [Caching Strategies](../../pattern-library/scaling/caching-strategies.md) | [Edge Computing](../../pattern-library/scaling/edge-computing.md)
 ---

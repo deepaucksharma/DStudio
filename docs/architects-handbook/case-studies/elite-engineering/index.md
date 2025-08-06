@@ -14,7 +14,7 @@ These case studies examine how the world's top technology companies solved compl
 
 ## Featured Case Studies
 
-### 🎯 [Netflix: Pioneering Chaos Engineering](../../../architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering.md)
+### 🎯 [Netflix: Pioneering Chaos Engineering](../../../architects-handbook/case-studies/elite-engineering/netflix-chaos.md)
 **Scale**: 260M+ subscribers, 15% of global internet bandwidth
 
 How Netflix built systems that embrace failure as a feature, pioneering chaos engineering practices that revolutionized the industry's approach to resilience.
@@ -27,7 +27,7 @@ How Netflix built systems that embrace failure as a feature, pioneering chaos en
 
 ---
 
-### 🗄️ [Amazon DynamoDB: From Paper to Planet Scale](amazon-dynamodb-evolution.md.md)
+### 🗄️ [Amazon DynamoDB: From Paper to Planet Scale](amazon-dynamodb-evolution.md)
 **Scale**: 10+ trillion requests/day, 89.2M requests/second peak
 
 The evolution from academic Dynamo paper to a database service that redefined what's possible at scale, powering everything from Amazon.com to AWS services.
@@ -40,7 +40,7 @@ The evolution from academic Dynamo paper to a database service that redefined wh
 
 ---
 
-### 🎙️ [Discord: Voice Infrastructure at Scale](discord-voice-infrastructure.md.md)
+### 🎙️ [Discord: Voice Infrastructure at Scale](discord-voice-infrastructure.md)
 **Scale**: 5M+ concurrent voice users, 28ms median latency
 
 How Discord built real-time voice chat that scales to millions while maintaining crystal-clear quality and ultra-low latency globally.
@@ -66,7 +66,7 @@ How Figma uses Conflict-free Replicated Data Types to enable real-time collabora
 
 ---
 
-### 💳 [Stripe: API Excellence at Scale](stripe-api-excellence.md.md)
+### 💳 [Stripe: API Excellence at Scale](stripe-api-excellence.md)
 **Scale**: 1B+ API requests/day, 99.999% availability
 
 How Stripe created APIs so elegant that developers actually enjoy using them, setting the gold standard for developer experience.

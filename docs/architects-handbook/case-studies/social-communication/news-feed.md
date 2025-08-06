@@ -1264,13 +1264,13 @@ The hybrid architecture balances the trade-offs between different approaches, us
 - **[Law 7: Economics ](../core-principles/laws/economic-reality/)** - Ad placement and infrastructure costs drive architectural decisions
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Event-Driven Architecture](../pattern-library/architecture/event-driven)** - Post creation triggers fanout pipeline
-- **[CQRS](../pattern-library/data-management/cqrs)** - Separate write (fanout) and read (feed generation) paths
-- **[Caching Strategies](../pattern-library/scaling/caching-strategies)** - Multi-tier caching from edge to application layer
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects against celebrity storm cascading failures
-- **[Bulkhead](../pattern-library/resilience/bulkhead)** - Isolates celebrity fanout from normal users
-- **[Load Balancing](../pattern-library/scaling/load-balancing)** - Distributes feed generation across worker pools
-- **[Sharding](../pattern-library/scaling/sharding)** - User-based sharding for timeline storage
+- **[Event-Driven Architecture](../../../pattern-library/architecture/event-driven)** - Post creation triggers fanout pipeline
+- **[CQRS](../../../pattern-library/data-management/cqrs)** - Separate write (fanout) and read (feed generation) paths
+- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies)** - Multi-tier caching from edge to application layer
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Protects against celebrity storm cascading failures
+- **[Bulkhead](../../../pattern-library/resilience/bulkhead)** - Isolates celebrity fanout from normal users
+- **[Load Balancing](../../../pattern-library/scaling/load-balancing)** - Distributes feed generation across worker pools
+- **[Sharding](../../../pattern-library/scaling/sharding)** - User-based sharding for timeline storage
 
 ### Quantitative Models
 - **[Little's Law](../quantitative-analysis/littles-law)** - Feed generation capacity: concurrent requests = arrival rate × processing time
@@ -1288,4 +1288,4 @@ The hybrid architecture balances the trade-offs between different approaches, us
 - **[Spotify Recommendations](../../../architects-handbook/case-studies/search-analytics/spotify-recommendations.md)** - Similar ML personalization challenges
 - **[YouTube's Video Platform](../youtube.md)** - Content distribution and recommendation parallels
 - **[Rate Limiter Design](../rate-limiter.md)** - Protecting feed generation from abuse
-- **[Uber's Location System](uber-location.md.md)** - Real-time data processing patterns
+- **[Uber's Location System](uber-location.md)** - Real-time data processing patterns

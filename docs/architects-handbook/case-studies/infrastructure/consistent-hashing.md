@@ -8,7 +8,7 @@ reading_time: 30 min
 prerequisites:
 - correlated-failure
 - distributed-knowledge
-- pattern-library/sharding
+- ../../../pattern-library/scaling/sharding.md
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -1336,7 +1336,7 @@ class ConsistentHashRing:
 - [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages)
 
 **Related Patterns:**
-- [Virtual Nodes](../pattern-library/scaling/sharding)
+- [Virtual Nodes](../../../pattern-library/scaling/sharding)
 - Gossip Protocol
 - Vector Clocks
 - Replication (Coming Soon)
@@ -1353,13 +1353,13 @@ class ConsistentHashRing:
 - **[Law 7: Economic Reality ](../../core-principles/laws/economic-reality/)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Sharding & Partitioning](../pattern-library/scaling/sharding.md)** - Consistent hashing is the foundation for data sharding
-- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Ring-based routing distributes requests evenly
-- **[Service Discovery](../pattern-library/communication/service-discovery)** - Ring topology changes propagate via gossip
+- **[Sharding & Partitioning](../../../pattern-library/scaling/sharding.md)** - Consistent hashing is the foundation for data sharding
+- **[Load Balancing](../../../pattern-library/scaling/load-balancing.md)** - Ring-based routing distributes requests evenly
+- **[Service Discovery](../../../pattern-library/communication/service-discovery)** - Ring topology changes propagate via gossip
 - **Replication (Coming Soon.md)** - Successor lists define replica placement
-- **[Health Check](../pattern-library/resilience/health-check.md)** - Node failures trigger ring rebalancing
-- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Client-side topology caching reduces lookups
-- **[Leader Election](../pattern-library/coordination/leader-election.md)** - Ring position can determine partition ownership
+- **[Health Check](../../../pattern-library/resilience/health-check.md)** - Node failures trigger ring rebalancing
+- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** - Client-side topology caching reduces lookups
+- **[Leader Election](../../../pattern-library/coordination/leader-election.md)** - Ring position can determine partition ownership
 
 ### Quantitative Models
 - **Ring Theory** - Mathematical foundation for hash rings
@@ -1377,4 +1377,4 @@ class ConsistentHashRing:
 - **[Amazon DynamoDB](../amazon-dynamo.md)** - Production implementation of consistent hashing at scale
 - **[Rate Limiter Design](../rate-limiter.md)** - Uses consistent hashing for distributed rate limit state
 - **[News Feed System](../news-feed.md)** - Shards user timelines using consistent hashing
-- **[PayPal Payments](paypal-payments.md.md)** - Routes payment processing using consistent hashing
+- **[PayPal Payments](paypal-payments.md)** - Routes payment processing using consistent hashing

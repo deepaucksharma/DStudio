@@ -8,8 +8,8 @@ reading_time: 35 min
 prerequisites:
 - correlated-failure
 - distributed-knowledge
-- pattern-library/event-driven
-- pattern-library/queues-streaming
+- ../../../pattern-library/event-driven
+- ../../../pattern-library/queues-streaming
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -57,7 +57,7 @@ best_for:
 - Event-driven architectures
 excellence_guides:
 - scale/internet-scale
-- pattern-library/messaging-systems
+- ../../../pattern-library/messaging-systems
 - operational/notification-best-practices
 key_innovations:
 - Multi-level priority queues with overflow handling
@@ -80,6 +80,49 @@ lessons_learned:
 ## Challenge Statement
 Design a notification system for 10B+ daily notifications across push/email/SMS/in-app with delivery guarantees, preferences, rate limiting, analytics, and failure handling.
 
+## System Scale Visualization
+
+```mermaid
+graph TB
+    subgraph "Daily Scale Metrics"
+        DV[10B+ Notifications/Day]
+        PS[115K/Second Average]
+        PK[500K/Second Peak]
+        UC[100M Active Users]
+        CH[5 Channels Average]
+    end
+    
+    subgraph "Infrastructure Requirements"
+        SV[1000+ Servers]
+        QM[10M Queue Messages]
+        WC[10M WebSocket Connections]
+        DC[10K DB Connections]
+        CM[500GB Cache Memory]
+    end
+    
+    subgraph "Performance Targets"
+        CL[Critical: <1s]
+        PL[Push: <5s]
+        EL[Email: <30s]
+        SL[SMS: <10s]
+        IL[In-App: <100ms]
+    end
+    
+    DV --> PS
+    PS --> PK
+    UC --> CH
+    
+    PK --> SV
+    PK --> QM
+    UC --> WC
+    SV --> DC
+    SV --> CM
+    
+    style DV fill:#ff6b6b,color:#fff
+    style PK fill:#4ecdc4,color:#fff
+    style CL fill:#95e1d3,color:#fff
+```
+
 ## Part 1: Concept Map
 
 ### 🗺 System Overview
@@ -87,12 +130,330 @@ Distributed system orchestrating message delivery across channels with preferenc
 
 **Requirements:** 10B+ daily volume, <1s critical latency, at-least-once delivery, templates/personalization, preferences, rate limiting, analytics, multi-channel
 
+### High-Level System Architecture
+
+```mermaid
+graph TB
+    subgraph "Event Sources"
+        APP[Applications]
+        API[REST APIs]
+        EVT[Event Streams]
+        SCH[Schedulers]
+        TRG[Triggers]
+    end
+    
+    subgraph "Core Processing"
+        subgraph "Ingestion Layer"
+            VAL[Validator]
+            ENR[Enricher]
+            RTR[Router]
+        end
+        
+        subgraph "Orchestration Layer"
+            ORC[Orchestrator]
+            PRF[Preference Engine]
+            RUL[Rules Engine]
+            TPL[Template Engine]
+        end
+        
+        subgraph "Queue Management"
+            PQ[Priority Queues<br/>Critical/High/Med/Low]
+            CQ[Channel Queues<br/>Push/Email/SMS/InApp]
+            DLQ[Dead Letter Queue]
+        end
+    end
+    
+    subgraph "Delivery Layer"
+        subgraph "Channel Handlers"
+            PH[Push Handler<br/>FCM/APNS]
+            EH[Email Handler<br/>SMTP/API]
+            SH[SMS Handler<br/>Twilio/SNS]
+            IH[In-App Handler<br/>WebSocket]
+            WH[Webhook Handler<br/>HTTP]
+        end
+        
+        subgraph "Provider Management"
+            CB[Circuit Breakers]
+            RL[Rate Limiters]
+            FO[Failover Logic]
+        end
+    end
+    
+    subgraph "Data & Analytics"
+        PS[(Preferences)]
+        HS[(History)]
+        TS[(Templates)]
+        AS[(Analytics)]
+        
+        subgraph "Real-time Analytics"
+            MT[Metrics]
+            EV[Events]
+            AG[Aggregator]
+        end
+    end
+    
+    APP & API & EVT & SCH & TRG --> VAL
+    VAL --> ENR
+    ENR --> RTR
+    RTR --> ORC
+    
+    ORC --> PRF
+    ORC --> RUL
+    ORC --> TPL
+    
+    PRF --> PS
+    TPL --> TS
+    
+    ORC --> PQ
+    PQ --> CQ
+    
+    CQ --> PH & EH & SH & IH & WH
+    
+    PH & EH & SH & IH & WH --> CB
+    CB --> RL
+    RL --> FO
+    
+    PH & EH & SH & IH & WH --> HS
+    PH & EH & SH & IH & WH --> MT
+    MT --> EV
+    EV --> AG
+    AG --> AS
+    
+    CQ -.->|Failures| DLQ
+    DLQ -.->|Retry| CQ
+    
+    style ORC fill:#e3f2fd,color:#000
+    style PQ fill:#fff9c4,color:#000
+    style DLQ fill:#ffccbc,color:#000
+    style CB fill:#c8e6c9,color:#000
+```
+
 ### Law Analysis
 
 #### Law 1 (Latency): Speed of Notification
 ```text
 Latency: Critical <1s, Push <5s, Email <30s, SMS <10s, In-app <100ms
 Optimizations: Priority queues, regional deployment, connection pooling, batching, WebSocket, edge servers
+```
+
+### Detailed Notification Flow
+
+```mermaid
+sequenceDiagram
+    participant C as Client App
+    participant G as API Gateway
+    participant V as Validator
+    participant E as Enricher
+    participant O as Orchestrator
+    participant P as Preference Engine
+    participant R as Rules Engine
+    participant T as Template Engine
+    participant Q as Queue Manager
+    participant CH as Channel Handler
+    participant PR as Provider
+    participant A as Analytics
+    
+    C->>G: POST /notifications
+    Note over G: Auth, Rate Limit, Validate
+    
+    G->>V: Validate notification
+    V->>V: Check required fields
+    V->>V: Validate channels
+    V->>V: Check user exists
+    
+    V->>E: Enrich notification
+    E->>E: Add metadata
+    E->>E: Set priority
+    E->>E: Generate ID
+    
+    E->>O: Process notification
+    
+    par Get Preferences
+        O->>P: Get user preferences
+        P-->>O: Channel settings, DND rules
+    and Get Rules
+        O->>R: Apply business rules
+        R-->>O: Eligible channels, timing
+    and Get Template
+        O->>T: Render templates
+        T-->>O: Channel-specific content
+    end
+    
+    O->>O: Create delivery plan
+    Note over O: Determine channels<br/>Apply dedup<br/>Set priority
+    
+    O->>Q: Queue messages
+    Q->>Q: Route to priority queue
+    Q->>Q: Batch if possible
+    
+    Q->>CH: Process batch
+    CH->>CH: Apply rate limits
+    CH->>CH: Check circuit breaker
+    
+    CH->>PR: Send via provider
+    PR-->>CH: Delivery receipt
+    
+    CH->>A: Track event
+    A->>A: Update metrics
+    A->>A: Store history
+    
+    CH-->>G: Response
+    G-->>C: 202 Accepted
+```
+
+### Channel-Specific Processing Flow
+
+```mermaid
+graph TB
+    subgraph "Push Notification Flow"
+        PN[Push Notification] --> DT[Get Device Tokens]
+        DT --> PL{Platform?}
+        PL -->|iOS| APNS[APNS Provider]
+        PL -->|Android| FCM[FCM Provider]
+        
+        APNS --> APR[APNS Response]
+        FCM --> FCR[FCM Response]
+        
+        APR --> TH[Token Health Check]
+        FCR --> TH
+        TH -->|Invalid| RT[Remove Token]
+        TH -->|Valid| SR[Success Record]
+    end
+    
+    subgraph "Email Flow"
+        EN[Email Notification] --> TE[Template Engine]
+        TE --> HT[HTML Template]
+        TE --> TT[Text Template]
+        
+        HT --> ME[MIME Encode]
+        TT --> ME
+        ME --> ESP[Email Service Provider]
+        
+        ESP --> BH[Bounce Handler]
+        BH -->|Hard Bounce| UL[Update List]
+        BH -->|Soft Bounce| RQ[Requeue]
+    end
+    
+    subgraph "SMS Flow"
+        SN[SMS Notification] --> CL[Character Limit Check]
+        CL -->|>160| SP[Split Message]
+        CL -->|<=160| SM[Single Message]
+        
+        SP --> SG[SMS Gateway]
+        SM --> SG
+        
+        SG --> DR[Delivery Receipt]
+        DR -->|Failed| CR[Check Reason]
+        CR -->|Invalid Number| BL[Blacklist]
+        CR -->|Carrier Issue| RY[Retry]
+    end
+    
+    subgraph "In-App Flow"
+        IN[In-App Notification] --> WC{WebSocket Connected?}
+        WC -->|Yes| WS[Send via WebSocket]
+        WC -->|No| ST[Store for Later]
+        
+        WS --> AC[Acknowledge]
+        ST --> PN2[Push Notification Fallback]
+        
+        AC --> MR[Mark Read]
+        PN2 --> DT
+    end
+    
+    style PN fill:#e3f2fd
+    style EN fill:#fff3e0
+    style SN fill:#e8f5e9
+    style IN fill:#fce4ec
+```
+
+### Priority Queue Architecture
+
+```mermaid
+graph TB
+    subgraph "Priority Queue System"
+        subgraph "Queue Levels"
+            C[CRITICAL Queue<br/>Capacity: 10K<br/>Process: Immediate]
+            H[HIGH Queue<br/>Capacity: 50K<br/>Process: <5s]
+            M[MEDIUM Queue<br/>Capacity: 100K<br/>Process: <30s]
+            L[LOW Queue<br/>Capacity: 200K<br/>Process: <5m]
+        end
+        
+        subgraph "Processing Strategy"
+            PC[Critical Processor<br/>1 msg/batch<br/>No delay]
+            PH[High Processor<br/>10 msg/batch<br/>100ms delay]
+            PM[Medium Processor<br/>100 msg/batch<br/>1s delay]
+            PL[Low Processor<br/>1000 msg/batch<br/>5s delay]
+        end
+        
+        subgraph "Overflow Handling"
+            OF[Overflow Manager]
+            SC[Spillover to Cloud]
+            DG[Downgrade Priority]
+            RJ[Reject with Error]
+        end
+    end
+    
+    C --> PC
+    H --> PH
+    M --> PM
+    L --> PL
+    
+    C -.->|Full| OF
+    H -.->|Full| OF
+    M -.->|Full| OF
+    L -.->|Full| OF
+    
+    OF --> SC
+    OF --> DG
+    OF --> RJ
+    
+    style C fill:#ff6b6b,color:#fff
+    style H fill:#4ecdc4,color:#fff
+    style M fill:#95e1d3,color:#fff
+    style L fill:#c8e6c9,color:#000
+```
+
+### Latency Optimization Strategies
+
+```mermaid
+graph LR
+    subgraph "Regional Deployment"
+        US[US-East]
+        EU[EU-West]
+        AP[APAC]
+        
+        US -.->|<50ms| USC[US Clients]
+        EU -.->|<50ms| EUC[EU Clients]
+        AP -.->|<50ms| APC[APAC Clients]
+    end
+    
+    subgraph "Connection Pooling"
+        CP[Connection Pool Manager]
+        FP[FCM Pool<br/>1000 connections]
+        AP2[APNS Pool<br/>500 connections]
+        EP[Email Pool<br/>200 connections]
+        SP[SMS Pool<br/>100 connections]
+    end
+    
+    subgraph "Caching Layer"
+        PC[Preference Cache<br/>1M entries<br/>5min TTL]
+        TC[Template Cache<br/>10K entries<br/>1hr TTL]
+        DC[Device Token Cache<br/>10M entries<br/>24hr TTL]
+    end
+    
+    subgraph "Batching Strategy"
+        BM[Batch Manager]
+        EB[Email Batch<br/>50 messages]
+        PB[Push Batch<br/>1000 messages]
+        SB[SMS Batch<br/>10 messages]
+    end
+    
+    CP --> FP & AP2 & EP & SP
+    
+    style US fill:#e3f2fd
+    style CP fill:#fff3e0
+    style PC fill:#e8f5e9
+    style BM fill:#fce4ec
 ```
 
 **Implementation:**
@@ -442,6 +803,120 @@ Capacity Planning:
 - Cache memory: 500GB
 ```
 
+### Sharding Architecture
+
+```mermaid
+graph TB
+    subgraph "User-Based Sharding"
+        UH[User ID Hash]
+        UH --> S0[Shard 0<br/>Users: 0-1M<br/>100GB]
+        UH --> S1[Shard 1<br/>Users: 1M-2M<br/>100GB]
+        UH --> S2[Shard 2<br/>Users: 2M-3M<br/>100GB]
+        UH --> S99[Shard 99<br/>Users: 99M-100M<br/>100GB]
+        
+        S0 --> R0[Replica 0A]
+        S0 --> R1[Replica 0B]
+        S1 --> R2[Replica 1A]
+        S1 --> R3[Replica 1B]
+    end
+    
+    subgraph "Hot Shard Detection"
+        HM[Heat Map Monitor]
+        HM --> HS[Hot Shards<br/>>150% avg load]
+        HM --> CS[Cold Shards<br/><50% avg load]
+        HM --> NS[Normal Shards<br/>50-150% load]
+        
+        HS --> RB[Rebalance]
+        CS --> CN[Consolidate]
+    end
+    
+    subgraph "Overflow Strategy"
+        OF2[Overflow Manager]
+        OF2 --> TS[Temp Storage<br/>S3/Cloud]
+        OF2 --> DS[Dynamic Sharding]
+        OF2 --> LB[Load Balancer]
+    end
+    
+    style UH fill:#e3f2fd
+    style HM fill:#fff3e0
+    style OF2 fill:#ffebee
+```
+
+### Storage Architecture
+
+```mermaid
+graph LR
+    subgraph "Hot Storage (SSD)"
+        HP[User Preferences<br/>1TB]
+        HT[Templates<br/>1GB]
+        HN[Recent Notifications<br/>7 days<br/>70TB]
+        HQ[Active Queues<br/>10GB]
+    end
+    
+    subgraph "Warm Storage (HDD)"
+        WN[Notifications<br/>7-30 days<br/>230TB]
+        WA[Analytics<br/>Current Month<br/>30TB]
+        WH[History Index<br/>10TB]
+    end
+    
+    subgraph "Cold Storage (S3)"
+        CN[Archived Notifications<br/>>30 days]
+        CA[Historical Analytics<br/>>1 month]
+        CB[Backups<br/>Daily snapshots]
+    end
+    
+    subgraph "Cache Layer"
+        L1[L1: In-Memory<br/>Preferences<br/>1M entries]
+        L2[L2: Redis<br/>Templates<br/>10K entries]
+        L3[L3: CDN<br/>Static Assets]
+    end
+    
+    HP --> L1
+    HT --> L2
+    HN --> WN
+    WN --> CN
+    WA --> CA
+    
+    style HP fill:#ffcdd2
+    style WN fill:#fff9c4
+    style CN fill:#c8e6c9
+    style L1 fill:#e1bee7
+```
+
+### Capacity Monitoring Dashboard
+
+```mermaid
+graph TB
+    subgraph "Real-time Metrics"
+        QD[Queue Depth<br/>Current: 2.5M<br/>Max: 10M]
+        WS[WebSocket Connections<br/>Current: 8.2M<br/>Max: 10M]
+        DB[DB Connections<br/>Current: 7.5K<br/>Max: 10K]
+        CM[Cache Memory<br/>Current: 380GB<br/>Max: 500GB]
+    end
+    
+    subgraph "Storage Metrics"
+        SU[Storage Usage<br/>Current: 315TB<br/>Growth: 10TB/day]
+        SR[Shard Distribution<br/>Hot: 5<br/>Normal: 90<br/>Cold: 5]
+        RT[Retention Status<br/>Active: 30 days<br/>Archive: 365 days]
+    end
+    
+    subgraph "Alerts"
+        A1[⚠️ Queue > 80%]
+        A2[🔴 Storage > 90%]
+        A3[⚠️ Hot Shard Detected]
+        A4[✅ All Systems Normal]
+    end
+    
+    QD --> A1
+    SU --> A2
+    SR --> A3
+    
+    style A1 fill:#fff3e0
+    style A2 fill:#ffcdd2
+    style A3 fill:#fff3e0
+    style A4 fill:#c8e6c9
+```
+
 **Implementation:**
 ```python
 import hashlib
@@ -774,6 +1249,66 @@ Mitigation Strategies:
 - Graceful degradation
 - Idempotency keys
 - At-least-once delivery
+```
+
+### Comprehensive Failure Handling Architecture
+
+```mermaid
+graph TB
+    subgraph "Failure Detection Layer"
+        FD[Failure Detector]
+        FD --> PT[Provider Timeout]
+        FD --> NE[Network Error]
+        FD --> RE[Rate Exceeded]
+        FD --> VE[Validation Error]
+        FD --> SE[System Error]
+    end
+    
+    subgraph "Circuit Breaker States"
+        CB1[Closed State<br/>Normal Operation]
+        CB2[Open State<br/>Fast Fail]
+        CB3[Half-Open<br/>Testing Recovery]
+        
+        CB1 -->|5 failures| CB2
+        CB2 -->|60s timeout| CB3
+        CB3 -->|Success| CB1
+        CB3 -->|Fail| CB2
+    end
+    
+    subgraph "Retry Strategy"
+        RS[Retry Scheduler]
+        R1[Attempt 1<br/>Immediate]
+        R2[Attempt 2<br/>+2s delay]
+        R3[Attempt 3<br/>+4s delay]
+        R4[Attempt 4<br/>+8s delay]
+        R5[Attempt 5<br/>+16s delay]
+        DLQ[Dead Letter Queue]
+        
+        R1 -->|Fail| R2
+        R2 -->|Fail| R3
+        R3 -->|Fail| R4
+        R4 -->|Fail| R5
+        R5 -->|Fail| DLQ
+    end
+    
+    subgraph "Recovery Actions"
+        RA[Recovery Agent]
+        FO[Failover Provider]
+        DN[Downgrade Channel]
+        QR[Queue for Retry]
+        AL[Alert Operations]
+    end
+    
+    PT & NE & RE --> CB1
+    VE & SE --> RS
+    
+    CB2 --> FO
+    RS --> RA
+    RA --> FO & DN & QR & AL
+    
+    style CB2 fill:#ffcdd2
+    style CB3 fill:#fff9c4
+    style DLQ fill:#ffebee
 ```
 
 **Failure Handling & Recovery:**
@@ -1139,6 +1674,117 @@ Requirements: Preferences, delivery order, deduplication, rate limits, failover,
 Strategies: Central preferences, distributed locks, priority ordering, global rate tracking, leader election
 ```
 
+### Channel Selection Decision Engine
+
+```mermaid
+graph TB
+    subgraph "Input Context"
+        N[Notification]
+        U[User ID]
+        T[Type]
+        P[Priority]
+        C[Content]
+    end
+    
+    subgraph "Decision Factors"
+        subgraph "User Preferences"
+            CP[Channel Preferences]
+            DND[DND Settings]
+            FQ[Frequency Limits]
+            TZ[Timezone]
+        end
+        
+        subgraph "Business Rules"
+            TR[Type Rules]
+            PR[Priority Rules]
+            CR[Content Rules]
+            GR[Global Rules]
+        end
+        
+        subgraph "System State"
+            RL[Rate Limits]
+            CB[Circuit Breakers]
+            QD2[Queue Depth]
+            PC[Provider Cost]
+        end
+    end
+    
+    subgraph "Decision Engine"
+        DE[Decision Engine]
+        CE[Channel Evaluator]
+        CS[Channel Scorer]
+        CO[Channel Optimizer]
+        
+        DE --> CE
+        CE --> CS
+        CS --> CO
+    end
+    
+    subgraph "Output"
+        EC[Eligible Channels]
+        DO[Delivery Order]
+        DS[Delivery Strategy]
+        FP[Fallback Plan]
+    end
+    
+    N & U & T & P & C --> DE
+    
+    CP & DND & FQ & TZ --> CE
+    TR & PR & CR & GR --> CE
+    RL & CB & QD2 & PC --> CS
+    
+    CO --> EC & DO & DS & FP
+    
+    style DE fill:#e3f2fd
+    style CS fill:#fff3e0
+    style EC fill:#c8e6c9
+```
+
+### Multi-Channel Delivery Strategies
+
+```mermaid
+graph LR
+    subgraph "Parallel Strategy"
+        PS[Parallel Send]
+        PS --> P1[Push]
+        PS --> E1[Email]
+        PS --> S1[SMS]
+        PS --> I1[In-App]
+        
+        P1 & E1 & S1 & I1 -->|Simultaneous| PD[Delivery]
+    end
+    
+    subgraph "Cascade Strategy"
+        CS2[Cascade Send]
+        CS2 --> I2[In-App First]
+        I2 -->|Wait 30s| P2[Push if Unread]
+        P2 -->|Wait 5m| E2[Email if Unread]
+        E2 -->|Wait 30m| S2[SMS if Critical]
+    end
+    
+    subgraph "Fallback Strategy"
+        FS[Fallback Send]
+        FS --> P3[Try Push]
+        P3 -->|Failed| E3[Try Email]
+        E3 -->|Failed| S3[Try SMS]
+        S3 -->|Failed| W3[Webhook]
+    end
+    
+    subgraph "Smart Strategy"
+        SS[Smart Send]
+        SS --> AN[Analyze Context]
+        AN --> OC[Optimal Channel]
+        OC --> SD[Send]
+        SD --> MO[Monitor]
+        MO -->|Adjust| AN
+    end
+    
+    style PS fill:#e3f2fd
+    style CS2 fill:#fff3e0
+    style FS fill:#ffebee
+    style SS fill:#e8f5e9
+```
+
 **Multi-Channel Orchestration Architecture:**
 
 ```mermaid
@@ -1321,6 +1967,130 @@ graph TB
 ```text
 Monitoring: Delivery rates, latency percentiles, failures, engagement, provider performance, costs, abuse
 Analytics: Real-time dashboards, receipts, click/open tracking, unsubscribes, A/B testing
+```
+
+### Comprehensive Analytics Pipeline
+
+```mermaid
+graph TB
+    subgraph "Event Generation"
+        SE[Send Events]
+        DE[Delivery Events]
+        EE[Engagement Events]
+        FE[Failure Events]
+        UE[User Events]
+    end
+    
+    subgraph "Event Processing Pipeline"
+        subgraph "Stream Processing"
+            KS[Kafka Streams]
+            FL[Flink Jobs]
+            SP[Spark Streaming]
+        end
+        
+        subgraph "Real-time Processing"
+            RA[Real-time Aggregator]
+            WA[Window Aggregates]
+            AL2[Alerting Engine]
+        end
+        
+        subgraph "Batch Processing"
+            BP[Batch Processor]
+            DW[Data Warehouse]
+            ML[ML Pipeline]
+        end
+    end
+    
+    subgraph "Storage Layer"
+        TS2[Time Series DB<br/>Prometheus]
+        AS2[Analytics Store<br/>ClickHouse]
+        CS2[Cache Store<br/>Redis]
+        HS2[Historical Store<br/>S3]
+    end
+    
+    subgraph "Analytics Outputs"
+        RD[Real-time Dashboard]
+        AR[Analytics Reports]
+        AL3[Alerts]
+        AB[A/B Test Results]
+        PS2[Predictive Scores]
+    end
+    
+    SE & DE & EE & FE & UE --> KS
+    KS --> FL & SP
+    
+    FL --> RA & BP
+    SP --> WA & ML
+    
+    RA --> TS2 & CS2
+    WA --> AL2
+    BP --> DW
+    DW --> AS2 & HS2
+    ML --> PS2
+    
+    TS2 --> RD & AL3
+    AS2 --> AR & AB
+    
+    style KS fill:#e3f2fd
+    style RA fill:#fff3e0
+    style RD fill:#c8e6c9
+```
+
+### Real-time Monitoring Dashboard
+
+```mermaid
+graph LR
+    subgraph "System Health"
+        subgraph "Infrastructure"
+            CPU[CPU Usage<br/>45%]
+            MEM[Memory<br/>72%]
+            NET[Network<br/>3.2 Gbps]
+            DSK[Disk I/O<br/>450 MB/s]
+        end
+        
+        subgraph "Application"
+            QPS[Queries/Sec<br/>115K]
+            LAT[P99 Latency<br/>45ms]
+            ERR[Error Rate<br/>0.02%]
+            THR[Throughput<br/>485K/s]
+        end
+    end
+    
+    subgraph "Channel Performance"
+        subgraph "Delivery Rates"
+            PDR[Push: 98.5%]
+            EDR[Email: 97.2%]
+            SDR[SMS: 99.1%]
+            IDR[In-App: 99.9%]
+        end
+        
+        subgraph "Latency (P95)"
+            PLT[Push: 3.2s]
+            ELT[Email: 18s]
+            SLT[SMS: 6.5s]
+            ILT[In-App: 85ms]
+        end
+    end
+    
+    subgraph "Business Metrics"
+        subgraph "Engagement"
+            CTR[Click Rate<br/>12.5%]
+            OPR[Open Rate<br/>28.3%]
+            CNV[Conversion<br/>3.8%]
+            UNS[Unsub Rate<br/>0.4%]
+        end
+        
+        subgraph "Volume"
+            DAY[Today: 8.2B]
+            WEK[Week: 52B]
+            MON[Month: 215B]
+            CST[Cost: $18.5K]
+        end
+    end
+    
+    style QPS fill:#e3f2fd
+    style PDR fill:#c8e6c9
+    style CTR fill:#fff3e0
 ```
 
 **Analytics Architecture:**
@@ -1704,6 +2474,114 @@ Optimization Strategies:
 - Delivery time optimization
 - Template caching
 - Compression
+```
+
+### Cost Analysis Dashboard
+
+```mermaid
+graph TB
+    subgraph "Daily Cost Breakdown"
+        TC[Total Daily Cost<br/>$18,500]
+        
+        subgraph "Channel Costs"
+            PC2[Push: $2,500<br/>2.5B msgs]
+            EC2[Email: $300<br/>3B msgs]
+            SC2[SMS: $10,000<br/>1M msgs]
+            IC[In-App: $200<br/>Infrastructure]
+        end
+        
+        subgraph "Infrastructure"
+            SV2[Servers: $3,000]
+            ST[Storage: $1,500]
+            BW[Bandwidth: $800]
+            CD[CDN: $200]
+        end
+    end
+    
+    subgraph "Optimization Opportunities"
+        subgraph "Batching Savings"
+            EB2[Email Batch<br/>Save: $150/day]
+            PB2[Push Multicast<br/>Save: $500/day]
+            SB2[SMS Concat<br/>Save: $200/day]
+        end
+        
+        subgraph "Channel Routing"
+            CR2[Smart Routing<br/>Save: $2,000/day]
+            TM[Time Shifting<br/>Save: $300/day]
+            CO2[Channel Opt<br/>Save: $800/day]
+        end
+        
+        subgraph "Volume Discounts"
+            VT[Tier Upgrade<br/>Save: $1,500/day]
+            NP[Negotiate Price<br/>Save: $1,000/day]
+        end
+    end
+    
+    subgraph "Monthly Projection"
+        CM2[Current: $555K]
+        OM[Optimized: $420K]
+        SV3[Savings: $135K]
+        ROI[ROI: 242%]
+    end
+    
+    TC --> PC2 & EC2 & SC2 & IC
+    TC --> SV2 & ST & BW & CD
+    
+    EB2 & PB2 & SB2 --> SV3
+    CR2 & TM & CO2 --> SV3
+    VT & NP --> SV3
+    
+    style TC fill:#ffcdd2
+    style SV3 fill:#c8e6c9
+    style ROI fill:#fff3e0
+```
+
+### Channel Cost Optimization Engine
+
+```mermaid
+graph LR
+    subgraph "Cost Calculator"
+        N2[Notification] --> CC2[Channel Costs]
+        CC2 --> PC3[Push: $0.001]
+        CC2 --> EC3[Email: $0.0001]
+        CC2 --> SC3[SMS: $0.01]
+        CC2 --> IC2[In-App: $0.00001]
+    end
+    
+    subgraph "Effectiveness Score"
+        H[History Data] --> ES[Engagement Score]
+        ES --> PE[Push: 0.85]
+        ES --> EE2[Email: 0.65]
+        ES --> SE2[SMS: 0.95]
+        ES --> IE[In-App: 0.75]
+    end
+    
+    subgraph "Value Calculation"
+        VC[Value = Effect/Cost]
+        VC --> PV[Push: 850]
+        VC --> EV[Email: 6500]
+        VC --> SV4[SMS: 95]
+        VC --> IV[In-App: 75000]
+    end
+    
+    subgraph "Decision"
+        D[Channel Selection]
+        D --> O1[1st: In-App]
+        D --> O2[2nd: Email]
+        D --> O3[3rd: Push]
+        D --> O4[4th: SMS]
+    end
+    
+    PC3 & PE --> PV
+    EC3 & EE2 --> EV
+    SC3 & SE2 --> SV4
+    IC2 & IE --> IV
+    
+    PV & EV & SV4 & IV --> D
+    
+    style VC fill:#e3f2fd
+    style IV fill:#c8e6c9
+    style D fill:#fff3e0
 ```
 
 **Cost Optimization Architecture:**
@@ -2319,6 +3197,60 @@ graph TB
 
 ## Part 2: Architecture & Trade-offs
 
+### Global Deployment Architecture
+
+```mermaid
+graph TB
+    subgraph "Global Infrastructure"
+        subgraph "US Region"
+            US_LB[Load Balancer]
+            US_API[API Servers<br/>20 instances]
+            US_ORCH[Orchestrators<br/>10 instances]
+            US_WORK[Workers<br/>100 instances]
+            US_DB[(Database<br/>Master)]
+            US_CACHE[(Cache<br/>50GB)]
+        end
+        
+        subgraph "EU Region"
+            EU_LB[Load Balancer]
+            EU_API[API Servers<br/>15 instances]
+            EU_ORCH[Orchestrators<br/>8 instances]
+            EU_WORK[Workers<br/>80 instances]
+            EU_DB[(Database<br/>Replica)]
+            EU_CACHE[(Cache<br/>40GB)]
+        end
+        
+        subgraph "APAC Region"
+            AP_LB[Load Balancer]
+            AP_API[API Servers<br/>15 instances]
+            AP_ORCH[Orchestrators<br/>8 instances]
+            AP_WORK[Workers<br/>80 instances]
+            AP_DB[(Database<br/>Replica)]
+            AP_CACHE[(Cache<br/>40GB)]
+        end
+        
+        subgraph "Cross-Region Services"
+            GKA[Global Kafka<br/>Multi-region]
+            GS3[Global S3<br/>Cross-region replication]
+            GDN[Global CDN<br/>Edge locations]
+        end
+    end
+    
+    US_LB --> US_API --> US_ORCH --> US_WORK
+    EU_LB --> EU_API --> EU_ORCH --> EU_WORK
+    AP_LB --> AP_API --> AP_ORCH --> AP_WORK
+    
+    US_DB -.->|Replication| EU_DB
+    US_DB -.->|Replication| AP_DB
+    
+    US_WORK & EU_WORK & AP_WORK --> GKA
+    US_WORK & EU_WORK & AP_WORK --> GS3
+    
+    style US_DB fill:#ffcdd2
+    style GKA fill:#e3f2fd
+    style GDN fill:#c8e6c9
+```
+
 ### Core Architecture
 
 ```mermaid
@@ -2507,15 +3439,15 @@ Analytics Service    8 cores  32GB      10TB
 - **[Law 7: Economics ](../../core-principles/laws/economic-reality/)** - Cost optimization strategies
 
 #### Advanced Topics
-- **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - Asynchronous notification processing
-- **[Queue Systems](../pattern-library/scaling/queues-streaming.md)** - Message queue patterns
-- **[Circuit Breakers](../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
-- **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
+- **[Event-Driven Architecture](../../../pattern-library/architecture/event-driven.md)** - Asynchronous notification processing
+- **[Queue Systems](../../../pattern-library/scaling/queues-streaming.md)** - Message queue patterns
+- **[Circuit Breakers](../../../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
+- **[Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
 - **[Chat System](../chat-system.md)** - Real-time messaging patterns
 - **[Search Autocomplete](../../../architects-handbook/case-studies/search-analytics/search-autocomplete.md)** - Low-latency requirements
-- **[Spotify Recommendations](spotify-recommendations.md.md)** - Personalization at scale
+- **[Spotify Recommendations](spotify-recommendations.md)** - Personalization at scale
 <!-- TODO: Add workflow engine case study -->
 
 #### Implementation Patterns
@@ -2523,6 +3455,75 @@ Analytics Service    8 cores  32GB      10TB
 - **Preference Service** - User control and consent management
 - **Delivery Tracking** - End-to-end observability
 - **Provider Abstraction** - Multi-provider failover strategies
+
+### System Evolution Path
+
+```mermaid
+graph LR
+    subgraph "Phase 1: MVP"
+        MVP[Basic Queue<br/>Single Channel<br/>100K/day]
+    end
+    
+    subgraph "Phase 2: Multi-Channel"
+        MC[Add Channels<br/>Priority Queues<br/>1M/day]
+    end
+    
+    subgraph "Phase 3: Scale"
+        SC[Sharding<br/>Multi-Region<br/>100M/day]
+    end
+    
+    subgraph "Phase 4: Intelligence"
+        IN[ML Optimization<br/>Smart Routing<br/>1B/day]
+    end
+    
+    subgraph "Phase 5: Platform"
+        PL[Self-Service<br/>Analytics<br/>10B+/day]
+    end
+    
+    MVP -->|3 months| MC
+    MC -->|6 months| SC
+    SC -->|9 months| IN
+    IN -->|12 months| PL
+    
+    style MVP fill:#e8f5e9
+    style MC fill:#e3f2fd
+    style SC fill:#fff3e0
+    style IN fill:#f3e5f5
+    style PL fill:#ffebee
+```
+
+### Key Success Metrics
+
+```mermaid
+graph TB
+    subgraph "Technical Excellence"
+        TE[Technical KPIs]
+        TE --> UP[Uptime: 99.99%]
+        TE --> LT2[Latency: <1s critical]
+        TE --> TP[Throughput: 500K/s]
+        TE --> ER[Error Rate: <0.1%]
+    end
+    
+    subgraph "Business Impact"
+        BI[Business KPIs]
+        BI --> EN[Engagement: +45%]
+        BI --> CV[Conversion: +12%]
+        BI --> CS3[Cost Savings: 35%]
+        BI --> NP2[NPS: +20 points]
+    end
+    
+    subgraph "Operational Excellence"
+        OE[Operational KPIs]
+        OE --> MT[MTTR: <5 min]
+        OE --> AD[Auto-recovery: 95%]
+        OE --> CD2[Deploy Freq: 50/day]
+        OE --> TC2[Test Coverage: 90%]
+    end
+    
+    style TE fill:#e3f2fd
+    style BI fill:#c8e6c9
+    style OE fill:#fff3e0
+```
 
 ### 📚 References
 
@@ -2537,7 +3538,7 @@ Analytics Service    8 cores  32GB      10TB
 - [OneSignal](https://onesignal.com/) - Push notification service
 
 **Related Patterns:**
-- [Message Queue](../pattern-library/scaling/queues-streaming.md)
-- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
-- [Event-Driven Architecture](../pattern-library/architecture/event-driven.md)
-- [Rate Limiting](../pattern-library/scaling/rate-limiting.md)
+- [Message Queue](../../../pattern-library/scaling/queues-streaming.md)
+- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
+- [Event-Driven Architecture](../../../pattern-library/architecture/event-driven.md)
+- [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)

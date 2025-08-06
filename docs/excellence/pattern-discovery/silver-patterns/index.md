@@ -43,7 +43,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Increased complexity
 - 🎯 Best for: Read-heavy systems with complex domains
 
-#### [Event Streaming](../pattern-library/event-streaming/)
+#### [Event Streaming](../../../../pattern-library/architecture/event-streaming/)
 **Process infinite streams of events in real-time**
 - 🏢 Used by: LinkedIn, Uber, Netflix
 - 📊 Success Rate: 87%
@@ -51,7 +51,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Operational complexity
 - 🎯 Best for: Real-time data processing
 
-#### [CDC (Change Data Capture)](../pattern-library/cdc/)
+#### [CDC (Change Data Capture)](../../../../pattern-library/data-management/cdc/)
 **Track and propagate database changes**
 - 🏢 Used by: Data warehouses, Sync systems
 - 📊 Success Rate: 82%
@@ -59,7 +59,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Database coupling
 - 🎯 Best for: Data replication, ETL
 
-#### [Lambda Architecture](../pattern-library/lambda-architecture/)
+#### [Lambda Architecture](../../../../pattern-library/architecture/lambda-architecture/)
 **Combine batch and stream processing**
 - 🏢 Used by: Big data platforms
 - 📊 Success Rate: 80%
@@ -73,7 +73,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 
 <div class="pattern-category">
 
-#### [Service Mesh](../pattern-library/service-mesh/)
+#### [Service Mesh](../../../../pattern-library/communication/service-mesh/)
 **Infrastructure layer for service communication**
 - 🏢 Used by: Google, Lyft, eBay
 - 📊 Success Rate: 83%
@@ -81,7 +81,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Resource overhead
 - 🎯 Best for: Large microservice deployments
 
-#### [GraphQL Federation](../pattern-library/graphql-federation/)
+#### [GraphQL Federation](../../../../pattern-library/architecture/graphql-federation/)
 **Unified API across multiple services**
 - 🏢 Used by: Netflix, Airbnb, GitHub
 - 📊 Success Rate: 81%
@@ -89,7 +89,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Complex schema management
 - 🎯 Best for: Multiple frontend teams
 
-#### [Backends for Frontends (BFF)](../pattern-library/backends-for-frontends/)
+#### [Backends for Frontends (BFF)](../../../../pattern-library/architecture/backends-for-frontends/)
 **Dedicated backend for each frontend**
 - 🏢 Used by: SoundCloud, Netflix
 - 📊 Success Rate: 84%
@@ -97,7 +97,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Service proliferation
 - 🎯 Best for: Diverse client platforms
 
-#### [Choreography](../pattern-library/choreography/)
+#### [Choreography](../../../../pattern-library/architecture/choreography/)
 **Decentralized service coordination**
 - 🏢 Used by: Event-driven systems
 - 📊 Success Rate: 79%
@@ -111,7 +111,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 
 <div class="pattern-category">
 
-#### [Bulkhead](../pattern-library/bulkhead/)
+#### [Bulkhead](../../../../pattern-library/resilience/bulkhead/)
 **Isolate resources to prevent total failure**
 - 🏢 Used by: Netflix, Amazon
 - 📊 Success Rate: 86%
@@ -119,7 +119,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Resource allocation
 - 🎯 Best for: Multi-tenant systems
 
-#### [Backpressure](../pattern-library/backpressure/)
+#### [Backpressure](../../../../pattern-library/scaling/backpressure/)
 **Handle load by pushing back**
 - 🏢 Used by: Reactive systems
 - 📊 Success Rate: 82%
@@ -127,7 +127,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Complex flow control
 - 🎯 Best for: Stream processing
 
-#### [Load Shedding](../pattern-library/load-shedding/)
+#### [Load Shedding](../../../../pattern-library/resilience/load-shedding/)
 **Drop requests to maintain quality**
 - 🏢 Used by: Google, Facebook
 - 📊 Success Rate: 85%
@@ -135,7 +135,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Some requests dropped
 - 🎯 Best for: Overload scenarios
 
-#### [Cell-Based Architecture](../pattern-library/cell-based/)
+#### [Cell-Based Architecture](../../../../pattern-library/architecture/cell-based/)
 **Isolated failure domains**
 - 🏢 Used by: AWS, Slack
 - 📊 Success Rate: 88%
@@ -149,7 +149,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 
 <div class="pattern-category">
 
-#### [CRDT (Conflict-Free Replicated Data Types)](../pattern-library/crdt/)
+#### [CRDT (Conflict-Free Replicated Data Types)](../../../../pattern-library/data-management/crdt/)
 **Eventually consistent data without conflicts**
 - 🏢 Used by: Figma, Riak, Redis
 - 📊 Success Rate: 84%
@@ -157,7 +157,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Limited data types
 - 🎯 Best for: Collaborative editing
 
-#### [Merkle Trees](../pattern-library/merkle-trees/)
+#### [Merkle Trees](../../../../pattern-library/data-management/merkle-trees/)
 **Efficient data verification**
 - 🏢 Used by: Git, Blockchain, Cassandra
 - 📊 Success Rate: 87%
@@ -165,7 +165,7 @@ description: Production-ready patterns for specific use cases and advanced scena
 - ⚖️ Trade-off: Tree maintenance
 - 🎯 Best for: Data synchronization
 
-#### [HLC (Hybrid Logical Clocks)](../pattern-library/hlc/)
+#### [HLC (Hybrid Logical Clocks)](../../../../pattern-library/coordination/hlc/)
 **Causally consistent timestamps**
 - 🏢 Used by: CockroachDB, FaunaDB
 - 📊 Success Rate: 83%

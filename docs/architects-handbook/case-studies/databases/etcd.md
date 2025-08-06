@@ -519,11 +519,11 @@ client.Cluster.MemberUpdate(ctx, memberID,
 
 ## Related Topics
 
-- [Raft Consensus](../pattern-library/coordination/consensus.md) - Core algorithm
-- [Leader Election](../pattern-library/coordination/leader-election.md) - Common pattern
-- [Distributed Locks](../pattern-library/coordination/distributed-lock.md) - Using etcd
-- [Service Discovery](../pattern-library/communication/service-discovery) - Watch-based discovery
-- [ZooKeeper](zookeeper.md.md) - Predecessor comparison
+- [Raft Consensus](../../../pattern-library/coordination/consensus.md) - Core algorithm
+- [Leader Election](../../../pattern-library/coordination/leader-election.md) - Common pattern
+- [Distributed Locks](../../../pattern-library/coordination/distributed-lock.md) - Using etcd
+- [Service Discovery](../../../pattern-library/communication/service-discovery) - Watch-based discovery
+- [ZooKeeper](zookeeper.md) - Predecessor comparison
 
 ## References
 

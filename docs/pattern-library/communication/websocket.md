@@ -2,7 +2,9 @@
 title: WebSocket Pattern
 category: communication
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2011-12
+current_relevance: mainstream
 ---
 # WebSocket Pattern
 

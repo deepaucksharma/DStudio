@@ -707,5 +707,5 @@ ORDER BY 1 DESC;
 
 - [WebSocket Protocol Deep Dive](../../protocols/websocket.md)
 - [Server-Sent Events Guide](../../protocols/sse.md)
-- [Real-time Architecture Patterns](../../pattern-library/realtime-architecture.md)
+- Real-time Architecture Patterns
 - [Load Balancing WebSockets](../../infrastructure/websocket-load-balancing.md)

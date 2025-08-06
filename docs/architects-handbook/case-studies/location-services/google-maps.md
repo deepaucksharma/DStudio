@@ -820,7 +820,7 @@ Browser → Web Server → Map Tiles → Static Images
 - Limited coverage
 
 **Patterns Violated**: 
-- No [Tile Caching](../pattern-library/scaling/tile-caching.md)
+- No [Tile Caching](../../../pattern-library/scaling/tile-caching.md)
 - No Vector Maps
 - No Real-time Updates
 
@@ -1840,8 +1840,8 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 - **Vector Tiles** - Efficient map data
 - **Spatial Indexing** - R-tree, QuadTree
 - **Graph Algorithms** - Routing algorithms
-- **[Stream Processing](../pattern-library/scaling/queues-streaming)** - Traffic updates
-- **[Edge Computing](../pattern-library/scaling/edge-computing)** - Global CDN
+- **[Stream Processing](../../../pattern-library/scaling/queues-streaming)** - Traffic updates
+- **[Edge Computing](../../../pattern-library/scaling/edge-computing)** - Global CDN
 - **ML Pipeline** - Map generation
 
 ### Quantitative Models

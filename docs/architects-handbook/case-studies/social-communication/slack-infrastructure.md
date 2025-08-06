@@ -51,7 +51,7 @@ best_for:
 - Rich messaging with history and search
 excellence_guides:
 - scale/large-scale
-- pattern-library/real-time-systems
+- ../../../pattern-library/real-time-systems
 - architecture/messaging
 key_innovations:
 - 'Flannel: Custom websocket gateway for connection management'
@@ -441,9 +441,9 @@ graph LR
 
 ## Related Resources
 
-- [WebSocket Pattern](../pattern-library/communication/websocket.md)
-- [Message Queue Pattern](../pattern-library/message-queue.md)
-- [Sharding Pattern](../pattern-library/scaling/sharding.md)
+- [WebSocket Pattern](../../../pattern-library/communication/websocket.md)
+- [Message Queue Pattern](../../../pattern-library/message-queue.md)
+- [Sharding Pattern](../../../pattern-library/scaling/sharding.md)
 - [Building Slack's Architecture](https://slack.engineering/)
 
 ---

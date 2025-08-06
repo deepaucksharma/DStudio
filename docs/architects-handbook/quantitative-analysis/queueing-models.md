@@ -723,4 +723,4 @@ Queues are everywhere. Understand them before they break.
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md) | [Latency Ladder](../../architects-handbook/quantitative-analysis/latency-ladder.md) | [Availability Math](../../architects-handbook/quantitative-analysis/availability-math.md)
-- **Patterns**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) | [Backpressure](../pattern-library/scaling/backpressure.md) | [Rate Limiting](../pattern-library/scaling/rate-limiting.md)
+- **Patterns**: [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | [Backpressure](../../pattern-library/scaling/backpressure.md) | [Rate Limiting](../../pattern-library/scaling/rate-limiting.md)

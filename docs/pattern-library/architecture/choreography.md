@@ -321,8 +321,8 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Event timing challenges
-    - [Law 3: Emergent Chaos](../../core-principles/laws/law3/) - Unpredictable interactions
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Event timing challenges
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Unpredictable interactions
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     

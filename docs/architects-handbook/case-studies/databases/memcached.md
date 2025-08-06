@@ -37,7 +37,7 @@ patterns_used:
   - no-persistence: Memory-only, data loss on restart
 excellence_guides:
 - migration/memcached-to-redis
-- pattern-library/modern-caching
+- ../../../pattern-library/modern-caching
 - operational/cache-strategies
 deprecation:
   status: Superseded by Redis/KeyDB
@@ -474,10 +474,10 @@ def get_with_fallback(key, fallback_func):
 ## Related Topics
 
 - [Redis Architecture](../redis-architecture.md) - Modern alternative
-- [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Core distribution
-- [Caching Strategies](../pattern-library/scaling/caching-strategies) - Cache patterns
-- [Facebook Infrastructure](facebook-memcached.md.md) - Largest deployment
-- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Failure handling
+- [Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md) - Core distribution
+- [Caching Strategies](../../../pattern-library/scaling/caching-strategies) - Cache patterns
+- [Facebook Infrastructure](facebook-memcached.md) - Largest deployment
+- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md) - Failure handling
 
 ## References
 

@@ -93,10 +93,10 @@ By completing this path, you will:
 
 Cost-efficient patterns:
 
-- [FinOps](../pattern-library/finops) - Financial operations
-- [Auto-Scaling](../pattern-library/scaling/auto-scaling) - Dynamic capacity
-- [Serverless/FaaS](../pattern-library/architecture/serverless-faas) - Pay per use
-- [Edge Computing](../pattern-library/scaling/edge-computing) - Reduce data transfer
+- [FinOps](../../pattern-library/finops) - Financial operations
+- [Auto-Scaling](../../pattern-library/scaling/auto-scaling) - Dynamic capacity
+- [Serverless/FaaS](../../pattern-library/architecture/serverless-faas) - Pay per use
+- [Edge Computing](../../pattern-library/scaling/edge-computing) - Reduce data transfer
 
 ### Phase 3: Advanced Optimization (2 weeks)
 
@@ -130,10 +130,10 @@ Cost-efficient patterns:
 
 Design for cost efficiency:
 
-- [Cell-Based Architecture](../pattern-library/architecture/cell-based) - Limit blast radius and cost
-- [Lambda Architecture](../pattern-library/architecture/lambda-architecture) - Optimize batch vs stream
-- [Data Mesh](../pattern-library/data-mesh) - Decentralized cost ownership
-- [Bulkhead Pattern](../pattern-library/resilience/bulkhead) - Resource isolation
+- [Cell-Based Architecture](../../pattern-library/architecture/cell-based) - Limit blast radius and cost
+- [Lambda Architecture](../../pattern-library/architecture/lambda-architecture) - Optimize batch vs stream
+- [Data Mesh](../../pattern-library/data-mesh) - Decentralized cost ownership
+- [Bulkhead Pattern](../../pattern-library/resilience/bulkhead) - Resource isolation
 
 ### Phase 4: FinOps in Practice (1 week)
 

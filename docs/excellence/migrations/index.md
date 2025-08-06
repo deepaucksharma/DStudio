@@ -205,7 +205,7 @@ Before starting any migration:
 
 ## 📚 Additional Resources
 
-- [Migration Patterns](../../pattern-library/index.md)
+- [Migration Patterns](../../../pattern-library/index.md)
 - [Quantitative Analysis Tools](../../quantitative-analysis/)
 - [Human Factors in Migration](../../human-factors.md)
 - [Case Studies](../case-studies/)

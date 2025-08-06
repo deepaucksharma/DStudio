@@ -109,8 +109,8 @@ graph TB
 - Grid-based quantization
 
 **Patterns & Pillars Applied**:
-- Pattern: [Location Privacy](../pattern-library/location-privacy) - K-anonymity
-- Pattern: [Consent Management](../pattern-library/consent-management) - Mutual opt-in
+- Pattern: [Location Privacy](../../../pattern-library/location-privacy) - K-anonymity
+- Pattern: [Consent Management](../../../pattern-library/consent-management) - Mutual opt-in
 - 🏛 Pillar: [Control Distribution](../core-principles/pillars/control-distribution/) - Privacy UX
 - 🏛 Pillar: [Truth Distribution](../core-principles/pillars/truth) - Location accuracy
 
@@ -1704,11 +1704,11 @@ class PrivacyDashboard:
 - **[Law 7: Economics](../core-principles/laws/economic-reality/)** - Infrastructure costs
 
 ### 🏛 Related Patterns
-- **[Location Privacy](../pattern-library/location-privacy)** - K-anonymity, fuzzing
-- **[Consent Management](../pattern-library/consent-management)** - GDPR compliance
-- **[Stream Processing](../pattern-library/scaling/queues-streaming)** - Real-time events
-- **[Edge Computing](../pattern-library/scaling/edge-computing)** - Regional processing
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
+- **[Location Privacy](../../../pattern-library/location-privacy)** - K-anonymity, fuzzing
+- **[Consent Management](../../../pattern-library/consent-management)** - GDPR compliance
+- **[Stream Processing](../../../pattern-library/scaling/queues-streaming)** - Real-time events
+- **[Edge Computing](../../../pattern-library/scaling/edge-computing)** - Regional processing
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
 - **Geofencing (Coming Soon)** - Location triggers
 - **Battery Optimization (Coming Soon)** - Mobile efficiency
 
@@ -1719,10 +1719,10 @@ class PrivacyDashboard:
 - **[Spatial Statistics](../quantitative-analysis/spatial-stats)** - Location clustering
 
 ### Similar Case Studies
-- **[Find My Device](find-my-device.md.md)** - Apple/Google location
+- **[Find My Device](find-my-device.md)** - Apple/Google location
 - **[Snap Map](../snap-map.md)** - Social location sharing
 - **[Life360](../life360.md)** - Family location tracking
-- **[Strava Heatmaps](strava-heatmaps.md.md)** - Activity location privacy
+- **[Strava Heatmaps](strava-heatmaps.md)** - Activity location privacy
 
 ## Implementation Best Practices
 

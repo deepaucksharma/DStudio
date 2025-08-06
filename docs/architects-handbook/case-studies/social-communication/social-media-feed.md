@@ -1349,7 +1349,7 @@ Understanding feed architecture provides insights into broader distributed syste
 ## Related Case Studies
 - [Notification System](../notification-system.md) - Real-time user engagement
 - [Redis Architecture](../redis-architecture.md) - High-performance caching strategies
-- [Key-Value Store](key-value-store.md.md) - Foundational storage patterns
+- [Key-Value Store](key-value-store.md) - Foundational storage patterns
 
 ## External Resources
 - [Facebook's News Feed Ranking](https://engineering.fb.com/2016/06/02/core-data/news-feed-fyi-how-we-rank-posts/)¹

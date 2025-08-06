@@ -30,7 +30,7 @@ nav:
     path: /case-studies/cassandra/
     type: case-study
   - title: Two-Phase Commit
-    path: /pattern-library/coordination/two-phase-commit/
+    path: /../../pattern-library/coordination/two-phase-commit/
     type: pattern
   next_steps:
   - title: CAP Theorem Calculator
@@ -440,7 +440,7 @@ def quorum_parameters(N=5):
  <span class="item-title">Zookeeper (CP)</span>
  <span class="item-type">case-study</span>
  </a>
- <a href="/pattern-library/coordination/two-phase-commit/" class="related-item">
+ <a href="/../../pattern-library/coordination/two-phase-commit/" class="related-item">
  <span class="item-icon">🤝</span>
  <span class="item-title">Two-Phase Commit</span>
  <span class="item-type">pattern</span>

@@ -676,10 +676,10 @@ graph TB
 ## 🔗 References & Deep Dives
 
 ### Related Patterns
-- [SAGA Pattern](../pattern-library/data-management/saga.md)
-- [Event Sourcing](../pattern-library/data-management/event-sourcing.md)
+- [SAGA Pattern](../../../pattern-library/data-management/saga.md)
+- [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)
 - Idempotent Receiver (Coming Soon)
-- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
+- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
 
 ### Technical Resources
 - [Distributed Transactions at Scale](https://www.paypal-engineering.com/distributed-transactions)
@@ -703,19 +703,19 @@ graph TB
 - **[Law 7: Economics ](../../../core-principles/laws/economic-reality/)** - Processing costs optimized through batching and routing
 
 ### 🏛 Related Patterns
-- **[SAGA Pattern](../pattern-library/data-management/saga.md)** - Orchestrates distributed transactions with compensation logic
-- **[Event Sourcing](../pattern-library/data-management/event-sourcing.md)** - Immutable event log provides perfect audit trail
+- **[SAGA Pattern](../../../pattern-library/data-management/saga.md)** - Orchestrates distributed transactions with compensation logic
+- **[Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)** - Immutable event log provides perfect audit trail
 - **Idempotent Receiver (Coming Soon)** - Prevents duplicate payments at every layer
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects against cascading failures to bank networks
-- **[Outbox Pattern](../pattern-library/data-management/outbox.md)** - Ensures reliable event publishing with database transactions
-- **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Isolates payment types and regions for fault containment
-- **[Retry & Backoff](../pattern-library/resilience/retry-backoff.md)** - Handles transient failures in external integrations
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Protects against cascading failures to bank networks
+- **[Outbox Pattern](../../../pattern-library/data-management/outbox.md)** - Ensures reliable event publishing with database transactions
+- **[Bulkhead](../../../pattern-library/resilience/bulkhead.md)** - Isolates payment types and regions for fault containment
+- **[Retry & Backoff](../../../pattern-library/resilience/retry-backoff.md)** - Handles transient failures in external integrations
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Chooses AP with eventual consistency through compensations
-- **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - Queue depth = arrival rate × processing time for fraud checks
-- **[Queueing Theory](../../quantitative-analysis/queueing-models.md.md)** - M/M/c model for payment processor pool sizing
-- **[Two-Phase Commit](../../quantitative-analysis/consistency-models.md.md)** - Rejected due to availability and latency constraints
+- **[Little's Law](../../quantitative-analysis/littles-law.md)** - Queue depth = arrival rate × processing time for fraud checks
+- **[Queueing Theory](../../quantitative-analysis/queueing-models.md)** - M/M/c model for payment processor pool sizing
+- **[Two-Phase Commit](../../quantitative-analysis/consistency-models.md)** - Rejected due to availability and latency constraints
 
 ### 👥 Human Factors Considerations
 - **[Incident Response](../../human-factors/incident-response.md)** - Payment failures require immediate response procedures
@@ -727,7 +727,7 @@ graph TB
 - **[Amazon DynamoDB](../amazon-dynamo.md)** - Similar high-availability requirements for financial data
 - **[Uber's Location System](../uber-location.md)** - Real-time processing at similar scale
 - **[Rate Limiter Design](../rate-limiter.md)** - Prevents payment fraud through intelligent throttling
-- **[Consistent Hashing](../../../../pattern-library/data-management/consistent-hashing.md)** - Used for routing payments to processing cells
+- **[Consistent Hashing](../../../../../../pattern-library/data-management/consistent-hashing.md)** - Used for routing payments to processing cells
 
 ---
 
@@ -737,4 +737,4 @@ graph TB
 
 ---
 
-**Previous**: [← Spotify Recommendations](spotify-recommendations.md.md)
+**Previous**: [← Spotify Recommendations](spotify-recommendations.md)

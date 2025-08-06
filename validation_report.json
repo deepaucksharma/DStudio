@@ -1,0 +1,3182 @@
+{
+  "summary": {
+    "total_documents": 187,
+    "average_quality_score": 90.99,
+    "total_errors": 92,
+    "total_warnings": 900,
+    "quality_distribution": {
+      "excellent (90-100)": 125,
+      "good (70-89)": 55,
+      "needs_work (<70)": 7
+    }
+  },
+  "content_metrics": {
+    "total_lines": 139940,
+    "total_words": 460081,
+    "average_doc_length": 748,
+    "estimated_total_reading_time": "1840 minutes"
+  },
+  "top_issues": {
+    "most_common_errors": {
+      "Missing required frontmatter field: title": 17,
+      "Missing required frontmatter field: description": 17,
+      "Missing required frontmatter field: status": 55,
+      "Found 5 broken link patterns: \\]\\(#\\)": 1,
+      "Found 1 broken link patterns: \\]\\(#\\)": 1
+    },
+    "most_common_warnings": {
+      "Missing recommended frontmatter field: reading_time": 50,
+      "Missing recommended frontmatter field: difficulty": 50,
+      "Missing recommended frontmatter field: prerequisites": 64,
+      "Found 3 TODO/FIXME markers": 3,
+      "Potentially missing sections: Overview, Best Practices": 1
+    }
+  },
+  "detailed_results": [
+    {
+      "file": "human-factors/consistency-tuning.md",
+      "score": 61.0,
+      "errors": 3,
+      "warnings": 7,
+      "metrics": {
+        "math_formulas": 2,
+        "mermaid_diagrams": 2,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 378,
+        "total_words": 1557,
+        "estimated_reading_time": 6,
+        "code_blocks": 10,
+        "headers": 39,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/web-crawler.md",
+      "score": 64.0,
+      "errors": 0,
+      "warnings": 23,
+      "metrics": {
+        "mermaid_diagrams": 60,
+        "internal_links": 10,
+        "external_links": 7,
+        "total_lines": 2112,
+        "total_words": 6127,
+        "estimated_reading_time": 25,
+        "code_blocks": 71,
+        "headers": 42,
+        "images": 0
+      }
+    },
+    {
+      "file": "QUALITY_ASSURANCE_STRATEGY.md",
+      "score": 65.0,
+      "errors": 3,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 382,
+        "total_words": 1338,
+        "estimated_reading_time": 5,
+        "code_blocks": 12,
+        "headers": 44,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/healthcare/medical-imaging-pipeline.md",
+      "score": 66.0,
+      "errors": 3,
+      "warnings": 7,
+      "metrics": {
+        "mermaid_diagrams": 6,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 736,
+        "total_words": 2298,
+        "estimated_reading_time": 9,
+        "code_blocks": 21,
+        "headers": 37,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/throughput-calculator.md",
+      "score": 67.0,
+      "errors": 3,
+      "warnings": 3,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 451,
+        "total_words": 1325,
+        "estimated_reading_time": 5,
+        "code_blocks": 3,
+        "headers": 12,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/healthcare/ehr-system.md",
+      "score": 68.0,
+      "errors": 3,
+      "warnings": 6,
+      "metrics": {
+        "mermaid_diagrams": 6,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 522,
+        "total_words": 1614,
+        "estimated_reading_time": 6,
+        "code_blocks": 11,
+        "headers": 33,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/cost-optimizer.md",
+      "score": 69.0,
+      "errors": 3,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 2,
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 605,
+        "total_words": 1850,
+        "estimated_reading_time": 7,
+        "code_blocks": 0,
+        "headers": 8,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/logistics/route-optimization.md",
+      "score": 70.0,
+      "errors": 3,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 799,
+        "total_words": 2457,
+        "estimated_reading_time": 10,
+        "code_blocks": 13,
+        "headers": 27,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/healthcare/patient-privacy-hipaa.md",
+      "score": 70.0,
+      "errors": 3,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 726,
+        "total_words": 2129,
+        "estimated_reading_time": 9,
+        "code_blocks": 14,
+        "headers": 30,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/gaming/mmo-game-architecture.md",
+      "score": 70.0,
+      "errors": 3,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 782,
+        "total_words": 2480,
+        "estimated_reading_time": 10,
+        "code_blocks": 16,
+        "headers": 32,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/gaming/real-time-game-sync.md",
+      "score": 70.0,
+      "errors": 3,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 734,
+        "total_words": 2309,
+        "estimated_reading_time": 9,
+        "code_blocks": 12,
+        "headers": 24,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/reliability-theory.md",
+      "score": 72.0,
+      "errors": 0,
+      "warnings": 19,
+      "metrics": {
+        "mermaid_diagrams": 7,
+        "internal_links": 7,
+        "external_links": 0,
+        "total_lines": 519,
+        "total_words": 1531,
+        "estimated_reading_time": 6,
+        "code_blocks": 20,
+        "headers": 60,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/availability-calculator.md",
+      "score": 72.0,
+      "errors": 3,
+      "warnings": 3,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 678,
+        "total_words": 1805,
+        "estimated_reading_time": 7,
+        "code_blocks": 3,
+        "headers": 11,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/consistency-calculator.md",
+      "score": 72.0,
+      "errors": 3,
+      "warnings": 3,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 884,
+        "total_words": 2550,
+        "estimated_reading_time": 10,
+        "code_blocks": 3,
+        "headers": 15,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/capacity-calculator.md",
+      "score": 72.0,
+      "errors": 3,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 2,
+        "internal_links": 5,
+        "external_links": 0,
+        "total_lines": 791,
+        "total_words": 2545,
+        "estimated_reading_time": 10,
+        "code_blocks": 3,
+        "headers": 13,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/latency-calculator.md",
+      "score": 72.0,
+      "errors": 3,
+      "warnings": 3,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 774,
+        "total_words": 2493,
+        "estimated_reading_time": 10,
+        "code_blocks": 3,
+        "headers": 16,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/logistics/warehouse-automation.md",
+      "score": 72.0,
+      "errors": 3,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 856,
+        "total_words": 2587,
+        "estimated_reading_time": 10,
+        "code_blocks": 13,
+        "headers": 27,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/logistics/real-time-package-tracking.md",
+      "score": 72.0,
+      "errors": 3,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 942,
+        "total_words": 2734,
+        "estimated_reading_time": 11,
+        "code_blocks": 16,
+        "headers": 30,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/gaming/global-matchmaking.md",
+      "score": 72.0,
+      "errors": 3,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 660,
+        "total_words": 2091,
+        "estimated_reading_time": 8,
+        "code_blocks": 11,
+        "headers": 24,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/google-maps-system.md",
+      "score": 76.0,
+      "errors": 1,
+      "warnings": 12,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1169,
+        "total_words": 3382,
+        "estimated_reading_time": 14,
+        "code_blocks": 23,
+        "headers": 111,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/notification-system.md",
+      "score": 76.0,
+      "errors": 0,
+      "warnings": 17,
+      "metrics": {
+        "mermaid_diagrams": 58,
+        "internal_links": 15,
+        "external_links": 6,
+        "total_lines": 3313,
+        "total_words": 9199,
+        "estimated_reading_time": 37,
+        "code_blocks": 71,
+        "headers": 142,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/google-docs.md",
+      "score": 76.0,
+      "errors": 1,
+      "warnings": 12,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1206,
+        "total_words": 3271,
+        "estimated_reading_time": 13,
+        "code_blocks": 24,
+        "headers": 122,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/s3-object-storage-enhanced.md",
+      "score": 78.0,
+      "errors": 0,
+      "warnings": 16,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1731,
+        "total_words": 4557,
+        "estimated_reading_time": 18,
+        "code_blocks": 18,
+        "headers": 195,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/privacy-metrics.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 34,
+        "total_words": 131,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/compression.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 35,
+        "total_words": 138,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/computer-vision.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 35,
+        "total_words": 144,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/storage-economics.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 34,
+        "total_words": 148,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/probabilistic-structures.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 34,
+        "total_words": 129,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/storage-engines.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 34,
+        "total_words": 117,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/computational-geometry.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 34,
+        "total_words": 142,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/spatial-stats.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 34,
+        "total_words": 135,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/social-networks.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 34,
+        "total_words": 148,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/time-series.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 35,
+        "total_words": 137,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 6,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/snap-map.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 2,
+        "total_lines": 36,
+        "total_words": 153,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 5,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/openstreetmap.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 3,
+        "external_links": 3,
+        "total_lines": 36,
+        "total_words": 147,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 5,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/strava-heatmaps.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 2,
+        "external_links": 3,
+        "total_lines": 37,
+        "total_words": 167,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 5,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/google-youtube.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 10,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1092,
+        "total_words": 3112,
+        "estimated_reading_time": 12,
+        "code_blocks": 22,
+        "headers": 128,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/video-streaming.md",
+      "score": 80.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 2,
+        "external_links": 0,
+        "total_lines": 84,
+        "total_words": 351,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 5,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/haversine.md",
+      "score": 81.0,
+      "errors": 1,
+      "warnings": 6,
+      "metrics": {
+        "math_formulas": 1,
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 448,
+        "total_words": 1330,
+        "estimated_reading_time": 5,
+        "code_blocks": 22,
+        "headers": 55,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/social-graph.md",
+      "score": 82.0,
+      "errors": 0,
+      "warnings": 14,
+      "metrics": {
+        "mermaid_diagrams": 15,
+        "internal_links": 6,
+        "external_links": 0,
+        "total_lines": 1381,
+        "total_words": 4378,
+        "estimated_reading_time": 18,
+        "code_blocks": 25,
+        "headers": 108,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/social-media-feed.md",
+      "score": 82.0,
+      "errors": 0,
+      "warnings": 14,
+      "metrics": {
+        "mermaid_diagrams": 12,
+        "internal_links": 3,
+        "external_links": 4,
+        "total_lines": 1358,
+        "total_words": 4581,
+        "estimated_reading_time": 18,
+        "code_blocks": 24,
+        "headers": 100,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/google-gmail.md",
+      "score": 82.0,
+      "errors": 1,
+      "warnings": 9,
+      "metrics": {
+        "mermaid_diagrams": 6,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1181,
+        "total_words": 3183,
+        "estimated_reading_time": 13,
+        "code_blocks": 24,
+        "headers": 132,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/battery-models.md",
+      "score": 83.0,
+      "errors": 1,
+      "warnings": 6,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 475,
+        "total_words": 1483,
+        "estimated_reading_time": 6,
+        "code_blocks": 14,
+        "headers": 70,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/comp-geometry.md",
+      "score": 83.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 387,
+        "total_words": 1019,
+        "estimated_reading_time": 4,
+        "code_blocks": 23,
+        "headers": 38,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/collision-probability.md",
+      "score": 83.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 317,
+        "total_words": 909,
+        "estimated_reading_time": 4,
+        "code_blocks": 26,
+        "headers": 41,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/backpressure-math.md",
+      "score": 83.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 370,
+        "total_words": 901,
+        "estimated_reading_time": 4,
+        "code_blocks": 33,
+        "headers": 44,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/elite-engineering/netflix-chaos-engineering.md",
+      "score": 83.0,
+      "errors": 1,
+      "warnings": 6,
+      "metrics": {
+        "mermaid_diagrams": 6,
+        "internal_links": 13,
+        "external_links": 0,
+        "total_lines": 421,
+        "total_words": 1558,
+        "estimated_reading_time": 6,
+        "code_blocks": 7,
+        "headers": 28,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/financial-commerce/digital-wallet-enhanced.md",
+      "score": 84.0,
+      "errors": 0,
+      "warnings": 13,
+      "metrics": {
+        "mermaid_diagrams": 13,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 2255,
+        "total_words": 6028,
+        "estimated_reading_time": 24,
+        "code_blocks": 29,
+        "headers": 204,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/uber-maps.md",
+      "score": 85.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 0,
+        "external_links": 3,
+        "total_lines": 273,
+        "total_words": 925,
+        "estimated_reading_time": 4,
+        "code_blocks": 5,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/url-shortener.md",
+      "score": 86.0,
+      "errors": 0,
+      "warnings": 12,
+      "metrics": {
+        "mermaid_diagrams": 39,
+        "internal_links": 15,
+        "external_links": 6,
+        "total_lines": 1429,
+        "total_words": 4613,
+        "estimated_reading_time": 18,
+        "code_blocks": 49,
+        "headers": 41,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/failure-models.md",
+      "score": 87.0,
+      "errors": 0,
+      "warnings": 9,
+      "metrics": {
+        "mermaid_diagrams": 8,
+        "internal_links": 9,
+        "external_links": 0,
+        "total_lines": 443,
+        "total_words": 1246,
+        "estimated_reading_time": 5,
+        "code_blocks": 18,
+        "headers": 47,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/network-theory.md",
+      "score": 87.0,
+      "errors": 0,
+      "warnings": 9,
+      "metrics": {
+        "mermaid_diagrams": 7,
+        "internal_links": 8,
+        "external_links": 0,
+        "total_lines": 473,
+        "total_words": 1201,
+        "estimated_reading_time": 5,
+        "code_blocks": 14,
+        "headers": 54,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/performance-modeling.md",
+      "score": 88.0,
+      "errors": 0,
+      "warnings": 11,
+      "metrics": {
+        "mermaid_diagrams": 8,
+        "internal_links": 8,
+        "external_links": 0,
+        "total_lines": 533,
+        "total_words": 1497,
+        "estimated_reading_time": 6,
+        "code_blocks": 18,
+        "headers": 68,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/here-maps.md",
+      "score": 88.0,
+      "errors": 1,
+      "warnings": 6,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 9,
+        "external_links": 5,
+        "total_lines": 953,
+        "total_words": 2790,
+        "estimated_reading_time": 11,
+        "code_blocks": 4,
+        "headers": 20,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/chat-system.md",
+      "score": 88.0,
+      "errors": 0,
+      "warnings": 11,
+      "metrics": {
+        "mermaid_diagrams": 38,
+        "internal_links": 15,
+        "external_links": 0,
+        "total_lines": 2733,
+        "total_words": 10399,
+        "estimated_reading_time": 42,
+        "code_blocks": 45,
+        "headers": 136,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/distributed-email-enhanced.md",
+      "score": 88.0,
+      "errors": 0,
+      "warnings": 11,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1629,
+        "total_words": 4222,
+        "estimated_reading_time": 17,
+        "code_blocks": 17,
+        "headers": 187,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/key-value-store.md",
+      "score": 88.0,
+      "errors": 0,
+      "warnings": 11,
+      "metrics": {
+        "mermaid_diagrams": 30,
+        "internal_links": 14,
+        "external_links": 8,
+        "total_lines": 1458,
+        "total_words": 5077,
+        "estimated_reading_time": 20,
+        "code_blocks": 45,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/elite-engineering/amazon-dynamodb-evolution.md",
+      "score": 88.0,
+      "errors": 1,
+      "warnings": 6,
+      "metrics": {
+        "mermaid_diagrams": 11,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 624,
+        "total_words": 1837,
+        "estimated_reading_time": 7,
+        "code_blocks": 13,
+        "headers": 30,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/load-balancer-simulator.md",
+      "score": 89.0,
+      "errors": 1,
+      "warnings": 3,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 1954,
+        "total_words": 5037,
+        "estimated_reading_time": 20,
+        "code_blocks": 0,
+        "headers": 12,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/cache-hierarchy-optimizer.md",
+      "score": 89.0,
+      "errors": 1,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 4,
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 1829,
+        "total_words": 4600,
+        "estimated_reading_time": 18,
+        "code_blocks": 0,
+        "headers": 12,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/geo-distribution-planner.md",
+      "score": 89.0,
+      "errors": 1,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 1,
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 1064,
+        "total_words": 2836,
+        "estimated_reading_time": 11,
+        "code_blocks": 1,
+        "headers": 12,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/rate-limiting-calculator.md",
+      "score": 89.0,
+      "errors": 1,
+      "warnings": 3,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 1724,
+        "total_words": 4248,
+        "estimated_reading_time": 17,
+        "code_blocks": 0,
+        "headers": 12,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/apple-maps.md",
+      "score": 90.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 9,
+        "external_links": 4,
+        "total_lines": 770,
+        "total_words": 2720,
+        "estimated_reading_time": 11,
+        "code_blocks": 6,
+        "headers": 24,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/news-feed.md",
+      "score": 90.0,
+      "errors": 0,
+      "warnings": 10,
+      "metrics": {
+        "mermaid_diagrams": 10,
+        "internal_links": 26,
+        "external_links": 0,
+        "total_lines": 1291,
+        "total_words": 4452,
+        "estimated_reading_time": 18,
+        "code_blocks": 22,
+        "headers": 101,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/amazon-aurora.md",
+      "score": 90.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 9,
+        "external_links": 5,
+        "total_lines": 1751,
+        "total_words": 5726,
+        "estimated_reading_time": 23,
+        "code_blocks": 10,
+        "headers": 46,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/search-analytics/google-search.md",
+      "score": 90.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 801,
+        "total_words": 2383,
+        "estimated_reading_time": 10,
+        "code_blocks": 20,
+        "headers": 90,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/search-analytics/search-autocomplete.md",
+      "score": 90.0,
+      "errors": 0,
+      "warnings": 10,
+      "metrics": {
+        "mermaid_diagrams": 6,
+        "internal_links": 22,
+        "external_links": 0,
+        "total_lines": 1727,
+        "total_words": 5609,
+        "estimated_reading_time": 22,
+        "code_blocks": 25,
+        "headers": 142,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/search-analytics/elasticsearch.md",
+      "score": 90.0,
+      "errors": 0,
+      "warnings": 10,
+      "metrics": {
+        "mermaid_diagrams": 11,
+        "internal_links": 3,
+        "external_links": 4,
+        "total_lines": 1194,
+        "total_words": 3502,
+        "estimated_reading_time": 14,
+        "code_blocks": 24,
+        "headers": 65,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/elite-engineering/figma-crdt-collaboration.md",
+      "score": 90.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 7,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 691,
+        "total_words": 2095,
+        "estimated_reading_time": 8,
+        "code_blocks": 14,
+        "headers": 27,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/elite-engineering/stripe-api-excellence.md",
+      "score": 90.0,
+      "errors": 1,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 8,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 729,
+        "total_words": 2172,
+        "estimated_reading_time": 9,
+        "code_blocks": 15,
+        "headers": 29,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/unique-id-generator.md",
+      "score": 90.0,
+      "errors": 0,
+      "warnings": 10,
+      "metrics": {
+        "mermaid_diagrams": 32,
+        "internal_links": 15,
+        "external_links": 8,
+        "total_lines": 1386,
+        "total_words": 4527,
+        "estimated_reading_time": 18,
+        "code_blocks": 46,
+        "headers": 55,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/new-graduate.md",
+      "score": 91.0,
+      "errors": 1,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 29,
+        "external_links": 8,
+        "total_lines": 628,
+        "total_words": 2494,
+        "estimated_reading_time": 10,
+        "code_blocks": 2,
+        "headers": 28,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/twitter-timeline.md",
+      "score": 91.0,
+      "errors": 0,
+      "warnings": 7,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 3,
+        "external_links": 1,
+        "total_lines": 469,
+        "total_words": 1514,
+        "estimated_reading_time": 6,
+        "code_blocks": 15,
+        "headers": 28,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/incident-response.md",
+      "score": 92.0,
+      "errors": 1,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 10,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 592,
+        "total_words": 2867,
+        "estimated_reading_time": 11,
+        "code_blocks": 18,
+        "headers": 43,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/power-laws.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/stochastic-processes.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/blast-radius.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/time-complexity.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/graph-models.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/mtbf-mttr.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/queuing-networks.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/bayesian-reasoning.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/space-complexity.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/network-model.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/performance-testing.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 69,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/availability.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 1,
+        "external_links": 0,
+        "total_lines": 33,
+        "total_words": 66,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 4,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/database-sharding-calculator.md",
+      "score": 92.0,
+      "errors": 1,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 4,
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 1597,
+        "total_words": 4080,
+        "estimated_reading_time": 16,
+        "code_blocks": 3,
+        "headers": 12,
+        "images": 0
+      }
+    },
+    {
+      "file": "tools/observability-cost-calculator.md",
+      "score": 92.0,
+      "errors": 1,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 8,
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 1271,
+        "total_words": 3211,
+        "estimated_reading_time": 13,
+        "code_blocks": 3,
+        "headers": 13,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/life360.md",
+      "score": 92.0,
+      "errors": 1,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 9,
+        "external_links": 5,
+        "total_lines": 556,
+        "total_words": 1966,
+        "estimated_reading_time": 8,
+        "code_blocks": 5,
+        "headers": 20,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/messaging-streaming/distributed-message-queue.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 9,
+      "metrics": {
+        "mermaid_diagrams": 20,
+        "internal_links": 19,
+        "external_links": 4,
+        "total_lines": 1327,
+        "total_words": 4110,
+        "estimated_reading_time": 16,
+        "code_blocks": 40,
+        "headers": 100,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/consistency-deep-dive-chat.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 8,
+      "metrics": {
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 958,
+        "total_words": 2647,
+        "estimated_reading_time": 11,
+        "code_blocks": 14,
+        "headers": 128,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/search-analytics/google-drive.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 9,
+      "metrics": {
+        "mermaid_diagrams": 28,
+        "internal_links": 21,
+        "external_links": 0,
+        "total_lines": 1588,
+        "total_words": 6402,
+        "estimated_reading_time": 26,
+        "code_blocks": 34,
+        "headers": 99,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/search-analytics/gaming-leaderboard-enhanced.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 9,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1823,
+        "total_words": 5061,
+        "estimated_reading_time": 20,
+        "code_blocks": 18,
+        "headers": 208,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/financial-commerce/ecommerce-platform.md",
+      "score": 92.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 69,
+        "total_words": 256,
+        "estimated_reading_time": 1,
+        "code_blocks": 0,
+        "headers": 5,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/find-my-device.md",
+      "score": 94.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 2,
+        "external_links": 3,
+        "total_lines": 137,
+        "total_words": 507,
+        "estimated_reading_time": 2,
+        "code_blocks": 2,
+        "headers": 10,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/google-maps.md",
+      "score": 94.0,
+      "errors": 0,
+      "warnings": 8,
+      "metrics": {
+        "mermaid_diagrams": 30,
+        "internal_links": 21,
+        "external_links": 0,
+        "total_lines": 1867,
+        "total_words": 5950,
+        "estimated_reading_time": 24,
+        "code_blocks": 40,
+        "headers": 145,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/proximity-service.md",
+      "score": 94.0,
+      "errors": 0,
+      "warnings": 8,
+      "metrics": {
+        "mermaid_diagrams": 27,
+        "internal_links": 18,
+        "external_links": 0,
+        "total_lines": 1801,
+        "total_words": 6833,
+        "estimated_reading_time": 27,
+        "code_blocks": 36,
+        "headers": 146,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/cost.md",
+      "score": 95.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "internal_links": 11,
+        "external_links": 0,
+        "total_lines": 439,
+        "total_words": 1413,
+        "estimated_reading_time": 6,
+        "code_blocks": 9,
+        "headers": 39,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/messaging-streaming/mapreduce.md",
+      "score": 95.0,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 7,
+        "internal_links": 4,
+        "external_links": 4,
+        "total_lines": 483,
+        "total_words": 1478,
+        "estimated_reading_time": 6,
+        "code_blocks": 12,
+        "headers": 31,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/senior-engineer.md",
+      "score": 96.0,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "internal_links": 51,
+        "external_links": 0,
+        "total_lines": 275,
+        "total_words": 1073,
+        "estimated_reading_time": 4,
+        "code_blocks": 0,
+        "headers": 29,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/graph-theory.md",
+      "score": 96.0,
+      "errors": 0,
+      "warnings": 6,
+      "metrics": {
+        "math_formulas": 7,
+        "internal_links": 5,
+        "external_links": 0,
+        "total_lines": 1245,
+        "total_words": 4121,
+        "estimated_reading_time": 16,
+        "code_blocks": 15,
+        "headers": 66,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/cassandra.md",
+      "score": 96.0,
+      "errors": 0,
+      "warnings": 7,
+      "metrics": {
+        "mermaid_diagrams": 17,
+        "internal_links": 25,
+        "external_links": 4,
+        "total_lines": 948,
+        "total_words": 3505,
+        "estimated_reading_time": 14,
+        "code_blocks": 26,
+        "headers": 60,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/cap-theorem-enhanced.md",
+      "score": 97.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 1,
+        "external_links": 4,
+        "total_lines": 500,
+        "total_words": 1548,
+        "estimated_reading_time": 6,
+        "code_blocks": 15,
+        "headers": 37,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/universal-scalability.md",
+      "score": 97.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 346,
+        "total_words": 1127,
+        "estimated_reading_time": 5,
+        "code_blocks": 6,
+        "headers": 26,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/slack-infrastructure.md",
+      "score": 97.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 6,
+        "internal_links": 3,
+        "external_links": 1,
+        "total_lines": 451,
+        "total_words": 1363,
+        "estimated_reading_time": 5,
+        "code_blocks": 12,
+        "headers": 29,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/mongodb.md",
+      "score": 97.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 5,
+        "external_links": 4,
+        "total_lines": 433,
+        "total_words": 1271,
+        "estimated_reading_time": 5,
+        "code_blocks": 14,
+        "headers": 27,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/zookeeper.md",
+      "score": 97.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 5,
+        "external_links": 4,
+        "total_lines": 408,
+        "total_words": 1236,
+        "estimated_reading_time": 5,
+        "code_blocks": 10,
+        "headers": 28,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/memcached.md",
+      "score": 97.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 5,
+        "external_links": 4,
+        "total_lines": 488,
+        "total_words": 1428,
+        "estimated_reading_time": 6,
+        "code_blocks": 16,
+        "headers": 38,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/zoom-scaling.md",
+      "score": 97.0,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 3,
+        "external_links": 1,
+        "total_lines": 465,
+        "total_words": 1601,
+        "estimated_reading_time": 6,
+        "code_blocks": 12,
+        "headers": 30,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/problem-set.md",
+      "score": 98.0,
+      "errors": 0,
+      "warnings": 1,
+      "metrics": {
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 438,
+        "total_words": 1850,
+        "estimated_reading_time": 7,
+        "code_blocks": 0,
+        "headers": 12,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/coordination-costs.md",
+      "score": 98.0,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 514,
+        "total_words": 1394,
+        "estimated_reading_time": 6,
+        "code_blocks": 9,
+        "headers": 31,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/cache-economics.md",
+      "score": 98.0,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 576,
+        "total_words": 1648,
+        "estimated_reading_time": 7,
+        "code_blocks": 10,
+        "headers": 30,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/markov-chains.md",
+      "score": 98.0,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "math_formulas": 19,
+        "internal_links": 5,
+        "external_links": 0,
+        "total_lines": 810,
+        "total_words": 3122,
+        "estimated_reading_time": 12,
+        "code_blocks": 9,
+        "headers": 53,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/capacity-planning.md",
+      "score": 98.0,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 537,
+        "total_words": 2049,
+        "estimated_reading_time": 8,
+        "code_blocks": 10,
+        "headers": 41,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/search-analytics/spotify-recommendations.md",
+      "score": 98.0,
+      "errors": 0,
+      "warnings": 6,
+      "metrics": {
+        "mermaid_diagrams": 8,
+        "internal_links": 27,
+        "external_links": 6,
+        "total_lines": 669,
+        "total_words": 2637,
+        "estimated_reading_time": 11,
+        "code_blocks": 19,
+        "headers": 51,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/blameless-postmortems.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 0,
+        "external_links": 3,
+        "total_lines": 482,
+        "total_words": 2191,
+        "estimated_reading_time": 9,
+        "code_blocks": 9,
+        "headers": 53,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/oncall-culture.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 2,
+        "mermaid_diagrams": 2,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 422,
+        "total_words": 1631,
+        "estimated_reading_time": 7,
+        "code_blocks": 12,
+        "headers": 35,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/chaos-engineering.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 11,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 453,
+        "total_words": 1801,
+        "estimated_reading_time": 7,
+        "code_blocks": 11,
+        "headers": 22,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/knowledge-management.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "internal_links": 2,
+        "external_links": 0,
+        "total_lines": 472,
+        "total_words": 1019,
+        "estimated_reading_time": 4,
+        "code_blocks": 13,
+        "headers": 32,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/performance.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 32,
+        "external_links": 0,
+        "total_lines": 395,
+        "total_words": 1296,
+        "estimated_reading_time": 5,
+        "code_blocks": 9,
+        "headers": 40,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/reliability.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 3,
+        "mermaid_diagrams": 1,
+        "internal_links": 30,
+        "external_links": 0,
+        "total_lines": 429,
+        "total_words": 1348,
+        "estimated_reading_time": 5,
+        "code_blocks": 9,
+        "headers": 38,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/manager.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "internal_links": 41,
+        "external_links": 0,
+        "total_lines": 330,
+        "total_words": 1168,
+        "estimated_reading_time": 5,
+        "code_blocks": 4,
+        "headers": 32,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/reliability-engineering.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 2,
+        "mermaid_diagrams": 5,
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 252,
+        "total_words": 1117,
+        "estimated_reading_time": 4,
+        "code_blocks": 7,
+        "headers": 28,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/messaging-streaming/polling-to-event-driven.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 488,
+        "total_words": 1523,
+        "estimated_reading_time": 6,
+        "code_blocks": 12,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/messaging-streaming/netflix-streaming.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 20,
+        "external_links": 4,
+        "total_lines": 498,
+        "total_words": 1945,
+        "estimated_reading_time": 8,
+        "code_blocks": 4,
+        "headers": 33,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/amazon-dynamo.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 22,
+        "external_links": 4,
+        "total_lines": 437,
+        "total_words": 1790,
+        "estimated_reading_time": 7,
+        "code_blocks": 4,
+        "headers": 33,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/search-analytics/google-search-infrastructure.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 3,
+        "external_links": 1,
+        "total_lines": 281,
+        "total_words": 1018,
+        "estimated_reading_time": 4,
+        "code_blocks": 6,
+        "headers": 18,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/kubernetes.md",
+      "score": 99.0,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 5,
+        "external_links": 4,
+        "total_lines": 380,
+        "total_words": 1112,
+        "estimated_reading_time": 4,
+        "code_blocks": 9,
+        "headers": 29,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/org-structure.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 8,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 515,
+        "total_words": 1681,
+        "estimated_reading_time": 7,
+        "code_blocks": 19,
+        "headers": 41,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/security-incident-response.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1254,
+        "total_words": 3217,
+        "estimated_reading_time": 13,
+        "code_blocks": 9,
+        "headers": 21,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/disaster-recovery-planning.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1176,
+        "total_words": 2734,
+        "estimated_reading_time": 11,
+        "code_blocks": 14,
+        "headers": 24,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/sre-practices.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 16,
+        "internal_links": 3,
+        "external_links": 0,
+        "total_lines": 676,
+        "total_words": 2979,
+        "estimated_reading_time": 12,
+        "code_blocks": 17,
+        "headers": 34,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/runbooks-playbooks.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 10,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 840,
+        "total_words": 2862,
+        "estimated_reading_time": 11,
+        "code_blocks": 27,
+        "headers": 93,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/observability-stacks.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "math_formulas": 1,
+        "mermaid_diagrams": 11,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 608,
+        "total_words": 2263,
+        "estimated_reading_time": 9,
+        "code_blocks": 11,
+        "headers": 28,
+        "images": 0
+      }
+    },
+    {
+      "file": "human-factors/team-topologies.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 9,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 731,
+        "total_words": 2169,
+        "estimated_reading_time": 9,
+        "code_blocks": 18,
+        "headers": 49,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/cloud-migration-architect.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 1,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 31,
+        "external_links": 5,
+        "total_lines": 770,
+        "total_words": 3355,
+        "estimated_reading_time": 13,
+        "code_blocks": 1,
+        "headers": 33,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/consistency.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 21,
+        "external_links": 0,
+        "total_lines": 312,
+        "total_words": 1062,
+        "estimated_reading_time": 4,
+        "code_blocks": 4,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/platform-engineer.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 0,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 6,
+        "external_links": 9,
+        "total_lines": 836,
+        "total_words": 3892,
+        "estimated_reading_time": 16,
+        "code_blocks": 1,
+        "headers": 43,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/performance-engineer.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 1,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 24,
+        "external_links": 0,
+        "total_lines": 749,
+        "total_words": 3576,
+        "estimated_reading_time": 14,
+        "code_blocks": 1,
+        "headers": 35,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/blockchain-systems.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 0,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 6,
+        "external_links": 8,
+        "total_lines": 778,
+        "total_words": 3682,
+        "estimated_reading_time": 15,
+        "code_blocks": 1,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/data-engineer.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 3,
+        "external_links": 9,
+        "total_lines": 861,
+        "total_words": 4181,
+        "estimated_reading_time": 17,
+        "code_blocks": 2,
+        "headers": 40,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/microservices-architect.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 1,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 45,
+        "external_links": 0,
+        "total_lines": 803,
+        "total_words": 3655,
+        "estimated_reading_time": 15,
+        "code_blocks": 1,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/ml-infrastructure.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 0,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 6,
+        "external_links": 13,
+        "total_lines": 862,
+        "total_words": 4305,
+        "estimated_reading_time": 17,
+        "code_blocks": 1,
+        "headers": 45,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/data-platform-architect.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 1,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 34,
+        "external_links": 0,
+        "total_lines": 947,
+        "total_words": 4720,
+        "estimated_reading_time": 19,
+        "code_blocks": 1,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/edge-computing.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 0,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 6,
+        "external_links": 7,
+        "total_lines": 750,
+        "total_words": 3500,
+        "estimated_reading_time": 14,
+        "code_blocks": 1,
+        "headers": 35,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/devops-sre.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 15,
+        "external_links": 6,
+        "total_lines": 821,
+        "total_words": 3580,
+        "estimated_reading_time": 14,
+        "code_blocks": 2,
+        "headers": 43,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/security-architect.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 1,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 8,
+        "external_links": 10,
+        "total_lines": 876,
+        "total_words": 3947,
+        "estimated_reading_time": 16,
+        "code_blocks": 2,
+        "headers": 51,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/architect.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 40,
+        "external_links": 0,
+        "total_lines": 364,
+        "total_words": 1320,
+        "estimated_reading_time": 5,
+        "code_blocks": 6,
+        "headers": 30,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/real-time-systems.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 0,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 2,
+        "external_links": 9,
+        "total_lines": 770,
+        "total_words": 3573,
+        "estimated_reading_time": 14,
+        "code_blocks": 1,
+        "headers": 32,
+        "images": 0
+      }
+    },
+    {
+      "file": "learning-paths/quantum-resilient.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 0,
+      "metrics": {
+        "mermaid_diagrams": 1,
+        "internal_links": 6,
+        "external_links": 8,
+        "total_lines": 776,
+        "total_words": 3583,
+        "estimated_reading_time": 14,
+        "code_blocks": 1,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/amdahls-law.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "math_formulas": 3,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 608,
+        "total_words": 1891,
+        "estimated_reading_time": 8,
+        "code_blocks": 3,
+        "headers": 23,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/latency-numbers.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 8,
+        "external_links": 0,
+        "total_lines": 646,
+        "total_words": 2074,
+        "estimated_reading_time": 8,
+        "code_blocks": 9,
+        "headers": 22,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/availability-math.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "math_formulas": 4,
+        "mermaid_diagrams": 8,
+        "internal_links": 8,
+        "external_links": 0,
+        "total_lines": 525,
+        "total_words": 1475,
+        "estimated_reading_time": 6,
+        "code_blocks": 25,
+        "headers": 44,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/cap-theorem.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 1,
+      "metrics": {
+        "math_formulas": 4,
+        "mermaid_diagrams": 1,
+        "internal_links": 24,
+        "external_links": 0,
+        "total_lines": 424,
+        "total_words": 2075,
+        "estimated_reading_time": 8,
+        "code_blocks": 3,
+        "headers": 31,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/queueing-models.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "math_formulas": 5,
+        "mermaid_diagrams": 5,
+        "internal_links": 8,
+        "external_links": 0,
+        "total_lines": 727,
+        "total_words": 2714,
+        "estimated_reading_time": 11,
+        "code_blocks": 11,
+        "headers": 39,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/latency-ladder.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 8,
+        "external_links": 0,
+        "total_lines": 646,
+        "total_words": 2074,
+        "estimated_reading_time": 8,
+        "code_blocks": 9,
+        "headers": 22,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/littles-law.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 2,
+        "mermaid_diagrams": 25,
+        "internal_links": 12,
+        "external_links": 0,
+        "total_lines": 1926,
+        "total_words": 7736,
+        "estimated_reading_time": 31,
+        "code_blocks": 42,
+        "headers": 58,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/consistency-models.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "math_formulas": 1,
+        "internal_links": 4,
+        "external_links": 0,
+        "total_lines": 556,
+        "total_words": 2406,
+        "estimated_reading_time": 10,
+        "code_blocks": 3,
+        "headers": 27,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/queueing-theory.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "math_formulas": 5,
+        "mermaid_diagrams": 5,
+        "internal_links": 8,
+        "external_links": 0,
+        "total_lines": 727,
+        "total_words": 2714,
+        "estimated_reading_time": 11,
+        "code_blocks": 11,
+        "headers": 39,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/information-theory.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 1,
+      "metrics": {
+        "math_formulas": 17,
+        "internal_links": 5,
+        "external_links": 0,
+        "total_lines": 566,
+        "total_words": 2404,
+        "estimated_reading_time": 10,
+        "code_blocks": 6,
+        "headers": 49,
+        "images": 0
+      }
+    },
+    {
+      "file": "quantitative-analysis/amdahl-gustafson.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "math_formulas": 3,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 608,
+        "total_words": 1891,
+        "estimated_reading_time": 8,
+        "code_blocks": 3,
+        "headers": 23,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/nearby-friends.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "math_formulas": 3,
+        "mermaid_diagrams": 26,
+        "internal_links": 24,
+        "external_links": 0,
+        "total_lines": 1768,
+        "total_words": 6037,
+        "estimated_reading_time": 24,
+        "code_blocks": 37,
+        "headers": 144,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/location-services/uber-location.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 45,
+        "external_links": 5,
+        "total_lines": 536,
+        "total_words": 2252,
+        "estimated_reading_time": 9,
+        "code_blocks": 2,
+        "headers": 38,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/messaging-streaming/apache-spark.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 8,
+        "internal_links": 4,
+        "external_links": 4,
+        "total_lines": 593,
+        "total_words": 1583,
+        "estimated_reading_time": 6,
+        "code_blocks": 20,
+        "headers": 36,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/messaging-streaming/kafka.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 9,
+        "internal_links": 7,
+        "external_links": 4,
+        "total_lines": 640,
+        "total_words": 2186,
+        "estimated_reading_time": 9,
+        "code_blocks": 12,
+        "headers": 26,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/messaging-streaming/batch-to-streaming.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 3,
+        "external_links": 1,
+        "total_lines": 598,
+        "total_words": 1697,
+        "estimated_reading_time": 7,
+        "code_blocks": 16,
+        "headers": 32,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/social-communication/youtube.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 27,
+        "internal_links": 31,
+        "external_links": 0,
+        "total_lines": 1448,
+        "total_words": 5505,
+        "estimated_reading_time": 22,
+        "code_blocks": 33,
+        "headers": 89,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/etcd.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 5,
+        "external_links": 4,
+        "total_lines": 534,
+        "total_words": 1293,
+        "estimated_reading_time": 5,
+        "code_blocks": 17,
+        "headers": 57,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/vault.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 9,
+        "external_links": 5,
+        "total_lines": 1843,
+        "total_words": 5285,
+        "estimated_reading_time": 21,
+        "code_blocks": 12,
+        "headers": 55,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/redis-architecture.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 10,
+        "internal_links": 7,
+        "external_links": 4,
+        "total_lines": 716,
+        "total_words": 2283,
+        "estimated_reading_time": 9,
+        "code_blocks": 18,
+        "headers": 27,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/databases/google-spanner.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 10,
+        "internal_links": 0,
+        "external_links": 4,
+        "total_lines": 664,
+        "total_words": 2053,
+        "estimated_reading_time": 8,
+        "code_blocks": 17,
+        "headers": 22,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/financial-commerce/hotel-reservation.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "math_formulas": 1,
+        "mermaid_diagrams": 11,
+        "internal_links": 0,
+        "external_links": 4,
+        "total_lines": 1305,
+        "total_words": 4036,
+        "estimated_reading_time": 16,
+        "code_blocks": 23,
+        "headers": 113,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/financial-commerce/ad-click-aggregation.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 3,
+        "internal_links": 0,
+        "external_links": 4,
+        "total_lines": 721,
+        "total_words": 2027,
+        "estimated_reading_time": 8,
+        "code_blocks": 16,
+        "headers": 49,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/financial-commerce/paypal-payments.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 2,
+      "metrics": {
+        "mermaid_diagrams": 7,
+        "internal_links": 28,
+        "external_links": 6,
+        "total_lines": 740,
+        "total_words": 2770,
+        "estimated_reading_time": 11,
+        "code_blocks": 13,
+        "headers": 67,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/financial-commerce/payment-system.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "math_formulas": 3,
+        "mermaid_diagrams": 7,
+        "internal_links": 28,
+        "external_links": 4,
+        "total_lines": 1446,
+        "total_words": 4370,
+        "estimated_reading_time": 17,
+        "code_blocks": 22,
+        "headers": 121,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/financial-commerce/stock-exchange.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 7,
+        "internal_links": 0,
+        "external_links": 5,
+        "total_lines": 1280,
+        "total_words": 3900,
+        "estimated_reading_time": 16,
+        "code_blocks": 24,
+        "headers": 96,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/financial-commerce/shopify-flash-sales.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 3,
+        "external_links": 1,
+        "total_lines": 507,
+        "total_words": 1649,
+        "estimated_reading_time": 7,
+        "code_blocks": 12,
+        "headers": 31,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/elite-engineering/discord-voice-infrastructure.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 10,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 680,
+        "total_words": 2170,
+        "estimated_reading_time": 9,
+        "code_blocks": 13,
+        "headers": 27,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/elite-engineering/netflix-chaos.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 9,
+        "external_links": 5,
+        "total_lines": 1177,
+        "total_words": 3572,
+        "estimated_reading_time": 14,
+        "code_blocks": 19,
+        "headers": 70,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/object-storage.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 0,
+        "external_links": 4,
+        "total_lines": 916,
+        "total_words": 2596,
+        "estimated_reading_time": 10,
+        "code_blocks": 18,
+        "headers": 88,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/blockchain.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 2,
+        "internal_links": 9,
+        "external_links": 5,
+        "total_lines": 1560,
+        "total_words": 5088,
+        "estimated_reading_time": 20,
+        "code_blocks": 12,
+        "headers": 50,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/monolith-to-microservices.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 6,
+        "internal_links": 3,
+        "external_links": 1,
+        "total_lines": 560,
+        "total_words": 1768,
+        "estimated_reading_time": 7,
+        "code_blocks": 15,
+        "headers": 32,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/infrastructure/consistent-hashing.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 11,
+        "internal_links": 23,
+        "external_links": 8,
+        "total_lines": 1380,
+        "total_words": 5235,
+        "estimated_reading_time": 21,
+        "code_blocks": 33,
+        "headers": 99,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/monitoring-observability/metrics-monitoring.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 3,
+      "metrics": {
+        "mermaid_diagrams": 5,
+        "internal_links": 0,
+        "external_links": 4,
+        "total_lines": 653,
+        "total_words": 2056,
+        "estimated_reading_time": 8,
+        "code_blocks": 25,
+        "headers": 43,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/monitoring-observability/prometheus-datadog-enhanced.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 5,
+      "metrics": {
+        "mermaid_diagrams": 4,
+        "internal_links": 0,
+        "external_links": 0,
+        "total_lines": 1183,
+        "total_words": 3618,
+        "estimated_reading_time": 14,
+        "code_blocks": 15,
+        "headers": 131,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/monitoring-observability/rate-limiter.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 20,
+        "internal_links": 28,
+        "external_links": 6,
+        "total_lines": 1074,
+        "total_words": 4151,
+        "estimated_reading_time": 17,
+        "code_blocks": 31,
+        "headers": 57,
+        "images": 0
+      }
+    },
+    {
+      "file": "case-studies/monitoring-observability/prometheus.md",
+      "score": 100,
+      "errors": 0,
+      "warnings": 4,
+      "metrics": {
+        "mermaid_diagrams": 6,
+        "internal_links": 4,
+        "external_links": 4,
+        "total_lines": 531,
+        "total_words": 1453,
+        "estimated_reading_time": 6,
+        "code_blocks": 17,
+        "headers": 54,
+        "images": 0
+      }
+    }
+  ]
+}

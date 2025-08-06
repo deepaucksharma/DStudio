@@ -268,7 +268,12 @@ event_sourcing:
 
 ## Related Laws
 
-- [Law: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)
+This pattern directly addresses several fundamental distributed systems laws:
+
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)**: Event sourcing embraces asynchronous processing by storing events and building projections eventually consistently
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Trades storage costs and complexity for auditability, time-travel debugging, and flexible read models
+- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/)**: Events become the single source of truth, with different services maintaining their own projections of relevant events
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality/)**: Provides significant business value through audit compliance, debugging capabilities, and analytics, justifying the storage and complexity costs
 
 ## Related Patterns
 

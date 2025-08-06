@@ -632,16 +632,16 @@ graph TB
 - **[Law 7: Economics](../../../core-principles/laws/economic-reality/)** - Recommendation quality directly impacts user retention and revenue
 
 ### 🏛 Related Patterns
-- **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
-- **[CQRS](../pattern-library/data-management/cqrs.md)** - Separate paths for collecting user signals vs serving recommendations
-- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Multi-level caches for popular recommendations and user preferences
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Graceful degradation when ML models fail
+- **[Event-Driven Architecture](../../../pattern-library/architecture/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
+- **[CQRS](../../../pattern-library/data-management/cqrs.md)** - Separate paths for collecting user signals vs serving recommendations
+- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** - Multi-level caches for popular recommendations and user preferences
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Graceful degradation when ML models fail
 - **Service Mesh (Coming Soon)** - Microservices architecture for different recommendation algorithms
-- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - GPU load distribution for model inference
-- **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Isolate experimental models from production traffic
+- **[Load Balancing](../../../pattern-library/scaling/load-balancing.md)** - GPU load distribution for model inference
+- **[Bulkhead](../../../pattern-library/resilience/bulkhead.md)** - Isolate experimental models from production traffic
 
 ### Quantitative Models
-- **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
+- **[Little's Law](../../quantitative-analysis/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
 - **[Amdahl's Law](../quantitative-analysis/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
 - **[Power Laws](../quantitative-analysis/power-laws.md)** - Long-tail content distribution affects recommendation strategy
 - **[Information Theory](../quantitative-analysis/information-theory.md)** - Entropy measures for recommendation diversity

@@ -158,11 +158,74 @@ gantt
     Law 7: Economics       :c1, after b3, 2d
     5 Pillars Overview     :c2, after c1, 5d
     
-    section Milestones
-    Quiz 1                 :milestone, after a3, 0d
-    Quiz 2                 :milestone, after b3, 0d
-    Foundation Complete    :crit, milestone, after c2, 0d
+    section Assessments
+    Week 1 Checkpoint      :milestone, after a3, 0d
+    Week 2 Checkpoint      :milestone, after b3, 0d
+    Phase 1 Assessment     :crit, milestone, after c2, 0d
 ```
+
+### 📊 Phase 1 Checkpoint Assessments
+
+<div class="grid cards" markdown>
+
+- **Week 1 Checkpoint: Basic Laws Mastery** 🟢 *Beginner Level*
+    
+    ---
+    
+    **Assessment Format**: Interactive quiz + practical exercise (90 minutes)
+    
+    **Skills Validated**:
+    - [ ] Explain each of the first 3 laws in 2 minutes
+    - [ ] Identify failure correlation in real AWS outage scenarios
+    - [ ] Calculate timeout values for distributed service calls
+    - [ ] Trace cascade failure through system dependencies
+    
+    **Practical Exercise**: Analyze Netflix 2021 outage and identify correlated failure patterns
+    
+    **Pass Score**: 80% on quiz + successful completion of practical exercise
+    **Retake Policy**: Immediate retake available with different scenarios
+
+- **Week 2 Checkpoint: Trade-offs & Coordination** 🟡 *Intermediate Level*
+    
+    ---
+    
+    **Assessment Format**: Design challenge + peer discussion (2 hours)
+    
+    **Skills Validated**:
+    - [ ] Apply CAP theorem to real system design choices
+    - [ ] Design consensus solution for simple distributed problem
+    - [ ] Evaluate cognitive load of different architectures
+    - [ ] Make informed trade-off decisions with reasoning
+    
+    **Design Challenge**: Choose between CP and AP system for order management
+    
+    **Pass Score**: Demonstrate clear reasoning for all design choices
+    **Peer Review**: Present solution to learning cohort for feedback
+
+- **Phase 1 Final Assessment: Foundations Mastery** 🟡 *Moving to Intermediate*
+    
+    ---
+    
+    **Assessment Format**: Comprehensive system analysis (3 hours)
+    
+    **Skills Validated**:
+    - [ ] Apply all 7 laws to analyze existing system architecture
+    - [ ] Map system components to the 5 distribution pillars
+    - [ ] Identify potential failure modes and mitigation strategies
+    - [ ] Calculate economic trade-offs for architectural decisions
+    
+    **Case Study**: Analyze Spotify's backend architecture using all learned principles
+    
+    **Deliverables**:
+    - [ ] Written analysis (1500 words) applying all 7 laws
+    - [ ] Architecture diagram mapping to 5 pillars
+    - [ ] Risk assessment with mitigation strategies
+    - [ ] Cost-benefit analysis of key architectural decisions
+    
+    **Pass Score**: 85% comprehensive understanding demonstrated
+    **Success Indicator**: Ready to move to pattern learning phase
+
+</div>
 
 ### Phase 2: Essential Patterns (3-4 weeks)
 
@@ -179,22 +242,22 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 22-23**: [Timeout](../pattern-library/resilience/timeout)
+ **Day 22-23**: [Timeout](../../pattern-library/resilience/timeout)
  - 🎯 Problem: Hanging requests
  - 🛠️ Build: Timeout wrapper function
  - 📊 Success: Handle 95% of network issues
  
- **Day 24-25**: [Retry & Backoff](../pattern-library/resilience/retry-backoff)
+ **Day 24-25**: [Retry & Backoff](../../pattern-library/resilience/retry-backoff)
  - 🎯 Problem: Transient failures
  - 🛠️ Build: Exponential backoff library
  - 📊 Success: Recover from 80% of failures
  
- **Day 26-28**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker)
+ **Day 26-28**: [Circuit Breaker](../../pattern-library/resilience/circuit-breaker)
  - 🎯 Problem: Cascade failures
  - 🛠️ Build: Circuit breaker class
  - 📊 Success: Prevent system-wide outages
  
- **Day 29-30**: [Health Check](../pattern-library/resilience/health-check)
+ **Day 29-30**: [Health Check](../../pattern-library/resilience/health-check)
  - 🎯 Problem: Silent failures
  - 🛠️ Build: Health monitoring endpoint
  - 📊 Success: Detect issues in < 30s
@@ -207,17 +270,17 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 31-32**: [Caching Strategies](../pattern-library/scaling/caching-strategies)
+ **Day 31-32**: [Caching Strategies](../../pattern-library/scaling/caching-strategies)
  - 🎯 Problem: Slow repeated queries
  - 🛠️ Build: LRU cache with TTL
  - 📊 Success: 10x performance boost
  
- **Day 33-35**: [CQRS](../pattern-library/data-management/cqrs)
+ **Day 33-35**: [CQRS](../../pattern-library/data-management/cqrs)
  - 🎯 Problem: Read/write conflicts
  - 🛠️ Build: Separate read/write models
  - 📊 Success: Scale reads independently
  
- **Day 36-37**: [Event Sourcing](../pattern-library/data-management/event-sourcing)
+ **Day 36-37**: [Event Sourcing](../../pattern-library/data-management/event-sourcing)
  - 🎯 Problem: Lost state changes
  - 🛠️ Build: Event log system
  - 📊 Success: Complete audit trail
@@ -230,17 +293,17 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 38-39**: [Load Balancing](../pattern-library/scaling/load-balancing)
+ **Day 38-39**: [Load Balancing](../../pattern-library/scaling/load-balancing)
  - 🎯 Problem: Uneven work distribution
  - 🛠️ Build: Round-robin balancer
  - 📊 Success: Even load across servers
  
- **Day 40-41**: [Service Discovery](../pattern-library/communication/service-discovery)
+ **Day 40-41**: [Service Discovery](../../pattern-library/communication/service-discovery)
  - 🎯 Problem: Finding services
  - 🛠️ Build: Service registry
  - 📊 Success: Dynamic service location
  
- **Day 42**: [API Gateway](../pattern-library/communication/api-gateway)
+ **Day 42**: [API Gateway](../../pattern-library/communication/api-gateway)
  - 🎯 Problem: Multiple entry points
  - 🛠️ Build: Simple gateway
  - 📊 Success: Single API surface

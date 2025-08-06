@@ -333,8 +333,8 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/law1/) - Preventing cascade failures
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Distributed flow control
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Preventing cascade failures
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Distributed flow control
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     

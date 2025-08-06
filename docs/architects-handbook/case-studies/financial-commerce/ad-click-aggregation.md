@@ -57,7 +57,7 @@ best_for:
 - High-volume event processing
 excellence_guides:
 - scale/stream-processing
-- pattern-library/lambda-architecture
+- ../../../pattern-library/lambda-architecture
 - operational/fraud-detection
 key_innovations:
 - Three-phase commit for exactly-once processing

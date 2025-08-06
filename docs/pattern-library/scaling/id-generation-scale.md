@@ -2,7 +2,9 @@
 title: ID Generation at Scale
 category: scaling
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2010-01
+current_relevance: mainstream
 ---
 ## Essential Question
 

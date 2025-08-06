@@ -356,6 +356,15 @@ graph LR
 - [ ] Documented runbooks for common operational procedures
 - [ ] Implemented automated deployment procedures with connection draining
 
+## Related Laws
+
+This pattern directly addresses several fundamental laws:
+
+- **[Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/)**: Load balancing prevents single server failures from bringing down entire systems by distributing traffic across multiple backends
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)**: Handles the reality that requests arrive at unpredictable times by managing request distribution and backend response coordination
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Embodies the trade-offs between latency, throughput, availability, and cost in traffic distribution decisions
+- **[Law 6: Cognitive Load](../../core-principles/laws/cognitive-load/)**: Simplifies system architecture by providing a single entry point that hides backend complexity from clients
+
 ### Related Resources
 
 <div class="grid cards" markdown>
@@ -372,8 +381,8 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/law1/) - Preventing single points of failure
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Distributed request handling
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Preventing single points of failure
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Distributed request handling
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     

@@ -2,7 +2,9 @@
 title: Request-Reply Pattern
 category: communication
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 1970-01
+current_relevance: mainstream
 ---
 # Request-Reply Pattern
 

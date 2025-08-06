@@ -314,8 +314,8 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/law1/) - Preventing cascade failures
-    - [Law 7: Economic Reality](../../core-principles/laws/law7/) - Resource cost management
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Preventing cascade failures
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Resource cost management
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     

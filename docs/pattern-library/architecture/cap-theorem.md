@@ -253,6 +253,15 @@ graph TD
 - [ ] Documented consistency guarantees per API
 - [ ] Established runbooks for partition handling
 
+## Related Laws
+
+This pattern is deeply connected to fundamental distributed systems laws:
+
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)**: Network partitions are a direct consequence of asynchronous networks where message delays are unbounded, forcing the CAP trade-off
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: CAP theorem perfectly exemplifies the impossibility of optimizing all dimensions simultaneously - you must choose which two of CAP to prioritize
+- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/)**: The challenge of maintaining consistent knowledge across distributed nodes when communication is unreliable is at the heart of CAP theorem
+- **[Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/)**: Network partitions can emerge unexpectedly from seemingly minor network issues, forcing systems into CAP decision modes
+
 ### Related Resources
 
 <div class="grid cards" markdown>
@@ -269,8 +278,8 @@ graph TD
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Network delays
-    - [Law 3: Emergent Chaos](../../core-principles/laws/law3/) - Partition inevitability
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Partition inevitability
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     

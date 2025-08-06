@@ -21,7 +21,7 @@ This section provides the mathematical foundations every distributed systems arc
 Core mathematical laws that govern distributed systems behavior:
 
 ### Consistency & Distribution
-- **[CAP Theorem](../../pattern-library/architecture/cap-theorem.md)** - The impossible trinity: Consistency, Availability, Partition tolerance
+- **[CAP Theorem](../../../pattern-library/architecture/cap-theorem.md)** - The impossible trinity: Consistency, Availability, Partition tolerance
 - **[PACELC Theorem](../../quantitative-analysis/cap-theorem-enhanced.md)** - Extended CAP with latency/consistency trade-offs
 - **[FLP Impossibility](../../quantitative-analysis/consensus.md)** - Consensus impossibility in asynchronous systems
 
@@ -119,7 +119,7 @@ Sizing systems for current and future needs:
 ## 🚀 Getting Started
 
 1. **Start with [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md)** - The most fundamental relationship in systems
-2. **Understand [CAP Theorem](../../pattern-library/architecture/cap-theorem.md)** - Core distributed systems trade-off
+2. **Understand [CAP Theorem](../../../pattern-library/architecture/cap-theorem.md)** - Core distributed systems trade-off
 3. **Learn [Latency Numbers](../../architects-handbook/quantitative-analysis/latency-numbers.md)** - Build intuition for system performance
 4. **Master [Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-theory.md)** - Predict behavior under load
 

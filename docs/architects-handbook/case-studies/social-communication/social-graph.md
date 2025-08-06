@@ -1364,10 +1364,10 @@ Understanding social graph architecture provides valuable insights for any large
 - **Intelligence Distribution**: Distributed recommendation engines and ML pipelines
 
 ### Patterns
-- [Sharding](../pattern-library/scaling/sharding.md): Graph partitioning strategies
-- [Caching](../pattern-library/scaling/caching-strategies.md): Multi-level caching for hot nodes
-- [Event Streaming](../pattern-library/architecture/event-streaming.md): Real-time graph updates
-- [Privacy Patterns](../pattern-library/location-privacy): Access control and anonymization
+- [Sharding](../../../pattern-library/scaling/sharding.md): Graph partitioning strategies
+- [Caching](../../../pattern-library/scaling/caching-strategies.md): Multi-level caching for hot nodes
+- [Event Streaming](../../../pattern-library/architecture/event-streaming.md): Real-time graph updates
+- [Privacy Patterns](../../../pattern-library/location-privacy): Access control and anonymization
 
 ## Next Steps
 
@@ -1378,4 +1378,4 @@ Understanding social graph architecture provides valuable insights for any large
 
 ---
 
-*Continue your journey: [Social Media Feed Architecture](../social-media-feed.md) | [Back to Case Studies](index.md.md)*
+*Continue your journey: [Social Media Feed Architecture](../social-media-feed.md) | [Back to Case Studies](index.md)*

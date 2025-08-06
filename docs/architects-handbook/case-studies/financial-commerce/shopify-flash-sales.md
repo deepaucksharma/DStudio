@@ -51,7 +51,7 @@ best_for:
 - Systems requiring merchant/tenant isolation
 excellence_guides:
 - scale/traffic-spikes
-- pattern-library/multi-tenant
+- ../../../pattern-library/multi-tenant
 - operational/black-friday
 key_innovations:
 - Pod-based architecture for merchant isolation
@@ -497,9 +497,9 @@ AND sale_end >= NOW();
 
 ## Related Resources
 
-- [Queue-based Load Leveling Pattern](../pattern-library/scaling/queues-streaming.md)
-- [Auto-scaling Pattern](../pattern-library/scaling/auto-scaling.md)
-- [Bulkhead Pattern](../pattern-library/resilience/bulkhead.md)
+- [Queue-based Load Leveling Pattern](../../../pattern-library/scaling/queues-streaming.md)
+- [Auto-scaling Pattern](../../../pattern-library/scaling/auto-scaling.md)
+- [Bulkhead Pattern](../../../pattern-library/resilience/bulkhead.md)
 - [Shopify Engineering Blog](https://shopify.engineering/)
 
 ---

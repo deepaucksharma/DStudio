@@ -68,30 +68,30 @@ As an engineering manager, you will:
 
 === "Reliability Patterns"
  Understand how teams ensure system reliability:
- - [Circuit Breaker](../pattern-library/resilience/circuit-breaker) - Failure isolation
- - [Retry & Backoff](../pattern-library/resilience/retry-backoff) - Handling failures
- - [Health Checks](../pattern-library/resilience/health-check) - System monitoring
+ - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker) - Failure isolation
+ - [Retry & Backoff](../../pattern-library/resilience/retry-backoff) - Handling failures
+ - [Health Checks](../../pattern-library/resilience/health-check) - System monitoring
 
 === "Scaling Patterns"
  Know how systems grow:
- - [Load Balancing](../pattern-library/scaling/load-balancing) - Traffic distribution
- - [Caching](../pattern-library/scaling/caching-strategies) - Performance optimization
- - [Sharding](../pattern-library/scaling/sharding) - Data partitioning
+ - [Load Balancing](../../pattern-library/scaling/load-balancing) - Traffic distribution
+ - [Caching](../../pattern-library/scaling/caching-strategies) - Performance optimization
+ - [Sharding](../../pattern-library/scaling/sharding) - Data partitioning
 
 === "Architecture Patterns"
  Understand system organization:
- - [Service Mesh](../pattern-library/communication/service-mesh) - Microservices management
- - [API Gateway](../pattern-library/communication/api-gateway) - External interfaces
- - [Event-Driven](../pattern-library/architecture/event-driven) - Async architectures
+ - [Service Mesh](../../pattern-library/communication/service-mesh) - Microservices management
+ - [API Gateway](../../pattern-library/communication/api-gateway) - External interfaces
+ - [Event-Driven](../../pattern-library/architecture/event-driven) - Async architectures
 
 #### Week 4: Advanced Patterns
 
 Focus on patterns with significant business impact:
 
-- [CQRS](../pattern-library/data-management/cqrs) - Read/write optimization
-- [Saga Pattern](../pattern-library/data-management/saga) - Distributed transactions
-- [Event Sourcing](../pattern-library/data-management/event-sourcing) - Audit trails
-- [Multi-Region](../pattern-library/scaling/multi-region) - Global deployment
+- [CQRS](../../pattern-library/data-management/cqrs) - Read/write optimization
+- [Saga Pattern](../../pattern-library/data-management/saga) - Distributed transactions
+- [Event Sourcing](../../pattern-library/data-management/event-sourcing) - Audit trails
+- [Multi-Region](../../pattern-library/scaling/multi-region) - Global deployment
 
 ### Phase 3: Operational Excellence (2-3 weeks)
 

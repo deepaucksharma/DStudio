@@ -134,8 +134,8 @@ graph TB
 - Pagecache usage
 
 **Patterns & Pillars Applied**:
-- Pattern: [Leader-Follower Replication](../pattern-library/coordination/leader-follower)
-- Pattern: [Partitioning](../pattern-library/scaling/sharding) - Topic partitions
+- Pattern: [Leader-Follower Replication](../../../pattern-library/coordination/leader-follower)
+- Pattern: [Partitioning](../../../pattern-library/scaling/sharding) - Topic partitions
 - 🏛 Pillar: [State Distribution](../../../core-principles/pillars/state-distribution.md) - Distributed logs
 - 🏛 Pillar: [Truth Distribution](../../../core-principles/pillars/truth-distribution.md) - Ordered delivery
 
@@ -1304,10 +1304,10 @@ graph LR
 - **[Law 7: Economics](../../../core-principles/laws/economic-reality/)** - Cost-effective storage with compression
 
 ### Related Patterns
-- 📨 **[Event-Driven Architecture](../pattern-library/architecture/event-driven)** - Kafka as event backbone
-- **[Event Sourcing](../pattern-library/data-management/event-sourcing)** - Log as source of truth
-- **[Saga Pattern](../pattern-library/data-management/saga)** - Distributed transactions over messaging
-- **[CQRS](../pattern-library/data-management/cqrs)** - Separate read/write paths with Kafka
+- 📨 **[Event-Driven Architecture](../../../pattern-library/architecture/event-driven)** - Kafka as event backbone
+- **[Event Sourcing](../../../pattern-library/data-management/event-sourcing)** - Log as source of truth
+- **[Saga Pattern](../../../pattern-library/data-management/saga)** - Distributed transactions over messaging
+- **[CQRS](../../../pattern-library/data-management/cqrs)** - Separate read/write paths with Kafka
 
 ### Quantitative Models
 - **[Little's Law](../quantitative-analysis/littles-law)** - Queue depth and latency relationship
@@ -1315,7 +1315,7 @@ graph LR
 - **[Universal Scalability Law](../quantitative-analysis/universal-scalability)** - Coordination overhead in consumer groups
 
 ### Similar Case Studies
-- **[Event Sourcing System](../pattern-library/data-management/event-sourcing)** - Using Kafka for event store
+- **[Event Sourcing System](../../../pattern-library/data-management/event-sourcing)** - Using Kafka for event store
 - **Real-time Analytics (Coming Soon)** - Stream processing with Kafka Streams
 - **Multi-Region Replication (Coming Soon)** - Cross-DC messaging
 
