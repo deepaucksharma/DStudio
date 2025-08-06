@@ -47,8 +47,8 @@ By completing this path, you will:
  Essential concepts:
  
  - [Latency Ladder](quantitative/latency-ladder/) - Know your numbers
- - [Little's Law](../quantitative-analysis/littles-law.mdindex.md) - Queue theory basics
- - [Universal Scalability Law](../quantitative-analysis/universal-scalability.mdindex.md) - Scaling limits
+ - [Little's Law](../quantitative-analysis/littles-law.md) - Queue theory basics
+ - [Universal Scalability Law](../quantitative-analysis/universal-scalability.md) - Scaling limits
 
 - **Measurement & Analysis**
  
@@ -56,7 +56,7 @@ By completing this path, you will:
  
  - [Performance Modeling](quantitative/performance-modeling/) - Predict behavior
  - [Queueing Models](quantitative/queueing-models/) - Analyze bottlenecks
- - [Capacity Planning](../quantitative-analysis/capacity-planning.mdindex.md) - Resource estimation
+ - [Capacity Planning](../quantitative-analysis/capacity-planning.md) - Resource estimation
 
 </div>
 

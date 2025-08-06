@@ -486,10 +486,10 @@ Try our [CAP Theorem Calculator](tools/cap-calculator/) to explore trade-offs wi
 
 ## References
 
-- [Brewer's Original Conjecture (2000)](https:/people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf/)
-- [Gilbert & Lynch Proof (2002)](https:/www.comp.nus.edu.sg/~gilbert/pubs/BrewersConjecture-SigAct.pdf/)
-- [CAP Twelve Years Later](https:/www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/)
-- [Please Stop Calling Databases CP or AP](https:/martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html/)
+- [Brewer's Original Conjecture (2000)](https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf/)
+- [Gilbert & Lynch Proof (2002)](https://www.comp.nus.edu.sg/~gilbert/pubs/BrewersConjecture-SigAct.pdf/)
+- [CAP Twelve Years Later](https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/)
+- [Please Stop Calling Databases CP or AP](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html/)
 
 ---
 

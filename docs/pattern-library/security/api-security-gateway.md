@@ -125,7 +125,7 @@ Threat Intelligence:
 ```bash
 # Install Kong on Kubernetes
 kubectl create namespace kong
-kubectl apply -f https:/bit.ly/kong-ingress-dbless
+kubectl apply -f https://bit.ly/kong-ingress-dbless
 
 # Configure basic gateway
 kubectl apply -f - <<EOF
@@ -593,7 +593,7 @@ Phase 3 (Full Migration):
 
 ## Further Reading
 
-- [OWASP API Security Top 10](https:/owasp.org/www-project-api-security/)
-- [Kong Gateway Documentation](https:/docs.konghq.com/gateway/)
-- [AWS API Gateway Security Best Practices](https:/docs.aws.amazon.com/apigateway/latest/developerguide/security.html/)
-- [Google Cloud API Gateway](https:/cloud.google.com/api-gateway/docs/best-practices/)
+- [OWASP API Security Top 10](https://owasp.org/www-project-api-security/)
+- [Kong Gateway Documentation](https://docs.konghq.com/gateway/)
+- [AWS API Gateway Security Best Practices](https://docs.aws.amazon.com/apigateway/latest/developerguide/security.html/)
+- [Google Cloud API Gateway](https://cloud.google.com/api-gateway/docs/best-practices/)

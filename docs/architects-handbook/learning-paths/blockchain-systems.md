@@ -632,16 +632,16 @@ outcomes:
 ### Development Resources
 
 **Blockchain Frameworks**:
-- [Hardhat Development Environment](https:/hardhat.org/docs/)
-- [Foundry Toolkit](https:/book.getfoundry.sh/)
-- [OpenZeppelin Contracts](https:/docs.openzeppelin.com/contracts/)
-- [Ethereum Developer Portal](https:/ethereum.org/en/developers/)
+- [Hardhat Development Environment](https://hardhat.org/docs/)
+- [Foundry Toolkit](https://book.getfoundry.sh/)
+- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/)
+- [Ethereum Developer Portal](https://ethereum.org/en/developers/)
 
 **DeFi & Web3 Libraries**:
-- [Web3.js Documentation](https:/web3js.readthedocs.io/)
-- [Ethers.js Documentation](https:/docs.ethers.io/)
-- [Uniswap SDK](https:/docs.uniswap.org/sdk/introduction/)
-- [IPFS Documentation](https:/docs.ipfs.io/)
+- [Web3.js Documentation](https://web3js.readthedocs.io/)
+- [Ethers.js Documentation](https://docs.ethers.io/)
+- [Uniswap SDK](https://docs.uniswap.org/sdk/introduction/)
+- [IPFS Documentation](https://docs.ipfs.io/)
 
 ## 🏁 Capstone: Complete Blockchain Ecosystem
 

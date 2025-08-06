@@ -1124,8 +1124,8 @@ storage "raft" {
 }
 
 # Cluster configuration
-cluster_addr = "https:/vault-node-1:8201"
-api_addr = "https:/vault-node-1:8200"
+cluster_addr = "https://vault-node-1:8201"
+api_addr = "https://vault-node-1:8200"
 
 # Performance tuning
 default_lease_ttl = "1h"
@@ -1391,7 +1391,7 @@ spec:
             fieldRef:
               fieldPath: status.podIP
         - name: VAULT_CLUSTER_ADDR
-          value: "https:/$(POD_IP):8201"
+          value: "https://$(POD_IP):8201"
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
@@ -1835,8 +1835,8 @@ analysis = analyzer.compare_solutions()
 
 ## External Resources
 
-- **[HashiCorp Vault Documentation](https:/www.vaultproject.io/docs/)** - Official Vault documentation
-- **[Vault Enterprise Features](https:/www.hashicorp.com/products/vault/enterprise/)** - Enterprise feature comparison
-- **[Vault Associate Certification](https:/www.hashicorp.com/certification/vault-associate/)** - Professional certification program
-- **[Learn Vault](https:/learn.hashicorp.com/vault/)** - Hands-on tutorials and guides
-- **[Vault GitHub Repository](https:/github.com/hashicorp/vault/)** - Open source code and community
+- **[HashiCorp Vault Documentation](https://www.vaultproject.io/docs/)** - Official Vault documentation
+- **[Vault Enterprise Features](https://www.hashicorp.com/products/vault/enterprise/)** - Enterprise feature comparison
+- **[Vault Associate Certification](https://www.hashicorp.com/certification/vault-associate/)** - Professional certification program
+- **[Learn Vault](https://learn.hashicorp.com/vault/)** - Hands-on tutorials and guides
+- **[Vault GitHub Repository](https://github.com/hashicorp/vault/)** - Open source code and community

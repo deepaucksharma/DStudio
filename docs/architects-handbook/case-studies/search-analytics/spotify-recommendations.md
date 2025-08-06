@@ -605,9 +605,9 @@ graph TB
 ## 🔗 References & Deep Dives
 
 ### Technical Papers
-- [Spotify's Discover Weekly: How machine learning finds your new music](https:/engineering.atspotify.com/2015/11/discover-weekly/)
+- [Spotify's Discover Weekly: How machine learning finds your new music](https://engineering.atspotify.com/2015/11/discover-weekly/)
 - [The Echo Nest: How Spotify Understands Music](http:/static.echonest.com/enspex/)
-- [Scaling ML at Spotify](https:/engineering.atspotify.com/ml-at-spotify/)
+- [Scaling ML at Spotify](https://engineering.atspotify.com/ml-at-spotify/)
 
 ### Related Patterns
 - Feature Store Architecture (ML feature management)
@@ -616,9 +616,9 @@ graph TB
 - Recommendation Systems (collaborative filtering)
 
 ### Similar Systems
-- [Netflix Recommendations](https:/research.netflix.com/research-area/recommendations/)
-- [YouTube's Algorithm](https:/research.google/pubs/pub45530/)
-- [Amazon Personalization](https:/aws.amazon.com/personalize/)
+- [Netflix Recommendations](https://research.netflix.com/research-area/recommendations/)
+- [YouTube's Algorithm](https://research.google/pubs/pub45530/)
+- [Amazon Personalization](https://aws.amazon.com/personalize/)
 
 ## Related Concepts & Deep Dives
 

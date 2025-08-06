@@ -1439,16 +1439,16 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 ### 📚 References
 
 **Foundational Papers:**
-- [Dynamo: Amazon's Highly Available Key-value Store](https:/www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/)
-- [Bigtable: A Distributed Storage System](https:/static.googleusercontent.com/media/research.google.com/en/archive/bigtable-osdi06.pdf/)
-- [Spanner: Google's Globally Distributed Database](https:/static.googleusercontent.com/media/research.google.com/en/archive/spanner-osdi2012.pdf/)
-- [TAO: Facebook's Distributed Data Store](https:/www.usenix.org/system/files/conference/atc13/atc13-bronson.pdf/)
+- [Dynamo: Amazon's Highly Available Key-value Store](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/)
+- [Bigtable: A Distributed Storage System](https://static.googleusercontent.com/media/research.google.com/en/archive/bigtable-osdi06.pdf/)
+- [Spanner: Google's Globally Distributed Database](https://static.googleusercontent.com/media/research.google.com/en/archive/spanner-osdi2012.pdf/)
+- [TAO: Facebook's Distributed Data Store](https://www.usenix.org/system/files/conference/atc13/atc13-bronson.pdf/)
 
 **Production Systems:**
-- [Apache Cassandra Architecture](https:/cassandra.apache.org/doc/latest/architecture/)
-- [Redis Cluster Specification](https:/redis.io/topics/cluster-spec/)
-- [etcd Documentation](https:/etcd.io/docs/)
-- [FoundationDB Architecture](https:/apple.github.io/foundationdb/architecture.html/)
+- [Apache Cassandra Architecture](https://cassandra.apache.org/doc/latest/architecture/)
+- [Redis Cluster Specification](https://redis.io/topics/cluster-spec/)
+- [etcd Documentation](https://etcd.io/docs/)
+- [FoundationDB Architecture](https://apple.github.io/foundationdb/architecture.html/)
 
 **Related Patterns:**
 - [LSM-Tree](../pattern-library/data-management/lsm-tree.md)

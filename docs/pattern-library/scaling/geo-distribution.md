@@ -296,8 +296,8 @@ graph TD
 - [Global Load Balancing](../architecture/global-load-balancing.md) - Traffic distribution
 
 ## References
-- [Netflix Global Architecture](https:/netflixtechblog.com/)
-- [Stripe's Data Residency](https:/stripe.com/guides/data-residency/)
-- [Google Spanner Paper](https:/research.google/pubs/pub39966/)
-- [AWS Global Infrastructure](https:/aws.amazon.com/about-aws/global-infrastructure/)
+- [Netflix Global Architecture](https://netflixtechblog.com/)
+- [Stripe's Data Residency](https://stripe.com/guides/data-residency/)
+- [Google Spanner Paper](https://research.google/pubs/pub39966/)
+- [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
 

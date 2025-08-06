@@ -1552,8 +1552,8 @@ tco_analysis = calculator.compare_alternatives([
 
 ## External Resources
 
-- **[Bitcoin Whitepaper](https:/bitcoin.org/bitcoin.pdf/)** - Original blockchain design document
-- **[Ethereum Whitepaper](https:/ethereum.org/en/whitepaper/)** - Smart contract blockchain architecture
-- **[Hyperledger Architecture](https:/hyperledger-fabric.readthedocs.io/)** - Enterprise blockchain framework
-- **[Blockchain Scalability Trilemma](https:/vitalik.ca/general/2021/04/07/sharding.html/)** - Fundamental trade-offs in blockchain design
-- **[Post-Quantum Cryptography](https:/csrc.nist.gov/projects/post-quantum-cryptography/)** - NIST standards for quantum-resistant algorithms
+- **[Bitcoin Whitepaper](https://bitcoin.org/bitcoin.pdf/)** - Original blockchain design document
+- **[Ethereum Whitepaper](https://ethereum.org/en/whitepaper/)** - Smart contract blockchain architecture
+- **[Hyperledger Architecture](https://hyperledger-fabric.readthedocs.io/)** - Enterprise blockchain framework
+- **[Blockchain Scalability Trilemma](https://vitalik.ca/general/2021/04/07/sharding.html/)** - Fundamental trade-offs in blockchain design
+- **[Post-Quantum Cryptography](https://csrc.nist.gov/projects/post-quantum-cryptography/)** - NIST standards for quantum-resistant algorithms

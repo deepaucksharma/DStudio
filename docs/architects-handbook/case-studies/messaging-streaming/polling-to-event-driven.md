@@ -201,7 +201,7 @@ class StranglerFigMigration:
     # Client code - runs every 30 seconds
     def poll_for_orders():
         response = requests.get(
-            "https:/api.example.com/orders",
+            "https://api.example.com/orders",
             params={"since": last_poll_time}
         )
         

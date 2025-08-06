@@ -5,7 +5,7 @@ redirect_to: /architects-handbook/implementation-playbooks/monolith-to-microserv
 
 # Index
 
-\!\!\! info "This page has moved"
+!!! info "This page has moved"
     Please visit [architects-handbook/implementation-playbooks/monolith-to-microservices](/architects-handbook/implementation-playbooks/monolith-to-microservices/)
 
 <meta http-equiv="refresh" content="0; url=/architects-handbook/implementation-playbooks/monolith-to-microservices/">

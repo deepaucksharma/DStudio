@@ -8,7 +8,7 @@ reading_time: 9 min
 
 # Law 5: The Law of Distributed Knowledge
 
-<iframe style="border-radius:12px" src="https:/open.spotify.com/embed/episode/3OBxGB8NjiiTuOCY8OjPun?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/3OBxGB8NjiiTuOCY8OjPun?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 <div class="axiom-box" style="background: #1a1a1a; border: 3px solid #ff5555;">
 <h2>🚨 Your Database Doesn't Know What Your Database Knows</h2>

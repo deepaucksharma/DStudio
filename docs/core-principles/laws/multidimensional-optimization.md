@@ -1,6 +1,6 @@
 ---
 title: Law 4: The Law of Multidimensional Optimization
-description: src="https:/w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/law-4-multidimensional-optimization&color=%235448C8&inverse=false&
+description: src="https://w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/law-4-multidimensional-optimization&color=%235448C8&inverse=false&
 type: law
 difficulty: intermediate
 reading_time: 8 min
@@ -9,7 +9,7 @@ reading_time: 8 min
 # Law 4: The Law of Multidimensional Optimization
 
 <iframe width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"
-    src="https:/w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/law-4-multidimensional-optimization&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+    src="https://w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/law-4-multidimensional-optimization&color=%235448C8&inverse=false&auto_play=false&show_user=true">
 </iframe>
 
 > "You cannot optimize all dimensions simultaneously; trade-offs are mandatory."

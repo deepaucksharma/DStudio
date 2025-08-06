@@ -354,7 +354,7 @@ graph LR
     
     **Success Metric**: 50ms p99 spatial queries at any scale
     
-    **Open Source**: [H3 Library](https:/h3geo.org/)
+    **Open Source**: [H3 Library](https://h3geo.org/)
 
 - :material-broadcast:{ .lg .middle } **[Event Streaming](../pattern-library/architecture/event-streaming/)** 🥇
     
@@ -523,10 +523,10 @@ Uber's location system evolution (2009-2015):
 
 ## Further Reading
 
-- [H3: Uber's Hexagonal Hierarchical Spatial Index](https:/eng.uber.com/h3/)
-- [Real-time Location Platform at Uber](https:/eng.uber.com/realtime-location-platform/)
-- [Scaling Uber's Real-time Market Platform](https:/eng.uber.com/real-time-market-platform/)
-- [Geospatial Indexing at Uber](https:/eng.uber.com/geospatial-indexing-at-uber/)
+- [H3: Uber's Hexagonal Hierarchical Spatial Index](https://eng.uber.com/h3/)
+- [Real-time Location Platform at Uber](https://eng.uber.com/realtime-location-platform/)
+- [Scaling Uber's Real-time Market Platform](https://eng.uber.com/real-time-market-platform/)
+- [Geospatial Indexing at Uber](https://eng.uber.com/geospatial-indexing-at-uber/)
 
 ## Discussion Questions
 

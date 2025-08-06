@@ -151,11 +151,11 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https:/github.com/company/k8s-manifests
+    repoURL: https://github.com/company/k8s-manifests
     targetRevision: HEAD
     path: applications/web-app
   destination:
-    server: https:/kubernetes.default.svc
+    server: https://kubernetes.default.svc
     namespace: production
   syncPolicy:
     automated:
@@ -309,7 +309,7 @@ class GitOpsManager:
         pr_number = hash(branch_name) % 10000
         self.logger.info(f"Created PR #{pr_number}: {title}")
         
-        return f"https:/github.com/company/k8s-manifests/pull/{pr_number}"
+        return f"https://github.com/company/k8s-manifests/pull/{pr_number}"
     
     def rollback_deployment(self, app_name: str, environment: str, 
                           target_commit: str = None) -> bool:

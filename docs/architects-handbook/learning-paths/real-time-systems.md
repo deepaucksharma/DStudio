@@ -668,19 +668,19 @@ outcomes:
 ### Domain-Specific Resources
 
 **Gaming Development**:
-- [Unreal Engine Documentation](https:/docs.unrealengine.com/)
-- [Unity Multiplayer Networking](https:/docs.unity3d.com/Manual/UNet.html/)
+- [Unreal Engine Documentation](https://docs.unrealengine.com/)
+- [Unity Multiplayer Networking](https://docs.unity3d.com/Manual/UNet.html/)
 - [Game Programming Patterns](http:/gameprogrammingpatterns.com/)
 
 **High-Frequency Trading**:
-- [QuickFIX Engine](https:/www.quickfixengine.org/)
-- [Chronicle Map](https:/github.com/OpenHFT/Chronicle-Map/)
-- [FIX Protocol Specifications](https:/www.fixtrading.org/)
+- [QuickFIX Engine](https://www.quickfixengine.org/)
+- [Chronicle Map](https://github.com/OpenHFT/Chronicle-Map/)
+- [FIX Protocol Specifications](https://www.fixtrading.org/)
 
 **IoT & Edge Computing**:
-- [FreeRTOS Documentation](https:/www.freertos.org/Documentation/)
-- [Time-Sensitive Networking](https:/1.ieee802.org/tsn/)
-- [Industrial Internet Consortium](https:/www.iiconsortium.org/)
+- [FreeRTOS Documentation](https://www.freertos.org/Documentation/)
+- [Time-Sensitive Networking](https://1.ieee802.org/tsn/)
+- [Industrial Internet Consortium](https://www.iiconsortium.org/)
 
 ## 🏁 Final Assessment: Multi-Domain Real-Time Platform
 

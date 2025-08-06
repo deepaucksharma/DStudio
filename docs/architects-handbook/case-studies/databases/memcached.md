@@ -481,7 +481,7 @@ def get_with_fallback(key, fallback_func):
 
 ## References
 
-1. [Scaling Memcache at Facebook](https:/www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf/)
-2. [Memcached Protocol Specification](https:/github.com/memcached/memcached/blob/master/doc/protocol.txt/)
-3. [mcrouter: Memcached protocol router](https:/github.com/facebook/mcrouter/)
-4. [Memcached Internals](https:/memcached.org/blog/modern-lru/)
+1. [Scaling Memcache at Facebook](https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf/)
+2. [Memcached Protocol Specification](https://github.com/memcached/memcached/blob/master/doc/protocol.txt/)
+3. [mcrouter: Memcached protocol router](https://github.com/facebook/mcrouter/)
+4. [Memcached Internals](https://memcached.org/blog/modern-lru/)

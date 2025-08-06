@@ -1169,8 +1169,8 @@ def test_recommendation_cpu_exhaustion():
 
 ## External Resources
 
-- **[Principles of Chaos Engineering](https:/principlesofchaos.org/)** - Official chaos engineering principles
-- **[Netflix Chaos Monkey](https:/github.com/Netflix/chaosmonkey/)** - Open source chaos engineering tool
-- **[Chaos Engineering: System Resiliency in Practice](https:/learning.oreilly.com/library/view/chaos-engineering/9781492043850/)** - Comprehensive book
-- **[Netflix Tech Blog](https:/netflixtechblog.com/)** - Latest chaos engineering innovations
-- **[Gremlin Chaos Engineering Platform](https:/www.gremlin.com/)** - Commercial chaos engineering platform
+- **[Principles of Chaos Engineering](https://principlesofchaos.org/)** - Official chaos engineering principles
+- **[Netflix Chaos Monkey](https://github.com/Netflix/chaosmonkey/)** - Open source chaos engineering tool
+- **[Chaos Engineering: System Resiliency in Practice](https://learning.oreilly.com/library/view/chaos-engineering/9781492043850/)** - Comprehensive book
+- **[Netflix Tech Blog](https://netflixtechblog.com/)** - Latest chaos engineering innovations
+- **[Gremlin Chaos Engineering Platform](https://www.gremlin.com/)** - Commercial chaos engineering platform

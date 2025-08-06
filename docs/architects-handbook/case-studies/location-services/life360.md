@@ -549,8 +549,8 @@ class Life360CrashDetection:
 
 ## External Resources
 
-- **[Life360 Engineering Blog](https:/life360.engineering/)** - Technical insights from the Life360 engineering team
-- **[Core Location Best Practices](https:/developer.apple.com/documentation/corelocation/getting_the_user_s_location/)** - Apple's location tracking guidelines
-- **[Android Location Services](https:/developer.android.com/training/location/)** - Google's location API documentation
-- **[Geofencing Implementation Guide](https:/developer.android.com/training/location/geofencing/)** - Android geofencing best practices
-- **[Battery Optimization Techniques](https:/developer.android.com/topic/performance/power/)** - Power management for continuous services
+- **[Life360 Engineering Blog](https://life360.engineering/)** - Technical insights from the Life360 engineering team
+- **[Core Location Best Practices](https://developer.apple.com/documentation/corelocation/getting_the_user_s_location/)** - Apple's location tracking guidelines
+- **[Android Location Services](https://developer.android.com/training/location/)** - Google's location API documentation
+- **[Geofencing Implementation Guide](https://developer.android.com/training/location/geofencing/)** - Android geofencing best practices
+- **[Battery Optimization Techniques](https://developer.android.com/topic/performance/power/)** - Power management for continuous services

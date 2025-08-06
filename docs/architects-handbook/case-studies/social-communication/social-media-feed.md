@@ -1352,7 +1352,7 @@ Understanding feed architecture provides insights into broader distributed syste
 - [Key-Value Store](key-value-store.md) - Foundational storage patterns
 
 ## External Resources
-- [Facebook's News Feed Ranking](https:/engineering.fb.com/2016/06/02/core-data/news-feed-fyi-how-we-rank-posts/)¹
-- [Instagram Engineering Blog](https:/instagram-engineering.com/)²
-- [Twitter's Timeline Architecture](https:/blog.twitter.com/engineering/en_us/a/2013/new-tweets-per-second-record-and-how.html/)³
-- [LinkedIn's Feed Architecture](https:/engineering.linkedin.com/blog/2013/10/the-architecture-of-linkedin-s-real-time-messaging-system/)⁴
+- [Facebook's News Feed Ranking](https://engineering.fb.com/2016/06/02/core-data/news-feed-fyi-how-we-rank-posts/)¹
+- [Instagram Engineering Blog](https://instagram-engineering.com/)²
+- [Twitter's Timeline Architecture](https://blog.twitter.com/engineering/en_us/a/2013/new-tweets-per-second-record-and-how.html/)³
+- [LinkedIn's Feed Architecture](https://engineering.linkedin.com/blog/2013/10/the-architecture-of-linkedin-s-real-time-messaging-system/)⁴

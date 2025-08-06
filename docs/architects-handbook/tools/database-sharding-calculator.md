@@ -293,7 +293,7 @@ shard = lookup_service.get_shard(shard_key)
 - [CAP Theorem](../../pattern-library/architecture/cap-theorem.md)
 - [Data Distribution Patterns](../../pattern-library/data-management/sharding.md)
 
-<script src="https:/cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 let distributionChart = null;
 let hotspotChart = null;

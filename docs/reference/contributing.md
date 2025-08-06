@@ -72,7 +72,7 @@ tags:
 
 | Step | Action | Details |
 |------|--------|---------|
-| 🔍 **1. Research** | Check existing issues | Review [open issues](https:/github.com/deepaucksharma/DStudio/issues/) and ongoing work |
+| 🔍 **1. Research** | Check existing issues | Review [open issues](https://github.com/deepaucksharma/DStudio/issues/) and ongoing work |
 | 🔧 **2. Setup** | Fork and clone repository | Create your development environment |
 | ✏️ **3. Create** | Make your changes | Follow our quality standards (see below) |
 | 🧪 **4. Test** | Verify locally | Run `mkdocs serve` and check all changes |
@@ -211,7 +211,7 @@ By contributing, you agree that:
 
 Need assistance?
 
-- :material-github: [Open an Issue](https:/github.com/deepaucksharma/DStudio/issues/)
+- :material-github: [Open an Issue](https://github.com/deepaucksharma/DStudio/issues/)
 - :material-chat: Join discussions in issues/PRs
 - :material-email: Contact maintainers (see README)
 

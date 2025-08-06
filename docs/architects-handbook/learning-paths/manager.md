@@ -118,9 +118,9 @@ Focus on patterns with significant business impact:
 
 Essential metrics and models:
 
-- [Little's Law](../quantitative-analysis/littles-law.mdindex.md) - Queue management
+- [Little's Law](../quantitative-analysis/littles-law.md) - Queue management
 - [Availability Math](quantitative/availability-math/) - SLA calculations
-- [Capacity Planning](../quantitative-analysis/capacity-planning.mdindex.md) - Resource estimation
+- [Capacity Planning](../quantitative-analysis/capacity-planning.md) - Resource estimation
 - [Latency Budgets](quantitative/latency-ladder/) - Performance targets
 
 ### Phase 4: Strategic Case Studies (1-2 weeks)

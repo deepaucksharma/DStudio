@@ -121,14 +121,14 @@ last_updated: 2025-07-20
    @retry_with_backoff(max_attempts=5, exceptions=(ConnectionError,))
    def call_external_api():
 # API call that might fail
-       return requests.get("https:/api.example.com/data")
+       return requests.get("https://api.example.com/data")
    ```
 
 3. **Usage Example**
    ```python
    @retry_with_backoff(max_attempts=5, exceptions=(ConnectionError,))
    def call_external_api():
-       return requests.get("https:/api.example.com/data")
+       return requests.get("https://api.example.com/data")
    ```
 
 ---
@@ -443,7 +443,7 @@ last_updated: 2025-07-20
 1. **Install Tracing Infrastructure**
    ```bash
    # Deploy Jaeger using Helm
-   helm repo add jaegertracing https:/jaegertracing.github.io/helm-charts
+   helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
    helm install jaeger jaegertracing/jaeger \
      --set cassandra.config.max_heap_size=1024M \
      --set cassandra.config.heap_new_size=256M

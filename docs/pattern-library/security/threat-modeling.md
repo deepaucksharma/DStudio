@@ -839,7 +839,7 @@ Training and Awareness:
 
 ## Further Reading
 
-- [Microsoft Threat Modeling](https:/docs.microsoft.com/en-us/azure/security/develop/threat-modeling-tool/)
-- [OWASP Threat Modeling](https:/owasp.org/www-community/Threat_Modeling/)
-- [NIST Cybersecurity Framework](https:/www.nist.gov/cyberframework/)
-- [STRIDE Threat Modeling](https:/docs.microsoft.com/en-us/archive/msdn-magazine/2006/november/uncover-security-design-flaws-using-the-stride-approach/)
+- [Microsoft Threat Modeling](https://docs.microsoft.com/en-us/azure/security/develop/threat-modeling-tool/)
+- [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework/)
+- [STRIDE Threat Modeling](https://docs.microsoft.com/en-us/archive/msdn-magazine/2006/november/uncover-security-design-flaws-using-the-stride-approach/)

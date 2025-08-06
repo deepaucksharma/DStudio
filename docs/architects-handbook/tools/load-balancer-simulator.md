@@ -379,7 +379,7 @@ type: documentation
 - [Rate Limiting Calculator](rate-limiting-calculator.md)
 - [Load Balancing Patterns](../../pattern-library/scaling/load-balancing.md)
 
-<script src="https:/cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 let distributionChart = null;
 let performanceChart = null;

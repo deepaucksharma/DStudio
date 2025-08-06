@@ -371,8 +371,8 @@ graph TD
 
 ### Online Resources
 - [High Scalability](http:/highscalability.com/)
-- [Martin Fowler's Blog](https:/martinfowler.com/)
-- [AWS Architecture Center](https:/aws.amazon.com/architecture/)
+- [Martin Fowler's Blog](https://martinfowler.com/)
+- [AWS Architecture Center](https://aws.amazon.com/architecture/)
 
 ## Links to Other Applications
 

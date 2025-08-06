@@ -280,7 +280,7 @@ metrics:
 1. **etcd Backup**:
    ```bash
    ETCDCTL_API=3 etcdctl snapshot save backup.db \
-     --endpoints=https:/127.0.0.1:2379 \
+     --endpoints=https://127.0.0.1:2379 \
      --cacert=/etc/etcd/ca.crt \
      --cert=/etc/etcd/server.crt \
      --key=/etc/etcd/server.key
@@ -373,7 +373,7 @@ graph LR
 
 ## References
 
-1. [Kubernetes: Up and Running](https:/www.oreilly.com/library/view/kubernetes-up-and/9781492046523/)
-2. [Large-scale cluster management at Google with Borg](https:/research.google/pubs/pub43438/)
-3. [Kubernetes The Hard Way](https:/github.com/kelseyhightower/kubernetes-the-hard-way/)
-4. [Production Kubernetes](https:/www.oreilly.com/library/view/production-kubernetes/9781492042747/)
+1. [Kubernetes: Up and Running](https://www.oreilly.com/library/view/kubernetes-up-and/9781492046523/)
+2. [Large-scale cluster management at Google with Borg](https://research.google/pubs/pub43438/)
+3. [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way/)
+4. [Production Kubernetes](https://www.oreilly.com/library/view/production-kubernetes/9781492042747/)

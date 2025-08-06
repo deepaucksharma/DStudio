@@ -366,7 +366,7 @@ type: documentation
 - [Caching Strategies](../../pattern-library/scaling/caching-strategies.md)
 - [Performance Optimization](../architects-handbook/implementation-playbooks/implementation-guides/performance-optimization.md)
 
-<script src="https:/cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 let hierarchyChart = null;
 let hitRatioChart = null;

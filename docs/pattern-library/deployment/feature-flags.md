@@ -1032,7 +1032,7 @@ Best Practices:
 
 ## Further Reading
 
-- [Martin Fowler - Feature Toggles](https:/martinfowler.com/articles/feature-toggles.html/)
-- [LaunchDarkly - Feature Flag Guide](https:/launchdarkly.com/blog/what-are-feature-flags/)
-- [Split.io - Feature Flags Best Practices](https:/www.split.io/blog/feature-flag-best-practices/)
-- [Optimizely - Feature Experimentation](https:/www.optimizely.com/optimization-glossary/feature-flags/)
+- [Martin Fowler - Feature Toggles](https://martinfowler.com/articles/feature-toggles.html/)
+- [LaunchDarkly - Feature Flag Guide](https://launchdarkly.com/blog/what-are-feature-flags/)
+- [Split.io - Feature Flags Best Practices](https://www.split.io/blog/feature-flag-best-practices/)
+- [Optimizely - Feature Experimentation](https://www.optimizely.com/optimization-glossary/feature-flags/)

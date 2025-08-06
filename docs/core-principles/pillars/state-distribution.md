@@ -996,7 +996,7 @@ You're leaving with the searing realization that distributed state is where phys
 - [Law 2: Asynchronous Reality](../laws/asynchronous-reality.md) - Why consistency is a lie
 - [Law 4: Multidimensional Optimization](../laws/multidimensional-optimization.md) - Why we distribute
 - [Law 5: Distributed Knowledge](../laws/distributed-knowledge.md) - Why consensus is hard
-- [Pillar 3: Truth](../core-principles/pillars/truth-distribution.md) - Where we agree to disagree
+- [Pillar 3: Truth](truth-distribution.md) - Where we agree to disagree
 - [Pattern: Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Time travel for databases
 - [Pattern: CQRS](../../pattern-library/data-management/cqrs.md) - Split personality disorder (but useful)
 - [Pattern: Sharding](../../pattern-library/scaling/sharding.md) - Slice and dice your data

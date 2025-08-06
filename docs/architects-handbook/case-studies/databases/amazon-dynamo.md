@@ -424,10 +424,10 @@ graph LR
 
 ## Further Reading
 
-- [Dynamo: Amazon's Highly Available Key-value Store (2007)](https:/www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/)
-- [DynamoDB Paper: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service](https:/aws.amazon.com/dynamodb/resources/)
-- [Werner Vogels on Eventual Consistency](https:/www.allthingsdistributed.com/2008/12/eventually_consistent.html/)
-- [DynamoDB Best Practices Guide](https:/docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html/)
+- [Dynamo: Amazon's Highly Available Key-value Store (2007)](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/)
+- [DynamoDB Paper: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service](https://aws.amazon.com/dynamodb/resources/)
+- [Werner Vogels on Eventual Consistency](https://www.allthingsdistributed.com/2008/12/eventually_consistent.html/)
+- [DynamoDB Best Practices Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html/)
 
 ## Discussion Questions
 

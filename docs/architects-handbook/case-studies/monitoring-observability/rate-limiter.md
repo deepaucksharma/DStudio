@@ -1523,14 +1523,14 @@ graph TB
 ### 📚 References
 
 **Papers & Articles:**
-- [Rate Limiting at Stripe](https:/stripe.com/blog/rate-limiters/)
-- [How we built rate limiting capable of scaling to millions](https:/blog.figma.com/rate-limiting-at-figma-8c5a5d376dc8/)
-- [Distributed Rate Limiting at Netflix](https:/netflixtechblog.com/distributed-rate-limiting-5348c0cfb19a/)
+- [Rate Limiting at Stripe](https://stripe.com/blog/rate-limiters/)
+- [How we built rate limiting capable of scaling to millions](https://blog.figma.com/rate-limiting-at-figma-8c5a5d376dc8/)
+- [Distributed Rate Limiting at Netflix](https://netflixtechblog.com/distributed-rate-limiting-5348c0cfb19a/)
 
 **Open Source Implementations:**
-- [Ratelimit](https:/github.com/envoyproxy/ratelimit/) - Go/gRPC rate limiting service
-- [Redis Cell](https:/github.com/brandur/redis-cell/) - Redis module for rate limiting
-- [Gubernator](https:/github.com/mailgun/gubernator/) - High-performance distributed rate limiting
+- [Ratelimit](https://github.com/envoyproxy/ratelimit/) - Go/gRPC rate limiting service
+- [Redis Cell](https://github.com/brandur/redis-cell/) - Redis module for rate limiting
+- [Gubernator](https://github.com/mailgun/gubernator/) - High-performance distributed rate limiting
 
 **Related Patterns:**
 - [Token Bucket Algorithm](../pattern-library/scaling/rate-limiting/)

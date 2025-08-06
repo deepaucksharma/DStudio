@@ -174,9 +174,9 @@ Watch for these indicators that capacity planning is needed:
 
 ## Related Resources
 
-- [Little's Law](../quantitative-analysis/littles-law.mdindex.md)
-- [Universal Scalability Law](../quantitative-analysis/universal-scalability.mdindex.md)
-- [Capacity Planning Guide](../quantitative-analysis/capacity-planning.mdindex.md)
+- [Little's Law](../quantitative-analysis/littles-law.md)
+- [Universal Scalability Law](../quantitative-analysis/universal-scalability.md)
+- [Capacity Planning Guide](../quantitative-analysis/capacity-planning.md)
 - [Auto-Scaling Pattern](../pattern-library/scaling/auto-scaling/)
 - [Load Balancing Pattern](../pattern-library/scaling/load-balancing/)
 

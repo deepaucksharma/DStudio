@@ -692,11 +692,11 @@ This path prepares you for:
 
 ### Industry Resources
 
-- [AWS Architecture Center](https:/aws.amazon.com/architecture/)
-- [Azure Architecture Center](https:/docs.microsoft.com/en-us/azure/architecture/)
-- [Google Cloud Architecture Framework](https:/cloud.google.com/architecture/framework/)
-- [Cloud Native Computing Foundation](https:/www.cncf.io/)
-- [FinOps Foundation](https:/www.finops.org/)
+- [AWS Architecture Center](https://aws.amazon.com/architecture/)
+- [Azure Architecture Center](https://docs.microsoft.com/en-us/azure/architecture/)
+- [Google Cloud Architecture Framework](https://cloud.google.com/architecture/framework/)
+- [Cloud Native Computing Foundation](https://www.cncf.io/)
+- [FinOps Foundation](https://www.finops.org/)
 
 ### Thought Leadership
 

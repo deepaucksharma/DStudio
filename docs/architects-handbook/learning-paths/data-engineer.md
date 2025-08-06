@@ -650,7 +650,7 @@ Build these impressive projects to showcase your skills:
 
 ### Community Resources
 
-- **Data Engineering Discord**: [#data-engineering-learners](https:/discord.gg/data-eng/)
+- **Data Engineering Discord**: [#data-engineering-learners](https://discord.gg/data-eng/)
 - **Project Collaboration**: Peer coding sessions
 - **Job Referral Network**: Alumni referral program
 - **Conference Discounts**: Strata, DataWorks Summit, Data Engineering Day
@@ -668,16 +668,16 @@ Build these impressive projects to showcase your skills:
 ### Essential Online Resources
 
 **Documentation & Guides**:
-- [Apache Spark Documentation](https:/spark.apache.org/docs/)
-- [Kafka Streams Developer Guide](https:/kafka.apache.org/documentation/streams/)
-- [dbt Documentation](https:/docs.getdbt.com/)
-- [Delta Lake Documentation](https:/docs.delta.io/)
+- [Apache Spark Documentation](https://spark.apache.org/docs/)
+- [Kafka Streams Developer Guide](https://kafka.apache.org/documentation/streams/)
+- [dbt Documentation](https://docs.getdbt.com/)
+- [Delta Lake Documentation](https://docs.delta.io/)
 
 **Blogs & Technical Content**:
-- [Netflix Tech Blog - Data Platform](https:/netflixtechblog.com/)
-- [Uber Engineering - Data](https:/eng.uber.com/)
-- [Airbnb Engineering - Data](https:/medium.com/airbnb-engineering/)
-- [Spotify Engineering - Data](https:/engineering.atspotify.com/)
+- [Netflix Tech Blog - Data Platform](https://netflixtechblog.com/)
+- [Uber Engineering - Data](https://eng.uber.com/)
+- [Airbnb Engineering - Data](https://medium.com/airbnb-engineering/)
+- [Spotify Engineering - Data](https://engineering.atspotify.com/)
 
 **Podcasts & Video Content**:
 - **Data Engineering Podcast** - Weekly data engineering discussions

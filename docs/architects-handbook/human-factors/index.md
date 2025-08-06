@@ -14,28 +14,28 @@ Building successful distributed systems isn't just about technology—it's about
 ## 📚 Core Topics
 
 ### Site Reliability Engineering
-- **[SRE Principles](sre-practices.mdindex.md)** - Error budgets, SLIs/SLOs/SLAs
-- **[Toil Reduction](knowledge-management.mdindex.md)** - Automating operational work
-- **[Capacity Management](../tools/capacity-calculator.mdindex.md)** - Planning for growth
-- **[Release Engineering](incident-response.mdindex.md)** - Safe deployment practices
+- **[SRE Principles](sre-practices.md)** - Error budgets, SLIs/SLOs/SLAs
+- **[Toil Reduction](knowledge-management.md)** - Automating operational work
+- **[Capacity Management](../tools/capacity-calculator.md)** - Planning for growth
+- **[Release Engineering](incident-response.md)** - Safe deployment practices
 
 ### Incident Management
 - **[Incident Response](incident-response.md)** - Handling production issues
-- **[Postmortem Culture](blameless-postmortems.mdindex.md)** - Learning from failures
-- **[Runbook Development](runbooks-playbooks.mdindex.md)** - Standardized procedures
-- **[War Room Protocols](incident-response.mdindex.md)** - Crisis coordination
+- **[Postmortem Culture](blameless-postmortems.md)** - Learning from failures
+- **[Runbook Development](runbooks-playbooks.md)** - Standardized procedures
+- **[War Room Protocols](incident-response.md)** - Crisis coordination
 
 ### On-Call Practices
-- **[On-Call Philosophy](oncall-culture.mdindex.md)** - Sustainable practices
-- **[Escalation Policies](incident-response.mdindex.md)** - Clear responsibility chains
-- **[Alert Fatigue](observability-stacks.mdindex.md)** - Reducing noise
-- **[Handoff Procedures](oncall-culture.mdindex.md)** - Smooth transitions
+- **[On-Call Philosophy](oncall-culture.md)** - Sustainable practices
+- **[Escalation Policies](incident-response.md)** - Clear responsibility chains
+- **[Alert Fatigue](observability-stacks.md)** - Reducing noise
+- **[Handoff Procedures](oncall-culture.md)** - Smooth transitions
 
 ### Observability & Monitoring
-- **[Observability Strategy](observability-stacks.mdindex.md)** - Metrics, logs, traces
-- **[Dashboard Design](observability-stacks.mdindex.md)** - Effective visualizations
-- **[Alert Design](observability-stacks.mdindex.md)** - Actionable notifications
-- **[Debugging Distributed Systems](incident-response.mdindex.md)** - Systematic approaches
+- **[Observability Strategy](observability-stacks.md)** - Metrics, logs, traces
+- **[Dashboard Design](observability-stacks.md)** - Effective visualizations
+- **[Alert Design](observability-stacks.md)** - Actionable notifications
+- **[Debugging Distributed Systems](incident-response.md)** - Systematic approaches
 
 ## 🏢 Organizational Patterns
 
@@ -106,4 +106,4 @@ Building successful distributed systems isn't just about technology—it's about
 
 ---
 
-*Start with [SRE Principles](sre-practices.mdindex.md) to understand the foundation of reliable operations at scale.*
+*Start with [SRE Principles](sre-practices.md) to understand the foundation of reliable operations at scale.*

@@ -681,7 +681,7 @@ class ColdStartOptimizer:
                 pool_maxsize=20
             )
             session.mount('http:/', adapter)
-            session.mount('https:/', adapter)
+            session.mount('https://', adapter)
             
             _api_clients['http'] = session
             

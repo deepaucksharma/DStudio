@@ -11,4 +11,4 @@ Navigate to:
 - [Core Principles](core-principles/)
 - [Pattern Library](pattern-library/)
 - [Architect's Handbook](architects-handbook/)
-- [Excellence Guides](../architects-handbook/implementation-playbooks/)
+- [Start Here Guide](start-here/)

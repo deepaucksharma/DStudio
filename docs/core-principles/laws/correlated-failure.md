@@ -16,7 +16,7 @@ last_updated: 2025-01-29
 [Home](/) > [Core Principles](core-principles.md)) > [Laws](core-principles/laws.md) > Law 1: Correlated Failure
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-    src="https:/w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/faliure&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+    src="https://w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/faliure&color=%235448C8&inverse=false&auto_play=false&show_user=true">
 </iframe>
 
 !!! danger "🚨 DURING AN INCIDENT? Your 30-Second Action Plan:"

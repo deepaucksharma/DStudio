@@ -364,7 +364,7 @@ Phase 3 (Full Migration):
 
 ## Further Reading
 
-- [NIST Zero Trust Architecture (SP 800-207)](https:/csrc.nist.gov/publications/detail/sp/800-207/final/)
-- [Google BeyondCorp Papers](https:/cloud.google.com/beyondcorp/)
-- [Netflix Zero Trust Journey](https:/netflixtechblog.com/tagged/security/)
-- [Okta Zero Trust Implementation Guide](https:/www.okta.com/zero-trust/)
+- [NIST Zero Trust Architecture (SP 800-207)](https://csrc.nist.gov/publications/detail/sp/800-207/final/)
+- [Google BeyondCorp Papers](https://cloud.google.com/beyondcorp/)
+- [Netflix Zero Trust Journey](https://netflixtechblog.com/tagged/security/)
+- [Okta Zero Trust Implementation Guide](https://www.okta.com/zero-trust/)

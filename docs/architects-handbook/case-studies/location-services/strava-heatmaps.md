@@ -32,6 +32,6 @@ This case study would examine Strava's architecture for aggregating billions of 
 - ML Pipeline (Coming Soon.md) - Activity pattern analysis
 
 ## External Resources
-- [Strava Metro](https:/metro.strava.com/) - Anonymized activity data
-- [Strava Privacy Controls](https:/support.strava.com/hc/en-us/articles/115000173384/)
-- [Military Base Exposure Incident](https:/www.bbc.com/news/technology-42853072/)
+- [Strava Metro](https://metro.strava.com/) - Anonymized activity data
+- [Strava Privacy Controls](https://support.strava.com/hc/en-us/articles/115000173384/)
+- [Military Base Exposure Incident](https://www.bbc.com/news/technology-42853072/)

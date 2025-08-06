@@ -69,7 +69,7 @@ spec:
   interval: 1m
   ref:
     branch: main
-  url: https:/github.com/company/platform-config
+  url: https://github.com/company/platform-config
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -149,9 +149,9 @@ async def create_service(request: ServiceRequest):
     await configure_monitoring(service_config)
     
     return {
-        "service_url": f"https:/{request.name}.platform.com",
-        "git_repo": f"https:/github.com/org/{request.name}",
-        "dashboard": f"https:/grafana.platform.com/d/{request.name}"
+        "service_url": f"https://{request.name}.platform.com",
+        "git_repo": f"https://github.com/org/{request.name}",
+        "dashboard": f"https://grafana.platform.com/d/{request.name}"
     }
 ```
 
@@ -512,7 +512,7 @@ graph TD
 
 ## Resources
 
-- [CNCF Platform Engineering](https:/tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/)
+- [CNCF Platform Engineering](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/)
 - [Team Topologies](../architects-handbook/human-factors/team-topologies.md)
-- [GitOps Patterns](https:/www.gitops.tech/)
-- [Platform Engineering Slack](https:/platformengineering.org/slack/)
+- [GitOps Patterns](https://www.gitops.tech/)
+- [Platform Engineering Slack](https://platformengineering.org/slack/)

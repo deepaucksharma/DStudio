@@ -682,14 +682,14 @@ graph TB
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
 
 ### Technical Resources
-- [Distributed Transactions at Scale](https:/www.paypal-engineering.com/distributed-transactions/)
-- [Building Financial Systems](https:/martinfowler.com/articles/patterns-of-distributed-systems/)
-- [Payment Processing Best Practices](https:/stripe.com/docs/payments/payment-intents/)
+- [Distributed Transactions at Scale](https://www.paypal-engineering.com/distributed-transactions/)
+- [Building Financial Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/)
+- [Payment Processing Best Practices](https://stripe.com/docs/payments/payment-intents/)
 
 ### Similar Systems
-- [Stripe's Payment Infrastructure](https:/stripe.com/blog/payment-api-design/)
-- [Square's Transaction Processing](https:/developer.squareup.com/blog/payment-reliability/)
-- [Adyen's Global Payment Platform](https:/www.adyen.com/knowledge-hub/platform-architecture/)
+- [Stripe's Payment Infrastructure](https://stripe.com/blog/payment-api-design/)
+- [Square's Transaction Processing](https://developer.squareup.com/blog/payment-reliability/)
+- [Adyen's Global Payment Platform](https://www.adyen.com/knowledge-hub/platform-architecture/)
 
 ## Related Concepts & Deep Dives
 

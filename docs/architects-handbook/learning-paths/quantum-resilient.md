@@ -630,16 +630,16 @@ outcomes:
 ### Implementation Resources
 
 **Post-Quantum Libraries**:
-- [Open Quantum Safe (liboqs)](https:/openquantumsafe.org/)
-- [NIST PQC Reference Implementations](https:/csrc.nist.gov/projects/post-quantum-cryptography/)
-- [Kyber Implementation](https:/pq-crystals.org/kyber/)
-- [Dilithium Implementation](https:/pq-crystals.org/dilithium/)
+- [Open Quantum Safe (liboqs)](https://openquantumsafe.org/)
+- [NIST PQC Reference Implementations](https://csrc.nist.gov/projects/post-quantum-cryptography/)
+- [Kyber Implementation](https://pq-crystals.org/kyber/)
+- [Dilithium Implementation](https://pq-crystals.org/dilithium/)
 
 **Quantum Development Platforms**:
-- [IBM Qiskit](https:/qiskit.org/)
-- [Google Cirq](https:/quantumai.google/cirq/)
-- [Microsoft Q# Development Kit](https:/azure.microsoft.com/en-us/products/quantum/)
-- [Amazon Braket](https:/aws.amazon.com/braket/)
+- [IBM Qiskit](https://qiskit.org/)
+- [Google Cirq](https://quantumai.google/cirq/)
+- [Microsoft Q# Development Kit](https://azure.microsoft.com/en-us/products/quantum/)
+- [Amazon Braket](https://aws.amazon.com/braket/)
 
 ## 🏁 Capstone: Quantum-Resilient Security Platform
 

@@ -524,7 +524,7 @@ http_request_duration_seconds{quantile="0.99"} # Link to Jaeger
 
 ## References
 
-1. [Prometheus: Up & Running](https:/www.oreilly.com/library/view/prometheus-up/9781492034131/)
-2. [Robust Perception Blog](https:/www.robustperception.io/blog/)
-3. [PromCon Talks](https:/promcon.io/)
-4. [Prometheus Documentation](https:/prometheus.io/docs/)
+1. [Prometheus: Up & Running](https://www.oreilly.com/library/view/prometheus-up/9781492034131/)
+2. [Robust Perception Blog](https://www.robustperception.io/blog/)
+3. [PromCon Talks](https://promcon.io/)
+4. [Prometheus Documentation](https://prometheus.io/docs/)

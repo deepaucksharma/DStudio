@@ -112,8 +112,8 @@ Sizing systems for current and future needs:
 - Queue wait time calculator (in queueing-theory.md)
 
 ### External Resources
-- [Google SRE Workbook](https:/sre.google/workbook/) - Practical reliability calculations
-- [AWS Architecture Center](https:/aws.amazon.com/architecture/) - Real-world capacity planning
+- [Google SRE Workbook](https://sre.google/workbook/) - Practical reliability calculations
+- [AWS Architecture Center](https://aws.amazon.com/architecture/) - Real-world capacity planning
 - [High Scalability](http:/highscalability.com/) - Case studies with numbers
 
 ## 🚀 Getting Started

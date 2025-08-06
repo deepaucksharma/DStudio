@@ -1743,8 +1743,8 @@ timeline
 
 ## External Resources
 
-- **[Amazon Aurora Documentation](https:/docs.aws.amazon.com/aurora/)** - Official Aurora documentation
-- **[Aurora Design Paper](https:/web.stanford.edu/~ouster/cgi-bin/papers/aurora.pdf/)** - Academic paper on Aurora architecture
-- **[Aurora Best Practices](https:/docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.BestPractices.html/)** - AWS best practices guide
-- **[Aurora Performance Insights](https:/aws.amazon.com/rds/performance-insights/)** - Database performance monitoring
-- **[Aurora Labs](https:/awsauroralabsmy.com/)** - Hands-on Aurora workshops
+- **[Amazon Aurora Documentation](https://docs.aws.amazon.com/aurora/)** - Official Aurora documentation
+- **[Aurora Design Paper](https://web.stanford.edu/~ouster/cgi-bin/papers/aurora.pdf/)** - Academic paper on Aurora architecture
+- **[Aurora Best Practices](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.BestPractices.html/)** - AWS best practices guide
+- **[Aurora Performance Insights](https://aws.amazon.com/rds/performance-insights/)** - Database performance monitoring
+- **[Aurora Labs](https://awsauroralabsmy.com/)** - Hands-on Aurora workshops

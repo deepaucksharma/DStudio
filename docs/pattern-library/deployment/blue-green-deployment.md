@@ -1106,7 +1106,7 @@ Resource Management:
 
 ## Further Reading
 
-- [Martin Fowler - BlueGreenDeployment](https:/martinfowler.com/bliki/BlueGreenDeployment.html/)
-- [AWS Blue/Green Deployment Guide](https:/docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/welcome.html/)
-- [Kubernetes Blue-Green Deployments](https:/kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#blue-green-deployments/)
-- [Netflix Spinnaker](https:/spinnaker.io/)
+- [Martin Fowler - BlueGreenDeployment](https://martinfowler.com/bliki/BlueGreenDeployment.html/)
+- [AWS Blue/Green Deployment Guide](https://docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/welcome.html/)
+- [Kubernetes Blue-Green Deployments](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#blue-green-deployments/)
+- [Netflix Spinnaker](https://spinnaker.io/)

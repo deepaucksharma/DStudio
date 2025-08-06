@@ -1137,7 +1137,7 @@ Alert Tuning:
 
 ## Further Reading
 
-- [Martin Fowler - CanaryRelease](https:/martinfowler.com/bliki/CanaryRelease.html/)
-- [Netflix - Automated Canary Analysis](https:/netflixtechblog.com/automated-canary-analysis-at-netflix-with-kayenta-3260bc7acc69/)
-- [Google - Site Reliability Engineering](https:/sre.google/sre-book/incident-response.mdindex)
-- [Flagger - Progressive Delivery Operator](https:/flagger.app/)
+- [Martin Fowler - CanaryRelease](https://martinfowler.com/bliki/CanaryRelease.html/)
+- [Netflix - Automated Canary Analysis](https://netflixtechblog.com/automated-canary-analysis-at-netflix-with-kayenta-3260bc7acc69/)
+- [Google - Site Reliability Engineering](https://sre.google/sre-book/incident-response.mdindex)
+- [Flagger - Progressive Delivery Operator](https://flagger.app/)

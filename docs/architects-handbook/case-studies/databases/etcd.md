@@ -268,11 +268,11 @@ name: 'etcd-1'
 data-dir: '/var/lib/etcd'
 
 # Network
-listen-client-urls: 'https:/0.0.0.0:2379'
-listen-peer-urls: 'https:/0.0.0.0:2380'
+listen-client-urls: 'https://0.0.0.0:2379'
+listen-peer-urls: 'https://0.0.0.0:2380'
 
 # Cluster
-initial-cluster: 'etcd-1=https:/10.0.1.10:2380,etcd-2=https:/10.0.2.10:2380,etcd-3=https:/10.0.3.10:2380'
+initial-cluster: 'etcd-1=https://10.0.1.10:2380,etcd-2=https://10.0.2.10:2380,etcd-3=https://10.0.3.10:2380'
 initial-cluster-state: 'new'
 
 # Performance
@@ -324,7 +324,7 @@ etcd_grpc_request_duration_seconds
 # Production backup script
 
 ETCDCTL_API=3
-ENDPOINTS="https:/10.0.1.10:2379,https:/10.0.2.10:2379,https:/10.0.3.10:2379"
+ENDPOINTS="https://10.0.1.10:2379,https://10.0.2.10:2379,https://10.0.3.10:2379"
 BACKUP_DIR="/backup/etcd"
 DATE=$(date +%Y%m%d_%H%M%S)
 
@@ -493,7 +493,7 @@ _, err := client.Txn(ctx).Then(ops...).Commit()
 ```bash
 # Add learner node (non-voting)
 etcdctl member add node4 --learner \
-  --peer-urls=https:/10.0.4.10:2380
+  --peer-urls=https://10.0.4.10:2380
 
 # Promote to voting member after sync
 etcdctl member promote <member-id>
@@ -527,7 +527,7 @@ client.Cluster.MemberUpdate(ctx, memberID,
 
 ## References
 
-1. [etcd Documentation](https:/etcd.io/docs/)
-2. [Raft Consensus Algorithm](https:/raft.github.io/)
-3. [Operating etcd clusters for Kubernetes](https:/kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-4. [etcd Performance Tuning](https:/etcd.io/docs/latest/tuning/)
+1. [etcd Documentation](https://etcd.io/docs/)
+2. [Raft Consensus Algorithm](https://raft.github.io/)
+3. [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+4. [etcd Performance Tuning](https://etcd.io/docs/latest/tuning/)

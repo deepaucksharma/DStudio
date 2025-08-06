@@ -1188,7 +1188,7 @@ The operational patterns pioneered by Netflix, GitHub, and other large-scale use
 - [Apache Kafka](kafka.md) - Stream processing for real-time indexing
 
 ## External Resources
-- [Elasticsearch Guide](https:/www.elastic.co/guide/en/elasticsearch/reference/current/index.html/)¹
-- [Netflix Tech Blog - Elasticsearch](https:/netflixtechblog.com/tagged/elasticsearch/)²
-- [Uber Engineering - Elasticsearch](https:/eng.uber.com/elasticsearch-query-cache/)³
-- [GitHub Engineering - Search](https:/github.blog/2021-12-15-a-brief-history-of-code-search-at-github/)⁴
+- [Elasticsearch Guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html/)¹
+- [Netflix Tech Blog - Elasticsearch](https://netflixtechblog.com/tagged/elasticsearch/)²
+- [Uber Engineering - Elasticsearch](https://eng.uber.com/elasticsearch-query-cache/)³
+- [GitHub Engineering - Search](https://github.blog/2021-12-15-a-brief-history-of-code-search-at-github/)⁴

@@ -370,7 +370,7 @@ gantt
  - 🛠️ Calculate: Your system's latency budget
  - 🎯 Goal: Estimate any operation's time
  
- **Day 55**: [Little's Law](../quantitative-analysis/littles-law.mdindex.md)
+ **Day 55**: [Little's Law](../quantitative-analysis/littles-law.md)
  - 📊 Formula: L = λW
  - 🛠️ Apply: Size your thread pools
  - 🎯 Goal: Predict queue behavior
@@ -506,13 +506,13 @@ Use this checklist to track your progress:
        - Blog about your learning
     
     2. **Join Communities**
-       - [r/DistributedSystems](https:/reddit.com/r/distributedsystems/)
+       - [r/DistributedSystems](https://reddit.com/r/distributedsystems/)
        - [System Design Discord](#)
        - Local meetups
     
     3. **Keep Learning**
        - Read one paper/week
-       - Follow [Morning Paper](https:/blog.acolyer.org/)
+       - Follow [Morning Paper](https://blog.acolyer.org/)
        - Watch conference talks
 
 - :material-trending-up:{ .lg .middle } **Your Next Path**
@@ -561,14 +561,14 @@ Use this checklist to track your progress:
     - 📙 "The Little Book of Semaphores" - Concurrency basics
 
 - **Free Resources**  
-    - 🎓 [MIT 6.824 Lectures](https:/www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB/)
+    - 🎓 [MIT 6.824 Lectures](https://www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB/)
     - 📝 [High Scalability](http:/highscalability.com/)
-    - 📡 [The Morning Paper](https:/blog.acolyer.org/)
+    - 📡 [The Morning Paper](https://blog.acolyer.org/)
 
 - **Hands-On Labs**
-    - 🛠️ [Distributed Systems Challenges](https:/github.com/pingcap/talent-plan/)
-    - 🧪 [Build Your Own X](https:/github.com/codecrafters-io/build-your-own-x/)
-    - 🎮 [Distributed Systems Course](https:/pdos.csail.mit.edu/6.824/)
+    - 🛠️ [Distributed Systems Challenges](https://github.com/pingcap/talent-plan/)
+    - 🧪 [Build Your Own X](https://github.com/codecrafters-io/build-your-own-x/)
+    - 🎮 [Distributed Systems Course](https://pdos.csail.mit.edu/6.824/)
 
 </div>
 

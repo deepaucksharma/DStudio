@@ -461,7 +461,7 @@ graph TD
 - [Fanout Pattern](../pattern-library/fanout.md)
 - [Cache-aside Pattern](../scaling/caching-strategies.md)
 - [Sharding Pattern](../pattern-library/scaling/sharding.md)
-- [Twitter Engineering Blog](https:/blog.twitter.com/engineering/)
+- [Twitter Engineering Blog](https://blog.twitter.com/engineering/)
 
 ---
 

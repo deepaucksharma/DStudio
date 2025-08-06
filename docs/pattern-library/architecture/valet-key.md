@@ -52,7 +52,7 @@ when_to_use: Direct client access to resources, temporary permissions, reducing 
 
 | Component | Purpose | Example |
 |-----------|---------|---------|
-| **Resource URI** | What to access | `https:/storage.example.com/bucket/file.pdf` |
+| **Resource URI** | What to access | `https://storage.example.com/bucket/file.pdf` |
 | **Permissions** | What actions allowed | `READ`, `WRITE`, `DELETE` |
 | **Expiration** | Time limit | `2024-01-26T15:30:00Z` |
 | **Signature** | Tamper-proof validation | `HMAC-SHA256(data, secret)` |

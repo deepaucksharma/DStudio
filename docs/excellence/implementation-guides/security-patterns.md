@@ -201,8 +201,8 @@ api_gateway_config:
   authentication:
     providers:
       - jwt:
-          issuer: https:/auth.company.com
-          jwks_uri: https:/auth.company.com/.well-known/jwks.json
+          issuer: https://auth.company.com
+          jwks_uri: https://auth.company.com/.well-known/jwks.json
       - api_key:
           header: X-API-Key
           query_param: api_key

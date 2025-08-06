@@ -121,7 +121,7 @@ Expiration Policies:
 1. **Deploy HashiCorp Vault**
 ```bash
 # Install Vault on Kubernetes
-helm repo add hashicorp https:/helm.releases.hashicorp.com
+helm repo add hashicorp https://helm.releases.hashicorp.com
 helm install vault hashicorp/vault \
   --set="server.ha.enabled=true" \
   --set="server.ha.replicas=3" \
@@ -140,7 +140,7 @@ vault auth enable kubernetes
 # Configure Kubernetes auth
 vault write auth/kubernetes/config \
     token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
-    kubernetes_host="https:/kubernetes.default.svc.cluster.local" \
+    kubernetes_host="https://kubernetes.default.svc.cluster.local" \
     kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 ```
 
@@ -285,7 +285,7 @@ class SecretRotator:
 
 if __name__ == "__main__":
     rotator = SecretRotator(
-        vault_url="https:/vault.company.com",
+        vault_url="https://vault.company.com",
         vault_token=os.environ['VAULT_TOKEN']
     )
     rotator.schedule_rotations()
@@ -474,7 +474,7 @@ Phase 3 (Full Migration):
 
 ## Further Reading
 
-- [HashiCorp Vault Documentation](https:/www.vaultproject.io/docs/)
-- [NIST Cybersecurity Framework](https:/www.nist.gov/cyberframework/)
-- [OWASP Secrets Management Cheat Sheet](https:/cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html/)
-- [Google Secret Manager Best Practices](https:/cloud.google.com/secret-manager/docs/best-practices/)
+- [HashiCorp Vault Documentation](https://www.vaultproject.io/docs/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework/)
+- [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html/)
+- [Google Secret Manager Best Practices](https://cloud.google.com/secret-manager/docs/best-practices/)

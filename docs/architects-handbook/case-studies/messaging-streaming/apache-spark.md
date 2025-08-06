@@ -586,7 +586,7 @@ spark.conf.set("spark.task.resource.gpu.amount", "0.25")
 
 ## References
 
-1. [Spark: The Definitive Guide](https:/www.oreilly.com/library/view/spark-the-definitive/9781491912201/)
-2. [High Performance Spark](https:/www.oreilly.com/library/view/high-performance-spark/9781491943199/)
-3. [Learning Spark, 2nd Edition](https:/www.oreilly.com/library/view/learning-spark-2nd/9781492050049/)
-4. [Spark Documentation](https:/spark.apache.org/docs/latest/)
+1. [Spark: The Definitive Guide](https://www.oreilly.com/library/view/spark-the-definitive/9781491912201/)
+2. [High Performance Spark](https://www.oreilly.com/library/view/high-performance-spark/9781491943199/)
+3. [Learning Spark, 2nd Edition](https://www.oreilly.com/library/view/learning-spark-2nd/9781492050049/)
+4. [Spark Documentation](https://spark.apache.org/docs/latest/)

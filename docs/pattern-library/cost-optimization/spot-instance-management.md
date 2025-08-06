@@ -1085,7 +1085,7 @@ Classification Framework:
 
 ## Further Reading
 
-- [AWS Spot Instance Best Practices](https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-best-practices.html/)
-- [Azure Spot Virtual Machines](https:/docs.microsoft.com/en-us/azure/virtual-machines/spot-vms/)
-- [Google Cloud Preemptible VMs](https:/cloud.google.com/compute/docs/instances/preemptible/)
-- [Kubernetes Spot Instance Guide](https:/kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+- [AWS Spot Instance Best Practices](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-best-practices.html/)
+- [Azure Spot Virtual Machines](https://docs.microsoft.com/en-us/azure/virtual-machines/spot-vms/)
+- [Google Cloud Preemptible VMs](https://cloud.google.com/compute/docs/instances/preemptible/)
+- [Kubernetes Spot Instance Guide](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/)

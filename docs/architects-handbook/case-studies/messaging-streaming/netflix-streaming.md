@@ -485,10 +485,10 @@ Netflix started with a monolith and migrated to microservices over 3 years:
 
 ## Further Reading
 
-- [Netflix Technology Blog](https:/netflixtechblog.com/)
-- [Chaos Engineering: Building Confidence in System Behavior](https:/www.oreilly.com/library/view/chaos-engineering/9781491988459/)
-- [Microservices at Netflix Scale](https:/www.infoq.com/presentations/netflix-microservices-architecture/)
-- [Open Connect: Netflix's Content Delivery Network](https:/openconnect.netflix.com/en/)
+- [Netflix Technology Blog](https://netflixtechblog.com/)
+- [Chaos Engineering: Building Confidence in System Behavior](https://www.oreilly.com/library/view/chaos-engineering/9781491988459/)
+- [Microservices at Netflix Scale](https://www.infoq.com/presentations/netflix-microservices-architecture/)
+- [Open Connect: Netflix's Content Delivery Network](https://openconnect.netflix.com/en/)
 
 ## Discussion Questions
 

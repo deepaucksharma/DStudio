@@ -270,9 +270,9 @@ This comprehensive guide is designed for:
 - "The Culture Map" - Meyer
 
 ### Online Resources
-- **[StaffEng.com](https:/staffeng.com/)** - Staff+ engineering stories
-- **[LeadDev.com](https:/leaddev.com/)** - Engineering leadership content
-- **[The Pragmatic Engineer](https:/blog.pragmaticengineer.com/)** - Industry insights
+- **[StaffEng.com](https://staffeng.com/)** - Staff+ engineering stories
+- **[LeadDev.com](https://leaddev.com/)** - Engineering leadership content
+- **[The Pragmatic Engineer](https://blog.pragmaticengineer.com/)** - Industry insights
 
 ## Interactive Practice Tools {#practice-tools}
 

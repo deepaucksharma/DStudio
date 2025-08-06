@@ -1368,16 +1368,16 @@ Database:
 ### 📚 References
 
 **Original Systems:**
-- [Snowflake: Twitter's ID generation](https:/github.com/twitter-archive/snowflake/)
-- [Instagram's ID architecture](https:/instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c/)
-- [Flickr's Ticket Servers](https:/code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/)
-- [UUID Specification (RFC 4122)](https:/tools.ietf.org/html/rfc4122/)
+- [Snowflake: Twitter's ID generation](https://github.com/twitter-archive/snowflake/)
+- [Instagram's ID architecture](https://instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c/)
+- [Flickr's Ticket Servers](https://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/)
+- [UUID Specification (RFC 4122)](https://tools.ietf.org/html/rfc4122/)
 
 **Modern Implementations:**
-- [Sony's Sonyflake](https:/github.com/sony/sonyflake/)
-- [Baidu's UidGenerator](https:/github.com/baidu/uid-generator/)
-- [Leaf: Meituan's ID Generator](https:/github.com/Meituan-Dianping/Leaf/)
-- [Discord's Snowflake](https:/discord.com/developers/docs/reference#snowflakes/)
+- [Sony's Sonyflake](https://github.com/sony/sonyflake/)
+- [Baidu's UidGenerator](https://github.com/baidu/uid-generator/)
+- [Leaf: Meituan's ID Generator](https://github.com/Meituan-Dianping/Leaf/)
+- [Discord's Snowflake](https://discord.com/developers/docs/reference#snowflakes/)
 
 **Related Patterns:**
 - [Lamport Timestamps](../pattern-library/coordination/logical-clocks.md)

@@ -946,8 +946,8 @@ class HEREFleetOptimizer:
 
 ## External Resources
 
-- **[HERE HD Live Map Documentation](https:/developer.here.com/documentation/hd-live-map/)** - Technical API documentation
-- **[HERE Automotive Solutions](https:/www.here.com/solutions/automotive/)** - Automotive industry solutions overview
-- **[ISO 26262 Automotive Safety](https:/www.iso.org/standard/68383.html/)** - Functional safety standards
-- **[HERE Fleet Telematics](https:/developer.here.com/documentation/fleet-telematics/)** - Fleet management APIs
-- **[Automotive Edge Computing](https:/www.here.com/platform/automotive-edge-computing/)** - Edge processing for vehicles
+- **[HERE HD Live Map Documentation](https://developer.here.com/documentation/hd-live-map/)** - Technical API documentation
+- **[HERE Automotive Solutions](https://www.here.com/solutions/automotive/)** - Automotive industry solutions overview
+- **[ISO 26262 Automotive Safety](https://www.iso.org/standard/68383.html/)** - Functional safety standards
+- **[HERE Fleet Telematics](https://developer.here.com/documentation/fleet-telematics/)** - Fleet management APIs
+- **[Automotive Edge Computing](https://www.here.com/platform/automotive-edge-computing/)** - Edge processing for vehicles

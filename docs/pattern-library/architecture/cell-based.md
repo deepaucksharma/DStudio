@@ -301,7 +301,7 @@ graph TD
 
 ## References
 
-- [AWS Well-Architected Framework - Cell-Based Architecture](https:/docs.aws.amazon.com/wellarchitected/latest/framework/cell-based-architecture.html/)
-- [Slack's Cell-Based Architecture](https:/slack.engineering/cell-based-architecture/)
-- [Azure Mission-Critical - Deployment Stamps](https:/docs.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-deployment-stamps/)
+- [AWS Well-Architected Framework - Cell-Based Architecture](https://docs.aws.amazon.com/wellarchitected/latest/framework/cell-based-architecture.html/)
+- [Slack's Cell-Based Architecture](https://slack.engineering/cell-based-architecture/)
+- [Azure Mission-Critical - Deployment Stamps](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-deployment-stamps/)
 

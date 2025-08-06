@@ -328,7 +328,7 @@ Cost = (Trace Volume × Sample Rate × Retention) × Processing Rate
 - [Operational Excellence](../architects-handbook/implementation-playbooks/implementation-guides/operational-excellence.md)
 - [Monitoring Patterns](../../pattern-library/resilience/monitoring.md)
 
-<script src="https:/cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 let costBreakdownChart = null;
 let volumeChart = null;

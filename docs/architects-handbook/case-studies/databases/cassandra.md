@@ -942,7 +942,7 @@ Understanding Cassandra's approach to distributed data management provides insig
 - [Database Internals](../pattern-library/data-management/lsm-tree.md) - Deep dive into storage engines
 
 ## External Resources
-- [Cassandra Architecture Documentation](https:/cassandra.apache.org/doc/latest/architecture/)¹
-- [DataStax Best Practices](https:/docs.datastax.com/en/cassandra-oss/3.x/cassandra/dml/dmlBestPractices.html/)²
-- [Netflix Tech Blog - Cassandra](https:/netflixtechblog.com/tagged/cassandra/)³
-- [Discord Engineering - Cassandra](https:/discord.com/blog/how-discord-stores-billions-of-messages/)⁴
+- [Cassandra Architecture Documentation](https://cassandra.apache.org/doc/latest/architecture/)¹
+- [DataStax Best Practices](https://docs.datastax.com/en/cassandra-oss/3.x/cassandra/dml/dmlBestPractices.html/)²
+- [Netflix Tech Blog - Cassandra](https://netflixtechblog.com/tagged/cassandra/)³
+- [Discord Engineering - Cassandra](https://discord.com/blog/how-discord-stores-billions-of-messages/)⁴

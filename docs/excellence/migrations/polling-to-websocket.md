@@ -534,7 +534,7 @@ class WebSocketUser(User):
 
 # Test 1: Verify dual support
 echo "Testing dual support..."
-curl -X GET https:/api.example.com/data  # Polling endpoint
+curl -X GET https://api.example.com/data  # Polling endpoint
 wscat -c wss:/api.example.com/ws  # WebSocket endpoint
 
 # Test 2: Fallback mechanism

@@ -181,7 +181,7 @@ sequenceDiagram
     participant Cache
     participant CDN
     
-    User->>API: POST /shorten<br/>{url: "https:/example.com/very/long/url"}
+    User->>API: POST /shorten<br/>{url: "https://example.com/very/long/url"}
     API->>Val: Validate URL
     
     Val->>Val: Check format
@@ -211,7 +211,7 @@ sequenceDiagram
                 Cache->>CDN: Propagate to edge
                 
                 Gen-->>API: short_url: "abc123"
-                API-->>User: {"short_url": "https:/short.ly/abc123"}
+                API-->>User: {"short_url": "https://short.ly/abc123"}
             end
         end
     end
@@ -1948,14 +1948,14 @@ graph TB
 ### 📚 References
 
 **Industry Examples:**
-- [Bitly's Architecture](https:/word.bitly.com/post/287921488/bitleaf-billions-served/)
-- [Discord's Shortener](https:/discord.com/blog/how-discord-stores-billions-of-messages/)
-- [URL Shortening Strategies](https:/blog.codinghorror.com/url-shortening-hashes-in-practice/)
+- [Bitly's Architecture](https://word.bitly.com/post/287921488/bitleaf-billions-served/)
+- [Discord's Shortener](https://discord.com/blog/how-discord-stores-billions-of-messages/)
+- [URL Shortening Strategies](https://blog.codinghorror.com/url-shortening-hashes-in-practice/)
 
 **Open Source:**
-- [YOURLS](https:/yourls.org/)
-- [Kutt.it](https:/github.com/thedevs-network/kutt/)
-- [Polr](https:/github.com/cydrobolt/polr/)
+- [YOURLS](https://yourls.org/)
+- [Kutt.it](https://github.com/thedevs-network/kutt/)
+- [Polr](https://github.com/cydrobolt/polr/)
 
 **Related Patterns:**
 - [Caching Strategies](../pattern-library/scaling/caching-strategies.md)

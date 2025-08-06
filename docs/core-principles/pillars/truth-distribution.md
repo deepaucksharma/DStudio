@@ -10,7 +10,7 @@ prerequisites:
 - axiom5-epistemology
 status: complete
 last_updated: 2025-07-29
-audio_widget: '<iframe style="border-radius:12px" src="https:/open.spotify.com/embed/episode/1Y5F0MhWQGF78FQZJBUdmS?utm_source=generator"
+audio_widget: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/1Y5F0MhWQGF78FQZJBUdmS?utm_source=generator"
   width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write;
   encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 

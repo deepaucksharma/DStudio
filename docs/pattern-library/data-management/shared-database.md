@@ -278,14 +278,14 @@ graph TD
 ## Further Reading
 
 ### Migration Resources
-- ["Building Microservices" by Sam Newman](https:/www.oreilly.com/library/view/building-microservices-2nd/9781492034018/) - Chapter on data
-- ["Monolith to Microservices" by Sam Newman](https:/www.oreilly.com/library/view/monolith-to-microservices/9781492047834/) - Migration patterns
-- ["Microservices Patterns" by Chris Richardson](https:/microservices.io/book/) - Data patterns
+- ["Building Microservices" by Sam Newman](https://www.oreilly.com/library/view/building-microservices-2nd/9781492034018/) - Chapter on data
+- ["Monolith to Microservices" by Sam Newman](https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/) - Migration patterns
+- ["Microservices Patterns" by Chris Richardson](https://microservices.io/book/) - Data patterns
 
 ### Online Resources
-- [Martin Fowler: Database Styles](https:/martinfowler.com/articles/microservices.html#DecentralizedDataManagement/)
-- [Chris Richardson: Database Architecture](https:/microservices.io../pattern-library/data/database-per-service.html/)
-- [ThoughtWorks: Breaking the Monolith](https:/www.thoughtworks.com/insights/blog/breaking-monolith/)
+- [Martin Fowler: Database Styles](https://martinfowler.com/articles/microservices.html#DecentralizedDataManagement/)
+- [Chris Richardson: Database Architecture](https://microservices.io../pattern-library/data/database-per-service.html/)
+- [ThoughtWorks: Breaking the Monolith](https://www.thoughtworks.com/insights/blog/breaking-monolith/)
 
 ## Level 1: Intuition (5 minutes)
 

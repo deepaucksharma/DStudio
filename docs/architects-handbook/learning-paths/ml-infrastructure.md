@@ -564,7 +564,7 @@ Build these impressive projects to showcase your skills:
 
 ### Community Resources & Conferences
 
-- **MLOps Discord**: [#ml-infrastructure-engineers](https:/discord.gg/mlops/)
+- **MLOps Discord**: [#ml-infrastructure-engineers](https://discord.gg/mlops/)
 - **MLSys Conference**: Academic + industry ML systems research
 - **MLOps World**: Practical ML operations conference
 - **NeurIPS**: Premier AI/ML research conference
@@ -659,22 +659,22 @@ Post-program achievements:
 ### Technical Resources & Documentation
 
 **ML Infrastructure Frameworks**:
-- [Kubeflow Documentation](https:/www.kubeflow.org/docs/)
-- [MLflow Documentation](https:/mlflow.org/docs/latest/index.html/)
-- [TensorFlow Serving Guide](https:/www.tensorflow.org/tfx/guide/serving/)
-- [Feast Feature Store](https:/docs.feast.dev/)
+- [Kubeflow Documentation](https://www.kubeflow.org/docs/)
+- [MLflow Documentation](https://mlflow.org/docs/latest/index.html/)
+- [TensorFlow Serving Guide](https://www.tensorflow.org/tfx/guide/serving/)
+- [Feast Feature Store](https://docs.feast.dev/)
 
 **LLM & Advanced AI**:
-- [Hugging Face Transformers](https:/huggingface.co/docs/transformers/)
-- [vLLM Documentation](https:/docs.vllm.ai/)
-- [LangChain Documentation](https:/docs.langchain.com/)
-- [Pinecone Vector Database](https:/docs.pinecone.io/)
+- [Hugging Face Transformers](https://huggingface.co/docs/transformers/)
+- [vLLM Documentation](https://docs.vllm.ai/)
+- [LangChain Documentation](https://docs.langchain.com/)
+- [Pinecone Vector Database](https://docs.pinecone.io/)
 
 **Industry Blogs & Research**:
-- [Netflix Technology Blog - ML](https:/netflixtechblog.com/)
-- [Uber Engineering - AI/ML](https:/eng.uber.com/category/articles/ai/)
-- [OpenAI Research](https:/openai.com/research/)
-- [Google AI Blog](https:/ai.googleblog.com/)
+- [Netflix Technology Blog - ML](https://netflixtechblog.com/)
+- [Uber Engineering - AI/ML](https://eng.uber.com/category/articles/ai/)
+- [OpenAI Research](https://openai.com/research/)
+- [Google AI Blog](https://ai.googleblog.com/)
 
 ## 🏁 Capstone Project: Enterprise AI/ML Platform
 

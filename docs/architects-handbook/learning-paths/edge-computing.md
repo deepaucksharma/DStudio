@@ -612,15 +612,15 @@ outcomes:
 ### Technical Resources
 
 **Edge Computing Platforms**:
-- [AWS Wavelength Documentation](https:/docs.aws.amazon.com/wavelength/)
-- [Azure Edge Zones](https:/azure.microsoft.com/en-us/products/edge-zones/)
-- [Google Cloud Edge](https:/cloud.google.com/solutions/edge-computing/)
-- [KubeEdge Project](https:/kubeedge.io/en/docs/)
+- [AWS Wavelength Documentation](https://docs.aws.amazon.com/wavelength/)
+- [Azure Edge Zones](https://azure.microsoft.com/en-us/products/edge-zones/)
+- [Google Cloud Edge](https://cloud.google.com/solutions/edge-computing/)
+- [KubeEdge Project](https://kubeedge.io/en/docs/)
 
 **5G & MEC Standards**:
-- [ETSI MEC Specifications](https:/www.etsi.org/technologies/multi-access-edge-computing/)
-- [3GPP 5G Standards](https:/www.3gpp.org/release-16/)
-- [Open Edge Computing](https:/www.openedgecomputing.org/)
+- [ETSI MEC Specifications](https://www.etsi.org/technologies/multi-access-edge-computing/)
+- [3GPP 5G Standards](https://www.3gpp.org/release-16/)
+- [Open Edge Computing](https://www.openedgecomputing.org/)
 
 ## 🏁 Capstone: Global Edge Computing Platform
 

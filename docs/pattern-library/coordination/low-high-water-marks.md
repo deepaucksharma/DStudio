@@ -256,9 +256,9 @@ This pattern directly addresses:
 ### Foundational Pillars
 Water Marks implement:
 
-- **[Pillar 1: Distribution of Work 🔨](core-principles../core-principles/pillars/work-distribution.md)**: Control work distribution rate
-- **[Pillar 4: Distribution of Control 🎮](core-principles../core-principles/pillars/control-distribution.md)**: Decentralized flow control
-- **[Pillar 2: Distribution of State 🗃️](core-principles../core-principles/pillars/state-distribution.md)**: Buffer state management
+- **[Pillar 1: Distribution of Work 🔨](../../core-principles/pillars/work-distribution.md)**: Control work distribution rate
+- **[Pillar 4: Distribution of Control 🎮](../../core-principles/pillars/control-distribution.md)**: Decentralized flow control
+- **[Pillar 2: Distribution of State 🗃️](../../core-principles/pillars/state-distribution.md)**: Buffer state management
 
 ## Related Patterns
 

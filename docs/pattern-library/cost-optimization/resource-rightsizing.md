@@ -1103,7 +1103,7 @@ Safety Measures:
 
 ## Further Reading
 
-- [AWS Well-Architected Cost Optimization](https:/docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html/)
-- [Google Cloud Rightsizing Recommendations](https:/cloud.google.com/compute/docs/instances/apply-sizing-recommendations/)
-- [Azure Advisor Cost Recommendations](https:/docs.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations/)
-- [FinOps Foundation - Cloud Cost Optimization](https:/www.finops.org/introduction/what-is-finops/)
+- [AWS Well-Architected Cost Optimization](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html/)
+- [Google Cloud Rightsizing Recommendations](https://cloud.google.com/compute/docs/instances/apply-sizing-recommendations/)
+- [Azure Advisor Cost Recommendations](https://docs.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations/)
+- [FinOps Foundation - Cloud Cost Optimization](https://www.finops.org/introduction/what-is-finops/)

@@ -558,7 +558,7 @@ Build these impressive projects to showcase skills:
 
 ### Community Resources
 
-- **Platform Engineering Discord**: [#platform-engineers](https:/discord.gg/platform-eng/)
+- **Platform Engineering Discord**: [#platform-engineers](https://discord.gg/platform-eng/)
 - **PlatformCon**: Annual platform engineering conference
 - **CNCF Platform Working Group**: Standards and best practices
 - **Platform Engineering Slack**: 15k+ members sharing knowledge
@@ -645,16 +645,16 @@ Graduates' platform implementations show:
 ### Essential Platform Resources
 
 **Documentation & Best Practices**:
-- [Backstage Documentation](https:/backstage.io/docs/)
-- [CNCF Platform Definition](https:/github.com/cncf/platforms-wg/)
-- [Platform Engineering Maturity Model](https:/platformengineering.org/maturity-model/)
-- [Golden Path Templates](https:/backstage.spotify.com/golden-path/)
+- [Backstage Documentation](https://backstage.io/docs/)
+- [CNCF Platform Definition](https://github.com/cncf/platforms-wg/)
+- [Platform Engineering Maturity Model](https://platformengineering.org/maturity-model/)
+- [Golden Path Templates](https://backstage.spotify.com/golden-path/)
 
 **Industry Case Studies**:
-- [Spotify's Platform Journey](https:/engineering.atspotify.com/)
-- [Netflix's Developer Experience](https:/netflixtechblog.com/)
-- [Airbnb's Platform Evolution](https:/medium.com/airbnb-engineering/)
-- [Google's Internal Platforms](https:/cloud.google.com/blog/topics/developers-practitioners/)
+- [Spotify's Platform Journey](https://engineering.atspotify.com/)
+- [Netflix's Developer Experience](https://netflixtechblog.com/)
+- [Airbnb's Platform Evolution](https://medium.com/airbnb-engineering/)
+- [Google's Internal Platforms](https://cloud.google.com/blog/topics/developers-practitioners/)
 
 **Conferences & Events**:
 - **PlatformCon** - Annual platform engineering conference

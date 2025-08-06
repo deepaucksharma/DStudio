@@ -53,7 +53,7 @@ graph LR
     
     Step-by-step guides for implementing patterns safely in production
     
-    **🚀 Popular**: [Monolith to Microservices](implementation-playbooks/index.mdindex.mdmonolith-decomposition/), [Zero-Downtime Migrations](implementation-playbooks/index.mdindex.mdzero-downtime/), [Multi-Region Deployment](implementation-playbooks/index.mdindex.mdglobal-expansion/)
+    **🚀 Popular**: [Monolith to Microservices](implementation-playbooks/index.mdmonolith-decomposition/), [Zero-Downtime Migrations](implementation-playbooks/index.mdzero-downtime/), [Multi-Region Deployment](implementation-playbooks/index.mdglobal-expansion/)
 
 - :material-calculator:{ .lg } **[Quantitative Analysis](../../architects-handbook/quantitative-analysis.md/)** (25+ tools)
     
@@ -112,8 +112,8 @@ graph TB
 | Tool | Purpose |
 |------|---------|
 | [Capacity Planner](../../architects-handbook/quantitative-analysis/capacity-planning.md) | Size your infrastructure |
-| [Pattern Selector](implementation-playbooks/index.mdindex.mdpattern-selection-wizard/) | Choose the right patterns |
-| [Migration Checklist](implementation-playbooks/index.mdindex.mdmigration-checklist/) | Plan safe transitions |
+| [Pattern Selector](implementation-playbooks/index.mdpattern-selection-wizard/) | Choose the right patterns |
+| [Migration Checklist](implementation-playbooks/index.mdmigration-checklist/) | Plan safe transitions |
 | [Cost Calculator](../../architects-handbook/quantitative-analysis/storage-economics.md) | Estimate operational costs |
 
 ## 📖 Featured Resources
@@ -124,9 +124,9 @@ graph TB
 - **[Stripe: Payment Processing](../../architects-handbook/case-studies/financial-commerce/payment-system.md)** - Financial system reliability
 
 ### Popular Playbooks
-- **[Monolith to Microservices](implementation-playbooks/index.mdindex.mdmonolith-to-microservices/)** - Safe decomposition strategies
-- **[Global Expansion](implementation-playbooks/index.mdindex.mdglobal-expansion/)** - Multi-region deployment
-- **[Zero-Downtime Migrations](implementation-playbooks/index.mdindex.mdzero-downtime/)** - Change without disruption
+- **[Monolith to Microservices](implementation-playbooks/index.mdmonolith-to-microservices/)** - Safe decomposition strategies
+- **[Global Expansion](implementation-playbooks/index.mdglobal-expansion/)** - Multi-region deployment
+- **[Zero-Downtime Migrations](implementation-playbooks/index.mdzero-downtime/)** - Change without disruption
 
 ---
 

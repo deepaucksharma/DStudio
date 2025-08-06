@@ -1441,6 +1441,6 @@ graph TB
 ## References
 
 - [The Architecture of Open Source Applications: Stripe](http:/aosabook.org/en/stripe.html/)
-- [Designing Data-Intensive Applications - Chapter 12: The Future of Data Systems](https:/dataintensive.net/)
+- [Designing Data-Intensive Applications - Chapter 12: The Future of Data Systems](https://dataintensive.net/)
 - [High Scalability: PayPal Architecture](http:/highscalability.com/blog/2023/3/6/paypal-architecture.html/)
-- [Uber's Payment Platform](https:/eng.uber.com/payments-platform/)
+- [Uber's Payment Platform](https://eng.uber.com/payments-platform/)

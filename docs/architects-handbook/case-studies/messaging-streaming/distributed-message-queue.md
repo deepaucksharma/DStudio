@@ -1321,7 +1321,7 @@ graph LR
 
 ## References
 
-- [Kafka: A Distributed Messaging System for Log Processing](https:/www.microsoft.com/en-us/research/publication/kafka-distributed-messaging-system-log-processing/)
-- [Building LinkedIn's Real-time Activity Data Pipeline](https:/engineering.linkedin.com/distributed-systems/building-linkedins-real-time-activity-data-pipeline/)
-- [The Log: What every software engineer should know](https:/engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/)
-- [Kafka Improvement Proposals (KIPs)](https:/cwiki.apache.org/confluence/display/KAFKA/Kafka+Improvement+Proposals/)
+- [Kafka: A Distributed Messaging System for Log Processing](https://www.microsoft.com/en-us/research/publication/kafka-distributed-messaging-system-log-processing/)
+- [Building LinkedIn's Real-time Activity Data Pipeline](https://engineering.linkedin.com/distributed-systems/building-linkedins-real-time-activity-data-pipeline/)
+- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/)
+- [Kafka Improvement Proposals (KIPs)](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Improvement+Proposals/)

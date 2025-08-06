@@ -141,10 +141,10 @@ graph TD
 
 ## References
 
-- [Netflix Eureka](https:/github.com/Netflix/eureka/wiki/)
-- [Consul by HashiCorp](https:/www.consul.io/)
-- [Kubernetes Service Discovery](https:/kubernetes.io/docs/concepts/services-networking/service/)
-- [AWS Cloud Map](https:/aws.amazon.com/cloud-map/)
+- [Netflix Eureka](https://github.com/Netflix/eureka/wiki/)
+- [Consul by HashiCorp](https://www.consul.io/)
+- [Kubernetes Service Discovery](https://kubernetes.io/docs/concepts/services-networking/service/)
+- [AWS Cloud Map](https://aws.amazon.com/cloud-map/)
 
 ---
 

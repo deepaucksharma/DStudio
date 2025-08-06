@@ -584,7 +584,7 @@ Join specialized security-focused study groups:
 
 ### Security Community Resources
 
-- **Security Discord**: [#security-architects](https:/discord.gg/security-architects/)
+- **Security Discord**: [#security-architects](https://discord.gg/security-architects/)
 - **Red Team Village**: Hands-on attack simulation
 - **Bug Bounty Programs**: Practice ethical hacking
 - **Security Conferences**: DEF CON, Black Hat, RSA discounts
@@ -703,19 +703,19 @@ After completing this path, consider these specializations:
 ### Critical Security Resources
 
 **Vulnerability Research**:
-- [CVE Details](https:/www.cvedetails.com/)
-- [NVD - National Vulnerability Database](https:/nvd.nist.gov/)
-- [OWASP](https:/owasp.org/)
+- [CVE Details](https://www.cvedetails.com/)
+- [NVD - National Vulnerability Database](https://nvd.nist.gov/)
+- [OWASP](https://owasp.org/)
 
 **Threat Intelligence**:
-- [MITRE ATT&CK Framework](https:/attack.mitre.org/)
-- [NIST Cybersecurity Framework](https:/www.nist.gov/cyberframework/)
-- [SANS Reading Room](https:/www.sans.org/reading-room/)
+- [MITRE ATT&CK Framework](https://attack.mitre.org/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework/)
+- [SANS Reading Room](https://www.sans.org/reading-room/)
 
 **Security News & Research**:
-- [Krebs on Security](https:/krebsonsecurity.com/)
-- [Dark Reading](https:/www.darkreading.com/)
-- [Security Week](https:/www.securityweek.com/)
+- [Krebs on Security](https://krebsonsecurity.com/)
+- [Dark Reading](https://www.darkreading.com/)
+- [Security Week](https://www.securityweek.com/)
 
 ### Podcasts & Video Resources
 

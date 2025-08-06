@@ -3528,14 +3528,14 @@ graph TB
 ### 📚 References
 
 **Industry Examples:**
-- [Uber's Notification System](https:/eng.uber.com/uber-notification-platform/)
-- [Pinterest's Notification System](https:/medium.com/pinterest-engineering/building-a-notification-system-86854982c38e/)
-- [LinkedIn's Air Traffic Controller](https:/engineering.linkedin.com/blog/2019/05/air-traffic-controller--how-we-developed-a-notification-system-f/)
+- [Uber's Notification System](https://eng.uber.com/uber-notification-platform/)
+- [Pinterest's Notification System](https://medium.com/pinterest-engineering/building-a-notification-system-86854982c38e/)
+- [LinkedIn's Air Traffic Controller](https://engineering.linkedin.com/blog/2019/05/air-traffic-controller--how-we-developed-a-notification-system-f/)
 
 **Open Source:**
-- [Novu](https:/github.com/novuhq/novu/) - Open-source notification infrastructure
-- [Courier](https:/www.courier.com/) - Notification orchestration
-- [OneSignal](https:/onesignal.com/) - Push notification service
+- [Novu](https://github.com/novuhq/novu/) - Open-source notification infrastructure
+- [Courier](https://www.courier.com/) - Notification orchestration
+- [OneSignal](https://onesignal.com/) - Push notification service
 
 **Related Patterns:**
 - [Message Queue](../pattern-library/scaling/queues-streaming.md)

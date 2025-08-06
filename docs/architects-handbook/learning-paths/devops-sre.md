@@ -618,7 +618,7 @@ Join peers at your learning stage:
 
 ### Community Resources
 
-- **Discord Channel**: [#devops-sre-learners](https:/discord.gg/sre-learning/)
+- **Discord Channel**: [#devops-sre-learners](https://discord.gg/sre-learning/)
 - **Study Materials**: Shared Notion workspace
 - **Code Reviews**: Peer review program
 - **Mock Interviews**: Practice with senior engineers
@@ -727,11 +727,11 @@ After completing this path, graduates report:
 
 ### Blogs & Resources
 
-- [Google SRE Blog](https:/sre.google/)
-- [Netflix Tech Blog](https:/netflixtechblog.com/)
-- [Spotify Engineering](https:/engineering.atspotify.com/)
-- [AWS Architecture Center](https:/aws.amazon.com/architecture/)
-- [CNCF Blog](https:/www.cncf.io/blog/)
+- [Google SRE Blog](https://sre.google/)
+- [Netflix Tech Blog](https://netflixtechblog.com/)
+- [Spotify Engineering](https://engineering.atspotify.com/)
+- [AWS Architecture Center](https://aws.amazon.com/architecture/)
+- [CNCF Blog](https://www.cncf.io/blog/)
 
 ### Podcasts
 

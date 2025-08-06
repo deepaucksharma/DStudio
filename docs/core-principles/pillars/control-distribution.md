@@ -405,7 +405,7 @@ Automation Rebels      human_interventions[1h]              > 5
 
 <div class="audio-widget" markdown>
 <iframe 
-    src="https:/open.spotify.com/embed/episode/3pAy4hQITxUFhYOvBbOqSC?utm_source=generator&t=0" 
+    src="https://open.spotify.com/embed/episode/3pAy4hQITxUFhYOvBbOqSC?utm_source=generator&t=0" 
     width="100%" 
     height="152" 
     frameBorder="0" 

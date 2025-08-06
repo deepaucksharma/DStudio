@@ -1324,16 +1324,16 @@ class ConsistentHashRing:
 ### 📚 References
 
 **Seminal Papers:**
-- [Consistent Hashing and Random Trees](https:/www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf/) - Original Karger et al.
-- [Dynamo: Amazon's Highly Available Key-value Store](https:/www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/)
-- [Jump Consistent Hash](https:/arxiv.org/pdf/1406.2294.pdf/) - Google's approach
-- [Maglev: A Fast and Reliable Software Network Load Balancer](https:/static.googleusercontent.com/media/research.google.com/en/pubs/archive/44824.pdf/)
+- [Consistent Hashing and Random Trees](https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf/) - Original Karger et al.
+- [Dynamo: Amazon's Highly Available Key-value Store](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/)
+- [Jump Consistent Hash](https://arxiv.org/pdf/1406.2294.pdf/) - Google's approach
+- [Maglev: A Fast and Reliable Software Network Load Balancer](https://static.googleusercontent.com/media/research.google.com/en/pubs/archive/44824.pdf/)
 
 **Production Implementations:**
-- [Cassandra's Token Ring](https:/cassandra.apache.org/doc/latest/architecture/dynamo.html/)
-- [Riak's Consistent Hashing](https:/docs.riak.com/riak/kv/latest/learn/concepts/replication/index.html/)
-- [Memcached Ketama](https:/github.com/RJ/ketama/)
-- [Discord's Consistent Hashing](https:/discord.com/blog/how-discord-stores-billions-of-messages/)
+- [Cassandra's Token Ring](https://cassandra.apache.org/doc/latest/architecture/dynamo.html/)
+- [Riak's Consistent Hashing](https://docs.riak.com/riak/kv/latest/learn/concepts/replication/index.html/)
+- [Memcached Ketama](https://github.com/RJ/ketama/)
+- [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages/)
 
 **Related Patterns:**
 - [Virtual Nodes](../pattern-library/scaling/sharding/)
@@ -1364,11 +1364,11 @@ class ConsistentHashRing:
 ### Quantitative Models
 - **Ring Theory** - Mathematical foundation for hash rings
 - **Load Distribution** - Standard deviation measures balance quality
-- **[Little's Law](../quantitative-analysis/littles-law.mdindex.md)** - Rebalancing rate impacts system capacity
+- **[Little's Law](../quantitative-analysis/littles-law.md)** - Rebalancing rate impacts system capacity
 - **Probability Theory** - Virtual node count affects distribution variance
 
 ### 👥 Human Factors Considerations
-- **[Capacity Planning](../quantitative-analysis/capacity-planning.mdindex.md)** - Node weights must match actual capacity
+- **[Capacity Planning](../quantitative-analysis/capacity-planning.md)** - Node weights must match actual capacity
 - **[Observability Tools](../architects-handbook/human-factors/observability-stacks.md)** - Ring visualizers essential for operations
 - **[Incident Response](../architects-handbook/human-factors/incident-response.md)** - Hot spot detection and mitigation procedures
 - **[On-Call Culture](../architects-handbook/human-factors/oncall-culture.md)** - Understanding ring rebalancing critical for operators

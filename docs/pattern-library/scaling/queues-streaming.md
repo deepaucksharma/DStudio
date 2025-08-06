@@ -362,10 +362,10 @@ graph TD
 - [Law 1 (Correlated Failure /index)](core-principles/laws/correlated-failure.md) - Message durability
 
 ### Further Reading
-- [Kafka: The Definitive Guide](https:/www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly
-- [Designing Data-Intensive Applications](https:/dataintensive.net/) - Chapter 11 on streams
-- [Enterprise Integration Patterns](https:/www.enterpriseintegrationpatterns.com/) - Messaging patterns
-- [AWS SQS Best Practices](https:/docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html/)
+- [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly
+- [Designing Data-Intensive Applications](https://dataintensive.net/) - Chapter 11 on streams
+- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) - Messaging patterns
+- [AWS SQS Best Practices](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html/)
 
 ### Tools & Libraries
 - **Message Queues**: RabbitMQ, AWS SQS, Azure Service Bus, Redis

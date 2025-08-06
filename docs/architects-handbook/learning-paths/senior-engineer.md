@@ -144,9 +144,9 @@ By completing this path, you will:
 
 #### Week 12: Quantitative Analysis
 
-- [Universal Scalability Law](../quantitative-analysis/universal-scalability.mdindex.md) - Amdahl's law
+- [Universal Scalability Law](../quantitative-analysis/universal-scalability.md) - Amdahl's law
 - [Queueing Theory](quantitative/queueing-models/) - M/M/1 and beyond
-- [Capacity Planning](../quantitative-analysis/capacity-planning.mdindex.md) - Resource estimation
+- [Capacity Planning](../quantitative-analysis/capacity-planning.md) - Resource estimation
 - [Performance Modeling](quantitative/performance-modeling/) - Simulation techniques
 
 #### Week 13: Operational Excellence

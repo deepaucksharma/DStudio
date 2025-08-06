@@ -717,7 +717,7 @@ Developer Experience:
 
 ## Further Reading
 
-- [OWASP DevSecOps Guideline](https:/owasp.org/www-project-devsecops-guideline/)
-- [NIST Secure Software Development Framework](https:/csrc.nist.gov/Projects/ssdf/)
-- [GitHub Security Lab](https:/securitylab.github.com/)
-- [SANS Secure Coding Practices](https:/www.sans.org/white-papers/2172/)
+- [OWASP DevSecOps Guideline](https://owasp.org/www-project-devsecops-guideline/)
+- [NIST Secure Software Development Framework](https://csrc.nist.gov/Projects/ssdf/)
+- [GitHub Security Lab](https://securitylab.github.com/)
+- [SANS Secure Coding Practices](https://www.sans.org/white-papers/2172/)

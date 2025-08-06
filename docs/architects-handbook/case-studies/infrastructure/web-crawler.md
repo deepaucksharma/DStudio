@@ -2095,15 +2095,15 @@ Storage Node      32GB      8 cores  10TB
 ### 📚 References
 
 **Papers:**
-- [The Evolution of Web Crawling](https:/research.google/pubs/pub46428/)
+- [The Evolution of Web Crawling](https://research.google/pubs/pub46428/)
 - [IRLbot: Scaling to 6 Billion Pages](http:/irl.cs.tamu.edu/people/hsin-tsang/papers/www2008.pdf/)
-- [Mercator: A Scalable, Extensible Web Crawler](https:/courses.cs.washington.edu/courses/cse454/15wi/papers/mercator.pdf/)
+- [Mercator: A Scalable, Extensible Web Crawler](https://courses.cs.washington.edu/courses/cse454/15wi/papers/mercator.pdf/)
 
 **Open Source Crawlers:**
-- [Apache Nutch](https:/nutch.apache.org/)
-- [Scrapy](https:/scrapy.org/)
-- [Colly](https:/github.com/gocolly/colly/)
-- [Heritrix](https:/github.com/internetarchive/heritrix3/)
+- [Apache Nutch](https://nutch.apache.org/)
+- [Scrapy](https://scrapy.org/)
+- [Colly](https://github.com/gocolly/colly/)
+- [Heritrix](https://github.com/internetarchive/heritrix3/)
 
 **Related Patterns:**
 - URL Frontier Management (Coming Soon)

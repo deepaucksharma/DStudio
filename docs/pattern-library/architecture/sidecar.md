@@ -276,7 +276,7 @@ graph TD
 
 ## References
 
-- [Envoy Proxy Architecture](https:/www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/intro/intro/)
-- [Kubernetes Sidecar Containers](https:/kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/)
-- [Service Mesh Comparison](https:/servicemesh.io/)
+- [Envoy Proxy Architecture](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/intro/intro/)
+- [Kubernetes Sidecar Containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/)
+- [Service Mesh Comparison](https://servicemesh.io/)
 

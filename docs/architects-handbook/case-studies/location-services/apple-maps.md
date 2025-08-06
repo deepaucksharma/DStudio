@@ -764,7 +764,7 @@ class LocationPrivacyManager {
 
 ## External Resources
 
-- **[Apple Maps Privacy Documentation](https:/www.apple.com/privacy/docs/Maps_and_Privacy_Overview.pdf/)** - Official privacy practices
-- **[Differential Privacy Team](https:/machinelearning.apple.com/research/learning-with-privacy-at-scale/)** - Apple's differential privacy research
-- **[MapKit Privacy Guidelines](https:/developer.apple.com/documentation/mapkit/protecting_the_user_s_privacy/)** - Developer privacy best practices
-- **[Location Privacy Research](https:/www.apple.com/privacy/docs/Differential_Privacy_Overview.pdf/)** - Technical differential privacy overview
+- **[Apple Maps Privacy Documentation](https://www.apple.com/privacy/docs/Maps_and_Privacy_Overview.pdf/)** - Official privacy practices
+- **[Differential Privacy Team](https://machinelearning.apple.com/research/learning-with-privacy-at-scale/)** - Apple's differential privacy research
+- **[MapKit Privacy Guidelines](https://developer.apple.com/documentation/mapkit/protecting_the_user_s_privacy/)** - Developer privacy best practices
+- **[Location Privacy Research](https://www.apple.com/privacy/docs/Differential_Privacy_Overview.pdf/)** - Technical differential privacy overview
