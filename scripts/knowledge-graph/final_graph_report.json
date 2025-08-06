@@ -1,0 +1,53 @@
+{
+  "timestamp": "2025-08-06T17:33:03.310002",
+  "metrics": {
+    "total_pages": 627,
+    "total_internal_links": 4814,
+    "valid_links": 3215,
+    "broken_links": 1599,
+    "health_score": 66.78437889488991
+  },
+  "status": "\ud83d\udfe1 ACCEPTABLE",
+  "remaining_broken": [
+    {
+      "destination": "architects-handbook/case-studies/amazon-dynamo",
+      "count": 10
+    },
+    {
+      "destination": "pattern-library/related-pattern-3",
+      "count": 9
+    },
+    {
+      "destination": "pattern-library/related-pattern-2",
+      "count": 9
+    },
+    {
+      "destination": "pattern-library/related-pattern-1",
+      "count": 9
+    },
+    {
+      "destination": "./index",
+      "count": 9
+    },
+    {
+      "destination": "architects-handbook/pattern-library/data-management/event-sourcing/index",
+      "count": 7
+    },
+    {
+      "destination": "architects-handbook/case-studies/pattern-library/scaling/caching-strategies/index",
+      "count": 7
+    },
+    {
+      "destination": "architects-handbook/case-studies/pattern-library/data-management/event-sourcing/index",
+      "count": 7
+    },
+    {
+      "destination": "pattern-library/architecture/cqrs",
+      "count": 6
+    },
+    {
+      "destination": "architects-handbook/case-studies/quantitative-analysis/information-theory",
+      "count": 6
+    }
+  ]
+}

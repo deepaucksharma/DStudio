@@ -1,0 +1,40 @@
+{
+  "timestamp": "2025-08-06T17:30:07.761021",
+  "health_score": 58.83571576548581,
+  "status": "\ud83d\udd34 CRITICAL",
+  "metrics": {
+    "total_pages": 627,
+    "total_links": 4827,
+    "valid_links": 2840,
+    "broken_links": 1987
+  },
+  "recent_fixes": {
+    "add_navigation": 254,
+    "duplicate_path": 152,
+    "incorrect_hierarchy": 165,
+    "remove_index": 10,
+    "wrong_base": 149
+  },
+  "top_issues": [
+    {
+      "destination": "architects-handbook/pattern-library/scaling/caching-strategies",
+      "count": 11
+    },
+    {
+      "destination": "architects-handbook/case-studies/example",
+      "count": 10
+    },
+    {
+      "destination": "architects-handbook/case-studies/amazon-dynamo",
+      "count": 10
+    },
+    {
+      "destination": "./index",
+      "count": 10
+    },
+    {
+      "destination": "pattern-library/related-pattern-3",
+      "count": 9
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "summary": {
+    "total_pages": 627,
+    "total_links": 4573,
+    "valid_links": 1986,
+    "broken_links": 2587,
+    "broken_rate": 56.6
+  },
+  "connectivity": {
+    "components": 226,
+    "largest_component": 353,
+    "isolated_pages": 219,
+    "unreachable_from_index": 398
+  },
+  "quality": {
+    "average": 94.0,
+    "high_quality": 533,
+    "low_quality": 8
+  },
+  "categories": [
+    {
+      "name": "architects-handbook",
+      "count": 231
+    },
+    {
+      "name": "pattern-library",
+      "count": 157
+    },
+    {
+      "name": "interview-prep",
+      "count": 95
+    },
+    {
+      "name": "core-principles",
+      "count": 40
+    },
+    {
+      "name": "excellence",
+      "count": 28
+    },
+    {
+      "name": "reference",
+      "count": 26
+    },
+    {
+      "name": "root",
+      "count": 9
+    },
+    {
+      "name": "migrations",
+      "count": 8
+    },
+    {
+      "name": "implementation-playbooks",
+      "count": 7
+    },
+    {
+      "name": "company-specific",
+      "count": 7
+    },
+    {
+      "name": "quantitative-analysis",
+      "count": 6
+    },
+    {
+      "name": "case-studies",
+      "count": 5
+    },
+    {
+      "name": "tools",
+      "count": 4
+    },
+    {
+      "name": "analysis",
+      "count": 3
+    },
+    {
+      "name": "start-here",
+      "count": 1
+    }
+  ],
+  "recommendations": [
+    "1. Fix 2587 broken links (currently 56.6% broken)",
+    "2. Connect 398 unreachable pages to main navigation",
+    "4. Consolidate 226 disconnected components",
+    "5. Link 219 isolated pages"
+  ]
+}

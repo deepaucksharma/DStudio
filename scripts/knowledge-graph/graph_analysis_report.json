@@ -1,0 +1,212 @@
+{
+  "statistics": {
+    "total_nodes": 627,
+    "total_edges": 1175,
+    "weakly_connected_components": 251,
+    "largest_wcc_size": 352,
+    "strongly_connected_components": 9,
+    "avg_in_degree": 1.8740031897926634,
+    "avg_out_degree": 1.8740031897926634,
+    "max_in_degree": 45,
+    "max_out_degree": 88
+  },
+  "issues": {
+    "orphaned_pages": [
+      {
+        "page": "incident-response",
+        "title": "Incident Response"
+      },
+      {
+        "page": "CALCULATOR_VALIDATION_TESTING_PLAN",
+        "title": "Comprehensive Validation and Testing Plan for Architect's Handbook Calculators"
+      },
+      {
+        "page": "monolith-to-microservices",
+        "title": "Monolith To Microservices"
+      },
+      {
+        "page": "latency-calculator",
+        "title": "Latency Calculator"
+      },
+      {
+        "page": "performance-testing",
+        "title": "Performance Testing"
+      },
+      {
+        "page": "COMPREHENSIVE_FIX_IMPLEMENTATION_PLAN",
+        "title": "\ud83d\ude80 Comprehensive Fix Implementation Plan - Architects Handbook"
+      },
+      {
+        "page": "progress",
+        "title": "Learning Progress Tracker"
+      },
+      {
+        "page": "interview-prep/ic-interviews/cheatsheets/system-design-checklist/index",
+        "title": "System Design Checklist"
+      },
+      {
+        "page": "interview-prep/engineering-leadership/navigation-guide",
+        "title": "\ud83e\udded Engineering Leadership Framework Navigation Guide"
+      },
+      {
+        "page": "interview-prep/engineering-leadership/company-specific/google/index",
+        "title": "Google"
+      }
+    ],
+    "dead_ends": [
+      {
+        "page": "interview-prep/ic-interviews/index",
+        "incoming_links": 3
+      },
+      {
+        "page": "interview-prep/ic-interviews/cheatsheets/system-design-checklist",
+        "incoming_links": 2
+      },
+      {
+        "page": "interview-prep/ic-interviews/frameworks/index",
+        "incoming_links": 1
+      },
+      {
+        "page": "interview-prep/ic-interviews/common-problems/index",
+        "incoming_links": 1
+      },
+      {
+        "page": "interview-prep/ic-interviews/common-problems/ml-serving",
+        "incoming_links": 1
+      },
+      {
+        "page": "interview-prep/ic-interviews/common-problems/iot-platform",
+        "incoming_links": 1
+      },
+      {
+        "page": "interview-prep/ic-interviews/common-problems/cicd-pipeline",
+        "incoming_links": 1
+      },
+      {
+        "page": "interview-prep/ic-interviews/common-problems/cloud-storage",
+        "incoming_links": 1
+      },
+      {
+        "page": "interview-prep/ic-interviews/common-problems/collaborative-editor",
+        "incoming_links": 1
+      },
+      {
+        "page": "interview-prep/engineering-leadership/index",
+        "incoming_links": 1
+      }
+    ],
+    "circular_dependencies": [
+      {
+        "pages": [
+          "pattern-library/architecture/event-driven",
+          "pattern-library/resilience/circuit-breaker-transformed",
+          "pattern-library/coordination/logical-clocks",
+          "pattern-library/coordination/clock-sync",
+          "pattern-library/data-management/outbox"
+        ],
+        "size": 55
+      },
+      {
+        "pages": [
+          "architects-handbook/case-studies/social-communication/social-graph",
+          "architects-handbook/case-studies/social-communication/index"
+        ],
+        "size": 2
+      },
+      {
+        "pages": [
+          "architects-handbook/quantitative-analysis/queueing-models",
+          "architects-handbook/quantitative-analysis/littles-law",
+          "architects-handbook/quantitative-analysis/latency-ladder",
+          "architects-handbook/quantitative-analysis/availability-math"
+        ],
+        "size": 4
+      },
+      {
+        "pages": [
+          "architects-handbook/quantitative-analysis/power-laws",
+          "architects-handbook/quantitative-analysis/social-networks",
+          "architects-handbook/quantitative-analysis/privacy-metrics",
+          "architects-handbook/quantitative-analysis/storage-economics",
+          "architects-handbook/index"
+        ],
+        "size": 23
+      },
+      {
+        "pages": [
+          "interview-prep/ic-interviews/behavioral/scenarios",
+          "interview-prep/ic-interviews/behavioral/index",
+          "interview-prep/ic-interviews/behavioral/by-level"
+        ],
+        "size": 3
+      }
+    ],
+    "unreachable_pages": [
+      {
+        "page": "excellence/migrations/anti-entropy-to-crdt",
+        "in_degree": 0,
+        "out_degree": 0
+      },
+      {
+        "page": "implementation-playbooks/security-audit/index",
+        "in_degree": 0,
+        "out_degree": 0
+      },
+      {
+        "page": "architects-handbook/learning-paths/cloud-migration-architect",
+        "in_degree": 0,
+        "out_degree": 7
+      },
+      {
+        "page": "interview-prep/engineering-leadership/level-3-applications/technical-leadership/index",
+        "in_degree": 0,
+        "out_degree": 0
+      },
+      {
+        "page": "interview-prep/engineering-leadership/level-3-applications/people-management/hiring-interviewing/index",
+        "in_degree": 0,
+        "out_degree": 0
+      },
+      {
+        "page": "architects-handbook/implementation-playbooks/monolith-decomposition/index",
+        "in_degree": 0,
+        "out_degree": 0
+      },
+      {
+        "page": "excellence/implementation-guides/quick-start-guide",
+        "in_degree": 0,
+        "out_degree": 0
+      },
+      {
+        "page": "interview-prep/engineering-leadership/hard-earned-wisdom/organizational-politics-mastery",
+        "in_degree": 0,
+        "out_degree": 0
+      },
+      {
+        "page": "pattern-library/data-management/shared-database",
+        "in_degree": 0,
+        "out_degree": 4
+      },
+      {
+        "page": "core-principles/patterns/caching-strategies",
+        "in_degree": 0,
+        "out_degree": 0
+      }
+    ],
+    "high_complexity_pages": [
+      {
+        "page": "architects-handbook/case-studies/index",
+        "outgoing_links": 88,
+        "title": "Case Studies"
+      }
+    ],
+    "path_inconsistencies": []
+  },
+  "broken_link_patterns": {
+    "other": 1694,
+    "duplicate_path": 221,
+    "incorrect_hierarchy": 459,
+    "unresolved_relative": 49,
+    "wrong_base_path": 140
+  }
+}
