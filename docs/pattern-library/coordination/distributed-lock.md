@@ -322,15 +322,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays affect timing
-    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Lock contention creates complexity
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Network delays affect timing
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index.md) - Lock contention creates complexity
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/) - Single source of lock truth
-    - [Pillar 4: Control Distribution](../../core-principles/pillars/control-distribution/) - Coordinated access control
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Single source of lock truth
+    - [Pillar 4: Control Distribution](../../core-principles/pillars/control-distribution/index.md) - Coordinated access control
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

@@ -118,6 +118,6 @@ Each calculator is based on solid mathematical foundations:
 
 These tools are open-source! Found a bug or want to add a feature?
 
-- [View source on GitHub](https://github.com/deepaucksharma/DStudio)
-- [Report issues](https://github.com/deepaucksharma/DStudio/issues)
+- [View source on GitHub](https://github.com/deepaucksharma/DStudio/index.md)
+- [Report issues](https://github.com/deepaucksharma/DStudio/issues/index.md)
 - [Contribute a new calculator](https://github.com/deepaucksharma/DStudio/blob/main/CONTRIBUTING.md)

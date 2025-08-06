@@ -304,15 +304,15 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Dual-write failure scenarios
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Consistency vs performance
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Dual-write failure scenarios
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Consistency vs performance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 2: State Distribution](../../core-principles/pillars/state-distribution/) - Consistent state management
-    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/) - Single source of truth
+    - [Pillar 2: State Distribution](../../core-principles/pillars/state-distribution/index.md) - Consistent state management
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Single source of truth
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

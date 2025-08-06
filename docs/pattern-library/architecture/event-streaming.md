@@ -334,15 +334,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Time and ordering challenges
-    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Complex system behaviors
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Time and ordering challenges
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index.md) - Complex system behaviors
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Parallel stream processing
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Distributed state management
+    - [Work Distribution](../../core-principles/pillars/work-distribution/index.md) - Parallel stream processing
+    - [State Distribution](../../core-principles/pillars/state-distribution/index.md) - Distributed state management
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

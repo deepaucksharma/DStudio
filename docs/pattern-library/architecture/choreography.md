@@ -321,15 +321,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Event timing challenges
-    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Unpredictable interactions
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Event timing challenges
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index.md) - Unpredictable interactions
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Coordination mechanisms
-    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution/) - Distributed decision making
+    - [Control Distribution](../../core-principles/pillars/control-distribution/index.md) - Coordination mechanisms
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution/index.md) - Distributed decision making
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     

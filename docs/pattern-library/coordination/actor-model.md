@@ -39,7 +39,7 @@ type: pattern
     
     While the Actor Model pioneered important concurrency concepts, service mesh, serverless, and event-driven architectures provide better solutions for most use cases. The complexity without clear benefits makes it unsuitable for new projects.
     
-    **Migration Path:** See [Service Mesh](../architecture/service-mesh.md) or [Event-Driven Architecture](../../pattern-library/architecture/event-driven.md) for current best practices
+    **Migration Path:** See [Service Mesh](../architecture/service-mesh.md) or [Event-Driven Architecture](..../pattern-library/architecture.md/event-driven.md) for current best practices
 
 ## Essential Question
 
@@ -61,7 +61,7 @@ type: pattern
 |----------|-----|-------------|
 | **Microservices** | Service mesh provides better patterns | [Service Mesh](../architecture/service-mesh.md) |
 | **Serverless Workloads** | Functions are simpler isolated units | [Serverless Functions](../scaling/serverless.md) |
-| **Event Processing** | Stream processing is more efficient | [Event-Driven Architecture](../../pattern-library/architecture/event-driven.md) |
+| **Event Processing** | Stream processing is more efficient | [Event-Driven Architecture](..../pattern-library/architecture.md/event-driven.md) |
 | **Simple CRUD** | Over-engineered for basic operations | Traditional REST APIs |
 | **Team Learning** | Steep learning curve without clear benefits | Start with proven patterns |
 
@@ -267,9 +267,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) | Actors naturally emit events | Actor state changes → events |
+| [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) | Actors naturally emit events | Actor state changes → events |
 | [CQRS](../architecture/cqrs.md) | Actors handle commands | Command actors + query services |
-| [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | Protect external calls | Wrap external services in actors |
+| [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) | Protect external calls | Wrap external services in actors |
 
 ## Quick Reference
 
@@ -315,21 +315,21 @@ graph LR
     
     - [Service Mesh](../architecture/service-mesh.md) - Better for microservices
     - [Serverless Functions](../scaling/serverless.md) - Simpler isolation
-    - [Event-Driven Architecture](../../pattern-library/architecture/event-driven.md) - Modern async patterns
+    - [Event-Driven Architecture](..../pattern-library/architecture.md/event-driven.md) - Modern async patterns
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Message passing nature
-    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Supervision hierarchies
+    - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - Message passing nature
+    - [Law 3: Emergent Chaos](../..../core-principles/laws.md/emergent-chaos/index.md) - Supervision hierarchies
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Actor-based work distribution
-    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Supervision patterns
+    - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Actor-based work distribution
+    - [Control Distribution](../..../core-principles/pillars.md/control-distribution/index.md) - Supervision patterns
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     

@@ -614,13 +614,13 @@ flowchart TD
 ## Related Patterns
 
 ### Core Dependencies
-- **[Two-Phase Commit](../pattern-library/data-management/saga.md)**: Strong consistency alternative
+- **[Two-Phase Commit](....../pattern-library/data-management.md/saga.md)**: Strong consistency alternative
 - **[Event Sourcing](./event-sourcing.md)**: Natural event log for sagas
-- **[Outbox Pattern](../pattern-library/data-management/outbox.md)**: Reliable event publishing
+- **[Outbox Pattern](....../pattern-library/data-management.md/outbox.md)**: Reliable event publishing
 
 ### Supporting Patterns
-- **[Idempotent Receiver](../pattern-library/idempotent-receiver.md)**: Safe retries
-- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)**: Protect saga steps
+- **[Idempotent Receiver](....../pattern-library/idempotent-receiver.md)**: Safe retries
+- **[Circuit Breaker](....../pattern-library/resilience.md/circuit-breaker.md)**: Protect saga steps
 - **[CQRS](./cqrs.md)**: Separate saga execution from queries
 
 #
@@ -745,10 +745,10 @@ flowchart TB
 
 This pattern directly addresses several fundamental distributed systems laws:
 
-- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)**: Sagas embrace the asynchronous nature of distributed systems by coordinating long-running processes through eventual consistency rather than blocking operations
-- **[Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/)**: The compensation mechanism in sagas handles the chaos that emerges when distributed transactions partially fail in unpredictable ways
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Sagas represent the trade-off between consistency (eventual) and availability (high) in distributed transaction management
-- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/)**: No single service has complete knowledge of the saga state, requiring coordination protocols to manage distributed transaction state
+- **[Law 2: Asynchronous Reality](../....../core-principles/laws.md/asynchronous-reality/index.md)**: Sagas embrace the asynchronous nature of distributed systems by coordinating long-running processes through eventual consistency rather than blocking operations
+- **[Law 3: Emergent Chaos](../....../core-principles/laws.md/emergent-chaos/index.md)**: The compensation mechanism in sagas handles the chaos that emerges when distributed transactions partially fail in unpredictable ways
+- **[Law 4: Multidimensional Optimization](../....../core-principles/laws.md/multidimensional-optimization/index.md)**: Sagas represent the trade-off between consistency (eventual) and availability (high) in distributed transaction management
+- **[Law 5: Distributed Knowledge](../....../core-principles/laws.md/distributed-knowledge/index.md)**: No single service has complete knowledge of the saga state, requiring coordination protocols to manage distributed transaction state
 
 ## Implementation Combinations
 - **Saga + Event Sourcing**: Natural fit for state management
@@ -757,9 +757,9 @@ This pattern directly addresses several fundamental distributed systems laws:
 
 ## Further Reading
 
-- [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem
-- [Microservices.io Saga Pattern](https://microservices.io/pattern-library/data/saga.html) - Chris Richardson
-- [AWS Step Functions Sagas](https://aws.amazon.com/step-functions/use-cases/#saga) - Serverless implementation
+- [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf/index.md) - Garcia-Molina & Salem
+- [Microservices.io Saga Pattern](https://microservices.io../pattern-library/data.md/saga.html/index.md) - Chris Richardson
+- [AWS Step Functions Sagas](https://aws.amazon.com/step-functions/use-cases/#saga/index.md) - Serverless implementation
 
 ### Tools & Libraries
 - **Orchestration**: Temporal, Camunda, AWS Step Functions

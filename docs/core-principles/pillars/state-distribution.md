@@ -992,10 +992,10 @@ You're leaving with the searing realization that distributed state is where phys
 
 ## Related Topics
 
-- [Law 1: Correlated Failure](../laws/correlated-failure/) - Why replicas die together
-- [Law 2: Asynchronous Reality](../laws/asynchronous-reality/) - Why consistency is a lie
-- [Law 4: Multidimensional Optimization](../laws/multidimensional-optimization) - Why we distribute
-- [Law 5: Distributed Knowledge](../laws/distributed-knowledge) - Why consensus is hard
+- [Law 1: Correlated Failure](../laws/correlated-failure/index.md) - Why replicas die together
+- [Law 2: Asynchronous Reality](../laws/asynchronous-reality/index.md) - Why consistency is a lie
+- [Law 4: Multidimensional Optimization](../laws/multidimensional-optimization/index.md) - Why we distribute
+- [Law 5: Distributed Knowledge](../laws/distributed-knowledge/index.md) - Why consensus is hard
 - [Pillar 3: Truth](../../core-principles/pillars/truth-distribution.md) - Where we agree to disagree
 - [Pattern: Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Time travel for databases
 - [Pattern: CQRS](../../pattern-library/data-management/cqrs.md) - Split personality disorder (but useful)

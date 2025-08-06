@@ -12,13 +12,13 @@ Modern deployment patterns enable safe, reliable, and fast software delivery at 
 ## Pattern Categories
 
 ### Progressive Deployment
-- [Blue-Green Deployment](blue-green-deployment/) - Zero-downtime deployments with instant rollback
-- [Canary Release](canary-release/) - Gradual rollout with risk mitigation
-- [Progressive Rollout](progressive-rollout/) - Controlled feature exposure
+- [Blue-Green Deployment](blue-green-deployment/index.md) - Zero-downtime deployments with instant rollback
+- [Canary Release](canary-release/index.md) - Gradual rollout with risk mitigation
+- [Progressive Rollout](progressive-rollout/index.md) - Controlled feature exposure
 
 ### Feature Management
-- [Feature Flags](feature-flags/) - Runtime feature control and experimentation
-- [Immutable Infrastructure](immutable-infrastructure/) - Consistent, reliable deployments
+- [Feature Flags](feature-flags/index.md) - Runtime feature control and experimentation
+- [Immutable Infrastructure](immutable-infrastructure/index.md) - Consistent, reliable deployments
 
 ## Quick Selection Guide
 

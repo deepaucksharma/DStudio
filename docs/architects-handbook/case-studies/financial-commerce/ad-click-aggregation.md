@@ -715,7 +715,7 @@ watch -n 5 './check-replay-progress.sh'
 
 ## References
 
-- [Google AdWords Architecture](https://research.google/pubs/pub36632/)
-- [Stream Processing with Apache Flink](https://www.oreilly.com/library/view/stream-processing-with/9781491974285/)
-- [Lambda Architecture](http://lambda-architecture.net/)
-- [Probabilistic Data Structures](https://doi.org/10.1145/2213556.2213574)
+- [Google AdWords Architecture](https://research.google/pubs/pub36632/index.md)
+- [Stream Processing with Apache Flink](https://www.oreilly.com/library/view/stream-processing-with/9781491974285/index.md)
+- [Lambda Architecture](http://lambda-architecture.net/index.md)
+- [Probabilistic Data Structures](https://doi.org/10.1145/2213556.2213574/index.md)

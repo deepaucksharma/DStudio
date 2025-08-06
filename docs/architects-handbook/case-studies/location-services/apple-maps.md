@@ -748,23 +748,23 @@ class LocationPrivacyManager {
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization/)** - Balance privacy, performance, and functionality
-- **[Law 6: Cognitive Load](../../../core-principles/laws/cognitive-load/)** - Privacy controls must be simple for users to understand
-- **[Law 7: Economic Reality](../../../core-principles/laws/economic-reality/)** - Privacy-first architecture requires different business models
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Balance privacy, performance, and functionality
+- **[Law 6: Cognitive Load](../../core-principles/laws.md/cognitive-load/index.md)** - Privacy controls must be simple for users to understand
+- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - Privacy-first architecture requires different business models
 
 ### Related Patterns  
-- **[Differential Privacy](../../../../../pattern-library/privacy/differential-privacy/)** - Mathematical framework for privacy protection
-- **[Edge Computing](../../../../../pattern-library/edge/edge-computing/)** - On-device processing patterns
-- **[Anonymous Authentication](../../../../../pattern-library/security/anonymous-auth/)** - Identity protection techniques
+- **[Differential Privacy](../../pattern-library/privacy.md/differential-privacy/index.md)** - Mathematical framework for privacy protection
+- **[Edge Computing](../../pattern-library/edge.md/edge-computing/index.md)** - On-device processing patterns
+- **[Anonymous Authentication](../../pattern-library/security.md/anonymous-auth/index.md)** - Identity protection techniques
 
 ### Related Case Studies
-- **[Google Maps System](../google-maps-system.md)** - Contrast with data collection approach
-- **[Uber Location System](../uber-location.md)** - Different privacy-utility trade-offs
-- **[Find My Device](../find-my-device.md)** - Apple's other privacy-preserving location service
+- **[Google Maps System](../../google-maps-system.md)** - Contrast with data collection approach
+- **[Uber Location System](../../uber-location.md)** - Different privacy-utility trade-offs
+- **[Find My Device](../../find-my-device.md)** - Apple's other privacy-preserving location service
 
 ## External Resources
 
-- **[Apple Maps Privacy Documentation](https://www.apple.com/privacy/docs/Maps_and_Privacy_Overview.pdf)** - Official privacy practices
-- **[Differential Privacy Team](https://machinelearning.apple.com/research/learning-with-privacy-at-scale)** - Apple's differential privacy research
-- **[MapKit Privacy Guidelines](https://developer.apple.com/documentation/mapkit/protecting_the_user_s_privacy)** - Developer privacy best practices
-- **[Location Privacy Research](https://www.apple.com/privacy/docs/Differential_Privacy_Overview.pdf)** - Technical differential privacy overview
+- **[Apple Maps Privacy Documentation](https://www.apple.com/privacy/docs/Maps_and_Privacy_Overview.pdf/index.md)** - Official privacy practices
+- **[Differential Privacy Team](https://machinelearning.apple.com/research/learning-with-privacy-at-scale/index.md)** - Apple's differential privacy research
+- **[MapKit Privacy Guidelines](https://developer.apple.com/documentation/mapkit/protecting_the_user_s_privacy/index.md)** - Developer privacy best practices
+- **[Location Privacy Research](https://www.apple.com/privacy/docs/Differential_Privacy_Overview.pdf/index.md)** - Technical differential privacy overview

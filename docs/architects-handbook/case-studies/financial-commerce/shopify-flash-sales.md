@@ -497,10 +497,10 @@ AND sale_end >= NOW();
 
 ## Related Resources
 
-- [Queue-based Load Leveling Pattern](../../../pattern-library/scaling/queues-streaming.md)
-- [Auto-scaling Pattern](../../../pattern-library/scaling/auto-scaling.md)
-- [Bulkhead Pattern](../../../pattern-library/resilience/bulkhead.md)
-- [Shopify Engineering Blog](https://shopify.engineering/)
+- [Queue-based Load Leveling Pattern](../../pattern-library/scaling.md/queues-streaming.md)
+- [Auto-scaling Pattern](../../pattern-library/scaling.md/auto-scaling.md)
+- [Bulkhead Pattern](../../pattern-library/resilience.md/bulkhead.md)
+- [Shopify Engineering Blog](https://shopify.engineering/index.md)
 
 ---
 

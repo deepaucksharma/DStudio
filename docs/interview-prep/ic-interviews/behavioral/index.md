@@ -389,4 +389,4 @@ For each story:
 
 ---
 
-*Continue with: [Scenario Deep-Dives](scenarios.md) | [Level-Specific Guides](by-level.md) | [System Design](../)*
+*Continue with: [Scenario Deep-Dives](scenarios.md) | [Level-Specific Guides](by-level.md) | [System Design](../index.md)*

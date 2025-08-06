@@ -67,7 +67,7 @@ flowchart TD
 
 <div class="grid cards" markdown>
 
-- :material-school:{ .lg .middle } **[New Graduate Path](../../architects-handbook/learning-paths/new-graduate.md)**
+- :material-school:{ .lg .middle } **[New Graduate Path](../..../architects-handbook/learning-paths.md/new-graduate.md)**
     
     ---
     
@@ -86,9 +86,9 @@ flowchart TD
     - Want structured foundation
     - Preparing for first distributed systems role
     
-    [**→ Start Your Journey**](../../architects-handbook/learning-paths/new-graduate.md)
+    [**→ Start Your Journey**](../..../architects-handbook/learning-paths.md/new-graduate.md)
 
-- :material-code-tags:{ .lg .middle } **[Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md)**
+- :material-code-tags:{ .lg .middle } **[Senior Engineer Path](../..../architects-handbook/learning-paths.md/senior-engineer.md)**
     
     ---
     
@@ -107,9 +107,9 @@ flowchart TD
     - Leading technical decisions
     - Moving to staff engineer role
     
-    [**→ Level Up**](../../architects-handbook/learning-paths/senior-engineer.md)
+    [**→ Level Up**](../..../architects-handbook/learning-paths.md/senior-engineer.md)
 
-- :material-account-tie:{ .lg .middle } **[Engineering Manager Path](../../architects-handbook/learning-paths/manager.md)**
+- :material-account-tie:{ .lg .middle } **[Engineering Manager Path](../..../architects-handbook/learning-paths.md/manager.md)**
     
     ---
     
@@ -128,9 +128,9 @@ flowchart TD
     - Making build vs buy decisions
     - Balancing tech debt
     
-    [**→ Lead Effectively**](../../architects-handbook/learning-paths/manager.md)
+    [**→ Lead Effectively**](../..../architects-handbook/learning-paths.md/manager.md)
 
-- :material-city:{ .lg .middle } **[System Architect Path](../../architects-handbook/learning-paths/architect.md)**
+- :material-city:{ .lg .middle } **[System Architect Path](../..../architects-handbook/learning-paths.md/architect.md)**
     
     ---
     
@@ -149,7 +149,7 @@ flowchart TD
     - Leading architecture reviews
     - Setting technical direction
     
-    [**→ Architect at Scale**](../../architects-handbook/learning-paths/architect.md)
+    [**→ Architect at Scale**](../..../architects-handbook/learning-paths.md/architect.md)
 
 </div>
 
@@ -187,7 +187,7 @@ flowchart TD
 
 <div class="grid cards" markdown>
 
-- :material-cloud:{ .lg .middle } **[Cloud Migration Architect Path](../../architects-handbook/learning-paths/cloud-migration-architect.md)**
+- :material-cloud:{ .lg .middle } **[Cloud Migration Architect Path](../..../architects-handbook/learning-paths.md/cloud-migration-architect.md)**
     
     ---
     
@@ -203,9 +203,9 @@ flowchart TD
     
     **Career Outcomes**: Cloud Solutions Architect ($140k-250k+), Migration Lead ($180k-300k+)
     
-    [:octicons-arrow-right-24: Master Cloud Migrations](../../architects-handbook/learning-paths/cloud-migration-architect.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Master Cloud Migrations](../..../architects-handbook/learning-paths.md/cloud-migration-architect.md){ .md-button .md-button--primary }
 
-- :material-swap-horizontal:{ .lg .middle } **[Microservices Architect Path](../../architects-handbook/learning-paths/microservices-architect.md)**
+- :material-swap-horizontal:{ .lg .middle } **[Microservices Architect Path](../..../architects-handbook/learning-paths.md/microservices-architect.md)**
     
     ---
     
@@ -221,9 +221,9 @@ flowchart TD
     
     **Career Outcomes**: Microservices Architect ($150k-280k+), Distinguished Engineer ($250k-400k+)
     
-    [:octicons-arrow-right-24: Build Microservices at Scale](../../architects-handbook/learning-paths/microservices-architect.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Build Microservices at Scale](../..../architects-handbook/learning-paths.md/microservices-architect.md){ .md-button .md-button--primary }
 
-- :material-database-arrow-right:{ .lg .middle } **[Data Platform Architect Path](../../architects-handbook/learning-paths/data-platform-architect.md)**
+- :material-database-arrow-right:{ .lg .middle } **[Data Platform Architect Path](../..../architects-handbook/learning-paths.md/data-platform-architect.md)**
     
     ---
     
@@ -239,9 +239,9 @@ flowchart TD
     
     **Career Outcomes**: Principal Data Architect ($200k-350k+), VP Engineering Data ($300k-500k+)
     
-    [:octicons-arrow-right-24: Scale Data Systems](../../architects-handbook/learning-paths/data-platform-architect.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Scale Data Systems](../..../architects-handbook/learning-paths.md/data-platform-architect.md){ .md-button .md-button--primary }
 
-- :material-speedometer:{ .lg .middle } **[Performance Engineer Path](../../architects-handbook/learning-paths/performance-engineer.md)**
+- :material-speedometer:{ .lg .middle } **[Performance Engineer Path](../..../architects-handbook/learning-paths.md/performance-engineer.md)**
     
     ---
     
@@ -257,7 +257,7 @@ flowchart TD
     
     **Career Outcomes**: Performance Engineer ($140k-250k+), HFT Engineer ($200k-500k+)
     
-    [:octicons-arrow-right-24: Master Performance](../../architects-handbook/learning-paths/performance-engineer.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Master Performance](../..../architects-handbook/learning-paths.md/performance-engineer.md){ .md-button .md-button--primary }
 
 </div>
 
@@ -265,7 +265,7 @@ flowchart TD
 
 <div class="grid cards" markdown>
 
-- :material-server:{ .lg .middle } **[DevOps & SRE Path](../../architects-handbook/learning-paths/devops-sre.md)**
+- :material-server:{ .lg .middle } **[DevOps & SRE Path](../..../architects-handbook/learning-paths.md/devops-sre.md)**
     
     ---
     
@@ -281,9 +281,9 @@ flowchart TD
     
     **Career Outcomes**: Senior SRE ($150k-250k+), Platform Lead ($200k+)
     
-    [:octicons-arrow-right-24: Build Reliable Systems](../../architects-handbook/learning-paths/devops-sre.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Build Reliable Systems](../..../architects-handbook/learning-paths.md/devops-sre.md){ .md-button .md-button--primary }
 
-- :material-shield-lock:{ .lg .middle } **[Security Architect Path](../../architects-handbook/learning-paths/security-architect.md)**
+- :material-shield-lock:{ .lg .middle } **[Security Architect Path](../..../architects-handbook/learning-paths.md/security-architect.md)**
     
     ---
     
@@ -299,9 +299,9 @@ flowchart TD
     
     **Career Outcomes**: Security Architect ($180k-350k+), CISO track ($250k+)
     
-    [:octicons-arrow-right-24: Secure Everything](../../architects-handbook/learning-paths/security-architect.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Secure Everything](../..../architects-handbook/learning-paths.md/security-architect.md){ .md-button .md-button--primary }
 
-- :material-database:{ .lg .middle } **[Data Engineer Path](../../architects-handbook/learning-paths/data-engineer.md)**
+- :material-database:{ .lg .middle } **[Data Engineer Path](../..../architects-handbook/learning-paths.md/data-engineer.md)**
     
     ---
     
@@ -317,9 +317,9 @@ flowchart TD
     
     **Career Outcomes**: Senior Data Engineer ($180k-300k+), Principal ($250k+)
     
-    [:octicons-arrow-right-24: Scale Data Systems](../../architects-handbook/learning-paths/data-engineer.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Scale Data Systems](../..../architects-handbook/learning-paths.md/data-engineer.md){ .md-button .md-button--primary }
 
-- :material-rocket-launch:{ .lg .middle } **[Platform Engineer Path](../../architects-handbook/learning-paths/platform-engineer.md)**
+- :material-rocket-launch:{ .lg .middle } **[Platform Engineer Path](../..../architects-handbook/learning-paths.md/platform-engineer.md)**
     
     ---
     
@@ -335,9 +335,9 @@ flowchart TD
     
     **Career Outcomes**: Senior Platform Engineer ($200k-350k+), Director ($300k+)
     
-    [:octicons-arrow-right-24: Accelerate Teams](../../architects-handbook/learning-paths/platform-engineer.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Accelerate Teams](../..../architects-handbook/learning-paths.md/platform-engineer.md){ .md-button .md-button--primary }
 
-- :material-brain:{ .lg .middle } **[ML Infrastructure Path](../../architects-handbook/learning-paths/ml-infrastructure.md)**
+- :material-brain:{ .lg .middle } **[ML Infrastructure Path](../..../architects-handbook/learning-paths.md/ml-infrastructure.md)**
     
     ---
     
@@ -353,7 +353,7 @@ flowchart TD
     
     **Career Outcomes**: ML Infrastructure Engineer ($200k-400k+), AI Platform Lead ($350k+)
     
-    [:octicons-arrow-right-24: Power AI Systems](../../architects-handbook/learning-paths/ml-infrastructure.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Power AI Systems](../..../architects-handbook/learning-paths.md/ml-infrastructure.md){ .md-button .md-button--primary }
 
 </div>
 
@@ -361,7 +361,7 @@ flowchart TD
 
 <div class="grid cards" markdown>
 
-- :material-timer:{ .lg .middle } **[Real-Time Systems](../../architects-handbook/learning-paths/real-time-systems.md)**
+- :material-timer:{ .lg .middle } **[Real-Time Systems](../..../architects-handbook/learning-paths.md/real-time-systems.md)**
     
     ---
     
@@ -373,9 +373,9 @@ flowchart TD
     
     **Career Outcomes**: Gaming Infrastructure ($200k+), HFT Engineer ($300k-500k+)
     
-    [:octicons-arrow-right-24: Master Real-Time](../../architects-handbook/learning-paths/real-time-systems.md){ .md-button }
+    [:octicons-arrow-right-24: Master Real-Time](../..../architects-handbook/learning-paths.md/real-time-systems.md){ .md-button }
 
-- :material-network:{ .lg .middle } **[Edge Computing](../../architects-handbook/learning-paths/edge-computing.md)**
+- :material-network:{ .lg .middle } **[Edge Computing](../..../architects-handbook/learning-paths.md/edge-computing.md)**
     
     ---
     
@@ -387,9 +387,9 @@ flowchart TD
     
     **Career Outcomes**: Edge Engineer ($160k-280k), 5G Architect ($200k-350k)
     
-    [:octicons-arrow-right-24: Compute at the Edge](../../architects-handbook/learning-paths/edge-computing.md){ .md-button }
+    [:octicons-arrow-right-24: Compute at the Edge](../..../architects-handbook/learning-paths.md/edge-computing.md){ .md-button }
 
-- :material-currency-btc:{ .lg .middle } **[Blockchain Systems](../../architects-handbook/learning-paths/blockchain-systems.md)**
+- :material-currency-btc:{ .lg .middle } **[Blockchain Systems](../..../architects-handbook/learning-paths.md/blockchain-systems.md)**
     
     ---
     
@@ -401,9 +401,9 @@ flowchart TD
     
     **Career Outcomes**: Blockchain Engineer ($200k-400k), DeFi Architect ($300k+)
     
-    [:octicons-arrow-right-24: Build Decentralized](../../architects-handbook/learning-paths/blockchain-systems.md){ .md-button }
+    [:octicons-arrow-right-24: Build Decentralized](../..../architects-handbook/learning-paths.md/blockchain-systems.md){ .md-button }
 
-- :material-atom:{ .lg .middle } **[Quantum-Resilient Systems](../../architects-handbook/learning-paths/quantum-resilient.md)**
+- :material-atom:{ .lg .middle } **[Quantum-Resilient Systems](../..../architects-handbook/learning-paths.md/quantum-resilient.md)**
     
     ---
     
@@ -415,7 +415,7 @@ flowchart TD
     
     **Career Outcomes**: Quantum Security Engineer ($250k+), Critical Infrastructure Lead ($400k+)
     
-    [:octicons-arrow-right-24: Secure the Future](../../architects-handbook/learning-paths/quantum-resilient.md){ .md-button }
+    [:octicons-arrow-right-24: Secure the Future](../..../architects-handbook/learning-paths.md/quantum-resilient.md){ .md-button }
 
 </div>
 
@@ -423,7 +423,7 @@ flowchart TD
 
 <div class="grid cards" markdown>
 
-- :material-sync:{ .lg .middle } **[Consistency & Coordination](../../architects-handbook/learning-paths/consistency.md)**
+- :material-sync:{ .lg .middle } **[Consistency & Coordination](../..../architects-handbook/learning-paths.md/consistency.md)**
     
     ---
     
@@ -431,9 +431,9 @@ flowchart TD
     
     **For:** Database engineers, FinTech developers
     
-    [:octicons-arrow-right-24: Learn Consistency](../../architects-handbook/learning-paths/consistency.md){ .md-button }
+    [:octicons-arrow-right-24: Learn Consistency](../..../architects-handbook/learning-paths.md/consistency.md){ .md-button }
 
-- :material-speedometer:{ .lg .middle } **[Performance & Scale](../../architects-handbook/learning-paths/performance.md)**
+- :material-speedometer:{ .lg .middle } **[Performance & Scale](../..../architects-handbook/learning-paths.md/performance.md)**
     
     ---
     
@@ -441,9 +441,9 @@ flowchart TD
     
     **For:** Performance engineers, SREs
     
-    [:octicons-arrow-right-24: Scale Systems](../../architects-handbook/learning-paths/performance.md){ .md-button }
+    [:octicons-arrow-right-24: Scale Systems](../..../architects-handbook/learning-paths.md/performance.md){ .md-button }
 
-- :material-currency-usd:{ .lg .middle } **[Cost Optimization](../../architects-handbook/learning-paths/cost.md)**
+- :material-currency-usd:{ .lg .middle } **[Cost Optimization](../..../architects-handbook/learning-paths.md/cost.md)**
     
     ---
     
@@ -451,9 +451,9 @@ flowchart TD
     
     **For:** FinOps, Engineering leaders
     
-    [:octicons-arrow-right-24: Optimize Costs](../../architects-handbook/learning-paths/cost.md){ .md-button }
+    [:octicons-arrow-right-24: Optimize Costs](../..../architects-handbook/learning-paths.md/cost.md){ .md-button }
 
-- :material-shield-check:{ .lg .middle } **[Reliability & Resilience](../../architects-handbook/learning-paths/reliability.md)**
+- :material-shield-check:{ .lg .middle } **[Reliability & Resilience](../..../architects-handbook/learning-paths.md/reliability.md)**
     
     ---
     
@@ -461,7 +461,7 @@ flowchart TD
     
     **For:** SREs, Platform teams
     
-    [:octicons-arrow-right-24: Ensure Reliability](../../architects-handbook/learning-paths/reliability.md){ .md-button }
+    [:octicons-arrow-right-24: Ensure Reliability](../..../architects-handbook/learning-paths.md/reliability.md){ .md-button }
 
 </div>
 
@@ -471,7 +471,7 @@ flowchart TD
 
     !!! tip "Start with visuals and work toward concepts"
         
-        1. **Architecture Diagrams** in [Case Studies](../../architects-handbook/case-studies/index.md)
+        1. **Architecture Diagrams** in [Case Studies](../..../architects-handbook/case-studies.md/index.md)
         2. **Trade-off Matrices** in each pattern
         3. **Visual Decision Trees** throughout
         4. **Mermaid Diagrams** explaining concepts
@@ -517,24 +517,24 @@ flowchart TD
     
     === "By Experience"
         
-        - **New to distributed systems?** → [New Graduate Path](../../architects-handbook/learning-paths/new-graduate.md)
-        - **Building services already?** → [Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md)
-        - **Leading teams?** → [Manager Path](../../architects-handbook/learning-paths/manager.md)
-        - **Designing architectures?** → [Architect Path](../../architects-handbook/learning-paths/architect.md)
+        - **New to distributed systems?** → [New Graduate Path](../..../architects-handbook/learning-paths.md/new-graduate.md)
+        - **Building services already?** → [Senior Engineer Path](../..../architects-handbook/learning-paths.md/senior-engineer.md)
+        - **Leading teams?** → [Manager Path](../..../architects-handbook/learning-paths.md/manager.md)
+        - **Designing architectures?** → [Architect Path](../..../architects-handbook/learning-paths.md/architect.md)
     
     === "By Topic"
         
-        - **Need consistency?** → [Consistency Path](../../architects-handbook/learning-paths/consistency.md)
-        - **Need performance?** → [Performance Path](../../architects-handbook/learning-paths/performance.md)
-        - **Need reliability?** → [Reliability Path](../../architects-handbook/learning-paths/reliability.md)
-        - **Need cost control?** → [Cost Path](../../architects-handbook/learning-paths/cost.md)
+        - **Need consistency?** → [Consistency Path](../..../architects-handbook/learning-paths.md/consistency.md)
+        - **Need performance?** → [Performance Path](../..../architects-handbook/learning-paths.md/performance.md)
+        - **Need reliability?** → [Reliability Path](../..../architects-handbook/learning-paths.md/reliability.md)
+        - **Need cost control?** → [Cost Path](../..../architects-handbook/learning-paths.md/cost.md)
     
     === "By Time"
         
         - **1 hour/day** → Pick a topic path
         - **2+ hours/day** → Choose a role path
         - **Full time** → Complete foundation path
-        - **Just browsing** → Start with [Case Studies](../../architects-handbook/case-studies/index.md)
+        - **Just browsing** → Start with [Case Studies](../..../architects-handbook/case-studies.md/index.md)
 
 ## 🗺️ Visual Learning Journey
 
@@ -713,7 +713,7 @@ All learning paths use a consistent difficulty progression system:
 
 !!! success "Your First Step"
     
-    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../../core-principles/laws/correlated-failure/).
+    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../..../core-principles/laws.md/correlated-failure/index.md).
     It's the foundation everything else builds upon.
     
-    [:octicons-arrow-right-24: Begin Your Journey](../../core-principles/laws/correlated-failure/){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Begin Your Journey](../..../core-principles/laws.md/correlated-failure/index.md){ .md-button .md-button--primary }

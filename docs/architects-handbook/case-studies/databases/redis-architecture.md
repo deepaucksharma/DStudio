@@ -86,25 +86,25 @@ Redis achieves extraordinary performance through radical architectural simplicit
 
 <div class="grid cards" markdown>
 
-- :material-memory:{ .lg .middle } **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** 🥇
+- :material-memory:{ .lg .middle } **[Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)** 🥇
     
     ---
     
     In-memory caching with configurable eviction policies
 
-- :material-cached:{ .lg .middle } **[Cache-Aside Pattern](../../../pattern-library/scaling/caching-strategies.md)** 🥇
+- :material-cached:{ .lg .middle } **[Cache-Aside Pattern](../../pattern-library/scaling.md/caching-strategies.md)** 🥇
     
     ---
     
     Application-managed cache population and invalidation
 
-- :material-content-copy:{ .lg .middle } **[Master-Replica](../../../pattern-library/coordination/leader-follower.md)** 🥇
+- :material-content-copy:{ .lg .middle } **[Master-Replica](../../pattern-library/coordination.md/leader-follower.md)** 🥇
     
     ---
     
     Asynchronous replication for read scaling
 
-- :material-hash:{ .lg .middle } **[Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md)** 🥇
+- :material-hash:{ .lg .middle } **[Consistent Hashing](../../pattern-library/data-management.md/consistent-hashing.md)** 🥇
     
     ---
     
@@ -259,7 +259,7 @@ graph TB
 
 ### Caching Strategy Implementation
 
-!!! info "Pattern Deep Dive: [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)"
+!!! info "Pattern Deep Dive: [Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)"
     Redis implements multiple caching strategies through configurable eviction policies: LRU (Least Recently Used), LFU (Least Frequently Used), TTL-based, and random eviction.
 
 ```python
@@ -639,7 +639,7 @@ class CacheAsideRepository:
 
 ### Master-Replica Pattern
 
-!!! info "Pattern Deep Dive: [Master-Replica Pattern](../../../pattern-library/coordination/leader-follower.md)"
+!!! info "Pattern Deep Dive: [Master-Replica Pattern](../../pattern-library/coordination.md/leader-follower.md)"
     Redis implements asynchronous replication where replicas continuously sync with the master. This enables read scaling and high availability with automatic failover via Redis Sentinel.
 
 ```mermaid
@@ -663,7 +663,7 @@ sequenceDiagram
 
 ### Consistent Hashing for Sharding
 
-!!! info "Pattern Deep Dive: [Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md)"
+!!! info "Pattern Deep Dive: [Consistent Hashing](../../pattern-library/data-management.md/consistent-hashing.md)"
     Redis Cluster uses 16,384 hash slots distributed across nodes. Keys are mapped to slots using CRC16(key) mod 16384, enabling automatic data distribution and resharding.
 
 ## Key Innovations
@@ -703,10 +703,10 @@ sequenceDiagram
 
 ## Further Reading
 
-- [Redis Design and Implementation](https://redisbook.readthedocs.io/en/latest/)
-- [Redis in Action](https://www.manning.com/books/redis-in-action)
-- [Scaling Redis at Twitter](https://blog.twitter.com/engineering/en_us/topics/infrastructure/2014/scaling-redis-at-twitter)
-- [Redis Official Documentation](https://redis.io/documentation)
+- [Redis Design and Implementation](https://redisbook.readthedocs.io/en/latest/index.md)
+- [Redis in Action](https://www.manning.com/books/redis-in-action/index.md)
+- [Scaling Redis at Twitter](https://blog.twitter.com/engineering/en_us/topics/infrastructure/2014/scaling-redis-at-twitter/index.md)
+- [Redis Official Documentation](https://redis.io/documentation/index.md)
 
 ## Discussion Questions
 

@@ -43,12 +43,110 @@ production_checklist:
 ## Challenge Statement
 Design a system that can enforce rate limits across multiple servers, handling millions of requests per second while providing fair resource allocation, preventing abuse, and gracefully degrading under load.
 
+## System Architecture Overview
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        C1[Web Clients]
+        C2[Mobile Apps]
+        C3[API Clients]
+        C4[IoT Devices]
+    end
+    
+    subgraph "Edge Layer"
+        LB[Load Balancer]
+        CDN[CDN/Edge]
+        WAF[WAF]
+    end
+    
+    subgraph "Rate Limiting Layer"
+        subgraph "Local Components"
+            BF[Bloom Filter<br/>False Positive: 0.1%]
+            LC[Local Cache<br/>LRU 100K entries]
+            LRL[Local Rate Limiter]
+        end
+        
+        subgraph "Distributed Components"
+            DRL[Distributed Rate Limiter]
+            RS[Redis Cluster<br/>3 masters, 6 replicas]
+            SS[Sync Service]
+        end
+    end
+    
+    subgraph "Backend Services"
+        API1[API Service 1]
+        API2[API Service 2]
+        API3[API Service 3]
+        DB[(Database)]
+    end
+    
+    C1 & C2 & C3 & C4 --> LB
+    LB --> CDN
+    CDN --> WAF
+    WAF --> BF
+    BF --> LC
+    LC --> LRL
+    LRL --> DRL
+    DRL --> RS
+    
+    LRL --> API1 & API2 & API3
+    SS -.->|Sync| LC
+    SS -.->|Sync| RS
+    
+    API1 & API2 & API3 --> DB
+    
+    style LRL fill:#e3f2fd
+    style RS fill:#ffcdd2
+    style BF fill:#c8e6c9
+```
+
 ## Part 1: Concept Map
 
 ### 🗺 System Overview
 Distributed rate limiter protecting backend services across multiple servers with per-user/per-IP/per-API strategies.
 
 **Requirements:** Sub-ms latency, multiple strategies, accurate distributed counting, graceful degradation, hot configuration
+
+### Rate Limiting Algorithms Comparison
+
+```mermaid
+graph LR
+    subgraph "Fixed Window"
+        FW[Fixed Window]
+        FW1[Simple counter]
+        FW2[Reset at boundaries]
+        FW3[Spike vulnerability]
+        FW --> FW1 & FW2 & FW3
+    end
+    
+    subgraph "Sliding Window Log"
+        SW[Sliding Window]
+        SW1[Accurate tracking]
+        SW2[High memory usage]
+        SW3[Complex implementation]
+        SW --> SW1 & SW2 & SW3
+    end
+    
+    subgraph "Token Bucket"
+        TB[Token Bucket]
+        TB1[Smooth rate]
+        TB2[Burst handling]
+        TB3[Configurable refill]
+        TB --> TB1 & TB2 & TB3
+    end
+    
+    subgraph "Leaky Bucket"
+        LB2[Leaky Bucket]
+        LB1[Constant output]
+        LB2A[Queue overflow]
+        LB3[No bursts]
+        LB2 --> LB1 & LB2A & LB3
+    end
+    
+    style TB fill:#c8e6c9
+    style SW fill:#fff3e0
+```
 
 ### Law Analysis
 
@@ -66,6 +164,55 @@ Solution Strategy:
 - Bloom filters for quick negative checks
 - Connection pooling to rate limit store
 - Optimistic local decisions
+```
+
+### Request Processing Flow
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant LB as Load Balancer
+    participant RL as Rate Limiter
+    participant BF as Bloom Filter
+    participant LC as Local Cache
+    participant DC as Distributed Counter
+    participant Redis
+    participant API as API Service
+    
+    Client->>LB: HTTP Request
+    LB->>RL: Forward Request
+    
+    RL->>BF: Check if seen
+    alt Not in Bloom Filter
+        BF-->>RL: Not seen (allow)
+        RL->>BF: Add to filter
+        RL->>API: Forward request
+        RL->>LC: Async increment
+    else Possibly seen
+        BF-->>RL: Maybe seen
+        RL->>LC: Check local count
+        
+        alt Under 80% limit
+            LC-->>RL: Count: 75/100
+            RL->>API: Forward request
+            RL->>LC: Increment counter
+            RL->>DC: Async sync
+        else Over 80% limit
+            LC-->>RL: Count: 85/100
+            RL->>DC: Check distributed
+            DC->>Redis: GET user:count
+            Redis-->>DC: Count: 92/100
+            
+            alt Under global limit
+                DC-->>RL: Allow
+                RL->>API: Forward request
+                DC->>Redis: INCR user:count
+            else Over global limit
+                DC-->>RL: Deny
+                RL-->>Client: 429 Too Many Requests
+            end
+        end
+    end
 ```
 
 **Implementation Architecture:**
@@ -216,6 +363,107 @@ stateDiagram-v2
 | Fallback Strategy | Fail open | Prioritize availability |
 | Local Limits | Conservative | Prevent abuse during outage |
 
+### Rate Limiting Algorithm Visualizations
+
+#### Fixed Window Algorithm
+
+```mermaid
+graph LR
+    subgraph "Window 1 (0-60s)"
+        R1[Request 1]
+        R2[Request 2]
+        R3[Request 3]
+        C1[Count: 3/100]
+    end
+    
+    subgraph "Window 2 (60-120s)"
+        R4[Request 4]
+        R5[Request 5]
+        C2[Count: 2/100<br/>Reset!]
+    end
+    
+    subgraph "Problem: Edge Spike"
+        S1[58s: 50 req]
+        S2[62s: 50 req]
+        T[Total: 100 req in 4s!]
+    end
+    
+    R3 -->|Reset at 60s| R4
+    
+    style C2 fill:#c8e6c9
+    style T fill:#ffcdd2
+```
+
+#### Token Bucket Algorithm
+
+```mermaid
+graph TB
+    subgraph "Token Bucket"
+        B[Bucket<br/>Capacity: 100]
+        T[Tokens: 75]
+        R[Refill Rate<br/>10 tokens/sec]
+    end
+    
+    subgraph "Request Processing"
+        RQ1[Request arrives]
+        CH{Tokens > 0?}
+        AL[Allow & Remove Token]
+        DN[Deny Request]
+    end
+    
+    subgraph "Refill Process"
+        TM[Timer]
+        RF[Add Tokens]
+        MX[Min(current + refill, capacity)]
+    end
+    
+    B --> T
+    RQ1 --> CH
+    CH -->|Yes| AL
+    CH -->|No| DN
+    
+    TM -->|Every 100ms| RF
+    RF --> MX
+    MX --> T
+    
+    style AL fill:#c8e6c9
+    style DN fill:#ffcdd2
+```
+
+#### Sliding Window Log Algorithm
+
+```mermaid
+graph TB
+    subgraph "Request Log"
+        L1[10:00:00.123]
+        L2[10:00:01.456]
+        L3[10:00:02.789]
+        L4[10:00:58.012]
+        L5[10:00:59.345]
+    end
+    
+    subgraph "Window Check at 10:01:00"
+        W[Last 60 seconds]
+        F[Filter: t > now - 60s]
+        C[Count: 5 requests]
+    end
+    
+    subgraph "Window Check at 10:01:30"
+        W2[Last 60 seconds]
+        F2[Filter: t > now - 60s]
+        C2[Count: 2 requests]
+        R[Removed: L1, L2, L3]
+    end
+    
+    L1 & L2 & L3 & L4 & L5 --> F
+    F --> C
+    
+    L4 & L5 --> F2
+    F2 --> C2
+    
+    style R fill:#ffcdd2
+    style C2 fill:#c8e6c9
+```
 
 #### 🔀 Law 3 (Emergent Chaos): Race Conditions
 ```text
@@ -374,6 +622,44 @@ graph TB
     
     style PROM fill:#ff6b6b
     style GRAF fill:#4ecdc4
+```
+
+### Monitoring Dashboard Visualization
+
+```mermaid
+graph TB
+    subgraph "Real-time Metrics"
+        subgraph "Request Metrics"
+            TPS[Requests/sec<br/>125K]
+            LAT2[P99 Latency<br/>0.8ms]
+            ERR[Error Rate<br/>0.02%]
+        end
+        
+        subgraph "Rate Limit Metrics"
+            ALW[Allowed<br/>98.5%]
+            DNY[Denied<br/>1.5%]
+            FBK[Fallback<br/>0.1%]
+        end
+        
+        subgraph "System Health"
+            CPU2[CPU Usage<br/>45%]
+            MEM2[Memory<br/>2.1GB/4GB]
+            RED[Redis Latency<br/>0.3ms]
+        end
+    end
+    
+    subgraph "Alerts"
+        A1[⚠️ High Denial Rate]
+        A2[✅ Latency Normal]
+        A3[⚠️ Fallback Active]
+    end
+    
+    DNY -->|>5%| A1
+    FBK -->|>0%| A3
+    
+    style TPS fill:#e3f2fd
+    style ALW fill:#c8e6c9
+    style A1 fill:#fff3e0
 ```
 
 **Key Metrics:**
@@ -614,10 +900,34 @@ graph TB
 
 #### Option 1: Centralized Redis
 ```mermaid
-graph LR
-    A[API Gateway] --> B[Redis Master]
-    B --> C[Redis Slave 1]
-    B --> D[Redis Slave 2]
+graph TB
+    subgraph "Centralized Architecture"
+        subgraph "Applications"
+            A1[App Server 1]
+            A2[App Server 2]
+            A3[App Server N]
+        end
+        
+        subgraph "Redis Cluster"
+            RM[Redis Master]
+            RS1[Redis Slave 1]
+            RS2[Redis Slave 2]
+        end
+        
+        subgraph "Characteristics"
+            LAT[Latency: 2-5ms]
+            ACC[Accuracy: 100%]
+            AVL[Availability: 99.9%]
+            SCL[Scale: 100K ops/s]
+        end
+    end
+    
+    A1 & A2 & A3 --> RM
+    RM --> RS1
+    RM --> RS2
+    
+    style RM fill:#ffcdd2
+    style ACC fill:#c8e6c9
 ```
 **Pros**: Simple, exact counting, easy debugging
 **Cons**: SPOF, high latency, scaling limits
@@ -625,10 +935,35 @@ graph LR
 
 #### Option 2: Fully Distributed
 ```mermaid
-graph LR
-    A[Client] --> B[Node 1<br/>Local State]
-    A --> C[Node 2<br/>Local State]
-    B <--> C
+graph TB
+    subgraph "Distributed Architecture"
+        subgraph "Nodes with Local State"
+            N1[Node 1<br/>Local: 100/1000]
+            N2[Node 2<br/>Local: 150/1000]
+            N3[Node 3<br/>Local: 200/1000]
+        end
+        
+        subgraph "Gossip Sync"
+            GS[Gossip Protocol<br/>500ms interval]
+            CR[CRDT Merge]
+        end
+        
+        subgraph "Characteristics"
+            LAT3[Latency: 0.1ms]
+            ACC2[Accuracy: 95%]
+            AVL2[Availability: 99.99%]
+            SCL2[Scale: 10M ops/s]
+        end
+    end
+    
+    N1 <--> GS
+    N2 <--> GS
+    N3 <--> GS
+    GS --> CR
+    
+    style N1 fill:#e3f2fd
+    style LAT3 fill:#c8e6c9
+    style ACC2 fill:#fff3e0
 ```
 **Pros**: No dependencies, ultra-low latency, highly available
 **Cons**: Partition inaccuracy, complex conflicts, hard debugging
@@ -637,18 +972,43 @@ graph LR
 #### Option 3: Hierarchical
 ```mermaid
 graph TB
-    subgraph "Edge"
-        E1[Edge Node 1]
-        E2[Edge Node 2]
+    subgraph "Hierarchical Architecture"
+        subgraph "Edge Layer"
+            E1[Edge 1<br/>Cache: 100ms]
+            E2[Edge 2<br/>Cache: 100ms]
+            E3[Edge 3<br/>Cache: 100ms]
+        end
+        
+        subgraph "Regional Layer"
+            R1[Region US<br/>Aggregate: 1s]
+            R2[Region EU<br/>Aggregate: 1s]
+            R3[Region APAC<br/>Aggregate: 1s]
+        end
+        
+        subgraph "Global Layer"
+            G[Global Master<br/>Reconcile: 5s]
+        end
+        
+        subgraph "Characteristics"
+            LAT4[Latency: 0.5ms avg]
+            ACC3[Accuracy: 98%]
+            AVL3[Availability: 99.95%]
+            SCL3[Scale: 5M ops/s]
+        end
     end
     
-    subgraph "Regional"
-        R1[Regional Aggregator]
-    end
+    E1 --> R1
+    E2 --> R2
+    E3 --> R3
     
-    subgraph "Global"
-        G[Global Coordinator]
-    end
+    R1 --> G
+    R2 --> G
+    R3 --> G
+    
+    style E1 fill:#c8e6c9
+    style R1 fill:#fff3e0
+    style G fill:#ffcdd2
+```
     
     E1 & E2 --> R1
     R1 --> G
@@ -672,22 +1032,68 @@ graph LR
 
 ### Performance Characteristics
 
-**Latency Profile:**
-```text
-Operation               P50    P95    P99    P99.9
-Local cache hit        0.01ms  0.05ms 0.1ms  0.5ms
-Redis check           0.5ms   2ms    5ms    10ms
-Full check (miss)     1ms     3ms    8ms    15ms
-Config update         5ms     10ms   20ms   50ms
+```mermaid
+graph TB
+    subgraph "Latency Distribution"
+        subgraph "Operation Latencies"
+            LC2[Local Cache<br/>P50: 0.01ms<br/>P99: 0.1ms]
+            RC[Redis Check<br/>P50: 0.5ms<br/>P99: 5ms]
+            FC[Full Check<br/>P50: 1ms<br/>P99: 8ms]
+            CU[Config Update<br/>P50: 5ms<br/>P99: 20ms]
+        end
+        
+        subgraph "Request Path Distribution"
+            P1[90% Local Cache]
+            P2[8% Redis Check]
+            P3[2% Full Check]
+        end
+        
+        subgraph "Effective Latency"
+            EL[P50: 0.02ms<br/>P95: 0.1ms<br/>P99: 0.8ms<br/>P99.9: 5ms]
+        end
+    end
+    
+    P1 --> LC2
+    P2 --> RC
+    P3 --> FC
+    
+    LC2 & RC & FC --> EL
+    
+    style LC2 fill:#c8e6c9
+    style EL fill:#e3f2fd
 ```
 
 **Throughput Scaling:**
-```text
-Nodes   Requests/sec   Accuracy   Latency P99
-1       10K           100%       5ms
-10      100K          99%        3ms
-100     1M            95%        2ms
-1000    10M           90%        1ms
+
+```mermaid
+graph LR
+    subgraph "Scaling Characteristics"
+        subgraph "Linear Scale Region"
+            S1[1 Node<br/>10K RPS]
+            S2[10 Nodes<br/>100K RPS]
+            S3[100 Nodes<br/>1M RPS]
+        end
+        
+        subgraph "Sub-linear Region"
+            S4[1000 Nodes<br/>8M RPS]
+            S5[10K Nodes<br/>50M RPS]
+        end
+        
+        subgraph "Bottlenecks"
+            B1[Network: 100K RPS/node]
+            B2[CPU: 200K RPS/node]
+            B3[Memory: 1M counters/node]
+        end
+    end
+    
+    S1 --> S2 --> S3 --> S4 --> S5
+    
+    S4 -.->|Coordination Overhead| B1
+    S5 -.->|Resource Limits| B2 & B3
+    
+    style S1 fill:#c8e6c9
+    style S4 fill:#fff3e0
+    style B1 fill:#ffcdd2
 ```
 
 **Availability Targets:**
@@ -1017,58 +1423,155 @@ graph TD
 | Simple implementation | Redis + Lua scripts | Battle-tested approach |
 
 
+### System Evolution Roadmap
+
+```mermaid
+graph LR
+    subgraph "Phase 1: MVP"
+        P1[Single Redis<br/>Fixed Window<br/>10K RPS]
+    end
+    
+    subgraph "Phase 2: Scale"
+        P2[Redis Cluster<br/>Sliding Window<br/>100K RPS]
+    end
+    
+    subgraph "Phase 3: Distributed"
+        P3[Local Cache<br/>Async Sync<br/>1M RPS]
+    end
+    
+    subgraph "Phase 4: Global"
+        P4[Multi-Region<br/>Hierarchical<br/>10M RPS]
+    end
+    
+    subgraph "Phase 5: Intelligent"
+        P5[ML-Adaptive<br/>Self-Tuning<br/>100M RPS]
+    end
+    
+    P1 -->|3 months| P2
+    P2 -->|6 months| P3
+    P3 -->|9 months| P4
+    P4 -->|12 months| P5
+    
+    style P1 fill:#c8e6c9
+    style P2 fill:#e3f2fd
+    style P3 fill:#fff3e0
+    style P4 fill:#ffebee
+    style P5 fill:#f3e5f5
+```
+
+### Implementation Complexity vs Performance
+
+```mermaid
+graph TB
+    subgraph "Complexity vs Performance Trade-offs"
+        subgraph "Simple Solutions"
+            S1[nginx rate_limit<br/>Complexity: 1/10<br/>Performance: 10K RPS]
+            S2[Redis INCR<br/>Complexity: 3/10<br/>Performance: 50K RPS]
+        end
+        
+        subgraph "Moderate Solutions"
+            M1[Redis + Lua<br/>Complexity: 5/10<br/>Performance: 200K RPS]
+            M2[Local Cache + Sync<br/>Complexity: 7/10<br/>Performance: 1M RPS]
+        end
+        
+        subgraph "Complex Solutions"
+            C1[Distributed P2P<br/>Complexity: 9/10<br/>Performance: 10M RPS]
+            C2[ML-Adaptive<br/>Complexity: 10/10<br/>Performance: 100M RPS]
+        end
+    end
+    
+    S1 --> S2 --> M1 --> M2 --> C1 --> C2
+    
+    style S1 fill:#c8e6c9
+    style M2 fill:#e3f2fd
+    style C2 fill:#ffcdd2
+```
+
+### Success Metrics Dashboard
+
+```mermaid
+graph TB
+    subgraph "Business Impact"
+        BI[Business KPIs]
+        BI --> AB[Abuse Prevention<br/>-99% attack traffic]
+        BI --> CS[Cost Savings<br/>-80% infrastructure]
+        BI --> UE[User Experience<br/>99.99% good traffic]
+        BI --> RV[Revenue Protection<br/>$10M/year saved]
+    end
+    
+    subgraph "Technical Excellence"
+        TE[Technical KPIs]
+        TE --> LA[Latency<br/>P99: <1ms]
+        TE --> AC2[Accuracy<br/>95% distributed]
+        TE --> SC[Scale<br/>10M RPS]
+        TE --> AV[Availability<br/>99.99%]
+    end
+    
+    subgraph "Operational Health"
+        OH[Operational KPIs]
+        OH --> AL2[Alerts<br/><5/week]
+        OH --> MT2[MTTR<br/><5 minutes]
+        OH --> CF[Config Changes<br/>Zero downtime]
+        OH --> DM[Degraded Mode<br/><0.1% time]
+    end
+    
+    style BI fill:#c8e6c9
+    style TE fill:#e3f2fd
+    style OH fill:#fff3e0
+```
+
 ### 📚 References
 
 **Papers & Articles:**
-- [Rate Limiting at Stripe](https://stripe.com/blog/rate-limiters)
-- [How we built rate limiting capable of scaling to millions](https://blog.figma.com/rate-limiting-at-figma-8c5a5d376dc8)
-- [Distributed Rate Limiting at Netflix](https://netflixtechblog.com/distributed-rate-limiting-5348c0cfb19a)
+- [Rate Limiting at Stripe](https://stripe.com/blog/rate-limiters/index.md)
+- [How we built rate limiting capable of scaling to millions](https://blog.figma.com/rate-limiting-at-figma-8c5a5d376dc8/index.md)
+- [Distributed Rate Limiting at Netflix](https://netflixtechblog.com/distributed-rate-limiting-5348c0cfb19a/index.md)
 
 **Open Source Implementations:**
-- [Ratelimit](https://github.com/envoyproxy/ratelimit) - Go/gRPC rate limiting service
-- [Redis Cell](https://github.com/brandur/redis-cell) - Redis module for rate limiting
-- [Gubernator](https://github.com/mailgun/gubernator) - High-performance distributed rate limiting
+- [Ratelimit](https://github.com/envoyproxy/ratelimit/index.md) - Go/gRPC rate limiting service
+- [Redis Cell](https://github.com/brandur/redis-cell/index.md) - Redis module for rate limiting
+- [Gubernator](https://github.com/mailgun/gubernator/index.md) - High-performance distributed rate limiting
 
 **Related Patterns:**
-- [Token Bucket Algorithm](../../../pattern-library/scaling/rate-limiting)
-- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
-- [Consistent Hashing](../../../consistent-hashing.md)
+- [Token Bucket Algorithm](../../pattern-library/scaling.md/rate-limiting/index.md)
+- [Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)
+- [Consistent Hashing](../../consistent-hashing.md)
 - Gossip Protocol (Coming Soon)
 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I.md)
-- **[Law 1: Correlated Failure ](../../core-principles/laws/correlated-failure/)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 2: Asynchronous Reality ](../../core-principles/laws/asynchronous-reality/)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 3: Emergent Chaos ](../../core-principles/laws/emergent-chaos/)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 4: Multidimensional Trade-offs ](../../core-principles/laws/multidimensional-optimization/)** - Rate limiting protects backend capacity from overload
-- **[Law 5: Distributed Knowledge ](../../core-principles/laws/distributed-knowledge/)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Cognitive Load ](../../core-principles/laws/cognitive-load/)** - Clear error messages with retry-after headers and operational dashboards
-- **[Law 7: Economic Reality ](../../core-principles/laws/economic-reality/)** - Local caching reduces infrastructure costs by 80%
+- **[Law 1: Correlated Failure ](../../core-principles/laws.md/correlated-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws.md/asynchronous-reality/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 3: Emergent Chaos ](../../core-principles/laws.md/emergent-chaos/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 4: Multidimensional Trade-offs ](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Rate limiting protects backend capacity from overload
+- **[Law 5: Distributed Knowledge ](../../core-principles/laws.md/distributed-knowledge/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Cognitive Load ](../../core-principles/laws.md/cognitive-load/index.md)** - Clear error messages with retry-after headers and operational dashboards
+- **[Law 7: Economic Reality ](../../core-principles/laws.md/economic-reality/index.md)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Rate Limiting](../../../pattern-library/scaling/rate-limiting)** - Core pattern implemented with token bucket algorithm
-- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Protects rate limiter from Redis failures
-- **[Bulkhead](../../../pattern-library/resilience/bulkhead)** - Isolates rate limit pools per tenant/API
-- **[Consistent Hashing](../../../pattern-library/scaling/sharding)** - Distributes users across rate limiter nodes
-- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies)** - Local cache with TTL for performance
-- **[Health Check](../../../pattern-library/resilience/health-check)** - Monitors Redis connectivity and accuracy
-- **[Load Shedding](../../../pattern-library/resilience/load-shedding)** - Drops low-priority requests under extreme load
+- **[Rate Limiting](../../pattern-library/scaling.md/rate-limiting/index.md)** - Core pattern implemented with token bucket algorithm
+- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)** - Protects rate limiter from Redis failures
+- **[Bulkhead](../../pattern-library/resilience.md/bulkhead/index.md)** - Isolates rate limit pools per tenant/API
+- **[Consistent Hashing](../../pattern-library/scaling.md/sharding/index.md)** - Distributes users across rate limiter nodes
+- **[Caching Strategies](../../pattern-library/scaling.md/caching-strategies/index.md)** - Local cache with TTL for performance
+- **[Health Check](../../pattern-library/resilience.md/health-check/index.md)** - Monitors Redis connectivity and accuracy
+- **[Load Shedding](../../pattern-library/resilience.md/load-shedding/index.md)** - Drops low-priority requests under extreme load
 
 ### Quantitative Models
-- **[Little's Law](../quantitative-analysis/littles-law)** - Queue depth = arrival rate × processing time for pending checks
-- **[Queueing Theory](../quantitative-analysis/queueing-models)** - M/M/c model for rate limiter node sizing
+- **[Little's Law](../../quantitative-analysis/littles-law/index.md)** - Queue depth = arrival rate × processing time for pending checks
+- **[Queueing Theory](../../quantitative-analysis/queueing-models/index.md)** - M/M/c model for rate limiter node sizing
 - **CAP Theorem (Coming Soon)** - AP choice: available during partitions with approximate counts
-- **[Bloom Filters](../quantitative-analysis/probabilistic-structures)** - Space-efficient first-time user detection
+- **[Bloom Filters](../../quantitative-analysis/probabilistic-structures/index.md)** - Space-efficient first-time user detection
 
 ### 👥 Human Factors Considerations
-- **[On-Call Culture](../human-factors/oncall-culture)** - Rate limiter failures directly impact users
-- **[Incident Response](../human-factors/incident-response)** - Runbooks for common scenarios (Redis failure, DDoS)
-- **[Observability Tools](../human-factors/observability-stacks)** - Dashboards show rate limit utilization per API/user
-- **[Capacity Planning](../quantitative-analysis/capacity-planning)** - Predicting rate limit needs based on growth
+- **[On-Call Culture](../../human-factors/oncall-culture/index.md)** - Rate limiter failures directly impact users
+- **[Incident Response](../../human-factors/incident-response/index.md)** - Runbooks for common scenarios (Redis failure, DDoS)
+- **[Observability Tools](../../human-factors/observability-stacks/index.md)** - Dashboards show rate limit utilization per API/user
+- **[Capacity Planning](../../quantitative-analysis/capacity-planning/index.md)** - Predicting rate limit needs based on growth
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](../amazon-dynamo.md)** - Similar distributed counting challenges
-- **[PayPal Payments](../../../architects-handbook/case-studies/financial-commerce/paypal-payments.md)** - Rate limiting prevents payment fraud
-- **[Consistent Hashing](../../../../../../pattern-library/data-management/consistent-hashing.md)** - Core technique for distributing rate limit state
+- **[Amazon DynamoDB](../../amazon-dynamo.md)** - Similar distributed counting challenges
+- **[PayPal Payments](../../architects-handbook/case-studies.md/financial-commerce/paypal-payments.md)** - Rate limiting prevents payment fraud
+- **[Consistent Hashing](../../pattern-library/data-management.md/consistent-hashing.md)** - Core technique for distributing rate limit state
 - **[News Feed System](news-feed.md)** - Rate limiting API calls for feed generation

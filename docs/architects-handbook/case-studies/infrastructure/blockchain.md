@@ -1536,14 +1536,14 @@ tco_analysis = calculator.compare_alternatives([
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 3: Emergent Chaos](../../../core-principles/laws/emergent-chaos/)** - Blockchain consensus emerges from distributed node interactions
-- **[Law 6: Cognitive Load](../../../core-principles/laws/cognitive-load/)** - Blockchain complexity creates significant cognitive overhead
-- **[Law 7: Economic Reality](../../../core-principles/laws/economic-reality/)** - Energy and transaction costs drive blockchain adoption decisions
+- **[Law 3: Emergent Chaos](../../core-principles/laws.md/emergent-chaos/index.md)** - Blockchain consensus emerges from distributed node interactions
+- **[Law 6: Cognitive Load](../../core-principles/laws.md/cognitive-load/index.md)** - Blockchain complexity creates significant cognitive overhead
+- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - Energy and transaction costs drive blockchain adoption decisions
 
 ### Related Patterns  
-- **[Consensus Algorithms](../../../../../pattern-library/distributed/consensus/)** - Core patterns for distributed agreement
-- **[Event Sourcing](../../../../../pattern-library/data/event-sourcing/)** - Alternative to blockchain for immutable audit trails
-- **[Merkle Trees](../../../../../pattern-library/cryptographic/merkle-trees/)** - Essential data structure for blockchain verification
+- **[Consensus Algorithms](../../pattern-library/distributed.md/consensus/index.md)** - Core patterns for distributed agreement
+- **[Event Sourcing](../../pattern-library/data.md/event-sourcing/index.md)** - Alternative to blockchain for immutable audit trails
+- **[Merkle Trees](../../pattern-library/cryptographic.md/merkle-trees/index.md)** - Essential data structure for blockchain verification
 
 ### Related Case Studies
 - **[Amazon DynamoDB Evolution](../../databases/amazon-dynamo.md)** - Alternative distributed database approach
@@ -1552,8 +1552,8 @@ tco_analysis = calculator.compare_alternatives([
 
 ## External Resources
 
-- **[Bitcoin Whitepaper](https://bitcoin.org/bitcoin.pdf)** - Original blockchain design document
-- **[Ethereum Whitepaper](https://ethereum.org/en/whitepaper/)** - Smart contract blockchain architecture
-- **[Hyperledger Architecture](https://hyperledger-fabric.readthedocs.io/)** - Enterprise blockchain framework
-- **[Blockchain Scalability Trilemma](https://vitalik.ca/general/2021/04/07/sharding.html)** - Fundamental trade-offs in blockchain design
-- **[Post-Quantum Cryptography](https://csrc.nist.gov/projects/post-quantum-cryptography)** - NIST standards for quantum-resistant algorithms
+- **[Bitcoin Whitepaper](https://bitcoin.org/bitcoin.pdf/index.md)** - Original blockchain design document
+- **[Ethereum Whitepaper](https://ethereum.org/en/whitepaper/index.md)** - Smart contract blockchain architecture
+- **[Hyperledger Architecture](https://hyperledger-fabric.readthedocs.io/index.md)** - Enterprise blockchain framework
+- **[Blockchain Scalability Trilemma](https://vitalik.ca/general/2021/04/07/sharding.html/index.md)** - Fundamental trade-offs in blockchain design
+- **[Post-Quantum Cryptography](https://csrc.nist.gov/projects/post-quantum-cryptography/index.md)** - NIST standards for quantum-resistant algorithms

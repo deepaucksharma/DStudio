@@ -134,10 +134,10 @@ graph TB
 - Pagecache usage
 
 **Patterns & Pillars Applied**:
-- Pattern: [Leader-Follower Replication](../../../pattern-library/coordination/leader-follower)
-- Pattern: [Partitioning](../../../pattern-library/scaling/sharding) - Topic partitions
-- 🏛 Pillar: [State Distribution](../../../core-principles/pillars/state-distribution.md) - Distributed logs
-- 🏛 Pillar: [Truth Distribution](../../../core-principles/pillars/truth-distribution.md) - Ordered delivery
+- Pattern: [Leader-Follower Replication](../../pattern-library/coordination.md/leader-follower/index.md)
+- Pattern: [Partitioning](../../pattern-library/scaling.md/sharding/index.md) - Topic partitions
+- 🏛 Pillar: [State Distribution](../../core-principles/pillars.md/state-distribution.md) - Distributed logs
+- 🏛 Pillar: [Truth Distribution](../../core-principles/pillars.md/truth-distribution.md) - Ordered delivery
 
 ### Phase 4: Modern Streaming Platform (2014-Present)
 
@@ -1295,33 +1295,33 @@ graph LR
 ## 🔗 Related Concepts & Deep Dives
 
 ### Laws Applied
-- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality/)** - Network RTT dominates replication latency
-- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization/)** - Partitioning for horizontal scaling
-- **[Law 1: Failure](../../../core-principles/laws/correlated-failure/)** - Replication for fault tolerance
-- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos/)** - Producer and consumer parallelism
-- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge/)** - Consumer group coordination and monitoring
-- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load/)** - Simple producer/consumer API
-- **[Law 7: Economics](../../../core-principles/laws/economic-reality/)** - Cost-effective storage with compression
+- **[Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md)** - Network RTT dominates replication latency
+- **[Law 4: Trade-offs](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Partitioning for horizontal scaling
+- **[Law 1: Failure](../../core-principles/laws.md/correlated-failure/index.md)** - Replication for fault tolerance
+- **[Law 3: Emergence](../../core-principles/laws.md/emergent-chaos/index.md)** - Producer and consumer parallelism
+- **[Law 5: Epistemology](../../core-principles/laws.md/distributed-knowledge/index.md)** - Consumer group coordination and monitoring
+- **[Law 6: Human-API](../../core-principles/laws.md/cognitive-load/index.md)** - Simple producer/consumer API
+- **[Law 7: Economics](../../core-principles/laws.md/economic-reality/index.md)** - Cost-effective storage with compression
 
 ### Related Patterns
-- 📨 **[Event-Driven Architecture](../../../pattern-library/architecture/event-driven)** - Kafka as event backbone
-- **[Event Sourcing](../../../pattern-library/data-management/event-sourcing)** - Log as source of truth
-- **[Saga Pattern](../../../pattern-library/data-management/saga)** - Distributed transactions over messaging
-- **[CQRS](../../../pattern-library/data-management/cqrs)** - Separate read/write paths with Kafka
+- 📨 **[Event-Driven Architecture](../../pattern-library/architecture.md/event-driven/index.md)** - Kafka as event backbone
+- **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing/index.md)** - Log as source of truth
+- **[Saga Pattern](../../pattern-library/data-management.md/saga/index.md)** - Distributed transactions over messaging
+- **[CQRS](../../pattern-library/data-management.md/cqrs/index.md)** - Separate read/write paths with Kafka
 
 ### Quantitative Models
-- **[Little's Law](../quantitative-analysis/littles-law)** - Queue depth and latency relationship
-- **[Queueing Theory](../quantitative-analysis/queueing-models)** - M/M/c model for brokers
-- **[Universal Scalability Law](../quantitative-analysis/universal-scalability)** - Coordination overhead in consumer groups
+- **[Little's Law](../../quantitative-analysis/littles-law/index.md)** - Queue depth and latency relationship
+- **[Queueing Theory](../../quantitative-analysis/queueing-models/index.md)** - M/M/c model for brokers
+- **[Universal Scalability Law](../../quantitative-analysis/universal-scalability/index.md)** - Coordination overhead in consumer groups
 
 ### Similar Case Studies
-- **[Event Sourcing System](../../../pattern-library/data-management/event-sourcing)** - Using Kafka for event store
+- **[Event Sourcing System](../../pattern-library/data-management.md/event-sourcing/index.md)** - Using Kafka for event store
 - **Real-time Analytics (Coming Soon)** - Stream processing with Kafka Streams
 - **Multi-Region Replication (Coming Soon)** - Cross-DC messaging
 
 ## References
 
-- [Kafka: A Distributed Messaging System for Log Processing](https://www.microsoft.com/en-us/research/publication/kafka-distributed-messaging-system-log-processing/)
-- [Building LinkedIn's Real-time Activity Data Pipeline](https://engineering.linkedin.com/distributed-systems/building-linkedins-real-time-activity-data-pipeline)
-- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
-- [Kafka Improvement Proposals (KIPs)](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Improvement+Proposals)
+- [Kafka: A Distributed Messaging System for Log Processing](https://www.microsoft.com/en-us/research/publication/kafka-distributed-messaging-system-log-processing/index.md)
+- [Building LinkedIn's Real-time Activity Data Pipeline](https://engineering.linkedin.com/distributed-systems/building-linkedins-real-time-activity-data-pipeline/index.md)
+- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/index.md)
+- [Kafka Improvement Proposals (KIPs)](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Improvement+Proposals/index.md)

@@ -15,7 +15,7 @@ last_updated: 2025-07-29
 
 # Control Distribution: Orchestrating Distributed Systems
 
-[Home](/) > [Core Principles](../../core-principles/index.md) > [The 5 Pillars](../../core-principles/pillars/index.md) > Control Distribution
+[Home](/index.md) > [Core Principles](../..../core-principles/index.md) > [The 5 Pillars](../..../core-principles/pillars.md/index.md) > Control Distribution
 
 ## The One-Inch Punch 👊
 

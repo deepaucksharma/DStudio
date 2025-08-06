@@ -657,7 +657,7 @@ Example:
 
 Patterns that address this law:
 
-- [Auto Scaling](../../pattern-library/scaling/auto-scaling/)
-- [Rate Limiting](../../pattern-library/scaling/rate-limiting/)
+- [Auto Scaling](../../pattern-library/scaling/auto-scaling/index.md)
+- [Rate Limiting](../../pattern-library/scaling/rate-limiting/index.md)
 
 

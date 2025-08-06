@@ -302,9 +302,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) | Events flow through queues | Queue as event transport |
+| [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) | Events flow through queues | Queue as event transport |
 | [Saga Pattern](../coordination/saga.md) | Coordinate distributed transactions | Queue for saga orchestration |
-| [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | Protect downstream services | Circuit breaker in consumers |
+| [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) | Protect downstream services | Circuit breaker in consumers |
 
 ## Quick Reference
 
@@ -348,23 +348,23 @@ graph LR
     
     ---
     
-    - [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Events through queues
+    - [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) - Events through queues
     - [Saga Pattern](../coordination/saga.md) - Distributed transactions
-    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Consumer protection
+    - [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) - Consumer protection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Async messaging nature
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Cascade failure prevention
+    - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - Async messaging nature
+    - [Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md) - Cascade failure prevention
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Queue-based work distribution
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Message state management
+    - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Queue-based work distribution
+    - [State Distribution](../..../core-principles/pillars.md/state-distribution/index.md) - Message state management
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

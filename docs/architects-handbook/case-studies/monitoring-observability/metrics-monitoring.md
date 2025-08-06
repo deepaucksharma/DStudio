@@ -647,7 +647,7 @@ Response:
 
 ## References
 
-- [Prometheus: Up & Running](https://www.oreilly.com/library/view/prometheus-up/9781492034131/)
-- [Facebook's Gorilla: A Fast, Scalable, In-Memory Time Series Database](https://www.vldb.org/pvldb/vol8/p1816-teller.pdf)
-- [M3: Uber's Open Source, Large-scale Metrics Platform](https://eng.uber.com/m3/)
-- [The Evolution of Monitoring at Google](https://sre.google/sre-book/monitoring-distributed-systems/)
+- [Prometheus: Up & Running](https://www.oreilly.com/library/view/prometheus-up/9781492034131/index.md)
+- [Facebook's Gorilla: A Fast, Scalable, In-Memory Time Series Database](https://www.vldb.org/pvldb/vol8/p1816-teller.pdf/index.md)
+- [M3: Uber's Open Source, Large-scale Metrics Platform](https://eng.uber.com/m3/index.md)
+- [The Evolution of Monitoring at Google](https://sre.google/sre-book/monitoring-distributed-systems/index.md)

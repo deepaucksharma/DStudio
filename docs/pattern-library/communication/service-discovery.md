@@ -132,21 +132,21 @@ graph TD
 
 ## Related Patterns
 
-- **[Service Mesh](../../pattern-library/communication/service-mesh.md)** - Advanced service discovery with traffic management
-- **[Load Balancing](../../pattern-library/scaling/load-balancing.md)** - Distribute discovered instances
-- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)** - Handle discovery failures
+- **[Service Mesh](....../pattern-library/communication.md/service-mesh.md)** - Advanced service discovery with traffic management
+- **[Load Balancing](....../pattern-library/scaling.md/load-balancing.md)** - Distribute discovered instances
+- **[Circuit Breaker](....../pattern-library/resilience.md/circuit-breaker.md)** - Handle discovery failures
 - **[Health Check](../observability/health-check.md)** - Determine instance availability
-- **[API Gateway](../../pattern-library/communication/api-gateway.md)** - Centralized service discovery
+- **[API Gateway](....../pattern-library/communication.md/api-gateway.md)** - Centralized service discovery
 - **[Configuration Management](../architecture/configuration-management.md)** - Dynamic configuration
 
 ## References
 
-- [Netflix Eureka](https://github.com/Netflix/eureka/wiki)
-- [Consul by HashiCorp](https://www.consul.io/)
-- [Kubernetes Service Discovery](https://kubernetes.io/docs/concepts/services-networking/service/)
-- [AWS Cloud Map](https://aws.amazon.com/cloud-map/)
+- [Netflix Eureka](https://github.com/Netflix/eureka/wiki/index.md)
+- [Consul by HashiCorp](https://www.consul.io/index.md)
+- [Kubernetes Service Discovery](https://kubernetes.io/docs/concepts/services-networking/service/index.md)
+- [AWS Cloud Map](https://aws.amazon.com/cloud-map/index.md)
 
 ---
 
-**Previous**: [Publish-Subscribe Pattern](../../pattern-library/communication/publish-subscribe.md) | **Next**: [WebSocket Pattern](../../pattern-library/communication/websocket.md)
+**Previous**: [Publish-Subscribe Pattern](....../pattern-library/communication.md/publish-subscribe.md) | **Next**: [WebSocket Pattern](....../pattern-library/communication.md/websocket.md)
 

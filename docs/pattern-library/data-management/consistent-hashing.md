@@ -35,7 +35,7 @@ trade_offs:
 !!! success "🏆 Silver Excellence Pattern"
 **Implementation available in production systems**
 
-[Home](/) > [Patterns](../../pattern-library/index.md) > [Data Patterns](../pattern-library/index/#data-patterns) > Consistent Hashing
+[Home](/index.md) > [Patterns](..../pattern-library/index.md/#data-patterns/index.md) > Consistent Hashing
 
 !!! abstract "Pattern Overview"
 **Implementation available in production systems**
@@ -213,7 +213,7 @@ class MultiRingConsistentHash:
 ## Real-World Examples
 
 ### Production Systems
-- **[Amazon DynamoDB](../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Uses consistent hashing with virtual nodes for global data distribution
-- **[Apache Cassandra](../../architects-handbook/case-studies/databases/cassandra.md)** - Ring-based architecture with 256 virtual nodes per physical node
+- **[Amazon DynamoDB](../..../architects-handbook/case-studies.md/databases/amazon-dynamo.md)** - Uses consistent hashing with virtual nodes for global data distribution
+- **[Apache Cassandra](../..../architects-handbook/case-studies.md/databases/cassandra.md)** - Ring-based architecture with 256 virtual nodes per physical node
 - **Discord** - Chat message routing using 150 virtual nodes per shard
 

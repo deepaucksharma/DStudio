@@ -26,11 +26,11 @@ This case study would explore OpenStreetMap's unique crowdsourced approach to gl
 - Community governance and vandalism prevention
 
 ## Related Case Studies
-- [Google Maps](../google-maps.md) - Centralized mapping approach
-- [Web Crawler](../../../architects-handbook/case-studies/infrastructure/web-crawler.md) - Distributed data collection patterns
+- [Google Maps](../../google-maps.md) - Centralized mapping approach
+- [Web Crawler](../../architects-handbook/case-studies.md/infrastructure/web-crawler.md) - Distributed data collection patterns
 - [Consistent Hashing](consistent-hashing.md) - Tile server distribution
 
 ## External Resources
-- [OpenStreetMap Wiki - Architecture](https://wiki.openstreetmap.org/wiki/Component_overview)
-- [OSM System Architecture](https://wiki.openstreetmap.org/wiki/Servers)
-- [Overpass API Documentation](https://wiki.openstreetmap.org/wiki/Overpass_API)
+- [OpenStreetMap Wiki - Architecture](https://wiki.openstreetmap.org/wiki/Component_overview/index.md)
+- [OSM System Architecture](https://wiki.openstreetmap.org/wiki/Servers/index.md)
+- [Overpass API Documentation](https://wiki.openstreetmap.org/wiki/Overpass_API/index.md)

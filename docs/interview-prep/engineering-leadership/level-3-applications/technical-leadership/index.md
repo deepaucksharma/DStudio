@@ -370,9 +370,9 @@ graph TD
 - "The Architecture of Open Source Applications"
 
 ### Online Resources
-- [High Scalability](http://highscalability.com/)
-- [Martin Fowler's Blog](https://martinfowler.com/)
-- [AWS Architecture Center](https://aws.amazon.com/architecture/)
+- [High Scalability](http://highscalability.com/index.md)
+- [Martin Fowler's Blog](https://martinfowler.com/index.md)
+- [AWS Architecture Center](https://aws.amazon.com/architecture/index.md)
 
 ## Links to Other Applications
 
@@ -420,4 +420,4 @@ graph TD
 - Prepare 5-7 technical leadership stories
 - Practice system design with business context
 - Use [Decision Trees](../../../engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees.md) for architecture choices
-- Review [Company-Specific Technical Bars](../../../../company-specific/index.md)
+- Review [Company-Specific Technical Bars](../../../company-specific/index.md)

@@ -121,7 +121,7 @@ outcomes:
 </div>
 
 !!! tip "Data Platform Readiness Assessment"
-    Take our comprehensive [Data Platform Skills Assessment](../../tools/data-platform-readiness/) to identify your strengths and customize your learning journey.
+    Take our comprehensive [Data Platform Skills Assessment](../../tools/data-platform-readiness/index.md) to identify your strengths and customize your learning journey.
 
 ## 🗺️ Detailed Curriculum
 
@@ -145,19 +145,19 @@ outcomes:
     **Day-by-Day Schedule**:
     
     **Day 1-2**: Data Lake vs Data Warehouse vs Lakehouse
-    - 📖 Study: [Data Lake Architecture](../../../pattern-library/data-management/data-lake.md)
+    - 📖 Study: [Data Lake Architecture](../../..../pattern-library/data-management.md/data-lake.md)
     - 🛠️ Lab: Design lakehouse with Delta Lake/Iceberg
-    - 📊 Case Study: [Netflix's Data Platform Evolution](../../architects-handbook/case-studies/databases/netflix-data-platform.md)
+    - 📊 Case Study: [Netflix's Data Platform Evolution](../..../architects-handbook/case-studies.md/databases/netflix-data-platform.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 3-4**: Polyglot Storage & Database Selection
-    - 📖 Read: [Polyglot Persistence](../../../pattern-library/data-management/polyglot-persistence.md)
+    - 📖 Read: [Polyglot Persistence](../../..../pattern-library/data-management.md/polyglot-persistence.md)
     - 🛠️ Lab: Design multi-database architecture for analytics
     - 📊 Success: Optimize storage costs by 40% through proper selection
     - ⏱️ Time: 6-8 hours
     
     **Day 5-7**: Data Partitioning & Sharding Strategies
-    - 📖 Study: [Sharding](../../../pattern-library/scaling/sharding.md) and partitioning patterns
+    - 📖 Study: [Sharding](../../..../pattern-library/scaling.md/sharding.md) and partitioning patterns
     - 🛠️ Lab: Implement time-based and hash-based partitioning
     - 📊 Deliverable: Storage architecture design document
     - ⏱️ Time: 8-10 hours
@@ -175,7 +175,7 @@ outcomes:
     **Day 8-9**: Apache Spark Architecture & Optimization
     - 📖 Study: Spark internals, catalyst optimizer, memory management
     - 🛠️ Lab: Optimize Spark jobs for 10TB+ datasets
-    - 📊 Case Study: [Uber's Spark Infrastructure](../../architects-handbook/case-studies/databases/uber-spark.md)
+    - 📊 Case Study: [Uber's Spark Infrastructure](../..../architects-handbook/case-studies.md/databases/uber-spark.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 10-11**: ETL/ELT Pipeline Architecture
@@ -203,7 +203,7 @@ outcomes:
     **Day 15-16**: Cloud Data Services Architecture
     - 📖 Study: AWS Redshift, GCP BigQuery, Azure Synapse comparison
     - 🛠️ Lab: Benchmark analytics performance across platforms
-    - 📊 Case Study: [Airbnb's Data Platform Migration](../../architects-handbook/case-studies/databases/airbnb-data-platform.md)
+    - 📊 Case Study: [Airbnb's Data Platform Migration](../..../architects-handbook/case-studies.md/databases/airbnb-data-platform.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 17-18**: Infrastructure as Code for Data Platforms
@@ -251,9 +251,9 @@ outcomes:
     - [ ] Build real-time data pipelines
     
     **Day 22-23**: Kafka Architecture & Advanced Configuration
-    - 📖 Study: [Event Streaming](../../../pattern-library/architecture/event-streaming.md), Kafka internals
+    - 📖 Study: [Event Streaming](../../..../pattern-library/architecture.md/event-streaming.md), Kafka internals
     - 🛠️ Lab: Deploy production Kafka cluster with monitoring
-    - 📊 Case Study: [LinkedIn's Kafka Evolution](../../architects-handbook/case-studies/messaging-streaming/linkedin-kafka.md)
+    - 📊 Case Study: [LinkedIn's Kafka Evolution](../..../architects-handbook/case-studies.md/messaging-streaming/linkedin-kafka.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 24-25**: Schema Registry & Data Contracts
@@ -281,7 +281,7 @@ outcomes:
     **Day 29-30**: Apache Flink & Complex Event Processing
     - 📖 Study: Flink architecture, checkpointing, savepoints
     - 🛠️ Lab: Build complex event processing application
-    - 📊 Case Study: [Alibaba's Real-time Computing](../../architects-handbook/case-studies/messaging-streaming/alibaba-flink.md)
+    - 📊 Case Study: [Alibaba's Real-time Computing](../..../architects-handbook/case-studies.md/messaging-streaming/alibaba-flink.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 31-32**: Exactly-Once Processing & State Management
@@ -307,13 +307,13 @@ outcomes:
     - [ ] Handle data consistency across batch and stream layers
     
     **Day 36-37**: Lambda Architecture Implementation
-    - 📖 Study: [Lambda Architecture](../../../pattern-library/architecture/lambda-architecture.md)
+    - 📖 Study: [Lambda Architecture](../../..../pattern-library/architecture.md/lambda-architecture.md)
     - 🛠️ Lab: Build Lambda architecture with Spark + Kafka
-    - 📊 Case Study: [Twitter's Real-time Analytics](../../architects-handbook/case-studies/messaging-streaming/twitter-lambda.md)
+    - 📊 Case Study: [Twitter's Real-time Analytics](../..../architects-handbook/case-studies.md/messaging-streaming/twitter-lambda.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 38-39**: Kappa Architecture & Stream-First Design
-    - 📖 Read: [Kappa Architecture](../../../pattern-library/architecture/kappa-architecture.md)
+    - 📖 Read: [Kappa Architecture](../../..../pattern-library/architecture.md/kappa-architecture.md)
     - 🛠️ Lab: Implement stream-first analytics platform
     - 📊 Success: Single codebase serving batch and real-time queries
     - ⏱️ Time: 6-8 hours
@@ -335,9 +335,9 @@ outcomes:
     - [ ] Handle schema evolution in streaming systems
     
     **Day 43-44**: CDC Implementation & Database Integration
-    - 📖 Study: [CDC](../../../pattern-library/data-management/cdc.md), Debezium, database logs
+    - 📖 Study: [CDC](../../..../pattern-library/data-management.md/cdc.md), Debezium, database logs
     - 🛠️ Lab: Implement CDC from PostgreSQL to data lake
-    - 📊 Case Study: [Shopify's CDC Architecture](../../architects-handbook/case-studies/financial-commerce/shopify-cdc.md)
+    - 📊 Case Study: [Shopify's CDC Architecture](../..../architects-handbook/case-studies.md/financial-commerce/shopify-cdc.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 45-46**: Real-time Data Synchronization
@@ -374,7 +374,7 @@ outcomes:
     **Day 50-51**: Feature Engineering at Scale
     - 📖 Study: Feature engineering patterns, time-series features
     - 🛠️ Lab: Build feature pipeline processing 1B+ events/day
-    - 📊 Case Study: [Uber's Michelangelo Platform](../../architects-handbook/case-studies/ml-infrastructure/uber-michelangelo.md)
+    - 📊 Case Study: [Uber's Michelangelo Platform](../..../architects-handbook/case-studies.md/ml-infrastructure/uber-michelangelo.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 52-53**: Production Feature Store Implementation
@@ -402,7 +402,7 @@ outcomes:
     **Day 57-58**: Distributed Training Infrastructure
     - 📖 Study: Distributed training patterns, parameter servers
     - 🛠️ Lab: Build distributed training with Kubeflow/Ray
-    - 📊 Case Study: [Google's TensorFlow Extended (TFX)](../../architects-handbook/case-studies/ml-infrastructure/google-tfx.md)
+    - 📊 Case Study: [Google's TensorFlow Extended (TFX)](../..../architects-handbook/case-studies.md/ml-infrastructure/google-tfx.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 59-60**: MLOps Pipeline & Model Lifecycle
@@ -430,7 +430,7 @@ outcomes:
     **Day 64-65**: Real-Time ML Inference Architecture
     - 📖 Study: Low-latency inference, model caching, edge deployment
     - 🛠️ Lab: Build <1ms inference system for recommendations
-    - 📊 Case Study: [Netflix's Real-time ML](../../architects-handbook/case-studies/ml-infrastructure/netflix-ml.md)
+    - 📊 Case Study: [Netflix's Real-time ML](../..../architects-handbook/case-studies.md/ml-infrastructure/netflix-ml.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 66-67**: Online Learning & Model Updates
@@ -467,7 +467,7 @@ outcomes:
     **Day 71-72**: Data Governance Framework Design
     - 📖 Study: Data governance best practices, DMBOK framework
     - 🛠️ Lab: Design governance framework for financial services
-    - 📊 Case Study: [Goldman Sachs Data Governance](../../architects-handbook/case-studies/financial-commerce/goldman-governance.md)
+    - 📊 Case Study: [Goldman Sachs Data Governance](../..../architects-handbook/case-studies.md/financial-commerce/goldman-governance.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 73-74**: Data Catalog & Discovery Platform
@@ -495,7 +495,7 @@ outcomes:
     **Day 78-79**: Privacy by Design & Differential Privacy
     - 📖 Study: Privacy engineering, differential privacy, k-anonymity
     - 🛠️ Lab: Implement differential privacy for analytics
-    - 📊 Case Study: [Apple's Privacy Engineering](../../architects-handbook/case-studies/privacy/apple-differential-privacy.md)
+    - 📊 Case Study: [Apple's Privacy Engineering](../..../architects-handbook/case-studies.md/privacy/apple-differential-privacy.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 80-81**: GDPR/CCPA Compliance Implementation
@@ -530,13 +530,13 @@ outcomes:
     - [ ] Handle data residency and sovereignty requirements
     
     **Day 85-86**: Multi-Region Data Architecture
-    - 📖 Study: [Geo-distribution](../../../pattern-library/scaling/geo-distribution.md), cross-region replication
+    - 📖 Study: [Geo-distribution](../../..../pattern-library/scaling.md/geo-distribution.md), cross-region replication
     - 🛠️ Lab: Deploy data platform across 3 regions
-    - 📊 Case Study: [Google's Spanner Global Architecture](../../architects-handbook/case-studies/databases/google-spanner.md)
+    - 📊 Case Study: [Google's Spanner Global Architecture](../..../architects-handbook/case-studies.md/databases/google-spanner.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 87-88**: Edge Analytics & Processing
-    - 📖 Read: [Edge Computing](../../../pattern-library/scaling/edge-computing.md) for data processing
+    - 📖 Read: [Edge Computing](../../..../pattern-library/scaling.md/edge-computing.md) for data processing
     - 🛠️ Lab: Implement edge analytics with AWS Greengrass/Azure IoT
     - 📊 Success: Process IoT data at edge with <50ms latency
     - ⏱️ Time: 6-8 hours
@@ -560,7 +560,7 @@ outcomes:
     **Day 92-93**: Cost Optimization & FinOps
     - 📖 Study: Data platform cost optimization, usage-based pricing
     - 🛠️ Lab: Implement automated cost optimization achieving 60% savings
-    - 📊 Case Study: [Spotify's Data Platform Cost Optimization](../../architects-handbook/case-studies/cost-optimization/spotify-data-costs.md)
+    - 📊 Case Study: [Spotify's Data Platform Cost Optimization](../..../architects-handbook/case-studies.md/cost-optimization/spotify-data-costs.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 94-95**: Platform Observability & SRE
@@ -660,26 +660,26 @@ outcomes:
 <div class="grid cards" markdown>
 
 - **Financial Services**
-    - [ ] [JPMorgan's Data Lake](../../architects-handbook/case-studies/financial-commerce/jpmorgan-data-lake.md)
-    - [ ] [Goldman Sachs Real-time Risk](../../architects-handbook/case-studies/financial-commerce/goldman-risk-platform.md)
+    - [ ] [JPMorgan's Data Lake](../..../architects-handbook/case-studies.md/financial-commerce/jpmorgan-data-lake.md)
+    - [ ] [Goldman Sachs Real-time Risk](../..../architects-handbook/case-studies.md/financial-commerce/goldman-risk-platform.md)
     - Regulatory reporting and compliance
     - Real-time fraud detection at scale
 
 - **Technology & Social Media**
-    - [ ] [Facebook's Data Infrastructure](../../architects-handbook/case-studies/social-communication/facebook-data-platform.md)
-    - [ ] [LinkedIn's Kafka Platform](../../architects-handbook/case-studies/messaging-streaming/linkedin-kafka.md)
+    - [ ] [Facebook's Data Infrastructure](../..../architects-handbook/case-studies.md/social-communication/facebook-data-platform.md)
+    - [ ] [LinkedIn's Kafka Platform](../..../architects-handbook/case-studies.md/messaging-streaming/linkedin-kafka.md)
     - Social graph analytics
     - Real-time recommendation systems
 
 - **E-commerce & Retail**
-    - [ ] [Amazon's Data Ecosystem](../../architects-handbook/case-studies/financial-commerce/amazon-data-platform.md)
-    - [ ] [Walmart's Real-time Inventory](../../architects-handbook/case-studies/financial-commerce/walmart-inventory.md)
+    - [ ] [Amazon's Data Ecosystem](../..../architects-handbook/case-studies.md/financial-commerce/amazon-data-platform.md)
+    - [ ] [Walmart's Real-time Inventory](../..../architects-handbook/case-studies.md/financial-commerce/walmart-inventory.md)
     - Supply chain optimization
     - Dynamic pricing and inventory
 
 - **Healthcare & Life Sciences**
-    - [ ] [Genomics Data Processing](../../architects-handbook/case-studies/healthcare/genomics-platform.md)
-    - [ ] [Real-time Patient Monitoring](../../architects-handbook/case-studies/healthcare/patient-monitoring.md)
+    - [ ] [Genomics Data Processing](../..../architects-handbook/case-studies.md/healthcare/genomics-platform.md)
+    - [ ] [Real-time Patient Monitoring](../..../architects-handbook/case-studies.md/healthcare/patient-monitoring.md)
     - Regulatory compliance (HIPAA)
     - Large-scale genomic analysis
 

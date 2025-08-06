@@ -47,7 +47,7 @@ By completing this path, you will:
  
  Understanding cloud costs:
  
- - [Law 7: Economic Reality](../../core-principles/laws/economic-reality) - Cost as a constraint
+ - [Law 7: Economic Reality](../..../core-principles/laws.md/economic-reality/index.md) - Cost as a constraint
  - Compute pricing (on-demand, reserved, spot/index)
  - Storage tiers and data transfer costs
 
@@ -93,10 +93,10 @@ By completing this path, you will:
 
 Cost-efficient patterns:
 
-- [FinOps](../../pattern-library/finops) - Financial operations
-- [Auto-Scaling](../../pattern-library/scaling/auto-scaling) - Dynamic capacity
-- [Serverless/FaaS](../../pattern-library/architecture/serverless-faas) - Pay per use
-- [Edge Computing](../../pattern-library/scaling/edge-computing) - Reduce data transfer
+- [FinOps](../..../pattern-library/finops.md/index.md) - Financial operations
+- [Auto-Scaling](../..../pattern-library/scaling.md/auto-scaling/index.md) - Dynamic capacity
+- [Serverless/FaaS](../..../pattern-library/architecture.md/serverless-faas/index.md) - Pay per use
+- [Edge Computing](../..../pattern-library/scaling.md/edge-computing/index.md) - Reduce data transfer
 
 ### Phase 3: Advanced Optimization (2 weeks)
 
@@ -130,10 +130,10 @@ Cost-efficient patterns:
 
 Design for cost efficiency:
 
-- [Cell-Based Architecture](../../pattern-library/architecture/cell-based) - Limit blast radius and cost
-- [Lambda Architecture](../../pattern-library/architecture/lambda-architecture) - Optimize batch vs stream
-- [Data Mesh](../../pattern-library/data-mesh) - Decentralized cost ownership
-- [Bulkhead Pattern](../../pattern-library/resilience/bulkhead) - Resource isolation
+- [Cell-Based Architecture](../..../pattern-library/architecture.md/cell-based/index.md) - Limit blast radius and cost
+- [Lambda Architecture](../..../pattern-library/architecture.md/lambda-architecture/index.md) - Optimize batch vs stream
+- [Data Mesh](../..../pattern-library/data-mesh.md/index.md) - Decentralized cost ownership
+- [Bulkhead Pattern](../..../pattern-library/resilience.md/bulkhead/index.md) - Resource isolation
 
 ### Phase 4: FinOps in Practice (1 week)
 
@@ -428,12 +428,12 @@ operational_metrics:
  
  ---
  
- [Performance Path](../../architects-handbook/learning-paths/performance.md)
+ [Performance Path](../..../architects-handbook/learning-paths.md/performance.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Reliability Path](../../architects-handbook/learning-paths/reliability.md)
+ [Reliability Path](../..../architects-handbook/learning-paths.md/reliability.md)
 
 </div>

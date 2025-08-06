@@ -26,7 +26,7 @@ Logistics systems orchestrate complex supply chains, optimize delivery routes, a
 - **[Package Tracking Systems](real-time-package-tracking.md)** ⭐⭐  
   *FedEx, UPS, and Amazon tracking architectures serving billions of packages*
   - **Focus**: Global package visibility, event processing, customer notifications
-  - **Patterns**: [Event Streaming](../../../../pattern-library/architecture/event-streaming.md), [Event Sourcing](../../../../pattern-library/data-management/event-sourcing.md), [API Gateway](../../../../pattern-library/communication/api-gateway.md)
+  - **Patterns**: [Event Streaming](../../pattern-library/architecture.md/event-streaming.md), [Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md), [API Gateway](../../pattern-library/communication.md/api-gateway.md)
   - **Scale**: 20M+ packages/day, 500+ locations, real-time updates
   - **Time Investment**: 60-90 minutes
 
@@ -34,7 +34,7 @@ Logistics systems orchestrate complex supply chains, optimize delivery routes, a
 - **[Route Optimization Algorithms](route-optimization.md)** ⭐⭐⭐  
   *UPS ORION, Amazon logistics, and DHL route planning systems*
   - **Focus**: Vehicle routing problems, dynamic optimization, traffic integration
-  - **Patterns**: [Auto Scaling](../../../../pattern-library/scaling/auto-scaling.md), [Caching Strategies](../../../../pattern-library/scaling/caching-strategies.md), [Load Balancing](../../../../pattern-library/scaling/load-balancing.md)
+  - **Patterns**: [Auto Scaling](../../pattern-library/scaling.md/auto-scaling.md), [Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md), [Load Balancing](../../pattern-library/scaling.md/load-balancing.md)
   - **Scale**: 100K+ delivery routes/day, complex constraint solving
   - **Time Investment**: 90-120 minutes
 
@@ -42,7 +42,7 @@ Logistics systems orchestrate complex supply chains, optimize delivery routes, a
 - **[Warehouse Automation Systems](warehouse-automation.md)** ⭐⭐⭐⭐  
   *Amazon fulfillment centers, Alibaba smart warehouses, and Ocado robotics*
   - **Focus**: Robotics coordination, inventory optimization, order fulfillment
-  - **Patterns**: [CQRS](../../../../../pattern-library/data-management/cqrs.md), [Circuit Breaker](../../../../pattern-library/resilience/circuit-breaker.md), [Saga](../../../../pattern-library/data-management/saga.md)
+  - **Patterns**: [CQRS](../../pattern-library/data-management.md/cqrs.md), [Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md), [Saga](../../pattern-library/data-management.md/saga.md)
   - **Scale**: 1M+ items, 1000+ robots, sub-minute order processing
   - **Time Investment**: 120-150 minutes
 
@@ -118,10 +118,10 @@ Learn to optimize massive logistics networks:
 Logistics systems frequently implement these distributed system patterns:
 
 ### **Core Patterns**
-- **[Event Streaming](../../../../pattern-library/architecture/event-streaming.md)**: Real-time package and inventory events
-- **[Event Sourcing](../../../../pattern-library/data-management/event-sourcing.md)**: Complete audit trail for regulatory compliance
-- **[CQRS](../../../../../pattern-library/data-management/cqrs.md)**: Separate read/write models for complex operations
-- **[Saga](../../../../pattern-library/data-management/saga.md)**: Distributed logistics workflow coordination
+- **[Event Streaming](../../pattern-library/architecture.md/event-streaming.md)**: Real-time package and inventory events
+- **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)**: Complete audit trail for regulatory compliance
+- **[CQRS](../../pattern-library/data-management.md/cqrs.md)**: Separate read/write models for complex operations
+- **[Saga](../../pattern-library/data-management.md/saga.md)**: Distributed logistics workflow coordination
 
 ### **Optimization Patterns**
 - **Genetic Algorithms**: Vehicle routing problem solutions
@@ -130,9 +130,9 @@ Logistics systems frequently implement these distributed system patterns:
 - **Linear Programming**: Resource allocation and capacity planning
 
 ### **Scale Patterns**
-- **[Auto Scaling](../../../../pattern-library/scaling/auto-scaling.md)**: Handle peak shipping seasons
-- **[Load Balancing](../../../../pattern-library/scaling/load-balancing.md)**: Distribute processing across regions
-- **[Caching Strategies](../../../../pattern-library/scaling/caching-strategies.md)**: Fast access to routing and inventory data
+- **[Auto Scaling](../../pattern-library/scaling.md/auto-scaling.md)**: Handle peak shipping seasons
+- **[Load Balancing](../../pattern-library/scaling.md/load-balancing.md)**: Distribute processing across regions
+- **[Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)**: Fast access to routing and inventory data
 
 ---
 
@@ -234,9 +234,9 @@ Logistics systems frequently implement these distributed system patterns:
 ---
 
 **Explore Related Domains**:
-- **[Location Services](../location-services/index.md)**: GPS tracking and mapping systems
-- **[Infrastructure](../infrastructure/index.md)**: Distributed systems and scaling patterns
-- **[Monitoring & Observability](../monitoring-observability/index.md)**: System monitoring and analytics
-- **[Search & Analytics](../search-analytics/index.md)**: Data analytics and business intelligence
+- **[Location Services](../../location-services/index.md)**: GPS tracking and mapping systems
+- **[Infrastructure](../../infrastructure/index.md)**: Distributed systems and scaling patterns
+- **[Monitoring & Observability](../../monitoring-observability/index.md)**: System monitoring and analytics
+- **[Search & Analytics](../../search-analytics/index.md)**: Data analytics and business intelligence
 
 *Last Updated: August 2025 | 3 Case Studies*

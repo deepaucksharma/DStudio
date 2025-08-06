@@ -43,27 +43,27 @@ graph LR
     
     | Company | System | Scale Challenge |
     |---------|---------|-----------------|
-    | Netflix | [Streaming Platform](../architects-handbook/case-studies/messaging-streaming/netflix-streaming.md) | 200M+ users, 1B+ content hours |
-    | Uber | [Location Services](../architects-handbook/case-studies/location-services/uber-location.md) | Real-time tracking, geo-distributed |
-    | Stripe | [Payment Processing](../architects-handbook/case-studies/financial-commerce/payment-system.md) | Financial accuracy, regulatory compliance |
+    | Netflix | [Streaming Platform](....../architects-handbook/case-studies.md/messaging-streaming/netflix-streaming.md) | 200M+ users, 1B+ content hours |
+    | Uber | [Location Services](....../architects-handbook/case-studies.md/location-services/uber-location.md) | Real-time tracking, geo-distributed |
+    | Stripe | [Payment Processing](....../architects-handbook/case-studies.md/financial-commerce/payment-system.md) | Financial accuracy, regulatory compliance |
 
-- :material-hammer-wrench:{ .lg } **[Implementation Playbooks](../architects-handbook/implementation-playbooks/index.md)** (15+ guides)
+- :material-hammer-wrench:{ .lg } **[Implementation Playbooks](....../architects-handbook/implementation-playbooks.md/index.md)** (15+ guides)
     
     ---
     
     Step-by-step guides for implementing patterns safely in production
     
-    **🚀 Popular**: [Monolith to Microservices](implementation-playbooks/monolith-decomposition/), [Zero-Downtime Migrations](implementation-playbooks/zero-downtime/), [Multi-Region Deployment](implementation-playbooks/global-expansion/)
+    **🚀 Popular**: [Monolith to Microservices](implementation-playbooks/index.mdindex.mdmonolith-decomposition/index.md), [Zero-Downtime Migrations](implementation-playbooks/index.mdindex.mdzero-downtime/index.md), [Multi-Region Deployment](implementation-playbooks/index.mdindex.mdglobal-expansion/index.md)
 
-- :material-calculator:{ .lg } **[Quantitative Analysis](../architects-handbook/quantitative-analysis/index.md)** (25+ tools)
+- :material-calculator:{ .lg } **[Quantitative Analysis](....../architects-handbook/quantitative-analysis.md/index.md)** (25+ tools)
     
     ---
     
     Mathematical foundations and interactive calculators for system design
     
-    **🔢 Live Tools**: [Capacity Planner](../architects-handbook/quantitative-analysis/capacity-planning.md), [Latency Calculator](../../tools/latency-calculator.md), [Cost Estimator](../architects-handbook/quantitative-analysis/storage-economics.md)
+    **🔢 Live Tools**: [Capacity Planner](....../architects-handbook/quantitative-analysis.md/capacity-planning.md), [Latency Calculator](../../tools/latency-calculator.md), [Cost Estimator](....../architects-handbook/quantitative-analysis.md/storage-economics.md)
 
-- :material-account-hard-hat:{ .lg } **[Human Factors](../architects-handbook/human-factors/index.md)** (12+ practices)
+- :material-account-hard-hat:{ .lg } **[Human Factors](....../architects-handbook/human-factors.md/index.md)** (12+ practices)
     
     ---
     
@@ -111,22 +111,22 @@ graph TB
 
 | Tool | Purpose |
 |------|---------|
-| [Capacity Planner](../architects-handbook/quantitative-analysis/capacity-planning.md) | Size your infrastructure |
-| [Pattern Selector](implementation-playbooks/pattern-selection-wizard/) | Choose the right patterns |
-| [Migration Checklist](implementation-playbooks/migration-checklist/) | Plan safe transitions |
-| [Cost Calculator](../architects-handbook/quantitative-analysis/storage-economics.md) | Estimate operational costs |
+| [Capacity Planner](....../architects-handbook/quantitative-analysis.md/capacity-planning.md) | Size your infrastructure |
+| [Pattern Selector](implementation-playbooks/index.mdindex.mdpattern-selection-wizard/index.md) | Choose the right patterns |
+| [Migration Checklist](implementation-playbooks/index.mdindex.mdmigration-checklist/index.md) | Plan safe transitions |
+| [Cost Calculator](....../architects-handbook/quantitative-analysis.md/storage-economics.md) | Estimate operational costs |
 
 ## 📖 Featured Resources
 
 ### Recent Case Studies
-- **[Netflix: Handling 200M+ Users](../architects-handbook/case-studies/messaging-streaming/netflix-streaming.md)** - Microservices at massive scale
-- **[Uber: Real-time Location](../architects-handbook/case-studies/location-services/uber-location.md)** - Geo-distributed systems
-- **[Stripe: Payment Processing](../architects-handbook/case-studies/financial-commerce/payment-system.md)** - Financial system reliability
+- **[Netflix: Handling 200M+ Users](....../architects-handbook/case-studies.md/messaging-streaming/netflix-streaming.md)** - Microservices at massive scale
+- **[Uber: Real-time Location](....../architects-handbook/case-studies.md/location-services/uber-location.md)** - Geo-distributed systems
+- **[Stripe: Payment Processing](....../architects-handbook/case-studies.md/financial-commerce/payment-system.md)** - Financial system reliability
 
 ### Popular Playbooks
-- **[Monolith to Microservices](implementation-playbooks/monolith-to-microservices/)** - Safe decomposition strategies
-- **[Global Expansion](implementation-playbooks/global-expansion/)** - Multi-region deployment
-- **[Zero-Downtime Migrations](implementation-playbooks/zero-downtime/)** - Change without disruption
+- **[Monolith to Microservices](implementation-playbooks/index.mdindex.mdmonolith-to-microservices/index.md)** - Safe decomposition strategies
+- **[Global Expansion](implementation-playbooks/index.mdindex.mdglobal-expansion/index.md)** - Multi-region deployment
+- **[Zero-Downtime Migrations](implementation-playbooks/index.mdindex.mdzero-downtime/index.md)** - Change without disruption
 
 ---
 

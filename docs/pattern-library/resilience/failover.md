@@ -228,9 +228,9 @@ type: pattern
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Independent failure domains
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Handle replication delays
-    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Prevent split-brain
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Independent failure domains
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Handle replication delays
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md) - Prevent split-brain
 
 </div>
 

@@ -204,6 +204,6 @@ graph TD
 
 ## Next Steps
 
-- Complete [Business Acumen Assessment](../../interactive-tools/self-assessment/#business)
+- Complete [Business Acumen Assessment](../../interactive-tools/self-assessment/#business/index.md)
 - Review [Business Metrics Guide](../../../engineering-leadership/level-3-applications/business-acumen/business-metrics.md)
 - Practice [Stakeholder Negotiation](../../../engineering-leadership/practice-scenarios/stakeholder-negotiation-scenario.md)

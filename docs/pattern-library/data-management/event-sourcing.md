@@ -270,10 +270,10 @@ event_sourcing:
 
 This pattern directly addresses several fundamental distributed systems laws:
 
-- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)**: Event sourcing embraces asynchronous processing by storing events and building projections eventually consistently
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Trades storage costs and complexity for auditability, time-travel debugging, and flexible read models
-- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/)**: Events become the single source of truth, with different services maintaining their own projections of relevant events
-- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality/)**: Provides significant business value through audit compliance, debugging capabilities, and analytics, justifying the storage and complexity costs
+- **[Law 2: Asynchronous Reality](../....../core-principles/laws.md/asynchronous-reality/index.md)**: Event sourcing embraces asynchronous processing by storing events and building projections eventually consistently
+- **[Law 4: Multidimensional Optimization](../....../core-principles/laws.md/multidimensional-optimization/index.md)**: Trades storage costs and complexity for auditability, time-travel debugging, and flexible read models
+- **[Law 5: Distributed Knowledge](../....../core-principles/laws.md/distributed-knowledge/index.md)**: Events become the single source of truth, with different services maintaining their own projections of relevant events
+- **[Law 7: Economic Reality](../....../core-principles/laws.md/economic-reality/index.md)**: Provides significant business value through audit compliance, debugging capabilities, and analytics, justifying the storage and complexity costs
 
 ## Related Patterns
 
@@ -283,21 +283,20 @@ This pattern directly addresses several fundamental distributed systems laws:
 - **[Event-Driven Architecture](../communication/event-driven.md)**: Foundation for event flow
 
 ### Supporting Patterns
-- **[Snapshot](../pattern-library/snapshot.md)**: Performance optimization
-- **[Memento](../pattern-library/memento.md)**: State reconstruction
-- **[Message Store](../pattern-library/message-store.md)**: Event persistence
+- **[Snapshot](....../pattern-library/memento.md)**: State reconstruction
+- **[Message Store](....../pattern-library/message-store.md)**: Event persistence
 
 ### Alternative Approaches
 - **[Change Data Capture](./cdc.md)**: Database-level event capture
-- **[Audit Log](../pattern-library/audit-log.md)**: Simpler alternative
+- **[Audit Log](....../pattern-library/audit-log.md)**: Simpler alternative
 - **[Write-Ahead Log](./wal.md)**: Similar append-only concept
 
 ## Further Reading
 
-- [Event Sourcing - Martin Fowler](https://martinfowler.com/eaaDev/EventSourcing.html)
-- [CQRS Journey - Microsoft](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/jj554200)
-- [EventStore Documentation](https://eventstore.com/docs/)
-- [Kafka Event Sourcing](https://kafka.apache.org/documentation/streams/)
+- [Event Sourcing - Martin Fowler](https://martinfowler.com/eaaDev/EventSourcing.html/index.md)
+- [CQRS Journey - Microsoft](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/jj554200/index.md)
+- [EventStore Documentation](https://eventstore.com/docs/index.md)
+- [Kafka Event Sourcing](https://kafka.apache.org/documentation/streams/index.md)
 
 ### Tools & Libraries
 - **Event Stores**: EventStore, Axon Server, Kafka

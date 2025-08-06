@@ -279,9 +279,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | Prevent cascade failures | Backpressure triggers circuit opening |
-| [Bulkhead](../../pattern-library/resilience/bulkhead.md) | Resource isolation | Independent backpressure per partition |
-| [Rate Limiting](../../pattern-library/scaling/rate-limiting.md) | Gateway traffic control | Coordinated upstream and downstream limits |
+| [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) | Prevent cascade failures | Backpressure triggers circuit opening |
+| [Bulkhead](..../pattern-library/resilience.md/bulkhead.md) | Resource isolation | Independent backpressure per partition |
+| [Rate Limiting](..../pattern-library/scaling.md/rate-limiting.md) | Gateway traffic control | Coordinated upstream and downstream limits |
 
 ## Quick Reference
 
@@ -325,23 +325,23 @@ graph LR
     
     ---
     
-    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Fail fast during overload
-    - [Rate Limiting](../../pattern-library/scaling/rate-limiting.md) - Request throttling at boundaries
-    - [Bulkhead](../../pattern-library/resilience/bulkhead.md) - Resource isolation
+    - [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) - Fail fast during overload
+    - [Rate Limiting](..../pattern-library/scaling.md/rate-limiting.md) - Request throttling at boundaries
+    - [Bulkhead](..../pattern-library/resilience.md/bulkhead.md) - Resource isolation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Preventing cascade failures
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Distributed flow control
+    - [Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md) - Preventing cascade failures
+    - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - Distributed flow control
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Load balancing across consumers
-    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Distributed flow decisions
+    - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Load balancing across consumers
+    - [Control Distribution](../..../core-principles/pillars.md/control-distribution/index.md) - Distributed flow decisions
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

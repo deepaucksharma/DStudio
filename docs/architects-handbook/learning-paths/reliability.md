@@ -47,17 +47,17 @@ By completing this path, you will:
  
  Core concepts:
  
- - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure) - Why things fail together
- - [Failure Models](quantitative/failure-models) - Types of failures
- - [Availability Math](quantitative/availability-math) - Calculate uptime
+ - [Law 1: Correlated Failure](../....../core-principles/laws.md/correlated-failure/index.md) - Why things fail together
+ - [Failure Models](quantitative/failure-models/index.md) - Types of failures
+ - [Availability Math](quantitative/availability-math/index.md) - Calculate uptime
 
 - **Reliability Engineering**
  
  Quantitative approach:
  
- - [Reliability Theory](quantitative/reliability-theory) - MTBF, MTTR
- - [SRE Practices](../../architects-handbook/human-factors/sre-practices.md) - Google's approach
- - [Error Budgets](quantitative/error-budgets) - Managing risk
+ - [Reliability Theory](quantitative/reliability-theory/index.md) - MTBF, MTTR
+ - [SRE Practices](../....../architects-handbook/human-factors.md/sre-practices.md) - Google's approach
+ - [Error Budgets](quantitative/error-budgets/index.md) - Managing risk
 
 </div>
 
@@ -70,33 +70,33 @@ By completing this path, you will:
 
 === "Failure Isolation"
  Prevent cascade failures:
- - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker) - Stop cascades
- - [Bulkhead](../../pattern-library/resilience/bulkhead) - Resource isolation
- - [Timeout](../../pattern-library/resilience/timeout) - Bounded waiting
+ - [Circuit Breaker](../....../pattern-library/resilience.md/circuit-breaker/index.md) - Stop cascades
+ - [Bulkhead](../....../pattern-library/resilience.md/bulkhead/index.md) - Resource isolation
+ - [Timeout](../....../pattern-library/resilience.md/timeout/index.md) - Bounded waiting
  - **Project**: Implement circuit breaker library
 
 === "Recovery Patterns"
  Graceful failure handling:
- - [Retry & Backoff](../../pattern-library/resilience/retry-backoff) - Transient failures
- - [Graceful Degradation](../../pattern-library/resilience/graceful-degradation) - Feature flags
- - [Failover](../../pattern-library/resilience/failover) - Automatic recovery
+ - [Retry & Backoff](../....../pattern-library/resilience.md/retry-backoff/index.md) - Transient failures
+ - [Graceful Degradation](../....../pattern-library/resilience.md/graceful-degradation/index.md) - Feature flags
+ - [Failover](../....../pattern-library/resilience.md/failover/index.md) - Automatic recovery
  - **Project**: Build retry with jitter
 
 === "Overload Protection"
  Handle traffic spikes:
- - [Rate Limiting](../../pattern-library/scaling/rate-limiting) - Request caps
- - [Load Shedding](../../pattern-library/resilience/load-shedding) - Selective drops
- - [Backpressure](../../pattern-library/scaling/backpressure) - Flow control
+ - [Rate Limiting](../....../pattern-library/scaling.md/rate-limiting/index.md) - Request caps
+ - [Load Shedding](../....../pattern-library/resilience.md/load-shedding/index.md) - Selective drops
+ - [Backpressure](../....../pattern-library/scaling.md/backpressure/index.md) - Flow control
  - **Project**: Implement adaptive rate limiter
 
 #### Week 3: Advanced Patterns
 
 System-level resilience:
 
-- [Health Check](../../pattern-library/resilience/health-check) - Liveness and readiness
-- [Idempotent Receiver](../../pattern-library/idempotent-receiver) - Safe retries
-- [Split Brain](../../pattern-library/resilience/split-brain) - Network partition handling
-- [Chaos Engineering](../../architects-handbook/human-factors/chaos-engineering.md) - Proactive testing
+- [Health Check](../....../pattern-library/resilience.md/health-check/index.md) - Liveness and readiness
+- [Idempotent Receiver](../....../pattern-library/idempotent-receiver.md/index.md) - Safe retries
+- [Split Brain](../....../pattern-library/resilience.md/split-brain/index.md) - Network partition handling
+- [Chaos Engineering](../....../architects-handbook/human-factors.md/chaos-engineering.md) - Proactive testing
 
 ### Phase 3: High Availability Architecture (2 weeks)
 
@@ -110,18 +110,18 @@ System-level resilience:
  - Active-Active vs Active-Passive
  - N+1, N+2, and 2N redundancy
  - Geographic distribution
- - **Case Study**: [Netflix Multi-Region](../netflix-streaming)
+ - **Case Study**: [Netflix Multi-Region](../netflix-streaming/index.md)
 
 === "Data Resilience"
  Protect your data:
- - [Multi-Region](../../pattern-library/scaling/multi-region) - Global deployment
- - [Geo-Replication](../../pattern-library/scaling/geo-replication) - Data distribution
+ - [Multi-Region](../....../pattern-library/scaling.md/multi-region/index.md) - Global deployment
+ - [Geo-Replication](../....../pattern-library/scaling.md/geo-replication/index.md) - Data distribution
  - Backup and restore strategies
- - **Case Study**: [Amazon S3 Durability](../s3-object-storage-enhanced)
+ - **Case Study**: [Amazon S3 Durability](../s3-object-storage-enhanced/index.md)
 
 === "Service Mesh"
  Infrastructure-level resilience:
- - [Service Mesh](../../pattern-library/communication/service-mesh) - Istio/Linkerd
+ - [Service Mesh](../....../pattern-library/communication.md/service-mesh/index.md) - Istio/Linkerd
  - Automatic retries and timeouts
  - Circuit breaking at mesh level
  - **Project**: Deploy Istio with resilience policies
@@ -145,25 +145,25 @@ Prepare for the worst:
 <div class="grid cards" markdown>
 
 - **Monitoring & Alerting**
- - [Observability](../../pattern-library/observability)
+ - [Observability](../....../pattern-library/observability.md/index.md)
  - SLI/SLO/SLA definition
  - Alert fatigue reduction
  - Synthetic monitoring
 
 - **Incident Management**
- - [Incident Response](../../architects-handbook/human-factors/incident-response.md)
+ - [Incident Response](../....../architects-handbook/human-factors.md/incident-response.md)
  - On-call rotation
  - Runbook creation
  - War room protocols
 
 - **Chaos Engineering**
- - [Chaos Practices](../../architects-handbook/human-factors/chaos-engineering.md)
+ - [Chaos Practices](../....../architects-handbook/human-factors.md/chaos-engineering.md)
  - Game days
  - Failure injection
  - Hypothesis testing
 
 - **Post-Incident**
- - [Blameless Postmortems](../../architects-handbook/human-factors/blameless-postmortems.md)
+ - [Blameless Postmortems](../....../architects-handbook/human-factors.md/blameless-postmortems.md)
  - Root cause analysis
  - Action item tracking
  - Knowledge sharing
@@ -418,12 +418,12 @@ operational_metrics:
  
  ---
  
- [Cost Optimization Path](../../architects-handbook/learning-paths/cost.md)
+ [Cost Optimization Path](../....../architects-handbook/learning-paths.md/cost.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Learning Paths Overview](../../architects-handbook/learning-paths/cost.md)
+ [Learning Paths Overview](../....../architects-handbook/learning-paths.md/cost.md)
 
 </div>

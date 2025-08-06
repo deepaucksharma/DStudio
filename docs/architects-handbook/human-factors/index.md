@@ -14,48 +14,48 @@ Building successful distributed systems isn't just about technology—it's about
 ## 📚 Core Topics
 
 ### Site Reliability Engineering
-- **[SRE Principles](sre-principles/)** - Error budgets, SLIs/SLOs/SLAs
-- **[Toil Reduction](toil-reduction/)** - Automating operational work
-- **[Capacity Management](capacity-management/)** - Planning for growth
-- **[Release Engineering](release-engineering/)** - Safe deployment practices
+- **[SRE Principles](sre-practices.mdindex.md)** - Error budgets, SLIs/SLOs/SLAs
+- **[Toil Reduction](knowledge-management.mdindex.md)** - Automating operational work
+- **[Capacity Management](../tools/capacity-calculator.mdindex.md)** - Planning for growth
+- **[Release Engineering](incident-response.mdindex.md)** - Safe deployment practices
 
 ### Incident Management
 - **[Incident Response](incident-response.md)** - Handling production issues
-- **[Postmortem Culture](postmortem-culture/)** - Learning from failures
-- **[Runbook Development](runbook-development/)** - Standardized procedures
-- **[War Room Protocols](war-room-protocols/)** - Crisis coordination
+- **[Postmortem Culture](blameless-postmortems.mdindex.md)** - Learning from failures
+- **[Runbook Development](runbooks-playbooks.mdindex.md)** - Standardized procedures
+- **[War Room Protocols](incident-response.mdindex.md)** - Crisis coordination
 
 ### On-Call Practices
-- **[On-Call Philosophy](on-call-philosophy/)** - Sustainable practices
-- **[Escalation Policies](escalation-policies/)** - Clear responsibility chains
-- **[Alert Fatigue](alert-fatigue/)** - Reducing noise
-- **[Handoff Procedures](handoff-procedures/)** - Smooth transitions
+- **[On-Call Philosophy](oncall-culture.mdindex.md)** - Sustainable practices
+- **[Escalation Policies](incident-response.mdindex.md)** - Clear responsibility chains
+- **[Alert Fatigue](observability-stacks.mdindex.md)** - Reducing noise
+- **[Handoff Procedures](oncall-culture.mdindex.md)** - Smooth transitions
 
 ### Observability & Monitoring
-- **[Observability Strategy](observability-strategy/)** - Metrics, logs, traces
-- **[Dashboard Design](dashboard-design/)** - Effective visualizations
-- **[Alert Design](alert-design/)** - Actionable notifications
-- **[Debugging Distributed Systems](debugging-guide/)** - Systematic approaches
+- **[Observability Strategy](observability-stacks.mdindex.md)** - Metrics, logs, traces
+- **[Dashboard Design](observability-stacks.mdindex.md)** - Effective visualizations
+- **[Alert Design](observability-stacks.mdindex.md)** - Actionable notifications
+- **[Debugging Distributed Systems](incident-response.mdindex.md)** - Systematic approaches
 
 ## 🏢 Organizational Patterns
 
 ### Team Structures
-- **[Platform Teams](platform-teams/)** - Internal infrastructure
-- **[Service Teams](service-teams/)** - Feature delivery
-- **[SRE Teams](sre-teams/)** - Reliability focus
-- **[DevOps Culture](devops-culture/)** - Breaking down silos
+- **[Platform Teams](platform-teams/index.md)** - Internal infrastructure
+- **[Service Teams](service-teams/index.md)** - Feature delivery
+- **[SRE Teams](sre-teams/index.md)** - Reliability focus
+- **[DevOps Culture](devops-culture/index.md)** - Breaking down silos
 
 ### Communication Patterns
-- **[Technical Documentation](technical-documentation/)** - Knowledge sharing
-- **[Design Reviews](design-reviews/)** - Collaborative architecture
-- **[Operational Reviews](operational-reviews/)** - Continuous improvement
-- **[Blameless Culture](blameless-culture/)** - Psychological safety
+- **[Technical Documentation](technical-documentation/index.md)** - Knowledge sharing
+- **[Design Reviews](design-reviews/index.md)** - Collaborative architecture
+- **[Operational Reviews](operational-reviews/index.md)** - Continuous improvement
+- **[Blameless Culture](blameless-culture/index.md)** - Psychological safety
 
 ### Skills Development
-- **[Learning Paths](../../architects-handbook/learning-paths/index.md)** - Career progression
-- **[Mentorship Programs](mentorship/)** - Knowledge transfer
+- **[Learning Paths](../....../architects-handbook/learning-paths.md/index.md)** - Career progression
+- **[Mentorship Programs](mentorship/index.md)** - Knowledge transfer
 - **[Chaos Engineering](chaos-engineering.md)** - Building confidence
-- **[Game Days](game-days/)** - Practice scenarios
+- **[Game Days](game-days/index.md)** - Practice scenarios
 
 ## 📊 Metrics & KPIs
 
@@ -106,4 +106,4 @@ Building successful distributed systems isn't just about technology—it's about
 
 ---
 
-*Start with [SRE Principles](sre-principles/) to understand the foundation of reliable operations at scale.*
+*Start with [SRE Principles](sre-practices.mdindex.md) to understand the foundation of reliable operations at scale.*

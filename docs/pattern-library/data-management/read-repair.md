@@ -303,15 +303,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays create inconsistency
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Consistency vs performance
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Network delays create inconsistency
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Consistency vs performance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 2: State Distribution](../../core-principles/pillars/state-distribution/) - Managing distributed state
-    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/) - Determining authoritative data
+    - [Pillar 2: State Distribution](../../core-principles/pillars/state-distribution/index.md) - Managing distributed state
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Determining authoritative data
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

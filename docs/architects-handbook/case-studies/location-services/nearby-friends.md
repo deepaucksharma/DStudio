@@ -109,10 +109,10 @@ graph TB
 - Grid-based quantization
 
 **Patterns & Pillars Applied**:
-- Pattern: [Location Privacy](../../../pattern-library/location-privacy) - K-anonymity
-- Pattern: [Consent Management](../../../pattern-library/consent-management) - Mutual opt-in
-- 🏛 Pillar: [Control Distribution](../core-principles/pillars/control-distribution/) - Privacy UX
-- 🏛 Pillar: [Truth Distribution](../core-principles/pillars/truth) - Location accuracy
+- Pattern: [Location Privacy](../../pattern-library/location-privacy.md/index.md) - K-anonymity
+- Pattern: [Consent Management](../../pattern-library/consent-management.md/index.md) - Mutual opt-in
+- 🏛 Pillar: [Control Distribution](..../core-principles/pillars.md/control-distribution/index.md) - Privacy UX
+- 🏛 Pillar: [Truth Distribution](..../core-principles/pillars.md/truth/index.md) - Location accuracy
 
 ### Phase 4: Modern Distributed Architecture (2018-Present)
 
@@ -1695,33 +1695,33 @@ class PrivacyDashboard:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality)** - Real-time location updates
-- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/)** - Battery and bandwidth limits
-- **[Law 1: Failure](../core-principles/laws/correlated-failure)** - Privacy fail-safes
-- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/)** - Parallel proximity checks
-- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/)** - Consent synchronization and privacy analytics
-- **[Law 6: Human-API](../core-principles/laws/cognitive-load/)** - Privacy UX, battery life
-- **[Law 7: Economics](../core-principles/laws/economic-reality/)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality](..../core-principles/laws.md/asynchronous-reality/index.md)** - Real-time location updates
+- **[Law 4: Trade-offs](..../core-principles/laws.md/multidimensional-optimization/index.md)** - Battery and bandwidth limits
+- **[Law 1: Failure](..../core-principles/laws.md/correlated-failure/index.md)** - Privacy fail-safes
+- **[Law 3: Emergence](..../core-principles/laws.md/emergent-chaos/index.md)** - Parallel proximity checks
+- **[Law 5: Epistemology](..../core-principles/laws.md/distributed-knowledge/index.md)** - Consent synchronization and privacy analytics
+- **[Law 6: Human-API](..../core-principles/laws.md/cognitive-load/index.md)** - Privacy UX, battery life
+- **[Law 7: Economics](..../core-principles/laws.md/economic-reality/index.md)** - Infrastructure costs
 
 ### 🏛 Related Patterns
-- **[Location Privacy](../../../pattern-library/location-privacy)** - K-anonymity, fuzzing
-- **[Consent Management](../../../pattern-library/consent-management)** - GDPR compliance
-- **[Stream Processing](../../../pattern-library/scaling/queues-streaming)** - Real-time events
-- **[Edge Computing](../../../pattern-library/scaling/edge-computing)** - Regional processing
-- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
+- **[Location Privacy](../../pattern-library/location-privacy.md/index.md)** - K-anonymity, fuzzing
+- **[Consent Management](../../pattern-library/consent-management.md/index.md)** - GDPR compliance
+- **[Stream Processing](../../pattern-library/scaling.md/queues-streaming/index.md)** - Real-time events
+- **[Edge Computing](../../pattern-library/scaling.md/edge-computing/index.md)** - Regional processing
+- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)** - Service protection
 - **Geofencing (Coming Soon)** - Location triggers
 - **Battery Optimization (Coming Soon)** - Mobile efficiency
 
 ### Quantitative Models
-- **[Privacy Metrics](../quantitative-analysis/privacy-metrics)** - K-anonymity, l-diversity
-- **[Battery Models](../quantitative-analysis/battery-models)** - Power consumption
-- **[Social Networks](../quantitative-analysis/social-networks)** - Friend graphs
-- **[Spatial Statistics](../quantitative-analysis/spatial-stats)** - Location clustering
+- **[Privacy Metrics](../../quantitative-analysis/privacy-metrics/index.md)** - K-anonymity, l-diversity
+- **[Battery Models](../../quantitative-analysis/battery-models/index.md)** - Power consumption
+- **[Social Networks](../../quantitative-analysis/social-networks/index.md)** - Friend graphs
+- **[Spatial Statistics](../../quantitative-analysis/spatial-stats/index.md)** - Location clustering
 
 ### Similar Case Studies
 - **[Find My Device](find-my-device.md)** - Apple/Google location
-- **[Snap Map](../snap-map.md)** - Social location sharing
-- **[Life360](../life360.md)** - Family location tracking
+- **[Snap Map](../../snap-map.md)** - Social location sharing
+- **[Life360](../../life360.md)** - Family location tracking
 - **[Strava Heatmaps](strava-heatmaps.md)** - Activity location privacy
 
 ## Implementation Best Practices

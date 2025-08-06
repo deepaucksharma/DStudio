@@ -1344,43 +1344,43 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Distributed Knowledge ](../../core-principles/laws/distributed-knowledge/) - Node ID assignment and consensus
-- [Law 6: Cognitive Load ](../../core-principles/laws/cognitive-load/) - Developer experience considerations
-- [Clock Synchronization](../../../pattern-library/coordination/clock-sync.md) - NTP and time coordination
-- [Logical Clocks](../../../pattern-library/coordination/logical-clocks.md) - Alternative to wall-clock time
+- [Law 5: Distributed Knowledge ](../../core-principles/laws.md/distributed-knowledge/index.md) - Node ID assignment and consensus
+- [Law 6: Cognitive Load ](../../core-principles/laws.md/cognitive-load/index.md) - Developer experience considerations
+- [Clock Synchronization](../../pattern-library/coordination.md/clock-sync.md) - NTP and time coordination
+- [Logical Clocks](../../pattern-library/coordination.md/logical-clocks.md) - Alternative to wall-clock time
 
 **Advanced Topics:**
 - [Jepsen Analysis of ID Generators] (Jepsen Analysis Coming Soon) - Correctness testing
-- [ID Generation at Scale](../../../pattern-library/scaling/id-generation-scale.md) - Billion+ IDs/second
-- [Time-Series IDs](../../../pattern-library/time-series-ids.md) - Optimized for time-series data
-- [Collision Probability Math](../quantitative-analysis/collision-probability.md) - Birthday paradox applied
+- [ID Generation at Scale](../../pattern-library/scaling.md/id-generation-scale.md) - Billion+ IDs/second
+- [Time-Series IDs](../../pattern-library/time-series-ids.md) - Optimized for time-series data
+- [Collision Probability Math](../../quantitative-analysis/collision-probability.md) - Birthday paradox applied
 
 **Related Case Studies:**
 - [URL Shortener](url-shortener.md) - Uses ID generation for short codes
 <!-- TODO: Add distributed tracing case study -->
-- [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md) - Event ID generation patterns
+- [Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md) - Event ID generation patterns
 
 **Implementation Patterns:**
 - Client Library Design (Coming Soon) - SDK best practices
-- [Service Discovery](../../../pattern-library/communication/service-discovery.md) - For ticket server architectures
-- [Graceful Degradation](../../../pattern-library/resilience/graceful-degradation.md) - Fallback strategies
+- [Service Discovery](../../pattern-library/communication.md/service-discovery.md) - For ticket server architectures
+- [Graceful Degradation](../../pattern-library/resilience.md/graceful-degradation.md) - Fallback strategies
 
 ### 📚 References
 
 **Original Systems:**
-- [Snowflake: Twitter's ID generation](https://github.com/twitter-archive/snowflake)
-- [Instagram's ID architecture](https://instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c)
-- [Flickr's Ticket Servers](https://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/)
-- [UUID Specification (RFC 4122)](https://tools.ietf.org/html/rfc4122)
+- [Snowflake: Twitter's ID generation](https://github.com/twitter-archive/snowflake/index.md)
+- [Instagram's ID architecture](https://instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c/index.md)
+- [Flickr's Ticket Servers](https://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/index.md)
+- [UUID Specification (RFC 4122)](https://tools.ietf.org/html/rfc4122/index.md)
 
 **Modern Implementations:**
-- [Sony's Sonyflake](https://github.com/sony/sonyflake)
-- [Baidu's UidGenerator](https://github.com/baidu/uid-generator)
-- [Leaf: Meituan's ID Generator](https://github.com/Meituan-Dianping/Leaf)
-- [Discord's Snowflake](https://discord.com/developers/docs/reference#snowflakes)
+- [Sony's Sonyflake](https://github.com/sony/sonyflake/index.md)
+- [Baidu's UidGenerator](https://github.com/baidu/uid-generator/index.md)
+- [Leaf: Meituan's ID Generator](https://github.com/Meituan-Dianping/Leaf/index.md)
+- [Discord's Snowflake](https://discord.com/developers/docs/reference#snowflakes/index.md)
 
 **Related Patterns:**
-- [Lamport Timestamps](../../../pattern-library/coordination/logical-clocks.md)
-- [Vector Clocks](../../../pattern-library/coordination/logical-clocks.md)
+- [Lamport Timestamps](../../pattern-library/coordination.md/logical-clocks.md)
+- [Vector Clocks](../../pattern-library/coordination.md/logical-clocks.md)
 - [Consistent Hashing](consistent-hashing.md)
-- [Leader Election](../../../pattern-library/coordination/leader-election.md)
+- [Leader Election](../../pattern-library/coordination.md/leader-election.md)

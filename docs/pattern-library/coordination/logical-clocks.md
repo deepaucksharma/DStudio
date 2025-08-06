@@ -459,14 +459,14 @@ graph LR
 
 ## Related Patterns
 
-- [Vector Clocks](../../pattern-library/coordination/logical-clocks.md) - Detect concurrent events
-- [Hybrid Logical Clocks](../../pattern-library/coordination/hlc.md) - Add wall-clock approximation
-- [Generation Clock](../../pattern-library/coordination/generation-clock.md) - Leadership epochs
-- [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Ordered event streams
+- [Vector Clocks](..../pattern-library/coordination.md/logical-clocks.md) - Detect concurrent events
+- [Hybrid Logical Clocks](..../pattern-library/coordination.md/hlc.md) - Add wall-clock approximation
+- [Generation Clock](..../pattern-library/coordination.md/generation-clock.md) - Leadership epochs
+- [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) - Ordered event streams
 
 ## References
 
-- ["Time, Clocks, and the Ordering of Events"](https://lamport.azurewebsites.net/pubs/time-clocks.pdf) - Lamport's original paper
-- [The TLA+ Book](https://lamport.azurewebsites.net/tla/book.html) - Formal specification by Lamport
-- ["Distributed Systems for Fun and Profit"](http://book.mixu.net/distsys/) - Chapter on time and order
+- ["Time, Clocks, and the Ordering of Events"](https://lamport.azurewebsites.net/pubs/time-clocks.pdf/index.md) - Lamport's original paper
+- [The TLA+ Book](https://lamport.azurewebsites.net/tla/book.html/index.md) - Formal specification by Lamport
+- ["Distributed Systems for Fun and Profit"](http://book.mixu.net/distsys/index.md) - Chapter on time and order
 

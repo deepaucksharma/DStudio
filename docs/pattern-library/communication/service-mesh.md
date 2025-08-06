@@ -185,7 +185,7 @@ class MeshLoadBalancer:
 - Manage failures
 ## Related Laws
 
-- [Law: Cognitive Load](../../core-principles/laws/cognitive-load/)
+- [Law: Cognitive Load](../../core-principles/laws/cognitive-load/index.md)
 
 
 

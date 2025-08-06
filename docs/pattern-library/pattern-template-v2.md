@@ -385,15 +385,15 @@ graph TD
     
     ---
     
-    - [Law 1: Name](../../core-principles/laws/law1/) - [Connection]
-    - [Law 2: Name](../../core-principles/laws/law2/) - [Connection]
+    - [Law 1: Name](../../core-principles/laws/law1/index.md) - [Connection]
+    - [Law 2: Name](../../core-principles/laws/law2/index.md) - [Connection]
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 1: Name](../../core-principles/pillars/pillar1/) - [Implementation]
-    - [Pillar 2: Name](../../core-principles/pillars/pillar2/) - [Implementation]
+    - [Pillar 1: Name](../../core-principles/pillars/pillar1/index.md) - [Implementation]
+    - [Pillar 2: Name](../../core-principles/pillars/pillar2/index.md) - [Implementation]
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

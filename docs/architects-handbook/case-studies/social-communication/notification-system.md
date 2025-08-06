@@ -3433,20 +3433,20 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ](../../core-principles/laws/correlated-failure/)** - Foundation for reliable delivery
-- **[Law 5: Epistemology ](../../core-principles/laws/distributed-knowledge/)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ](../../core-principles/laws/asynchronous-reality/)** - Real-time delivery constraints
-- **[Law 7: Economics ](../../core-principles/laws/economic-reality/)** - Cost optimization strategies
+- **[Law 1: Failure ](../../core-principles/laws.md/correlated-failure/index.md)** - Foundation for reliable delivery
+- **[Law 5: Epistemology ](../../core-principles/laws.md/distributed-knowledge/index.md)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws.md/asynchronous-reality/index.md)** - Real-time delivery constraints
+- **[Law 7: Economics ](../../core-principles/laws.md/economic-reality/index.md)** - Cost optimization strategies
 
 #### Advanced Topics
-- **[Event-Driven Architecture](../../../pattern-library/architecture/event-driven.md)** - Asynchronous notification processing
-- **[Queue Systems](../../../pattern-library/scaling/queues-streaming.md)** - Message queue patterns
-- **[Circuit Breakers](../../../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
-- **[Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
+- **[Event-Driven Architecture](../../pattern-library/architecture.md/event-driven.md)** - Asynchronous notification processing
+- **[Queue Systems](../../pattern-library/scaling.md/queues-streaming.md)** - Message queue patterns
+- **[Circuit Breakers](../../pattern-library/resilience.md/circuit-breaker.md)** - Provider failure handling
+- **[Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
-- **[Chat System](../chat-system.md)** - Real-time messaging patterns
-- **[Search Autocomplete](../../../architects-handbook/case-studies/search-analytics/search-autocomplete.md)** - Low-latency requirements
+- **[Chat System](../../chat-system.md)** - Real-time messaging patterns
+- **[Search Autocomplete](../../architects-handbook/case-studies.md/search-analytics/search-autocomplete.md)** - Low-latency requirements
 - **[Spotify Recommendations](spotify-recommendations.md)** - Personalization at scale
 <!-- TODO: Add workflow engine case study -->
 
@@ -3528,17 +3528,17 @@ graph TB
 ### 📚 References
 
 **Industry Examples:**
-- [Uber's Notification System](https://eng.uber.com/uber-notification-platform/)
-- [Pinterest's Notification System](https://medium.com/pinterest-engineering/building-a-notification-system-86854982c38e)
-- [LinkedIn's Air Traffic Controller](https://engineering.linkedin.com/blog/2019/05/air-traffic-controller--how-we-developed-a-notification-system-f)
+- [Uber's Notification System](https://eng.uber.com/uber-notification-platform/index.md)
+- [Pinterest's Notification System](https://medium.com/pinterest-engineering/building-a-notification-system-86854982c38e/index.md)
+- [LinkedIn's Air Traffic Controller](https://engineering.linkedin.com/blog/2019/05/air-traffic-controller--how-we-developed-a-notification-system-f/index.md)
 
 **Open Source:**
-- [Novu](https://github.com/novuhq/novu) - Open-source notification infrastructure
-- [Courier](https://www.courier.com/) - Notification orchestration
-- [OneSignal](https://onesignal.com/) - Push notification service
+- [Novu](https://github.com/novuhq/novu/index.md) - Open-source notification infrastructure
+- [Courier](https://www.courier.com/index.md) - Notification orchestration
+- [OneSignal](https://onesignal.com/index.md) - Push notification service
 
 **Related Patterns:**
-- [Message Queue](../../../pattern-library/scaling/queues-streaming.md)
-- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
-- [Event-Driven Architecture](../../../pattern-library/architecture/event-driven.md)
-- [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)
+- [Message Queue](../../pattern-library/scaling.md/queues-streaming.md)
+- [Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)
+- [Event-Driven Architecture](../../pattern-library/architecture.md/event-driven.md)
+- [Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md)

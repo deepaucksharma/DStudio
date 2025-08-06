@@ -802,7 +802,7 @@ graph TB
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
 | [CQRS](../architecture/cqrs.md) | Separate read/write caching | Cache query models separately |
-| [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) | Event-driven invalidation | Cache computed projections |
+| [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) | Event-driven invalidation | Cache computed projections |
 | [CDN](../infrastructure/cdn.md) | Geographic caching | Global content distribution |
 
 ## Quick Reference
@@ -888,22 +888,22 @@ flowchart LR
     ---
     
     - [CDN](../infrastructure/cdn.md) - Geographic edge caching
-    - [Sharding](../../pattern-library/scaling/sharding.md) - Cache per shard strategy
+    - [Sharding](..../pattern-library/scaling.md/sharding.md) - Cache per shard strategy
     - [CQRS](../architecture/cqrs.md) - Separate read model caching
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Speed vs freshness vs cost
-    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost-effective performance scaling
+    - [Law 4: Multidimensional Optimization](../..../core-principles/laws.md/multidimensional-optimization/index.md) - Speed vs freshness vs cost
+    - [Law 7: Economic Reality](../..../core-principles/laws.md/economic-reality/index.md) - Cost-effective performance scaling
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Distributed cache management
-    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Cache computation distribution
+    - [State Distribution](../..../core-principles/pillars.md/state-distribution/index.md) - Distributed cache management
+    - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Cache computation distribution
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
@@ -919,7 +919,7 @@ flowchart LR
 
 This pattern directly addresses several fundamental distributed systems laws:
 
-- **[Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/)**: Caching can create correlated failures when cache misses lead to database overload, requiring careful cache warming and circuit breaker patterns
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Caching embodies the classic trade-off between performance (speed), consistency (freshness), and cost (memory/storage)
-- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality/)**: Strategic caching provides massive cost savings by reducing expensive database operations and enabling efficient resource utilization
+- **[Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md)**: Caching can create correlated failures when cache misses lead to database overload, requiring careful cache warming and circuit breaker patterns
+- **[Law 4: Multidimensional Optimization](../..../core-principles/laws.md/multidimensional-optimization/index.md)**: Caching embodies the classic trade-off between performance (speed), consistency (freshness), and cost (memory/storage)
+- **[Law 7: Economic Reality](../..../core-principles/laws.md/economic-reality/index.md)**: Strategic caching provides massive cost savings by reducing expensive database operations and enabling efficient resource utilization
 

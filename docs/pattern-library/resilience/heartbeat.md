@@ -301,9 +301,9 @@ class PhiAccrualDetector:
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Network affects all heartbeats
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - No synchronized clocks
-    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Partial failure views
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Network affects all heartbeats
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - No synchronized clocks
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md) - Partial failure views
 
 </div>
 

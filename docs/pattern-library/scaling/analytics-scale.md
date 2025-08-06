@@ -250,8 +250,8 @@ graph LR
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
 | [CQRS](../architecture/cqrs.md) | Separate read/write models | Query-optimized analytics storage |
-| [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) | Complete audit trail | Event streams feed analytics pipeline |
-| [Cache-Aside](../../pattern-library/scaling/caching-strategies.md) | Faster query response | Cache frequent analytical results |
+| [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) | Complete audit trail | Event streams feed analytics pipeline |
+| [Cache-Aside](..../pattern-library/scaling.md/caching-strategies.md) | Faster query response | Cache frequent analytical results |
 
 ## Quick Reference
 
@@ -297,21 +297,21 @@ graph LR
     
     - [Stream Processing](../data-management/streaming.md) - Real-time data ingestion
     - [CQRS](../architecture/cqrs.md) - Separate analytics queries  
-    - [Data Lake](../../pattern-library/data-management/data-lake.md) - Massive storage foundation
+    - [Data Lake](..../pattern-library/data-management.md/data-lake.md) - Massive storage foundation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Distributed processing
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Performance vs. cost trade-offs
+    - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - Distributed processing
+    - [Law 4: Multidimensional Optimization](../..../core-principles/laws.md/multidimensional-optimization/index.md) - Performance vs. cost trade-offs
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Distributed data storage
-    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Parallel query processing
+    - [State Distribution](../..../core-principles/pillars.md/state-distribution/index.md) - Distributed data storage
+    - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Parallel query processing
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

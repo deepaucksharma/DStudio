@@ -549,10 +549,10 @@ class MigrationValidator:
 
 ### Download Templates
 
-- **[Monolith to Microservices Playbook](playbooks/monolith-microservices.pdf)**
-- **[Sync to Async Migration Guide](playbooks/sync-async.pdf)**
-- **[Database Splitting Strategy](playbooks/database-split.pdf)**
-- **[Legacy Pattern Sunset Plan](playbooks/legacy-sunset.pdf)**
+- **[Monolith to Microservices Playbook](playbooks/monolith-microservices.pdf/index.md)**
+- **[Sync to Async Migration Guide](playbooks/sync-async.pdf/index.md)**
+- **[Database Splitting Strategy](playbooks/database-split.pdf/index.md)**
+- **[Legacy Pattern Sunset Plan](playbooks/legacy-sunset.pdf/index.md)**
 
 ## 👥 Team Alignment
 

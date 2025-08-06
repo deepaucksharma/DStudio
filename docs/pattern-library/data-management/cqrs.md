@@ -169,7 +169,7 @@ graph TD
 
 ## Related Laws
 
-- [Law: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)
+- [Law: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md)
 
 ## Related Patterns
 
@@ -179,20 +179,17 @@ graph TD
 - **[Event-Driven Architecture](../communication/event-driven.md)**: Connect write to read
 
 ### Supporting Patterns
-- **[Materialized View](../pattern-library/data-management/materialized-view.md)**: Read model implementation
-- **[Cache-Aside](../pattern-library/scaling/caching-strategies.md.md)**: Speed up queries
-- **[Database per Service](../pattern-library/database-per-service.md)**: Isolate models
-
-### Alternatives
-- **[Read Replicas](../pattern-library/read-replicas.md)**: Simpler scaling
-- **[Caching](../pattern-library/scaling/caching-strategies.md)**: Less complexity
-- **[API Composition](../pattern-library/api-composition.md)**: Query federation
+- **[Materialized View](..../pattern-library/data-management.md/materialized-view.md)**: Read model implementation
+- **[Cache-Aside](..../pattern-library/scaling.md/caching-strategies.md.md)**: Speed up queries
+- **[Database per Service](..../pattern-library/read-replicas.md)**: Simpler scaling
+- **[Caching](..../pattern-library/scaling.md/caching-strategies.md)**: Less complexity
+- **[API Composition](..../pattern-library/api-composition.md)**: Query federation
 
 ## Further Reading
 
-- [CQRS - Martin Fowler](https://martinfowler.com/bliki/CQRS.html)
-- [CQRS Journey - Microsoft](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/jj554200)
-- [Greg Young on CQRS](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf)
+- [CQRS - Martin Fowler](https://martinfowler.com/bliki/CQRS.html/index.md)
+- [CQRS Journey - Microsoft](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/jj554200/index.md)
+- [Greg Young on CQRS](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf/index.md)
 
 ### Tools & Frameworks
 - **Axon Framework** (Java): CQRS + Event Sourcing

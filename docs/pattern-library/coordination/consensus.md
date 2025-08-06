@@ -323,41 +323,41 @@ No deterministic consensus algorithm can guarantee both safety and liveness in a
 
 This pattern directly addresses several fundamental distributed systems laws:
 
-- **[Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/)**: Consensus algorithms must handle node failures and network partitions without losing safety or liveness guarantees
-- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)**: The FLP impossibility result shows that consensus cannot guarantee both safety and liveness in purely asynchronous systems, requiring partial synchrony assumptions
-- **[Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/)**: Multiple concurrent consensus attempts can create complex emergent behaviors like competing leaders or split votes that require sophisticated handling
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Consensus embodies the CAP theorem trade-offs - strong consistency requires sacrificing availability during partitions
-- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/)**: The fundamental challenge of reaching agreement when no single node has complete knowledge of the system state
+- **[Law 1: Correlated Failure](../....../core-principles/laws.md/correlated-failure/index.md)**: Consensus algorithms must handle node failures and network partitions without losing safety or liveness guarantees
+- **[Law 2: Asynchronous Reality](../....../core-principles/laws.md/asynchronous-reality/index.md)**: The FLP impossibility result shows that consensus cannot guarantee both safety and liveness in purely asynchronous systems, requiring partial synchrony assumptions
+- **[Law 3: Emergent Chaos](../....../core-principles/laws.md/emergent-chaos/index.md)**: Multiple concurrent consensus attempts can create complex emergent behaviors like competing leaders or split votes that require sophisticated handling
+- **[Law 4: Multidimensional Optimization](../....../core-principles/laws.md/multidimensional-optimization/index.md)**: Consensus embodies the CAP theorem trade-offs - strong consistency requires sacrificing availability during partitions
+- **[Law 5: Distributed Knowledge](../....../core-principles/laws.md/distributed-knowledge/index.md)**: The fundamental challenge of reaching agreement when no single node has complete knowledge of the system state
 
 ## Related Laws & Pillars
 
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/)**: Consensus handles node failures and network partitions
-- **[Law 2: Asynchronous Reality ⏱️](../../core-principles/laws/asynchronous-reality/)**: FLP impossibility shows async consensus limits
-- **[Law 3: Emergent Chaos 🌪️](core-principles/laws/emergent-chaos/)**: Multiple consensus attempts create emergent behaviors
-- **[Law 4: Multidimensional Optimization ⚖️](core-principles/laws/multidimensional-optimization/)**: CAP theorem trade-offs in consensus
-- **[Law 5: Distributed Knowledge 🧠](core-principles/laws/distributed-knowledge/)**: No single node knows complete state
+- **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/index.md)**: Consensus handles node failures and network partitions
+- **[Law 2: Asynchronous Reality ⏱️](../....../core-principles/laws.md/asynchronous-reality/index.md)**: FLP impossibility shows async consensus limits
+- **[Law 3: Emergent Chaos 🌪️](core-principles/laws/emergent-chaos/index.md)**: Multiple consensus attempts create emergent behaviors
+- **[Law 4: Multidimensional Optimization ⚖️](core-principles/laws/multidimensional-optimization/index.md)**: CAP theorem trade-offs in consensus
+- **[Law 5: Distributed Knowledge 🧠](core-principles/laws/distributed-knowledge/index.md)**: No single node knows complete state
 
 ### Foundational Pillars
 Consensus implements:
 
-- **[Pillar 2: Distribution of State 🗃️](core-principles/core-principles/pillars/state-distribution/)**: Replicated state machines
-- **[Pillar 3: Distribution of Truth 🔍](core-principles/core-principles/pillars/truth-distribution/)**: Agreement on single truth
-- **[Pillar 4: Distribution of Control 🎮](core-principles/core-principles/pillars/control-distribution/)**: Leader election and coordination
+- **[Pillar 2: Distribution of State 🗃️](core-principles..../core-principles/pillars.md/state-distribution/index.md)**: Replicated state machines
+- **[Pillar 3: Distribution of Truth 🔍](core-principles..../core-principles/pillars.md/truth-distribution/index.md)**: Agreement on single truth
+- **[Pillar 4: Distribution of Control 🎮](core-principles..../core-principles/pillars.md/control-distribution/index.md)**: Leader election and coordination
 
 ## Related Patterns
 
 ### Core Dependencies
-- **[Leader Election](pattern-library/leader-election)**: Uses consensus for choosing leaders
-- **[Distributed Lock](pattern-library/distributed-lock)**: Built on consensus primitives
-- **[Two-Phase Commit](pattern-library/two-phase-commit)**: Alternative for distributed transactions
+- **[Leader Election](pattern-library/leader-election/index.md)**: Uses consensus for choosing leaders
+- **[Distributed Lock](pattern-library/distributed-lock/index.md)**: Built on consensus primitives
+- **[Two-Phase Commit](pattern-library/two-phase-commit/index.md)**: Alternative for distributed transactions
 
 ### Complementary Patterns
-- **[Circuit Breaker](pattern-library/circuit-breaker)**: Protects consensus operations
-- **[Saga Pattern](pattern-library/saga)**: Alternative to consensus for long-running transactions
-- **[Event Sourcing](pattern-library/event-sourcing)**: Can use consensus for ordering events
+- **[Circuit Breaker](pattern-library/circuit-breaker/index.md)**: Protects consensus operations
+- **[Saga Pattern](pattern-library/saga/index.md)**: Alternative to consensus for long-running transactions
+- **[Event Sourcing](pattern-library/event-sourcing/index.md)**: Can use consensus for ordering events
 
 ## Decision Matrix
 
@@ -371,10 +371,10 @@ Consensus implements:
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
 
 ## Implementation Patterns
-- **[Write-Ahead Log](pattern-library/wal)**: Critical for consensus durability
-- **[Gossip Protocol](pattern-library/gossip-protocol)**: Alternative for eventual consistency
-- **[Vector Clocks](pattern-library/vector-clocks)**: Track causality without consensus
+- **[Write-Ahead Log](pattern-library/wal/index.md)**: Critical for consensus durability
+- **[Gossip Protocol](pattern-library/gossip-protocol/index.md)**: Alternative for eventual consistency
+- **[Vector Clocks](pattern-library/vector-clocks/index.md)**: Track causality without consensus
 
 ---
 
-**Previous**: [← Circuit Breaker Pattern](../../pattern-library/resilience/circuit-breaker.md) | **Next**: [CQRS (Command Query Responsibility Segregation) →](../../pattern-library/data-management/cqrs.md)
+**Previous**: [← Circuit Breaker Pattern](....../pattern-library/resilience.md/circuit-breaker.md) | **Next**: [CQRS (Command Query Responsibility Segregation) →](....../pattern-library/data-management.md/cqrs.md)

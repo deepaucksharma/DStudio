@@ -246,9 +246,9 @@ type: pattern
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Bulkheads prevent correlation
-    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Isolation reduces emergence
-    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Trade efficiency for safety
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Bulkheads prevent correlation
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index.md) - Isolation reduces emergence
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/index.md) - Trade efficiency for safety
 
 </div>
 

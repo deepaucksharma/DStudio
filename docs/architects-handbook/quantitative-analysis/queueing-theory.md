@@ -556,7 +556,7 @@ graph LR
  style F fill:#ff0000
 ```
 
-**Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](../core-principles/laws/multidimensional-optimization/) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
+**Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](../core-principles/laws/multidimensional-optimization/index.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
 
 ### Law 1: Failure
 - At high utilization (>90%), small disruptions cause catastrophic queue growth

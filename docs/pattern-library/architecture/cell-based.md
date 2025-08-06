@@ -293,15 +293,15 @@ graph TD
 
 ## Related Patterns
 
-- **[Bulkhead Pattern](../../pattern-library/resilience/bulkhead.md)** - Isolation within services
-- **[Sharding](../../pattern-library/scaling/sharding.md)** - Data partitioning strategy
-- **[Multi-Region](../../pattern-library/scaling/multi-region.md)** - Geographic distribution
-- **[Service Mesh](../../pattern-library/communication/service-mesh.md)** - Network-level isolation
-- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)** - Failure handling
+- **[Bulkhead Pattern](..../pattern-library/resilience.md/bulkhead.md)** - Isolation within services
+- **[Sharding](..../pattern-library/scaling.md/sharding.md)** - Data partitioning strategy
+- **[Multi-Region](..../pattern-library/scaling.md/multi-region.md)** - Geographic distribution
+- **[Service Mesh](..../pattern-library/communication.md/service-mesh.md)** - Network-level isolation
+- **[Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md)** - Failure handling
 
 ## References
 
-- [AWS Well-Architected Framework - Cell-Based Architecture](https://docs.aws.amazon.com/wellarchitected/latest/framework/cell-based-architecture.html)
-- [Slack's Cell-Based Architecture](https://slack.engineering/cell-based-architecture/)
-- [Azure Mission-Critical - Deployment Stamps](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-deployment-stamps)
+- [AWS Well-Architected Framework - Cell-Based Architecture](https://docs.aws.amazon.com/wellarchitected/latest/framework/cell-based-architecture.html/index.md)
+- [Slack's Cell-Based Architecture](https://slack.engineering/cell-based-architecture/index.md)
+- [Azure Mission-Critical - Deployment Stamps](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-deployment-stamps/index.md)
 

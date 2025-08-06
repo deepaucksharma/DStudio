@@ -146,7 +146,7 @@ We're actively expanding this collection. Future problems will include:
 
 ### Before Practice
 - Review [System Design Frameworks](../../ic-interviews/frameworks/index.md)
-- Study [Common Patterns](../../../../pattern-library/index.md)
+- Study [Common Patterns](../../pattern-library/index.md)
 - Check [Scalability Numbers](../../ic-interviews/cheatsheets/index.md)
 
 ### During Practice

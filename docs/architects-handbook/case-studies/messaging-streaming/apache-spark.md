@@ -578,15 +578,15 @@ spark.conf.set("spark.task.resource.gpu.amount", "0.25")
 
 ## Related Topics
 
-- [MapReduce](../../../architects-handbook/case-studies/messaging-streaming/mapreduce.md) - Predecessor comparison
-- [Distributed Computing](../../../pattern-library/distributed-computing) - Core concepts
-- [Stream Processing](../../../pattern-library/stream-processing) - Streaming patterns
+- [MapReduce](../../architects-handbook/case-studies.md/messaging-streaming/mapreduce.md) - Predecessor comparison
+- [Distributed Computing](../../pattern-library/distributed-computing.md/index.md) - Core concepts
+- [Stream Processing](../../pattern-library/stream-processing.md/index.md) - Streaming patterns
 - [Apache Flink](flink) - Alternative engine
 - [Databricks](databricks.md) - Commercial Spark platform
 
 ## References
 
-1. [Spark: The Definitive Guide](https://www.oreilly.com/library/view/spark-the-definitive/9781491912201/)
-2. [High Performance Spark](https://www.oreilly.com/library/view/high-performance-spark/9781491943199/)
-3. [Learning Spark, 2nd Edition](https://www.oreilly.com/library/view/learning-spark-2nd/9781492050049/)
-4. [Spark Documentation](https://spark.apache.org/docs/latest/)
+1. [Spark: The Definitive Guide](https://www.oreilly.com/library/view/spark-the-definitive/9781491912201/index.md)
+2. [High Performance Spark](https://www.oreilly.com/library/view/high-performance-spark/9781491943199/index.md)
+3. [Learning Spark, 2nd Edition](https://www.oreilly.com/library/view/learning-spark-2nd/9781492050049/index.md)
+4. [Spark Documentation](https://spark.apache.org/docs/latest/index.md)

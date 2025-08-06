@@ -1273,8 +1273,8 @@ graph LR
 
 ## References
 
-- [NASDAQ Technology Architecture](https://www.nasdaq.com/docs/2023/05/24/nasdaq-technology-overview.pdf)
-- [High-Frequency Trading: A Practical Guide](https://www.wiley.com/en-us/High+Frequency+Trading%3A+A+Practical+Guide+to+Algorithmic+Strategies+and+Trading+Systems-p-9781118343500)
-- [SEC Market Structure Papers](https://www.sec.gov/marketstructure)
-- [FIX Protocol Specifications](https://www.fixtrading.org/standards/)
-- [CME Group Matching Engine Architecture](https://www.cmegroup.com/confluence/display/EPICSANDBOX/CME+Globex+Architecture)
+- [NASDAQ Technology Architecture](https://www.nasdaq.com/docs/2023/05/24/nasdaq-technology-overview.pdf/index.md)
+- [High-Frequency Trading: A Practical Guide](https://www.wiley.com/en-us/High+Frequency+Trading%3A+A+Practical+Guide+to+Algorithmic+Strategies+and+Trading+Systems-p-9781118343500/index.md)
+- [SEC Market Structure Papers](https://www.sec.gov/marketstructure/index.md)
+- [FIX Protocol Specifications](https://www.fixtrading.org/standards/index.md)
+- [CME Group Matching Engine Architecture](https://www.cmegroup.com/confluence/display/EPICSANDBOX/CME+Globex+Architecture/index.md)

@@ -82,25 +82,25 @@ Apache Kafka transformed distributed data movement by treating data as an immuta
 
 <div class="grid cards" markdown>
 
-- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)** 🥇
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)** 🥇
     
     ---
     
     Immutable append-only log as the source of truth
 
-- :material-publish:{ .lg .middle } **[Pub-Sub Messaging](../../../pattern-library/communication/pub-sub.md)** 🥇
+- :material-publish:{ .lg .middle } **[Pub-Sub Messaging](../../pattern-library/communication.md/pub-sub.md)** 🥇
     
     ---
     
     Decoupled producers and consumers with topic-based routing
 
-- :material-file-tree:{ .lg .middle } **[Partitioning](../../../pattern-library/partitioning.md)** 🥇
+- :material-file-tree:{ .lg .middle } **[Partitioning](../../pattern-library/partitioning.md)** 🥇
     
     ---
     
     Horizontal scaling through partition distribution
 
-- :material-sync:{ .lg .middle } **[Leader-Follower](../../../pattern-library/coordination/leader-follower.md)** 🥇
+- :material-sync:{ .lg .middle } **[Leader-Follower](../../pattern-library/coordination.md/leader-follower.md)** 🥇
     
     ---
     
@@ -251,7 +251,7 @@ graph TB
 
 ### Event Sourcing Implementation
 
-!!! info "Pattern Deep Dive: [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)"
+!!! info "Pattern Deep Dive: [Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)"
     Kafka's append-only log serves as a perfect implementation of event sourcing, where every state change is captured as an immutable event. This enables event replay, temporal queries, and audit trails.
 
 ```java
@@ -567,12 +567,12 @@ public class PaymentEventStore {
 
 ### Pub-Sub Pattern at Scale
 
-!!! info "Pattern Deep Dive: [Pub-Sub Messaging](../../../pattern-library/communication/pub-sub.md)"
+!!! info "Pattern Deep Dive: [Pub-Sub Messaging](../../pattern-library/communication.md/pub-sub.md)"
     Kafka implements pub-sub with persistent storage, allowing consumers to read at their own pace and replay messages. Topics provide logical separation while partitions enable parallel processing.
 
 ### Partitioning Strategy
 
-!!! info "Pattern Deep Dive: [Partitioning](../../../pattern-library/partitioning.md)"
+!!! info "Pattern Deep Dive: [Partitioning](../../pattern-library/partitioning.md)"
     Kafka partitions topics for horizontal scalability. Each partition maintains order, while parallel partitions increase throughput. Custom partitioners can implement domain-specific routing.
 
 ```java
@@ -627,10 +627,10 @@ public class UserPartitioner implements Partitioner {
 
 ## Further Reading
 
-- [Kafka: a Distributed Messaging System for Log Processing](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/09/Kafka.pdf)
-- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
-- [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/)
-- [Building Data Streaming Applications with Apache Kafka](https://kafka.apache.org/documentation/streams/)
+- [Kafka: a Distributed Messaging System for Log Processing](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/09/Kafka.pdf/index.md)
+- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/index.md)
+- [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/index.md)
+- [Building Data Streaming Applications with Apache Kafka](https://kafka.apache.org/documentation/streams/index.md)
 
 ## Discussion Questions
 

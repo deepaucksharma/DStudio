@@ -832,26 +832,26 @@ CLASSICAL DISTRIBUTED SYSTEMS      RELATIVISTIC DISTRIBUTED SYSTEMS
 Patterns that directly address the asynchronous reality of distributed systems:
 
 **⏱️ Time & Coordination Patterns:**
-- **[Consensus](../../pattern-library/coordination/consensus/)**: Handles the reality that there's no global clock and agreement must be reached despite message delays
-- **[Vector Clocks](../../pattern-library/coordination/logical-clocks/)**: Captures causal ordering when physical time can't be synchronized
-- **[Hybrid Logical Clocks](../../pattern-library/coordination/hlc/)**: Combines physical and logical time for better ordering in distributed systems
-- **[Leader Election](../../pattern-library/coordination/leader-election/)**: Manages coordination despite unreliable timing and message delivery
+- **[Consensus](../..../pattern-library/coordination.md/consensus/index.md)**: Handles the reality that there's no global clock and agreement must be reached despite message delays
+- **[Vector Clocks](../..../pattern-library/coordination.md/logical-clocks/index.md)**: Captures causal ordering when physical time can't be synchronized
+- **[Hybrid Logical Clocks](../..../pattern-library/coordination.md/hlc/index.md)**: Combines physical and logical time for better ordering in distributed systems
+- **[Leader Election](../..../pattern-library/coordination.md/leader-election/index.md)**: Manages coordination despite unreliable timing and message delivery
 
 **📡 Asynchronous Communication:**
-- **[Event Sourcing](../../pattern-library/data-management/event-sourcing/)**: Embraces asynchronous event processing rather than synchronous state updates
-- **[Saga Pattern](../../pattern-library/data-management/saga/)**: Coordinates long-running distributed transactions asynchronously with compensations
-- **[CQRS](../../pattern-library/data-management/cqrs/)**: Separates read and write operations to handle asynchronous update propagation
-- **[Publish-Subscribe](../../pattern-library/communication/publish-subscribe/)**: Enables asynchronous messaging between loosely coupled components
+- **[Event Sourcing](../..../pattern-library/data-management.md/event-sourcing/index.md)**: Embraces asynchronous event processing rather than synchronous state updates
+- **[Saga Pattern](../..../pattern-library/data-management.md/saga/index.md)**: Coordinates long-running distributed transactions asynchronously with compensations
+- **[CQRS](../..../pattern-library/data-management.md/cqrs/index.md)**: Separates read and write operations to handle asynchronous update propagation
+- **[Publish-Subscribe](../..../pattern-library/communication.md/publish-subscribe/index.md)**: Enables asynchronous messaging between loosely coupled components
 
 **🔄 Eventual Consistency:**
-- **[Eventual Consistency](../../pattern-library/data-management/eventual-consistency/)**: Accepts that consistency will be achieved eventually rather than immediately
-- **[CDC (Change Data Capture)](../../pattern-library/data-management/cdc/)**: Propagates data changes asynchronously across systems
-- **[Event-Driven Architecture](../../pattern-library/architecture/event-driven/)**: Builds systems around asynchronous event flows
+- **[Eventual Consistency](../..../pattern-library/data-management.md/eventual-consistency/index.md)**: Accepts that consistency will be achieved eventually rather than immediately
+- **[CDC (Change Data Capture)](../..../pattern-library/data-management.md/cdc/index.md)**: Propagates data changes asynchronously across systems
+- **[Event-Driven Architecture](../..../pattern-library/architecture.md/event-driven/index.md)**: Builds systems around asynchronous event flows
 
 **🛡️ Failure Handling:**
-- **[Timeout](../../pattern-library/resilience/timeout/)**: Bounds operations in time to handle unpredictable network delays
-- **[Retry with Backoff](../../pattern-library/resilience/retry-backoff/)**: Handles transient failures in asynchronous systems
-- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker/)**: Manages service failures in asynchronous communication
+- **[Timeout](../..../pattern-library/resilience.md/timeout/index.md)**: Bounds operations in time to handle unpredictable network delays
+- **[Retry with Backoff](../..../pattern-library/resilience.md/retry-backoff/index.md)**: Handles transient failures in asynchronous systems
+- **[Circuit Breaker](../..../pattern-library/resilience.md/circuit-breaker/index.md)**: Manages service failures in asynchronous communication
 
 ## Related Concepts
 

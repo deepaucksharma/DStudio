@@ -365,15 +365,15 @@ graph LR
 
 ## Related Topics
 
-- [Service Discovery](../../../pattern-library/communication/service-discovery) - Core Kubernetes pattern
-- [Health Checks](../../../pattern-library/resilience/health-check) - Liveness and readiness probes
-- [Leader Election](../../../pattern-library/coordination/leader-election) - Used by control plane
-- [Sidecar Pattern](../../../pattern-library/architecture/sidecar) - Common in Kubernetes
-- [Blue-Green Deployment](../../../pattern-library/blue-green-deployment) - Kubernetes native
+- [Service Discovery](../../pattern-library/communication.md/service-discovery/index.md) - Core Kubernetes pattern
+- [Health Checks](../../pattern-library/resilience.md/health-check/index.md) - Liveness and readiness probes
+- [Leader Election](../../pattern-library/coordination.md/leader-election/index.md) - Used by control plane
+- [Sidecar Pattern](../../pattern-library/architecture.md/sidecar/index.md) - Common in Kubernetes
+- [Blue-Green Deployment](../../pattern-library/blue-green-deployment.md/index.md) - Kubernetes native
 
 ## References
 
-1. [Kubernetes: Up and Running](https://www.oreilly.com/library/view/kubernetes-up-and/9781492046523/)
-2. [Large-scale cluster management at Google with Borg](https://research.google/pubs/pub43438/)
-3. [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
-4. [Production Kubernetes](https://www.oreilly.com/library/view/production-kubernetes/9781492042747/)
+1. [Kubernetes: Up and Running](https://www.oreilly.com/library/view/kubernetes-up-and/9781492046523/index.md)
+2. [Large-scale cluster management at Google with Borg](https://research.google/pubs/pub43438/index.md)
+3. [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way/index.md)
+4. [Production Kubernetes](https://www.oreilly.com/library/view/production-kubernetes/9781492042747/index.md)

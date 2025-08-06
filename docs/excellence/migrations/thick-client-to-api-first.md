@@ -529,5 +529,5 @@ monitor-legacy-system.sh --duration=24h
 
 - API Design Best Practices
 - RESTful Architecture
-- [GraphQL Patterns](../../../pattern-library/architecture/graphql-federation/)
+- [GraphQL Patterns](../../../pattern-library/architecture/graphql-federation/index.md)
 - Authentication Patterns

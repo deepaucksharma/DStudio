@@ -1819,24 +1819,24 @@ analysis = analyzer.compare_solutions()
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization/)** - Balance security, usability, and performance in secrets management
-- **[Law 6: Cognitive Load](../../../core-principles/laws/cognitive-load/)** - Vault reduces cognitive overhead of manual secret management
-- **[Law 7: Economic Reality](../../../core-principles/laws/economic-reality/)** - ROI analysis shows significant cost benefits
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Balance security, usability, and performance in secrets management
+- **[Law 6: Cognitive Load](../../core-principles/laws.md/cognitive-load/index.md)** - Vault reduces cognitive overhead of manual secret management
+- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - ROI analysis shows significant cost benefits
 
 ### Related Patterns  
-- **[Circuit Breaker](../../../../../pattern-library/resilience/circuit-breaker/)** - Protect against Vault service failures
-- **[Retry with Backoff](../../../../../pattern-library/resilience/retry-backoff/)** - Handle transient Vault connectivity issues
-- **[Bulkhead](../../../../../pattern-library/resilience/bulkhead/)** - Isolate different secret engines and authentication methods
+- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker/index.md)** - Protect against Vault service failures
+- **[Retry with Backoff](../../pattern-library/resilience.md/retry-backoff/index.md)** - Handle transient Vault connectivity issues
+- **[Bulkhead](../../pattern-library/resilience.md/bulkhead/index.md)** - Isolate different secret engines and authentication methods
 
 ### Related Case Studies
 - **[Netflix Chaos Engineering](../../elite-engineering/netflix-chaos.md)** - Resilience testing for critical security infrastructure
-- **[Amazon Aurora](../amazon-aurora.md)** - Database security and encryption patterns
-- **[Google Spanner](../google-spanner.md)** - Global encryption and access control strategies
+- **[Amazon Aurora](../../amazon-aurora.md)** - Database security and encryption patterns
+- **[Google Spanner](../../google-spanner.md)** - Global encryption and access control strategies
 
 ## External Resources
 
-- **[HashiCorp Vault Documentation](https://www.vaultproject.io/docs)** - Official Vault documentation
-- **[Vault Enterprise Features](https://www.hashicorp.com/products/vault/enterprise)** - Enterprise feature comparison
-- **[Vault Associate Certification](https://www.hashicorp.com/certification/vault-associate)** - Professional certification program
-- **[Learn Vault](https://learn.hashicorp.com/vault)** - Hands-on tutorials and guides
-- **[Vault GitHub Repository](https://github.com/hashicorp/vault)** - Open source code and community
+- **[HashiCorp Vault Documentation](https://www.vaultproject.io/docs/index.md)** - Official Vault documentation
+- **[Vault Enterprise Features](https://www.hashicorp.com/products/vault/enterprise/index.md)** - Enterprise feature comparison
+- **[Vault Associate Certification](https://www.hashicorp.com/certification/vault-associate/index.md)** - Professional certification program
+- **[Learn Vault](https://learn.hashicorp.com/vault/index.md)** - Hands-on tutorials and guides
+- **[Vault GitHub Repository](https://github.com/hashicorp/vault/index.md)** - Open source code and community

@@ -128,13 +128,12 @@ graph TD
 
 ### Foundation Patterns
 - **[Write-Ahead Log](./wal.md)**: Often implemented as segmented
-- **[Append-Only Store](../pattern-library/append-only.md)**: Base concept
+- **[Append-Only Store](....../pattern-library/append-only.md)**: Base concept
 - **[Log Structured Storage](./lsm-tree.md)**: Uses segments internally
 
 ### Complementary Patterns
-- **[Snapshot](../pattern-library/snapshot.md)**: Reduce recovery time
-- **[Compaction](../pattern-library/compaction.md)**: Clean up segments
-- **[Replication Log](../pattern-library/replication-log.md)**: Segment-based replication
+- **[Snapshot](....../pattern-library/compaction.md)**: Clean up segments
+- **[Replication Log](....../pattern-library/replication-log.md)**: Segment-based replication
 
 ### Applications
 - **[Kafka](../case-studies/kafka.md)**: Canonical implementation
@@ -143,12 +142,12 @@ graph TD
 
 ## Further Reading
 
-- [Kafka Log Implementation](https://kafka.apache.org/documentation/#log)
-- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
-- [RocksDB Architecture](https://github.com/facebook/rocksdb/wiki/RocksDB-Overview)
+- [Kafka Log Implementation](https://kafka.apache.org/documentation/#log/index.md)
+- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/index.md)
+- [RocksDB Architecture](https://github.com/facebook/rocksdb/wiki/RocksDB-Overview/index.md)
 
 ### Implementation Resources
-- [Building a Distributed Log](https://bravenewgeek.com/building-a-distributed-log-from-scratch-part-1-storage-mechanics/)
-- [Segment Compaction Strategies](https://www.confluent.io/blog/log-compaction-highlights-in-the-apache-kafka-and-stream-processing-community/)
-- [Storage Engine Design](https://www.databass.dev/)
+- [Building a Distributed Log](https://bravenewgeek.com/building-a-distributed-log-from-scratch-part-1-storage-mechanics/index.md)
+- [Segment Compaction Strategies](https://www.confluent.io/blog/log-compaction-highlights-in-the-apache-kafka-and-stream-processing-community/index.md)
+- [Storage Engine Design](https://www.databass.dev/index.md)
 

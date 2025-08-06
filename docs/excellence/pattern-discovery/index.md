@@ -97,10 +97,10 @@ Find the perfect patterns for your distributed systems challenges.
     
     | Pattern | Tier | Use Case |
     |---------|------|----------|
-    | [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker/) | Gold | Prevent cascading failures |
-    | [Health Checks](../../../pattern-library/resilience/health-check/) | Gold | Monitor service health |
-    | [Failover](../../../pattern-library/resilience/failover/) | Gold | Automatic failure recovery |
-    | [Bulkhead](../../../pattern-library/resilience/bulkhead/) | Silver | Isolate failures |
+    | [Circuit Breaker](../../..../pattern-library/resilience.md/circuit-breaker/index.md) | Gold | Prevent cascading failures |
+    | [Health Checks](../../..../pattern-library/resilience.md/health-check/index.md) | Gold | Monitor service health |
+    | [Failover](../../..../pattern-library/resilience.md/failover/index.md) | Gold | Automatic failure recovery |
+    | [Bulkhead](../../..../pattern-library/resilience.md/bulkhead/index.md) | Silver | Isolate failures |
 
 === "Real-time Processing"
 
@@ -108,9 +108,9 @@ Find the perfect patterns for your distributed systems challenges.
     
     | Pattern | Tier | Use Case |
     |---------|------|----------|
-    | [Event Streaming](../../../pattern-library/architecture/event-streaming/) | Gold | Process data in real-time |
-    | [Pub-Sub](../../../pattern-library/communication/publish-subscribe/) | Gold | Decouple producers/consumers |
-    | [WebSocket](../../../pattern-library/communication/websocket/) | Silver | Bidirectional communication |
+    | [Event Streaming](../../..../pattern-library/architecture.md/event-streaming/index.md) | Gold | Process data in real-time |
+    | [Pub-Sub](../../..../pattern-library/communication.md/publish-subscribe/index.md) | Gold | Decouple producers/consumers |
+    | [WebSocket](../../..../pattern-library/communication.md/websocket/index.md) | Silver | Bidirectional communication |
     | Server-Sent Events | Silver | Server push updates |
 
 === "Microservices"
@@ -119,10 +119,10 @@ Find the perfect patterns for your distributed systems challenges.
     
     | Pattern | Tier | Use Case |
     |---------|------|----------|
-    | [API Gateway](../../../pattern-library/communication/api-gateway/) | Gold | Single entry point |
-    | [Service Mesh](../../../pattern-library/communication/service-mesh/) | Gold | Service-to-service communication |
-    | [Saga](../../../pattern-library/data-management/saga/) | Gold | Distributed transactions |
-    | [Sidecar](../../../pattern-library/architecture/sidecar/) | Silver | Extend service capabilities |
+    | [API Gateway](../../..../pattern-library/communication.md/api-gateway/index.md) | Gold | Single entry point |
+    | [Service Mesh](../../..../pattern-library/communication.md/service-mesh/index.md) | Gold | Service-to-service communication |
+    | [Saga](../../..../pattern-library/data-management.md/saga/index.md) | Gold | Distributed transactions |
+    | [Sidecar](../../..../pattern-library/architecture.md/sidecar/index.md) | Silver | Extend service capabilities |
 
 === "Data Consistency"
 
@@ -130,9 +130,9 @@ Find the perfect patterns for your distributed systems challenges.
     
     | Pattern | Tier | Use Case |
     |---------|------|----------|
-    | [Event Sourcing](../../../pattern-library/data-management/event-sourcing/) | Gold | Audit trail and replay |
-    | [CQRS](../../../pattern-library/data-management/cqrs/) | Gold | Separate read/write models |
-    | [Distributed Lock](../../../pattern-library/coordination/distributed-lock/) | Silver | Coordinate access |
+    | [Event Sourcing](../../..../pattern-library/data-management.md/event-sourcing/index.md) | Gold | Audit trail and replay |
+    | [CQRS](../../..../pattern-library/data-management.md/cqrs/index.md) | Gold | Separate read/write models |
+    | [Distributed Lock](../../..../pattern-library/coordination.md/distributed-lock/index.md) | Silver | Coordinate access |
     | Two-Phase Commit | Bronze | Strong consistency |
 
 ## Pattern Selection Matrix
@@ -160,7 +160,7 @@ Find the perfect patterns for your distributed systems challenges.
 !!! tip "Compare Similar Patterns"
     Need help choosing between similar patterns? Use our comparison tool to see side-by-side analysis.
     
-    [Pattern Comparison Tool →](../comparisons){ .md-button }
+    [Pattern Comparison Tool →](../comparisons/index.md){ .md-button }
 
 ## Implementation Effort Calculator
 
@@ -188,13 +188,13 @@ View real-time adoption metrics and trends for all patterns:
 
 | Pattern | Category | Companies Using | Learn More |
 |---------|----------|----------------|------------|
-| API Gateway | Communication | Netflix, Amazon | [Details →](../../../pattern-library/communication/api-gateway/) |
-| Circuit Breaker | Resilience | Netflix, Uber | [Details →](../../../pattern-library/resilience/circuit-breaker/) |
-| Event Streaming | Data | LinkedIn, Uber | [Details →](../../../pattern-library/architecture/event-streaming/) |
-| Service Mesh | Communication | Google, Lyft | [Details →](../../../pattern-library/communication/service-mesh/) |
-| Sharding | Performance | Facebook, Discord | [Details →](../../../pattern-library/scaling/sharding/) |
+| API Gateway | Communication | Netflix, Amazon | [Details →](../../..../pattern-library/communication.md/api-gateway/index.md) |
+| Circuit Breaker | Resilience | Netflix, Uber | [Details →](../../..../pattern-library/resilience.md/circuit-breaker/index.md) |
+| Event Streaming | Data | LinkedIn, Uber | [Details →](../../..../pattern-library/architecture.md/event-streaming/index.md) |
+| Service Mesh | Communication | Google, Lyft | [Details →](../../..../pattern-library/communication.md/service-mesh/index.md) |
+| Sharding | Performance | Facebook, Discord | [Details →](../../..../pattern-library/scaling.md/sharding/index.md) |
 
-[View all 38 Gold Patterns →](gold-patterns/){ .md-button }
+[View all 38 Gold Patterns →](gold-patterns/index.md){ .md-button }
 
 ### Silver Patterns
 
@@ -203,13 +203,13 @@ View real-time adoption metrics and trends for all patterns:
 
 | Pattern | Category | Best For | Learn More |
 |---------|----------|----------|------------|
-| GraphQL Federation | Communication | API composition | [Details →](../../../pattern-library/architecture/graphql-federation/) |
-| Distributed Lock | Data | Coordination | [Details →](../../../pattern-library/coordination/distributed-lock/) |
-| Priority Queue | Performance | Task scheduling | [Details →](../../../pattern-library/scaling/priority-queue/) |
-| Request-Reply | Communication | Synchronous calls | [Details →](../../../pattern-library/communication/request-reply/) |
-| Consistent Hashing | Data | Stable distribution | [Details →](../../../pattern-library/data-management/consistent-hashing/) |
+| GraphQL Federation | Communication | API composition | [Details →](../../..../pattern-library/architecture.md/graphql-federation/index.md) |
+| Distributed Lock | Data | Coordination | [Details →](../../..../pattern-library/coordination.md/distributed-lock/index.md) |
+| Priority Queue | Performance | Task scheduling | [Details →](../../..../pattern-library/scaling.md/priority-queue/index.md) |
+| Request-Reply | Communication | Synchronous calls | [Details →](../../..../pattern-library/communication.md/request-reply/index.md) |
+| Consistent Hashing | Data | Stable distribution | [Details →](../../..../pattern-library/data-management.md/consistent-hashing/index.md) |
 
-[View all 46 Silver Patterns →](silver-patterns/){ .md-button }
+[View all 46 Silver Patterns →](silver-patterns/index.md){ .md-button }
 
 ### Bronze Patterns
 
@@ -218,13 +218,13 @@ View real-time adoption metrics and trends for all patterns:
 
 | Pattern | Category | Migrate To | Learn More |
 |---------|----------|------------|------------|
-| Shared Database | Data | Service-per-DB | [Migration →](../../../pattern-library/data-management/shared-database/) |
-| Actor Model | Coordination | Event-Driven | [Migration →](../../../pattern-library/coordination/actor-model/) |
-| Lambda Architecture | Architecture | Kappa/Streaming | [Migration →](../../../pattern-library/architecture/lambda-architecture/) |
-| Kappa Architecture | Architecture | Event Streaming | [Migration →](../../../pattern-library/architecture/kappa-architecture/) |
-| Choreography | Architecture | Orchestration | [Migration →](../../../pattern-library/architecture/choreography/) |
+| Shared Database | Data | Service-per-DB | [Migration →](../../..../pattern-library/data-management.md/shared-database/index.md) |
+| Actor Model | Coordination | Event-Driven | [Migration →](../../..../pattern-library/coordination.md/actor-model/index.md) |
+| Lambda Architecture | Architecture | Kappa/Streaming | [Migration →](../../..../pattern-library/architecture.md/lambda-architecture/index.md) |
+| Kappa Architecture | Architecture | Event Streaming | [Migration →](../../..../pattern-library/architecture.md/kappa-architecture/index.md) |
+| Choreography | Architecture | Orchestration | [Migration →](../../..../pattern-library/architecture.md/choreography/index.md) |
 
-[View all 7 Bronze Patterns →](bronze-patterns/){ .md-button }
+[View all 7 Bronze Patterns →](bronze-patterns/index.md){ .md-button }
 
 ## Next Steps
 
@@ -236,7 +236,7 @@ View real-time adoption metrics and trends for all patterns:
     
     Browse our implementation guides for step-by-step instructions.
     
-    [:octicons-book-24: Implementation Guides](../implementation-guides/){ .md-button }
+    [:octicons-book-24: Implementation Guides](../implementation-guides/index.md){ .md-button }
 
 - **Need help choosing?**
     
@@ -244,7 +244,7 @@ View real-time adoption metrics and trends for all patterns:
     
     Use our pattern selection wizard for personalized recommendations.
     
-    [:octicons-wand-24: Selection Wizard](../){ .md-button }
+    [:octicons-wand-24: Selection Wizard](../index.md){ .md-button }
 
 - **Want to see examples?**
     
@@ -252,6 +252,6 @@ View real-time adoption metrics and trends for all patterns:
     
     Explore real-world case studies from top tech companies.
     
-    [:octicons-briefcase-24: Case Studies](../){ .md-button }
+    [:octicons-briefcase-24: Case Studies](../index.md){ .md-button }
 
 </div>

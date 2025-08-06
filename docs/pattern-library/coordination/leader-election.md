@@ -342,15 +342,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Safety vs availability trade-offs
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays affect elections
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Safety vs availability trade-offs
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Network delays affect elections
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 4: Control Distribution](../../core-principles/pillars/control-distribution/) - Centralized decision making
-    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/) - Single source of authority
+    - [Pillar 4: Control Distribution](../../core-principles/pillars/control-distribution/index.md) - Centralized decision making
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Single source of authority
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

@@ -301,11 +301,11 @@ graph TD
 
  This pattern directly addresses:
 
- 1. **[Law 4 (Multidimensional Optimization ⚖️)](../../core-principles/laws/multidimensional-optimization)**: Buffers handle capacity mismatches
- 2. **[Law 2 (Asynchronous Reality ⏳/index)](../../core-principles/laws/asynchronous-reality)**: Decoupling reduces blocking
- 3. **[Law 1 (Correlated Failure ⛓️/index)](../../core-principles/laws/correlated-failure)**: Messages survive consumer failures
- 4. **[Law 4 (Multidimensional Optimization ⚖️/index)](../../core-principles/laws/multidimensional-optimization)**: Async coordination via messages
- 5. **[Law 5 (Distributed Knowledge 🧠/index)](core-principles/laws/distributed-knowledge/)**: Message flow visibility
+ 1. **[Law 4 (Multidimensional Optimization ⚖️)](../....../core-principles/laws.md/multidimensional-optimization/index.md)**: Buffers handle capacity mismatches
+ 2. **[Law 2 (Asynchronous Reality ⏳/index)](../....../core-principles/laws.md/asynchronous-reality/index.md)**: Decoupling reduces blocking
+ 3. **[Law 1 (Correlated Failure ⛓️/index)](../....../core-principles/laws.md/correlated-failure/index.md)**: Messages survive consumer failures
+ 4. **[Law 4 (Multidimensional Optimization ⚖️/index)](../....../core-principles/laws.md/multidimensional-optimization/index.md)**: Async coordination via messages
+ 5. **[Law 5 (Distributed Knowledge 🧠/index)](core-principles/laws/distributed-knowledge/index.md)**: Message flow visibility
 
 ### Future Directions
 
@@ -351,21 +351,21 @@ graph TD
 ## Related Resources
 
 ### Patterns
-- [Event-Driven Architecture](../pattern-library/architecture/event-driven.md) - Built on queues/streams
-- [CQRS](../pattern-library/data-management/cqrs.md) - Commands via queues
-- [Saga Pattern](../pattern-library/data-management/saga.md) - Orchestration via queues
-- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Protect consumers
+- [Event-Driven Architecture](....../pattern-library/architecture.md/event-driven.md) - Built on queues/streams
+- [CQRS](....../pattern-library/data-management.md/cqrs.md) - Commands via queues
+- [Saga Pattern](....../pattern-library/data-management.md/saga.md) - Orchestration via queues
+- [Circuit Breaker](....../pattern-library/resilience.md/circuit-breaker.md) - Protect consumers
 
 ### Laws
-- [Law 4 (Multidimensional Optimization )](../../core-principles/laws/multidimensional-optimization) - Why buffering matters
-- [Law 2 (Asynchronous Reality /index)](../../core-principles/laws/asynchronous-reality) - Async vs sync trade-offs
-- [Law 1 (Correlated Failure /index)](core-principles/laws/correlated-failure/) - Message durability
+- [Law 4 (Multidimensional Optimization )](../....../core-principles/laws.md/multidimensional-optimization/index.md) - Why buffering matters
+- [Law 2 (Asynchronous Reality /index)](../....../core-principles/laws.md/asynchronous-reality/index.md) - Async vs sync trade-offs
+- [Law 1 (Correlated Failure /index)](core-principles/laws/correlated-failure/index.md) - Message durability
 
 ### Further Reading
-- [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly
-- [Designing Data-Intensive Applications](https://dataintensive.net/) - Chapter 11 on streams
-- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) - Messaging patterns
-- [AWS SQS Best Practices](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html)
+- [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/index.md) - O'Reilly
+- [Designing Data-Intensive Applications](https://dataintensive.net/index.md) - Chapter 11 on streams
+- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/index.md) - Messaging patterns
+- [AWS SQS Best Practices](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html/index.md)
 
 ### Tools & Libraries
 - **Message Queues**: RabbitMQ, AWS SQS, Azure Service Bus, Redis

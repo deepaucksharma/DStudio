@@ -311,15 +311,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Flexibility vs governance trade-offs
-    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost of poor data governance
+    - [Law 4: Multidimensional Optimization](../..../core-principles/laws.md/multidimensional-optimization/index.md) - Flexibility vs governance trade-offs
+    - [Law 7: Economic Reality](../..../core-principles/laws.md/economic-reality/index.md) - Cost of poor data governance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Distributed data management
-    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution/) - Analytics and ML patterns
+    - [State Distribution](../..../core-principles/pillars.md/state-distribution/index.md) - Distributed data management
+    - [Intelligence Distribution](../..../core-principles/pillars.md/intelligence-distribution/index.md) - Analytics and ML patterns
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     

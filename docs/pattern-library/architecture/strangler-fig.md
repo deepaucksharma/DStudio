@@ -404,15 +404,15 @@ graph TD
 
 ## Related Patterns
 
-- [API Gateway](../../pattern-library/communication/api-gateway.md) - Front-door for routing during migration
-- [Service Mesh](../../pattern-library/communication/service-mesh.md) - Traffic management and observability
-- [Anti-Corruption Layer](../../pattern-library/architecture/anti-corruption-layer.md) - Protect new services from legacy
-- [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Capture all changes for replay
-- [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Protect during partial failures
+- [API Gateway](..../pattern-library/communication.md/api-gateway.md) - Front-door for routing during migration
+- [Service Mesh](..../pattern-library/communication.md/service-mesh.md) - Traffic management and observability
+- [Anti-Corruption Layer](..../pattern-library/architecture.md/anti-corruption-layer.md) - Protect new services from legacy
+- [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) - Capture all changes for replay
+- [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) - Protect during partial failures
 
 ## References
 
-- Martin Fowler's original [Strangler Fig Application](https://martinfowler.com/bliki/StranglerFigApplication.html)
-- [Monolith to Microservices](https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/) by Sam Newman
-- AWS [Strangler Fig Pattern Guide](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-aspnet-web-services/fig-pattern.html)
+- Martin Fowler's original [Strangler Fig Application](https://martinfowler.com/bliki/StranglerFigApplication.html/index.md)
+- [Monolith to Microservices](https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/index.md) by Sam Newman
+- AWS [Strangler Fig Pattern Guide](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-aspnet-web-services/fig-pattern.html/index.md)
 

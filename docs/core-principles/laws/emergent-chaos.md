@@ -604,23 +604,23 @@ graph LR
 Patterns that directly address and mitigate emergent chaos:
 
 **🛡️ Chaos Prevention Patterns:**
-- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker/)**: Prevents cascade failures by breaking the feedback loops that create emergent chaos
-- **[Backpressure](../../pattern-library/scaling/backpressure/)**: Controls system load to prevent the phase transitions that trigger chaotic behavior
-- **[Rate Limiting](../../pattern-library/scaling/rate-limiting/)**: Maintains system operation within stable parameters to avoid critical points
-- **[Load Shedding](../../pattern-library/resilience/load-shedding/)**: Gracefully degrades under load rather than allowing chaotic system collapse
+- **[Circuit Breaker](../..../pattern-library/resilience.md/circuit-breaker/index.md)**: Prevents cascade failures by breaking the feedback loops that create emergent chaos
+- **[Backpressure](../..../pattern-library/scaling.md/backpressure/index.md)**: Controls system load to prevent the phase transitions that trigger chaotic behavior
+- **[Rate Limiting](../..../pattern-library/scaling.md/rate-limiting/index.md)**: Maintains system operation within stable parameters to avoid critical points
+- **[Load Shedding](../..../pattern-library/resilience.md/load-shedding/index.md)**: Gracefully degrades under load rather than allowing chaotic system collapse
 
 **⚖️ Load Distribution Patterns:**
-- **[Load Balancing](../../pattern-library/scaling/load-balancing/)**: Distributes work to prevent individual components from reaching critical points
-- **[Bulkhead](../../pattern-library/resilience/bulkhead/)**: Isolates components to prevent emergence from spreading system-wide
-- **[Sharding](../../pattern-library/scaling/sharding/)**: Partitions system state to prevent global synchronization that leads to phase transitions
+- **[Load Balancing](../..../pattern-library/scaling.md/load-balancing/index.md)**: Distributes work to prevent individual components from reaching critical points
+- **[Bulkhead](../..../pattern-library/resilience.md/bulkhead/index.md)**: Isolates components to prevent emergence from spreading system-wide
+- **[Sharding](../..../pattern-library/scaling.md/sharding/index.md)**: Partitions system state to prevent global synchronization that leads to phase transitions
 
 **🔄 Retry & Recovery Patterns:**
-- **[Retry with Backoff](../../pattern-library/resilience/retry-backoff/)**: Uses jitter and exponential backoff to prevent synchronized retries that create thundering herds
-- **[Timeout](../../pattern-library/resilience/timeout/)**: Bounds operations to prevent systems from getting stuck in metastable states
+- **[Retry with Backoff](../..../pattern-library/resilience.md/retry-backoff/index.md)**: Uses jitter and exponential backoff to prevent synchronized retries that create thundering herds
+- **[Timeout](../..../pattern-library/resilience.md/timeout/index.md)**: Bounds operations to prevent systems from getting stuck in metastable states
 
 **📊 Monitoring & Detection Patterns:**
-- **[Health Check](../../pattern-library/resilience/health-check/)**: Monitors system coherence to detect approaching critical points
-- **[Auto-scaling](../../pattern-library/scaling/auto-scaling/)**: Responds to load patterns to maintain system operation away from chaotic regimes
+- **[Health Check](../..../pattern-library/resilience.md/health-check/index.md)**: Monitors system coherence to detect approaching critical points
+- **[Auto-scaling](../..../pattern-library/scaling.md/auto-scaling/index.md)**: Responds to load patterns to maintain system operation away from chaotic regimes
 
 ## Related Concepts
 

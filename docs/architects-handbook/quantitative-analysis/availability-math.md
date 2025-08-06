@@ -296,7 +296,7 @@ graph TD
  style F fill:#ffd700
 ```
 
-**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](../core-principles/laws/correlated-failure/) - we can't prevent failures, but we can design systems that survive them.
+**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](..../core-principles/laws.md/correlated-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
 
 ### Law 4: Trade-offs
 - Redundancy requires 2x resources for high availability
@@ -506,7 +506,7 @@ graph TB
 - No cascading failures between cells
 - Simplified recovery procedures
 
-This architecture pattern is related to [Bulkhead](../../pattern-library/resilience/bulkhead.md) and Cell-Based Architecture (Coming Soon) for isolation.
+This architecture pattern is related to [Bulkhead](../..../pattern-library/resilience.md/bulkhead.md) and Cell-Based Architecture (Coming Soon) for isolation.
 
 ## Key Takeaways
 
@@ -520,5 +520,5 @@ Perfect availability is impossible. Design for graceful degradation.
 
 ## Related Concepts
 
-- **Quantitative**: [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md) | [Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-models.md) | [Latency Ladder](../../architects-handbook/quantitative-analysis/latency-ladder.md)
-- **Patterns**: [Bulkhead](../../pattern-library/resilience/bulkhead.md) | [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | [Failover](../../pattern-library/resilience/failover.md)
+- **Quantitative**: [Little's Law](../..../architects-handbook/quantitative-analysis.md/littles-law.md) | [Queueing Theory](../..../architects-handbook/quantitative-analysis.md/queueing-models.md) | [Latency Ladder](../..../architects-handbook/quantitative-analysis.md/latency-ladder.md)
+- **Patterns**: [Bulkhead](../..../pattern-library/resilience.md/bulkhead.md) | [Circuit Breaker](../..../pattern-library/resilience.md/circuit-breaker.md) | [Failover](../..../pattern-library/resilience.md/failover.md)

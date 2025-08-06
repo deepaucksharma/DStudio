@@ -163,10 +163,10 @@ class ProductionRetryClient:
 
 This pattern directly addresses several fundamental distributed systems laws:
 
-- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/)**: Retries handle the reality that network delays and processing times are unpredictable, and temporary failures are inevitable in distributed systems
-- **[Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/)**: Without proper backoff, synchronized retries can create thundering herds and retry storms that amplify system chaos rather than resolve it
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)**: Retry strategies embody trade-offs between availability (retry more), latency (retry less), and system load (careful backoff)
-- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality/)**: Proper retry patterns prevent wasted resources while maximizing successful operations, directly impacting system costs and efficiency
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md)**: Retries handle the reality that network delays and processing times are unpredictable, and temporary failures are inevitable in distributed systems
+- **[Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index.md)**: Without proper backoff, synchronized retries can create thundering herds and retry storms that amplify system chaos rather than resolve it
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md)**: Retry strategies embody trade-offs between availability (retry more), latency (retry less), and system load (careful backoff)
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality/index.md)**: Proper retry patterns prevent wasted resources while maximizing successful operations, directly impacting system costs and efficiency
 
 ### Migration Strategy
 

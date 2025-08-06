@@ -904,8 +904,8 @@ You're leaving with the searing realization that every distributed system is dro
 
 ## Related Topics
 
-- [Law 2: Asynchronous Reality](../laws/asynchronous-reality/) - Time coordination kills performance
-- [Law 4: Multidimensional Optimization](../laws/multidimensional-optimization/) - The brutal trade-offs
-- [Law 5: Distributed Knowledge](../laws/distributed-knowledge/) - Why coordination explodes
+- [Law 2: Asynchronous Reality](../laws/asynchronous-reality/index.md) - Time coordination kills performance
+- [Law 4: Multidimensional Optimization](../laws/multidimensional-optimization/index.md) - The brutal trade-offs
+- [Law 5: Distributed Knowledge](../laws/distributed-knowledge/index.md) - Why coordination explodes
 - [Pattern: Cell Architecture](../../pattern-library/architecture/cell-based.md) - The escape from coordination hell
 - [Quantitative: Universal Scalability](../../architects-handbook/quantitative-analysis/universal-scalability.md) - The math that predicts your doom

@@ -429,7 +429,7 @@ class RollbackStrategy:
             
             # Validate all checkpoints
             for checkpoint in self.checkpoints:
-                if not await checkpoint['validate']():
+                if not await checkpoint'validate':
                     raise ValidationError(f"Checkpoint {checkpoint['name']} failed")
                     
                 completed_checkpoints.append(checkpoint)
@@ -441,7 +441,7 @@ class RollbackStrategy:
             # Rollback in reverse order
             for checkpoint in reversed(completed_checkpoints):
                 try:
-                    await checkpoint['rollback']()
+                    await checkpoint'rollback'
                 except Exception as rollback_error:
                     # Log but continue rollback
                     self.log_rollback_error(checkpoint['name'], rollback_error)
@@ -582,8 +582,8 @@ class MigrationDashboard:
 
 ## Resources
 
-- [Strangler Fig Pattern](../../../pattern-library/architecture/strangler-fig/)
+- [Strangler Fig Pattern](../../../pattern-library/architecture/strangler-fig/index.md)
 - [Blue-Green Deployment](../pattern-library/blue-green-deployment.md)
 - [Migration Playbooks](../../excellence/migrations/index.md)
 - [Case Studies](../architects-handbook/case-studies/index.md)
-- [Saga Pattern](../../../pattern-library/data-management/saga/) (Gold)
+- [Saga Pattern](../../../pattern-library/data-management/saga/index.md) (Gold)

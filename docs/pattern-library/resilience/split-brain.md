@@ -286,9 +286,9 @@ class GenerationBasedResolver:
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Network partitions happen
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Can't detect true failure
-    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Partial views differ
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Network partitions happen
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Can't detect true failure
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md) - Partial views differ
 
 </div>
 

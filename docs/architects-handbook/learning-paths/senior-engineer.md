@@ -44,17 +44,17 @@ By completing this path, you will:
  
  Apply the 7 laws to real systems:
  
- - [Correlated Failure at Scale](../../core-principles/laws/correlated-failure) - Netflix outage analysis
- - [Asynchronous Coordination](../../core-principles/laws/asynchronous-reality) - Clock synchronization
- - [Emergent Behavior](../../core-principles/laws/emergent-chaos/) - Cascade failure patterns
+ - [Correlated Failure at Scale](../....../core-principles/laws.md/correlated-failure/index.md) - Netflix outage analysis
+ - [Asynchronous Coordination](../....../core-principles/laws.md/asynchronous-reality/index.md) - Clock synchronization
+ - [Emergent Behavior](../....../core-principles/laws.md/emergent-chaos/index.md) - Cascade failure patterns
 
 - **Week 2: Advanced Pillars**
  
  Deep dive into distribution strategies:
  
- - [Work Distribution](../../core-principles/pillars/work-distribution/) - Load balancing algorithms
- - [State Distribution](../../core-principles/pillars/state-distribution/) - Consistency models
- - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consensus protocols
+ - [Work Distribution](../....../core-principles/pillars.md/work-distribution/index.md) - Load balancing algorithms
+ - [State Distribution](../....../core-principles/pillars.md/state-distribution/index.md) - Consistency models
+ - [Truth Distribution](../....../core-principles/pillars.md/truth-distribution/index.md) - Consensus protocols
 
 </div>
 
@@ -66,43 +66,43 @@ By completing this path, you will:
 #### Week 3-4: Distributed Coordination
 
 === "Consensus & Agreement"
- - [Raft Consensus](../../pattern-library/coordination/consensus) - Leader election
- - [Paxos Deep Dive](../../pattern-library/coordination/consensus) - Multi-Paxos
- - [Byzantine Fault Tolerance](../../pattern-library/coordination/consensus) - Blockchain consensus
+ - [Raft Consensus](../....../pattern-library/coordination.md/consensus/index.md) - Leader election
+ - [Paxos Deep Dive](../....../pattern-library/coordination.md/consensus/index.md) - Multi-Paxos
+ - [Byzantine Fault Tolerance](../....../pattern-library/coordination.md/consensus/index.md) - Blockchain consensus
 
 === "Distributed Transactions"
- - [Saga Pattern](../../pattern-library/data-management/saga) - Long-running transactions
- - [Two-Phase Commit](../../pattern-library/coordination/two-phase-commit) - ACID across systems
- - [Outbox Pattern](../../pattern-library/data-management/outbox) - Reliable messaging
+ - [Saga Pattern](../....../pattern-library/data-management.md/saga/index.md) - Long-running transactions
+ - [Two-Phase Commit](../....../pattern-library/coordination.md/two-phase-commit/index.md) - ACID across systems
+ - [Outbox Pattern](../....../pattern-library/data-management.md/outbox/index.md) - Reliable messaging
 
 === "Time & Ordering"
- - [Vector Clocks](../../pattern-library/coordination/vector-clocks) - Causality tracking
- - [Logical Clocks](../../pattern-library/coordination/logical-clocks) - Lamport timestamps
- - [Hybrid Logical Clocks](../../pattern-library/coordination/hlc) - Best of both worlds
+ - [Vector Clocks](../....../pattern-library/coordination.md/vector-clocks/index.md) - Causality tracking
+ - [Logical Clocks](../....../pattern-library/coordination.md/logical-clocks/index.md) - Lamport timestamps
+ - [Hybrid Logical Clocks](../....../pattern-library/coordination.md/hlc/index.md) - Best of both worlds
 
 #### Week 5-6: Data Management at Scale
 
 === "Storage Patterns"
- - [Sharding Strategies](../../pattern-library/scaling/sharding) - Horizontal partitioning
- - [Geo-Replication](../../pattern-library/scaling/geo-replication) - Global data distribution
- - [Event Sourcing](../../pattern-library/data-management/event-sourcing) - Immutable event logs
+ - [Sharding Strategies](../....../pattern-library/scaling.md/sharding/index.md) - Horizontal partitioning
+ - [Geo-Replication](../....../pattern-library/scaling.md/geo-replication/index.md) - Global data distribution
+ - [Event Sourcing](../....../pattern-library/data-management.md/event-sourcing/index.md) - Immutable event logs
 
 === "Consistency Models"
- - [Tunable Consistency](../../pattern-library/data-management/tunable-consistency) - Per-operation guarantees
- - [CRDT](../../pattern-library/data-management/crdt) - Conflict-free replicated data types
- - [Eventual Consistency](../../pattern-library/data-management/eventual-consistency) - BASE vs ACID
+ - [Tunable Consistency](../....../pattern-library/data-management.md/tunable-consistency/index.md) - Per-operation guarantees
+ - [CRDT](../....../pattern-library/data-management.md/crdt/index.md) - Conflict-free replicated data types
+ - [Eventual Consistency](../....../pattern-library/data-management.md/eventual-consistency/index.md) - BASE vs ACID
 
 === "Performance Optimization"
- - [Read-Through Cache](../../pattern-library/scaling/caching-strategies.md) - Smart caching
- - [Write-Behind Cache](../../pattern-library/scaling/caching-strategies.md) - Async writes
- - [CDC](../../pattern-library/data-management/cdc) - Change data capture
+ - [Read-Through Cache](../....../pattern-library/scaling.md/caching-strategies.md) - Smart caching
+ - [Write-Behind Cache](../....../pattern-library/scaling.md/caching-strategies.md) - Async writes
+ - [CDC](../....../pattern-library/data-management.md/cdc/index.md) - Change data capture
 
 #### Week 7: Advanced Architecture Patterns
 
-- [Service Mesh](../../pattern-library/communication/service-mesh) - Istio/Linkerd deep dive
-- [Cell-Based Architecture](../../pattern-library/architecture/cell-based) - Failure isolation
-- [Lambda Architecture](../../pattern-library/architecture/lambda-architecture) - Batch + streaming
-- [Data Mesh](../../pattern-library/data-mesh) - Decentralized data architecture
+- [Service Mesh](../....../pattern-library/communication.md/service-mesh/index.md) - Istio/Linkerd deep dive
+- [Cell-Based Architecture](../....../pattern-library/architecture.md/cell-based/index.md) - Failure isolation
+- [Lambda Architecture](../....../pattern-library/architecture.md/lambda-architecture/index.md) - Batch + streaming
+- [Data Mesh](../....../pattern-library/data-mesh.md/index.md) - Decentralized data architecture
 
 ### Phase 3: Large-Scale Case Studies (3-4 weeks)
 
@@ -114,28 +114,28 @@ By completing this path, you will:
 <div class="grid cards" markdown>
 
 - **Google Scale**
- - [Spanner Architecture](../google-spanner) - Globally consistent DB
- - [Bigtable Design](../bigtable/) - NoSQL at scale
- - [MapReduce](../mapreduce) - Distributed processing
+ - [Spanner Architecture](../google-spanner/index.md) - Globally consistent DB
+ - [Bigtable Design](../bigtable/index.md) - NoSQL at scale
+ - [MapReduce](../mapreduce/index.md) - Distributed processing
 
 - **Social Media Scale**
- - [Facebook TAO](../facebook-tao/) - Graph storage
- - [Twitter Timeline](../twitter-timeline) - Real-time feeds
- - [LinkedIn Kafka](../kafka) - Event streaming
+ - [Facebook TAO](../facebook-tao/index.md) - Graph storage
+ - [Twitter Timeline](../twitter-timeline/index.md) - Real-time feeds
+ - [LinkedIn Kafka](../kafka/index.md) - Event streaming
 
 </div>
 
 #### Week 10-11: Specialized Systems
 
 === "Financial Systems"
- - [Payment Processing](../payment-system) - ACID requirements
- - [Trading Systems](../trading-system/) - Low latency
- - [Blockchain](../blockchain) - Distributed ledger
+ - [Payment Processing](../payment-system/index.md) - ACID requirements
+ - [Trading Systems](../trading-system/index.md) - Low latency
+ - [Blockchain](../blockchain/index.md) - Distributed ledger
 
 === "Real-Time Systems"
- - [Gaming Backend](../gaming-backend/) - Stateful services
- - [Live Streaming](../live-streaming/) - CDN architecture
- - [IoT Platforms](../iot-platform/) - Edge computing
+ - [Gaming Backend](../gaming-backend/index.md) - Stateful services
+ - [Live Streaming](../live-streaming/index.md) - CDN architecture
+ - [IoT Platforms](../iot-platform/index.md) - Edge computing
 
 ### Phase 4: Performance & Operations (2-3 weeks)
 
@@ -144,17 +144,17 @@ By completing this path, you will:
 
 #### Week 12: Quantitative Analysis
 
-- [Universal Scalability Law](quantitative/universal-scalability) - Amdahl's law
-- [Queueing Theory](quantitative/queueing-models) - M/M/1 and beyond
-- [Capacity Planning](quantitative/capacity-planning) - Resource estimation
-- [Performance Modeling](quantitative/performance-modeling) - Simulation techniques
+- [Universal Scalability Law](quantitative-analysis/universal-scalability.mdindex.md) - Amdahl's law
+- [Queueing Theory](quantitative/queueing-models/index.md) - M/M/1 and beyond
+- [Capacity Planning](quantitative-analysis/capacity-planning.mdindex.md) - Resource estimation
+- [Performance Modeling](quantitative/performance-modeling/index.md) - Simulation techniques
 
 #### Week 13: Operational Excellence
 
-- [SRE Practices](../../architects-handbook/human-factors/sre-practices.md) - Google's approach
-- [Chaos Engineering](../../architects-handbook/human-factors/chaos-engineering.md) - Netflix's methods
-- [Observability](../../pattern-library/observability) - Metrics, logs, traces
-- [Incident Response](../../architects-handbook/human-factors/incident-response.md) - On-call best practices
+- [SRE Practices](../....../architects-handbook/human-factors.md/sre-practices.md) - Google's approach
+- [Chaos Engineering](../....../architects-handbook/human-factors.md/chaos-engineering.md) - Netflix's methods
+- [Observability](../....../pattern-library/observability.md/index.md) - Metrics, logs, traces
+- [Incident Response](../....../architects-handbook/human-factors.md/incident-response.md) - On-call best practices
 
 ### Phase 5: System Design Mastery (2-3 weeks)
 
@@ -242,7 +242,7 @@ Consider pursuing:
 
 After completing this path:
 
-1. **Tech Leadership**: Move to [Engineering Manager Path](../../architects-handbook/learning-paths/manager.md)
+1. **Tech Leadership**: Move to [Engineering Manager Path](../....../architects-handbook/learning-paths.md/manager.md)
 2. **Specialization**: Deep dive into specific domains
 3. **Research**: Contribute to distributed systems research
 4. **Entrepreneurship**: Build your own distributed platform
@@ -264,12 +264,12 @@ Remember: True mastery comes from building and operating systems at scale.
  
  ---
  
- [New Graduate Path](../../architects-handbook/learning-paths/new-graduate.md)
+ [New Graduate Path](../....../architects-handbook/learning-paths.md/new-graduate.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Engineering Manager Path](../../architects-handbook/learning-paths/manager.md)
+ [Engineering Manager Path](../....../architects-handbook/learning-paths.md/manager.md)
 
 </div>

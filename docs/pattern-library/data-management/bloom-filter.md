@@ -362,15 +362,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Space-time trade-offs
-    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Probabilistic information
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Space-time trade-offs
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md) - Probabilistic information
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Efficient state representation
-    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution/) - Smart pre-filtering
+    - [State Distribution](../../core-principles/pillars/state-distribution/index.md) - Efficient state representation
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution/index.md) - Smart pre-filtering
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

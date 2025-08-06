@@ -141,6 +141,6 @@ python3 scripts/navigation-validator.py | grep "Health Score"
 
 ## Getting Help
 
-- Check the [MkDocs documentation](https://www.mkdocs.org/)
-- Review the [Material theme docs](https://squidfunk.github.io/mkdocs-material/)
+- Check the [MkDocs documentation](https://www.mkdocs.org/index.md)
+- Review the [Material theme docs](https://squidfunk.github.io/mkdocs-material/index.md)
 - Ask in project discussions

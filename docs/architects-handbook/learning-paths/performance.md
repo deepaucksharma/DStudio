@@ -46,17 +46,17 @@ By completing this path, you will:
  
  Essential concepts:
  
- - [Latency Ladder](quantitative/latency-ladder) - Know your numbers
- - [Little's Law](quantitative/littles-law) - Queue theory basics
- - [Universal Scalability Law](quantitative/universal-scalability) - Scaling limits
+ - [Latency Ladder](quantitative/latency-ladder/index.md) - Know your numbers
+ - [Little's Law](quantitative-analysis/littles-law.mdindex.md) - Queue theory basics
+ - [Universal Scalability Law](quantitative-analysis/universal-scalability.mdindex.md) - Scaling limits
 
 - **Measurement & Analysis**
  
  Quantify performance:
  
- - [Performance Modeling](quantitative/performance-modeling) - Predict behavior
- - [Queueing Models](quantitative/queueing-models) - Analyze bottlenecks
- - [Capacity Planning](quantitative/capacity-planning) - Resource estimation
+ - [Performance Modeling](quantitative/performance-modeling/index.md) - Predict behavior
+ - [Queueing Models](quantitative/queueing-models/index.md) - Analyze bottlenecks
+ - [Capacity Planning](quantitative-analysis/capacity-planning.mdindex.md) - Resource estimation
 
 </div>
 
@@ -69,10 +69,10 @@ By completing this path, you will:
 
 === "Cache Types"
  Different caching approaches:
- - [Cache Aside](../../pattern-library/scaling/caching-strategies.md) - Lazy population
- - [Read Through Cache](../../pattern-library/scaling/caching-strategies.md) - Transparent reads
- - [Write Through Cache](../../pattern-library/scaling/caching-strategies.md) - Consistent writes
- - [Write Behind Cache](../../pattern-library/scaling/caching-strategies.md) - Async writes
+ - [Cache Aside](../....../pattern-library/scaling.md/caching-strategies.md) - Lazy population
+ - [Read Through Cache](../....../pattern-library/scaling.md/caching-strategies.md) - Transparent reads
+ - [Write Through Cache](../....../pattern-library/scaling.md/caching-strategies.md) - Consistent writes
+ - [Write Behind Cache](../....../pattern-library/scaling.md/caching-strategies.md) - Async writes
 
 === "Cache Design"
  Implementation considerations:
@@ -83,17 +83,17 @@ By completing this path, you will:
 
 === "Advanced Caching"
  Sophisticated techniques:
- - [Tile Caching](../../pattern-library/scaling/tile-caching.md) - Spatial data
+ - [Tile Caching](../....../pattern-library/scaling.md/tile-caching.md) - Spatial data
  - Predictive caching
  - Cache warming strategies
  - Multi-tier caching
 
 #### Week 3: Load Distribution
 
-- [Load Balancing](../../pattern-library/scaling/load-balancing) - Traffic distribution
-- [Sharding](../../pattern-library/scaling/sharding) - Data partitioning
-- [Request Routing](../../pattern-library/request-routing) - Smart routing
-- [Scatter Gather](../../pattern-library/scaling/scatter-gather) - Parallel processing
+- [Load Balancing](../....../pattern-library/scaling.md/load-balancing/index.md) - Traffic distribution
+- [Sharding](../....../pattern-library/scaling.md/sharding/index.md) - Data partitioning
+- [Request Routing](../....../pattern-library/request-routing.md/index.md) - Smart routing
+- [Scatter Gather](../....../pattern-library/scaling.md/scatter-gather/index.md) - Parallel processing
 
 ### Phase 3: Scaling Strategies (2 weeks)
 
@@ -104,33 +104,33 @@ By completing this path, you will:
 
 === "Service Scaling"
  Scale your application tier:
- - [Auto-Scaling](../../pattern-library/scaling/auto-scaling) - Dynamic capacity
- - [Service Mesh](../../pattern-library/communication/service-mesh) - Service management
- - [Bulkhead](../../pattern-library/resilience/bulkhead) - Resource isolation
- - **Case Study**: [Netflix Architecture](../netflix-streaming)
+ - [Auto-Scaling](../....../pattern-library/scaling.md/auto-scaling/index.md) - Dynamic capacity
+ - [Service Mesh](../....../pattern-library/communication.md/service-mesh/index.md) - Service management
+ - [Bulkhead](../....../pattern-library/resilience.md/bulkhead/index.md) - Resource isolation
+ - **Case Study**: [Netflix Architecture](../netflix-streaming/index.md)
 
 === "Data Scaling"
  Scale your data tier:
- - [Geo-Replication](../../pattern-library/scaling/geo-replication) - Global distribution
- - [Multi-Region](../../pattern-library/scaling/multi-region) - Active-active
+ - [Geo-Replication](../....../pattern-library/scaling.md/geo-replication/index.md) - Global distribution
+ - [Multi-Region](../....../pattern-library/scaling.md/multi-region/index.md) - Active-active
  - Database sharding strategies
- - **Case Study**: [Cassandra at Scale](../cassandra)
+ - **Case Study**: [Cassandra at Scale](../cassandra/index.md)
 
 === "Message Scaling"
  Scale your messaging layer:
- - [Event Streaming](../../pattern-library/architecture/event-streaming) - High throughput
- - [Distributed Queue](../../pattern-library/coordination/distributed-queue) - Work distribution
+ - [Event Streaming](../....../pattern-library/architecture.md/event-streaming/index.md) - High throughput
+ - [Distributed Queue](../....../pattern-library/coordination.md/distributed-queue/index.md) - Work distribution
  - Partitioned topics (Kafka)
- - **Case Study**: [LinkedIn Kafka](../kafka)
+ - **Case Study**: [LinkedIn Kafka](../kafka/index.md)
 
 #### Week 5: Performance Patterns
 
 Advanced optimization patterns:
 
-- [CQRS](../../pattern-library/data-management/cqrs) - Optimize reads and writes separately
-- [Event Sourcing](../../pattern-library/data-management/event-sourcing) - Async processing
-- [Lambda Architecture](../../pattern-library/architecture/lambda-architecture) - Batch + real-time
-- [Edge Computing](../../pattern-library/scaling/edge-computing) - Move compute closer
+- [CQRS](../....../pattern-library/data-management.md/cqrs/index.md) - Optimize reads and writes separately
+- [Event Sourcing](../....../pattern-library/data-management.md/event-sourcing/index.md) - Async processing
+- [Lambda Architecture](../....../pattern-library/architecture.md/lambda-architecture/index.md) - Batch + real-time
+- [Edge Computing](../....../pattern-library/scaling.md/edge-computing/index.md) - Move compute closer
 
 ### Phase 4: Production Performance (1 week)
 
@@ -142,7 +142,7 @@ Advanced optimization patterns:
 <div class="grid cards" markdown>
 
 - **Performance Monitoring**
- - [Observability](../../pattern-library/observability)
+ - [Observability](../....../pattern-library/observability.md/index.md)
  - Distributed tracing
  - Performance profiling
  - Anomaly detection
@@ -384,12 +384,12 @@ efficiency_targets:
  
  ---
  
- [Consistency Path](../../architects-handbook/learning-paths/consistency.md)
+ [Consistency Path](../....../architects-handbook/learning-paths.md/consistency.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Cost Optimization Path](../../architects-handbook/learning-paths/cost.md)
+ [Cost Optimization Path](../....../architects-handbook/learning-paths.md/cost.md)
 
 </div>

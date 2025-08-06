@@ -105,7 +105,7 @@ outcomes:
 </div>
 
 !!! tip "Quantum Readiness Check"
-    Complete our [Quantum Security Assessment](../../tools/quantum-readiness-quiz/) to evaluate your preparation level.
+    Complete our [Quantum Security Assessment](../../tools/quantum-readiness-quiz/index.md) to evaluate your preparation level.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -127,7 +127,7 @@ outcomes:
     - [ ] Assess timeline for cryptographically relevant quantum computers
     
     **Day 1-2**: Quantum Mechanics for Computing
-    - 📖 Read: [Quantum computing principles](../../quantitative-analysis/quantum-computing/), qubits, superposition, entanglement
+    - 📖 Read: [Quantum computing principles](../../quantitative-analysis/quantum-computing/index.md), qubits, superposition, entanglement
     - 🛠️ Lab: Simulate quantum circuits with Qiskit
     - 📊 Success: Implement basic quantum algorithms
     - ⏱️ Time: 6-8 hours
@@ -630,16 +630,16 @@ outcomes:
 ### Implementation Resources
 
 **Post-Quantum Libraries**:
-- [Open Quantum Safe (liboqs)](https://openquantumsafe.org/)
-- [NIST PQC Reference Implementations](https://csrc.nist.gov/projects/post-quantum-cryptography)
-- [Kyber Implementation](https://pq-crystals.org/kyber/)
-- [Dilithium Implementation](https://pq-crystals.org/dilithium/)
+- [Open Quantum Safe (liboqs)](https://openquantumsafe.org/index.md)
+- [NIST PQC Reference Implementations](https://csrc.nist.gov/projects/post-quantum-cryptography/index.md)
+- [Kyber Implementation](https://pq-crystals.org/kyber/index.md)
+- [Dilithium Implementation](https://pq-crystals.org/dilithium/index.md)
 
 **Quantum Development Platforms**:
-- [IBM Qiskit](https://qiskit.org/)
-- [Google Cirq](https://quantumai.google/cirq)
-- [Microsoft Q# Development Kit](https://azure.microsoft.com/en-us/products/quantum/)
-- [Amazon Braket](https://aws.amazon.com/braket/)
+- [IBM Qiskit](https://qiskit.org/index.md)
+- [Google Cirq](https://quantumai.google/cirq/index.md)
+- [Microsoft Q# Development Kit](https://azure.microsoft.com/en-us/products/quantum/index.md)
+- [Amazon Braket](https://aws.amazon.com/braket/index.md)
 
 ## 🏁 Capstone: Quantum-Resilient Security Platform
 

@@ -1098,15 +1098,15 @@ Resource Management:
 
 ## Related Patterns
 
-- **Complementary**: [Canary Release](canary-release/) - Risk mitigation through gradual rollout
-- **Complementary**: [Feature Flags](feature-flags/) - Runtime feature control
+- **Complementary**: [Canary Release](canary-release/index.md) - Risk mitigation through gradual rollout
+- **Complementary**: [Feature Flags](feature-flags/index.md) - Runtime feature control
 - **Alternative**: Rolling deployment (less safe but lower resource cost)
 - **Building Block**: Health checks and monitoring
-- **Extension**: [Immutable Infrastructure](immutable-infrastructure/) for consistency
+- **Extension**: [Immutable Infrastructure](immutable-infrastructure/index.md) for consistency
 
 ## Further Reading
 
-- [Martin Fowler - BlueGreenDeployment](https://martinfowler.com/bliki/BlueGreenDeployment.html)
-- [AWS Blue/Green Deployment Guide](https://docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/welcome.html)
-- [Kubernetes Blue-Green Deployments](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#blue-green-deployments)
-- [Netflix Spinnaker](https://spinnaker.io/)
+- [Martin Fowler - BlueGreenDeployment](https://martinfowler.com/bliki/BlueGreenDeployment.html/index.md)
+- [AWS Blue/Green Deployment Guide](https://docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/welcome.html/index.md)
+- [Kubernetes Blue-Green Deployments](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#blue-green-deployments/index.md)
+- [Netflix Spinnaker](https://spinnaker.io/index.md)

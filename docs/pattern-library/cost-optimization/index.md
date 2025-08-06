@@ -12,13 +12,13 @@ Cost optimization in cloud environments requires systematic approaches to resour
 ## Pattern Categories
 
 ### Resource Management
-- [Spot Instance Management](spot-instance-management/) - Leverage low-cost compute capacity
-- [Resource Rightsizing](resource-rightsizing/) - Optimize resource allocation
-- [Reserved Capacity Planning](reserved-capacity-planning/) - Strategic capacity commitment
+- [Spot Instance Management](spot-instance-management/index.md) - Leverage low-cost compute capacity
+- [Resource Rightsizing](resource-rightsizing/index.md) - Optimize resource allocation
+- [Reserved Capacity Planning](reserved-capacity-planning/index.md) - Strategic capacity commitment
 
 ### Multi-Cloud Strategy
-- [Multi-Cloud Arbitrage](multi-cloud-arbitrage/) - Optimize across cloud providers
-- [Cost Allocation and Chargeback](cost-allocation-chargeback/) - Transparent cost management
+- [Multi-Cloud Arbitrage](multi-cloud-arbitrage/index.md) - Optimize across cloud providers
+- [Cost Allocation and Chargeback](cost-allocation-chargeback/index.md) - Transparent cost management
 
 ## Quick Selection Guide
 

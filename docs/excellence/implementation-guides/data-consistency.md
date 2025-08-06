@@ -407,8 +407,8 @@ graph TD
 
 ## Resources
 
-- [Event Sourcing Pattern](../../../pattern-library/data-management/event-sourcing/) (Gold)
-- [CQRS Pattern](../../../pattern-library/data-management/cqrs/) (Gold)
-- [Saga Pattern](../../../pattern-library/data-management/saga/) (Gold)
-- [CDC Pattern](../../../pattern-library/data-management/cdc/) (Silver)
-- [CRDT Pattern](../../../pattern-library/data-management/crdt/) (Silver)
+- [Event Sourcing Pattern](../../../pattern-library/data-management/event-sourcing/index.md) (Gold)
+- [CQRS Pattern](../../../pattern-library/data-management/cqrs/index.md) (Gold)
+- [Saga Pattern](../../../pattern-library/data-management/saga/index.md) (Gold)
+- [CDC Pattern](../../../pattern-library/data-management/cdc/index.md) (Silver)
+- [CRDT Pattern](../../../pattern-library/data-management/crdt/index.md) (Silver)

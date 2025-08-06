@@ -63,8 +63,8 @@ By completing this 10-week path, you will:
 
 | Day | Topic | Hands-On | Checkpoint |
 |-----|-------|----------|------------|
-| 1 | [Consistent hashing](/../../pattern-library/data-management/consistent-hashing/) | Implement hash ring | Even distribution |
-| 2 | [Sharding](/../../pattern-library/scaling/sharding/) | Shard by URL key | 4 shards working |
+| 1 | [Consistent hashing](/../....../pattern-library/data-management.md/consistent-hashing/index.md) | Implement hash ring | Even distribution |
+| 2 | [Sharding](/../....../pattern-library/scaling.md/sharding/index.md) | Shard by URL key | 4 shards working |
 | 3 | Shard routing | Build routing layer | Correct shard selection |
 | 4 | Cross-shard queries | Implement scatter-gather | Analytics working |
 | 5 | Resharding strategy | Test shard addition | Zero downtime migration |
@@ -76,9 +76,9 @@ By completing this 10-week path, you will:
 
 | Day | Topic | Hands-On | Checkpoint |
 |-----|-------|----------|------------|
-| 1 | [Multi-tier caching](/../../pattern-library/scaling/caching-strategies/) | L1 + L2 cache | 95% hit rate |
+| 1 | [Multi-tier caching](/../....../pattern-library/scaling.md/caching-strategies/index.md) | L1 + L2 cache | 95% hit rate |
 | 2 | Cache warming | Implement preloading | Popular URLs cached |
-| 3 | [CDN integration](/../../pattern-library/scaling/edge-computing/) | Configure CloudFlare | Global edge caching |
+| 3 | [CDN integration](/../....../pattern-library/scaling.md/edge-computing/index.md) | Configure CloudFlare | Global edge caching |
 | 4 | Database optimization | Index tuning | Query time <5ms |
 | 5 | Performance testing | Full stack testing | <50ms p99 achieved |
 
@@ -89,10 +89,10 @@ By completing this 10-week path, you will:
 
 | Day | Topic | Hands-On | Checkpoint |
 |-----|-------|----------|------------|
-| 1 | [Health checks](/../../pattern-library/resilience/health-check/) | Implement endpoints | Accurate health status |
-| 2 | [Circuit breakers](/../../pattern-library/resilience/circuit-breaker/) | Add to all calls | Cascading failures prevented |
+| 1 | [Health checks](/../....../pattern-library/resilience.md/health-check/index.md) | Implement endpoints | Accurate health status |
+| 2 | [Circuit breakers](/../....../pattern-library/resilience.md/circuit-breaker/index.md) | Add to all calls | Cascading failures prevented |
 | 3 | Database replication | Setup read replicas | Automatic failover |
-| 4 | [Graceful degradation](/../../pattern-library/resilience/graceful-degradation/) | Fallback strategies | Service stays up |
+| 4 | [Graceful degradation](/../....../pattern-library/resilience.md/graceful-degradation/index.md) | Fallback strategies | Service stays up |
 | 5 | Chaos testing | Kill random services | Auto-recovery verified |
 
 **Deliverable**: Resilient system surviving failures
@@ -116,7 +116,7 @@ By completing this 10-week path, you will:
 | Day | Topic | Hands-On | Checkpoint |
 |-----|-------|----------|------------|
 | 1 | Authentication | API key system | Secure endpoints |
-| 2 | [Rate limiting](/../../pattern-library/scaling/rate-limiting/) | Per-user limits | Abuse prevention |
+| 2 | [Rate limiting](/../....../pattern-library/scaling.md/rate-limiting/index.md) | Per-user limits | Abuse prevention |
 | 3 | Data encryption | TLS + encryption at rest | E2E encryption |
 | 4 | Audit logging | Compliance logs | GDPR ready |
 | 5 | Security testing | OWASP scan | Vulnerabilities fixed |
@@ -128,10 +128,10 @@ By completing this 10-week path, you will:
 
 | Day | Topic | Hands-On | Checkpoint |
 |-----|-------|----------|------------|
-| 1 | [Multi-region setup](/../../pattern-library/scaling/multi-region/) | Deploy to 3 regions | All regions live |
+| 1 | [Multi-region setup](/../....../pattern-library/scaling.md/multi-region/index.md) | Deploy to 3 regions | All regions live |
 | 2 | Data replication | Cross-region sync | Eventual consistency |
-| 3 | [GeoDNS](/../../pattern-library/scaling/geo-distribution/) | Route by location | Nearest region selected |
-| 4 | Conflict resolution | [CRDT implementation](/../../pattern-library/data-management/crdt/) | Conflicts handled |
+| 3 | [GeoDNS](/../....../pattern-library/scaling.md/geo-distribution/index.md) | Route by location | Nearest region selected |
+| 4 | Conflict resolution | [CRDT implementation](/../....../pattern-library/data-management.md/crdt/index.md) | Conflicts handled |
 | 5 | Global testing | Test from 10 locations | <100ms everywhere |
 
 **Deliverable**: Globally distributed system
@@ -142,7 +142,7 @@ By completing this 10-week path, you will:
 | Day | Topic | Hands-On | Checkpoint |
 |-----|-------|----------|------------|
 | 1 | Capacity planning | Calculate resources | Requirements defined |
-| 2 | [Auto-scaling](/../../pattern-library/scaling/auto-scaling/) | Configure policies | Scales with load |
+| 2 | [Auto-scaling](/../....../pattern-library/scaling.md/auto-scaling/index.md) | Configure policies | Scales with load |
 | 3 | Database optimization | Query optimization | No bottlenecks |
 | 4 | Load testing | Gradual ramp to 10K | Target achieved |
 | 5 | Cost optimization | Right-sizing | 30% cost reduction |
@@ -202,15 +202,15 @@ Success criteria:
 ## Learning Resources
 
 ### Required Reading (In Order)
-1. [7 Fundamental Laws](/core-principles/laws/) - Week 1
-2. [5 Distribution Pillars](/core-principles/pillars/) - Week 2
-3. [CAP Theorem Deep Dive](/../../pattern-library/architecture/cap-theorem/) - Week 3
-4. [Scaling Patterns Overview](/../../pattern-library/scaling/) - Week 4
+1. [7 Fundamental Laws](..../core-principles/laws.md/index.md) - Week 1
+2. [5 Distribution Pillars](..../core-principles/pillars.md/index.md) - Week 2
+3. [CAP Theorem Deep Dive](/../....../pattern-library/architecture.md/cap-theorem/index.md) - Week 3
+4. [Scaling Patterns Overview](/../....../pattern-library/scaling.md/index.md) - Week 4
 
 ### Reference Documentation
-- [Pattern Library](/../../pattern-library/) - Use throughout
-- [Case Studies](/architects-handbook/case-studies/) - Real examples
-- [Quantitative Analysis](/architects-handbook/quantitative-analysis/) - Week 9
+- [Pattern Library](/../....../pattern-library/index.md) - Use throughout
+- [Case Studies](..../architects-handbook/case-studies.md/index.md) - Real examples
+- [Quantitative Analysis](..../architects-handbook/quantitative-analysis.md/index.md) - Week 9
 
 ### Community & Support
 - Weekly office hours: Fridays 2-3pm

@@ -588,10 +588,10 @@ def modern_data_architecture():
 
 ## Related Resources
 
-- [Stream Processing Pattern](../../../pattern-library/stream-processing.md)
-- [Lambda Architecture](../../../pattern-library/architecture/lambda-architecture.md)
-- [Event Sourcing Pattern](../../../pattern-library/data-management/event-sourcing.md)
-- [Streaming Systems Book](https://www.oreilly.com/library/view/streaming-systems/9781491983867/)
+- [Stream Processing Pattern](../../pattern-library/stream-processing.md)
+- [Lambda Architecture](../../pattern-library/architecture.md/lambda-architecture.md)
+- [Event Sourcing Pattern](../../pattern-library/data-management.md/event-sourcing.md)
+- [Streaming Systems Book](https://www.oreilly.com/library/view/streaming-systems/9781491983867/index.md)
 
 ---
 

@@ -674,7 +674,7 @@ graph LR
 
 Patterns that address this law:
 
-- [Consensus](../../pattern-library/coordination/consensus/)
-- [Leader Election](../../pattern-library/coordination/leader-election/)
+- [Consensus](../../pattern-library/coordination/consensus/index.md)
+- [Leader Election](../../pattern-library/coordination/leader-election/index.md)
 
 

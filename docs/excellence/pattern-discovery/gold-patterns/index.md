@@ -38,28 +38,28 @@ description: Production-proven patterns used by FAANG and leading tech companies
 
 <div class="pattern-category">
 
-#### [Circuit Breaker](../../../../pattern-library/resilience/circuit-breaker/)
+#### [Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker/index.md)
 **Prevent cascade failures**
 - 🏢 Used by: Netflix (Hystrix), Amazon, Uber
 - 📊 Success Rate: 95%
 - ⚡ Impact: 10x resilience improvement
 - 📖 Implementation: 1-2 weeks
 
-#### [Retry with Backoff](../../../../pattern-library/resilience/retry-backoff/)
+#### [Retry with Backoff](../../pattern-library/resilience.md/retry-backoff/index.md)
 **Handle transient failures gracefully**
 - 🏢 Used by: Every cloud service
 - 📊 Success Rate: 98%
 - ⚡ Impact: 5x error reduction
 - 📖 Implementation: 2-3 days
 
-#### [Timeout](../../../../pattern-library/resilience/timeout/)
+#### [Timeout](../../pattern-library/resilience.md/timeout/index.md)
 **Fail fast, fail safe**
 - 🏢 Used by: All distributed systems
 - 📊 Success Rate: 99%
 - ⚡ Impact: Prevents resource exhaustion
 - 📖 Implementation: 1 day
 
-#### [Health Check](../../../../pattern-library/resilience/health-check/)
+#### [Health Check](../../pattern-library/resilience.md/health-check/index.md)
 **Know when services are ready**
 - 🏢 Used by: Kubernetes, AWS, Google Cloud
 - 📊 Success Rate: 99%
@@ -72,21 +72,21 @@ description: Production-proven patterns used by FAANG and leading tech companies
 
 <div class="pattern-category">
 
-#### [Caching Strategies](../../../../pattern-library/scaling/caching-strategies/)
+#### [Caching Strategies](../../pattern-library/scaling.md/caching-strategies/index.md)
 **Speed up everything**
 - 🏢 Used by: Facebook, LinkedIn, Twitter
 - 📊 Success Rate: 98%
 - ⚡ Impact: 100x latency reduction
 - 📖 Implementation: 1-2 weeks
 
-#### [Load Balancing](../../../../pattern-library/scaling/load-balancing/)
+#### [Load Balancing](../../pattern-library/scaling.md/load-balancing/index.md)
 **Distribute traffic evenly**
 - 🏢 Used by: Every scalable system
 - 📊 Success Rate: 99%
 - ⚡ Impact: Linear scalability
 - 📖 Implementation: 3-5 days
 
-#### [Auto-Scaling](../../../../pattern-library/scaling/auto-scaling/)
+#### [Auto-Scaling](../../pattern-library/scaling.md/auto-scaling/index.md)
 **Scale with demand**
 - 🏢 Used by: Netflix, Amazon, Google
 - 📊 Success Rate: 95%
@@ -99,21 +99,21 @@ description: Production-proven patterns used by FAANG and leading tech companies
 
 <div class="pattern-category">
 
-#### [Sharding](../../../../pattern-library/scaling/sharding/)
+#### [Sharding](../../pattern-library/scaling.md/sharding/index.md)
 **Horizontal data partitioning**
 - 🏢 Used by: MongoDB, Cassandra, DynamoDB
 - 📊 Success Rate: 92%
 - ⚡ Impact: Unlimited scale
 - 📖 Implementation: 2-4 weeks
 
-#### [Event Sourcing](../pattern-library/data-management/event-sourcing/)
+#### [Event Sourcing](..../pattern-library/data-management.md/event-sourcing/index.md)
 **Complete audit trail**
 - 🏢 Used by: Banks, PayPal, Stripe
 - 📊 Success Rate: 90%
 - ⚡ Impact: Perfect auditability
 - 📖 Implementation: 3-4 weeks
 
-#### [Consistent Hashing](../../../../pattern-library/data-management/consistent-hashing/)
+#### [Consistent Hashing](../../pattern-library/data-management.md/consistent-hashing/index.md)
 **Stable data distribution**
 - 🏢 Used by: DynamoDB, Cassandra, Redis
 - 📊 Success Rate: 95%
@@ -126,21 +126,21 @@ description: Production-proven patterns used by FAANG and leading tech companies
 
 <div class="pattern-category">
 
-#### [API Gateway](../../../../pattern-library/communication/api-gateway/)
+#### [API Gateway](../../pattern-library/communication.md/api-gateway/index.md)
 **Unified entry point**
 - 🏢 Used by: Netflix, Uber, Airbnb
 - 📊 Success Rate: 96%
 - ⚡ Impact: Simplified clients
 - 📖 Implementation: 2-3 weeks
 
-#### [Service Discovery](../../../../pattern-library/communication/service-discovery/)
+#### [Service Discovery](../../pattern-library/communication.md/service-discovery/index.md)
 **Dynamic service location**
 - 🏢 Used by: All microservices
 - 📊 Success Rate: 94%
 - ⚡ Impact: Zero hardcoding
 - 📖 Implementation: 1-2 weeks
 
-#### [Event-Driven](../../../../pattern-library/architecture/event-driven/)
+#### [Event-Driven](../../pattern-library/architecture.md/event-driven/index.md)
 **Loose coupling at scale**
 - 🏢 Used by: Uber, LinkedIn, Twitter
 - 📊 Success Rate: 92%

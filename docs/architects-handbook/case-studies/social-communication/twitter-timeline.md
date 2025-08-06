@@ -458,10 +458,10 @@ graph TD
 
 ## Related Resources
 
-- [Fanout Pattern](../../../pattern-library/fanout.md)
-- [Cache-aside Pattern](../../../pattern-library/scaling/caching-strategies.md)
-- [Sharding Pattern](../../../pattern-library/scaling/sharding.md)
-- [Twitter Engineering Blog](https://blog.twitter.com/engineering/)
+- [Fanout Pattern](../../pattern-library/fanout.md)
+- [Cache-aside Pattern](../../pattern-library/scaling.md/caching-strategies.md)
+- [Sharding Pattern](../../pattern-library/scaling.md/sharding.md)
+- [Twitter Engineering Blog](https://blog.twitter.com/engineering/index.md)
 
 ---
 

@@ -55,4 +55,4 @@ Coordination patterns make different trade-offs:
 
 ---
 
-*Explore individual patterns below or return to the [Pattern Library](../).*
+*Explore individual patterns below or return to the [Pattern Library](../index.md).*

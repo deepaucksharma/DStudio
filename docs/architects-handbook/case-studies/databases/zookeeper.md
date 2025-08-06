@@ -393,15 +393,15 @@ for wresp := range rch {
 
 ## Related Topics
 
-- [etcd Case Study](../etcd.md) - Modern alternative
-- [Consensus Patterns](../../../pattern-library/coordination/consensus.md) - Raft vs ZAB
-- [Leader Election](../../../pattern-library/coordination/leader-election.md) - Common ZK recipe
-- [Service Discovery](../../../pattern-library/communication/service-discovery.md) - ZK patterns
-- [Distributed Locks](../../../pattern-library/coordination/distributed-lock.md) - Lock recipes
+- [etcd Case Study](../../etcd.md) - Modern alternative
+- [Consensus Patterns](../../pattern-library/coordination.md/consensus.md) - Raft vs ZAB
+- [Leader Election](../../pattern-library/coordination.md/leader-election.md) - Common ZK recipe
+- [Service Discovery](../../pattern-library/communication.md/service-discovery.md) - ZK patterns
+- [Distributed Locks](../../pattern-library/coordination.md/distributed-lock.md) - Lock recipes
 
 ## References
 
-1. [ZooKeeper: Distributed Process Coordination](https://www.oreilly.com/library/view/zookeeper/9781449361297/)
-2. [Apache ZooKeeper Documentation](https://zookeeper.apache.org/doc/current/)
-3. [The Chubby lock service](https://research.google/pubs/pub27897/) - Inspiration for ZooKeeper
-4. [ZooKeeper Recipes and Solutions](https://zookeeper.apache.org/doc/current/recipes.html)
+1. [ZooKeeper: Distributed Process Coordination](https://www.oreilly.com/library/view/zookeeper/9781449361297/index.md)
+2. [Apache ZooKeeper Documentation](https://zookeeper.apache.org/doc/current/index.md)
+3. [The Chubby lock service](https://research.google/pubs/pub27897/index.md) - Inspiration for ZooKeeper
+4. [ZooKeeper Recipes and Solutions](https://zookeeper.apache.org/doc/current/recipes.html/index.md)

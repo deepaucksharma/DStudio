@@ -438,4 +438,4 @@ Prepare 3-4 stories for each category:
 
 ---
 
-*Next: [Scenario Deep-Dives](scenarios.md) | [Behavioral Framework](index.md) | [System Design](../)*
+*Next: [Scenario Deep-Dives](scenarios.md) | [Behavioral Framework](index.md) | [System Design](../index.md)*

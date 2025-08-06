@@ -361,15 +361,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Verification efficiency trade-offs
-    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Cryptographic certainty
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Verification efficiency trade-offs
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md) - Cryptographic certainty
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Distributed data integrity
-    - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consensus on data validity
+    - [State Distribution](../../core-principles/pillars/state-distribution/index.md) - Distributed data integrity
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Consensus on data validity
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

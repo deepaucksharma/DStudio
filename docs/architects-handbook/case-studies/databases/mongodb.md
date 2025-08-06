@@ -418,15 +418,15 @@ db.orders.aggregate([
 
 ## Related Topics
 
-- [Sharding](../../../pattern-library/scaling/sharding.md) - Core MongoDB scaling pattern
-- [Eventual Consistency](../../../pattern-library/data-management/eventual-consistency.md) - Read preference implications
-- [CAP Theorem](../../../pattern-library/architecture/cap-theorem.md) - MongoDB's CP with tunable consistency
-- [Aggregation Pipeline](../../../pattern-library/scaling/scatter-gather.md) - Distributed processing
-- [Change Data Capture](../../../pattern-library/data-management/cdc.md) - Change streams implementation
+- [Sharding](../../pattern-library/scaling.md/sharding.md) - Core MongoDB scaling pattern
+- [Eventual Consistency](../../pattern-library/data-management.md/eventual-consistency.md) - Read preference implications
+- [CAP Theorem](../../pattern-library/architecture.md/cap-theorem.md) - MongoDB's CP with tunable consistency
+- [Aggregation Pipeline](../../pattern-library/scaling.md/scatter-gather.md) - Distributed processing
+- [Change Data Capture](../../pattern-library/data-management.md/cdc.md) - Change streams implementation
 
 ## References
 
-1. [MongoDB Applied Design Patterns](https://www.oreilly.com/library/view/mongodb-applied-design/9781449340056/)
-2. [Scaling MongoDB](https://www.oreilly.com/library/view/scaling-mongodb/9781449303211/)
-3. [MongoDB Architecture Guide](https://www.mongodb.com/collateral/mongodb-architecture-guide)
-4. [Production Notes](https://docs.mongodb.com/manual/administration/production-notes/)
+1. [MongoDB Applied Design Patterns](https://www.oreilly.com/library/view/mongodb-applied-design/9781449340056/index.md)
+2. [Scaling MongoDB](https://www.oreilly.com/library/view/scaling-mongodb/9781449303211/index.md)
+3. [MongoDB Architecture Guide](https://www.mongodb.com/collateral/mongodb-architecture-guide/index.md)
+4. [Production Notes](https://docs.mongodb.com/manual/administration/production-notes/index.md)

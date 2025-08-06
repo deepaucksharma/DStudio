@@ -15,43 +15,43 @@ These laws represent fundamental constraints that no amount of engineering can o
 
 <div class="grid cards" markdown>
 
-- **[Law of Correlated Failure](correlated-failure/)** 
+- **[Law of Correlated Failure](correlated-failure/index.md)** 
     
     ---
     
     Failures in distributed systems are never independent
 
-- **[Law of Asynchronous Reality](asynchronous-reality/)**
+- **[Law of Asynchronous Reality](asynchronous-reality/index.md)**
     
     ---
     
     Perfect synchronization is impossible in distributed systems
 
-- **[Law of Emergent Chaos](emergent-chaos/)**
+- **[Law of Emergent Chaos](emergent-chaos/index.md)**
     
     ---
     
     Complex behaviors emerge from simple interactions
 
-- **[Law of Multidimensional Optimization](multidimensional-optimization/)**
+- **[Law of Multidimensional Optimization](multidimensional-optimization/index.md)**
     
     ---
     
     You cannot optimize all dimensions simultaneously
 
-- **[Law of Distributed Knowledge](distributed-knowledge/)**
+- **[Law of Distributed Knowledge](distributed-knowledge/index.md)**
     
     ---
     
     No single node can have complete, current knowledge
 
-- **[Law of Cognitive Load](cognitive-load/)**
+- **[Law of Cognitive Load](cognitive-load/index.md)**
     
     ---
     
     Human understanding is the ultimate bottleneck
 
-- **[Law of Economic Reality](economic-reality/)**
+- **[Law of Economic Reality](economic-reality/index.md)**
     
     ---
     
@@ -77,4 +77,4 @@ Understanding these laws helps you:
 
 ---
 
-*Continue to the [Law of Correlated Failure](correlated-failure/) to begin your journey through the fundamental constraints of distributed systems.*
+*Continue to the [Law of Correlated Failure](correlated-failure/index.md) to begin your journey through the fundamental constraints of distributed systems.*

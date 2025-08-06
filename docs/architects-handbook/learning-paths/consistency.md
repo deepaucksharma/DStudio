@@ -44,17 +44,17 @@ By completing this path, you will:
  
  Essential theory:
  
- - [CAP Theorem](quantitative/cap-theorem) - Fundamental trade-offs
- - [Consistency Models](quantitative/consistency-models) - From strong to eventual
- - [PACELC Theorem](quantitative/cap-theorem) - Extended CAP analysis
+ - [CAP Theorem](quantitative/cap-theorem/index.md) - Fundamental trade-offs
+ - [Consistency Models](quantitative/consistency-models/index.md) - From strong to eventual
+ - [PACELC Theorem](quantitative/cap-theorem/index.md) - Extended CAP analysis
 
 - **Distributed Time**
  
  Understanding ordering:
  
- - [Logical Clocks](../../pattern-library/coordination/logical-clocks) - Lamport timestamps
- - [Vector Clocks](../../pattern-library/coordination/vector-clocks) - Causality tracking
- - [Hybrid Logical Clocks](../../pattern-library/coordination/hlc) - Best of both worlds
+ - [Logical Clocks](../....../pattern-library/coordination.md/logical-clocks/index.md) - Lamport timestamps
+ - [Vector Clocks](../....../pattern-library/coordination.md/vector-clocks/index.md) - Causality tracking
+ - [Hybrid Logical Clocks](../....../pattern-library/coordination.md/hlc/index.md) - Best of both worlds
 
 </div>
 
@@ -88,10 +88,10 @@ By completing this path, you will:
 
 #### Week 3: Coordination Patterns
 
-- [Leader Election](../../pattern-library/coordination/leader-election) - Choosing coordinators
-- [Distributed Lock](../../pattern-library/coordination/distributed-lock) - Mutual exclusion
-- [Consensus](../../pattern-library/coordination/consensus) - Agreement protocols
-- [Two-Phase Commit](../../pattern-library/coordination/two-phase-commit) - Atomic commits
+- [Leader Election](../....../pattern-library/coordination.md/leader-election/index.md) - Choosing coordinators
+- [Distributed Lock](../....../pattern-library/coordination.md/distributed-lock/index.md) - Mutual exclusion
+- [Consensus](../....../pattern-library/coordination.md/consensus/index.md) - Agreement protocols
+- [Two-Phase Commit](../....../pattern-library/coordination.md/two-phase-commit/index.md) - Atomic commits
 
 ### Phase 3: Consistency in Practice (2 weeks)
 
@@ -105,28 +105,28 @@ By completing this path, you will:
  - Linearizability implementation
  - Serializable transactions
  - External consistency (Spanner)
- - **Case Study**: [Google Spanner](../google-spanner)
+ - **Case Study**: [Google Spanner](../google-spanner/index.md)
 
 === "Tunable Consistency"
  Flexible guarantees:
  - Read/write quorums
  - Consistency levels (Cassandra)
  - Session guarantees
- - **Case Study**: [Amazon DynamoDB](../amazon-dynamo)
+ - **Case Study**: [Amazon DynamoDB](../amazon-dynamo/index.md)
 
 === "Eventual Consistency"
  Convergence over time:
  - Anti-entropy protocols
  - Gossip dissemination
  - Conflict resolution
- - **Case Study**: [Amazon S3](../s3-object-storage-enhanced)
+ - **Case Study**: [Amazon S3](../s3-object-storage-enhanced/index.md)
 
 #### Week 5: Advanced Patterns
 
-- [CRDT](../../pattern-library/data-management/crdt) - Conflict-free replicated data types
-- [Saga Pattern](../../pattern-library/data-management/saga) - Distributed transactions
-- [Event Sourcing](../../pattern-library/data-management/event-sourcing) - Immutable event logs
-- [Outbox Pattern](../../pattern-library/data-management/outbox) - Reliable messaging
+- [CRDT](../....../pattern-library/data-management.md/crdt/index.md) - Conflict-free replicated data types
+- [Saga Pattern](../....../pattern-library/data-management.md/saga/index.md) - Distributed transactions
+- [Event Sourcing](../....../pattern-library/data-management.md/event-sourcing/index.md) - Immutable event logs
+- [Outbox Pattern](../....../pattern-library/data-management.md/outbox/index.md) - Reliable messaging
 
 ### Phase 4: Production Challenges (1 week)
 
@@ -138,13 +138,13 @@ By completing this path, you will:
 <div class="grid cards" markdown>
 
 - **Split-Brain Scenarios**
- - [Split-Brain Pattern](../../pattern-library/resilience/split-brain)
+ - [Split-Brain Pattern](../....../pattern-library/resilience.md/split-brain/index.md)
  - Quorum strategies
  - Fencing tokens
  - STONITH approaches
 
 - **Clock Synchronization**
- - [Clock Sync Pattern](../../pattern-library/coordination/clock-sync)
+ - [Clock Sync Pattern](../....../pattern-library/coordination.md/clock-sync/index.md)
  - NTP configuration
  - Clock skew handling
  - Time-based ordering
@@ -301,12 +301,12 @@ graph TD
  
  ---
  
- [Learning Paths Overview](../../architects-handbook/learning-paths/cost.md)
+ [Learning Paths Overview](../....../architects-handbook/learning-paths.md/cost.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Performance & Scale Path](../../architects-handbook/learning-paths/performance.md)
+ [Performance & Scale Path](../....../architects-handbook/learning-paths.md/performance.md)
 
 </div>

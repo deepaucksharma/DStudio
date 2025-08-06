@@ -304,10 +304,10 @@ P(available) = Σ(k=R to N) C(N,k) × p^k × (1-p)^(N-k)
 
 ## Related Resources
 
-- [CAP Theorem Deep Dive](../../core-principles/laws/distributed-knowledge)
-- [State Distribution Patterns](../../core-principles/pillars/state-distribution/)
-- [Truth Distribution](../../core-principles/pillars/truth-distribution/)
-- [PACELC Framework](quantitative/cap-theorem)
+- [CAP Theorem Deep Dive](../..../core-principles/laws.md/distributed-knowledge/index.md)
+- [State Distribution Patterns](../..../core-principles/pillars.md/state-distribution/index.md)
+- [Truth Distribution](../..../core-principles/pillars.md/truth-distribution/index.md)
+- [PACELC Framework](quantitative/cap-theorem/index.md)
 
 <script>
 // Initialize CAP triangle on page load

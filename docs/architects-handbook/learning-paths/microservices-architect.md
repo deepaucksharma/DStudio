@@ -117,7 +117,7 @@ outcomes:
 </div>
 
 !!! tip "Readiness Self-Assessment"
-    Complete our [Microservices Readiness Quiz](../../tools/microservices-readiness-assessment/) to identify knowledge gaps and customize your learning path.
+    Complete our [Microservices Readiness Quiz](../../tools/microservices-readiness-assessment/index.md) to identify knowledge gaps and customize your learning path.
 
 ## 🗺️ Detailed Curriculum
 
@@ -143,17 +143,17 @@ outcomes:
     **Day 1-2**: Strategic Domain-Driven Design
     - 📖 Study: Domain modeling and bounded contexts
     - 🛠️ Lab: Model e-commerce domain with event storming
-    - 📊 Case Study: [Uber's Service Architecture](../../architects-handbook/case-studies/social-communication/uber-architecture.md)
+    - 📊 Case Study: [Uber's Service Architecture](../..../architects-handbook/case-studies.md/social-communication/uber-architecture.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 3-4**: Service Decomposition Strategies  
     - 📖 Read: [Monolith to Microservices](../../excellence/migrations/monolith-to-microservices.md)
     - 🛠️ Lab: Decompose monolithic booking system
-    - 📊 Pattern: [Strangler Fig Pattern](../../../pattern-library/architecture/strangler-fig.md)
+    - 📊 Pattern: [Strangler Fig Pattern](../../..../pattern-library/architecture.md/strangler-fig.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 5-7**: Context Mapping & Anti-Corruption Layers
-    - 📖 Study: [Anti-Corruption Layer](../../../pattern-library/architecture/anti-corruption-layer.md)
+    - 📖 Study: [Anti-Corruption Layer](../../..../pattern-library/architecture.md/anti-corruption-layer.md)
     - 🛠️ Lab: Implement context mapping for legacy integration
     - 📊 Deliverable: Service boundary design document
     - ⏱️ Time: 8-10 hours
@@ -171,11 +171,11 @@ outcomes:
     **Day 8-9**: API Design & Versioning
     - 📖 Study: RESTful API design and OpenAPI specification
     - 🛠️ Lab: Design backward-compatible API evolution
-    - 📊 Pattern: [Backends for Frontends](../../../pattern-library/architecture/backends-for-frontends.md)
+    - 📊 Pattern: [Backends for Frontends](../../..../pattern-library/architecture.md/backends-for-frontends.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 10-11**: GraphQL Federation & Service Composition
-    - 📖 Read: [GraphQL Federation](../../../pattern-library/architecture/graphql-federation.md)
+    - 📖 Read: [GraphQL Federation](../../..../pattern-library/architecture.md/graphql-federation.md)
     - 🛠️ Lab: Implement federated GraphQL across services
     - 📊 Success: Unified API gateway serving multiple services
     - ⏱️ Time: 6-8 hours
@@ -199,7 +199,7 @@ outcomes:
     **Day 15-16**: Hexagonal Architecture & Clean Code
     - 📖 Study: Ports and adapters pattern
     - 🛠️ Lab: Implement clean architecture in microservice
-    - 📊 Case Study: [Netflix Service Architecture](../../architects-handbook/case-studies/infrastructure/netflix-service-design.md)
+    - 📊 Case Study: [Netflix Service Architecture](../..../architects-handbook/case-studies.md/infrastructure/netflix-service-design.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 17-18**: Service Templates & Code Generation
@@ -246,19 +246,19 @@ outcomes:
     - [ ] Build API gateway and service mesh integration
     
     **Day 22-23**: Service Discovery & Load Balancing
-    - 📖 Study: [Service Discovery](../../../pattern-library/communication/service-discovery.md)
+    - 📖 Study: [Service Discovery](../../..../pattern-library/communication.md/service-discovery.md)
     - 🛠️ Lab: Implement service registry with health checks
-    - 📊 Pattern: [Load Balancing](../../../pattern-library/scaling/load-balancing.md)
+    - 📊 Pattern: [Load Balancing](../../..../pattern-library/scaling.md/load-balancing.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 24-25**: Resilience Patterns for Service Calls
-    - 📖 Read: [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md), [Retry Patterns](../../../pattern-library/resilience/retry-backoff.md)
+    - 📖 Read: [Circuit Breaker](../../..../pattern-library/resilience.md/circuit-breaker.md), [Retry Patterns](../../..../pattern-library/resilience.md/retry-backoff.md)
     - 🛠️ Lab: Build resilient HTTP client with all patterns
     - 📊 Success: Handle 99% of transient failures gracefully
     - ⏱️ Time: 6-8 hours
     
     **Day 26-28**: API Gateway & Service Mesh
-    - 📖 Study: [API Gateway](../../../pattern-library/communication/api-gateway.md), [Service Mesh](../../../pattern-library/communication/service-mesh.md)  
+    - 📖 Study: [API Gateway](../../..../pattern-library/communication.md/api-gateway.md), [Service Mesh](../../..../pattern-library/communication.md/service-mesh.md)  
     - 🛠️ Lab: Deploy Istio service mesh with traffic management
     - 📊 Deliverable: Complete service communication framework
     - ⏱️ Time: 8-10 hours
@@ -274,19 +274,19 @@ outcomes:
     - [ ] Handle message ordering and exactly-once delivery
     
     **Day 29-30**: Event-Driven Architecture Fundamentals
-    - 📖 Study: [Event-Driven Architecture](../../../pattern-library/architecture/event-driven.md)
+    - 📖 Study: [Event-Driven Architecture](../../..../pattern-library/architecture.md/event-driven.md)
     - 🛠️ Lab: Design event catalog for e-commerce domain
-    - 📊 Case Study: [Shopify's Event Architecture](../../architects-handbook/case-studies/financial-commerce/shopify-events.md)
+    - 📊 Case Study: [Shopify's Event Architecture](../..../architects-handbook/case-studies.md/financial-commerce/shopify-events.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 31-32**: Advanced Event Streaming with Kafka
-    - 📖 Read: [Event Streaming](../../../pattern-library/architecture/event-streaming.md)
+    - 📖 Read: [Event Streaming](../../..../pattern-library/architecture.md/event-streaming.md)
     - 🛠️ Lab: Build event streaming platform with Kafka
     - 📊 Success: Process 10K+ events/second with guaranteed ordering
     - ⏱️ Time: 6-8 hours
     
     **Day 33-35**: Event Sourcing & Message Patterns
-    - 📖 Study: [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)
+    - 📖 Study: [Event Sourcing](../../..../pattern-library/data-management.md/event-sourcing.md)
     - 🛠️ Lab: Implement event-sourced microservice
     - 📊 Deliverable: Event-driven communication architecture
     - ⏱️ Time: 8-10 hours
@@ -302,13 +302,13 @@ outcomes:
     - [ ] Build process managers and state machines
     
     **Day 36-37**: Choreography Pattern Implementation
-    - 📖 Study: [Choreography](../../../pattern-library/architecture/choreography.md) vs Orchestration
+    - 📖 Study: [Choreography](../../..../pattern-library/architecture.md/choreography.md) vs Orchestration
     - 🛠️ Lab: Implement order processing with choreography
-    - 📊 Case Study: [Amazon's Choreographed Architecture](../../architects-handbook/case-studies/financial-commerce/amazon-choreography.md)
+    - 📊 Case Study: [Amazon's Choreographed Architecture](../..../architects-handbook/case-studies.md/financial-commerce/amazon-choreography.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 38-39**: Saga Pattern for Distributed Transactions
-    - 📖 Read: [Saga Pattern](../../../pattern-library/data-management/saga.md)
+    - 📖 Read: [Saga Pattern](../../..../pattern-library/data-management.md/saga.md)
     - 🛠️ Lab: Implement compensating transactions for booking flow
     - 📊 Success: Handle complex distributed transaction failures
     - ⏱️ Time: 6-8 hours
@@ -339,19 +339,19 @@ outcomes:
     - [ ] Build data synchronization mechanisms
     
     **Day 43-44**: Polyglot Persistence & Database per Service
-    - 📖 Study: [Polyglot Persistence](../../../pattern-library/data-management/polyglot-persistence.md)
+    - 📖 Study: [Polyglot Persistence](../../..../pattern-library/data-management.md/polyglot-persistence.md)
     - 🛠️ Lab: Design optimal database choices per service
-    - 📊 Case Study: [LinkedIn's Data Architecture](../../architects-handbook/case-studies/databases/linkedin-data.md)
+    - 📊 Case Study: [LinkedIn's Data Architecture](../..../architects-handbook/case-studies.md/databases/linkedin-data.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 45-46**: CQRS & Read Model Optimization
-    - 📖 Read: [CQRS](../../../pattern-library/data-management/cqrs.md), [Materialized Views](../../../pattern-library/data-management/materialized-view.md)
+    - 📖 Read: [CQRS](../../..../pattern-library/data-management.md/cqrs.md), [Materialized Views](../../..../pattern-library/data-management.md/materialized-view.md)
     - 🛠️ Lab: Implement CQRS with optimized read models  
     - 📊 Success: 10x read performance improvement
     - ⏱️ Time: 6-8 hours
     
     **Day 47-49**: Distributed Caching & Cache Strategies
-    - 📖 Study: [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)
+    - 📖 Study: [Caching Strategies](../../..../pattern-library/scaling.md/caching-strategies.md)
     - 🛠️ Lab: Build multi-level caching with Redis
     - 📊 Deliverable: Comprehensive caching architecture
     - ⏱️ Time: 8-10 hours
@@ -367,19 +367,19 @@ outcomes:
     - [ ] Master distributed consensus when needed
     
     **Day 50-51**: Eventual Consistency & Conflict Resolution
-    - 📖 Study: [Eventual Consistency](../../../pattern-library/data-management/eventual-consistency.md), [CRDTs](../../../pattern-library/data-management/crdt.md)
+    - 📖 Study: [Eventual Consistency](../../..../pattern-library/data-management.md/eventual-consistency.md), [CRDTs](../../..../pattern-library/data-management.md/crdt.md)
     - 🛠️ Lab: Implement last-writer-wins conflict resolution
-    - 📊 Case Study: [Discord's Data Consistency](../../architects-handbook/case-studies/social-communication/discord-consistency.md)
+    - 📊 Case Study: [Discord's Data Consistency](../..../architects-handbook/case-studies.md/social-communication/discord-consistency.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 52-53**: Change Data Capture & Data Synchronization
-    - 📖 Read: [CDC](../../../pattern-library/data-management/cdc.md), [Outbox Pattern](../../../pattern-library/data-management/outbox.md)
+    - 📖 Read: [CDC](../../..../pattern-library/data-management.md/cdc.md), [Outbox Pattern](../../..../pattern-library/data-management.md/outbox.md)
     - 🛠️ Lab: Build real-time data sync with Debezium
     - 📊 Success: Near real-time data synchronization across services
     - ⏱️ Time: 6-8 hours
     
     **Day 54-56**: Distributed Consensus & Strong Consistency
-    - 📖 Study: [Consensus](../../../pattern-library/coordination/consensus.md) patterns and Raft algorithm
+    - 📖 Study: [Consensus](../../..../pattern-library/coordination.md/consensus.md) patterns and Raft algorithm
     - 🛠️ Lab: Implement consensus for critical business data
     - 📊 Deliverable: Complete data consistency framework
     - ⏱️ Time: 8-10 hours
@@ -406,7 +406,7 @@ outcomes:
     **Day 57-58**: Distributed Tracing & APM
     - 📖 Study: OpenTelemetry, Jaeger, and distributed tracing
     - 🛠️ Lab: Implement end-to-end request tracing
-    - 📊 Case Study: [Airbnb's Observability Stack](../../architects-handbook/case-studies/monitoring-observability/airbnb-observability.md)
+    - 📊 Case Study: [Airbnb's Observability Stack](../..../architects-handbook/case-studies.md/monitoring-observability/airbnb-observability.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 59-60**: Metrics, SLOs, and Error Budgets
@@ -533,26 +533,26 @@ outcomes:
 <div class="grid cards" markdown>
 
 - **E-commerce & Retail**
-    - [ ] [Amazon's Service Architecture](../../architects-handbook/case-studies/financial-commerce/amazon-services.md)
-    - [ ] [Shopify's Microservices Journey](../../architects-handbook/case-studies/financial-commerce/shopify-microservices.md)
+    - [ ] [Amazon's Service Architecture](../..../architects-handbook/case-studies.md/financial-commerce/amazon-services.md)
+    - [ ] [Shopify's Microservices Journey](../..../architects-handbook/case-studies.md/financial-commerce/shopify-microservices.md)
     - Peak traffic handling (Prime Day, Black Friday)
     - Global inventory management
 
 - **Social Media & Communication**  
-    - [ ] [Twitter's Service Architecture](../../architects-handbook/case-studies/social-communication/twitter-services.md)
-    - [ ] [Discord's Real-time Services](../../architects-handbook/case-studies/social-communication/discord-microservices.md)
+    - [ ] [Twitter's Service Architecture](../..../architects-handbook/case-studies.md/social-communication/twitter-services.md)
+    - [ ] [Discord's Real-time Services](../..../architects-handbook/case-studies.md/social-communication/discord-microservices.md)
     - Real-time message delivery
     - Social graph at scale
 
 - **Financial Services**
-    - [ ] [Monzo's Banking Platform](../../architects-handbook/case-studies/financial-commerce/monzo-microservices.md)
-    - [ ] [Capital One's Service Transformation](../../architects-handbook/case-studies/financial-commerce/capital-one-services.md) 
+    - [ ] [Monzo's Banking Platform](../..../architects-handbook/case-studies.md/financial-commerce/monzo-microservices.md)
+    - [ ] [Capital One's Service Transformation](../..../architects-handbook/case-studies.md/financial-commerce/capital-one-services.md) 
     - Transaction processing reliability
     - Regulatory compliance
 
 - **Transportation & Logistics**
-    - [ ] [Uber's Microservices Evolution](../../architects-handbook/case-studies/location-services/uber-microservices.md)
-    - [ ] [DoorDash's Delivery Platform](../../architects-handbook/case-studies/location-services/doordash-services.md)
+    - [ ] [Uber's Microservices Evolution](../..../architects-handbook/case-studies.md/location-services/uber-microservices.md)
+    - [ ] [DoorDash's Delivery Platform](../..../architects-handbook/case-studies.md/location-services/doordash-services.md)
     - Real-time location tracking
     - Dynamic pricing algorithms
 

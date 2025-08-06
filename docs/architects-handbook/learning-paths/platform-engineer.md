@@ -106,7 +106,7 @@ outcomes:
 </div>
 
 !!! tip "Platform Readiness Check"
-    Complete our [Platform Engineering Assessment](../../tools/platform-readiness-quiz/) to gauge your preparation level.
+    Complete our [Platform Engineering Assessment](../../tools/platform-readiness-quiz/index.md) to gauge your preparation level.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -128,7 +128,7 @@ outcomes:
     - [ ] Implement feedback loops and metrics
     
     **Day 1-2**: DX Fundamentals & Psychology
-    - 📖 Read: [Developer Experience Principles](../../human-factors/developer-experience/)
+    - 📖 Read: [Developer Experience Principles](../../human-factors/developer-experience/index.md)
     - 🛠️ Lab: Audit your current development workflow
     - 📊 Success: Identify 10+ friction points in developer journey
     - ⏱️ Time: 6-8 hours
@@ -558,7 +558,7 @@ Build these impressive projects to showcase skills:
 
 ### Community Resources
 
-- **Platform Engineering Discord**: [#platform-engineers](https://discord.gg/platform-eng)
+- **Platform Engineering Discord**: [#platform-engineers](https://discord.gg/platform-eng/index.md)
 - **PlatformCon**: Annual platform engineering conference
 - **CNCF Platform Working Group**: Standards and best practices
 - **Platform Engineering Slack**: 15k+ members sharing knowledge
@@ -645,16 +645,16 @@ Graduates' platform implementations show:
 ### Essential Platform Resources
 
 **Documentation & Best Practices**:
-- [Backstage Documentation](https://backstage.io/docs/)
-- [CNCF Platform Definition](https://github.com/cncf/platforms-wg)
-- [Platform Engineering Maturity Model](https://platformengineering.org/maturity-model)
-- [Golden Path Templates](https://backstage.spotify.com/golden-path/)
+- [Backstage Documentation](https://backstage.io/docs/index.md)
+- [CNCF Platform Definition](https://github.com/cncf/platforms-wg/index.md)
+- [Platform Engineering Maturity Model](https://platformengineering.org/maturity-model/index.md)
+- [Golden Path Templates](https://backstage.spotify.com/golden-path/index.md)
 
 **Industry Case Studies**:
-- [Spotify's Platform Journey](https://engineering.atspotify.com/)
-- [Netflix's Developer Experience](https://netflixtechblog.com/)
-- [Airbnb's Platform Evolution](https://medium.com/airbnb-engineering)
-- [Google's Internal Platforms](https://cloud.google.com/blog/topics/developers-practitioners)
+- [Spotify's Platform Journey](https://engineering.atspotify.com/index.md)
+- [Netflix's Developer Experience](https://netflixtechblog.com/index.md)
+- [Airbnb's Platform Evolution](https://medium.com/airbnb-engineering/index.md)
+- [Google's Internal Platforms](https://cloud.google.com/blog/topics/developers-practitioners/index.md)
 
 **Conferences & Events**:
 - **PlatformCon** - Annual platform engineering conference

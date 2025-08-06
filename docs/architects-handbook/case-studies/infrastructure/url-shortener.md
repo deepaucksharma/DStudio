@@ -39,6 +39,66 @@ best_for:
 ## Challenge Statement
 Design a URL shortening service capable of handling billions of URLs, providing sub-50ms redirects globally, supporting custom aliases, detailed analytics, spam detection, and graceful handling of expired or malicious links.
 
+## System Architecture Overview
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        WEB[Web Users]
+        API[API Clients]
+        MOB[Mobile Apps]
+        BOT[Bots/Crawlers]
+    end
+    
+    subgraph "Edge Layer"
+        CDN[Global CDN<br/>200+ PoPs]
+        LB[Load Balancers<br/>Geo-routing]
+        WAF[Web Application Firewall<br/>DDoS Protection]
+    end
+    
+    subgraph "Application Layer"
+        subgraph "Write Path"
+            WS[Write Service<br/>URL Creation]
+            VAL[URL Validator]
+            SPAM[Spam Detector]
+            GEN[ID Generator]
+        end
+        
+        subgraph "Read Path"
+            RS[Redirect Service<br/>301/302 Handler]
+            CACHE[Cache Layer<br/>Multi-tier]
+            ANAL[Analytics Collector]
+        end
+    end
+    
+    subgraph "Data Layer"
+        DB[(URL Database<br/>Sharded)]
+        ANDB[(Analytics DB<br/>Time-series)]
+        KV[(Redis Cache<br/>Hot URLs)]
+        BF2[Bloom Filters<br/>Existence Check]
+    end
+    
+    WEB & API & MOB & BOT --> CDN
+    CDN --> LB
+    LB --> WAF
+    
+    WAF --> WS & RS
+    WS --> VAL --> SPAM --> GEN
+    GEN --> DB
+    
+    RS --> CACHE
+    CACHE --> BF2
+    BF2 -->|Miss| KV
+    KV -->|Miss| DB
+    
+    RS --> ANAL
+    ANAL --> ANDB
+    
+    style WS fill:#e3f2fd
+    style RS fill:#c8e6c9
+    style CACHE fill:#fff3e0
+```
+
 ## Part 1: Concept Map
 
 ### 🗺 System Overview
@@ -53,6 +113,36 @@ A URL shortener converts long URLs into short, manageable links while providing 
 - Detailed analytics
 - Spam/malware detection
 - URL expiration handling
+
+### Scale Visualization
+
+```mermaid
+graph TB
+    subgraph "Daily Scale"
+        CREATE[100M URLs/day<br/>1,200/second avg<br/>5,000/second peak]
+        REDIRECT[10B Redirects/day<br/>120K/second avg<br/>500K/second peak]
+        RATIO[Read:Write Ratio<br/>100:1]
+    end
+    
+    subgraph "Storage Scale"
+        URLS[1B Active URLs<br/>500 bytes each<br/>500GB total]
+        ANALYTICS[10B Events/day<br/>100 bytes each<br/>1TB/day]
+        CACHE[Top 10M URLs<br/>90% of traffic<br/>10GB RAM]
+    end
+    
+    subgraph "Infrastructure"
+        SERVERS[500 Servers<br/>4 Regions<br/>200 Edge PoPs]
+        BANDWIDTH[50 Gbps peak<br/>15 PB/month]
+        COST[$500K/month]
+    end
+    
+    CREATE --> RATIO
+    REDIRECT --> RATIO
+    
+    style REDIRECT fill:#ffcdd2
+    style CACHE fill:#c8e6c9
+    style COST fill:#fff3e0
+```
 
 ### Law Analysis
 
@@ -76,6 +166,97 @@ Cache Strategy:
 - LRU eviction with TTL
 - Predictive warming
 - Geo-distributed caches
+```
+
+### URL Creation Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant API as API Gateway
+    participant Val as Validator
+    participant Spam as Spam Detector
+    participant Gen as ID Generator
+    participant DB as Database
+    participant Cache
+    participant CDN
+    
+    User->>API: POST /shorten<br/>{url: "https://example.com/very/long/url"}
+    API->>Val: Validate URL
+    
+    Val->>Val: Check format
+    Val->>Val: Resolve DNS
+    Val->>Val: Check blacklist
+    
+    alt Invalid URL
+        Val-->>API: 400 Bad Request
+        API-->>User: Error: Invalid URL
+    else Valid URL
+        Val->>Spam: Check for spam
+        
+        alt Spam Detected
+            Spam-->>API: 403 Forbidden
+            API-->>User: Error: URL flagged
+        else Clean URL
+            Spam->>Gen: Generate short code
+            
+            Gen->>Gen: Generate unique ID
+            Gen->>DB: Check collision
+            
+            alt Collision
+                Gen->>Gen: Regenerate
+            else Unique
+                Gen->>DB: Store mapping
+                DB->>Cache: Cache hot URL
+                Cache->>CDN: Propagate to edge
+                
+                Gen-->>API: short_url: "abc123"
+                API-->>User: {"short_url": "https://short.ly/abc123"}
+            end
+        end
+    end
+```
+
+### ID Generation Strategies
+
+```mermaid
+graph TB
+    subgraph "ID Generation Methods"
+        subgraph "Counter-Based"
+            C1[Global Counter]
+            C2[Base62 Encode]
+            C3[Sequential IDs<br/>1 → A<br/>62 → 10<br/>3844 → 100]
+        end
+        
+        subgraph "Hash-Based"
+            H1[MD5/SHA256 Hash]
+            H2[Take First 43 bits]
+            H3[Base62 Encode]
+            H4[Random Distribution]
+        end
+        
+        subgraph "Hybrid Approach"
+            HY1[Timestamp Component<br/>41 bits]
+            HY2[Server ID<br/>10 bits]
+            HY3[Sequence<br/>12 bits]
+            HY4[Total: 63 bits<br/>~7 chars Base62]
+        end
+        
+        subgraph "Custom URL"
+            CU1[User Input: "my-link"]
+            CU2[Check Availability]
+            CU3[Reserve in DB]
+        end
+    end
+    
+    C1 --> C2 --> C3
+    H1 --> H2 --> H3 --> H4
+    HY1 & HY2 & HY3 --> HY4
+    CU1 --> CU2 --> CU3
+    
+    style C3 fill:#c8e6c9
+    style H4 fill:#fff3e0
+    style HY4 fill:#e3f2fd
 ```
 
 **High-Performance Architecture:**
@@ -200,6 +381,51 @@ graph TB
         Z[Compression<br/>20% savings]
         S[Smart Tiering<br/>80% cost reduction]
     end
+```
+
+### Database Schema Design
+
+```mermaid
+graph TB
+    subgraph "URL Mapping Table"
+        UM[url_mappings<br/>Partitioned by short_code hash]
+        UM --> C1[short_code: VARCHAR(8) PK]
+        UM --> C2[long_url: TEXT]
+        UM --> C3[created_at: TIMESTAMP]
+        UM --> C4[expires_at: TIMESTAMP]
+        UM --> C5[user_id: BIGINT]
+        UM --> C6[click_count: BIGINT]
+    end
+    
+    subgraph "Custom URLs Table"
+        CU[custom_urls<br/>Unique index on alias]
+        CU --> CC1[alias: VARCHAR(50) PK]
+        CU --> CC2[short_code: VARCHAR(8)]
+        CU --> CC3[reserved_by: BIGINT]
+    end
+    
+    subgraph "Analytics Tables"
+        AT[analytics_events<br/>Time-series partitioned]
+        AT --> A1[event_id: UUID]
+        AT --> A2[short_code: VARCHAR(8)]
+        AT --> A3[timestamp: TIMESTAMP]
+        AT --> A4[ip_address: INET]
+        AT --> A5[user_agent: TEXT]
+        AT --> A6[referrer: TEXT]
+        AT --> A7[country: CHAR(2)]
+    end
+    
+    subgraph "Indexes"
+        I1[idx_short_code]
+        I2[idx_user_id]
+        I3[idx_created_at]
+        I4[idx_expires_at]
+    end
+    
+    UM --> I1 & I2 & I3 & I4
+    
+    style UM fill:#e3f2fd
+    style AT fill:#fff3e0
 ```
 
 **Storage Requirements Analysis:**
@@ -590,30 +816,161 @@ Pipeline Architecture:
 
 ```mermaid
 graph TB
-    subgraph "Data Collection"
-        C[Click Event] --> K[Kafka]
-        K --> SP[Stream Processor]
-        SP --> CH[(ClickHouse)]
+    subgraph "Real-time Analytics Pipeline"
+        U[User Click] --> CF[CloudFront<br/>Edge Logger]
+        CF --> K[Kinesis Data Streams<br/>Partitioned by URL]
+        
+        K --> KDA[Kinesis Data Analytics<br/>Real-time Processing]
+        K --> KDF[Kinesis Data Firehose<br/>Batch Processing]
+        
+        KDA --> L[Lambda Functions<br/>Aggregation]
+        L --> DDB[DynamoDB<br/>Real-time Counters]
+        L --> ES[ElasticSearch<br/>Search Analytics]
+        
+        KDF --> S3[S3 Data Lake<br/>Parquet Format]
+        S3 --> EMR[EMR/Spark<br/>Batch Analytics]
+        EMR --> RDS[PostgreSQL<br/>Aggregated Data]
+        
+        DDB --> API[Analytics API]
+        ES --> API
+        RDS --> API
+        
+        API --> D[Dashboard<br/>Real-time + Historical]
     end
     
-    subgraph "Real-time Analytics"
-        SP --> RT[In-Memory Stats]
-        RT --> D[Dashboard]
+    style U fill:#ff6b6b
+    style CF fill:#4ecdc4
+    style D fill:#95e1d3
+```
+
+### Stream Processing Architecture
+```mermaid
+flowchart LR
+    subgraph "Click Stream Processing"
+        C[Click Event] --> E[Event Schema]
+        E --> P[Processing Pipeline]
+        
+        E --> |"Fields"| F["• URL ID<br/>• Timestamp<br/>• User Agent<br/>• IP Address<br/>• Referrer<br/>• Location"]
+        
+        P --> RT[Real-time<br/>Processing]
+        P --> B[Batch<br/>Processing]
+        
+        RT --> M1[1-min Aggregates]
+        RT --> M5[5-min Aggregates]
+        RT --> H1[1-hour Aggregates]
+        
+        B --> D1[Daily Rollups]
+        B --> W1[Weekly Rollups]
+        B --> MO1[Monthly Rollups]
     end
     
-    subgraph "Metrics Export"
-        P[Prometheus] --> G[Grafana]
-        CH --> G
+    subgraph "Aggregation Metrics"
+        AGG[Computed Metrics]
+        AGG --> CLK[Click Counts]
+        AGG --> UNQ[Unique Visitors]
+        AGG --> GEO[Geographic Distribution]
+        AGG --> DEV[Device Types]
+        AGG --> REF[Referrer Analysis]
+        AGG --> TIME[Time Patterns]
     end
     
-    subgraph "Analytics Queries"
-        Q1[Time Series]
-        Q2[Geographic]
-        Q3[Device Stats]
-        Q4[Referrers]
+    RT --> AGG
+    B --> AGG
+```
+
+### Data Flow Optimization
+```mermaid
+graph TB
+    subgraph "Multi-tier Analytics Architecture"
+        subgraph "Hot Data - Last 24 Hours"
+            HD[DynamoDB<br/>Real-time Counters]
+            HC[Redis Cache<br/>Top URLs]
+            HE[ElasticSearch<br/>Live Search]
+        end
+        
+        subgraph "Warm Data - Last 30 Days"
+            WD[Aurora<br/>Aggregated Data]
+            WC[CloudWatch<br/>Metrics]
+        end
+        
+        subgraph "Cold Data - Historical"
+            CD[S3 Glacier<br/>Compressed Archives]
+            CA[Athena<br/>Ad-hoc Queries]
+        end
+        
+        HD --> WD
+        WD --> CD
+        
+        subgraph "Query Router"
+            QR[Smart Query Router]
+            QR --> |"< 24h"| HD
+            QR --> |"< 30d"| WD
+            QR --> |"> 30d"| CA
+        end
     end
     
-    CH --> Q1 & Q2 & Q3 & Q4
+    style HD fill:#ff6b6b
+    style WD fill:#ffd93d
+    style CD fill:#6bcf7f
+```
+
+### Real-time Analytics Dashboard
+
+```mermaid
+graph TB
+    subgraph "Overview Metrics"
+        subgraph "Traffic Stats"
+            TC[Total Clicks<br/>125K/sec]
+            UC[Unique Visitors<br/>10M/day]
+            TR[Top Referrers<br/>1. Google<br/>2. Twitter<br/>3. Facebook]
+        end
+        
+        subgraph "Geographic Distribution"
+            GD[Click Map]
+            US[USA: 45%]
+            EU[Europe: 30%]
+            AS[Asia: 20%]
+            OT[Other: 5%]
+        end
+        
+        subgraph "Device Breakdown"
+            MB[Mobile: 65%]
+            DT[Desktop: 30%]
+            TB[Tablet: 5%]
+        end
+    end
+    
+    subgraph "URL Performance"
+        subgraph "Top URLs Today"
+            U1[abc123: 1.2M clicks]
+            U2[xyz789: 980K clicks]
+            U3[def456: 750K clicks]
+        end
+        
+        subgraph "Trending URLs"
+            TU1[↑ 500% - news123]
+            TU2[↑ 300% - promo456]
+            TU3[↑ 250% - video789]
+        end
+    end
+    
+    subgraph "System Metrics"
+        subgraph "Performance"
+            LAT[Latency P99: 45ms]
+            THR[Throughput: 125K/s]
+            ERR2[Error Rate: 0.01%]
+        end
+        
+        subgraph "Cache Stats"
+            CHR[Hit Rate: 92%]
+            CHS[Size: 8.5GB/10GB]
+            EVR[Eviction Rate: 100/s]
+        end
+    end
+    
+    style TC fill:#e3f2fd
+    style CHR fill:#c8e6c9
+    style ERR2 fill:#ffcdd2
 ```
 
 **Analytics Data Model:**
@@ -823,6 +1180,60 @@ Optimization Strategies:
 - Analytics sampling
 - Tiered storage
 - CDN optimization
+```
+
+### Cost Analysis Deep Dive
+```mermaid
+graph TB
+    subgraph "Monthly Cost Breakdown - $500K Total"
+        subgraph "Infrastructure - 40%"
+            COMP[Compute<br/>$50K<br/>500 servers]
+            NET[Network<br/>$100K<br/>50 Gbps]
+            STOR[Storage<br/>$50K<br/>500TB]
+        end
+        
+        subgraph "Services - 35%"
+            CDN2[CDN<br/>$100K<br/>15PB transfer]
+            ANAL[Analytics<br/>$50K<br/>300B events]
+            MON[Monitoring<br/>$25K]
+        end
+        
+        subgraph "Operations - 25%"
+            STAFF[Staff<br/>$100K<br/>10 engineers]
+            SUP[Support<br/>$25K<br/>24/7 ops]
+        end
+    end
+    
+    style COMP fill:#ff6b6b
+    style CDN2 fill:#4ecdc4
+    style STAFF fill:#95e1d3
+```
+
+### Traffic-based Cost Scaling
+```mermaid
+graph LR
+    subgraph "Cost vs Traffic Scale"
+        T1[1M URLs/mo<br/>$5K]
+        T2[10M URLs/mo<br/>$25K]
+        T3[100M URLs/mo<br/>$150K]
+        T4[1B URLs/mo<br/>$500K]
+        
+        T1 -->|"10x"| T2
+        T2 -->|"10x"| T3
+        T3 -->|"10x"| T4
+    end
+    
+    subgraph "Cost Efficiency"
+        E1[$5/1K URLs]
+        E2[$2.5/1K URLs]
+        E3[$1.5/1K URLs]
+        E4[$0.5/1K URLs]
+    end
+    
+    T1 --> E1
+    T2 --> E2
+    T3 --> E3
+    T4 --> E4
 ```
 
 **Cost Optimization Framework:**
@@ -1216,6 +1627,75 @@ graph TB
     T4 -->|66x| T5
 ```
 
+### Monitoring Architecture
+```mermaid
+graph TB
+    subgraph "Monitoring Stack"
+        subgraph "Data Collection"
+            APP[Application<br/>Metrics]
+            SYS[System<br/>Metrics]
+            LOG[Application<br/>Logs]
+            TRC[Distributed<br/>Traces]
+        end
+        
+        subgraph "Processing"
+            PROM[Prometheus<br/>Time-series]
+            ELK[ELK Stack<br/>Log Analysis]
+            JAE[Jaeger<br/>Tracing]
+        end
+        
+        subgraph "Visualization"
+            GRAF[Grafana<br/>Dashboards]
+            ALERT[AlertManager<br/>Notifications]
+            REP[Reports<br/>SLA/KPIs]
+        end
+        
+        APP & SYS --> PROM
+        LOG --> ELK
+        TRC --> JAE
+        
+        PROM & ELK & JAE --> GRAF
+        PROM --> ALERT
+        GRAF --> REP
+    end
+    
+    style APP fill:#e3f2fd
+    style GRAF fill:#c8e6c9
+    style ALERT fill:#ffcdd2
+```
+
+### Alert Configuration
+```mermaid
+flowchart TD
+    subgraph "Alert Rules"
+        A1[Latency > 100ms<br/>P99 threshold]
+        A2[Error Rate > 1%<br/>5min window]
+        A3[Cache Hit < 80%<br/>Performance]
+        A4[DB CPU > 80%<br/>Capacity]
+        A5[Queue Depth > 10K<br/>Backpressure]
+    end
+    
+    subgraph "Severity Levels"
+        SEV1[SEV1: Page immediately<br/>Customer impact]
+        SEV2[SEV2: Page in 15min<br/>Degraded service]
+        SEV3[SEV3: Business hours<br/>Non-critical]
+    end
+    
+    A1 & A2 --> SEV1
+    A3 & A4 --> SEV2
+    A5 --> SEV3
+    
+    subgraph "Response Actions"
+        R1[Auto-scale]
+        R2[Circuit break]
+        R3[Failover]
+        R4[Page on-call]
+    end
+    
+    SEV1 --> R3 & R4
+    SEV2 --> R1 & R2
+```
+
 ## Part 2: Architecture & Trade-offs
 
 ### Core Architecture
@@ -1373,6 +1853,61 @@ CDN           1M reqs/s/edge  Network capacity
 Analytics     10M events/s    Kafka throughput
 ```
 
+### System Evolution Roadmap
+```mermaid
+graph LR
+    subgraph "Phase 1: MVP"
+        MVP[Basic Shortener<br/>1M URLs<br/>Single Region]
+    end
+    
+    subgraph "Phase 2: Scale"
+        SCALE[Multi-region<br/>100M URLs<br/>Analytics]
+    end
+    
+    subgraph "Phase 3: Enterprise"
+        ENT[Custom Domains<br/>1B URLs<br/>API Platform]
+    end
+    
+    subgraph "Phase 4: Global"
+        GLOB[Edge Computing<br/>10B URLs<br/>ML Features]
+    end
+    
+    MVP -->|"6 months"| SCALE
+    SCALE -->|"1 year"| ENT
+    ENT -->|"2 years"| GLOB
+    
+    style MVP fill:#c8e6c9
+    style SCALE fill:#fff3e0
+    style ENT fill:#e3f2fd
+    style GLOB fill:#ffcdd2
+```
+
+### Success Metrics Dashboard
+```mermaid
+graph TB
+    subgraph "Business Metrics"
+        DAU[Daily Active URLs<br/>10M]
+        REV[Revenue<br/>$5M/month]
+        CHURN[Churn Rate<br/>< 2%]
+    end
+    
+    subgraph "Technical Metrics"
+        UP[Uptime<br/>99.99%]
+        LAT2[Latency P99<br/>< 50ms]
+        CACHE2[Cache Hit<br/>> 90%]
+    end
+    
+    subgraph "Operational Metrics"
+        COST[Cost per URL<br/>< $0.001]
+        MTTR[MTTR<br/>< 15 min]
+        DEPLOY[Deploy Freq<br/>100/week]
+    end
+    
+    style DAU fill:#4caf50
+    style UP fill:#2196f3
+    style COST fill:#ff9800
+```
+
 ### 🎓 Key Lessons
 
 1. **Cache Aggressively**: 90% of traffic goes to 1% of URLs. Multi-level caching is essential.
@@ -1388,42 +1923,42 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - CDN and caching strategies
-- [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost optimization techniques
-- [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md) - Multi-level cache design
-- [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md) - Protecting against abuse
+- [Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md) - CDN and caching strategies
+- [Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md) - Cost optimization techniques
+- [Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md) - Multi-level cache design
+- [Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md) - Protecting against abuse
 
 **Advanced Topics:**
-- [Edge Computing Patterns](../../../pattern-library/scaling/edge-computing.md) - Building at the edge
+- [Edge Computing Patterns](../../pattern-library/scaling.md/edge-computing.md) - Building at the edge
 - Analytics at Scale (Coming Soon) - Handling billions of events
 - Geo-Distribution (Coming Soon) - Global service deployment
-- [Security Patterns](../../../pattern-library/security-shortener.md) - Preventing abuse and attacks
+- [Security Patterns](../../pattern-library/security-shortener.md) - Preventing abuse and attacks
 
 **Related Case Studies:**
 <!-- TODO: Add CDN design case study -->
 <!-- TODO: Add analytics pipeline case study -->
-- [API Gateway](../../../pattern-library/communication/api-gateway.md) - Rate limiting and routing
+- [API Gateway](../../pattern-library/communication.md/api-gateway.md) - Rate limiting and routing
 
 **Implementation Patterns:**
-- [Database Sharding](../../../pattern-library/scaling/sharding.md) - Horizontal scaling
-- [Bloom Filters](../../../pattern-library/data-management/bloom-filter.md) - Space-efficient lookups
-- [Circuit Breakers](../../../pattern-library/resilience/circuit-breaker.md) - Handling failures
-- [CQRS](../../../pattern-library/data-management/cqrs.md) - Read/write separation
+- [Database Sharding](../../pattern-library/scaling.md/sharding.md) - Horizontal scaling
+- [Bloom Filters](../../pattern-library/data-management.md/bloom-filter.md) - Space-efficient lookups
+- [Circuit Breakers](../../pattern-library/resilience.md/circuit-breaker.md) - Handling failures
+- [CQRS](../../pattern-library/data-management.md/cqrs.md) - Read/write separation
 
 ### 📚 References
 
 **Industry Examples:**
-- [Bitly's Architecture](https://word.bitly.com/post/287921488/bitleaf-billions-served)
-- [Discord's Shortener](https://discord.com/blog/how-discord-stores-billions-of-messages)
-- [URL Shortening Strategies](https://blog.codinghorror.com/url-shortening-hashes-in-practice/)
+- [Bitly's Architecture](https://word.bitly.com/post/287921488/bitleaf-billions-served/index.md)
+- [Discord's Shortener](https://discord.com/blog/how-discord-stores-billions-of-messages/index.md)
+- [URL Shortening Strategies](https://blog.codinghorror.com/url-shortening-hashes-in-practice/index.md)
 
 **Open Source:**
-- [YOURLS](https://yourls.org/)
-- [Kutt.it](https://github.com/thedevs-network/kutt)
-- [Polr](https://github.com/cydrobolt/polr)
+- [YOURLS](https://yourls.org/index.md)
+- [Kutt.it](https://github.com/thedevs-network/kutt/index.md)
+- [Polr](https://github.com/cydrobolt/polr/index.md)
 
 **Related Patterns:**
-- [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)
-- [Sharding](../../../pattern-library/scaling/sharding.md)
-- [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)
-- [CDN](../../../pattern-library/scaling/edge-computing.md)
+- [Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)
+- [Sharding](../../pattern-library/scaling.md/sharding.md)
+- [Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md)
+- [CDN](../../pattern-library/scaling.md/edge-computing.md)

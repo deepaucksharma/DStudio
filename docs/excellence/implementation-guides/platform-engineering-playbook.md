@@ -512,7 +512,7 @@ graph TD
 
 ## Resources
 
-- [CNCF Platform Engineering](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/)
+- [CNCF Platform Engineering](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/index.md)
 - [Team Topologies](../human-factors/team-topologies.md)
-- [GitOps Patterns](https://www.gitops.tech/)
-- [Platform Engineering Slack](https://platformengineering.org/slack)
+- [GitOps Patterns](https://www.gitops.tech/index.md)
+- [Platform Engineering Slack](https://platformengineering.org/slack/index.md)

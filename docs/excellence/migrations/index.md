@@ -205,10 +205,10 @@ Before starting any migration:
 
 ## 📚 Additional Resources
 
-- [Migration Patterns](../../../pattern-library/index.md)
-- [Quantitative Analysis Tools](../../quantitative-analysis/)
+- [Migration Patterns](../../..../pattern-library/index.md)
+- [Quantitative Analysis Tools](../../quantitative-analysis/index.md)
 - [Human Factors in Migration](../../human-factors.md)
-- [Case Studies](../case-studies/)
+- [Case Studies](../case-studies/index.md)
 
 !!! warning "Critical Success Factor"
     The #1 reason migrations fail is rushing. Take time to plan, test, and validate each phase.

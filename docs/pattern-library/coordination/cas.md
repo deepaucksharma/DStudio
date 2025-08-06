@@ -65,7 +65,7 @@ type: pattern
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| **High Contention** | Causes livelock and performance degradation | [Locks with backoff](../../pattern-library/coordination/distributed-lock.md) |
+| **High Contention** | Causes livelock and performance degradation | [Locks with backoff](..../pattern-library/coordination.md/distributed-lock.md) |
 | **Complex Operations** | Multi-step updates can't be atomic | [Transactional Memory](../coordination/stm.md) |
 | **Team Inexperience** | Subtle bugs are hard to debug | Traditional synchronization primitives |
 | **General Purpose** | Locks provide better guarantees | Standard mutex/semaphore patterns |
@@ -237,8 +237,8 @@ graph LR
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
 | [Optimistic Locking](../data-management/optimistic-locking.md) | Version-based conflict resolution | CAS for version updates |
-| [CRDT](../../pattern-library/data-management/crdt.md) | Conflict-free concurrent updates | CAS for operation ordering |
-| [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) | Append-only conflict resolution | CAS for sequence numbers |
+| [CRDT](..../pattern-library/data-management.md/crdt.md) | Conflict-free concurrent updates | CAS for operation ordering |
+| [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) | Append-only conflict resolution | CAS for sequence numbers |
 
 ## Quick Reference
 
@@ -283,22 +283,22 @@ graph LR
     ---
     
     - [Optimistic Locking](../data-management/optimistic-locking.md) - Database-level CAS
-    - [CRDT](../../pattern-library/data-management/crdt.md) - Conflict-free updates
+    - [CRDT](..../pattern-library/data-management.md/crdt.md) - Conflict-free updates
     - [Atomic Broadcast](../coordination/atomic-broadcast.md) - Ordered operations
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Non-blocking nature
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Performance tradeoffs
+    - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - Non-blocking nature
+    - [Law 4: Multidimensional Optimization](../..../core-principles/laws.md/multidimensional-optimization/index.md) - Performance tradeoffs
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Lock-free task coordination
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Atomic state updates
+    - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Lock-free task coordination
+    - [State Distribution](../..../core-principles/pillars.md/state-distribution/index.md) - Atomic state updates
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

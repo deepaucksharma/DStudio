@@ -1415,44 +1415,44 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Epistemology ](../../core-principles/laws/distributed-knowledge/) - Consensus and distributed coordination
-- [Law 1: Failure ](../../core-principles/laws/correlated-failure/) - Failure modes and recovery strategies
-- [Consistent Hashing Pattern](../../../pattern-library/data-management/consistent-hashing.md) - Data distribution technique
+- [Law 5: Epistemology ](../../core-principles/laws.md/distributed-knowledge/index.md) - Consensus and distributed coordination
+- [Law 1: Failure ](../../core-principles/laws.md/correlated-failure/index.md) - Failure modes and recovery strategies
+- [Consistent Hashing Pattern](../../pattern-library/data-management.md/consistent-hashing.md) - Data distribution technique
 - [CAP Theorem](../../quantitative-analysis/cap-theorem.md) - Fundamental trade-offs
 
 **Advanced Topics:**
 - Multi-Region Replication (Coming Soon) - Global distribution strategies
 - Hybrid Logical Clocks (Coming Soon) - Better than vector clocks for some use cases
-- [CRDT Integration](../../../pattern-library/data-management/crdt.md) - Conflict-free replicated data types
+- [CRDT Integration](../../pattern-library/data-management.md/crdt.md) - Conflict-free replicated data types
 - [Storage Engine Internals](../../quantitative-analysis/storage-engines.md) - LSM vs B-Tree deep dive
 
 **Related Case Studies:**
-- [Amazon DynamoDB](../../../amazon-dynamo.md) - Production implementation of these concepts
-- [Google Spanner](../../../google-spanner.md) - Globally consistent alternative approach
+- [Amazon DynamoDB](../../amazon-dynamo.md) - Production implementation of these concepts
+- [Google Spanner](../../google-spanner.md) - Globally consistent alternative approach
 - [Redis Architecture](redis.md) - In-memory KV store design
 
 **Performance Optimization:**
-- [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md) - Multi-level cache design
+- [Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md) - Multi-level cache design
 - [Compression Algorithms](../../quantitative-analysis/compression.md) - Storage optimization
 - Network Optimization (Coming Soon) - Reducing network overhead
 
 ### 📚 References
 
 **Foundational Papers:**
-- [Dynamo: Amazon's Highly Available Key-value Store](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf)
-- [Bigtable: A Distributed Storage System](https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf)
-- [Spanner: Google's Globally Distributed Database](https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf)
-- [TAO: Facebook's Distributed Data Store](https://www.usenix.org/system/files/conference/atc13/atc13-bronson.pdf)
+- [Dynamo: Amazon's Highly Available Key-value Store](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/index.md)
+- [Bigtable: A Distributed Storage System](https://static.googleusercontent.com/media/research.google.com/en/archive/bigtable-osdi06.pdf/index.md)
+- [Spanner: Google's Globally Distributed Database](https://static.googleusercontent.com/media/research.google.com/en/archive/spanner-osdi2012.pdf/index.md)
+- [TAO: Facebook's Distributed Data Store](https://www.usenix.org/system/files/conference/atc13/atc13-bronson.pdf/index.md)
 
 **Production Systems:**
-- [Apache Cassandra Architecture](https://cassandra.apache.org/doc/latest/architecture/)
-- [Redis Cluster Specification](https://redis.io/topics/cluster-spec)
-- [etcd Documentation](https://etcd.io/docs/)
-- [FoundationDB Architecture](https://apple.github.io/foundationdb/architecture.html)
+- [Apache Cassandra Architecture](https://cassandra.apache.org/doc/latest/architecture/index.md)
+- [Redis Cluster Specification](https://redis.io/topics/cluster-spec/index.md)
+- [etcd Documentation](https://etcd.io/docs/index.md)
+- [FoundationDB Architecture](https://apple.github.io/foundationdb/architecture.html/index.md)
 
 **Related Patterns:**
-- [LSM-Tree](../../../pattern-library/data-management/lsm-tree.md)
+- [LSM-Tree](../../pattern-library/data-management.md/lsm-tree.md)
 - Write-Ahead Logging (Coming Soon)
-- [Quorum Consensus](../../../pattern-library/coordination/consensus.md)
-- [Vector Clocks](../../../pattern-library/coordination/logical-clocks.md)
+- [Quorum Consensus](../../pattern-library/coordination.md/consensus.md)
+- [Vector Clocks](../../pattern-library/coordination.md/logical-clocks.md)
 - Anti-Entropy (Coming Soon)

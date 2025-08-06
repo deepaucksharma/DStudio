@@ -355,15 +355,15 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - System crash scenarios
-    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Durability vs performance
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - System crash scenarios
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Durability vs performance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Durable state management
-    - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consistent transaction ordering
+    - [State Distribution](../../core-principles/pillars/state-distribution/index.md) - Durable state management
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Consistent transaction ordering
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

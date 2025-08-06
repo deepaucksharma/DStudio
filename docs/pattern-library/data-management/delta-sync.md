@@ -356,15 +356,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Handling async updates
-    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Bandwidth vs complexity
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Handling async updates
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Bandwidth vs complexity
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/) - Efficient state synchronization
-    - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consistency across replicas
+    - [State Distribution](../../core-principles/pillars/state-distribution/index.md) - Efficient state synchronization
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Consistency across replicas
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

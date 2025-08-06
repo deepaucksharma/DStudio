@@ -77,4 +77,4 @@ For a typical scaling journey:
 
 ---
 
-*Return to the [Pattern Library](../) or explore [Data Management Patterns](../../pattern-library/data-management/index.md).*
+*Return to the [Pattern Library](../index.md) or explore [Data Management Patterns](....../pattern-library/data-management.md/index.md).*

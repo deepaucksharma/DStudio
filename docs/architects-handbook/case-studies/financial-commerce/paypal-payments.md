@@ -676,40 +676,40 @@ graph TB
 ## 🔗 References & Deep Dives
 
 ### Related Patterns
-- [SAGA Pattern](../../../pattern-library/data-management/saga.md)
-- [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)
+- [SAGA Pattern](../../pattern-library/data-management.md/saga.md)
+- [Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)
 - Idempotent Receiver (Coming Soon)
-- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
+- [Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)
 
 ### Technical Resources
-- [Distributed Transactions at Scale](https://www.paypal-engineering.com/distributed-transactions)
-- [Building Financial Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/)
-- [Payment Processing Best Practices](https://stripe.com/docs/payments/payment-intents)
+- [Distributed Transactions at Scale](https://www.paypal-engineering.com/distributed-transactions/index.md)
+- [Building Financial Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/index.md)
+- [Payment Processing Best Practices](https://stripe.com/docs/payments/payment-intents/index.md)
 
 ### Similar Systems
-- [Stripe's Payment Infrastructure](https://stripe.com/blog/payment-api-design)
-- [Square's Transaction Processing](https://developer.squareup.com/blog/payment-reliability)
-- [Adyen's Global Payment Platform](https://www.adyen.com/knowledge-hub/platform-architecture)
+- [Stripe's Payment Infrastructure](https://stripe.com/blog/payment-api-design/index.md)
+- [Square's Transaction Processing](https://developer.squareup.com/blog/payment-reliability/index.md)
+- [Adyen's Global Payment Platform](https://www.adyen.com/knowledge-hub/platform-architecture/index.md)
 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ](../../../core-principles/laws/correlated-failure/)** - SAGA compensations handle partial failures in distributed transactions
-- **[Law 2: Asynchronous Reality ](../../../core-principles/laws/asynchronous-reality/)** - 234ms average latency balances fraud checks with user experience
-- **[Law 3: Emergence ](../../../core-principles/laws/emergent-chaos/)** - Optimistic locking prevents double-spending without blocking
-- **[Law 4: Trade-offs ](../../../core-principles/laws/multidimensional-optimization/)** - Cell architecture and event-driven choreography balance multiple trade-offs
-- **[Law 5: Epistemology ](../../../core-principles/laws/distributed-knowledge/)** - Distributed tracing tracks payments across 20+ services
-- **[Law 6: Human-API ](../../../core-principles/laws/cognitive-load/)** - Clear error messages and status updates reduce support calls
-- **[Law 7: Economics ](../../../core-principles/laws/economic-reality/)** - Processing costs optimized through batching and routing
+- **[Law 1: Failure ](../../core-principles/laws.md/correlated-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws.md/asynchronous-reality/index.md)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergence ](../../core-principles/laws.md/emergent-chaos/index.md)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Trade-offs ](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Epistemology ](../../core-principles/laws.md/distributed-knowledge/index.md)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Human-API ](../../core-principles/laws.md/cognitive-load/index.md)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economics ](../../core-principles/laws.md/economic-reality/index.md)** - Processing costs optimized through batching and routing
 
 ### 🏛 Related Patterns
-- **[SAGA Pattern](../../../pattern-library/data-management/saga.md)** - Orchestrates distributed transactions with compensation logic
-- **[Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)** - Immutable event log provides perfect audit trail
+- **[SAGA Pattern](../../pattern-library/data-management.md/saga.md)** - Orchestrates distributed transactions with compensation logic
+- **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)** - Immutable event log provides perfect audit trail
 - **Idempotent Receiver (Coming Soon)** - Prevents duplicate payments at every layer
-- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Protects against cascading failures to bank networks
-- **[Outbox Pattern](../../../pattern-library/data-management/outbox.md)** - Ensures reliable event publishing with database transactions
-- **[Bulkhead](../../../pattern-library/resilience/bulkhead.md)** - Isolates payment types and regions for fault containment
-- **[Retry & Backoff](../../../pattern-library/resilience/retry-backoff.md)** - Handles transient failures in external integrations
+- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)** - Protects against cascading failures to bank networks
+- **[Outbox Pattern](../../pattern-library/data-management.md/outbox.md)** - Ensures reliable event publishing with database transactions
+- **[Bulkhead](../../pattern-library/resilience.md/bulkhead.md)** - Isolates payment types and regions for fault containment
+- **[Retry & Backoff](../../pattern-library/resilience.md/retry-backoff.md)** - Handles transient failures in external integrations
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Chooses AP with eventual consistency through compensations
@@ -721,13 +721,13 @@ graph TB
 - **[Incident Response](../../human-factors/incident-response.md)** - Payment failures require immediate response procedures
 - **[On-Call Culture](../../human-factors/oncall-culture.md)** - 24/7 global payments need follow-the-sun support
 - **[Post-Mortem Culture](../../human-factors/blameless-postmortems.md)** - Every payment failure analyzed for systemic improvements
-- **[Security Considerations](../reference/security.md)** - PCI compliance and fraud prevention are paramount
+- **[Security Considerations](../../reference/security.md)** - PCI compliance and fraud prevention are paramount
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](../amazon-dynamo.md)** - Similar high-availability requirements for financial data
-- **[Uber's Location System](../uber-location.md)** - Real-time processing at similar scale
-- **[Rate Limiter Design](../rate-limiter.md)** - Prevents payment fraud through intelligent throttling
-- **[Consistent Hashing](../../../../../../pattern-library/data-management/consistent-hashing.md)** - Used for routing payments to processing cells
+- **[Amazon DynamoDB](../../amazon-dynamo.md)** - Similar high-availability requirements for financial data
+- **[Uber's Location System](../../uber-location.md)** - Real-time processing at similar scale
+- **[Rate Limiter Design](../../rate-limiter.md)** - Prevents payment fraud through intelligent throttling
+- **[Consistent Hashing](../../pattern-library/data-management.md/consistent-hashing.md)** - Used for routing payments to processing cells
 
 ---
 

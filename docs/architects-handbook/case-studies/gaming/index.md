@@ -26,7 +26,7 @@ Gaming systems demand ultra-low latency, massive concurrency, real-time synchron
 - **[MMO Game Architecture](mmo-game-architecture.md)** ⭐⭐⭐  
   *World of Warcraft, Final Fantasy XIV, and Guild Wars 2 architectures*
   - **Focus**: Persistent worlds, player interaction, content scaling
-  - **Patterns**: [Event Streaming](../../../../pattern-library/architecture/event-streaming.md), [CQRS](../../../../../pattern-library/data-management/cqrs.md), [Sharding](../../../../pattern-library/scaling/id-generation-scale.md)
+  - **Patterns**: [Event Streaming](../../pattern-library/architecture.md/event-streaming.md), [CQRS](../../pattern-library/data-management.md/cqrs.md), [Sharding](../../pattern-library/scaling.md/id-generation-scale.md)
   - **Scale**: 10M+ concurrent players, persistent game worlds
   - **Time Investment**: 90-120 minutes
 
@@ -34,7 +34,7 @@ Gaming systems demand ultra-low latency, massive concurrency, real-time synchron
 - **[Game State Synchronization](real-time-game-sync.md)** ⭐⭐⭐⭐  
   *Counter-Strike, Valorant, and Fortnite networking architectures*
   - **Focus**: Authoritative servers, lag compensation, anti-cheat
-  - **Patterns**: [Event Sourcing](../../../../pattern-library/data-management/event-sourcing.md), [Circuit Breaker](../../../../pattern-library/resilience/circuit-breaker.md), [Rate Limiting](../../../../pattern-library/scaling/rate-limiting.md)
+  - **Patterns**: [Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md), [Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md), [Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md)
   - **Scale**: 100+ players per match, <50ms latency, 64-tick servers
   - **Time Investment**: 120-150 minutes
 
@@ -42,7 +42,7 @@ Gaming systems demand ultra-low latency, massive concurrency, real-time synchron
 - **[Global Matchmaking Platform](global-matchmaking.md)** ⭐⭐  
   *League of Legends, Dota 2, and Overwatch matchmaking systems*
   - **Focus**: Player skill assessment, queue management, regional optimization
-  - **Patterns**: [Load Balancing](../../../../pattern-library/scaling/load-balancing.md), [Auto Scaling](../../../../pattern-library/scaling/auto-scaling.md), [Caching Strategies](../../../../pattern-library/scaling/caching-strategies.md)
+  - **Patterns**: [Load Balancing](../../pattern-library/scaling.md/load-balancing.md), [Auto Scaling](../../pattern-library/scaling.md/auto-scaling.md), [Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)
   - **Scale**: 100M+ monthly players, complex skill algorithms
   - **Time Investment**: 60-90 minutes
 
@@ -118,21 +118,21 @@ Learn to handle massive player bases:
 Gaming systems frequently implement these distributed system patterns:
 
 ### **Core Patterns**
-- **[Event Streaming](../../../../pattern-library/architecture/event-streaming.md)**: Real-time game event processing
-- **[CQRS](../../../../../pattern-library/data-management/cqrs.md)**: Separate read/write models for game data
-- **[Circuit Breaker](../../../../pattern-library/resilience/circuit-breaker.md)**: Fault tolerance for critical game services
-- **[Load Balancing](../../../../pattern-library/scaling/load-balancing.md)**: Distribute players across game servers
+- **[Event Streaming](../../pattern-library/architecture.md/event-streaming.md)**: Real-time game event processing
+- **[CQRS](../../pattern-library/data-management.md/cqrs.md)**: Separate read/write models for game data
+- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)**: Fault tolerance for critical game services
+- **[Load Balancing](../../pattern-library/scaling.md/load-balancing.md)**: Distribute players across game servers
 
 ### **Real-time Patterns**
-- **[WebSocket](../../../../pattern-library/communication/websocket.md)**: Bi-directional real-time communication
+- **[WebSocket](../../pattern-library/communication.md/websocket.md)**: Bi-directional real-time communication
 - **UDP Networking**: Low-latency unreliable messaging
 - **State Synchronization**: Keep distributed game state consistent
 - **Lag Compensation**: Handle network delays gracefully
 
 ### **Scale Patterns**
-- **[Auto Scaling](../../../../pattern-library/scaling/auto-scaling.md)**: Handle varying player loads
-- **[Caching Strategies](../../../../pattern-library/scaling/caching-strategies.md)**: Fast data access for game systems
-- **[Rate Limiting](../../../../pattern-library/scaling/rate-limiting.md)**: Prevent abuse and ensure fair play
+- **[Auto Scaling](../../pattern-library/scaling.md/auto-scaling.md)**: Handle varying player loads
+- **[Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)**: Fast data access for game systems
+- **[Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md)**: Prevent abuse and ensure fair play
 
 ---
 
@@ -229,9 +229,9 @@ Gaming systems frequently implement these distributed system patterns:
 ---
 
 **Explore Related Domains**:
-- **[Social & Communication](../social-communication/index.md)**: Player chat and social features
-- **[Search & Analytics](../search-analytics/index.md)**: Player data analytics and leaderboards
-- **[Infrastructure](../infrastructure/index.md)**: Distributed systems fundamentals
-- **[Monitoring & Observability](../monitoring-observability/index.md)**: Game system monitoring and performance
+- **[Social & Communication](../../social-communication/index.md)**: Player chat and social features
+- **[Search & Analytics](../../search-analytics/index.md)**: Player data analytics and leaderboards
+- **[Infrastructure](../../infrastructure/index.md)**: Distributed systems fundamentals
+- **[Monitoring & Observability](../../monitoring-observability/index.md)**: Game system monitoring and performance
 
 *Last Updated: August 2025 | 3 Case Studies*

@@ -118,7 +118,7 @@ outcomes:
 </div>
 
 !!! tip "Performance Engineering Readiness"
-    Complete our [Performance Engineering Assessment](../../tools/performance-readiness-quiz/) to identify your current level and customize the learning path.
+    Complete our [Performance Engineering Assessment](../../tools/performance-readiness-quiz/index.md) to identify your current level and customize the learning path.
 
 ## 🗺️ Intensive Curriculum
 
@@ -144,7 +144,7 @@ outcomes:
     **Day 1-2**: Performance Measurement & Statistics
     - 📖 Study: Performance measurement principles, statistical significance
     - 🛠️ Lab: Build benchmarking framework with proper statistics
-    - 📊 Apply: [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md) to system analysis
+    - 📊 Apply: [Little's Law](../..../architects-handbook/quantitative-analysis.md/littles-law.md) to system analysis
     - ⏱️ Time: 6-8 hours
     
     **Day 3-4**: Profiling & System Analysis
@@ -154,7 +154,7 @@ outcomes:
     - ⏱️ Time: 6-8 hours
     
     **Day 5-7**: Queueing Theory & Performance Modeling
-    - 📖 Study: [Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-models.md), M/M/1, G/G/1 models
+    - 📖 Study: [Queueing Theory](../..../architects-handbook/quantitative-analysis.md/queueing-models.md), M/M/1, G/G/1 models
     - 🛠️ Lab: Model system performance with queueing theory
     - 📊 Deliverable: Performance model predicting system behavior
     - ⏱️ Time: 8-10 hours
@@ -172,7 +172,7 @@ outcomes:
     **Day 8-9**: CPU Architecture & Optimization
     - 📖 Study: CPU pipelines, branch prediction, instruction-level parallelism
     - 🛠️ Lab: Optimize algorithms for modern CPU architectures
-    - 📊 Case Study: [Google's CPU optimization](../../architects-handbook/case-studies/infrastructure/google-cpu-optimization.md)
+    - 📊 Case Study: [Google's CPU optimization](../..../architects-handbook/case-studies.md/infrastructure/google-cpu-optimization.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 10-11**: Memory Systems & Cache Optimization
@@ -221,7 +221,7 @@ outcomes:
     **Day 15-16**: Advanced Algorithm Optimization
     - 📖 Study: Algorithmic complexity analysis, constant factor optimization
     - 🛠️ Lab: Optimize sorting and searching algorithms for real-world data
-    - 📊 Case Study: [Facebook's TAO optimization](../../architects-handbook/case-studies/databases/facebook-tao-performance.md)
+    - 📊 Case Study: [Facebook's TAO optimization](../..../architects-handbook/case-studies.md/databases/facebook-tao-performance.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 17-18**: SIMD & Vectorization Optimization
@@ -249,7 +249,7 @@ outcomes:
     **Day 22-23**: High-Performance Concurrency
     - 📖 Study: Thread affinity, false sharing, memory fences
     - 🛠️ Lab: Build high-throughput concurrent data processor
-    - 📊 Case Study: [LMAX Disruptor architecture](../../architects-handbook/case-studies/financial-commerce/lmax-disruptor.md)
+    - 📊 Case Study: [LMAX Disruptor architecture](../..../architects-handbook/case-studies.md/financial-commerce/lmax-disruptor.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 24-25**: NUMA Optimization & Thread Scaling
@@ -277,11 +277,11 @@ outcomes:
     **Day 29-30**: Database Query Optimization
     - 📖 Study: Query execution plans, cost-based optimization, statistics
     - 🛠️ Lab: Optimize complex analytical queries
-    - 📊 Case Study: [ClickHouse performance engineering](../../architects-handbook/case-studies/databases/clickhouse-performance.md)
+    - 📊 Case Study: [ClickHouse performance engineering](../..../architects-handbook/case-studies.md/databases/clickhouse-performance.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 31-32**: Storage Engine Design
-    - 📖 Read: [LSM Trees](../../../pattern-library/data-management/lsm-tree.md), B+ trees, storage layouts
+    - 📖 Read: [LSM Trees](../../..../pattern-library/data-management.md/lsm-tree.md), B+ trees, storage layouts
     - 🛠️ Lab: Implement high-performance key-value storage engine
     - 📊 Success: Achieve 1M+ operations/second storage throughput
     - ⏱️ Time: 6-8 hours
@@ -314,17 +314,17 @@ outcomes:
     **Day 36-37**: Global Network Optimization
     - 📖 Study: Network latency optimization, TCP tuning, QUIC protocol
     - 🛠️ Lab: Optimize global network performance for sub-100ms latency
-    - 📊 Case Study: [Cloudflare's Global Performance](../../architects-handbook/case-studies/infrastructure/cloudflare-performance.md)
+    - 📊 Case Study: [Cloudflare's Global Performance](../..../architects-handbook/case-studies.md/infrastructure/cloudflare-performance.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 38-39**: CDN & Edge Caching Optimization
-    - 📖 Read: [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md), edge computing
+    - 📖 Read: [Caching Strategies](../../..../pattern-library/scaling.md/caching-strategies.md), edge computing
     - 🛠️ Lab: Build high-performance edge caching system
     - 📊 Success: Achieve 95%+ cache hit rates with sub-10ms response times
     - ⏱️ Time: 6-8 hours
     
     **Day 40-42**: Edge Computing Performance
-    - 📖 Study: [Edge Computing](../../../pattern-library/scaling/edge-computing.md) optimization
+    - 📖 Study: [Edge Computing](../../..../pattern-library/scaling.md/edge-computing.md) optimization
     - 🛠️ Lab: Deploy performance-optimized edge applications
     - 📊 Deliverable: Global edge performance optimization framework
     - ⏱️ Time: 8-10 hours
@@ -342,7 +342,7 @@ outcomes:
     **Day 43-44**: Ultra-Low Latency System Architecture
     - 📖 Study: Kernel bypass, DPDK, SPDK, hardware optimization
     - 🛠️ Lab: Build sub-microsecond message processing system
-    - 📊 Case Study: [HFT System Performance](../../architects-handbook/case-studies/financial-commerce/hft-performance.md)
+    - 📊 Case Study: [HFT System Performance](../..../architects-handbook/case-studies.md/financial-commerce/hft-performance.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 45-46**: Real-Time & Deterministic Performance
@@ -379,7 +379,7 @@ outcomes:
     **Day 50-52**: Performance Engineering Culture
     - 📖 Study: Building performance culture, performance SLOs, monitoring
     - 🛠️ Lab: Design performance engineering framework for organization
-    - 📊 Case Study: [Netflix's Performance Culture](../../architects-handbook/case-studies/infrastructure/netflix-performance-culture.md)
+    - 📊 Case Study: [Netflix's Performance Culture](../..../architects-handbook/case-studies.md/infrastructure/netflix-performance-culture.md)
     - ⏱️ Time: 8-10 hours
     
     **Day 53-54**: Performance Tooling & Automation
@@ -473,26 +473,26 @@ outcomes:
 <div class="grid cards" markdown>
 
 - **High-Frequency Trading**
-    - [ ] [Citadel's Trading Infrastructure](../../architects-handbook/case-studies/financial-commerce/citadel-hft.md)
-    - [ ] [Two Sigma's Compute Platform](../../architects-handbook/case-studies/financial-commerce/two-sigma-performance.md)
+    - [ ] [Citadel's Trading Infrastructure](../..../architects-handbook/case-studies.md/financial-commerce/citadel-hft.md)
+    - [ ] [Two Sigma's Compute Platform](../..../architects-handbook/case-studies.md/financial-commerce/two-sigma-performance.md)
     - Sub-microsecond order execution
     - Hardware acceleration for trading algorithms
 
 - **Gaming & Interactive Media**
-    - [ ] [Epic Games' Fortnite Infrastructure](../../architects-handbook/case-studies/infrastructure/epic-fortnite-performance.md)
-    - [ ] [Riot Games' League of Legends](../../architects-handbook/case-studies/infrastructure/riot-performance.md)
+    - [ ] [Epic Games' Fortnite Infrastructure](../..../architects-handbook/case-studies.md/infrastructure/epic-fortnite-performance.md)
+    - [ ] [Riot Games' League of Legends](../..../architects-handbook/case-studies.md/infrastructure/riot-performance.md)
     - Real-time multiplayer with <50ms latency
     - Massive concurrent user support
 
 - **Social Media & Search**
-    - [ ] [Google's Search Performance](../../architects-handbook/case-studies/search-analytics/google-search-performance.md)
-    - [ ] [Facebook's Feed Optimization](../../architects-handbook/case-studies/social-communication/facebook-feed-performance.md)
+    - [ ] [Google's Search Performance](../..../architects-handbook/case-studies.md/search-analytics/google-search-performance.md)
+    - [ ] [Facebook's Feed Optimization](../..../architects-handbook/case-studies.md/social-communication/facebook-feed-performance.md)
     - Sub-100ms query response times
     - Billions of queries per day
 
 - **Telecommunications & 5G**
-    - [ ] [Ericsson's 5G Performance](../../architects-handbook/case-studies/infrastructure/ericsson-5g-performance.md)
-    - [ ] [Nokia's Network Optimization](../../architects-handbook/case-studies/infrastructure/nokia-performance.md)
+    - [ ] [Ericsson's 5G Performance](../..../architects-handbook/case-studies.md/infrastructure/ericsson-5g-performance.md)
+    - [ ] [Nokia's Network Optimization](../..../architects-handbook/case-studies.md/infrastructure/nokia-performance.md)
     - Ultra-low latency 5G networks
     - Edge computing optimization
 

@@ -68,7 +68,7 @@ type: pattern
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| Pure Event Ordering | Logical ordering sufficient | [Logical Clocks](../../pattern-library/coordination/logical-clocks.md) |
+| Pure Event Ordering | Logical ordering sufficient | [Logical Clocks](..../pattern-library/coordination.md/logical-clocks.md) |
 | High-Performance Local Systems | Synchronization overhead unnecessary | Local monotonic clocks |
 | Causality Tracking | Vector clocks more accurate | [Vector Clocks](../data-management/vector-clocks.md) |
 | Simple Request-Response | No coordination needed | Application-level timestamps |
@@ -279,9 +279,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Consensus](../../pattern-library/coordination/consensus.md) | Timestamp-ordered proposals | Leader election with time bounds |
-| [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) | Consistent event timestamps | Global event ordering |
-| [Distributed Locking](../../pattern-library/coordination/distributed-lock.md) | Time-based lease expiration | Lease timeout coordination |
+| [Consensus](..../pattern-library/coordination.md/consensus.md) | Timestamp-ordered proposals | Leader election with time bounds |
+| [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) | Consistent event timestamps | Global event ordering |
+| [Distributed Locking](..../pattern-library/coordination.md/distributed-lock.md) | Time-based lease expiration | Lease timeout coordination |
 
 ## Quick Reference
 
@@ -325,23 +325,23 @@ graph LR
     
     ---
     
-    - [Logical Clocks](../../pattern-library/coordination/logical-clocks.md) - Event ordering without time
-    - [HLC](../../pattern-library/coordination/hlc.md) - Hybrid physical-logical approach  
-    - [Generation Clock](../../pattern-library/coordination/generation-clock.md) - Epoch-based coordination
+    - [Logical Clocks](..../pattern-library/coordination.md/logical-clocks.md) - Event ordering without time
+    - [HLC](..../pattern-library/coordination.md/hlc.md) - Hybrid physical-logical approach  
+    - [Generation Clock](..../pattern-library/coordination.md/generation-clock.md) - Epoch-based coordination
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Time server failures
+    - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - Network delays
+    - [Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md) - Time server failures
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consistent time truth
-    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Coordinated control
+    - [Truth Distribution](../..../core-principles/pillars.md/truth-distribution/index.md) - Consistent time truth
+    - [Control Distribution](../..../core-principles/pillars.md/control-distribution/index.md) - Coordinated control
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

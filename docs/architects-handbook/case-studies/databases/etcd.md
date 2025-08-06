@@ -519,15 +519,15 @@ client.Cluster.MemberUpdate(ctx, memberID,
 
 ## Related Topics
 
-- [Raft Consensus](../../../pattern-library/coordination/consensus.md) - Core algorithm
-- [Leader Election](../../../pattern-library/coordination/leader-election.md) - Common pattern
-- [Distributed Locks](../../../pattern-library/coordination/distributed-lock.md) - Using etcd
-- [Service Discovery](../../../pattern-library/communication/service-discovery) - Watch-based discovery
+- [Raft Consensus](../../pattern-library/coordination.md/consensus.md) - Core algorithm
+- [Leader Election](../../pattern-library/coordination.md/leader-election.md) - Common pattern
+- [Distributed Locks](../../pattern-library/coordination.md/distributed-lock.md) - Using etcd
+- [Service Discovery](../../pattern-library/communication.md/service-discovery/index.md) - Watch-based discovery
 - [ZooKeeper](zookeeper.md) - Predecessor comparison
 
 ## References
 
-1. [etcd Documentation](https://etcd.io/docs/)
-2. [Raft Consensus Algorithm](https://raft.github.io/)
-3. [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-4. [etcd Performance Tuning](https://etcd.io/docs/latest/tuning/)
+1. [etcd Documentation](https://etcd.io/docs/index.md)
+2. [Raft Consensus Algorithm](https://raft.github.io/index.md)
+3. [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/index.md)
+4. [etcd Performance Tuning](https://etcd.io/docs/latest/tuning/index.md)

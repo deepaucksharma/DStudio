@@ -22,52 +22,52 @@ These playbooks provide detailed, actionable guidance for implementing distribut
 
 ### System Transformations
 - **[Monolith to Microservices](../../monolith-to-microservices.md)** - Decompose safely without disruption
-- **[On-Premise to Cloud](on-premise-to-cloud/)** - Cloud migration strategies
-- **[Single to Multi-Region](single-to-multi-region/)** - Global expansion guide
-- **[Synchronous to Asynchronous](sync-to-async/)** - Event-driven transformation
+- **[On-Premise to Cloud](on-premise-to-cloud/index.md)** - Cloud migration strategies
+- **[Single to Multi-Region](single-to-multi-region/index.md)** - Global expansion guide
+- **[Synchronous to Asynchronous](sync-to-async/index.md)** - Event-driven transformation
 
 ### Data Migrations
-- **[RDBMS to NoSQL](rdbms-to-nosql/)** - Database migration patterns
-- **[Single to Sharded Database](database-sharding/)** - Horizontal partitioning
-- **[Cache Integration](cache-integration/)** - Adding caching layers
-- **[Event Sourcing Adoption](event-sourcing-adoption/)** - Event-based architecture
+- **[RDBMS to NoSQL](rdbms-to-nosql/index.md)** - Database migration patterns
+- **[Single to Sharded Database](database-sharding/index.md)** - Horizontal partitioning
+- **[Cache Integration](cache-integration/index.md)** - Adding caching layers
+- **[Event Sourcing Adoption](event-sourcing-adoption/index.md)** - Event-based architecture
 
 ## 🛠️ Pattern Implementation
 
 ### Resilience Patterns
-- **[Circuit Breaker Implementation](circuit-breaker-setup/)** - Prevent cascade failures
-- **[Retry with Backoff](retry-implementation/)** - Handle transient failures
-- **[Bulkhead Pattern](bulkhead-setup/)** - Resource isolation
-- **[Health Checks](health-check-implementation/)** - Service monitoring
+- **[Circuit Breaker Implementation](circuit-breaker-setup/index.md)** - Prevent cascade failures
+- **[Retry with Backoff](retry-implementation/index.md)** - Handle transient failures
+- **[Bulkhead Pattern](bulkhead-setup/index.md)** - Resource isolation
+- **[Health Checks](health-check-implementation/index.md)** - Service monitoring
 
 ### Scaling Patterns
-- **[Load Balancer Setup](load-balancer-setup/)** - Traffic distribution
-- **[Auto-scaling Configuration](auto-scaling-setup/)** - Dynamic capacity
-- **[CDN Integration](cdn-integration/)** - Edge caching
-- **[Database Read Replicas](read-replica-setup/)** - Read scaling
+- **[Load Balancer Setup](load-balancer-setup/index.md)** - Traffic distribution
+- **[Auto-scaling Configuration](auto-scaling-setup/index.md)** - Dynamic capacity
+- **[CDN Integration](cdn-integration/index.md)** - Edge caching
+- **[Database Read Replicas](read-replica-setup/index.md)** - Read scaling
 
 ## 📋 Operational Readiness
 
 ### Pre-Production Checklists
-- **[Launch Readiness](launch-readiness/)** - Before going live
-- **[Security Review](security-checklist/)** - Security considerations
+- **[Launch Readiness](launch-readiness/index.md)** - Before going live
+- **[Security Review](security-checklist/index.md)** - Security considerations
 - **[Performance Testing](../../performance-testing.md)** - Load and stress testing
-- **[Disaster Recovery](disaster-recovery/)** - Backup and recovery plans
+- **[Disaster Recovery](disaster-recovery/index.md)** - Backup and recovery plans
 
 ### Production Operations
-- **[Monitoring Setup](monitoring-setup/)** - Observability implementation
-- **[Alerting Strategy](alerting-strategy/)** - Effective notifications
-- **[Runbook Templates](runbook-templates/)** - Operational procedures
+- **[Monitoring Setup](monitoring-setup/index.md)** - Observability implementation
+- **[Alerting Strategy](alerting-strategy/index.md)** - Effective notifications
+- **[Runbook Templates](runbook-templates/index.md)** - Operational procedures
 - **[Incident Response](../../incident-response.md)** - Handling outages
 
 ## 🎯 Quick Start Guides
 
 | Goal | Playbook | Difficulty | Time |
 |------|----------|------------|------|
-| Add caching | [Cache Integration](cache-integration/) | Medium | 1-2 weeks |
-| Improve resilience | [Circuit Breaker Setup](circuit-breaker-setup/) | Easy | 2-3 days |
-| Scale reads | [Read Replica Setup](read-replica-setup/) | Medium | 1 week |
-| Go multi-region | [Multi-Region Guide](single-to-multi-region/) | Hard | 2-3 months |
+| Add caching | [Cache Integration](cache-integration/index.md) | Medium | 1-2 weeks |
+| Improve resilience | [Circuit Breaker Setup](circuit-breaker-setup/index.md) | Easy | 2-3 days |
+| Scale reads | [Read Replica Setup](read-replica-setup/index.md) | Medium | 1 week |
+| Go multi-region | [Multi-Region Guide](single-to-multi-region/index.md) | Hard | 2-3 months |
 
 ## 📊 Success Stories
 

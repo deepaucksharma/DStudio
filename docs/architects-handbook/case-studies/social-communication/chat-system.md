@@ -154,8 +154,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: End-to-End Encryption (Coming Soon)
 - Pattern: Key Management (Coming Soon)
-- 🏛 Pillar: [Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Cryptographic guarantees
-- 🏛 Pillar: [Control Distribution](../core-principles/pillars/control-distribution/index.md) - Secure message routing
+- 🏛 Pillar: [Truth Distribution](..../core-principles/pillars.md/truth-distribution/index.md) - Cryptographic guarantees
+- 🏛 Pillar: [Control Distribution](..../core-principles/pillars.md/control-distribution/index.md) - Secure message routing
 
 ### Phase 4: Global Scale Architecture (2016-Present)
 
@@ -2678,27 +2678,27 @@ Regional servers reduce latency; cross-region replication; compliance ready
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality/)** - WebSocket for real-time, regional servers
-- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization/)** - Connection pooling, message queuing
-- **[Law 1: Failure](../../../core-principles/laws/correlated-failure/)** - Offline queue, retry mechanisms
-- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos/)** - Actor model, parallel delivery
-- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge/)** - Group state sync, message ordering, and monitoring
-- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load/)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Connection pooling, message queuing
+- **[Law 1: Failure](../../core-principles/laws.md/correlated-failure/index.md)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence](../../core-principles/laws.md/emergent-chaos/index.md)** - Actor model, parallel delivery
+- **[Law 5: Epistemology](../../core-principles/laws.md/distributed-knowledge/index.md)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API](../../core-principles/laws.md/cognitive-load/index.md)** - Typing indicators, read receipts
 
 ### 🏛 Related Patterns
 - **WebSocket (Coming Soon)** - Persistent connections
 - **Distributed Queue (Coming Soon)** - Reliable delivery
 - **Actor Model (Coming Soon)** - Concurrent message handling
-- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
-- **[Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)** - Message history
-- **[CRDT](../../../pattern-library/data-management/crdt.md)** - Distributed state sync
-- **[Saga Pattern](../../../pattern-library/data-management/saga.md)** - Group operations
+- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)** - Service protection
+- **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)** - Message history
+- **[CRDT](../../pattern-library/data-management.md/crdt.md)** - Distributed state sync
+- **[Saga Pattern](../../pattern-library/data-management.md/saga.md)** - Group operations
 
 ### Quantitative Models
 - **[Little's Law](../../quantitative-analysis/littles-law.md)** - Connection pool sizing
 - **[Queueing Theory](../../quantitative-analysis/queueing-models.md)** - Message queue capacity
 - **CAP Theorem (Coming Soon)** - Consistency vs availability
-- **[Network Theory](../quantitative-analysis/network-theory.md)** - Optimal server placement
+- **[Network Theory](../../quantitative-analysis/network-theory.md)** - Optimal server placement
 
 ### Similar Case Studies
 <!-- TODO: Add when available

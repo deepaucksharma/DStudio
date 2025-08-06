@@ -249,9 +249,9 @@ type: pattern
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Design independent failure domains
-    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Complex failure modes
-    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost vs. availability trade-offs
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Design independent failure domains
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index.md) - Complex failure modes
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/index.md) - Cost vs. availability trade-offs
 
 </div>
 

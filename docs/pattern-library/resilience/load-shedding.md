@@ -277,9 +277,9 @@ class AdaptiveLoadShedder:
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Overload cascades
-    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Load patterns emerge
-    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Business priorities
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Overload cascades
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index.md) - Load patterns emerge
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/index.md) - Business priorities
 
 </div>
 

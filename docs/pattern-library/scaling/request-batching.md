@@ -519,11 +519,11 @@ graph TB
 
 ## Related Patterns
 
-- [Work Distribution](../core-principles/pillars/1-work-distribution/index.md) - Batching as work distribution strategy
-- [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Protecting batch processors
-- [Bulkhead](../../pattern-library/resilience/bulkhead.md) - Isolating batch processing
+- [Work Distribution](..../core-principles/pillars.md/1-work-distribution/index.md) - Batching as work distribution strategy
+- [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) - Protecting batch processors
+- [Bulkhead](..../pattern-library/resilience.md/bulkhead.md) - Isolating batch processing
 - [Queue-Based Load Leveling](queue-load-leveling.md) - Buffering for batches
-- [Saga Pattern](../../pattern-library/data-management/saga.md) - Managing batch transactions
+- [Saga Pattern](..../pattern-library/data-management.md/saga.md) - Managing batch transactions
 
 ## References
 
@@ -539,8 +539,8 @@ graph TB
 
 ### Further Reading
 
-- [Little's Law](../architects-handbook/quantitative-analysis/littles-law.md) - Queue theory for batch systems
-- [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md) - Mathematical foundations
+- [Little's Law](..../architects-handbook/quantitative-analysis.md/littles-law.md) - Queue theory for batch systems
+- [Queueing Theory](..../architects-handbook/quantitative-analysis.md/queueing-models.md) - Mathematical foundations
 - [Capacity Planning](../quantitative-analysis/capacity-planning.md) - Sizing batch systems
 - [Performance Testing](../human-factors/performance-testing.md) - Validating batch performance
 

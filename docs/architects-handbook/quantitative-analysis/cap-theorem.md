@@ -390,24 +390,24 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/) - Network partitions and failure modes
-- [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/) - Time and consistency challenges
-- [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/) - CAP trade-offs in practice
-- [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/) - Knowledge consistency across nodes
+- [Law 1: Correlated Failure](....../core-principles/laws.md/correlated-failure/index.md) - Network partitions and failure modes
+- [Law 2: Asynchronous Reality](....../core-principles/laws.md/asynchronous-reality/index.md) - Time and consistency challenges
+- [Law 4: Multidimensional Optimization](....../core-principles/laws.md/multidimensional-optimization/index.md) - CAP trade-offs in practice
+- [Law 5: Distributed Knowledge](....../core-principles/laws.md/distributed-knowledge/index.md) - Knowledge consistency across nodes
 
 ### Related Patterns
-- [Consensus Algorithms](../../pattern-library/coordination/consensus.md) - Achieving agreement despite CAP
-- [Leader Election](../../pattern-library/coordination/leader-follower.md) - Maintaining consistency with leaders
-- [Eventual Consistency](../../pattern-library/data-management/eventual-consistency.md) - AP system design patterns
-- [Quorum Consensus](../../pattern-library/coordination/consensus.md) - Tunable consistency implementations
-- [Vector Clocks](../../pattern-library/coordination/logical-clocks.md) - Tracking causality in AP systems
-- [Conflict Resolution](../../pattern-library/conflict-resolution.md) - Handling divergence in AP systems
+- [Consensus Algorithms](../....../pattern-library/coordination.md/consensus.md) - Achieving agreement despite CAP
+- [Leader Election](../....../pattern-library/coordination.md/leader-follower.md) - Maintaining consistency with leaders
+- [Eventual Consistency](../....../pattern-library/data-management.md/eventual-consistency.md) - AP system design patterns
+- [Quorum Consensus](../....../pattern-library/coordination.md/consensus.md) - Tunable consistency implementations
+- [Vector Clocks](../....../pattern-library/coordination.md/logical-clocks.md) - Tracking causality in AP systems
+- [Conflict Resolution](../....../pattern-library/conflict-resolution.md) - Handling divergence in AP systems
 
 ### Quantitative Analysis
-- [Consistency Models](../../architects-handbook/quantitative-analysis/consistency-models.md) - Deep dive into consistency levels
+- [Consistency Models](../....../architects-handbook/quantitative-analysis.md/consistency-models.md) - Deep dive into consistency levels
 - [PACELC Analysis](pacelc-analysis.md) - Extended CAP theorem implications
-- [Network Theory](../../architects-handbook/quantitative-analysis/network-theory.md) - Understanding partition probabilities
-- [Availability Math](../../architects-handbook/quantitative-analysis/availability-math.md) - Calculating system availability
+- [Network Theory](../....../architects-handbook/quantitative-analysis.md/network-theory.md) - Understanding partition probabilities
+- [Availability Math](../....../architects-handbook/quantitative-analysis.md/availability-math.md) - Calculating system availability
 - [Latency Models](latency-models.md) - Consistency vs latency trade-offs
 
 ### Case Studies
@@ -418,7 +418,7 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [CockroachDB](../case-studies/cockroachdb.md) - Modern CP distributed SQL
 
 ### Further Reading
-- [Distributed Database Design](../../pattern-library/distributed-database.md) - Applying CAP to database systems
-- [Multi-Region Architecture](../../pattern-library/scaling/multi-region.md) - CAP across geographic regions
-- [Microservices Consistency](../../pattern-library/microservices-consistency.md) - CAP in service architectures
-- [Blockchain Consensus](../../pattern-library/blockchain-consensus.md) - CAP theorem in blockchain systems
+- [Distributed Database Design](../....../pattern-library/distributed-database.md) - Applying CAP to database systems
+- [Multi-Region Architecture](../....../pattern-library/scaling.md/multi-region.md) - CAP across geographic regions
+- [Microservices Consistency](../....../pattern-library/microservices-consistency.md) - CAP in service architectures
+- [Blockchain Consensus](../....../pattern-library/blockchain-consensus.md) - CAP theorem in blockchain systems

@@ -46,17 +46,17 @@ As a solution architect, you will:
  
  Apply laws to architectural decisions:
  
- - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure) - Blast radius design
- - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality) - Event-driven architectures
- - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Complexity management
+ - [Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md) - Blast radius design
+ - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - Event-driven architectures
+ - [Law 3: Emergent Chaos](../..../core-principles/laws.md/emergent-chaos/index.md) - Complexity management
 
 - **Week 2: Pillars as Design Patterns**
  
  Master distribution strategies:
  
- - [Work Distribution](../../core-principles/pillars/work-distribution/) - Compute architectures
- - [State Distribution](../../core-principles/pillars/state-distribution/) - Data architectures
- - [Control Distribution](../../core-principles/pillars/control-distribution/) - Orchestration patterns
+ - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Compute architectures
+ - [State Distribution](../..../core-principles/pillars.md/state-distribution/index.md) - Data architectures
+ - [Control Distribution](../..../core-principles/pillars.md/control-distribution/index.md) - Orchestration patterns
 
 </div>
 
@@ -68,42 +68,42 @@ As a solution architect, you will:
 #### Week 3-4: Foundation Patterns
 
 === "Microservices Architecture"
- - [Service Mesh](../../pattern-library/communication/service-mesh) - Istio, Linkerd, Consul
- - [API Gateway](../../pattern-library/communication/api-gateway) - Kong, Apigee, AWS API Gateway
- - [Service Discovery](../../pattern-library/communication/service-discovery) - Consul, Eureka, etcd
- - [Sidecar Pattern](../../pattern-library/architecture/sidecar) - Envoy, Dapr
+ - [Service Mesh](../..../pattern-library/communication.md/service-mesh/index.md) - Istio, Linkerd, Consul
+ - [API Gateway](../..../pattern-library/communication.md/api-gateway/index.md) - Kong, Apigee, AWS API Gateway
+ - [Service Discovery](../..../pattern-library/communication.md/service-discovery/index.md) - Consul, Eureka, etcd
+ - [Sidecar Pattern](../..../pattern-library/architecture.md/sidecar/index.md) - Envoy, Dapr
 
 === "Event-Driven Architecture"
- - [Event Sourcing](../../pattern-library/data-management/event-sourcing) - Event stores
- - [CQRS](../../pattern-library/data-management/cqrs) - Read/write separation
- - [Saga Pattern](../../pattern-library/data-management/saga) - Distributed transactions
- - [Event Streaming](../../pattern-library/architecture/event-streaming) - Kafka, Pulsar
+ - [Event Sourcing](../..../pattern-library/data-management.md/event-sourcing/index.md) - Event stores
+ - [CQRS](../..../pattern-library/data-management.md/cqrs/index.md) - Read/write separation
+ - [Saga Pattern](../..../pattern-library/data-management.md/saga/index.md) - Distributed transactions
+ - [Event Streaming](../..../pattern-library/architecture.md/event-streaming/index.md) - Kafka, Pulsar
 
 === "Data Architecture"
- - [Data Mesh](../../pattern-library/data-mesh) - Decentralized data
- - [Lambda Architecture](../../pattern-library/architecture/lambda-architecture) - Batch + stream
- - [Kappa Architecture](../../pattern-library/architecture/kappa-architecture) - Stream-only
- - [CDC](../../pattern-library/data-management/cdc) - Change data capture
+ - [Data Mesh](../..../pattern-library/data-mesh.md/index.md) - Decentralized data
+ - [Lambda Architecture](../..../pattern-library/architecture.md/lambda-architecture/index.md) - Batch + stream
+ - [Kappa Architecture](../..../pattern-library/architecture.md/kappa-architecture/index.md) - Stream-only
+ - [CDC](../..../pattern-library/data-management.md/cdc/index.md) - Change data capture
 
 #### Week 5-6: Advanced Patterns
 
 === "Global Architecture"
- - [Multi-Region](../../pattern-library/scaling/multi-region) - Active-active deployments
- - [Geo-Replication](../../pattern-library/scaling/geo-replication) - Data sovereignty
- - [Edge Computing](../../pattern-library/scaling/edge-computing) - CDN architectures
- - [Cell-Based](../../pattern-library/architecture/cell-based) - Failure isolation
+ - [Multi-Region](../..../pattern-library/scaling.md/multi-region/index.md) - Active-active deployments
+ - [Geo-Replication](../..../pattern-library/scaling.md/geo-replication/index.md) - Data sovereignty
+ - [Edge Computing](../..../pattern-library/scaling.md/edge-computing/index.md) - CDN architectures
+ - [Cell-Based](../..../pattern-library/architecture.md/cell-based/index.md) - Failure isolation
 
 === "Resilience Architecture"
- - [Chaos Engineering](../../architects-handbook/human-factors/chaos-engineering.md) - Proactive testing
- - [Bulkhead](../../pattern-library/resilience/bulkhead) - Resource isolation
- - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker) - Cascade prevention
- - [Graceful Degradation](../../pattern-library/resilience/graceful-degradation) - Feature flags
+ - [Chaos Engineering](../..../architects-handbook/human-factors.md/chaos-engineering.md) - Proactive testing
+ - [Bulkhead](../..../pattern-library/resilience.md/bulkhead/index.md) - Resource isolation
+ - [Circuit Breaker](../..../pattern-library/resilience.md/circuit-breaker/index.md) - Cascade prevention
+ - [Graceful Degradation](../..../pattern-library/resilience.md/graceful-degradation/index.md) - Feature flags
 
 === "Security Architecture"
- - [Zero Trust](../../pattern-library/key-management) - Security model
- - [E2E Encryption](../../pattern-library/e2e-encryption) - Data protection
- - [Key Management](../../pattern-library/key-management) - HSM integration
- - [Consent Management](../../pattern-library/consent-management) - GDPR compliance
+ - [Zero Trust](../..../pattern-library/key-management.md/index.md) - Security model
+ - [E2E Encryption](../..../pattern-library/e2e-encryption.md/index.md) - Data protection
+ - [Key Management](../..../pattern-library/key-management.md/index.md) - HSM integration
+ - [Consent Management](../..../pattern-library/consent-management.md/index.md) - GDPR compliance
 
 ### Phase 3: Reference Architectures (3-4 weeks)
 
@@ -157,10 +157,10 @@ As a solution architect, you will:
 
 Study complete architectures:
 
-- [Netflix Architecture](../netflix-streaming) - Microservices at scale
-- [Uber Architecture](../uber-location) - Real-time geo-distributed
-- [Airbnb Architecture](../hotel-reservation) - Global marketplace
-- [LinkedIn Architecture](../social-graph) - Social graph at scale
+- [Netflix Architecture](../netflix-streaming/index.md) - Microservices at scale
+- [Uber Architecture](../uber-location/index.md) - Real-time geo-distributed
+- [Airbnb Architecture](../hotel-reservation/index.md) - Global marketplace
+- [LinkedIn Architecture](../social-graph/index.md) - Social graph at scale
 
 ### Phase 4: Architectural Decision Making (2-3 weeks)
 
@@ -195,10 +195,10 @@ Study complete architectures:
 
 #### Week 12: Cost Optimization
 
-- [FinOps Patterns](../../pattern-library/finops) - Cloud cost management
-- [Resource Optimization](../../pattern-library/scaling/auto-scaling) - Right-sizing
-- [Spot Instance Strategies](../../pattern-library/finops) - Cost reduction
-- [Multi-Cloud Arbitrage](../../pattern-library/scaling/multi-region) - Vendor optimization
+- [FinOps Patterns](../..../pattern-library/finops.md/index.md) - Cloud cost management
+- [Resource Optimization](../..../pattern-library/scaling.md/auto-scaling/index.md) - Right-sizing
+- [Spot Instance Strategies](../..../pattern-library/finops.md/index.md) - Cost reduction
+- [Multi-Cloud Arbitrage](../..../pattern-library/scaling.md/multi-region/index.md) - Vendor optimization
 
 ### Phase 5: Enterprise Architecture (2-3 weeks)
 
@@ -353,12 +353,12 @@ Remember: Great architects balance technical excellence with business value.
  
  ---
  
- [Engineering Manager Path](../../architects-handbook/learning-paths/manager.md)
+ [Engineering Manager Path](../..../architects-handbook/learning-paths.md/manager.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Topic-Based Paths](../../architects-handbook/learning-paths/cost#topic-paths.md)
+ [Topic-Based Paths](../..../architects-handbook/learning-paths.md/cost#topic-paths.md)
 
 </div>

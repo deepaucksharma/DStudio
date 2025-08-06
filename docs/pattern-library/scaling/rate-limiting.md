@@ -260,9 +260,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | Cascading failure prevention | Rate limits trigger circuit opening |
+| [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) | Cascading failure prevention | Rate limits trigger circuit opening |
 | [API Gateway](../architecture/api-gateway.md) | Centralized policy enforcement | Gateway handles all rate limiting logic |
-| [Bulkhead](../../pattern-library/resilience/bulkhead.md) | Resource isolation | Separate limits per resource pool |
+| [Bulkhead](..../pattern-library/resilience.md/bulkhead.md) | Resource isolation | Separate limits per resource pool |
 
 ## Quick Reference
 
@@ -306,23 +306,23 @@ graph LR
     
     ---
     
-    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Complementary failure protection
+    - [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) - Complementary failure protection
     - [API Gateway](../architecture/api-gateway.md) - Centralized rate limiting
-    - [Bulkhead](../../pattern-library/resilience/bulkhead.md) - Resource isolation
+    - [Bulkhead](..../pattern-library/resilience.md/bulkhead.md) - Resource isolation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Preventing cascade failures
-    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Resource cost management
+    - [Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md) - Preventing cascade failures
+    - [Law 7: Economic Reality](../..../core-principles/laws.md/economic-reality/index.md) - Resource cost management
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Distributed rate limiting coordination
-    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Fair resource allocation
+    - [Control Distribution](../..../core-principles/pillars.md/control-distribution/index.md) - Distributed rate limiting coordination
+    - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Fair resource allocation
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

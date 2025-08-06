@@ -45,17 +45,17 @@ As an engineering manager, you will:
  
  Focus on high-impact knowledge:
  
- - [The 7 Laws Overview](../../core-principles/laws/) - Quick understanding
- - [Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization) - Decision making
- - [Law 7: Economic Reality](../../core-principles/laws/economic-reality) - Cost implications
+ - [The 7 Laws Overview](../....../core-principles/laws.md/index.md) - Quick understanding
+ - [Law 4: Trade-offs](../....../core-principles/laws.md/multidimensional-optimization/index.md) - Decision making
+ - [Law 7: Economic Reality](../....../core-principles/laws.md/economic-reality/index.md) - Cost implications
 
 - **Week 2: Practical Implications**
  
  Understand operational realities:
  
- - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure) - Risk management
- - [Law 6: Cognitive Load](../../core-principles/laws/cognitive-load/) - Team capacity
- - [The 5 Pillars](../../core-principles/pillars/index.md) - Architectural choices
+ - [Law 1: Correlated Failure](../....../core-principles/laws.md/correlated-failure/index.md) - Risk management
+ - [Law 6: Cognitive Load](../....../core-principles/laws.md/cognitive-load/index.md) - Team capacity
+ - [The 5 Pillars](../....../core-principles/pillars.md/index.md) - Architectural choices
 
 </div>
 
@@ -68,30 +68,30 @@ As an engineering manager, you will:
 
 === "Reliability Patterns"
  Understand how teams ensure system reliability:
- - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker) - Failure isolation
- - [Retry & Backoff](../../pattern-library/resilience/retry-backoff) - Handling failures
- - [Health Checks](../../pattern-library/resilience/health-check) - System monitoring
+ - [Circuit Breaker](../....../pattern-library/resilience.md/circuit-breaker/index.md) - Failure isolation
+ - [Retry & Backoff](../....../pattern-library/resilience.md/retry-backoff/index.md) - Handling failures
+ - [Health Checks](../....../pattern-library/resilience.md/health-check/index.md) - System monitoring
 
 === "Scaling Patterns"
  Know how systems grow:
- - [Load Balancing](../../pattern-library/scaling/load-balancing) - Traffic distribution
- - [Caching](../../pattern-library/scaling/caching-strategies) - Performance optimization
- - [Sharding](../../pattern-library/scaling/sharding) - Data partitioning
+ - [Load Balancing](../....../pattern-library/scaling.md/load-balancing/index.md) - Traffic distribution
+ - [Caching](../....../pattern-library/scaling.md/caching-strategies/index.md) - Performance optimization
+ - [Sharding](../....../pattern-library/scaling.md/sharding/index.md) - Data partitioning
 
 === "Architecture Patterns"
  Understand system organization:
- - [Service Mesh](../../pattern-library/communication/service-mesh) - Microservices management
- - [API Gateway](../../pattern-library/communication/api-gateway) - External interfaces
- - [Event-Driven](../../pattern-library/architecture/event-driven) - Async architectures
+ - [Service Mesh](../....../pattern-library/communication.md/service-mesh/index.md) - Microservices management
+ - [API Gateway](../....../pattern-library/communication.md/api-gateway/index.md) - External interfaces
+ - [Event-Driven](../....../pattern-library/architecture.md/event-driven/index.md) - Async architectures
 
 #### Week 4: Advanced Patterns
 
 Focus on patterns with significant business impact:
 
-- [CQRS](../../pattern-library/data-management/cqrs) - Read/write optimization
-- [Saga Pattern](../../pattern-library/data-management/saga) - Distributed transactions
-- [Event Sourcing](../../pattern-library/data-management/event-sourcing) - Audit trails
-- [Multi-Region](../../pattern-library/scaling/multi-region) - Global deployment
+- [CQRS](../....../pattern-library/data-management.md/cqrs/index.md) - Read/write optimization
+- [Saga Pattern](../....../pattern-library/data-management.md/saga/index.md) - Distributed transactions
+- [Event Sourcing](../....../pattern-library/data-management.md/event-sourcing/index.md) - Audit trails
+- [Multi-Region](../....../pattern-library/scaling.md/multi-region/index.md) - Global deployment
 
 ### Phase 3: Operational Excellence (2-3 weeks)
 
@@ -103,14 +103,14 @@ Focus on patterns with significant business impact:
 <div class="grid cards" markdown>
 
 - **Team Dynamics**
- - [SRE Practices](../../architects-handbook/human-factors/sre-practices.md)
- - [Team Topologies](../../architects-handbook/human-factors/team-topologies.md)
- - [On-Call Rotation](../../architects-handbook/human-factors/incident-response.md)
+ - [SRE Practices](../....../architects-handbook/human-factors.md/sre-practices.md)
+ - [Team Topologies](../....../architects-handbook/human-factors.md/team-topologies.md)
+ - [On-Call Rotation](../....../architects-handbook/human-factors.md/incident-response.md)
 
 - **Engineering Culture**
- - [Blameless Postmortems](../../architects-handbook/human-factors/blameless-postmortems.md)
- - [Chaos Engineering](../../architects-handbook/human-factors/chaos-engineering.md)
- - [Observability Culture](../../architects-handbook/human-factors/observability-stacks.md)
+ - [Blameless Postmortems](../....../architects-handbook/human-factors.md/blameless-postmortems.md)
+ - [Chaos Engineering](../....../architects-handbook/human-factors.md/chaos-engineering.md)
+ - [Observability Culture](../....../architects-handbook/human-factors.md/observability-stacks.md)
 
 </div>
 
@@ -118,10 +118,10 @@ Focus on patterns with significant business impact:
 
 Essential metrics and models:
 
-- [Little's Law](quantitative/littles-law) - Queue management
-- [Availability Math](quantitative/availability-math) - SLA calculations
-- [Capacity Planning](quantitative/capacity-planning) - Resource estimation
-- [Latency Budgets](quantitative/latency-ladder) - Performance targets
+- [Little's Law](quantitative-analysis/littles-law.mdindex.md) - Queue management
+- [Availability Math](quantitative/availability-math/index.md) - SLA calculations
+- [Capacity Planning](quantitative-analysis/capacity-planning.mdindex.md) - Resource estimation
+- [Latency Budgets](quantitative/latency-ladder/index.md) - Performance targets
 
 ### Phase 4: Strategic Case Studies (1-2 weeks)
 
@@ -131,19 +131,19 @@ Essential metrics and models:
 #### Week 7-8: Management Perspectives
 
 === "Organizational Lessons"
- - [Netflix Culture](../netflix-chaos) - Innovation through chaos
- - [Amazon's Two-Pizza Teams](../amazon-dynamo) - Team structure
- - [Google's SRE Model](../google-sre/) - Operational excellence
+ - [Netflix Culture](../netflix-chaos/index.md) - Innovation through chaos
+ - [Amazon's Two-Pizza Teams](../amazon-dynamo/index.md) - Team structure
+ - [Google's SRE Model](../google-sre/index.md) - Operational excellence
 
 === "Technical Decisions"
- - [Twitter's Fail Whale](../twitter-timeline) - Scaling challenges
- - [Facebook's Move Fast](../facebook-tao/) - Speed vs stability
- - [Uber's Microservices](../uber-location) - Service proliferation
+ - [Twitter's Fail Whale](../twitter-timeline/index.md) - Scaling challenges
+ - [Facebook's Move Fast](../facebook-tao/index.md) - Speed vs stability
+ - [Uber's Microservices](../uber-location/index.md) - Service proliferation
 
 === "Cost Optimization"
- - [Spotify's Migration](../spotify-recommendations) - Cloud costs
- - [Airbnb's Architecture](../hotel-reservation) - Growth management
- - [Pinterest's Sharding](../pinterest-sharding/) - Data costs
+ - [Spotify's Migration](../spotify-recommendations/index.md) - Cloud costs
+ - [Airbnb's Architecture](../hotel-reservation/index.md) - Growth management
+ - [Pinterest's Sharding](../pinterest-sharding/index.md) - Data costs
 
 ## 📊 Manager's Decision Framework
 
@@ -297,7 +297,7 @@ change_failure_rate:
 
 After completing this path:
 
-1. **Deeper Dive**: Explore [Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md) for technical depth
+1. **Deeper Dive**: Explore [Senior Engineer Path](../....../architects-handbook/learning-paths.md/senior-engineer.md) for technical depth
 2. **Specialization**: Focus on specific domains (FinTech, Gaming, etc.)
 3. **Strategic Leadership**: Move towards director/VP roles
 4. **Cross-Functional**: Work with product and business teams
@@ -319,12 +319,12 @@ Remember: Great engineering managers balance technical knowledge with people lea
  
  ---
  
- [Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md)
+ [Senior Engineer Path](../....../architects-handbook/learning-paths.md/senior-engineer.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Solution Architect Path](../../architects-handbook/learning-paths/architect.md)
+ [Solution Architect Path](../....../architects-handbook/learning-paths.md/architect.md)
 
 </div>

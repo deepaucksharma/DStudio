@@ -313,9 +313,9 @@ graph LR
 | **GC Overhead** | Time spent in GC | < 5% |
 
 ## Related Patterns
-- [Content-Addressed Storage](pattern-library/cas)
-- [Caching Strategies](pattern-library/caching-strategies)
+- [Content-Addressed Storage](pattern-library/cas/index.md)
+- [Caching Strategies](pattern-library/caching-strategies/index.md)
 
 ## References
-- [Google Drive Case Study](case-studies/google-drive)
+- [Google Drive Case Study](case-studies/google-drive/index.md)
 

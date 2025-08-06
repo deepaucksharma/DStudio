@@ -109,7 +109,7 @@ outcomes:
 </div>
 
 !!! tip "Data Readiness Assessment"
-    Take our [Data Engineering Skills Assessment](../../tools/data-engineering-quiz/) to identify areas for preparation.
+    Take our [Data Engineering Skills Assessment](../../tools/data-engineering-quiz/index.md) to identify areas for preparation.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -131,7 +131,7 @@ outcomes:
     - [ ] Implement data versioning strategies
     
     **Day 1-2**: Data Modeling Fundamentals
-    - 📖 Read: [Data modeling principles](../../../pattern-library/data-management/data-modeling/)
+    - 📖 Read: [Data modeling principles](../../....../pattern-library/data-management.md/data-modeling/index.md)
     - 🛠️ Lab: Design star and snowflake schemas
     - 📊 Success: Model e-commerce analytics warehouse
     - ⏱️ Time: 6-8 hours
@@ -159,7 +159,7 @@ outcomes:
     - [ ] Build idempotent and fault-tolerant systems
     
     **Day 8-9**: Pipeline Design Patterns
-    - 📖 Read: [Data pipeline patterns](../../../pattern-library/data-management/data-pipelines/)
+    - 📖 Read: [Data pipeline patterns](../../....../pattern-library/data-management.md/data-pipelines/index.md)
     - 🛠️ Lab: Build fault-tolerant ETL with Apache Airflow
     - 📊 Success: Handle failures gracefully with retries
     - ⏱️ Time: 6-8 hours
@@ -650,7 +650,7 @@ Build these impressive projects to showcase your skills:
 
 ### Community Resources
 
-- **Data Engineering Discord**: [#data-engineering-learners](https://discord.gg/data-eng)
+- **Data Engineering Discord**: [#data-engineering-learners](https://discord.gg/data-eng/index.md)
 - **Project Collaboration**: Peer coding sessions
 - **Job Referral Network**: Alumni referral program
 - **Conference Discounts**: Strata, DataWorks Summit, Data Engineering Day
@@ -668,16 +668,16 @@ Build these impressive projects to showcase your skills:
 ### Essential Online Resources
 
 **Documentation & Guides**:
-- [Apache Spark Documentation](https://spark.apache.org/docs/)
-- [Kafka Streams Developer Guide](https://kafka.apache.org/documentation/streams/)
-- [dbt Documentation](https://docs.getdbt.com/)
-- [Delta Lake Documentation](https://docs.delta.io/)
+- [Apache Spark Documentation](https://spark.apache.org/docs/index.md)
+- [Kafka Streams Developer Guide](https://kafka.apache.org/documentation/streams/index.md)
+- [dbt Documentation](https://docs.getdbt.com/index.md)
+- [Delta Lake Documentation](https://docs.delta.io/index.md)
 
 **Blogs & Technical Content**:
-- [Netflix Tech Blog - Data Platform](https://netflixtechblog.com/)
-- [Uber Engineering - Data](https://eng.uber.com/)
-- [Airbnb Engineering - Data](https://medium.com/airbnb-engineering)
-- [Spotify Engineering - Data](https://engineering.atspotify.com/)
+- [Netflix Tech Blog - Data Platform](https://netflixtechblog.com/index.md)
+- [Uber Engineering - Data](https://eng.uber.com/index.md)
+- [Airbnb Engineering - Data](https://medium.com/airbnb-engineering/index.md)
+- [Spotify Engineering - Data](https://engineering.atspotify.com/index.md)
 
 **Podcasts & Video Content**:
 - **Data Engineering Podcast** - Weekly data engineering discussions
