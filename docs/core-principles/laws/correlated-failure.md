@@ -6,6 +6,14 @@ difficulty: expert
 reading_time: 90 min (6 focus blocks + consolidation)
 prerequisites:
   - core-principles/index.md
+  - core-principles/pillars/state-distribution.md
+  - pattern-library/resilience/bulkhead.md
+  - pattern-library/architecture/cell-based.md
+  - concepts/probability-theory
+  - concepts/graph-theory
+  - concepts/failure-analysis
+  - math/correlation-coefficients
+  - math/percolation-theory
 status: unified
 last_updated: 2025-01-29
 learning_structure: apex_protocol
@@ -209,23 +217,29 @@ Every shared dependency is a correlation amplifier. The more you share, the more
 Every failure has a **blast radius**—the percentage of users affected.
 
 ```mermaid
-graph TB
-    subgraph "Blast Radius Zones"
-        BR1["< 5% Users<br/>🟢 Service Degradation<br/>Acceptable impact"]
-        BR2["5-25% Users<br/>🟡 Revenue Impact<br/>Concerning but manageable"]
-        BR3["25-50% Users<br/>🟠 Business at Risk<br/>Emergency response"]
-        BR4["> 50% Users<br/>🔴 Existential Threat<br/>All-hands crisis"]
+flowchart TB
+    subgraph zones ["Blast Radius Impact Zones"]
+        green["< 5% Users<br/>🟢 Service Degradation<br/>Acceptable impact"]
+        yellow["5-25% Users<br/>🟡 Revenue Impact<br/>Concerning but manageable"]
+        orange["25-50% Users<br/>🟠 Business at Risk<br/>Emergency response"]
+        red["> 50% Users<br/>🔴 Existential Threat<br/>All-hands crisis"]
     end
     
-    subgraph "Real Examples"
-        EX1["Single microservice failure<br/>2% blast radius"]
-        EX2["Database cluster failure<br/>40% blast radius"]
-        EX3["BGP misconfiguration<br/>100% blast radius"]
+    subgraph examples ["Real-World Examples"]
+        micro["Single microservice failure<br/>2% blast radius"]
+        database["Database cluster failure<br/>40% blast radius"]
+        bgp["BGP misconfiguration<br/>100% blast radius"]
     end
     
-    style BR4 fill:#d32f2f,color:#fff
-    style BR3 fill:#ff9800,color:#fff
-    style EX3 fill:#d32f2f,color:#fff
+    micro --> green
+    database --> orange
+    bgp --> red
+    
+    style green fill:#4caf50,color:#fff
+    style yellow fill:#ffc107,color:#000
+    style orange fill:#ff9800,color:#fff
+    style red fill:#d32f2f,color:#fff
+    style bgp fill:#d32f2f,color:#fff
 ```
 
 **Blast Radius Formula**:
