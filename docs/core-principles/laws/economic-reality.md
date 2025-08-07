@@ -294,59 +294,7 @@ graph TB
 
 ### Real Money Calculator: Build vs Buy Analysis
 
-```python
-# Simplified calculator for boardroom discussions
-def build_vs_buy_simple(annual_spend, team_expertise, time_pressure):
-    """
-    Quick financial analysis for executives
-    """
-    build_cost_multiplier = 2.5 if team_expertise > 0.8 else 5.0
-    buy_cost_multiplier = 1.85  # Hidden cost multiplier
-    
-    # 3-year analysis
-    years = 3
-    
-    # Build option
-    estimated_build_hours = annual_spend / 200  # Assume $200/hour
-    true_build_cost = estimated_build_hours * 200 * build_cost_multiplier
-    annual_maintenance = true_build_cost * 0.25  # 25% annually
-    total_build = true_build_cost + (annual_maintenance * years)
-    
-    # Buy option  
-    true_annual_cost = annual_spend * buy_cost_multiplier
-    total_buy = true_annual_cost * years
-    
-    # Time to market impact
-    if time_pressure:
-        build_opportunity_cost = true_build_cost * 0.5  # 50% penalty for delay
-        total_build += build_opportunity_cost
-    
-    savings = total_buy - total_build
-    roi = (savings / total_build * 100) if total_build > 0 else 0
-    
-    recommendation = "BUILD" if savings > 0 else "BUY"
-    confidence = "HIGH" if abs(savings) > total_build * 0.3 else "LOW"
-    
-    return {
-        'recommendation': f"{confidence} {recommendation}",
-        'build_cost': total_build,
-        'buy_cost': total_buy,
-        'savings': savings,
-        'roi': roi,
-        'break_even_years': years
-    }
-
-# Example: Custom analytics platform
-result = build_vs_buy_simple(
-    annual_spend=200_000,      # $200k/year for analytics SaaS
-    team_expertise=0.6,        # Medium expertise (60%)
-    time_pressure=True         # Need quick results
-)
-
-print(f"Recommendation: {result['recommendation']}")
-print(f"3-year savings: ${result['savings']:,.0f}")
-print(f"ROI: {result['roi']:.1f}%")
-```
+**Implementation**: Build vs Buy decision calculator with 3-year TCO analysis, team expertise assessment, and time-to-market impact evaluation. Includes cost multipliers, maintenance factors, and ROI calculations for boardroom presentations.
 
 ### Emotional Trigger: The Sunk Cost Trap
 
@@ -444,49 +392,7 @@ Where:
 
 ### Real Money Exercise: "Calculate Your Team's Burn Rate"
 
-```python
-def calculate_team_burn_rate():
-    """Calculate your actual engineering cost per feature"""
-    
-    # Team composition
-    senior_engineers = 4  # $200k total cost each
-    junior_engineers = 2  # $120k total cost each
-    product_manager = 1   # $180k total cost
-    designer = 1          # $150k total cost
-    
-    annual_team_cost = (
-        senior_engineers * 200_000 +
-        junior_engineers * 120_000 +
-        product_manager * 180_000 +
-        designer * 150_000
-    )
-    
-    # Features shipped per year (be honest)
-    major_features = 12   # 1 per month
-    minor_features = 24   # 2 per month
-    
-    cost_per_major_feature = annual_team_cost / major_features
-    cost_per_minor_feature = annual_team_cost / (major_features + minor_features)
-    
-    print(f"Annual team burn rate: ${annual_team_cost:,}")
-    print(f"Cost per major feature: ${cost_per_major_feature:,}")
-    print(f"Cost per minor feature: ${cost_per_minor_feature:,}")
-    print(f"Daily burn rate: ${annual_team_cost / 365:,.0f}")
-    
-    return {
-        'annual_cost': annual_team_cost,
-        'daily_burn': annual_team_cost / 365,
-        'cost_per_feature': cost_per_major_feature
-    }
-
-# Run the calculation
-team_cost = calculate_team_burn_rate()
-
-# Output typically shows:
-# Annual team burn rate: $1,370,000
-# Cost per major feature: $114,167  
-# Daily burn rate: $3,753
-```
+**Implementation**: Team burn rate calculator analyzing annual costs across senior engineers, junior engineers, product managers, and designers. Calculates cost per feature (major/minor) and daily burn rate to inform architectural decisions with true cost implications.
 
 **The Reality Check**: Most teams are shocked to learn their daily burn rate. This number should inform every technical decision.
 
@@ -564,81 +470,7 @@ graph LR
 
 ### Real Money Exercise: "Audit Your Hidden Costs"
 
-```python
-def audit_hidden_costs(base_monthly_cost, service_type='general'):
-    """Reveal the hidden costs in your infrastructure"""
-    
-    # Hidden cost factors by service type
-    factors = {
-        'general': {
-            'data_transfer': 0.15,
-            'monitoring': 0.12,
-            'backup': 0.14,
-            'operations': 0.28,
-            'security': 0.09,
-            'support': 0.10,
-            'logging': 0.08
-        },
-        'database': {
-            'data_transfer': 0.15,
-            'monitoring': 0.16,  # Higher monitoring needs
-            'backup': 0.21,      # Critical data backup
-            'operations': 0.34,  # DBA overhead
-            'security': 0.12,    # Data protection
-            'support': 0.10,
-            'logging': 0.08
-        }
-    }
-    
-    service_factors = factors.get(service_type, factors['general'])
-    
-    hidden_costs = {}
-    total_hidden = 0
-    
-    for cost_type, factor in service_factors.items():
-        cost = base_monthly_cost * factor
-        hidden_costs[cost_type] = cost
-        total_hidden += cost
-    
-    true_total = base_monthly_cost + total_hidden
-    multiplier = true_total / base_monthly_cost
-    annual_surprise = total_hidden * 12
-    
-    print(f"Base monthly cost: ${base_monthly_cost:,}")
-    print(f"Hidden costs breakdown:")
-    for cost_type, cost in sorted(hidden_costs.items(), 
-                                 key=lambda x: x[1], reverse=True):
-        print(f"  {cost_type.replace('_', ' ').title()}: ${cost:,.0f}")
-    
-    print(f"\nTrue monthly cost: ${true_total:,}")
-    print(f"Cost multiplier: {multiplier:.1f}x")
-    print(f"Annual cost surprise: ${annual_surprise:,}")
-    
-    return {
-        'base_cost': base_monthly_cost,
-        'hidden_costs': hidden_costs,
-        'true_cost': true_total,
-        'multiplier': multiplier
-    }
-
-# Example: Production database
-db_audit = audit_hidden_costs(2000, 'database')
-
-# Example output:
-# Base monthly cost: $2,000
-# Hidden costs breakdown:
-#   Operations: $680
-#   Backup: $420
-#   Monitoring: $320
-#   Security: $240
-#   Data Transfer: $300
-#   Support: $200
-#   Logging: $160
-# 
-# True monthly cost: $4,320
-# Cost multiplier: 2.2x
-# Annual cost surprise: $27,840
-```
+**Implementation**: Hidden cost auditor with service-specific multipliers for data transfer, monitoring, backup, operations, security, support, and logging. Calculates true monthly cost, multiplier effect, and annual cost surprise for infrastructure budget planning.
 
 ### Emotional Trigger: The Budget Shock
 "Remember the first time you got the real AWS bill after launching to production?"
@@ -723,80 +555,7 @@ graph TB
 
 ### Real Money Calculator: Architecture ROI
 
-```python
-def calculate_architecture_roi(project_name, investment_hours, 
-                             expected_benefits, risk_factors=1.0):
-    """
-    Calculate ROI for architecture investments
-    """
-    # Costs
-    development_cost = investment_hours * 200  # $200/hour fully loaded
-    annual_maintenance = development_cost * 0.25  # 25% annually
-    opportunity_cost = development_cost * 0.30  # 30% opportunity cost
-    
-    total_cost = (development_cost + opportunity_cost) * risk_factors
-    
-    # Benefits (annual)
-    performance_benefit = expected_benefits.get('performance_revenue', 0)
-    cost_savings = expected_benefits.get('operational_savings', 0)  
-    productivity_gain = expected_benefits.get('developer_productivity', 0)
-    risk_mitigation = expected_benefits.get('avoided_costs', 0)
-    
-    annual_benefits = (performance_benefit + cost_savings + 
-                      productivity_gain + risk_mitigation)
-    
-    # Financial metrics
-    if annual_benefits > 0:
-        payback_years = total_cost / annual_benefits
-        three_year_roi = ((annual_benefits * 3) - total_cost) / total_cost * 100
-        npv = annual_benefits * 2.487 - total_cost  # 3-year NPV at 10% discount
-    else:
-        payback_years = float('inf')
-        three_year_roi = -100
-        npv = -total_cost
-    
-    # Risk assessment
-    if payback_years <= 1:
-        risk_level = "LOW - Quick payback"
-    elif payback_years <= 2:
-        risk_level = "MEDIUM - Standard investment"
-    elif payback_years <= 3:
-        risk_level = "HIGH - Long payback"
-    else:
-        risk_level = "CRITICAL - Consider alternatives"
-    
-    return {
-        'project': project_name,
-        'total_investment': total_cost,
-        'annual_benefits': annual_benefits,
-        'payback_years': payback_years,
-        'three_year_roi': three_year_roi,
-        'npv': npv,
-        'risk_assessment': risk_level,
-        'recommendation': 'APPROVE' if three_year_roi > 50 else 'RECONSIDER'
-    }
-
-# Example: Microservices migration
-migration_roi = calculate_architecture_roi(
-    project_name="Monolith to Microservices",
-    investment_hours=2000,  # 1 person-year
-    expected_benefits={
-        'performance_revenue': 50000,      # $50k/year from better performance
-        'operational_savings': 80000,      # $80k/year in reduced ops overhead  
-        'developer_productivity': 120000,  # $120k/year from team velocity
-        'avoided_costs': 30000            # $30k/year in avoided technical debt
-    },
-    risk_factors=1.5  # 50% higher risk due to complexity
-)
-
-print(f"Project: {migration_roi['project']}")
-print(f"Investment: ${migration_roi['total_investment']:,}")
-print(f"Annual Benefits: ${migration_roi['annual_benefits']:,}")
-print(f"Payback Period: {migration_roi['payback_years']:.1f} years")
-print(f"3-Year ROI: {migration_roi['three_year_roi']:.0f}%")
-print(f"Risk Level: {migration_roi['risk_assessment']}")
-print(f"Recommendation: {migration_roi['recommendation']}")
-```
+**Implementation**: Architecture ROI calculator incorporating development costs, opportunity costs, maintenance overhead, and risk factors. Evaluates performance revenue, operational savings, developer productivity gains, and risk mitigation with NPV and payback period analysis.
 
 ### The Business Case Template
 
@@ -1029,40 +788,13 @@ This creates the **economic sweet spot** at high utilization:
     
     **Economic Lesson**: They optimized for theoretical scale that never came while competitors optimized for time-to-market and actual user needs.
     
-    ```python
-    # Friendster's cost structure
-    friendster_cost_per_user = 5.50  # USD annually
-    myspace_cost_per_user = 0.15     # USD annually
-    
-    efficiency_gap = friendster_cost_per_user / myspace_cost_per_user
-    print(f"Friendster was {efficiency_gap:.1f}x more expensive per user")
-    # Output: Friendster was 36.7x more expensive per user
-    
-    # At scale, this becomes existential
-    users_at_peak = 3_000_000
-    annual_cost_gap = users_at_peak * (friendster_cost_per_user - myspace_cost_per_user)
-    print(f"Annual disadvantage: ${annual_cost_gap:,.0f}")
-    # Output: Annual disadvantage: $16,050,000
-    ```
+    **Implementation**: Cost comparison calculator demonstrating Friendster's 36.7x cost disadvantage ($5.50 vs $0.15 per user annually), resulting in $16M annual cost gap at 3M users.
 
 ## Antidotes: Cost Optimization Patterns
 
 ### Pattern 1: The Economics-First Architecture Decision Framework
 
-```python
-import json
-import numpy as np
-from datetime import datetime
-from typing import Dict, List, Tuple
-
-class EconomicsFirstDecisionFramework:
-    """Make architecture decisions based on economic reality, not technical elegance"""
-    
-    def __init__(self):
-        # Industry benchmarks from Fortune 500 analysis
-        self.dev_cost_per_hour = 200  # Fully loaded (salary + benefits + overhead)
-        self.cloud_cost_multiplier = 1.85  # Hidden costs factor
-        self.technical_debt_interest = 0.78  # Annual compound rate
+**Implementation**: Economics-First Architecture Decision Framework comparing multiple architectural options on economic merit including:
         
     def analyze_decision(self, options: List[Dict]) -> Dict:
         """

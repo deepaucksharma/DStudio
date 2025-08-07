@@ -309,49 +309,7 @@ Vector clocks capture the causal ordering of events without relying on physical 
 2. **Send message:** Include your current vector clock
 3. **Receive message:** Take element-wise maximum of both clocks, then increment your counter
 
-```python
-class VectorClock:
-    def __init__(self, node_id: str, nodes: List[str]):
-        self.node_id = node_id
-        self.clock = {node: 0 for node in nodes}
-    
-    def local_event(self) -> Dict[str, int]:
-        """Process local event"""
-        self.clock[self.node_id] += 1
-        return self.clock.copy()
-    
-    def send_message(self) -> Dict[str, int]:
-        """Get timestamp for outgoing message"""
-        return self.local_event()
-    
-    def receive_message(self, remote_clock: Dict[str, int]) -> Dict[str, int]:
-        """Update clock upon receiving message"""
-        # Take element-wise maximum
-        for node in self.clock:
-            self.clock[node] = max(self.clock[node], remote_clock.get(node, 0))
-        
-        # Increment own counter
-        self.clock[self.node_id] += 1
-        return self.clock.copy()
-    
-    def happens_before(self, other_clock: Dict[str, int]) -> bool:
-        """Check if this event causally precedes another"""
-        # All components ≤ corresponding components in other
-        all_less_equal = all(
-            self.clock[node] <= other_clock.get(node, 0) 
-            for node in self.clock
-        )
-        # At least one component < corresponding component  
-        some_less = any(
-            self.clock[node] < other_clock.get(node, 0)
-            for node in self.clock
-        )
-        return all_less_equal and some_less
-    
-    def concurrent(self, other_clock: Dict[str, int]) -> bool:
-        """Check if events are concurrent (neither precedes other)"""
-        return not self.happens_before(other_clock) and not self._other_happens_before(other_clock)
-```
+**Implementation:** Vector clock with causality tracking using logical timestamps per node. Each node maintains counters for all nodes in the system, incrementing its own counter on local events and updating from received messages by taking element-wise maximum then incrementing own counter.
 
 #### Visual Example: E-commerce Order Processing
 
@@ -389,14 +347,11 @@ sequenceDiagram
 
 Vector clocks reveal when events are **concurrent** - they could have happened in any order:
 
-```python
-# Example: Two concurrent user actions
-user_a_action = {"W": 1, "P": 0, "I": 0}  # User A adds item to cart
-user_b_action = {"W": 0, "P": 1, "I": 0}  # User B processes payment
+**Example:** Two concurrent user actions:
+- User A adds item to cart: Vector clock {W:1, P:0, I:0}
+- User B processes payment: Vector clock {W:0, P:1, I:0}
 
-# Neither causally precedes the other
-# These are concurrent events - order is observer-dependent
-```
+Neither causally precedes the other - these are concurrent events where order is observer-dependent.
 
 #### Neural Bridge: The Family Tree Analogy
 
@@ -448,83 +403,7 @@ HLC combines the causality properties of logical clocks with the bounded space a
 
 **HLC Structure: (physical_time, logical_counter, node_id)**
 
-```python
-from typing import NamedTuple
-import time
-import threading
-
-class HLC(NamedTuple):
-    """Hybrid Logical Clock timestamp"""
-    physical_time: int  # Microseconds since epoch
-    logical_counter: int
-    node_id: str
-    
-    def __lt__(self, other: 'HLC') -> bool:
-        """Compare HLC timestamps for ordering"""
-        if self.physical_time != other.physical_time:
-            return self.physical_time < other.physical_time
-        if self.logical_counter != other.logical_counter:
-            return self.logical_counter < other.logical_counter
-        return self.node_id < other.node_id
-
-class HLCManager:
-    """Production-ready HLC implementation"""
-    
-    def __init__(self, node_id: str):
-        self.node_id = node_id
-        self._hlc = HLC(self._wall_clock_us(), 0, node_id)
-        self._lock = threading.Lock()
-    
-    def _wall_clock_us(self) -> int:
-        """Get wall clock time in microseconds"""
-        return int(time.time() * 1_000_000)
-    
-    def local_event(self) -> HLC:
-        """Update HLC for local event"""
-        with self._lock:
-            wall_time = self._wall_clock_us()
-            
-            if wall_time > self._hlc.physical_time:
-                # Wall clock advanced - use it, reset logical counter
-                self._hlc = HLC(wall_time, 0, self.node_id)
-            else:
-                # Wall clock behind/same - advance logical counter
-                self._hlc = HLC(
-                    self._hlc.physical_time,
-                    self._hlc.logical_counter + 1,
-                    self.node_id
-                )
-            
-            return self._hlc
-    
-    def receive_message(self, remote_hlc: HLC) -> HLC:
-        """Update HLC upon receiving message"""
-        with self._lock:
-            wall_time = self._wall_clock_us()
-            
-            # Take maximum of all physical times
-            max_physical = max(
-                wall_time,
-                self._hlc.physical_time,
-                remote_hlc.physical_time
-            )
-            
-            # Determine logical counter based on which time dominated
-            if max_physical == wall_time and wall_time > max(
-                self._hlc.physical_time, remote_hlc.physical_time
-            ):
-                # Wall clock advanced beyond both HLCs
-                logical_counter = 0
-            elif max_physical == self._hlc.physical_time:
-                # Our physical time dominates
-                logical_counter = self._hlc.logical_counter + 1
-            else:
-                # Remote physical time dominates
-                logical_counter = remote_hlc.logical_counter + 1
-            
-            self._hlc = HLC(max_physical, logical_counter, self.node_id)
-            return self._hlc
-```
+**Implementation:** Hybrid Logical Clock combining physical and logical timestamps. Thread-safe manager maintains HLC state with microsecond precision, advancing logical counter when wall clock is behind, and taking maximum of physical times when receiving messages.
 
 #### HLC Advantages Over Vector Clocks
 
@@ -542,76 +421,7 @@ class HLCManager:
 
 #### Real-World HLC Usage Example
 
-```python
-# Distributed payment processing with HLC
-def process_distributed_transaction():
-    """Example of HLC coordinating distributed transaction"""
-    
-    # Initialize HLC managers for each service
-    web_hlc = HLCManager("web_server_1")
-    payment_hlc = HLCManager("payment_service_1") 
-    inventory_hlc = HLCManager("inventory_service_1")
-    
-    # User initiates purchase
-    purchase_timestamp = web_hlc.local_event()
-    print(f"Purchase initiated: {purchase_timestamp}")
-    
-    # Web server sends requests to services
-    payment_request_ts = web_hlc.local_event()
-    inventory_request_ts = web_hlc.local_event()
-    
-    # Simulate network delay and processing
-    import time
-    time.sleep(0.1)  # 100ms processing delay
-    
-    # Services receive requests and update their HLC
-    payment_received_ts = payment_hlc.receive_message(payment_request_ts)
-    inventory_received_ts = inventory_hlc.receive_message(inventory_request_ts)
-    
-    # Services process and respond
-    payment_complete_ts = payment_hlc.local_event()
-    inventory_reserved_ts = inventory_hlc.local_event()
-    
-    # Web server receives responses
-    final_payment_ts = web_hlc.receive_message(payment_complete_ts)
-    final_inventory_ts = web_hlc.receive_message(inventory_reserved_ts)
-    
-    # Can now determine causal ordering of all events
-    events = [
-        (purchase_timestamp, "Purchase initiated"),
-        (payment_request_ts, "Payment request sent"),
-        (inventory_request_ts, "Inventory request sent"),  
-        (payment_received_ts, "Payment service received"),
-        (inventory_received_ts, "Inventory service received"),
-        (payment_complete_ts, "Payment completed"),
-        (inventory_reserved_ts, "Inventory reserved"),
-        (final_payment_ts, "Payment response received"),
-        (final_inventory_ts, "Inventory response received")
-    ]
-    
-    # Sort by HLC for causal ordering
-    events_sorted = sorted(events, key=lambda x: x[0])
-    
-    print("\nCausal Event Ordering:")
-    for hlc, event in events_sorted:
-        print(f"  {hlc} - {event}")
-        
-    return events_sorted
-
-# Example output:
-# Purchase initiated: HLC(1640995200000000, 0, 'web_server_1')
-# 
-# Causal Event Ordering:
-#   HLC(1640995200000000, 0, 'web_server_1') - Purchase initiated
-#   HLC(1640995200000000, 1, 'web_server_1') - Payment request sent
-#   HLC(1640995200000000, 2, 'web_server_1') - Inventory request sent
-#   HLC(1640995200100000, 0, 'payment_service_1') - Payment service received
-#   HLC(1640995200100000, 0, 'inventory_service_1') - Inventory service received
-#   HLC(1640995200100000, 1, 'payment_service_1') - Payment completed
-#   HLC(1640995200100000, 1, 'inventory_service_1') - Inventory reserved  
-#   HLC(1640995200100000, 3, 'web_server_1') - Payment response received
-#   HLC(1640995200100000, 4, 'web_server_1') - Inventory response received
-```
+**Implementation:** Distributed payment processing example using HLC managers across web server, payment service, and inventory service. Each service maintains its own HLC, updating on local events and incoming messages to establish causal ordering across distributed transaction steps.
 
 #### HLC Properties & Guarantees
 

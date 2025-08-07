@@ -199,39 +199,7 @@ graph TB
 
 ### Real-World Translation: Your Service Architecture
 
-```python
-# Byzantine fault tolerance in practice
-class ServiceConsensus:
-    def __init__(self, services: list, max_failures: int):
-        self.services = services
-        self.max_failures = max_failures
-        self.min_services = 3 * max_failures + 1
-        
-        if len(services) < self.min_services:
-            raise ValueError(f"Need {self.min_services} services for {max_failures} failures")
-    
-    def make_decision(self, proposal):
-        """Byzantine-tolerant decision making"""
-        votes = {}
-        responses = 0
-        
-        for service in self.services:
-            try:
-                vote = service.vote(proposal)
-                votes[vote] = votes.get(vote, 0) + 1
-                responses += 1
-            except Exception:
-                continue  # Service might be down or Byzantine
-        
-        # Need 2f+1 matching votes to be safe
-        required_votes = 2 * self.max_failures + 1
-        
-        for vote, count in votes.items():
-            if count >= required_votes:
-                return vote
-        
-        return None  # No consensus possible
-```
+**Implementation**: Byzantine fault-tolerant service consensus with voting mechanisms that require 2f+1 matching votes for safety, handling service failures and malicious responses through quorum-based decision making.
 
 ### Professional Bridge: Configuration Management as Distributed Knowledge
 
@@ -313,74 +281,7 @@ Instead of preventing conflicts, embrace them and resolve automatically.
 
 ### Hands-On Exercise: Build a Shopping Cart CRDT
 
-```python
-class ShoppingCartCRDT:
-    """Conflict-free shopping cart that automatically merges"""
-    
-    def __init__(self, user_id: str):
-        self.user_id = user_id
-        # Each item tracked per user to enable merging
-        self.items = {}  # item_name -> {user_id -> quantity}
-    
-    def add_item(self, item: str, quantity: int):
-        """Add item to cart"""
-        if item not in self.items:
-            self.items[item] = {}
-        self.items[item][self.user_id] = quantity
-    
-    def remove_item(self, item: str):
-        """Remove item from cart"""  
-        if item in self.items:
-            self.items[item][self.user_id] = 0
-    
-    def get_quantity(self, item: str) -> int:
-        """Get total quantity across all users"""
-        if item not in self.items:
-            return 0
-        return sum(q for q in self.items[item].values() if q > 0)
-    
-    def merge(self, other: 'ShoppingCartCRDT') -> 'ShoppingCartCRDT':
-        """Automatically merge two shopping carts"""
-        result = ShoppingCartCRDT(self.user_id)
-        
-        # Combine all items from both carts
-        all_items = set(self.items.keys()) | set(other.items.keys())
-        
-        for item in all_items:
-            result.items[item] = {}
-            
-            # Merge quantities taking maximum per user
-            self_users = self.items.get(item, {})
-            other_users = other.items.get(item, {})
-            all_users = set(self_users.keys()) | set(other_users.keys())
-            
-            for user in all_users:
-                self_qty = self_users.get(user, 0)
-                other_qty = other_users.get(user, 0) 
-                result.items[item][user] = max(self_qty, other_qty)
-        
-        return result
-
-# Demo: Distributed shopping
-cart_phone = ShoppingCartCRDT("mobile_app")
-cart_web = ShoppingCartCRDT("web_browser")
-
-# User adds items on phone
-cart_phone.add_item("laptop", 1)
-cart_phone.add_item("mouse", 2)
-
-# User adds items on web (offline)
-cart_web.add_item("keyboard", 1) 
-cart_web.add_item("mouse", 3)  # Different quantity!
-
-# When they sync - automatic merge
-merged_cart = cart_phone.merge(cart_web)
-
-print(f"Merged cart:")
-print(f"laptop: {merged_cart.get_quantity('laptop')}")    # 1
-print(f"mouse: {merged_cart.get_quantity('mouse')}")      # 3 (max)
-print(f"keyboard: {merged_cart.get_quantity('keyboard')}")# 1
-```
+**Implementation**: Shopping Cart CRDT with per-user item tracking that automatically merges conflicts by taking maximum quantities per user, enabling conflict-free replication across mobile and web clients.
 
 ### Professional Bridge: CRDTs in Production
 
@@ -426,109 +327,7 @@ graph LR
 
 ### Hands-On Exercise: Build an Event-Sourced Bank Account
 
-```python
-from dataclasses import dataclass
-from datetime import datetime
-from typing import List
-import json
-
-@dataclass
-class Event:
-    event_type: str
-    amount: float
-    timestamp: datetime
-    event_id: str
-    
-    def to_dict(self):
-        return {
-            'event_type': self.event_type,
-            'amount': self.amount, 
-            'timestamp': self.timestamp.isoformat(),
-            'event_id': self.event_id
-        }
-
-class EventSourcedAccount:
-    """Bank account using event sourcing"""
-    
-    def __init__(self, account_id: str):
-        self.account_id = account_id
-        self.events: List[Event] = []
-        self._current_balance = None
-    
-    def deposit(self, amount: float):
-        """Deposit money (creates event)"""
-        if amount <= 0:
-            raise ValueError("Deposit amount must be positive")
-            
-        event = Event(
-            event_type="deposit",
-            amount=amount,
-            timestamp=datetime.now(),
-            event_id=f"{self.account_id}-{len(self.events)}"
-        )
-        
-        self.events.append(event)
-        self._current_balance = None  # Invalidate cache
-    
-    def withdraw(self, amount: float):
-        """Withdraw money (creates event)"""
-        if amount <= 0:
-            raise ValueError("Withdrawal amount must be positive")
-            
-        current_balance = self.get_balance()
-        if current_balance < amount:
-            raise ValueError("Insufficient funds")
-            
-        event = Event(
-            event_type="withdraw", 
-            amount=-amount,  # Negative for withdrawal
-            timestamp=datetime.now(),
-            event_id=f"{self.account_id}-{len(self.events)}"
-        )
-        
-        self.events.append(event)
-        self._current_balance = None  # Invalidate cache
-    
-    def get_balance(self) -> float:
-        """Calculate balance by replaying events"""
-        if self._current_balance is None:
-            self._current_balance = sum(event.amount for event in self.events)
-        return self._current_balance
-    
-    def get_history(self) -> List[Event]:
-        """Get complete transaction history"""
-        return self.events.copy()
-    
-    def get_balance_at_time(self, target_time: datetime) -> float:
-        """Get balance at specific point in time"""
-        return sum(
-            event.amount 
-            for event in self.events 
-            if event.timestamp <= target_time
-        )
-    
-    def merge_events(self, other_events: List[Event]):
-        """Merge events from another source (distributed sync)"""
-        # In production, you'd need proper conflict resolution
-        # For demo, we'll just append and sort by timestamp
-        all_events = self.events + other_events
-        all_events.sort(key=lambda e: e.timestamp)
-        
-        self.events = all_events
-        self._current_balance = None
-
-# Demo: Distributed banking
-account = EventSourcedAccount("user123")
-
-account.deposit(100.0)
-account.withdraw(25.0) 
-account.deposit(50.0)
-
-print(f"Current balance: ${account.get_balance()}")
-print(f"Transaction history:")
-for event in account.get_history():
-    print(f"  {event.timestamp.time()}: {event.event_type} ${abs(event.amount)}")
-```
+**Implementation**: Event-sourced bank account with immutable event history, supporting deposits, withdrawals, balance calculation through event replay, point-in-time queries, and distributed event merging for conflict resolution.
 
 This approach resolves conflicts by keeping all events - conflicts become part of the history rather than problems to solve.
 
@@ -679,46 +478,20 @@ $1.5 billion market cap split in two realities
 
 Your service mesh is a distributed coordination problem:
 
-```yaml
-# Your services are Byzantine generals
-services:
-  - user-service: "Can we deploy version 2.3?"
-  - payment-service: "I'm ready"
-  - inventory-service: "I'm not ready" (Byzantine behavior)
-  - notification-service: [timeout - might be down]
+| Service | Status | Vote |
+|---------|--------|------|
+| user-service | "Can we deploy version 2.3?" | Ready |
+| payment-service | "I'm ready" | Ready |
+| inventory-service | "I'm not ready" | Not Ready (Byzantine behavior) |
+| notification-service | [timeout] | Unknown |
 
-# Consensus needed for safe deployment
-deployment_consensus:
-  required_votes: 3  # 2f+1 for f=1 Byzantine service
-  strategy: "majority_ready_or_abort"
-```
+**Deployment Consensus Configuration**:
+- Required votes: 3 (2f+1 for f=1 Byzantine service)
+- Strategy: "majority_ready_or_abort"
 
 ### 2. Configuration Management as Distributed Knowledge
 
-```python
-# etcd/Consul/Zookeeper solve distributed knowledge
-class DistributedConfig:
-    def __init__(self, consensus_cluster):
-        self.cluster = consensus_cluster
-    
-    def update_config(self, key: str, value: str):
-        """Update requires consensus across cluster"""
-        proposal = ConfigChange(key=key, value=value)
-        
-        # Raft consensus ensures all nodes agree
-        if self.cluster.propose(proposal):
-            return True
-        else:
-            raise ConsensusError("Failed to reach agreement")
-    
-    def get_config(self, key: str):
-        """Read might be stale but fast"""
-        return self.cluster.read_local(key)
-    
-    def get_config_consistent(self, key: str): 
-        """Read requires consensus - slow but accurate"""
-        return self.cluster.read_consensus(key)
-```
+**Implementation**: Distributed configuration management using etcd/Consul/Zookeeper with Raft consensus for updates, supporting both fast local reads and consistent consensus reads, with proper error handling for consensus failures.
 
 ### 3. Database Replication as Event Sourcing
 
@@ -828,18 +601,11 @@ Netflix's Eureka uses gossip protocols to handle service discovery for 100,000+ 
 
 ### Exercise 3: Event Sourcing Bank (45 minutes)
 
-**Materials**: Computer, Python
+**Materials**: Computer, preferred programming language
 
 **Scenario**: Build a bank account that never loses transaction history
 
-```python
-# Your implementation here - build on the earlier example
-# Add features like:
-# - Transfer money between accounts  
-# - Calculate balance at any point in time
-# - Handle concurrent transactions
-# - Implement conflict resolution for simultaneous transfers
-```
+**Implementation**: Event-sourced bank account with features including money transfers between accounts, balance calculation at any point in time, handling concurrent transactions, and conflict resolution for simultaneous transfers.
 
 **Learning**: Understand how immutable history solves many distributed coordination problems.
 
@@ -962,4 +728,3 @@ The key insight: **Distributed knowledge problems cascade through all other syst
 <h2>Core Axiom: Your Database Doesn't Know What Your Database Knows</h2>
 <p>Right now, at this very moment, your "strongly consistent" database has nodes that disagree about the current state. Your blockchain has competing chains. Your distributed cache has stale data that clients think is fresh. <strong>In distributed systems, there is no single source of truth—only competing versions of maybe-truth.</strong></p>
 </div>
-

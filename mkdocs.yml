@@ -372,6 +372,10 @@ nav:
       - Law 2 Mastery Exam: core-principles/laws/tests/asynchronous-reality-exam.md
       - Law 3 Learning Module: core-principles/laws/tests/emergent-chaos-test.md
       - Law 3 Mastery Exam: core-principles/laws/tests/emergent-chaos-exam.md
+      - Law 4 Assessment: core-principles/laws/tests/multidimensional-optimization-test.md
+      - Law 5 Assessment: core-principles/laws/tests/distributed-knowledge-test.md
+      - Law 6 Assessment: core-principles/laws/tests/cognitive-load-test.md
+      - Law 7 Assessment: core-principles/laws/tests/economic-reality-test.md
   - The 5 Pillars:
     - All Pillars Overview: core-principles/pillars/index.md
     - Pillar 1 - Work Distribution: core-principles/pillars/work-distribution.md
@@ -379,6 +383,12 @@ nav:
     - Pillar 3 - Truth Distribution: core-principles/pillars/truth-distribution.md
     - Pillar 4 - Control Distribution: core-principles/pillars/control-distribution.md
     - Pillar 5 - Intelligence Distribution: core-principles/pillars/intelligence-distribution.md
+    - Pillar Tests:
+      - Pillar 1 Assessment: core-principles/pillars/tests/work-distribution-test.md
+      - Pillar 2 Assessment: core-principles/pillars/tests/state-distribution-test.md
+      - Pillar 3 Assessment: core-principles/pillars/tests/truth-distribution-test.md
+      - Pillar 4 Assessment: core-principles/pillars/tests/control-distribution-test.md
+      - Pillar 5 Assessment: core-principles/pillars/tests/intelligence-distribution-test.md
 - Part 2 - Pattern Library:
   - Overview: pattern-library/index.md
   - Pattern Tools & Resources:
