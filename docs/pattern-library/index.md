@@ -5,7 +5,9 @@ title: Index
 description: 'TODO: Add description'
 ---
 
-# Pattern Library: 103 Battle-Tested Solutions
+# Pattern Library: 129 Distributed Systems Patterns
+
+**103 Production-Ready** • **26 Preview/Experimental**
 
 ## Table of Contents
 

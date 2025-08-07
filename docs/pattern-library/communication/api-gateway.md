@@ -1345,6 +1345,417 @@ graph LR
 | **Service Tier** | Internal routing | Application Load Balancer | 100K connections | Health checks, SSL termination |
 | **Microservice Tier** | Service mesh | AWS App Mesh/Envoy | Millions of requests | Circuit breaking, retries, observability |
 
+## Advanced Hash-Based Tenant Routing
+
+### Tenant-Aware Gateway Router Implementation
+
+```python
+import hashlib
+import mmh3
+from typing import Dict, List, Optional, Tuple
+import time
+from dataclasses import dataclass
+import numpy as np
+
+@dataclass
+class TenantProfile:
+    """Tenant configuration and routing preferences"""
+    tenant_id: str
+    tier: str  # 'premium', 'standard', 'free'
+    assigned_cell: Optional[int] = None
+    compliance_region: Optional[str] = None
+    sla_requirements: Dict = None
+    traffic_patterns: Dict = None
+    
+class TenantAwareGatewayRouter:
+    """Production-grade tenant routing with cell isolation"""
+    
+    def __init__(self, total_cells: int = 10):
+        self.total_cells = total_cells
+        self.tenant_profiles = {}  # tenant_id -> TenantProfile
+        self.cell_capacities = {}  # cell_id -> current load
+        self.routing_cache = {}  # LRU cache for routing decisions
+        self.compliance_cells = {
+            'EU': [0, 1, 2],    # GDPR compliant cells
+            'US': [3, 4, 5, 6], # US-based cells
+            'APAC': [7, 8, 9],  # Asia-Pacific cells
+        }
+        self.premium_cells = [0, 3, 7]  # Dedicated premium cells
+        
+    def route_request(self, request: Dict) -> Tuple[int, Dict]:
+        """Main routing function for API Gateway"""
+        
+        tenant_id = request.get('tenant_id')
+        user_id = request.get('user_id')
+        api_key = request.get('api_key')
+        
+        # 1. Extract tenant context
+        tenant = self._get_tenant_profile(tenant_id)
+        
+        # 2. Determine routing strategy
+        if tenant.tier == 'premium':
+            cell_id = self._route_premium_tenant(tenant, user_id)
+        elif tenant.compliance_region:
+            cell_id = self._route_compliance_aware(tenant, user_id)
+        else:
+            cell_id = self._route_standard_tenant(tenant, user_id)
+            
+        # 3. Apply capacity constraints
+        cell_id = self._ensure_capacity(cell_id, tenant)
+        
+        # 4. Build routing context
+        routing_context = {
+            'cell_id': cell_id,
+            'tenant_tier': tenant.tier,
+            'routing_algorithm': self._get_algorithm_used(tenant),
+            'sla_requirements': tenant.sla_requirements,
+            'cache_key': f"{tenant_id}:{user_id}:{cell_id}",
+        }
+        
+        return cell_id, routing_context
+    
+    def _route_premium_tenant(self, tenant: TenantProfile, user_id: str) -> int:
+        """Premium tenants get dedicated cells with isolation"""
+        
+        if tenant.assigned_cell is not None:
+            # Premium tenants can have dedicated cells
+            return tenant.assigned_cell
+            
+        # Use consistent hashing within premium cell pool
+        user_hash = int(hashlib.sha256(f"{tenant.tenant_id}:{user_id}".encode()).hexdigest(), 16)
+        
+        # Select from premium cells only
+        premium_cell_index = user_hash % len(self.premium_cells)
+        return self.premium_cells[premium_cell_index]
+    
+    def _route_compliance_aware(self, tenant: TenantProfile, user_id: str) -> int:
+        """Route based on compliance requirements"""
+        
+        allowed_cells = self.compliance_cells.get(
+            tenant.compliance_region, 
+            list(range(self.total_cells))
+        )
+        
+        # SHA256 for deterministic distribution
+        combined_key = f"{tenant.tenant_id}:{user_id}"
+        hash_value = int(hashlib.sha256(combined_key.encode()).hexdigest(), 16)
+        
+        # Map to allowed cells
+        cell_index = hash_value % len(allowed_cells)
+        return allowed_cells[cell_index]
+    
+    def _route_standard_tenant(self, tenant: TenantProfile, user_id: str) -> int:
+        """Standard routing using MurmurHash3 for speed"""
+        
+        # MurmurHash3 is 10x faster than SHA256
+        combined_key = f"{tenant.tenant_id}:{user_id}"
+        hash_value = mmh3.hash128(combined_key)
+        
+        # Exclude premium cells for standard tenants
+        available_cells = [i for i in range(self.total_cells) 
+                          if i not in self.premium_cells]
+        
+        cell_index = hash_value % len(available_cells)
+        return available_cells[cell_index]
+    
+    def _ensure_capacity(self, preferred_cell: int, tenant: TenantProfile) -> int:
+        """Check capacity and find alternative if needed"""
+        
+        current_load = self.cell_capacities.get(preferred_cell, 0)
+        max_capacity = self._get_cell_capacity(preferred_cell)
+        
+        # Use 80% threshold for better performance
+        if current_load < (max_capacity * 0.8):
+            self.cell_capacities[preferred_cell] = current_load + 1
+            return preferred_cell
+            
+        # Find alternative cell using rendezvous hashing
+        return self._find_alternative_cell(tenant, preferred_cell)
+    
+    def _find_alternative_cell(self, tenant: TenantProfile, excluded_cell: int) -> int:
+        """Use rendezvous hashing to find alternative cell"""
+        
+        max_weight = -1
+        selected_cell = excluded_cell
+        
+        for cell_id in range(self.total_cells):
+            if cell_id == excluded_cell:
+                continue
+                
+            # Check compliance constraints
+            if tenant.compliance_region:
+                allowed = self.compliance_cells[tenant.compliance_region]
+                if cell_id not in allowed:
+                    continue
+                    
+            # Calculate weight using rendezvous hash
+            combined = f"{tenant.tenant_id}:{cell_id}"
+            weight = mmh3.hash128(combined)
+            
+            # Apply capacity factor
+            current_load = self.cell_capacities.get(cell_id, 0)
+            capacity_factor = 1.0 - (current_load / self._get_cell_capacity(cell_id))
+            weight *= capacity_factor
+            
+            if weight > max_weight:
+                max_weight = weight
+                selected_cell = cell_id
+                
+        return selected_cell
+    
+    def _get_cell_capacity(self, cell_id: int) -> int:
+        """Get maximum capacity for a cell"""
+        # Premium cells have higher capacity
+        if cell_id in self.premium_cells:
+            return 10000
+        return 5000
+```
+
+### Cell-Based Rate Limiting at Gateway
+
+```python
+class CellBasedRateLimiter:
+    """Rate limiting with cell isolation to prevent noisy neighbor issues"""
+    
+    def __init__(self):
+        self.cell_limits = {}  # cell_id -> RateLimitConfig
+        self.tenant_limits = {}  # tenant_id -> RateLimitConfig
+        self.global_limits = {
+            'requests_per_second': 100000,
+            'requests_per_minute': 5000000,
+        }
+        self.cell_counters = {}  # cell_id -> current counts
+        self.tenant_counters = {}  # tenant_id -> current counts
+        
+    def check_rate_limit(self, request: Dict, cell_id: int) -> Tuple[bool, Dict]:
+        """Multi-tier rate limiting check"""
+        
+        tenant_id = request.get('tenant_id')
+        user_id = request.get('user_id')
+        api_key = request.get('api_key')
+        
+        # 1. Global rate limit check
+        if not self._check_global_limit():
+            return False, {'reason': 'global_limit_exceeded', 'retry_after': 60}
+            
+        # 2. Cell-level rate limit
+        if not self._check_cell_limit(cell_id):
+            return False, {'reason': 'cell_limit_exceeded', 'retry_after': 30}
+            
+        # 3. Tenant-level rate limit
+        if tenant_id and not self._check_tenant_limit(tenant_id):
+            return False, {'reason': 'tenant_limit_exceeded', 'retry_after': 10}
+            
+        # 4. User-level rate limit (within tenant)
+        if user_id and not self._check_user_limit(tenant_id, user_id):
+            return False, {'reason': 'user_limit_exceeded', 'retry_after': 5}
+            
+        return True, {'limits_remaining': self._get_remaining_limits(tenant_id, cell_id)}
+    
+    def _check_cell_limit(self, cell_id: int) -> bool:
+        """Check cell-specific rate limits"""
+        
+        if cell_id not in self.cell_limits:
+            # Default cell limits
+            self.cell_limits[cell_id] = {
+                'requests_per_second': 10000,
+                'burst_capacity': 15000,
+            }
+            
+        current_time = time.time()
+        if cell_id not in self.cell_counters:
+            self.cell_counters[cell_id] = {
+                'count': 0,
+                'window_start': current_time,
+            }
+            
+        counter = self.cell_counters[cell_id]
+        
+        # Sliding window algorithm
+        if current_time - counter['window_start'] >= 1.0:
+            # Reset window
+            counter['count'] = 1
+            counter['window_start'] = current_time
+            return True
+            
+        counter['count'] += 1
+        return counter['count'] <= self.cell_limits[cell_id]['requests_per_second']
+    
+    def _check_tenant_limit(self, tenant_id: str) -> bool:
+        """Tenant-specific rate limiting with tier support"""
+        
+        tenant_config = self.tenant_limits.get(tenant_id, {
+            'tier': 'standard',
+            'requests_per_second': 1000,
+            'requests_per_minute': 50000,
+        })
+        
+        # Premium tenants get higher limits
+        if tenant_config['tier'] == 'premium':
+            tenant_config['requests_per_second'] *= 10
+            tenant_config['requests_per_minute'] *= 10
+            
+        # Token bucket algorithm for tenant limits
+        return self._token_bucket_check(tenant_id, tenant_config)
+    
+    def _token_bucket_check(self, key: str, config: Dict) -> bool:
+        """Token bucket algorithm for smooth rate limiting"""
+        
+        current_time = time.time()
+        bucket = self.tenant_counters.get(key, {
+            'tokens': config['requests_per_second'],
+            'last_refill': current_time,
+        })
+        
+        # Refill tokens
+        time_passed = current_time - bucket['last_refill']
+        tokens_to_add = time_passed * config['requests_per_second']
+        bucket['tokens'] = min(
+            bucket['tokens'] + tokens_to_add,
+            config['requests_per_second'] * 2  # Allow 2x burst
+        )
+        bucket['last_refill'] = current_time
+        
+        # Check if token available
+        if bucket['tokens'] >= 1:
+            bucket['tokens'] -= 1
+            self.tenant_counters[key] = bucket
+            return True
+            
+        return False
+```
+
+### Cross-Cell Gateway Monitoring
+
+```python
+class CrossCellGatewayMonitor:
+    """Monitor cross-cell traffic patterns and correlations at gateway level"""
+    
+    def __init__(self):
+        self.request_traces = {}  # request_id -> trace data
+        self.cell_metrics = {}  # cell_id -> metrics
+        self.cross_cell_operations = []  # Track multi-cell requests
+        self.correlation_window = 300  # 5 minutes
+        
+    def track_gateway_request(self, request_id: str, cells: List[int], 
+                             latency_ms: float, status_code: int):
+        """Track requests that span multiple cells"""
+        
+        trace = {
+            'request_id': request_id,
+            'cells': cells,
+            'latency_ms': latency_ms,
+            'status_code': status_code,
+            'timestamp': time.time(),
+            'is_cross_cell': len(cells) > 1,
+        }
+        
+        self.request_traces[request_id] = trace
+        
+        # Update cell metrics
+        for cell_id in cells:
+            if cell_id not in self.cell_metrics:
+                self.cell_metrics[cell_id] = {
+                    'total_requests': 0,
+                    'failed_requests': 0,
+                    'cross_cell_requests': 0,
+                    'latencies': [],
+                }
+                
+            metrics = self.cell_metrics[cell_id]
+            metrics['total_requests'] += 1
+            
+            if status_code >= 500:
+                metrics['failed_requests'] += 1
+                
+            if len(cells) > 1:
+                metrics['cross_cell_requests'] += 1
+                self.cross_cell_operations.append(trace)
+                
+            metrics['latencies'].append(latency_ms)
+            
+        # Detect correlation patterns
+        if len(cells) > 1:
+            self._analyze_cross_cell_correlation(cells, status_code)
+    
+    def _analyze_cross_cell_correlation(self, cells: List[int], status_code: int):
+        """Detect correlated failures across cells"""
+        
+        if status_code < 500:
+            return  # Only track failures
+            
+        current_time = time.time()
+        window_start = current_time - self.correlation_window
+        
+        # Find recent failures in the same cells
+        recent_failures = [
+            trace for trace in self.cross_cell_operations
+            if trace['timestamp'] > window_start
+            and trace['status_code'] >= 500
+            and set(trace['cells']).intersection(cells)
+        ]
+        
+        if len(recent_failures) > 10:
+            # High correlation detected
+            self._raise_correlation_alert(cells, len(recent_failures))
+    
+    def get_cell_health_scores(self) -> Dict[int, float]:
+        """Calculate health score for each cell"""
+        
+        health_scores = {}
+        
+        for cell_id, metrics in self.cell_metrics.items():
+            if metrics['total_requests'] == 0:
+                health_scores[cell_id] = 1.0
+                continue
+                
+            # Calculate health factors
+            success_rate = 1.0 - (metrics['failed_requests'] / metrics['total_requests'])
+            
+            # Latency score (normalize to 0-1)
+            avg_latency = np.mean(metrics['latencies']) if metrics['latencies'] else 0
+            latency_score = max(0, 1.0 - (avg_latency / 1000))  # 1000ms as baseline
+            
+            # Cross-cell penalty (isolation is good)
+            isolation_score = 1.0 - (metrics['cross_cell_requests'] / metrics['total_requests'])
+            
+            # Weighted health score
+            health_scores[cell_id] = (
+                success_rate * 0.5 +
+                latency_score * 0.3 +
+                isolation_score * 0.2
+            )
+            
+        return health_scores
+    
+    def get_routing_recommendations(self) -> Dict[str, any]:
+        """Provide routing recommendations based on cell health"""
+        
+        health_scores = self.get_cell_health_scores()
+        
+        recommendations = {
+            'healthy_cells': [cell for cell, score in health_scores.items() if score > 0.8],
+            'degraded_cells': [cell for cell, score in health_scores.items() if 0.5 < score <= 0.8],
+            'unhealthy_cells': [cell for cell, score in health_scores.items() if score <= 0.5],
+            'preferred_routing': self._calculate_preferred_routing(health_scores),
+        }
+        
+        return recommendations
+    
+    def _calculate_preferred_routing(self, health_scores: Dict[int, float]) -> List[int]:
+        """Calculate preferred routing order based on health"""
+        
+        # Sort cells by health score
+        sorted_cells = sorted(
+            health_scores.items(), 
+            key=lambda x: x[1], 
+            reverse=True
+        )
+        
+        # Return ordered list of cells
+        return [cell_id for cell_id, _ in sorted_cells]
+```
+
 ### Uber: City-Based Edge Architecture
 
 ```mermaid

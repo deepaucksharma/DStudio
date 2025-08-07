@@ -17,9 +17,20 @@ prerequisites:
 - concurrency-control
 reading_time: 15 min
 related_laws:
-- correlated-failure
-- emergent-chaos
-- economic-reality
+  primary:
+    - number: 1
+      aspect: "isolation_effectiveness"
+      description: "Creates boundaries that prevent failure correlation between components"
+    - number: 4
+      aspect: "chaos_containment"
+      description: "Contains emergent failures within resource boundaries"
+  secondary:
+    - number: 7
+      aspect: "resource_efficiency"
+      description: "Trade-off between isolation and resource utilization"
+    - number: 3
+      aspect: "cognitive_model"
+      description: "Simplifies mental model by isolating failure domains"
 related_pillars:
 - work
 - control
@@ -37,6 +48,70 @@ trade_offs:
 type: pattern
 ---
 
+
+## Fundamental Law Connections
+
+### Isolation Effectiveness (Law 1)
+Bulkheads are the physical implementation of correlation prevention:
+- **Resource Correlation Prevention**: Thread pool exhaustion in one bulkhead doesn't affect others
+- **Failure Containment**: Memory leak in Service A can't crash Service B
+- **Blast Radius Limitation**: Each bulkhead defines maximum failure scope
+- **Statistical Independence**: Bulkheads create independent failure domains
+- **Mathematical Proof**: P(system failure) = P(all bulkheads fail) ≈ 0
+
+### Chaos Containment (Law 4)
+Bulkheads prevent emergent failures from spreading:
+- **Resource Exhaustion Boundary**: Runaway process confined to its bulkhead
+- **Cascade Prevention**: Slow responses don't create system-wide backup
+- **Feedback Loop Breaking**: Resource limits prevent positive feedback
+- **Phase Transition Prevention**: System can't reach critical resource threshold
+
+### Resource Efficiency Trade-off (Law 7)
+- **Overhead Cost**: 10-30% resource overhead for isolation
+- **Underutilization**: Resources can't be shared across bulkheads
+- **Optimal Sizing**: Too small = frequent rejection, too large = waste
+- **ROI Calculation**: Isolation cost vs downtime prevention value
+
+### Cognitive Simplification (Law 3)
+- **Clear Failure Boundaries**: Operators know exactly what's affected
+- **Simplified Debugging**: Issues isolated to specific bulkhead
+- **Mental Model**: Ship compartment analogy intuitive
+- **Configuration Complexity**: Initial setup requires careful planning
+
+## Case Studies with Law Applications
+
+### Netflix Hystrix Bulkheads
+**Laws Demonstrated**:
+- **Law 1**: Thread pool isolation prevented 2015 regional outage from going global
+- **Law 4**: Contained recommendation service failure to its bulkhead
+- **Law 7**: 20% thread overhead accepted for fault isolation
+
+**Key Insights**:
+- Separate thread pools per external dependency
+- Queue overflow provides backpressure
+- Bulkhead metrics enable capacity planning
+
+### Kubernetes Resource Quotas
+**Laws Demonstrated**:
+- **Law 1**: Namespace isolation prevents noisy neighbor problems
+- **Law 3**: Clear resource boundaries simplify multi-tenancy
+- **Law 7**: Resource fragmentation vs isolation trade-off
+
+**Key Insights**:
+- CPU and memory limits per namespace
+- Pod disruption budgets for availability
+- Resource quotas prevent resource exhaustion
+
+### Database Connection Pooling
+**Laws Demonstrated**:
+- **Law 1**: Separate pools for read/write prevent correlation
+- **Law 4**: Connection leak contained to affected pool
+- **Law 7**: Connection overhead vs isolation benefits
+
+**Key Insights**:
+- Critical queries get dedicated connection pool
+- Analytics queries can't starve transactional workload
+- Pool sizing based on workload patterns
 
 ## The Complete Blueprint
 

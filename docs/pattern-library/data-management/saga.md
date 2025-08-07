@@ -3,7 +3,96 @@ title: Saga Pattern
 description: Manage distributed transactions without two-phase commit
 pattern_status: recommended
 category: data-management
+related_laws:
+  primary:
+    - number: 1
+      aspect: "compensation_correlation"
+      description: "Compensating transactions can cascade creating correlated rollbacks"
+    - number: 2
+      aspect: "async_coordination"
+      description: "Long-running transactions with eventual consistency timing"
+  secondary:
+    - number: 4
+      aspect: "emergent_complexity"
+      description: "Complex failure modes emerge from partial transaction states"
+    - number: 5
+      aspect: "state_distribution"
+      description: "Transaction state distributed across multiple services"
+    - number: 7
+      aspect: "compensation_costs"
+      description: "Rollback operations have business and technical costs"
 ---
+
+## Fundamental Law Connections
+
+### Compensation Correlation (Law 1)
+Saga compensations can create correlated failures:
+- **Cascade Rollbacks**: One compensation failure affects entire saga
+- **Resource Contention**: Multiple compensations compete for same resources
+- **Compensation Storms**: Mass rollbacks during system issues
+- **Shared Dependencies**: Payment gateway used by multiple compensations
+- **Mitigation**: Idempotent compensations, retry with backoff, compensation isolation
+
+### Asynchronous Coordination (Law 2)
+Sagas are inherently asynchronous with complex timing:
+- **Transaction Duration**: Minutes to hours for complete saga
+- **Eventual Consistency Window**: Inconsistent state during execution
+- **Timeout Management**: Each step needs appropriate timeouts
+- **Message Ordering**: Out-of-order events in choreography
+- **Clock Synchronization**: Distributed timeout coordination
+
+### Emergent Complexity (Law 4)
+- **Partial State Explosion**: 2^n possible states for n steps
+- **Circular Dependencies**: Compensation A needs B, B needs A
+- **Deadlock Scenarios**: Competing sagas lock resources
+- **Orphaned Transactions**: Lost messages leave hanging state
+
+### State Distribution (Law 5)
+- **Transaction Context**: State scattered across services
+- **Orchestrator State**: Central state in orchestration pattern
+- **Event Log**: Choreography state in event stream
+- **Consistency Challenges**: No global view of transaction
+
+### Compensation Costs (Law 7)
+- **Business Costs**: Refund fees, shipping cancellations
+- **Technical Costs**: Additional API calls, storage for state
+- **Time Costs**: Compensation can take longer than forward path
+- **Opportunity Costs**: Resources locked during saga execution
+
+## Case Studies with Law Applications
+
+### Uber Trip Booking
+**Laws Demonstrated**:
+- **Law 1**: Driver assignment rollback can cascade to payment
+- **Law 2**: Multi-minute saga for driver matching and route planning
+- **Law 7**: Cancellation fees as compensation cost
+
+**Key Insights**:
+- Choreography for driver matching flexibility
+- Compensation includes driver notification
+- Partial completion allowed (trip without receipt)
+
+### Amazon Order Processing
+**Laws Demonstrated**:
+- **Law 1**: Inventory reservation rollback affects multiple orders
+- **Law 4**: Complex state with pre-orders and backorders
+- **Law 5**: Order state distributed across 50+ services
+
+**Key Insights**:
+- Orchestration for complex order workflows
+- Compensations prioritized by customer tier
+- Some compensations deferred to off-peak
+
+### Booking.com Reservation
+**Laws Demonstrated**:
+- **Law 2**: 30-second timeout for hotel confirmation
+- **Law 7**: Hotel cancellation penalties as compensation cost
+- **Law 1**: Payment and hotel systems correlation
+
+**Key Insights**:
+- Hybrid orchestration/choreography approach
+- Provisional bookings to handle slow confirmations
+- Compensation strategies vary by cancellation policy
 
 ## The Complete Blueprint
 

@@ -1,9 +1,102 @@
 ---
 title: CQRS Pattern
 description: Command Query Responsibility Segregation for scalable systems
+related_laws:
+  primary:
+    - number: 3
+      aspect: "cognitive_separation"
+      description: "Separates mental models for reading and writing operations"
+    - number: 5
+      aspect: "knowledge_optimization"
+      description: "Different knowledge representations for commands and queries"
+  secondary:
+    - number: 2
+      aspect: "eventual_consistency"
+      description: "Read models lag behind write models creating timing challenges"
+    - number: 6
+      aspect: "dual_optimization"
+      description: "Optimizes separately for write consistency and read performance"
+    - number: 7
+      aspect: "infrastructure_costs"
+      description: "Dual infrastructure increases operational costs"
 ---
 
 # CQRS Pattern
+
+## Fundamental Law Connections
+
+### Cognitive Separation (Law 3)
+CQRS reduces cognitive load through separation of concerns:
+- **Write Mental Model**: Focus on business rules and consistency
+- **Read Mental Model**: Focus on query optimization and views
+- **Developer Specialization**: Different teams can own read vs write
+- **Debugging Simplification**: Issues isolated to one side
+- **Trade-off**: Initial learning curve for the pattern itself
+
+### Knowledge Optimization (Law 5)
+Different knowledge representations for different purposes:
+- **Write Model**: Normalized, domain-focused, consistency-oriented
+- **Read Models**: Denormalized, query-optimized, performance-oriented
+- **Multiple Projections**: Same data in different shapes for different queries
+- **Event Stream**: Knowledge transfer from write to read side
+- **Schema Evolution**: Read and write can evolve independently
+
+### Eventual Consistency Timing (Law 2)
+- **Projection Lag**: Read models trail write models by seconds to minutes
+- **Synchronization Delays**: Event processing and projection building time
+- **Consistency Windows**: Users may see stale data temporarily
+- **Ordering Challenges**: Events must be processed in correct order
+
+### Dual Optimization (Law 6)
+- **Write Optimization**: ACID transactions, normalized data, business rules
+- **Read Optimization**: Denormalized views, caching, indexes
+- **Storage Trade-offs**: Duplication for performance
+- **Consistency vs Performance**: Choose per operation type
+
+### Infrastructure Costs (Law 7)
+- **Dual Databases**: Separate write and read stores
+- **Event Infrastructure**: Message bus, event store costs
+- **Synchronization Overhead**: Projection builders and handlers
+- **Operational Complexity**: More moving parts to manage
+- **ROI**: Cost justified by scalability and performance gains
+
+## Case Studies with Law Applications
+
+### Amazon Product Catalog
+**Laws Demonstrated**:
+- **Law 3**: Separate teams for catalog updates vs search
+- **Law 5**: Multiple read models (search, recommendations, browse)
+- **Law 7**: 3x infrastructure cost for 100x read performance
+
+**Key Insights**:
+- Write model handles vendor updates
+- Read models optimized for customer queries
+- ElasticSearch for search, DynamoDB for browsing
+- 5-second eventual consistency acceptable
+
+### Banking Transaction System
+**Laws Demonstrated**:
+- **Law 2**: Real-time balance vs statement generation timing
+- **Law 5**: Transaction log (write) vs account views (read)
+- **Law 6**: Consistency for writes, performance for reads
+
+**Key Insights**:
+- Write side ensures ACID for transactions
+- Read side provides various account views
+- Regulatory reports as specialized projections
+- Event sourcing naturally fits CQRS
+
+### LinkedIn Feed Generation
+**Laws Demonstrated**:
+- **Law 3**: Content creation vs feed consumption separation
+- **Law 5**: Posts (write) vs personalized feeds (read)
+- **Law 7**: Massive read infrastructure for billions of feed views
+
+**Key Insights**:
+- Write model handles post creation
+- Multiple read models for different feed algorithms
+- Pre-computed feeds for active users
+- Eventually consistent feeds acceptable
 
 ## The Complete Blueprint
 

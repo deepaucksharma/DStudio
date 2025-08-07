@@ -34,9 +34,23 @@ production_checklist:
 - Implement session management strategy (stateless preferred)
 reading_time: 18 min
 related_laws:
-- correlated-failure
-- asynchronous-reality
-- multidimensional-optimization
+  primary:
+    - number: 1
+      aspect: "single_point_of_failure"
+      description: "Load balancer itself can become a correlation point for all traffic"
+    - number: 2
+      aspect: "routing_timing"
+      description: "Health check delays and connection timing affect routing decisions"
+  secondary:
+    - number: 3
+      aspect: "algorithm_complexity"
+      description: "Complex routing algorithms increase cognitive load"
+    - number: 5
+      aspect: "backend_knowledge"
+      description: "Maintains knowledge of backend health and capacity"
+    - number: 6
+      aspect: "multi_criteria_routing"
+      description: "Balances latency, throughput, and availability"
 related_pillars:
 - work
 - control
@@ -45,6 +59,77 @@ tagline: Traffic distribution foundation for scalable systems
 title: Load Balancing Pattern
 type: pattern
 ---
+
+## Fundamental Law Connections
+
+### Single Point of Failure (Law 1)
+Load balancer creates both correlation reduction and new correlation risks:
+- **LB as SPOF**: Single load balancer failure affects all traffic
+- **Health Check Correlation**: Simultaneous health check failures
+- **Connection Pool Exhaustion**: Shared connection limits create correlation
+- **DNS Correlation**: DNS-based load balancing shares DNS failure risk
+- **Mitigation**: Multiple LBs, anycast, DNS failover, active-passive pairs
+
+### Routing Timing (Law 2)
+Load balancing involves complex timing considerations:
+- **Health Check Intervals**: 5-30 second delays in detecting failures
+- **Connection Draining**: Graceful shutdown can take minutes
+- **DNS Propagation**: DNS changes take minutes to hours
+- **Sticky Sessions**: Session affinity creates temporal coupling
+- **Algorithm Convergence**: Consistent hashing changes propagate slowly
+
+### Algorithm Complexity (Law 3)
+- **Algorithm Selection**: Round-robin vs weighted vs least connections
+- **Debugging Difficulty**: Why did request go to that server?
+- **Configuration Complexity**: Health checks, weights, pools
+- **Mental Model**: Understanding traffic distribution patterns
+
+### Backend Knowledge (Law 5)
+- **Server Registry**: Maintains list of healthy backends
+- **Capacity Awareness**: Tracks server load and capacity
+- **Health Status**: Continuous monitoring of backend health
+- **Configuration Sync**: Keeping LB config aligned with reality
+
+### Multi-Criteria Routing (Law 6)
+- **Latency vs Throughput**: Closest server vs least loaded
+- **Availability vs Performance**: More backends vs quality
+- **Cost vs Performance**: Cheaper regions vs faster
+- **Consistency vs Distribution**: Sticky sessions vs even spread
+
+## Case Studies with Law Applications
+
+### Google Maglev
+**Laws Demonstrated**:
+- **Law 1**: ECMP (Equal Cost Multi-Path) eliminates LB as SPOF
+- **Law 2**: Consistent hashing minimizes connection disruption
+- **Law 5**: Distributed backend knowledge via gossip protocol
+
+**Key Insights**:
+- Software load balancing at network speed
+- Connection table sharing prevents correlation
+- 5-tuple hashing for consistent routing
+
+### AWS Elastic Load Balancer
+**Laws Demonstrated**:
+- **Law 1**: Multi-AZ deployment prevents zone correlation
+- **Law 6**: Application LB routes on multiple criteria
+- **Law 7**: Pay-per-use model aligns with traffic
+
+**Key Insights**:
+- Automatic scaling based on traffic
+- Cross-zone load balancing for even distribution
+- Connection draining for zero-downtime deployments
+
+### Cloudflare Anycast
+**Laws Demonstrated**:
+- **Law 1**: Anycast eliminates single point of failure
+- **Law 2**: BGP convergence affects routing timing
+- **Law 5**: Edge locations share backend knowledge
+
+**Key Insights**:
+- Global load balancing via BGP
+- DDoS mitigation at edge
+- Geographic routing for latency optimization
 
 ## The Complete Blueprint
 

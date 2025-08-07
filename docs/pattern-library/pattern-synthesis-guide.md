@@ -2,16 +2,16 @@
 description: A comprehensive framework for understanding and applying distributed
   systems patterns
 essential_question: When and how should we implement pattern synthesis guide - making
-  sense of 91 patterns in our distributed system?
+  sense of 129 patterns in our distributed system?
 icon: material/molecule
-tagline: Master pattern synthesis guide - making sense of 91 patterns for distributed
+tagline: Master pattern synthesis guide - making sense of 129 patterns for distributed
   systems success
 tags:
 - patterns
 - synthesis
 - architecture
 - mental-models
-title: Pattern Synthesis Guide - Making Sense of 91 Patterns
+title: Pattern Synthesis Guide - Making Sense of 129 Patterns
 ---
 
 
@@ -33,11 +33,11 @@ title: Pattern Synthesis Guide - Making Sense of 91 Patterns
 | Simple applications | Unnecessary complexity | Direct implementation |
 | Low traffic systems | Overhead not justified | Basic architecture |
 | Limited resources | High operational cost | Simpler patterns |
-**When and how should we implement pattern synthesis guide - making sense of 91 patterns in our distributed system?**
+**When and how should we implement pattern synthesis guide - making sense of 129 patterns in our distributed system?**
 
-# Pattern Synthesis Guide: Making Sense of 91 Patterns
+# Pattern Synthesis Guide: Making Sense of 129 Patterns
 
-With 91 distributed systems patterns, the challenge isn't finding solutions—it's understanding which patterns work together, when to use them, and how they relate. This guide synthesizes the entire pattern library into digestible mental models.
+With 129 distributed systems patterns (103 production-ready, 26 preview), the challenge isn't finding solutions—it's understanding which patterns work together, when to use them, and how they relate. This guide synthesizes the entire pattern library into digestible mental models.
 
 ## 🧠 The Core Mental Model: The Distributed Systems Stack
 

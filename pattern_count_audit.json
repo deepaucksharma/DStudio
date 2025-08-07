@@ -1,0 +1,187 @@
+{
+  "total": 132,
+  "categories": {
+    "data-management": {
+      "count": 28,
+      "patterns": [
+        "bloom-filter.md",
+        "cdc.md",
+        "consistent-hashing.md",
+        "cqrs.md",
+        "crdt.md",
+        "data-lake.md",
+        "data-lakehouse.md",
+        "data-mesh.md",
+        "deduplication.md",
+        "delta-sync.md",
+        "distributed-storage.md",
+        "double-entry-ledger.md",
+        "event-sourcing.md",
+        "eventual-consistency.md",
+        "idempotency.md",
+        "lsm-tree.md",
+        "materialized-view.md",
+        "merkle-trees.md",
+        "outbox.md",
+        "polyglot-persistence.md",
+        "read-repair.md",
+        "saga.md",
+        "segmented-log.md",
+        "shared-database.md",
+        "spatial-indexing.md",
+        "stream-processing.md",
+        "tunable-consistency.md",
+        "write-ahead-log.md"
+      ]
+    },
+    "scaling": {
+      "count": 26,
+      "patterns": [
+        "analytics-scale.md",
+        "auto-scaling.md",
+        "backpressure.md",
+        "caching-strategies.md",
+        "chunking.md",
+        "content-delivery-network.md",
+        "database-per-service.md",
+        "database-sharding.md",
+        "edge-computing.md",
+        "geo-distribution.md",
+        "geo-replication.md",
+        "geographic-load-balancing.md",
+        "horizontal-pod-autoscaler.md",
+        "id-generation-scale.md",
+        "load-balancing.md",
+        "multi-region.md",
+        "priority-queue.md",
+        "queues-streaming.md",
+        "rate-limiting.md",
+        "request-batching.md",
+        "scatter-gather.md",
+        "serverless-event-processing.md",
+        "sharding.md",
+        "shuffle-sharding.md",
+        "tile-caching.md",
+        "url-normalization.md"
+      ]
+    },
+    "architecture": {
+      "count": 19,
+      "patterns": [
+        "ambassador.md",
+        "anti-corruption-layer.md",
+        "backends-for-frontends.md",
+        "cap-theorem.md",
+        "cell-based.md",
+        "choreography.md",
+        "container-orchestration.md",
+        "event-driven.md",
+        "event-streaming.md",
+        "gitops-deployment.md",
+        "graphql-federation.md",
+        "hybrid-cloud.md",
+        "kappa-architecture.md",
+        "lambda-architecture.md",
+        "serverless-faas.md",
+        "shared-nothing.md",
+        "sidecar.md",
+        "strangler-fig.md",
+        "valet-key.md"
+      ]
+    },
+    "coordination": {
+      "count": 17,
+      "patterns": [
+        "actor-model.md",
+        "cas.md",
+        "clock-sync.md",
+        "consensus.md",
+        "distributed-lock.md",
+        "distributed-queue.md",
+        "emergent-leader.md",
+        "generation-clock.md",
+        "hlc.md",
+        "leader-election.md",
+        "leader-follower.md",
+        "lease.md",
+        "logical-clocks.md",
+        "low-high-water-marks.md",
+        "state-watch.md",
+        "two-phase-commit.md",
+        "vector-clocks.md"
+      ]
+    },
+    "resilience": {
+      "count": 13,
+      "patterns": [
+        "bulkhead.md",
+        "circuit-breaker-transformed.md",
+        "circuit-breaker.md",
+        "failover.md",
+        "fault-tolerance.md",
+        "graceful-degradation.md",
+        "health-check.md",
+        "heartbeat.md",
+        "load-shedding.md",
+        "retry-backoff.md",
+        "split-brain.md",
+        "timeout-advanced.md",
+        "timeout.md"
+      ]
+    },
+    "security": {
+      "count": 8,
+      "patterns": [
+        "api-security-gateway.md",
+        "consent-management.md",
+        "location-privacy.md",
+        "secrets-management.md",
+        "security-scanning-pipeline.md",
+        "threat-modeling.md",
+        "zero-trust-architecture.md",
+        "zero-trust-security.md"
+      ]
+    },
+    "communication": {
+      "count": 8,
+      "patterns": [
+        "api-gateway.md",
+        "grpc.md",
+        "publish-subscribe.md",
+        "request-reply.md",
+        "service-discovery.md",
+        "service-mesh.md",
+        "service-registry.md",
+        "websocket.md"
+      ]
+    },
+    "ml-infrastructure": {
+      "count": 5,
+      "patterns": [
+        "distributed-training.md",
+        "feature-store.md",
+        "ml-pipeline-orchestration.md",
+        "model-serving-scale.md",
+        "model-versioning-rollback.md"
+      ]
+    },
+    "deployment": {
+      "count": 5,
+      "patterns": [
+        "blue-green-deployment.md",
+        "blue-green.md",
+        "canary-release.md",
+        "canary.md",
+        "feature-flags.md"
+      ]
+    },
+    "cost-optimization": {
+      "count": 3,
+      "patterns": [
+        "finops.md",
+        "resource-rightsizing.md",
+        "spot-instance-management.md"
+      ]
+    }
+  }
+}

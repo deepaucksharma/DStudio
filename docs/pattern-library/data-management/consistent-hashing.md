@@ -12,7 +12,96 @@ tagline: Master consistent hashing for distributed systems success
 trade_offs:
   cons: []
   pros: []
+related_laws:
+  primary:
+    - number: 1
+      aspect: "node_failure_impact"
+      description: "Minimizes data movement correlation when nodes fail"
+    - number: 5
+      aspect: "key_distribution"
+      description: "Distributes knowledge of key ownership across the ring"
+  secondary:
+    - number: 2
+      aspect: "rebalancing_timing"
+      description: "Data migration timing when topology changes"
+    - number: 6
+      aspect: "load_distribution"
+      description: "Balances between even distribution and minimal movement"
+    - number: 7
+      aspect: "virtual_node_overhead"
+      description: "Memory cost of virtual nodes for better distribution"
 ---
+
+## Fundamental Law Connections
+
+### Node Failure Impact (Law 1)
+Consistent hashing minimizes failure correlation:
+- **Limited Redistribution**: Only 1/N keys affected when node fails
+- **Neighbor-Only Impact**: Only adjacent nodes receive redistributed data
+- **Replication Strategy**: Successor nodes provide natural failover
+- **Correlation Reduction**: Node failures don't cascade to all nodes
+- **Mathematical Proof**: Expected keys moved = K/N where K = total keys
+
+### Key Distribution Knowledge (Law 5)
+Distributed ownership without central coordination:
+- **Ring Topology**: Each node knows its position and neighbors
+- **Deterministic Routing**: Any node can calculate key owner
+- **No Central Registry**: Knowledge distributed across all nodes
+- **Gossip Propagation**: Ring membership changes spread gradually
+- **Eventual Consistency**: Ring view converges over time
+
+### Rebalancing Timing (Law 2)
+- **Migration Duration**: Moving 1/N data can take minutes to hours
+- **Consistency Window**: Keys in transit have unclear ownership
+- **Read/Write During Migration**: Handling requests for moving keys
+- **Synchronization**: Coordinating ring view updates
+
+### Load Distribution Optimization (Law 6)
+- **Uniformity vs Flexibility**: Perfect balance vs operational simplicity
+- **Virtual Nodes**: Better distribution vs memory overhead
+- **Weighted Nodes**: Capacity awareness vs complexity
+- **Bounded Load**: Preventing hot spots vs movement cost
+
+### Virtual Node Overhead (Law 7)
+- **Memory Cost**: Each virtual node consumes memory
+- **Optimal Count**: 100-200 virtual nodes typical
+- **Diminishing Returns**: More virtual nodes → marginal improvement
+- **Operational Cost**: Managing virtual node assignments
+
+## Case Studies with Law Applications
+
+### Amazon DynamoDB
+**Laws Demonstrated**:
+- **Law 1**: Node failures affect only 1/N of keyspace
+- **Law 5**: Preference list distributed across nodes
+- **Law 7**: Virtual nodes tuned for cost/performance balance
+
+**Key Insights**:
+- 100+ virtual nodes per physical node
+- Consistent hashing with virtual nodes for even distribution
+- Vector clocks for version reconciliation
+
+### Apache Cassandra
+**Laws Demonstrated**:
+- **Law 1**: Token ranges minimize redistribution on scale
+- **Law 2**: Streaming protocol for data migration
+- **Law 5**: Gossip protocol for ring membership
+
+**Key Insights**:
+- Token-based partitioning (variant of consistent hashing)
+- Vnodes (virtual nodes) for operational flexibility
+- Repair processes handle inconsistencies
+
+### Memcached (with ketama)
+**Laws Demonstrated**:
+- **Law 1**: Cache misses limited to 1/N on node failure
+- **Law 6**: Load distribution with weighted nodes
+- **Law 7**: Minimal overhead for cache use case
+
+**Key Insights**:
+- Ketama algorithm for better distribution
+- Client-side consistent hashing
+- No data migration on failures (cache regeneration)
 
 ## The Complete Blueprint
 
