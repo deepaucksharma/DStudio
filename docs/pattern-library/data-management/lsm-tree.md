@@ -48,6 +48,76 @@ trade_offs:
 type: pattern
 ---
 
+## The Complete Blueprint
+
+LSM Tree (Log-Structured Merge Tree) is a write-optimized storage engine architecture that transforms random write operations into sequential writes by buffering data in memory and periodically flushing sorted runs to disk-based immutable files called SSTables. This pattern solves the fundamental I/O performance challenge where random disk writes are orders of magnitude slower than sequential writes, making it ideal for write-heavy workloads. The LSM tree operates through a multi-level hierarchy: writes first go to a memory-resident MemTable (typically implemented as a skip list), which provides fast insertion and maintains sorted order. When the MemTable reaches capacity, it's flushed to disk as an immutable SSTable file. Background compaction processes periodically merge multiple SSTables from lower levels into fewer, larger SSTables at higher levels, maintaining data organization and enabling efficient reads through bloom filters and sparse indexes. This architecture powers many modern databases including RocksDB, Cassandra, and HBase, trading read complexity for exceptional write throughput and efficient use of sequential I/O patterns.
+
+```mermaid
+graph TB
+    subgraph "Write Path"
+        WRITE[Write Operation]
+        WAL[Write-Ahead Log<br/>Durability]
+        MEMTABLE[MemTable<br/>Skip List in Memory]
+    end
+    
+    subgraph "Flush Process"
+        FLUSH[Flush Trigger<br/>Size/Time Threshold]
+        SSTABLE0[SSTable L0<br/>Immutable Sorted File]
+    end
+    
+    subgraph "LSM Levels"
+        L0[Level 0<br/>4 SSTables<br/>~10MB each]
+        L1[Level 1<br/>10 SSTables<br/>~100MB each]
+        L2[Level 2<br/>100 SSTables<br/>~1GB each]
+        L3[Level 3<br/>1000 SSTables<br/>~10GB each]
+    end
+    
+    subgraph "Compaction Engine"
+        COMPACT[Background<br/>Compaction]
+        MERGE[Merge Sorted<br/>Runs]
+        DELETE[Tombstone<br/>Processing]
+    end
+    
+    subgraph "Read Path"
+        READ[Read Operation]
+        BLOOM[Bloom Filters<br/>Negative Lookups]
+        INDEX[Sparse Indexes<br/>Block Location]
+    end
+    
+    WRITE --> WAL
+    WRITE --> MEMTABLE
+    MEMTABLE -->|Full| FLUSH
+    FLUSH --> SSTABLE0
+    SSTABLE0 --> L0
+    
+    L0 -->|Compaction| COMPACT
+    L1 -->|Compaction| COMPACT
+    L2 -->|Compaction| COMPACT
+    COMPACT --> MERGE
+    MERGE --> DELETE
+    DELETE --> L1
+    DELETE --> L2
+    DELETE --> L3
+    
+    READ --> MEMTABLE
+    READ --> BLOOM
+    BLOOM --> INDEX
+    INDEX --> L0
+    INDEX --> L1
+    INDEX --> L2
+    INDEX --> L3
+    
+    style MEMTABLE fill:#e8f5e8,stroke:#4caf50
+    style L0 fill:#e1f5fe,stroke:#2196f3
+    style L1 fill:#e1f5fe,stroke:#2196f3
+    style L2 fill:#e1f5fe,stroke:#2196f3
+    style L3 fill:#e1f5fe,stroke:#2196f3
+    style COMPACT fill:#fff3e0,stroke:#ff9800
+```
+
+### What You'll Master
+
+By implementing LSM trees, you'll achieve **write throughput optimization** that converts expensive random I/O into efficient sequential writes, **storage efficiency** through natural data compression and deduplication during compaction, **scalable architecture** that handles massive write workloads by distributing I/O over time through background processes, **modern database internals understanding** that underlies systems like RocksDB and Cassandra, and **performance tuning expertise** in balancing write amplification, read amplification, and space amplification through compaction strategies. You'll master the fundamental tradeoffs between write performance and read complexity while building storage engines that excel in write-heavy scenarios.
 
 # LSM Tree (Log-Structured Merge Tree)
 

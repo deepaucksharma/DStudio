@@ -42,6 +42,58 @@ when_not_to_use: Single-instance apps, dev environments, systems without automat
 when_to_use: Microservices, load balancers, container orchestration, service mesh, auto-healing systems
 ---
 
+## The Complete Blueprint
+
+Health checks are the nervous system of modern distributed applications - they provide automated detection of failures, enable intelligent traffic routing, and form the foundation of self-healing infrastructure. This pattern distinguishes between three critical health states: liveness (is the service alive?), readiness (can it handle traffic?), and startup (is it still initializing?). When implemented correctly, health checks enable load balancers to route around failures, container orchestrators to restart failed services, and monitoring systems to detect issues before they impact users. The key insight is that different stakeholders need different health signals - a service might be alive but not ready, or ready but overwhelming downstream systems.
+
+```mermaid
+graph TB
+    subgraph "Client Traffic"
+        Client[Client Requests]
+    end
+    
+    subgraph "Health Check System"
+        LB[Load Balancer]
+        Monitor[Health Monitor]
+        
+        subgraph "Service Instance"
+            Live[/health/live<br/>Liveness Check]
+            Ready[/health/ready<br/>Readiness Check]
+            Start[/health/startup<br/>Startup Check]
+            App[Application Code]
+        end
+        
+        subgraph "Dependencies"
+            DB[(Database)]
+            Cache[(Cache)]
+            Queue[Message Queue]
+        end
+    end
+    
+    Client --> LB
+    LB --> Monitor
+    Monitor --> Live
+    Monitor --> Ready
+    Monitor --> Start
+    
+    Live --> App
+    Ready --> DB
+    Ready --> Cache
+    Ready --> Queue
+    
+    Start --> App
+    
+    App -.->|Restart if failed| Live
+    LB -.->|Route traffic| Ready
+    Monitor -.->|Wait longer| Start
+```
+
+### What You'll Master
+
+- **Three-tier health assessment**: Implement liveness, readiness, and startup probes with appropriate timeouts and thresholds
+- **Dependency health aggregation**: Design health checks that properly assess critical dependencies without cascading failures
+- **Production monitoring**: Set up alerting and dashboards to track health check performance and system reliability
+- **Failure isolation**: Use health checks to enable automated recovery and prevent failure propagation
 
 # Health Check Pattern
 

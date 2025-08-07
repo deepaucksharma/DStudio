@@ -48,6 +48,47 @@ trade_offs:
 type: pattern
 ---
 
+## The Complete Blueprint
+
+Write-Ahead Log (WAL) is the **durability foundation** of modern database systems, implementing the critical "log first, apply later" principle that ensures no committed data is ever lost, even in the face of system crashes, power failures, or hardware faults. This pattern provides **crash recovery guarantees** by recording intended changes to persistent storage before modifying actual data, creating an audit trail that enables systems to reconstruct consistent state after any failure scenario. WAL is the invisible backbone that makes ACID transactions possible, enabling everything from banking systems to distributed databases to operate with reliability guarantees.
+
+<details>
+<summary>📄 View Complete WAL Architecture (15 lines)</summary>
+
+```mermaid
+graph TB
+    subgraph "Write-Ahead Log System"
+        Transaction[Transaction<br/>BEGIN] --> LogRecord[Write Log Record<br/>LSN: 12345]
+        LogRecord --> Flush[Force Log to Disk<br/>fsync()]
+        Flush --> DataUpdate[Apply to Data Pages<br/>In Memory]
+        DataUpdate --> Commit[Transaction<br/>COMMIT]
+        
+        Crash[System Crash] --> Recovery[Recovery Process]
+        Recovery --> LogScan[Scan WAL from<br/>Last Checkpoint]
+        LogScan --> Redo[Redo Committed<br/>Transactions]
+        LogScan --> Undo[Undo Uncommitted<br/>Transactions]
+        
+        Redo --> ConsistentState[Consistent<br/>Database State]
+        Undo --> ConsistentState
+    end
+    
+    style LogRecord fill:#ff9800,stroke:#f57c00,stroke-width:2px,color:#fff
+    style Flush fill:#4caf50,stroke:#388e3c,stroke-width:2px,color:#fff
+    style Recovery fill:#2196f3,stroke:#1976d2,stroke-width:2px,color:#fff
+    style ConsistentState fill:#9c27b0,stroke:#7b1fa2,stroke-width:2px,color:#fff
+```
+
+</details>
+
+This blueprint demonstrates **sequential logging** with forced disk writes, **atomic transaction boundaries** that ensure durability, and **comprehensive recovery procedures** that restore consistent state from log records after system failures.
+
+### What You'll Master
+
+- **Log Structure Design**: Architect efficient WAL formats with sequence numbers, checksums, and record types that enable fast recovery and replication
+- **Durability Guarantees**: Implement proper fsync() strategies, group commit optimizations, and storage-level durability that survives all failure scenarios
+- **Recovery Algorithms**: Build comprehensive crash recovery systems with analysis, redo, and undo phases that restore consistent database state
+- **Performance Optimization**: Balance durability with performance through techniques like group commit, log batching, and parallel recovery
+- **Storage Integration**: Design WAL systems that work efficiently with different storage technologies including SSDs, spinning disks, and cloud storage
 
 # Write-Ahead Log (WAL)
 

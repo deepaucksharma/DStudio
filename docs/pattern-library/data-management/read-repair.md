@@ -49,6 +49,64 @@ trade_offs:
 type: pattern
 ---
 
+## The Complete Blueprint
+
+Read repair is an opportunistic consistency pattern that detects and fixes data inconsistencies during regular read operations without requiring dedicated background repair processes. When a client requests data, the system simultaneously queries multiple replicas, compares their responses for inconsistencies, and automatically repairs any discovered discrepancies by updating stale replicas with the most recent data version. This approach transforms every read request into a potential healing operation, gradually improving system consistency over time without additional infrastructure overhead. The pattern works by leveraging vector clocks, timestamps, or version numbers to determine which replica has the authoritative data, then asynchronously propagating corrections to outdated replicas. Read repair is particularly effective in systems with high read-to-write ratios where frequent reads naturally provide repair opportunities, making it ideal for content delivery networks, social media feeds, and distributed caching systems where eventual consistency is acceptable.
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        CLIENT[Client Request]
+        RESPONSE[Consistent Response]
+    end
+    
+    subgraph "Read Repair Coordinator"
+        COORD[Read Coordinator]
+        VERSION[Version Detector]
+        REPAIR[Repair Engine]
+    end
+    
+    subgraph "Replica Layer"
+        R1[(Replica 1<br/>Version: v3)]
+        R2[(Replica 2<br/>Version: v2 - Stale)]
+        R3[(Replica 3<br/>Version: v3)]
+    end
+    
+    subgraph "Repair Process"
+        DETECT[Inconsistency Detection]
+        RESOLVE[Conflict Resolution]
+        PROPAGATE[Async Propagation]
+    end
+    
+    CLIENT --> COORD
+    COORD -->|Parallel Queries| R1
+    COORD -->|Parallel Queries| R2
+    COORD -->|Parallel Queries| R3
+    
+    R1 -->|v3| VERSION
+    R2 -->|v2| VERSION
+    R3 -->|v3| VERSION
+    
+    VERSION --> DETECT
+    DETECT -->|Stale Detected| RESOLVE
+    RESOLVE -->|Latest Version| REPAIR
+    REPAIR -->|Update| R2
+    
+    VERSION -->|Latest Data| RESPONSE
+    RESPONSE --> CLIENT
+    
+    REPAIR -.->|Background| PROPAGATE
+    PROPAGATE -.->|Update Others| R1
+    PROPAGATE -.->|Update Others| R3
+    
+    style R2 fill:#ffebee,stroke:#f44336
+    style REPAIR fill:#e8f5e8,stroke:#4caf50
+    style DETECT fill:#fff3e0,stroke:#ff9800
+```
+
+### What You'll Master
+
+By implementing read repair, you'll achieve **opportunistic consistency healing** where every read operation potentially fixes data inconsistencies, **zero-overhead background repairs** since maintenance happens during regular operations, **gradual system improvement** where consistency naturally increases over time with usage patterns, **resilience to network partitions** by automatically detecting and correcting stale data when connectivity resumes, and **performance optimization** by avoiding costly dedicated repair processes. You'll master the balance between read latency and consistency improvement while building systems that self-heal through normal operation.
 
 # Read Repair Pattern
 

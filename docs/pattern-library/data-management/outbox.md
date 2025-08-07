@@ -50,6 +50,50 @@ trade_offs:
 type: pattern
 ---
 
+## The Complete Blueprint
+
+The Outbox Pattern is the **reliability guarantor** for event-driven architectures, solving the infamous dual-write problem by ensuring that database changes and event publishing happen atomically or not at all. This pattern transforms **unreliable event publishing** into **guaranteed delivery** by treating events as data that gets committed alongside business changes within the same transaction boundary. It's the foundation that enables microservices to communicate reliably without the complexity and performance penalties of distributed transactions.
+
+<details>
+<summary>📄 View Complete Outbox Architecture (17 lines)</summary>
+
+```mermaid
+graph TB
+    subgraph "Transactional Outbox System"
+        Request[Business Request] --> Service[Service Handler]
+        Service --> Transaction{Database Transaction}
+        
+        Transaction --> BusinessData[(Business Tables<br/>Order, Payment, etc.)]
+        Transaction --> OutboxTable[(Outbox Table<br/>Events to Publish)]
+        
+        Transaction --> Commit[Transaction Commit]
+        Commit --> Publisher[Event Publisher<br/>Polling/CDC]
+        
+        Publisher --> MessageBroker[Message Broker<br/>Kafka/RabbitMQ]
+        MessageBroker --> Consumer1[Service A]
+        MessageBroker --> Consumer2[Service B]
+        MessageBroker --> Consumer3[Service C]
+        
+        Publisher --> Cleanup[Event Cleanup<br/>Mark as Published]
+        Cleanup --> OutboxTable
+    end
+    
+    style Transaction fill:#4caf50,stroke:#388e3c,stroke-width:3px,color:#fff
+    style OutboxTable fill:#ff9800,stroke:#f57c00,stroke-width:2px,color:#fff
+    style Publisher fill:#2196f3,stroke:#1976d2,stroke-width:2px,color:#fff
+```
+
+</details>
+
+This blueprint showcases **atomic dual-writes** within transaction boundaries, **reliable event publishing** through outbox polling or Change Data Capture, and **exactly-once delivery semantics** that maintain data consistency across distributed services.
+
+### What You'll Master
+
+- **Transactional Event Storage**: Design outbox table schemas that capture business events atomically within the same transaction as data changes
+- **Event Publishing Strategies**: Implement robust polling or CDC-based publishers that reliably deliver events with proper error handling and retry logic
+- **Exactly-Once Semantics**: Build idempotent event processing systems that handle duplicates gracefully and ensure consistent state across services
+- **Performance Optimization**: Optimize outbox throughput through batch processing, efficient polling strategies, and intelligent cleanup mechanisms
+- **Failure Recovery**: Design comprehensive failure handling including publisher restarts, broker failures, and consumer crash scenarios
 
 # Outbox Pattern
 

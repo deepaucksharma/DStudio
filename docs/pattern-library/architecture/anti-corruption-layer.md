@@ -28,6 +28,54 @@ trade_offs:
 
 # Anti-Corruption Layer (ACL)
 
+## The Complete Blueprint
+
+The Anti-Corruption Layer acts as your domain's diplomatic translator and protective barrier, preventing external systems' messy data models and concepts from polluting your clean domain architecture. Instead of letting a legacy system's 40-table user model with cryptic abbreviations leak into your modern user domain, the ACL translates between the two worlds - maintaining your domain's purity while still enabling integration.
+
+This pattern becomes essential when integrating with external systems that have incompatible models, poor design, or different business concepts than your domain. Like a translator at the United Nations ensuring each delegation can speak their native language while still enabling meaningful communication, the ACL ensures your domain speaks its own ubiquitous language while interfacing with foreign systems.
+
+```mermaid
+graph TB
+    subgraph "Your Clean Domain"
+        Domain[Customer Domain]
+        Model[Clean Customer Model]
+        Service[Customer Service]
+    end
+    
+    subgraph "Anti-Corruption Layer"
+        Translator[Model Translator]
+        Adapter[Protocol Adapter] 
+        Validator[Data Validator]
+        Facade[Simple Interface]
+    end
+    
+    subgraph "External Legacy System"
+        Legacy[Legacy CRM]
+        ComplexModel["40-table User Model"]
+        SOAP[SOAP Interface]
+    end
+    
+    Domain --> Facade
+    Facade --> Validator
+    Validator --> Translator
+    Translator --> Adapter
+    Adapter --> SOAP
+    SOAP --> ComplexModel
+    ComplexModel --> Legacy
+    
+    style Domain fill:#e8f5e8
+    style Translator fill:#ff6b6b
+    style Legacy fill:#ffcccb
+```
+
+### What You'll Master
+
+- **Domain Purity**: Keep your domain model clean and free from external system contamination
+- **Translation Strategies**: Build bidirectional mappings between incompatible data models
+- **Legacy Integration**: Connect modern architectures with legacy systems safely
+- **Change Isolation**: Protect your domain from external system changes and evolution
+- **Boundary Defense**: Implement the "immune system" that prevents architectural decay
+
 !!! warning "🥈 Silver Tier Pattern"
     **Domain Boundary Protection** • Best for DDD and legacy integration
     

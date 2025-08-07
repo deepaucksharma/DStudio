@@ -34,6 +34,84 @@ type: pattern
 
 # Actor Model
 
+## The Complete Blueprint
+
+The Actor Model represents a foundational approach to building highly concurrent, fault-tolerant systems through message-passing entities that maintain strict isolation from shared state. This pattern treats every computational unit as an autonomous "actor" that processes messages sequentially from its mailbox, can create new actors, and communicate exclusively through asynchronous message passing. While pioneering important concurrency concepts that influenced modern distributed systems, the Actor Model's complexity and steep learning curve make it primarily valuable within specialized ecosystems like Erlang/Elixir's BEAM VM, where the platform is specifically designed to support millions of lightweight actors with sophisticated supervision hierarchies.
+
+```mermaid
+graph TB
+    subgraph "Actor Model Architecture"
+        subgraph "Actor System Foundation"
+            A[Actor Supervisor<br/>Root guardian] --> B1[Child Actor 1<br/>Isolated state + mailbox]
+            A --> B2[Child Actor 2<br/>Isolated state + mailbox]
+            A --> B3[Child Actor 3<br/>Isolated state + mailbox]
+        end
+        
+        subgraph "Message Flow System"
+            C[Message Dispatcher<br/>Routing + delivery] --> D[Actor Mailbox<br/>FIFO message queue]
+            E[Sender Actor<br/>Message producer] --> C
+            F[Receiver Actor<br/>Message consumer] --> D
+        end
+        
+        subgraph "Fault Tolerance Hierarchy"
+            G[Supervision Strategy<br/>One-for-one / All-for-one]
+            H[Actor Lifecycle<br/>Create / Restart / Stop]
+            I[Error Isolation<br/>Failure containment]
+            J[Recovery Logic<br/>State restoration]
+        end
+        
+        subgraph "Concurrency Management"
+            K[Sequential Processing<br/>One message at a time]
+            L[Location Transparency<br/>Local + Remote actors]
+            M[Backpressure Control<br/>Mailbox size limits]
+            N[Actor Pool<br/>Load distribution]
+        end
+        
+        subgraph "Modern Alternatives"
+            O[Service Mesh<br/>Microservice communication]
+            P[Serverless Functions<br/>Isolated compute units]
+            Q[Event-Driven Architecture<br/>Async message processing]
+            R[Container Orchestration<br/>Process-level isolation]
+        end
+    end
+    
+    B1 --> D
+    B2 --> D
+    B3 --> D
+    C --> D
+    
+    A --> G
+    G --> H
+    H --> I
+    I --> J
+    
+    B1 --> K
+    D --> K
+    K --> L
+    L --> M
+    M --> N
+    
+    G --> O
+    H --> P
+    I --> Q
+    J --> R
+    
+    style A fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style C fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    style G fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style O fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+```
+
+### What You'll Master
+
+By understanding the Actor Model, you'll achieve:
+
+- **Fundamental Concurrency Principles**: Grasp the core concepts of message-passing concurrency, isolation, and fault tolerance that underpin modern distributed systems and influenced patterns like microservices
+- **Legacy System Understanding**: Navigate and maintain existing Actor Model implementations in Erlang, Akka, or Orleans-based systems with confidence in their supervision hierarchies and message flows
+- **Informed Architecture Decisions**: Recognize when Actor Model complexity is justified versus when modern alternatives like service mesh, serverless functions, or event-driven architectures provide better solutions
+- **Migration Strategy Development**: Plan effective transitions from Actor Model systems to contemporary patterns while preserving the fault tolerance and concurrency benefits
+- **Historical Pattern Context**: Understand how Actor Model innovations directly evolved into today's microservice patterns, container orchestration, and distributed system designs
+
 !!! warning "🥉 Bronze Tier Pattern"
     **Legacy concurrency model - Consider modern alternatives** • Modern patterns provide better solutions
     

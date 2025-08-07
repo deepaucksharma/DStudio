@@ -38,6 +38,70 @@ trade_offs:
 type: pattern
 ---
 
+## The Complete Blueprint
+
+Load shedding is the strategic dropping of requests when a system approaches its capacity limits, preventing complete system collapse while maintaining quality service for the most important operations. This pattern operates on the principle of controlled degradation - better to serve some requests excellently than all requests poorly. The key insight is that not all requests are created equal; payments should be processed before analytics, critical users before free users, and cached content before live queries. Effective load shedding requires three components: priority classification (determining request importance), load detection (knowing when to start dropping), and adaptive algorithms (adjusting drop rates based on system response). The pattern becomes sophisticated when implementing business-aware shedding, where the system drops requests based on their economic impact rather than simple arrival order.
+
+```mermaid
+graph TB
+    subgraph "Incoming Requests"
+        Client1[Critical Users<br/>Priority: 1.0]
+        Client2[Premium Users<br/>Priority: 0.8]
+        Client3[Regular Users<br/>Priority: 0.5]
+        Client4[Analytics<br/>Priority: 0.1]
+    end
+    
+    subgraph "Load Shedding Gateway"
+        Classifier[Request Classifier]
+        LoadMonitor[Load Monitor]
+        SheddingLogic[Shedding Algorithm]
+        
+        subgraph "Decision Engine"
+            Priority[Priority Scorer]
+            Threshold[Dynamic Threshold]
+            Decision[Accept/Reject]
+        end
+    end
+    
+    subgraph "System Resources"
+        CPU[CPU: 85%]
+        Memory[Memory: 70%]
+        DB[(Database<br/>Latency: 200ms)]
+        Queue[Queue Depth: 1000]
+    end
+    
+    subgraph "Outcomes"
+        Accepted[Accepted Requests<br/>High Quality Service]
+        Rejected[Rejected Requests<br/>503 + Retry-After]
+    end
+    
+    Client1 --> Classifier
+    Client2 --> Classifier
+    Client3 --> Classifier
+    Client4 --> Classifier
+    
+    Classifier --> Priority
+    LoadMonitor --> Threshold
+    Priority --> Decision
+    Threshold --> Decision
+    
+    LoadMonitor --> CPU
+    LoadMonitor --> Memory
+    LoadMonitor --> DB
+    LoadMonitor --> Queue
+    
+    Decision --> Accepted
+    Decision --> Rejected
+    
+    SheddingLogic --> Decision
+```
+
+### What You'll Master
+
+- **Priority-based request classification**: Implement business-aware priority scoring that aligns with revenue and user value
+- **Adaptive load detection**: Build monitoring systems that detect overload conditions before they cause cascading failures
+- **Graceful degradation strategies**: Design shedding algorithms that maintain service quality while reducing system load
+- **Client-friendly rejection**: Return proper HTTP status codes and retry guidance to enable intelligent client behavior
 
 # Load Shedding Pattern
 

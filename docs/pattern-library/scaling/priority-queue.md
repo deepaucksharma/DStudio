@@ -18,6 +18,71 @@ trade_offs:
   pros: ['Ensures critical tasks processed first', 'Flexible priority schemes', 'Better resource utilization under load', 'Supports emergency escalation']
 ---
 
+## The Complete Blueprint
+
+Priority queue is a task scheduling pattern that processes messages or requests based on their importance level rather than arrival order, ensuring that critical operations receive resources before less urgent ones. This pattern implements a multi-tier processing system where each task is assigned a priority value, and the queue mechanism continuously serves the highest-priority available work first. The pattern addresses the fundamental challenge in resource-constrained systems where not all work is equally important—emergency alerts must be processed before routine reports, payment processing takes precedence over analytics jobs, and user-facing requests trump background maintenance tasks. Priority queues use heap data structures or multiple separate queues to efficiently maintain priority ordering, with careful mechanisms to prevent low-priority task starvation through aging, time-based priority boosts, or guaranteed minimum service windows. Success requires balancing fairness with urgency, implementing proper priority assignment policies, and managing the complexity of distributed priority coordination across multiple workers and queue partitions.
+
+```mermaid
+graph TB
+    subgraph "Task Sources"
+        CRITICAL[Critical Tasks<br/>Priority: 1]
+        HIGH[High Priority<br/>Priority: 2]
+        NORMAL[Normal Tasks<br/>Priority: 3]
+        LOW[Low Priority<br/>Priority: 4]
+        BACKGROUND[Background<br/>Priority: 5]
+    end
+    
+    subgraph "Priority Queue System"
+        QUEUE[Priority Queue<br/>Heap Structure]
+        SCHEDULER[Task Scheduler]
+        AGING[Age-based<br/>Priority Boost]
+    end
+    
+    subgraph "Processing Layer"
+        W1[Worker 1<br/>Critical Handler]
+        W2[Worker 2<br/>Mixed Handler]
+        W3[Worker 3<br/>Background Focus]
+    end
+    
+    subgraph "Monitoring & Control"
+        MONITOR[Queue Depth<br/>Monitor]
+        STARVE[Starvation<br/>Detection]
+        METRICS[Priority<br/>Metrics]
+    end
+    
+    CRITICAL -->|Priority: 1| QUEUE
+    HIGH -->|Priority: 2| QUEUE
+    NORMAL -->|Priority: 3| QUEUE
+    LOW -->|Priority: 4| QUEUE
+    BACKGROUND -->|Priority: 5| QUEUE
+    
+    QUEUE --> SCHEDULER
+    SCHEDULER -->|Highest First| W1
+    SCHEDULER -->|Next Highest| W2
+    SCHEDULER -->|Remaining| W3
+    
+    AGING -->|Boost Old Tasks| QUEUE
+    MONITOR --> SCHEDULER
+    STARVE --> AGING
+    
+    W1 --> METRICS
+    W2 --> METRICS
+    W3 --> METRICS
+    
+    METRICS --> MONITOR
+    MONITOR --> STARVE
+    
+    style CRITICAL fill:#ff5252,color:#fff
+    style HIGH fill:#ff9800,color:#fff
+    style NORMAL fill:#2196f3,color:#fff
+    style LOW fill:#4caf50,color:#fff
+    style BACKGROUND fill:#9e9e9e,color:#fff
+    style STARVE fill:#ffc107
+```
+
+### What You'll Master
+
+By implementing priority queues, you'll achieve **critical task prioritization** where urgent operations never wait behind routine work, **resource allocation optimization** that maximizes the business value delivered per unit of compute time, **system responsiveness** where important user actions receive immediate attention even under heavy load, **fairness mechanisms** that prevent low-priority work starvation through aging and guaranteed service windows, and **operational control** over workload handling that allows dynamic priority adjustment based on business conditions. You'll master the complex balance between efficiency, fairness, and business priority alignment in distributed systems.
 
 ## Essential Question
 ## When to Use / When NOT to Use

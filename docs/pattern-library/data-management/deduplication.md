@@ -28,6 +28,85 @@ when_not_to_use: Real-time systems with strict latency requirements, small datas
 when_to_use: Storage systems, backup solutions, message processing, data pipelines with duplicate data
 ---
 
+## The Complete Blueprint
+
+The Deduplication pattern eliminates redundant data storage by identifying and removing duplicate content through cryptographic hashing and content-addressable storage techniques. This pattern is essential for systems handling large volumes of potentially duplicate data, such as backup systems, cloud storage platforms, and data pipelines. Deduplication works by computing fingerprints (typically SHA-256 hashes) of data blocks or files, storing only unique content, and maintaining reference counts for shared data. The approach can achieve dramatic storage savings—often 10-100x reduction—while requiring careful management of hash collisions, garbage collection, and performance trade-offs between CPU overhead and storage efficiency.
+
+```mermaid
+graph TB
+    subgraph "Data Ingestion"
+        A[New Data<br/>Files, blocks, messages]
+        B[Chunking<br/>Fixed/variable size]
+        C[Fingerprinting<br/>SHA-256, MD5 hashes]
+    end
+    
+    subgraph "Dedup Engine"
+        D[Hash Index<br/>Fingerprint lookup]
+        E[Content Store<br/>Unique data blocks]
+        F[Reference Counter<br/>Usage tracking]
+        G[Metadata Store<br/>File structure, pointers]
+    end
+    
+    subgraph "Storage Optimization"
+        H[Compression<br/>LZ4, ZSTD algorithms]
+        I[Tiering<br/>Hot/warm/cold storage]
+        J[Garbage Collection<br/>Unreferenced cleanup]
+        K[Block Verification<br/>Integrity checks]
+    end
+    
+    subgraph "Access Layer"
+        L[Read Operations<br/>Block reconstruction]
+        M[Write Operations<br/>Dedup on ingestion]
+        N[Delete Operations<br/>Reference updates]
+        O[Restore Operations<br/>Full file assembly]
+    end
+    
+    subgraph "Performance Optimization"
+        P[Bloom Filters<br/>Fast negative lookup]
+        Q[Cache Layer<br/>Hot fingerprints]
+        R[Parallel Processing<br/>Multi-threaded hashing]
+        S[Incremental Updates<br/>Delta changes]
+    end
+    
+    A --> B
+    B --> C
+    C --> D
+    
+    D --> E
+    D --> F
+    E --> G
+    F --> G
+    
+    E --> H
+    H --> I
+    F --> J
+    E --> K
+    
+    G --> L
+    G --> M
+    G --> N
+    L --> O
+    
+    D --> P
+    E --> Q
+    C --> R
+    G --> S
+    
+    style C fill:#4CAF50,color:#fff
+    style D fill:#2196F3,color:#fff
+    style E fill:#FF9800,color:#fff
+    style F fill:#9C27B0,color:#fff
+    style J fill:#f44336,color:#fff
+```
+
+### What You'll Master
+
+- **Content-addressable storage** using cryptographic hashing for unique data identification and retrieval
+- **Chunking strategies** including fixed-size, variable-size, and sliding-window approaches for optimal deduplication ratios
+- **Hash collision handling** with verification mechanisms and fallback strategies for data integrity
+- **Reference counting and garbage collection** for automated cleanup of unreferenced data blocks
+- **Performance optimization** using Bloom filters, caching, and parallel processing for high-throughput systems
+- **Storage tiering integration** combining deduplication with hot/warm/cold storage policies for cost efficiency
 
 ## Essential Question
 

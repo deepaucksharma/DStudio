@@ -17,6 +17,100 @@ trade_offs:
   pros: ['Complete failure isolation between cells', 'Independent scaling per cell', 'Predictable blast radius', 'Simplified capacity planning', 'Easier compliance boundaries']
 ---
 
+## The Complete Blueprint
+
+Cell-based architecture is a deployment and isolation pattern that partitions applications into independent, self-contained units (cells) with shared-nothing architecture, enabling complete failure isolation and independent scaling. This pattern addresses the challenge of blast radius containment by ensuring that failures in one cell cannot propagate to other cells, making it ideal for large-scale, multi-tenant systems where availability is critical. Each cell contains all the resources needed to serve a subset of users - including compute, storage, networking, and data - creating natural boundaries that prevent cascading failures. The key insight is that by accepting some resource duplication overhead, you gain predictable failure domains, simplified capacity planning, and the ability to perform maintenance or updates on individual cells without affecting the entire system.
+
+```mermaid
+graph TB
+    subgraph "Traffic Distribution"
+        Internet[Internet Traffic]
+        Router[Global Router<br/>Route by User/Tenant]
+    end
+    
+    subgraph "Cell A - Region US-East"
+        subgraph "Cell A Services"
+            WebA[Web Servers]
+            AppA[App Servers]
+            DBA[(Database A)]
+            CacheA[Cache A]
+        end
+        
+        subgraph "Cell A Users"
+            UsersA[Users 1-1000<br/>Premium Tenants]
+        end
+    end
+    
+    subgraph "Cell B - Region US-West"
+        subgraph "Cell B Services"
+            WebB[Web Servers]
+            AppB[App Servers]
+            DBB[(Database B)]
+            CacheB[Cache B]
+        end
+        
+        subgraph "Cell B Users"
+            UsersB[Users 1001-2000<br/>Standard Tenants]
+        end
+    end
+    
+    subgraph "Cell C - Region EU"
+        subgraph "Cell C Services"
+            WebC[Web Servers]
+            AppC[App Servers]
+            DBC[(Database C)]
+            CacheC[Cache C]
+        end
+        
+        subgraph "Cell C Users"
+            UsersC[EU Users<br/>GDPR Compliance]
+        end
+    end
+    
+    subgraph "Control Plane"
+        Monitor[Health Monitor]
+        Deploy[Deployment Controller]
+        Config[Global Configuration]
+    end
+    
+    Internet --> Router
+    Router --> WebA
+    Router --> WebB
+    Router --> WebC
+    
+    WebA --> AppA
+    WebB --> AppB  
+    WebC --> AppC
+    
+    AppA --> DBA
+    AppB --> DBB
+    AppC --> DBC
+    
+    AppA --> CacheA
+    AppB --> CacheB
+    AppC --> CacheC
+    
+    Monitor --> WebA
+    Monitor --> WebB
+    Monitor --> WebC
+    
+    Deploy --> AppA
+    Deploy --> AppB
+    Deploy --> AppC
+    
+    Config --> Router
+    
+    UsersA -.-> Router
+    UsersB -.-> Router
+    UsersC -.-> Router
+```
+
+### What You'll Master
+
+- **Cell partitioning strategies**: Design user and data partitioning schemes that evenly distribute load while maintaining isolation
+- **Routing and discovery**: Implement intelligent routing systems that direct requests to the correct cell based on user, geography, or tenant
+- **Cross-cell operations**: Handle rare operations that span multiple cells while maintaining the isolation guarantees
+- **Operational management**: Establish procedures for cell provisioning, decommissioning, monitoring, and disaster recovery
 
 # Cell-Based Architecture Pattern
 

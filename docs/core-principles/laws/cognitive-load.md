@@ -10,39 +10,104 @@ tags: [cognitive-science, human-factors, operational-design, team-health, apex-l
 
 # Law 6: The Law of Cognitive Load - Your Humans Are Not Machines
 
-## Learning Meta-Status
-**NOTICE YOUR CURRENT MENTAL STATE**: Before diving in, pause. How many things are you mentally juggling right now? Email notifications? Slack messages? Meeting prep? Count them. This isn't just theory—you're about to learn principles that directly apply to your current experience.
+## The Complete Blueprint
 
-**Learning Investment**: ~90 minutes across 8 focus blocks
-**Cognitive Load Budget**: 7 core concepts (respects Miller's Law)
-**Meta-Objective**: You will apply cognitive load principles TO learning these very principles
+Human working memory has hard limits (7±2 chunks), and under stress, this capacity collapses exponentially while system complexity stays constant. This creates cognitive overload disasters where brilliant engineers make catastrophic errors not because they lack skill, but because the information architecture exceeds human processing limits. The solution involves three types of load management: eliminate extraneous cognitive waste, chunk intrinsic complexity into meaningful units, and invest in germane load that builds long-term mental models. Combined with progressive disclosure (show the right information at the right level), binary decision trees (eliminate choice paralysis), and team topologies that respect Dunbar's number (5-9 people), we create systems that work with human cognition rather than against it.
 
-# MLU-1: Miller's 7±2 Principle (The Mental RAM Limit)
+### Visual Cognitive Architecture
 
-## Focus Block 1: "The Mental RAM Limit" (15 min)
+```mermaid
+graph TB
+    subgraph "Human Cognitive System"
+        WM["Working Memory<br/>7±2 chunks max"]
+        STRESS["Stress Impact<br/>Capacity ÷ 3 at high stress"]
+        
+        INTRINSIC["Intrinsic Load<br/>Essential complexity"]
+        EXTRANEOUS["Extraneous Load<br/>Poor design waste"]
+        GERMANE["Germane Load<br/>Learning investment"]
+        
+        CHUNK["Chunking Strategy<br/>Group related info"]
+        PROGRESSIVE["Progressive Disclosure<br/>Right info, right level"]
+        BINARY["Binary Decisions<br/>Eliminate choice paralysis"]
+        
+        TEAM["Team Topologies<br/>5-9 people max"]
+    end
+    
+    WM --> STRESS
+    
+    INTRINSIC --> CHUNK
+    EXTRANEOUS -.->|"ELIMINATE"| CHUNK
+    GERMANE --> PROGRESSIVE
+    
+    PROGRESSIVE --> BINARY
+    BINARY --> TEAM
+    
+    style EXTRANEOUS fill:#ff6b6b,color:#fff
+    style CHUNK fill:#4ecdc4
+    style TEAM fill:#4ecdc4
+```
 
-### PRIMING: "How many things can you juggle at once?"
-Think of your brain like a computer's RAM. Right now, as you read this, your working memory is actively holding:
-- The concept you're trying to understand
-- Where you are in this document
-- That Slack notification you just heard
-- The meeting you have in 20 minutes
-- What you had for breakfast (maybe)
+### What You'll Master
+- **Miller's 7±2 Principle**: Understand and respect working memory limits
+- **Stress-Performance Math**: Calculate capacity degradation under pressure
+- **Load Type Analysis**: Distinguish intrinsic, extraneous, and germane cognitive demands
+- **Progressive Disclosure**: Design information hierarchies that match human cognition
+- **AUUCA Alert Quality**: Filter information noise to preserve mental bandwidth
+- **Team Cognitive Boundaries**: Organize around human relationship limits
 
-Count them. How many simultaneous thoughts can you track before something gets dropped?
+## The Core Mental Model
 
-### CORE: Miller's Magical Number
+**Analogy**: Your brain is like a computer's RAM with exactly 7±2 processing slots. Just as a computer with 8GB RAM can't load 16GB without thrashing to disk, your brain can't process more than 7±2 items without "cognitive thrashing"—errors spike, decisions slow, and stress hormones flood your system.
 
-**The Core Truth**: Human working memory capacity = 7±2 chunks
+**Fundamental Principle**: Cognitive load is conserved—you have a fixed mental budget. Every piece of extraneous complexity steals resources from essential problem-solving.
 
-This isn't opinion—it's neuroscience. George Miller proved this in 1956, and every psychological study since confirms it. Your brain can consciously process between 5-9 pieces of information simultaneously. That's it.
+**Why This Matters**:
+- Good engineers quit because of cognitive overload, not technical challenges
+- Alert storms and complex dashboards cause more outages than they prevent
+- Systems that ignore human limits create operational chaos and talent loss
+
+## The Journey Ahead
+
+```mermaid
+journey
+    title Cognitive Load Management Mastery
+    section Foundation (20 min)
+      Miller's Law: 5
+      Stress Effects: 4
+      Load Types: 5
+    section Design (25 min)
+      Chunking Strategy: 4
+      Progressive Disclosure: 5
+      Decision Trees: 4
+    section Organization (25 min)
+      Alert Quality: 5
+      Team Topologies: 4
+      Culture Change: 3
+```
+
+**Prerequisites**: Experience with on-call rotations and system operations
+
+## Miller's 7±2: The Mental RAM Limit
+
+### The Fundamental Constraint
+
+Your working memory can consciously process 5-9 pieces of information simultaneously. This isn't opinion—it's neuroscience proven in 1956 and confirmed by every study since.
+
+**Critical Insight**: When you exceed this limit, your brain doesn't gracefully degrade—it catastrophically fails. Errors spike, decision time explodes, stress hormones flood your system.
+
+### The Science
 
 ```
 Working Memory Slots: [1][2][3][4][5][6][7][8][9]
                       └─────── 7±2 limit ─────────┘
 ```
 
-**NEURAL BRIDGE**: Your brain's working memory is like computer RAM. Just as a computer with 8GB RAM can't load 16GB of data without swapping to disk (causing slowdown), your brain can't process more than 7±2 items without "cognitive thrashing."
+**Under Stress Formula**: C_effective = C_base × e^(-stress/10)
+- Normal capacity: 7 chunks
+- High stress: 3.8 chunks  
+- Extreme stress: 3.1 chunks
+
+**The Crisis**: System complexity stays the same while your ability to handle it plummets.
 
 ### FORESHADOWING: "What happens when we overflow?"
 When you exceed this limit, your brain doesn't gracefully degrade—it catastrophically fails. Errors spike. Decision time explodes. Stress hormones flood your system.

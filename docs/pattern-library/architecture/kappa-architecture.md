@@ -23,6 +23,67 @@ when_not_to_use: When simpler solutions suffice
 when_to_use: When dealing with architectural challenges
 ---
 
+## The Complete Blueprint
+
+Kappa architecture was a simplification attempt of Lambda architecture that proposed using only stream processing for all data processing needs, eliminating the complexity of maintaining both batch and streaming systems. This pattern advocated for a single, unified stream processing engine that would handle both real-time processing and historical data reprocessing by treating all data as an infinite stream, with the ability to replay the entire stream from the beginning when recomputation was needed. While conceptually elegant—reducing operational overhead by maintaining just one processing paradigm—Kappa architecture revealed practical limitations that led to its decline. Reprocessing large historical datasets through streaming proved inefficient compared to specialized batch processing, the approach struggled with complex analytics that required global views of data, and the operational reality of managing infinite stream replay at scale became more complex than initially anticipated. Modern data architectures have largely moved toward unified processing frameworks (Apache Beam, Flink) that provide the simplicity Kappa sought while maintaining the performance benefits of specialized batch processing when needed.
+
+```mermaid
+graph TB
+    subgraph "Data Sources"
+        EVENTS[Event Sources]
+        LOGS[Log Files]
+        API[API Data]
+        DB[Database Changes]
+    end
+    
+    subgraph "Stream Processing Layer - Single Pipeline"
+        STREAM[Stream Processor<br/>Apache Kafka + Kafka Streams]
+        REPROCESS[Reprocessing<br/>Replay Entire Stream]
+    end
+    
+    subgraph "Storage Layer"
+        KAFKA[(Kafka Log<br/>Immutable Event Store)]
+        VIEWS[Materialized Views<br/>Query-optimized]
+    end
+    
+    subgraph "Serving Layer"
+        REALTIME[Real-time Views<br/>Current State]
+        BATCH[Historical Views<br/>Reprocessed State]
+    end
+    
+    subgraph "Issues That Emerged"
+        SLOW[Slow Historical<br/>Reprocessing]
+        COMPLEX[Complex Global<br/>Analytics]
+        SCALE[Stream Replay<br/>At Scale Issues]
+    end
+    
+    EVENTS --> KAFKA
+    LOGS --> KAFKA
+    API --> KAFKA
+    DB --> KAFKA
+    
+    KAFKA --> STREAM
+    STREAM --> VIEWS
+    VIEWS --> REALTIME
+    
+    KAFKA -.->|Full Replay| REPROCESS
+    REPROCESS -.->|Inefficient| SLOW
+    REPROCESS --> BATCH
+    
+    STREAM -.->|Struggles With| COMPLEX
+    REPROCESS -.->|Operational| SCALE
+    
+    style KAFKA fill:#e1f5fe
+    style STREAM fill:#e8f5e8
+    style SLOW fill:#ffebee,stroke:#f44336
+    style COMPLEX fill:#ffebee,stroke:#f44336
+    style SCALE fill:#ffebee,stroke:#f44336
+```
+
+### What You'll Master
+
+By understanding Kappa architecture, you'll gain insight into **stream-first thinking** that treats all data as continuous flows rather than static snapshots, **architectural simplification attempts** and why they sometimes don't work in practice despite theoretical elegance, **unified processing concepts** that influenced modern frameworks like Apache Beam and Flink, **historical context** for why the industry moved from Kappa to more hybrid approaches, and **practical lessons** about the importance of matching processing paradigms to data characteristics and business requirements. You'll understand when pure streaming works and when specialized approaches are still necessary.
+
 ## Essential Question
 
 **How do we structure our system architecture to leverage kappa architecture?**

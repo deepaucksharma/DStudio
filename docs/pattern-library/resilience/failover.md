@@ -36,6 +36,61 @@ trade_offs:
 type: pattern
 ---
 
+## The Complete Blueprint
+
+Failover is the automated switching from a primary system to a backup system when the primary fails, ensuring continuous service availability during hardware failures, network outages, or software crashes. This pattern operates on the principle of redundancy - maintaining idle or active backup systems that can seamlessly take over operations. The key challenge is detecting failures quickly enough to trigger failover while avoiding false positives that cause unnecessary switches. Modern failover systems must handle three critical aspects: failure detection (through health monitoring), state synchronization (ensuring backup systems have current data), and routing updates (directing traffic to the active system). The pattern becomes complex when dealing with stateful services, requiring careful consideration of data consistency, split-brain scenarios, and failback procedures.
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        Client[Client Applications]
+    end
+    
+    subgraph "Load Balancer/Proxy"
+        LB[Load Balancer<br/>Traffic Director]
+    end
+    
+    subgraph "Primary Region"
+        Primary[Primary System<br/>ACTIVE]
+        PrimaryDB[(Primary Database)]
+        Primary --> PrimaryDB
+    end
+    
+    subgraph "Backup Region"
+        Backup[Backup System<br/>STANDBY]
+        BackupDB[(Backup Database)]
+        Backup --> BackupDB
+    end
+    
+    subgraph "Control Plane"
+        Monitor[Health Monitor]
+        Failover[Failover Controller]
+        Config[Configuration Store]
+    end
+    
+    Client --> LB
+    LB --> Primary
+    LB -.->|Failover Route| Backup
+    
+    Monitor --> Primary
+    Monitor --> Backup
+    Monitor --> Failover
+    
+    Failover --> LB
+    Failover --> Config
+    
+    PrimaryDB -.->|Replication| BackupDB
+    
+    Primary -.->|Health Status| Monitor
+    Backup -.->|Health Status| Monitor
+```
+
+### What You'll Master
+
+- **Failure detection strategies**: Implement robust health monitoring that detects failures quickly while avoiding false positives
+- **State synchronization**: Design replication mechanisms that keep backup systems current without impacting primary performance
+- **Split-brain prevention**: Implement fencing and quorum mechanisms to prevent both systems from thinking they're primary
+- **Operational procedures**: Establish runbooks for testing failover, managing failback, and handling disaster scenarios
 
 # Failover Pattern
 
