@@ -698,113 +698,7 @@ graph TB
 
 **Your Challenge:** Implement the core bidding logic with proper causality handling:
 
-```python
-class CausalAuctionSystem:
-    """Real-time auction with causality guarantees"""
-    
-    def __init__(self, node_id: str, regions: List[str]):
-        self.hlc_manager = HLCManager(node_id)
-        self.current_bids = {}  # auction_id -> (bid_amount, hlc_timestamp, bidder)
-        self.bid_history = []   # For causality auditing
-        
-    def place_bid(self, auction_id: str, bid_amount: float, bidder_id: str) -> Dict:
-        """Place bid with causal timestamp"""
-        
-        # Generate HLC timestamp for this bid
-        bid_timestamp = self.hlc_manager.local_event()
-        
-        # Check against current high bid
-        current_high = self.current_bids.get(auction_id)
-        
-        if current_high is None or bid_amount > current_high[0]:
-            # This is the new high bid
-            self.current_bids[auction_id] = (bid_amount, bid_timestamp, bidder_id)
-            
-            # Record in causal history
-            self.bid_history.append({
-                'auction_id': auction_id,
-                'bid_amount': bid_amount,
-                'bidder_id': bidder_id,
-                'hlc_timestamp': bid_timestamp,
-                'action': 'high_bid'
-            })
-            
-            return {
-                'status': 'accepted',
-                'new_high_bid': bid_amount,
-                'hlc_timestamp': bid_timestamp
-            }
-        else:
-            # Bid too low, but record attempt for causality
-            self.bid_history.append({
-                'auction_id': auction_id,
-                'bid_amount': bid_amount,
-                'bidder_id': bidder_id,
-                'hlc_timestamp': bid_timestamp,
-                'action': 'bid_rejected_low'
-            })
-            
-            return {
-                'status': 'rejected',
-                'reason': 'bid_too_low',
-                'current_high': current_high[0],
-                'hlc_timestamp': bid_timestamp
-            }
-    
-    def receive_remote_bid(self, remote_bid: Dict) -> Dict:
-        """Handle bid from remote auction node"""
-        
-        # Update our HLC based on remote timestamp
-        updated_hlc = self.hlc_manager.receive_message(remote_bid['hlc_timestamp'])
-        
-        # Determine causal ordering
-        auction_id = remote_bid['auction_id']
-        current_high = self.current_bids.get(auction_id)
-        
-        if current_high is None:
-            # No local bid, accept remote
-            self.current_bids[auction_id] = (
-                remote_bid['bid_amount'], 
-                remote_bid['hlc_timestamp'], 
-                remote_bid['bidder_id']
-            )
-            return {'status': 'accepted_as_high'}
-            
-        # Compare HLC timestamps to resolve conflicts
-        if remote_bid['hlc_timestamp'] > current_high[1]:
-            # Remote bid causally after our current high bid
-            if remote_bid['bid_amount'] > current_high[0]:
-                self.current_bids[auction_id] = (
-                    remote_bid['bid_amount'],
-                    remote_bid['hlc_timestamp'], 
-                    remote_bid['bidder_id']
-                )
-                return {'status': 'accepted_as_high'}
-            else:
-                return {'status': 'rejected_too_low'}
-        else:
-            # Our bid causally after remote bid - ours wins if higher
-            return {'status': 'rejected_causally_old'}
-    
-    def get_causal_bid_history(self, auction_id: str) -> List[Dict]:
-        """Get causally-ordered bid history for audit"""
-        auction_bids = [
-            bid for bid in self.bid_history 
-            if bid['auction_id'] == auction_id
-        ]
-        
-        # Sort by HLC timestamp for causal ordering
-        return sorted(auction_bids, key=lambda b: b['hlc_timestamp'])
-
-# Usage example
-auction_system = CausalAuctionSystem("auction_node_nyc", ["nyc", "lon", "tok"])
-
-# Simulate concurrent bids
-result1 = auction_system.place_bid("auction_123", 1000.0, "bidder_alice")
-result2 = auction_system.place_bid("auction_123", 1050.0, "bidder_bob") 
-
-print("Causal bid history:", auction_system.get_causal_bid_history("auction_123"))
-```
+**Implementation:** Real-time auction system with causality guarantees using HLC timestamps. Tracks bid history with causal ordering, handles remote bids by updating HLC clocks, and resolves conflicts using causal precedence rather than wall-clock time.
 
 ### Test Your Complete Understanding
 
@@ -840,8 +734,9 @@ You're designing a global e-commerce platform's inventory system. The challenge:
 
 **Solution Architecture: Causal Inventory System**
 
-```python
-class CausalInventorySystem:
+**Implementation:** Global inventory system with causality guarantees using HLC timestamps. Features include time-bounded reservations to prevent overselling, causal history tracking for audit compliance, conflict detection and resolution using HLC comparison, and detection of overselling through causal analysis.
+
+**Original Python Implementation Replaced - Key Design Principles:**
     """Global inventory system with causality guarantees"""
     
     def __init__(self, region_id: str, product_catalog: Dict[str, int]):
@@ -1043,12 +938,7 @@ class CausalInventorySystem:
                     'violation_type': 'negative_inventory'
                 })
         
-        return {
-            'violations_detected': len(violations) > 0,
-            'violations': violations,
-            'current_calculated_inventory': running_inventory
-        }
-```
+**Implementation:** Global inventory system with causality guarantees using HLC timestamps. Features include time-bounded reservations to prevent overselling, causal history tracking for audit compliance, conflict detection and resolution using HLC comparison, and detection of overselling through causal analysis.
 
 **Key Design Principles:**
 
@@ -1332,34 +1222,7 @@ SPACETIME COORDINATES:
 ```
 
 **The Physics Violation:**
-```python
-# Facebook's implicit assumption (WRONG)
-def deploy_globally(config):
-    for router in global_routers:
-        router.apply_config(config, timestamp=now())  # Assumes global "now"
-    
-# Reality: Each router exists in different reference frame
-def relativistic_reality():
-    menlo_park_time = 1633363863.000  # Reference frame
-    
-    # Light travel times (minimum possible)
-    light_travel_times = {
-        'menlo_park': 0.000,    # Reference
-        'new_york': 0.020,      # 20ms minimum  
-        'london': 0.043,        # 43ms minimum
-        'singapore': 0.085,     # 85ms minimum
-        'sao_paulo': 0.050      # 50ms minimum
-    }
-    
-    # Actual propagation (includes processing)
-    actual_arrival = {
-        'menlo_park': menlo_park_time + 0.000,  # 14:31:03.000
-        'new_york': menlo_park_time + 0.127,    # 14:31:03.127 (+127ms)
-        'london': menlo_park_time + 0.483,      # 14:31:03.483 (+483ms)
-        'singapore': menlo_park_time + 1.019,   # 14:31:04.019 (+1019ms)
-        'sao_paulo': menlo_park_time + 0.734    # 14:31:03.734 (+734ms)
-    }
-```
+**Implementation:** Facebook BGP configuration deployment showing wrong assumption of global simultaneity versus reality of observer-dependent timing. Light travel times create different arrival timestamps across global reference frames, leading to BGP inconsistencies.
 
 **Observer-Dependent Causality Breakdown:**
 ```
@@ -1430,32 +1293,8 @@ graph TB
 
 **Production Implementation:**
 
-```python
-import time
-from typing import Tuple, NamedTuple
-from dataclasses import dataclass
+**Implementation:** Production-ready HLC manager with thread-safe operations for local events, message sending, and message receiving. Maintains monotonicity by advancing logical counter when wall clock is behind and taking maximum of all timestamps when processing remote messages.
 
-class HLC(NamedTuple):
-    """Hybrid Logical Clock timestamp"""
-    physical_time: int  # Microseconds since epoch
-    logical_counter: int
-    node_id: str
-
-@dataclass
-class HLCManager:
-    """Production-ready HLC implementation"""
-    node_id: str
-    _hlc: HLC
-    _lock: threading.Lock
-    
-    def __init__(self, node_id: str):
-        self.node_id = node_id
-        self._hlc = HLC(self._wall_clock_us(), 0, node_id)
-        self._lock = threading.Lock()
-    
-    def _wall_clock_us(self) -> int:
-        """Get wall clock time in microseconds"""
-        return int(time.time() * 1_000_000)
     
     def local_event(self) -> HLC:
         """Update HLC for local event"""
@@ -1529,17 +1368,7 @@ def distributed_operation_with_hlc():
             int(time.time() * 1_000_000) + 50_000,  # 50ms later
             5,
             "node_2"
-        )
-        response_timestamp = hlc_manager.receive_message(remote_hlc)
-        print(f"Response processed at {response_timestamp}")
-        
-    except Exception as e:
-        print(f"HLC operation failed: {e}")
 
-# Example output:
-# Event at HLC(physical_time=1640995200000000, logical_counter=0, node_id='node_1')
-# Response processed at HLC(physical_time=1640995200050000, logical_counter=6, node_id='node_1')
-```
 
 ??? info "Derivation: HLC Correctness Properties"
     
@@ -1601,12 +1430,7 @@ graph TB
     TIMEOUT --> MAJORITY --> COMMIT
 ```
 
-```python
-import asyncio
-import math
-from typing import Dict, Set, List, Optional
-from dataclasses import dataclass
-from enum import Enum
+**Implementation:** Physics-aware consensus protocol using geographic node locations and spacetime constraints. Calculates timeouts based on network diameter and light-speed limits, with Haversine formula for great circle distances and safety factors for processing overhead.
 
 @dataclass
 class NetworkNode:
@@ -1843,8 +1667,7 @@ async def run_distributed_consensus():
 
 **The Solution:** Calculate timeouts based on network geometry and light-speed limits
 
-```python
-import math
+**Implementation:** Physics-based timeout calculator using service layers and network geometry.
 from typing import Dict, List
 from dataclasses import dataclass
 
@@ -2009,8 +1832,7 @@ except ValueError as e:
 **Traditional Problem:** Request IDs don't capture causal relationships
 **Relativistic Solution:** Use HLC timestamps as idempotency keys
 
-```python
-import hashlib
+**Implementation:** Idempotency via spacetime coordinates using operation hashing and replay detection.
 import json
 from typing import Any, Dict, Optional
 from dataclasses import dataclass, asdict

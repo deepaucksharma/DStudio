@@ -45,11 +45,11 @@ Like dominoes in a factory, we arrange our systems for independence, but hidden 
 ```mermaid
 graph TB
     subgraph "The Independence Illusion"
-        I1[What We Assume<br/>P(A ∩ B) = P(A) × P(B)]
-        R1[What Actually Happens<br/>P(A ∩ B) = P(A) × P(B|A)]
+        I1["What We Assume<br/>P(A ∩ B) = P(A) × P(B)"]
+        R1["What Actually Happens<br/>P(A ∩ B) = P(A) × P(B|A)"]
         
-        I2[P(both fail) = 0.001²<br/>= 10⁻⁶ (one in million)]
-        R2[P(both fail) = 0.001 × 0.9<br/>= 9×10⁻⁴ (900× higher)]
+        I2["P(both fail) = 0.001²<br/>= 10⁻⁶ (one in million)"]
+        R2["P(both fail) = 0.001 × 0.9<br/>= 9×10⁻⁴ (900× higher)"]
         
         I1 --> I2
         R1 --> R2

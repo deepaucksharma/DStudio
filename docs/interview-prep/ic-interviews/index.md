@@ -47,24 +47,24 @@ This section covers both **system design** and **behavioral** interviews for Sof
 ```mermaid
 graph TB
     subgraph "IC Interview Preparation Journey"
-        A[📚 Foundation Study<br/>2-4 weeks] --> B{🎯 Target Level?}
+        A["📚 Foundation Study<br/>2-4 weeks"] --> B{"🎯 Target Level?"}
         
-        B -->|L3/E3| C1[🔰 Junior Focus<br/>• Basic system design<br/>• Core behavioral skills<br/>• Simple problems]
-        B -->|L4/E4| C2[🚀 Mid-Level Focus<br/>• Complex architectures<br/>• Technical leadership<br/>• Cross-team scenarios]
-        B -->|L5/E5| C3[⭐ Senior Focus<br/>• System trade-offs<br/>• Influence without authority<br/>• Strategic thinking]
+        B -->|"L3/E3"| C1["🔰 Junior Focus<br/>• Basic system design<br/>• Core behavioral skills<br/>• Simple problems"]
+        B -->|"L4/E4"| C2["🚀 Mid-Level Focus<br/>• Complex architectures<br/>• Technical leadership<br/>• Cross-team scenarios"]
+        B -->|"L5/E5"| C3["⭐ Senior Focus<br/>• System trade-offs<br/>• Influence without authority<br/>• Strategic thinking"]
         
-        C1 --> D[💪 Practice Phase<br/>4-6 weeks]
+        C1 --> D["💪 Practice Phase<br/>4-6 weeks"]
         C2 --> D
         C3 --> D
         
-        D --> E[🎭 Mock Interviews<br/>2-3 weeks]
-        E --> F[🎯 Final Prep<br/>1 week]
-        F --> G[🏆 Interview Success]
+        D --> E["🎭 Mock Interviews<br/>2-3 weeks"]
+        E --> F["🎯 Final Prep<br/>1 week"]
+        F --> G["🏆 Interview Success"]
         
         subgraph "Key Skills by Level"
-            H1[L3: Foundation Building<br/>• System basics<br/>• Clear communication<br/>• Learning mindset]
-            H2[L4: Technical Leadership<br/>• Architecture decisions<br/>• Mentoring others<br/>• Cross-functional work]
-            H3[L5: Strategic Impact<br/>• System vision<br/>• Technical strategy<br/>• Organizational influence]
+            H1["L3: Foundation Building<br/>• System basics<br/>• Clear communication<br/>• Learning mindset"]
+            H2["L4: Technical Leadership<br/>• Architecture decisions<br/>• Mentoring others<br/>• Cross-functional work"]
+            H3["L5: Strategic Impact<br/>• System vision<br/>• Technical strategy<br/>• Organizational influence"]
         end
     end
     

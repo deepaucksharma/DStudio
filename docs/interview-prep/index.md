@@ -98,28 +98,28 @@ This compendium's physics-based approach gives you a unique advantage:
 
 ```mermaid
 graph TD
-    A[🎯 What's Your Role?] --> B{Current Level?}
+    A["🎯 What's Your Role?"] --> B{"Current Level?"}
     
-    B -->|IC L3-L5| C[👨‍💻 Individual Contributor<br/>System Design + Behavioral]
-    B -->|Manager L6+| D[👥 Engineering Leadership<br/>People + Strategy + Systems]
-    A --> CODING[💻 Coding Interviews<br/>Quick Reference Only]
+    B -->|"IC L3-L5"| C["👨‍💻 Individual Contributor<br/>System Design + Behavioral"]
+    B -->|"Manager L6+"| D["👥 Engineering Leadership<br/>People + Strategy + Systems"]
+    A --> CODING["💻 Coding Interviews<br/>Quick Reference Only"]
     
-    C --> E{Time Available?}
-    D --> F{Leadership Experience?}
-    CODING --> K5[📚 Start with Coding Quick Ref]
+    C --> E{"Time Available?"}
+    D --> F{"Leadership Experience?"}
+    CODING --> K5["📚 Start with Coding Quick Ref"]
     
-    E -->|2-4 weeks| G[🏃 IC Fast Track<br/>• Core patterns review<br/>• 3-5 practice problems<br/>• Mock interviews<br/>• Behavioral prep]
+    E -->|"2-4 weeks"| G["🏃 IC Fast Track<br/>• Core patterns review<br/>• 3-5 practice problems<br/>• Mock interviews<br/>• Behavioral prep"]
     
-    E -->|2-3 months| H[🏊 IC Deep Prep<br/>• Full framework study<br/>• 15+ practice problems<br/>• Company case studies<br/>• Advanced behavioral]
+    E -->|"2-3 months"| H["🏊 IC Deep Prep<br/>• Full framework study<br/>• 15+ practice problems<br/>• Company case studies<br/>• Advanced behavioral"]
     
-    F -->|New Manager| I[🌱 Leadership Foundation<br/>• First Principles study<br/>• People management focus<br/>• Story development<br/>• Company culture research]
+    F -->|"New Manager"| I["🌱 Leadership Foundation<br/>• First Principles study<br/>• People management focus<br/>• Story development<br/>• Company culture research"]
     
-    F -->|Experienced| J[🚀 Leadership Mastery<br/>• Business concepts deep dive<br/>• Strategic thinking practice<br/>• Advanced scenarios<br/>• Executive presence]
+    F -->|"Experienced"| J["🚀 Leadership Mastery<br/>• Business concepts deep dive<br/>• Strategic thinking practice<br/>• Advanced scenarios<br/>• Executive presence"]
     
-    G --> K1[📚 Start with IC Quick Prep]
-    H --> K2[📚 Start with IC Comprehensive]
-    I --> K3[📚 Start with Leadership Foundation]
-    J --> K4[📚 Start with Leadership Advanced]
+    G --> K1["📚 Start with IC Quick Prep"]
+    H --> K2["📚 Start with IC Comprehensive"]
+    I --> K3["📚 Start with Leadership Foundation"]
+    J --> K4["📚 Start with Leadership Advanced"]
     
     classDef role fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     classDef ic fill:#e8f5e8,stroke:#4caf50,stroke-width:2px
@@ -180,14 +180,14 @@ graph TD
 
 ```mermaid
 graph LR
-    A[📋 Problem<br/>Understanding<br/>5-10 min] --> B[🏗️ High-Level<br/>Design<br/>10-15 min]
-    B --> C[🔍 Detailed<br/>Design<br/>20-30 min]
-    C --> D[📈 Scale &<br/>Optimize<br/>10-15 min]
+    A["📋 Problem<br/>Understanding<br/>5-10 min"] --> B["🏗️ High-Level<br/>Design<br/>10-15 min"]
+    B --> C["🔍 Detailed<br/>Design<br/>20-30 min"]
+    C --> D["📈 Scale &<br/>Optimize<br/>10-15 min"]
     
-    A --> A1[Requirements<br/>Scope<br/>Constraints]
-    B --> B1[Architecture<br/>Components<br/>Data Flow]
-    C --> C1[Deep Dives<br/>Algorithms<br/>Bottlenecks] 
-    D --> D1[Growth Handling<br/>Performance<br/>Reliability]
+    A --> A1["Requirements<br/>Scope<br/>Constraints"]
+    B --> B1["Architecture<br/>Components<br/>Data Flow"]
+    C --> C1["Deep Dives<br/>Algorithms<br/>Bottlenecks"] 
+    D --> D1["Growth Handling<br/>Performance<br/>Reliability"]
 ```
 
 ### Phase-by-Phase Checklist

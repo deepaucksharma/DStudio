@@ -384,11 +384,20 @@ nav:
     - Pillar 4 - Control Distribution: core-principles/pillars/control-distribution.md
     - Pillar 5 - Intelligence Distribution: core-principles/pillars/intelligence-distribution.md
     - Pillar Tests:
-      - Pillar 1 Assessment: core-principles/pillars/tests/work-distribution-test.md
-      - Pillar 2 Assessment: core-principles/pillars/tests/state-distribution-test.md
-      - Pillar 3 Assessment: core-principles/pillars/tests/truth-distribution-test.md
-      - Pillar 4 Assessment: core-principles/pillars/tests/control-distribution-test.md
-      - Pillar 5 Assessment: core-principles/pillars/tests/intelligence-distribution-test.md
+      - Overview: core-principles/pillars/tests/index.md
+      - Pillar 1 - Work Distribution:
+        - Quick Assessment: core-principles/pillars/tests/work-distribution-test.md
+        - Learning Module: core-principles/pillars/tests/work-distribution-learning.md
+        - Mastery Exam: core-principles/pillars/tests/work-distribution-exam.md
+      - Pillar 2 - State Distribution:
+        - Quick Assessment: core-principles/pillars/tests/state-distribution-test.md
+        - Learning Module: core-principles/pillars/tests/state-distribution-learning.md
+      - Pillar 3 - Truth Distribution:
+        - Quick Assessment: core-principles/pillars/tests/truth-distribution-test.md
+      - Pillar 4 - Control Distribution:
+        - Quick Assessment: core-principles/pillars/tests/control-distribution-test.md
+      - Pillar 5 - Intelligence Distribution:
+        - Quick Assessment: core-principles/pillars/tests/intelligence-distribution-test.md
 - Part 2 - Pattern Library:
   - Overview: pattern-library/index.md
   - Pattern Tools & Resources:
