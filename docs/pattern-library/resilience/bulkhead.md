@@ -285,6 +285,17 @@ graph TB
 - [ ] Adjust sizes monthly
 - [ ] Load test quarterly
 
+!!! experiment "💡 Quick Thought Experiment: Dependency Elimination Strategy"
+    **Apply the 5-step framework to eliminate resource contention:**
+    
+    1. **INVENTORY**: Map all shared resources (thread pools, connections, memory, CPU, disk I/O)
+    2. **PRIORITIZE**: Rank by contention impact × blast radius (database connections = critical, CPU = wide impact)
+    3. **ISOLATE**: Create separate bulkheads - dedicated pools for VIP users, critical APIs, background jobs
+    4. **MIGRATE**: Implement gradual resource partitioning with monitoring and auto-scaling
+    5. **MONITOR**: Track resource utilization per bulkhead, queue depths, rejection rates, SLA compliance
+    
+    **Success Metric**: Achieve fault isolation - when one workload saturates resources, other workloads remain unaffected
+
 ### Related Resources
 
 <div class="grid cards" markdown>

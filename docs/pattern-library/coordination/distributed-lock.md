@@ -363,6 +363,17 @@ graph LR
     - [Consensus](../coordination/consensus.md) - Foundation for safe locks
     - [Circuit Breaker](../resilience/circuit-breaker.md) - Protect against lock failures
 
+!!! experiment "💡 Quick Thought Experiment: Dependency Elimination Strategy"
+    **Apply the 5-step framework to eliminate lock-based coordination:**
+    
+    1. **INVENTORY**: Map all resources requiring exclusive access (critical sections, resource allocation, job scheduling, counter updates)
+    2. **PRIORITIZE**: Rank by lock contention × business impact (payment processing locks = highest priority)
+    3. **ISOLATE**: Partition resources by domain - separate locks per tenant/region, lock-free algorithms where possible
+    4. **MIGRATE**: Implement optimistic concurrency, event sourcing, queue-based serialization, lock-free data structures
+    5. **MONITOR**: Track lock wait times, contention rates, timeout frequency, throughput impact
+    
+    **Success Metric**: Achieve coordination independence - reduce distributed locking needs by 80% through better partitioning and eventual consistency
+
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---

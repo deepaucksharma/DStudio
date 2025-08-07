@@ -26,6 +26,65 @@ when-not-to-use: When working with single-node systems
 when-to-use: When designing distributed systems architecture
 ---
 
+## The Complete Blueprint
+
+The CAP Theorem fundamentally states that distributed systems can only guarantee two out of three critical properties: Consistency (all nodes see the same data simultaneously), Availability (the system remains operational), and Partition Tolerance (the system continues despite network failures). While historically presented as a rigid triangle forcing architects to choose two properties, modern understanding recognizes CAP as a spectrum where systems make nuanced trade-offs based on operational requirements. This theoretical framework helps architects understand that during network partitions—which are inevitable in distributed systems—they must choose between maintaining consistency (refusing some requests) or maintaining availability (accepting potential inconsistencies). Understanding CAP is essential for making informed architectural decisions about database selection, replication strategies, and failure handling in distributed systems.
+
+```mermaid
+graph TB
+    subgraph "CAP Theorem Triangle"
+        C[Consistency<br/>All nodes see same data]
+        A[Availability<br/>System remains operational]
+        P[Partition Tolerance<br/>Handles network failures]
+    end
+    
+    subgraph "Trade-off Scenarios"
+        CP[CP Systems<br/>Consistent + Partition Tolerant]
+        AP[AP Systems<br/>Available + Partition Tolerant]
+        CA[CA Systems<br/>Consistent + Available<br/>(Single node only)]
+    end
+    
+    subgraph "Real World Examples"
+        CPEx[MongoDB<br/>HBase<br/>Zookeeper]
+        APEx[Cassandra<br/>DynamoDB<br/>CouchDB]
+        CAEx[PostgreSQL<br/>MySQL<br/>(Single instance)]
+    end
+    
+    subgraph "Modern Interpretations"
+        PACELC[PACELC Theorem<br/>Extends CAP with latency]
+        Tunable[Tunable Consistency<br/>Adjust per operation]
+        Eventual[Eventual Consistency<br/>Convergence over time]
+    end
+    
+    C -.->|Choose 2| CP
+    A -.->|Choose 2| AP
+    P -.->|Choose 2| CP
+    P -.->|Choose 2| AP
+    C -.->|No partitions| CA
+    A -.->|No partitions| CA
+    
+    CP --> CPEx
+    AP --> APEx
+    CA --> CAEx
+    
+    CP --> PACELC
+    AP --> PACELC
+    PACELC --> Tunable
+    Tunable --> Eventual
+    
+    style C fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style A fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style P fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style PACELC fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
+```
+
+### What You'll Master
+
+- **Fundamental trade-off analysis** between consistency, availability, and partition tolerance in distributed systems
+- **System classification techniques** to identify whether existing systems are CP, AP, or CA and their operational implications
+- **Partition handling strategies** for gracefully degrading service during network failures while maintaining critical properties
+- **Modern consistency models** including eventual consistency, causal consistency, and tunable consistency levels
+- **Practical application** of CAP theorem to database selection, microservice communication, and distributed system design decisions
 
 ## Essential Question
 ## When to Use / When NOT to Use

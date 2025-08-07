@@ -81,6 +81,18 @@ journey
 
 **Prerequisites**: Basic understanding of network latency and distributed system coordination
 
+prerequisites:
+  - core-principles/laws/correlated-failure.md
+  - core-principles/pillars/work-distribution.md
+  - pattern-library/communication/publish-subscribe.md
+  - pattern-library/communication/request-reply.md
+  - pattern-library/coordination/logical-clocks.md
+  - concepts/concurrent-programming
+  - concepts/message-queuing
+  - concepts/event-driven-architecture
+  - math/queuing-theory
+  - math/race-conditions
+
 ## The Speed of Light Reality
 
 ### The Unbreakable Constraint

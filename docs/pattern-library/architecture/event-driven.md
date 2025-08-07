@@ -598,6 +598,17 @@ graph TB
 4. **Fat events** - Including entire aggregate state
 5. **No idempotency** - Handlers not handling duplicates
 
+!!! experiment "💡 Quick Thought Experiment: Dependency Elimination Strategy"
+    **Apply the 5-step framework to eliminate synchronous service dependencies:**
+    
+    1. **INVENTORY**: Map all synchronous API calls, shared databases, blocking operations, request-response patterns
+    2. **PRIORITIZE**: Rank by blocking time × call frequency (user profile service = high frequency, payment gateway = high latency)
+    3. **ISOLATE**: Convert to async events - order placed → inventory reserved → payment processed → shipment created
+    4. **MIGRATE**: Implement event sourcing, saga patterns, eventual consistency with compensating actions
+    5. **MONITOR**: Track event processing times, saga completion rates, compensating transaction frequency
+    
+    **Success Metric**: Achieve temporal decoupling - services can process at their own pace without blocking others
+
 ---
 
 ## 🎓 Key Takeaways

@@ -86,6 +86,20 @@ journey
 
 **Prerequisites**: Understanding of network partitions and distributed system failures
 
+prerequisites:
+  - core-principles/laws/correlated-failure.md
+  - core-principles/laws/asynchronous-reality.md
+  - core-principles/laws/cognitive-load.md
+  - core-principles/laws/emergent-chaos.md
+  - core-principles/pillars/truth-distribution.md
+  - pattern-library/data-management/eventual-consistency.md
+  - pattern-library/coordination/vector-clocks.md
+  - concepts/information-theory
+  - concepts/cap-theorem
+  - concepts/consensus-algorithms
+  - math/entropy
+  - math/information-loss
+
 ---
 
 ## The Fundamental Impossibility

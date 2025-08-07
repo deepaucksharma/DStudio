@@ -17,6 +17,24 @@ tagline: Master service mesh for distributed systems success
 trade_offs:
   cons: ['Operational complexity to manage', 'Performance overhead (~1-2ms latency)', 'Resource consumption (sidecars)', 'Learning curve for teams', 'Debugging complexity with proxies']
   pros: ['Centralized control of service communication', 'Automatic mTLS and security policies', 'Built-in observability (traces, metrics, logs)', 'Traffic management capabilities', 'Consistent policies across services']
+related_laws:
+  primary:
+    - number: 1
+      aspect: "correlation_point"
+      description: "Control plane becomes a shared dependency creating correlation risk"
+    - number: 3
+      aspect: "cognitive_complexity"
+      description: "Abstracts networking complexity but adds operational cognitive load"
+    - number: 5
+      aspect: "knowledge_distribution"
+      description: "Service discovery and configuration knowledge centrally managed"
+  secondary:
+    - number: 2
+      aspect: "timing_coordination"
+      description: "Configuration propagation delays and certificate rotation timing"
+    - number: 7
+      aspect: "resource_overhead"
+      description: "Sidecar resource consumption adds 10-20% overhead"
 ---
 
 ## The Complete Blueprint
@@ -98,6 +116,65 @@ flowchart TB
 
 ## Essential Question
 **How do we manage service-to-service communication without touching application code?**
+
+## Fundamental Law Connections
+
+### Correlation Risk (Law 1)
+Service mesh introduces both correlation reduction and new correlation points:
+- **Control Plane as SPOF**: All services depend on control plane availability
+- **Certificate Authority Correlation**: mTLS cert rotation affects all services
+- **Sidecar Resource Correlation**: Memory/CPU exhaustion cascades
+- **Mitigation**: Multi-region control planes, gradual cert rotation, resource limits
+
+### Cognitive Complexity Trade-off (Law 3)
+Service mesh shifts cognitive load from developers to operators:
+- **Developer Simplification**: No networking code needed
+- **Operator Complexity**: Understanding proxy behavior, debugging through sidecars
+- **Configuration Cognitive Load**: Complex YAML policies, routing rules
+- **Debugging Challenge**: Extra hop makes tracing issues harder
+
+### Knowledge Distribution (Law 5)
+Centralizes service knowledge while distributing execution:
+- **Service Discovery**: Central registry of all services
+- **Configuration Management**: Policies distributed to all proxies
+- **Certificate Distribution**: Identity and trust propagation
+- **Telemetry Aggregation**: Central observability from distributed sources
+
+### Timing Coordination (Law 2)
+- **Configuration Propagation Delay**: 10-30 seconds for policy updates
+- **Certificate Rotation Windows**: Must coordinate across services
+- **Circuit Breaker Timing**: Proxy-level timeouts vs app timeouts
+- **Retry Backoff**: Proxy retries can amplify load
+
+### Economic Overhead (Law 7)
+- **Resource Cost**: 10-20% CPU/memory overhead from sidecars
+- **Operational Cost**: Requires dedicated team for mesh operations
+- **Latency Cost**: 1-2ms added per hop
+- **ROI Calculation**: Security + observability benefits vs overhead
+
+## Case Studies with Law Applications
+
+### Netflix: Istio at Scale
+**Laws Demonstrated**:
+- **Law 1**: Control plane sharding to reduce correlation
+- **Law 3**: Dedicated mesh team to handle complexity
+- **Law 7**: Accepted 15% resource overhead for security benefits
+
+**Key Insights**:
+- Gradual rollout critical for success
+- Observability gains justified overhead
+- Control plane HA essential
+
+### Uber: From Libraries to Mesh
+**Laws Demonstrated**:
+- **Law 3**: Reduced developer cognitive load by 60%
+- **Law 5**: Centralized service discovery replaced scattered configs
+- **Law 1**: Eliminated library version correlation issues
+
+**Key Insights**:
+- Migration took 18 months
+- Performance overhead acceptable for consistency
+- Simplified service onboarding from days to hours
 
 ## When to Use / When NOT to Use
 
@@ -247,6 +324,17 @@ class MeshLoadBalancer:
 - Process requests
 - Handle responses
 - Manage failures
+
+!!! experiment "💡 Quick Thought Experiment: Dependency Elimination Strategy"
+    **Apply the 5-step framework to eliminate service communication dependencies:**
+    
+    1. **INVENTORY**: Map all service-to-service calls, shared libraries, client libraries, load balancers
+    2. **PRIORITIZE**: Rank by coupling strength × change frequency (authentication service = highest priority)
+    3. **ISOLATE**: Deploy service mesh sidecars for traffic management, security, observability decoupling
+    4. **MIGRATE**: Replace client libraries with mesh discovery, centralized policies, auto-mTLS
+    5. **MONITOR**: Track service mesh control plane health, sidecar resource usage, policy effectiveness
+    
+    **Success Metric**: Achieve communication independence - services can change networking/security without coordinating with consumers
 ## Related Laws
 
 - [Law: Cognitive Load](../../core-principles/laws/cognitive-load.md)

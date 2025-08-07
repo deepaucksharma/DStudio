@@ -548,6 +548,17 @@ def evolutionary_architecture():
     # - Best of both worlds
 ```
 
+!!! experiment "💡 Quick Thought Experiment: Dependency Elimination Strategy"
+    **Apply the 5-step framework to monolith decomposition:**
+    
+    1. **INVENTORY**: Map all tightly coupled modules, shared libraries, database tables, deployment pipelines
+    2. **PRIORITIZE**: Rank by change frequency × team ownership conflicts (user management + payment processing = highest friction)
+    3. **ISOLATE**: Extract bounded contexts - separate databases, async communication, independent deployment pipelines
+    4. **MIGRATE**: Use Strangler Fig pattern - new features as services, legacy features gradually extracted
+    5. **MONITOR**: Track deployment frequency per team, cross-service dependencies, shared resource contention
+    
+    **Success Metric**: Achieve team autonomy - when Team A can release features without waiting for Team B, C, or D
+
 ## Related Resources
 
 - [Modular Monolith Pattern](../pattern-library/modular-monolith.md)

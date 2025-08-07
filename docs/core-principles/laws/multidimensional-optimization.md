@@ -83,6 +83,20 @@ journey
 
 **Prerequisites**: Experience with system design decisions and business stakeholder communication
 
+prerequisites:
+  - core-principles/laws/correlated-failure.md
+  - core-principles/laws/asynchronous-reality.md
+  - core-principles/laws/cognitive-load.md
+  - core-principles/laws/emergent-chaos.md
+  - core-principles/laws/distributed-knowledge.md
+  - core-principles/pillars/index.md
+  - pattern-library/scaling/auto-scaling.md
+  - concepts/optimization-theory
+  - concepts/constraint-programming
+  - concepts/pareto-optimality
+  - math/game-theory
+  - math/multi-objective-optimization
+
 ---
 
 ## The Iron Triangle Reality

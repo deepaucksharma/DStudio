@@ -44,6 +44,72 @@ trade_offs:
 type: pattern
 ---
 
+## The Complete Blueprint
+
+The Choreography Pattern implements decentralized workflow coordination where services react autonomously to events without any central orchestrator, creating a distributed dance of independent components that collectively achieve business processes through event-driven communication. While this approach maximizes service autonomy and eliminates single points of failure in coordination logic, it introduces significant challenges in debugging, monitoring, and understanding the overall workflow state as business logic becomes scattered across multiple services. The pattern works by having each service publish events when it completes its work, with other services subscribing to relevant events and performing their tasks independently, creating implicit workflows through a chain of event reactions. Although choreography was popular in early microservices architectures for its simplicity and loose coupling, modern systems increasingly favor orchestration or hybrid approaches due to the operational complexity of purely choreographed systems, especially as workflow complexity grows and regulatory compliance requires clear audit trails.
+
+```mermaid
+graph TB
+    subgraph "Choreographed Workflow"
+        E1[Order Created Event] --> S1[Payment Service<br/>Listens & processes]
+        S1 --> E2[Payment Completed Event]
+        E2 --> S2[Inventory Service<br/>Reserves items]
+        S2 --> E3[Items Reserved Event]
+        E3 --> S3[Shipping Service<br/>Creates shipment]
+        S3 --> E4[Shipment Created Event]
+        E4 --> S4[Notification Service<br/>Sends confirmation]
+    end
+    
+    subgraph "Problems with Pure Choreography"
+        P1[No Workflow Visibility<br/>Where is order #123?]
+        P2[Debugging Nightmare<br/>Trace through logs]
+        P3[Error Handling<br/>Who compensates?]
+        P4[Business Logic Scattered<br/>No single source]
+    end
+    
+    subgraph "Modern Alternatives"
+        O1[Orchestration<br/>Central coordinator]
+        O2[Saga Pattern<br/>Explicit workflow]
+        O3[Event Streaming<br/>Kafka/Pulsar]
+        O4[Workflow Engines<br/>Temporal/Camunda]
+    end
+    
+    subgraph "Hybrid Approach"
+        H1[Local Choreography<br/>Within bounded context]
+        H2[Global Orchestration<br/>Cross-domain workflows]
+        H3[Event Sourcing<br/>Audit trail]
+        H4[Service Mesh<br/>Observability]
+    end
+    
+    E1 -.->|Problems| P1
+    E2 -.->|Problems| P2
+    E3 -.->|Problems| P3
+    E4 -.->|Problems| P4
+    
+    P1 --> O1
+    P2 --> O2
+    P3 --> O3
+    P4 --> O4
+    
+    O1 --> H2
+    S1 --> H1
+    O3 --> H3
+    O2 --> H4
+    
+    style E1 fill:#ffebee,stroke:#f44336,stroke-width:2px
+    style P1 fill:#ffcdd2,stroke:#d32f2f,stroke-width:2px
+    style O1 fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style H1 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+```
+
+### What You'll Master
+
+- **Event-driven workflow design** with publish-subscribe patterns, event schemas, and message routing strategies
+- **Debugging techniques** for distributed choreographed systems including correlation IDs, distributed tracing, and event replay
+- **Error handling patterns** including compensating transactions, dead letter queues, and timeout management
+- **Migration strategies** from pure choreography to orchestration or hybrid approaches while maintaining service autonomy
+- **Monitoring and observability** for choreographed workflows with event tracking, business metrics, and SLA management
+- **When choreography still makes sense** for simple linear workflows, loosely coupled notifications, and event broadcasting
 
 # Choreography Pattern
 

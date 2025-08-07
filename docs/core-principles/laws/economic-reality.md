@@ -84,6 +84,21 @@ journey
 
 **Prerequisites**: Basic understanding of business finance and cloud infrastructure costs
 
+prerequisites:
+  - core-principles/laws/correlated-failure.md
+  - core-principles/laws/asynchronous-reality.md
+  - core-principles/laws/cognitive-load.md
+  - core-principles/laws/emergent-chaos.md
+  - core-principles/laws/distributed-knowledge.md
+  - core-principles/laws/multidimensional-optimization.md
+  - pattern-library/cost-optimization/finops.md
+  - concepts/total-cost-ownership
+  - concepts/technical-debt
+  - concepts/opportunity-cost
+  - finance/roi-analysis
+  - finance/cost-benefit-analysis
+  - finance/capex-vs-opex
+
 ---
 
 ## The Iceberg Principle

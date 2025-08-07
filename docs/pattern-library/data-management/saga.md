@@ -241,6 +241,17 @@ await inventory.reserve(
 4. **Implicit Compensations** - Make rollback logic explicit
 5. **Circular Dependencies** - Avoid circular event chains
 
+!!! experiment "💡 Quick Thought Experiment: Dependency Elimination Strategy"
+    **Apply the 5-step framework to eliminate distributed transaction dependencies:**
+    
+    1. **INVENTORY**: Map all atomic operations spanning multiple services (payment + inventory + shipping + notifications)
+    2. **PRIORITIZE**: Rank by business criticality × failure complexity (order processing = highest, user preferences = lowest)
+    3. **ISOLATE**: Decompose into autonomous steps with explicit compensations, timeout handling, and retry logic
+    4. **MIGRATE**: Implement choreographed sagas for loose coupling, orchestrated sagas for complex workflows
+    5. **MONITOR**: Track saga completion rates, compensation frequency, step failure patterns, end-to-end latency
+    
+    **Success Metric**: Achieve transactional independence - when one service is down, other services continue processing with graceful degradation
+
 ## Related Patterns
 
 - [Event Sourcing](./event-sourcing.md) - Store saga state as events

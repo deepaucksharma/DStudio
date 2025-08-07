@@ -18,10 +18,10 @@ This document tracks the progress of creating learning modules and exams for all
 ## Quick Stats
 
 - **Total Pages**: 52
-- **Completed**: 5
-- **Modules Done (need exams)**: 4
-- **Not Started**: 43
-- **Completion**: 9.6%
+- **Completed**: 7 (both module and exam)
+- **Modules Done (need exams)**: 3
+- **Not Started**: 42
+- **Completion**: 13.5%
 
 ---
 
@@ -56,10 +56,10 @@ This document tracks the progress of creating learning modules and exams for all
 | # | Pillar | Module | Exam | Status | Notes | Last Updated |
 |---|--------|--------|------|--------|-------|-------------|
 | 1 | Work Distribution | ✅ | ✅ | ✅ Complete | Created in session | 2025-01-30 |
-| 2 | State Management | ✅ | ⬜ | 📝 Module done | module-2-state-distribution.md created | 2025-01-30 |
-| 3 | Flow Control | ✅ | ⬜ | 📝 Module done | module-3-flow-control.md | 2025-08-07 |
+| 2 | State Management | ✅ | ✅ | ✅ Complete | state-distribution-exam.md created | 2025-08-07 |
+| 3 | Flow Control | ✅ | ✅ | ✅ Complete | flow-control-exam.md created | 2025-01-30 |
 | 4 | Failure Boundaries | ⬜ | ⬜ | ⬜ Not started | | |
-| 5 | Operational Excellence | ⬜ | ⬜ | ⬜ Not started | | |
+| 5 | Operational Excellence | ✅ | ⬜ | 📝 Module done | module-5-operational-excellence.md created | 2025-01-30 |
 
 ---
 

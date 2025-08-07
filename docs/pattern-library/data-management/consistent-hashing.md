@@ -128,9 +128,260 @@ This emergent chaos from simple operations demonstrates why consistent hashing i
 
 ---
 
+### Advanced Cell-Aware Consistent Hashing
+
+```python
+import hashlib
+import bisect
+import mmh3
+from typing import Dict, List, Optional, Tuple
+import numpy as np
+
+class CellAwareConsistentHash:
+    """Consistent hashing with cell-awareness for multi-tenant isolation"""
+    
+    def __init__(self, cells: int = 10, virtual_nodes_per_cell: int = 150):
+        self.cells = cells
+        self.virtual_nodes = virtual_nodes_per_cell
+        self.ring = {}  # hash -> (cell_id, node_id)
+        self.cell_ring = {}  # Per-cell hash rings for isolation
+        self.tenant_to_cell = {}  # Tenant isolation mapping
+        self._initialize_rings()
+        
+    def _initialize_rings(self):
+        """Initialize both global and per-cell hash rings"""
+        
+        # Global ring for cell selection
+        for cell_id in range(self.cells):
+            for vnode in range(self.virtual_nodes):
+                # Create virtual node ID
+                vnode_id = f"cell-{cell_id}:vnode-{vnode}"
+                
+                # Use SHA-256 for uniform distribution
+                hash_value = int(hashlib.sha256(vnode_id.encode()).hexdigest(), 16)
+                
+                # Map to 32-bit space for efficiency
+                hash_32 = hash_value % (2**32)
+                
+                self.ring[hash_32] = (cell_id, vnode)
+                
+            # Initialize per-cell ring for node distribution within cell
+            self.cell_ring[cell_id] = self._create_cell_ring(cell_id)
+            
+    def _create_cell_ring(self, cell_id: int, nodes_per_cell: int = 20) -> Dict:
+        """Create internal hash ring for a specific cell"""
+        cell_ring = {}
+        
+        for node_id in range(nodes_per_cell):
+            for vnode in range(50):  # 50 vnodes per physical node
+                vnode_id = f"cell-{cell_id}:node-{node_id}:vnode-{vnode}"
+                hash_value = mmh3.hash128(vnode_id) % (2**32)
+                cell_ring[hash_value] = node_id
+                
+        return cell_ring
+    
+    def get_cell_for_key(self, key: str, tenant_id: Optional[str] = None) -> int:
+        """Route key to appropriate cell with tenant isolation"""
+        
+        # Check for tenant-specific cell assignment
+        if tenant_id and tenant_id in self.tenant_to_cell:
+            return self.tenant_to_cell[tenant_id]
+            
+        # Hash the key
+        key_hash = int(hashlib.sha256(key.encode()).hexdigest(), 16) % (2**32)
+        
+        # Find the cell using consistent hashing
+        cell_id = self._find_cell_for_hash(key_hash)
+        
+        # Cache tenant-to-cell mapping for consistency
+        if tenant_id:
+            self.tenant_to_cell[tenant_id] = cell_id
+            
+        return cell_id
+    
+    def _find_cell_for_hash(self, key_hash: int) -> int:
+        """Find cell responsible for a given hash value"""
+        
+        # Get sorted hash values from ring
+        sorted_hashes = sorted(self.ring.keys())
+        
+        # Binary search for the first hash >= key_hash
+        idx = bisect.bisect_right(sorted_hashes, key_hash)
+        
+        # Wrap around if necessary
+        if idx == len(sorted_hashes):
+            idx = 0
+            
+        # Return the cell ID
+        return self.ring[sorted_hashes[idx]][0]
+    
+    def get_node_in_cell(self, key: str, cell_id: int) -> int:
+        """Get specific node within a cell for a key"""
+        
+        # Get the cell's internal ring
+        if cell_id not in self.cell_ring:
+            raise ValueError(f"Cell {cell_id} not initialized")
+            
+        cell_ring = self.cell_ring[cell_id]
+        
+        # Hash the key for node selection
+        key_hash = mmh3.hash128(f"{key}:{cell_id}") % (2**32)
+        
+        # Find node in cell's ring
+        sorted_hashes = sorted(cell_ring.keys())
+        idx = bisect.bisect_right(sorted_hashes, key_hash)
+        
+        if idx == len(sorted_hashes):
+            idx = 0
+            
+        return cell_ring[sorted_hashes[idx]]
+    
+    def add_cell(self, new_cell_id: int) -> Dict[str, List[int]]:
+        """Add a new cell and return keys that need migration"""
+        
+        affected_keys = {'migrate_from': [], 'migrate_to': []}
+        
+        # Add virtual nodes for new cell
+        for vnode in range(self.virtual_nodes):
+            vnode_id = f"cell-{new_cell_id}:vnode-{vnode}"
+            hash_value = int(hashlib.sha256(vnode_id.encode()).hexdigest(), 16) % (2**32)
+            
+            # Find current owner of this hash range
+            current_owner = self._find_cell_for_hash(hash_value)
+            
+            # Mark keys in this range for migration
+            affected_keys['migrate_from'].append(current_owner)
+            affected_keys['migrate_to'].append(new_cell_id)
+            
+            # Add to ring
+            self.ring[hash_value] = (new_cell_id, vnode)
+            
+        # Create internal ring for new cell
+        self.cell_ring[new_cell_id] = self._create_cell_ring(new_cell_id)
+        
+        return affected_keys
+    
+    def remove_cell(self, cell_id: int) -> Dict[int, List[int]]:
+        """Remove a cell and redistribute its keys"""
+        
+        redistribution_map = {}  # old_hash -> new_cell
+        
+        # Find all virtual nodes belonging to this cell
+        hashes_to_remove = []
+        for hash_value, (c_id, _) in self.ring.items():
+            if c_id == cell_id:
+                hashes_to_remove.append(hash_value)
+                
+        # Remove virtual nodes and track redistribution
+        for hash_value in hashes_to_remove:
+            del self.ring[hash_value]
+            
+            # Find new owner for this hash range
+            if self.ring:  # If there are remaining cells
+                new_owner = self._find_cell_for_hash(hash_value)
+                redistribution_map[hash_value] = new_owner
+                
+        # Remove cell's internal ring
+        if cell_id in self.cell_ring:
+            del self.cell_ring[cell_id]
+            
+        # Update tenant mappings
+        for tenant, mapped_cell in list(self.tenant_to_cell.items()):
+            if mapped_cell == cell_id:
+                # Reassign tenant to new cell
+                new_cell = self.get_cell_for_key(tenant)
+                self.tenant_to_cell[tenant] = new_cell
+                
+        return redistribution_map
+
 ### Core Algorithm Implementation
 
 **System Flow:** Input → Processing → Output
+
+### Bounded-Load Consistent Hashing for Cells
+
+```python
+class BoundedLoadCellHash:
+    """Ensures no cell gets more than c × average_load"""
+    
+    def __init__(self, capacity_factor: float = 1.25):
+        self.capacity_factor = capacity_factor  # Max 25% over average
+        self.cell_loads = {}  # Current load per cell
+        self.fallback_cells = {}  # Overflow routing
+        
+    def route_with_bounded_load(self, key: str, base_cell: int) -> int:
+        """Route to cell with load balancing"""
+        
+        avg_load = self._calculate_average_load()
+        max_load = avg_load * self.capacity_factor
+        
+        # Check if base cell is within capacity
+        if self.cell_loads.get(base_cell, 0) < max_load:
+            self.cell_loads[base_cell] = self.cell_loads.get(base_cell, 0) + 1
+            return base_cell
+            
+        # Find alternative cell using consistent hashing
+        return self._find_alternative_cell(key, base_cell, max_load)
+    
+    def _find_alternative_cell(self, key: str, excluded_cell: int, max_load: float) -> int:
+        """Find alternative cell when primary is at capacity"""
+        
+        # Use key hash to deterministically select alternatives
+        key_hash = mmh3.hash128(key)
+        
+        # Try cells in consistent order
+        for attempt in range(self.cells):
+            # Generate deterministic cell order for this key
+            candidate = (key_hash + attempt) % self.cells
+            
+            if candidate != excluded_cell and self.cell_loads.get(candidate, 0) < max_load:
+                self.cell_loads[candidate] = self.cell_loads.get(candidate, 0) + 1
+                return candidate
+                
+        # All cells at capacity - need to scale
+        raise CapacityExceeded("All cells at maximum capacity")
+```
+
+### Jump Consistent Hash for Cells
+
+```python
+def jump_consistent_hash(key: int, num_buckets: int) -> int:
+    """Google's jump consistent hash - no memory overhead"""
+    
+    b = -1
+    j = 0
+    
+    while j < num_buckets:
+        b = j
+        key = ((key * 2862933555777941757) + 1) & 0xffffffffffffffff
+        j = int((b + 1) * (2.0**31 / ((key >> 33) + 1)))
+        
+    return b
+
+class JumpHashCellRouter:
+    """Memory-efficient cell routing using jump hash"""
+    
+    def route_to_cell(self, user_id: str) -> int:
+        """Route user to cell with zero memory overhead"""
+        
+        # Convert user_id to integer
+        user_hash = int(hashlib.md5(user_id.encode()).hexdigest(), 16)
+        
+        # Use jump hash for cell selection
+        cell_id = jump_consistent_hash(user_hash, self.num_cells)
+        
+        return cell_id
+    
+    def compute_migration_on_scale(self, old_cells: int, new_cells: int) -> float:
+        """Calculate percentage of keys that will migrate"""
+        
+        if new_cells > old_cells:
+            # Adding cells
+            return (new_cells - old_cells) / new_cells
+        else:
+            # Removing cells - more complex
+            return 1.0 - (new_cells / old_cells)
+```
 
 ### Virtual Nodes Configuration Guide
 
@@ -141,6 +392,16 @@ This emergent chaos from simple operations demonstrates why consistent hashing i
 | 100 | ±10% | 100x keys | **Most systems** |
 | 150 | ±5% | 150x keys | **Discord/Cassandra default** |
 | 1000 | ±2% | 1000x keys | Extreme requirements |
+
+### Cell-Aware Virtual Node Distribution
+
+| Cell Count | Virtual Nodes/Cell | Total Vnodes | Memory (MB) | Load Variance |
+|------------|-------------------|--------------|-------------|---------------|
+| 10 | 150 | 1,500 | ~12 | ±5% |
+| 50 | 100 | 5,000 | ~40 | ±7% |
+| 100 | 75 | 7,500 | ~60 | ±8% |
+| 500 | 50 | 25,000 | ~200 | ±10% |
+| 1000 | 30 | 30,000 | ~240 | ±12% |
 
 ## Decision Matrix
 

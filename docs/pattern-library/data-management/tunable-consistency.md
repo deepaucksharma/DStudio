@@ -22,6 +22,80 @@ when_not_to_use: When simpler solutions suffice
 when_to_use: When dealing with specialized challenges
 ---
 
+## The Complete Blueprint
+
+Tunable Consistency patterns enable distributed systems to dynamically adjust consistency guarantees on a per-operation basis, balancing between strong consistency (slow, safe) and eventual consistency (fast, flexible) based on specific application requirements. Rather than applying a single consistency model across all data operations, this pattern recognizes that different data types and operations have varying consistency needs—bank balances require linearizable consistency while social media likes can be eventually consistent. This approach optimizes both performance and resource utilization by matching consistency guarantees to business requirements, using techniques like bounded staleness, session consistency, and causal consistency to provide the appropriate trade-offs between consistency, availability, and performance.
+
+```mermaid
+graph TB
+    subgraph "Consistency Levels"
+        A[Linearizable<br/>Strongest, highest latency]
+        B[Sequential<br/>Total order consistency]
+        C[Causal<br/>Causally related events]
+        D[Session<br/>Per-client consistency]
+        E[Bounded Staleness<br/>Time/version bounds]
+        F[Eventual<br/>Weakest, lowest latency]
+    end
+    
+    subgraph "Operation Types"
+        G[Financial Transactions<br/>Bank transfers, payments]
+        H[User Authentication<br/>Login, password changes]
+        I[Shopping Cart<br/>Add/remove items]
+        J[Social Interactions<br/>Likes, comments, shares]
+        K[Analytics Data<br/>Metrics, reporting]
+        L[Content Delivery<br/>Images, static content]
+    end
+    
+    subgraph "Consistency Mapping"
+        M[Critical Operations<br/>Strong consistency required]
+        N[User Experience<br/>Session consistency needed]
+        O[Performance Sensitive<br/>Eventual consistency preferred]
+    end
+    
+    subgraph "Implementation Layer"
+        P[Quorum Configuration<br/>Read/Write quorums]
+        Q[Replication Strategy<br/>Sync/Async replication]
+        R[Conflict Resolution<br/>Last-write-wins, CRDTs]
+        S[Monitoring<br/>Consistency violations]
+    end
+    
+    A --> G
+    B --> H
+    C --> I
+    D --> I
+    E --> J
+    F --> K
+    F --> L
+    
+    G --> M
+    H --> M
+    I --> N
+    J --> O
+    K --> O
+    L --> O
+    
+    M --> P
+    N --> Q
+    O --> R
+    
+    P --> S
+    Q --> S
+    R --> S
+    
+    style A fill:#f44336,color:#fff
+    style F fill:#4CAF50,color:#fff
+    style M fill:#ff9800,color:#fff
+    style O fill:#2196F3,color:#fff
+```
+
+### What You'll Master
+
+- **Consistency model selection** matching business requirements to appropriate consistency levels for optimal performance and safety
+- **Dynamic consistency tuning** adjusting consistency guarantees at runtime based on system conditions and operation types
+- **Quorum-based systems** configuring read and write quorums to achieve desired consistency and availability trade-offs
+- **Session and causal consistency** implementing per-client consistency and causally ordered operations for user experience
+- **Bounded staleness techniques** setting time or version bounds for acceptable data staleness in analytical systems
+- **Performance optimization** reducing latency and resource usage by avoiding over-consistency while maintaining data integrity
 
 ## Essential Question
 

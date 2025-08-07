@@ -17,9 +17,23 @@ prerequisites:
 - monitoring
 reading_time: 15 min
 related_laws:
-- asynchronous-reality
-- multidimensional-optimization
-- economic-reality
+  primary:
+    - number: 1
+      aspect: "scaling_correlation"
+      description: "Simultaneous scaling across services creates correlated resource demands"
+    - number: 2
+      aspect: "scaling_delays"
+      description: "Instance startup time and metric lag create timing challenges"
+    - number: 7
+      aspect: "cost_optimization"
+      description: "Balances resource costs with performance requirements"
+  secondary:
+    - number: 4
+      aspect: "emergent_behavior"
+      description: "Scaling oscillations and thundering herds emerge from feedback loops"
+    - number: 6
+      aspect: "multi_objective"
+      description: "Optimizes across cost, performance, and availability dimensions"
 related_pillars:
 - work
 - control
@@ -39,6 +53,76 @@ trade_offs:
   - Improves resource utilization efficiency
 type: pattern
 ---
+
+## Fundamental Law Connections
+
+### Scaling Correlation (Law 1)
+Auto-scaling can create or prevent correlated failures:
+- **Scaling Storms**: Multiple services scaling simultaneously exhaust resources
+- **Shared Metric Correlation**: Services using same metrics scale together
+- **Resource Pool Exhaustion**: Cloud provider limits hit during mass scaling
+- **Mitigation**: Staggered scaling, diverse metrics, reserved capacity pools
+
+### Scaling Delays (Law 2)
+Timing is critical in auto-scaling effectiveness:
+- **Metric Collection Lag**: 1-3 minute delays in metric aggregation
+- **Instance Startup Time**: 2-5 minutes for new instances to become ready
+- **Load Balancer Convergence**: 30-60 seconds to update routing
+- **Prediction Requirements**: Must anticipate demand 5-10 minutes ahead
+
+### Cost Optimization (Law 7)
+Auto-scaling directly impacts economic efficiency:
+- **Right-Sizing**: 20-60% cost savings through dynamic capacity
+- **Spot Instance Integration**: 70-90% savings with interruption handling
+- **Reserved Capacity Balance**: Optimize base load vs elastic capacity
+- **Over-Provisioning Trade-offs**: Safety margin costs vs SLA penalties
+
+### Emergent Behavior (Law 4)
+- **Oscillation Patterns**: Rapid scale up/down cycles from poor tuning
+- **Thundering Herd**: All instances scaling simultaneously
+- **Cascade Scaling**: One service scaling triggers others
+- **Feedback Loops**: Scaling affects metrics which trigger more scaling
+
+### Multi-Objective Optimization (Law 6)
+- **Cost vs Performance**: Cheaper instances vs faster response times
+- **Availability vs Efficiency**: Over-provisioning vs resource utilization
+- **Stability vs Responsiveness**: Conservative vs aggressive scaling
+- **Predictive vs Reactive**: ML prediction costs vs reactive simplicity
+
+## Case Studies with Law Applications
+
+### Netflix: Predictive Scaling
+**Laws Demonstrated**:
+- **Law 1**: Regional isolation prevents global scaling correlation
+- **Law 2**: 10-minute prediction window handles instance startup delays
+- **Law 7**: 40% cost reduction through predictive scaling
+
+**Key Insights**:
+- Scryer ML system predicts demand patterns
+- Separate scaling policies per service type
+- Reserved capacity for baseline, spot for spikes
+
+### Uber: Surge Scaling
+**Laws Demonstrated**:
+- **Law 4**: Prevented scaling oscillations with hysteresis bands
+- **Law 6**: Balanced driver supply, rider demand, and infrastructure cost
+- **Law 1**: City-level scaling isolation prevents global storms
+
+**Key Insights**:
+- Multi-dimensional scaling on rides, drivers, and geography
+- Predictive pre-scaling for known events
+- Graceful degradation when scaling limits hit
+
+### Amazon Prime Day
+**Laws Demonstrated**:
+- **Law 1**: Service-specific scaling prevents correlation
+- **Law 2**: Pre-warming instances hours before traffic
+- **Law 7**: Mix of reserved, on-demand, and spot instances
+
+**Key Insights**:
+- Scaling rehearsals months in advance
+- Service dependency mapping for ordered scaling
+- Cost optimization through capacity planning
 
 ## The Complete Blueprint
 

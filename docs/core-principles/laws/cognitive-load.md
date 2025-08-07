@@ -87,6 +87,17 @@ journey
 
 **Prerequisites**: Experience with on-call rotations and system operations
 
+prerequisites:
+  - core-principles/laws/correlated-failure.md
+  - core-principles/laws/asynchronous-reality.md
+  - core-principles/pillars/intelligence-distribution.md
+  - pattern-library/resilience/circuit-breaker-transformed.md
+  - concepts/human-factors-engineering
+  - concepts/system-observability
+  - concepts/alert-fatigue
+  - psychology/cognitive-psychology
+  - psychology/decision-fatigue
+
 ## Miller's 7±2: The Mental RAM Limit
 
 ### The Fundamental Constraint

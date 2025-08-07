@@ -83,6 +83,18 @@ journey
 
 **Prerequisites**: Understanding of system load patterns and basic chaos theory concepts
 
+prerequisites:
+  - core-principles/laws/correlated-failure.md
+  - core-principles/laws/asynchronous-reality.md
+  - core-principles/laws/cognitive-load.md
+  - core-principles/pillars/control-distribution.md
+  - pattern-library/coordination/consensus.md
+  - concepts/chaos-theory
+  - concepts/complex-systems
+  - concepts/non-linear-dynamics
+  - math/butterfly-effect
+  - math/strange-attractors
+
 ---
 
 ## The Butterfly Effect in Production
