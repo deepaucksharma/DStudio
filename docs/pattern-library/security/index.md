@@ -12,13 +12,13 @@ Security in distributed systems requires layered defense with multiple complemen
 ## Pattern Categories
 
 ### Access Control
-- [Zero-Trust Architecture](zero-trust-architecture/) - Never trust, always verify
-- [API Security Gateway](api-security-gateway/) - Centralized security enforcement
-- [Secrets Management](secrets-management/) - Secure credential handling
+- [Zero-Trust Architecture](zero-trust-architecture.md) - Never trust, always verify
+- [API Security Gateway](api-security-gateway.md) - Centralized security enforcement
+- [Secrets Management](secrets-management.md) - Secure credential handling
 
 ### Development Security
-- [Security Scanning Pipeline](security-scanning-pipeline/) - Automated security validation
-- [Threat Modeling](threat-modeling/) - Systematic risk assessment
+- [Security Scanning Pipeline](security-scanning-pipeline.md) - Automated security validation
+- [Threat Modeling](threat-modeling.md) - Systematic risk assessment
 
 ## Quick Selection Guide
 
@@ -36,3 +36,10 @@ Security in distributed systems requires layered defense with multiple complemen
 - **Shopify**: API security gateway handling 100K+ requests/second
 - **Uber**: Secrets rotation preventing 95% of credential incidents
 - **Airbnb**: Security scanning catching 85% of vulnerabilities pre-production
+
+- [Consent Management](consent-management.md)
+- [Location Privacy](location-privacy.md)
+- [Api Security Gateway](api-security-gateway.md)
+- [Zero Trust Architecture](zero-trust-architecture.md)
+
+## Patterns

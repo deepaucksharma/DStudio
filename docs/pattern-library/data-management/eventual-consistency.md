@@ -400,9 +400,9 @@ graph LR
     
     ---
     
-    - [Consistency Testing Guide](../../architects-handbook/implementation-playbooks/guides/consistency-testing.md)
-    - [Conflict Resolution Patterns](../../architects-handbook/implementation-playbooks/guides/conflict-resolution.md)
-    - [Migration from Strong Consistency](../../architects-handbook/implementation-playbooks/migrations/strong-to-eventual.md)
+    - <!-- TODO: Add Consistency Testing Guide from Architects Handbook -->
+    - <!-- TODO: Add Conflict Resolution Patterns from Architects Handbook -->
+    - <!-- TODO: Add Migration from Strong Consistency from Architects Handbook -->
 
 </div>
 

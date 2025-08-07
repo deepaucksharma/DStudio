@@ -120,7 +120,7 @@ modern_examples:
 
 | Traditional Database | Cassandra Innovation | Business Impact |
 |---------------------|---------------------|----------------|
-| **Master-slave** → bottleneck | **Masterless ring** → infinite scale | Netflix: 4.5M reads/sec |
+| **Primary-replica** → bottleneck | **Peer-to-peer ring** → infinite scale | Netflix: 4.5M reads/sec |
 | **Fixed consistency** | **Tunable per-query** | Right tool for each use case |
 | **Manual sharding** | **Auto-distribution** | Zero downtime scaling |
 | **Single DC** | **Multi-region native** | Global availability |
@@ -152,8 +152,8 @@ graph TB
 
 ```mermaid
 graph TB
- subgraph "Traditional Master-Slave (Failure Prone)"
- M[Master Node<br/>SPOF]
+ subgraph "Traditional Primary-Replica (Failure Prone)"
+ M[Primary Node<br/>SPOF]
  S1[Slave 1]
  S2[Slave 2] 
  S3[Slave 3]
@@ -188,7 +188,7 @@ graph TB
 
 ### Architecture Impact Matrix
 
-| Metric | Master-Slave | Cassandra Ring | Real-World Impact |
+| Metric | Primary-Replica | Cassandra Ring | Real-World Impact |
 |--------|--------------|----------------|-------------------|
 | **Single Points** | 1+ (master) | 0 | Never goes down |
 | **Availability** | 99.9% (8h/yr) | 99.999% (5m/yr) | 1600x better |

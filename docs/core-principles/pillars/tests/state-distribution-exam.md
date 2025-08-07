@@ -91,7 +91,7 @@ A social media platform needs to handle different types of data with varying con
 
 ### Question 5: Replication Lag and Performance (15 minutes)
 
-Your master-slave replicated database has the following characteristics:
+Your primary-replica database has the following characteristics:
 - Write throughput: 10,000 ops/sec
 - Network bandwidth to replicas: 100 Mbps
 - Average record size: 2KB

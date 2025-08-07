@@ -315,7 +315,7 @@ graph LR
 
 | Issue | Impact | Redis Alternative |
 |-------|--------|------------------|
-| **Node failure** | Data loss for hash range | Master-slave replication |
+| **Node failure** | Data loss for hash range | Primary-replica replication |
 | **Hot keys** | Single node overload | Read replicas |
 | **Maintenance** | Downtime required | Online failover |
 | **Backup** | Not possible | Point-in-time snapshots |
@@ -366,7 +366,7 @@ class MemcachedToRedis:
 | Feature | Memcached | Redis | KeyDB |
 |---------|-----------|-------|--------|
 | **Persistence** | ❌ | ✅ RDB/AOF | ✅ RDB/AOF |
-| **Replication** | ❌ | ✅ Master-slave | ✅ Active-replica |
+| **Replication** | ❌ | ✅ Primary-replica | ✅ Active-replica |
 | **Clustering** | ❌ Client-side | ✅ Redis Cluster | ✅ Redis Cluster |
 | **Data structures** | ❌ Strings only | ✅ Lists, Sets, etc | ✅ Lists, Sets, etc |
 | **Lua scripting** | ❌ | ✅ | ✅ |

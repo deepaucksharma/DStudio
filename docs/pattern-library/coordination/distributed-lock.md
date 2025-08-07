@@ -392,9 +392,9 @@ graph LR
     
     ---
     
-    - [Lock Setup Guide](../../architects-handbook/implementation-playbooks/guides/lock-setup.md)
-    - [Testing Guide](../../architects-handbook/implementation-playbooks/guides/distributed-testing.md)
-    - [Redis to etcd Migration](../../architects-handbook/implementation-playbooks/migrations/redis-to-etcd.md)
+    - <!-- TODO: Add Lock Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Testing Guide from Architects Handbook -->
+    - <!-- TODO: Add Redis to etcd Migration from Architects Handbook -->
 
 </div>
 

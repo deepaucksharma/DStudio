@@ -5,9 +5,9 @@ title: Index
 description: 'TODO: Add description'
 ---
 
-# Pattern Library: 129 Distributed Systems Patterns
+# Pattern Library: 130 Distributed Systems Patterns
 
-**103 Production-Ready** • **26 Preview/Experimental**
+**104 Production-Ready** • **26 Preview/Experimental**
 
 ## Table of Contents
 
@@ -110,14 +110,14 @@ graph LR
 <div class="pattern-explorer-enhanced">
     <div class="explorer-header">
         <h3>🎯 Smart Pattern Discovery</h3>
-        <p>Find the right pattern based on our analysis of 103 patterns across 60 years of distributed systems</p>
+        <p>Find the right pattern based on our analysis of 130 patterns across 60 years of distributed systems</p>
     </div>
     
     <div class="pattern-filter-container">
         <div class="filter-header">
             <input type="text" id="pattern-search" placeholder="Try: 'failure', 'scale', 'netflix', 'consistency', 'real-time'..." />
             <div class="pattern-count">
-                Showing <span id="filtered-count">0</span> of <span id="total-count">103</span> patterns
+                Showing <span id="filtered-count">0</span> of <span id="total-count">130</span> patterns
             </div>
         </div>
         
@@ -142,7 +142,7 @@ graph LR
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="tier" data-value="all">All</button>
                     <button class="filter-btn" data-filter="tier" data-value="gold">🥇 Gold (50)</button>
-                    <button class="filter-btn" data-filter="tier" data-value="silver">🥈 Silver (46)</button>
+                    <button class="filter-btn" data-filter="tier" data-value="silver">🥈 Silver (73)</button>
                     <button class="filter-btn" data-filter="tier" data-value="bronze">🥉 Bronze (7)</button>
                 </div>
             </div>
@@ -151,15 +151,16 @@ graph LR
                 <label>Category:</label>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="category" data-value="all">All</button>
+                    <button class="filter-btn" data-filter="category" data-value="data-management">Data Management (28)</button>
+                    <button class="filter-btn" data-filter="category" data-value="scaling">Scaling (25)</button>
+                    <button class="filter-btn" data-filter="category" data-value="architecture">Architecture (19)</button>
+                    <button class="filter-btn" data-filter="category" data-value="coordination">Coordination (17)</button>
+                    <button class="filter-btn" data-filter="category" data-value="resilience">Resilience (13)</button>
                     <button class="filter-btn" data-filter="category" data-value="communication">Communication (8)</button>
-                    <button class="filter-btn" data-filter="category" data-value="resilience">Resilience (11)</button>
-                    <button class="filter-btn" data-filter="category" data-value="data-management">Data (22)</button>
-                    <button class="filter-btn" data-filter="category" data-value="scaling">Scaling (19)</button>
-                    <button class="filter-btn" data-filter="category" data-value="architecture">Architecture (16)</button>
-                    <button class="filter-btn" data-filter="category" data-value="coordination">Coordination (15)</button>
-                    <button class="filter-btn" data-filter="category" data-value="security">Security (5)</button>
+                    <button class="filter-btn" data-filter="category" data-value="security">Security (7)</button>
+                    <button class="filter-btn" data-filter="category" data-value="ml-infrastructure">ML Infrastructure (5)</button>
                     <button class="filter-btn" data-filter="category" data-value="deployment">Deployment (5)</button>
-                    <button class="filter-btn" data-filter="category" data-value="cost-optimization">Cost Optimization (2)</button>
+                    <button class="filter-btn" data-filter="category" data-value="cost-optimization">Cost Optimization (3)</button>
                 </div>
             </div>
             
@@ -244,7 +245,7 @@ graph LR
 
 <div class="stats-grid">
     <div class="stat-card">
-        <div class="stat-number">103</div>
+        <div class="stat-number">130</div>
         <div class="stat-label">Total Patterns</div>
         <div class="stat-detail">Covering all distributed systems challenges</div>
     </div>
@@ -254,7 +255,7 @@ graph LR
         <div class="stat-detail">Battle-tested at massive scale</div>
     </div>
     <div class="stat-card silver">
-        <div class="stat-number">46</div>
+        <div class="stat-number">73</div>
         <div class="stat-label">🥈 Silver Patterns</div>
         <div class="stat-detail">Specialized solutions</div>
     </div>
@@ -324,7 +325,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-lan:{ .lg } **[Communication Patterns](communication/)** (9 patterns)
+- :material-lan:{ .lg } **[Communication Patterns](communication/)** (8 patterns)
     
     ---
     
@@ -334,7 +335,7 @@ graph LR
     
     💡 **Best For**: Microservices, real-time systems, event-driven architectures
 
-- :material-shield-check:{ .lg } **[Resilience Patterns](resilience/)** (12 patterns)
+- :material-shield-check:{ .lg } **[Resilience Patterns](resilience/)** (13 patterns)
     
     ---
     
@@ -344,7 +345,7 @@ graph LR
     
     💡 **Best For**: High-availability systems, failure recovery, system stability
 
-- :material-database:{ .lg } **[Data Management Patterns](data-management/cdc.md)** (22 patterns)
+- :material-database:{ .lg } **[Data Management Patterns](data-management/)** (28 patterns)
     
     ---
     
@@ -354,7 +355,7 @@ graph LR
     
     💡 **Best For**: Large-scale data, eventual consistency, complex transactions
 
-- :material-arrow-expand-all:{ .lg } **[Scaling Patterns](../zoom-scaling.md)** (21 patterns)
+- :material-arrow-expand-all:{ .lg } **[Scaling Patterns](scaling/)** (25 patterns)
     
     ---
     
@@ -364,7 +365,7 @@ graph LR
     
     💡 **Best For**: High-traffic systems, performance optimization, cost efficiency
 
-- :material-sitemap:{ .lg } **[Architecture Patterns](../redis-architecture.md)** (17 patterns)
+- :material-sitemap:{ .lg } **[Architecture Patterns](architecture/)** (19 patterns)
     
     ---
     
@@ -374,7 +375,7 @@ graph LR
     
     💡 **Best For**: System decomposition, deployment flexibility, maintainability
 
-- :material-sync:{ .lg } **[Coordination Patterns](../coordination-costs.md)** (15 patterns)
+- :material-sync:{ .lg } **[Coordination Patterns](coordination/)** (17 patterns)
     
     ---
     
@@ -384,7 +385,7 @@ graph LR
     
     💡 **Best For**: Coordination, distributed state management, consistency guarantees
 
-- :material-security:{ .lg } **[Security Patterns](security/)** (5 patterns)
+- :material-security:{ .lg } **[Security Patterns](security/)** (7 patterns)
     
     ---
     
@@ -404,13 +405,23 @@ graph LR
     
     💡 **Best For**: Continuous delivery, risk mitigation, feature management
 
-- :material-currency-usd:{ .lg } **[Cost Optimization Patterns](cost-optimization/)** (2 patterns)
+- :material-brain:{ .lg } **[ML Infrastructure Patterns](ml-infrastructure/)** (5 patterns)
+    
+    ---
+    
+    Machine learning systems infrastructure for training, serving, and MLOps workflows
+    
+    🥇 **Top Gold**: Model Serving, Feature Store, ML Pipeline
+    
+    💡 **Best For**: ML systems, model deployment, data pipelines
+
+- :material-currency-usd:{ .lg } **[Cost Optimization Patterns](cost-optimization/)** (3 patterns)
     
     ---
     
     Reducing cloud infrastructure costs while maintaining performance and reliability
     
-    🥇 **Top Gold**: Spot Instance Management, Resource Rightsizing
+    🥇 **Top Gold**: Spot Instance Management, Resource Rightsizing, Auto-scaling Cost Optimization
     
     💡 **Best For**: Cloud cost reduction, resource efficiency, operational optimization
 
@@ -423,7 +434,7 @@ Understanding our classification system helps you choose the right patterns for 
 | Tier | Criteria | What You Get | Use When |
 |------|----------|--------------|----------|
 | 🥇 **Gold** (50 patterns) | Production-proven at massive scale by tech giants | Production checklists, real-world scale examples, performance benchmarks | Building mission-critical systems, handling millions of users |
-| 🥈 **Silver** (46 patterns) | Solid patterns with proven track record in specific domains | Detailed trade-offs, implementation guides, best-fit scenarios | Solving specialized problems, domain-specific challenges |  
+| 🥈 **Silver** (73 patterns) | Solid patterns with proven track record in specific domains | Detailed trade-offs, implementation guides, best-fit scenarios | Solving specialized problems, domain-specific challenges |  
 | 🥉 **Bronze** (7 patterns) | Legacy patterns or niche use cases | Migration paths to modern alternatives, deprecation guidance | Maintaining legacy systems, understanding historical context |
 
 ### Pattern Selection Guide
@@ -450,7 +461,7 @@ Each pattern includes:
     <div class="resource-card">
         <h3>📖 Learning Resources</h3>
         <ul>
-            <li><a href="pattern-synthesis-guide/">Pattern Synthesis Guide</a> - Understand 91 patterns</li>
+            <li><a href="pattern-synthesis-guide/">Pattern Synthesis Guide</a> - Understand 130 patterns</li>
             <li><a href="pattern-relationship-map/">Relationship Map</a> - See connections</li>
             <li><a href="../reference/pattern-template/">Pattern Template</a> - Documentation standard</li>
             <li><a href="../reference/pattern-evolution-timeline/">Evolution Timeline</a> - 60 years of patterns</li>
@@ -469,7 +480,7 @@ Each pattern includes:
         <h3>📊 Pattern Analytics</h3>
         <ul>
             <li><a href="../reference/pattern-health-dashboard/">Health Dashboard</a> - Adoption metrics</li>
-            <li><strong>31%</strong> patterns are Gold tier</li>
+            <li><strong>38%</strong> patterns are Gold tier</li>
             <li><strong>24</strong> patterns power Netflix, Google, Amazon</li>
             <li><strong>5 years</strong> average time to mainstream</li>
         </ul>

@@ -394,7 +394,7 @@ graph TB
     
     subgraph "Data Layer"
         E --> I[Account DB<br/>Sharded]
-        F --> J[Ledger DB<br/>Master-Slave]
+        F --> J[Ledger DB<br/>Primary-Replica]
         G --> K[Transaction DB<br/>Partitioned]
         L[Cache Layer<br/>Redis] --> E
         L --> F

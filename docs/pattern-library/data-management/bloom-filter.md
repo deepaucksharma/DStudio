@@ -426,9 +426,9 @@ graph LR
     
     ---
     
-    - [Bloom Filter Calculator](../../architects-handbook/quantitative-analysis/bloom-calculator.md)
-    - [Hash Function Selection](../../architects-handbook/implementation-playbooks/guides/hash-functions.md)
-    - [Performance Testing](../../architects-handbook/implementation-playbooks/guides/bloom-testing.md)
+    - <!-- TODO: Add Bloom Filter Calculator from Architects Handbook -->
+    - <!-- TODO: Add Hash Function Selection from Architects Handbook -->
+    - <!-- TODO: Add Performance Testing from Architects Handbook -->
 
 </div>
 

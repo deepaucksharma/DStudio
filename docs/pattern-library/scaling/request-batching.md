@@ -613,8 +613,8 @@ graph TB
 
 ### Further Reading
 
-- [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md) - Queue theory for batch systems
-- [Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-models.md) - Mathematical foundations
-- [Capacity Planning](../../architects-handbook/quantitative-analysis/capacity-planning.md) - Sizing batch systems
-- [Performance Testing](../../architects-handbook/human-factors/performance-testing.md) - Validating batch performance
+- <!-- TODO: Add Little's Law from Architects Handbook --> - Queue theory for batch systems
+- <!-- TODO: Add Queueing Theory from Architects Handbook --> - Mathematical foundations
+- <!-- TODO: Add Capacity Planning from Architects Handbook --> - Sizing batch systems
+- <!-- TODO: Add Performance Testing from Architects Handbook --> - Validating batch performance
 

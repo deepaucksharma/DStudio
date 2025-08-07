@@ -74,7 +74,7 @@ def switch_to_green():
 
 - [Canary Deployment](canary.md)
 - [Feature Flags](feature-flags.md)
-- [Database Migration Patterns](../data-management/migration-patterns.md)
+- <!-- TODO: Add migration patterns -->
 
 ## See Also
 

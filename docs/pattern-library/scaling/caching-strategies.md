@@ -888,7 +888,7 @@ graph TB
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [CQRS](../architecture/cqrs.md) | Separate read/write caching | Cache query models separately |
+| [CQRS](../data-management/cqrs.md) | Separate read/write caching | Cache query models separately |
 | [Event Sourcing](../data-management/event-sourcing.md) | Event-driven invalidation | Cache computed projections |
 | [CDN](../infrastructure/cdn.md) | Geographic caching | Global content distribution |
 
@@ -976,7 +976,7 @@ flowchart LR
     
     - [CDN](../infrastructure/cdn.md) - Geographic edge caching
     - [Sharding](../scaling/sharding.md) - Cache per shard strategy
-    - [CQRS](../architecture/cqrs.md) - Separate read model caching
+    - [CQRS](../data-management/cqrs.md) - Separate read model caching
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -996,9 +996,9 @@ flowchart LR
     
     ---
     
-    - [Caching Setup Guide](../../architects-handbook/implementation-playbooks/guides/cache-setup.md)
-    - [Cache Optimization](../../architects-handbook/implementation-playbooks/guides/cache-optimization.md)
-    - [Monitoring Guide](../../architects-handbook/implementation-playbooks/guides/cache-monitoring.md)
+    - <!-- TODO: Add Caching Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Cache Optimization from Architects Handbook -->
+    - <!-- TODO: Add Monitoring Guide from Architects Handbook -->
 
 </div>
 

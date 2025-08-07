@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pattern Library Search Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .demo-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .pattern-search-container {
+            padding: 30px;
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-stats {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .search-input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #pattern-search {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #pattern-search:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .suggestion {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .suggestion:hover {
+            background: #f8f9fa;
+        }
+
+        .suggestion .query {
+            font-weight: 500;
+        }
+
+        .suggestion .count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .suggestion .category {
+            background: #667eea;
+            color: white;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-filters select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        .search-filters button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .search-filters button:hover {
+            background: #ff5252;
+        }
+
+        .search-results {
+            display: grid;
+            gap: 20px;
+        }
+
+        .pattern-card {
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pattern-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pattern-card.tier-gold {
+            border-left: 4px solid #ffd700;
+        }
+
+        .pattern-card.tier-silver {
+            border-left: 4px solid #c0c0c0;
+        }
+
+        .pattern-card.tier-bronze {
+            border-left: 4px solid #cd7f32;
+        }
+
+        .pattern-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .pattern-header h3 {
+            margin: 0;
+            flex: 1;
+        }
+
+        .pattern-header h3 a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.3rem;
+        }
+
+        .pattern-header h3 a:hover {
+            color: #667eea;
+        }
+
+        .tier-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+
+        .tier-badge.gold {
+            background: #ffd700;
+            color: #333;
+        }
+
+        .tier-badge.silver {
+            background: #c0c0c0;
+            color: #333;
+        }
+
+        .tier-badge.bronze {
+            background: #cd7f32;
+            color: white;
+        }
+
+        .match-info {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .pattern-description {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .pattern-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pattern-meta span {
+            background: #f8f9fa;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .pattern-meta .category {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .pattern-meta .difficulty {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .pattern-meta .companies {
+            background: #e8f5e8;
+            color: #388e3c;
+        }
+
+        .pattern-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        .loading, .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .no-results h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .example-queries {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .example-queries h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .query-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .query-example {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .query-example:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .analytics-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .analytics-card {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .analytics-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .analytics-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .demo-header {
+                padding: 20px;
+            }
+
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+
+            .pattern-search-container {
+                padding: 20px;
+            }
+
+            .search-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-filters select,
+            .search-filters button {
+                width: 100%;
+            }
+
+            .pattern-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .tier-badge {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>🔍 Pattern Library Search</h1>
+            <p>Discover the right distributed systems patterns for your challenges</p>
+        </div>
+
+        <div class="pattern-search-container">
+            <div class="example-queries">
+                <h3>💡 Try These Example Queries:</h3>
+                <div class="query-examples">
+                    <div class="query-example" onclick="searchExample('circuit breaker')">Circuit Breaker</div>
+                    <div class="query-example" onclick="searchExample('netflix patterns')">Netflix Patterns</div>
+                    <div class="query-example" onclick="searchExample('microservices scaling')">Microservices Scaling</div>
+                    <div class="query-example" onclick="searchExample('database sharding')">Database Sharding</div>
+                    <div class="query-example" onclick="searchExample('event driven')">Event Driven</div>
+                    <div class="query-example" onclick="searchExample('fault tolerance')">Fault Tolerance</div>
+                    <div class="query-example" onclick="searchExample('api gateway')">API Gateway</div>
+                    <div class="query-example" onclick="searchExample('caching strategies')">Caching Strategies</div>
+                </div>
+            </div>
+
+            <div class="search-header">
+                <div class="search-stats" id="search-stats">
+                    Loading pattern library...
+                </div>
+            </div>
+            
+            <div class="search-input-container">
+                <input type="text" id="pattern-search" 
+                       placeholder="Search 164+ patterns... Try: 'circuit breaker', 'netflix', 'microservices', 'fault tolerance'"
+                       autocomplete="off">
+                <div class="search-suggestions" id="search-suggestions"></div>
+            </div>
+            
+            <div class="search-filters">
+                <select id="category-filter">
+                    <option value="all">All Categories</option>
+                </select>
+                <select id="tier-filter">
+                    <option value="all">All Excellence Tiers</option>
+                    <option value="gold">🥇 Gold (Battle-tested)</option>
+                    <option value="silver">🥈 Silver (Specialized)</option>
+                    <option value="bronze">🥉 Bronze (Legacy)</option>
+                </select>
+                <select id="difficulty-filter">
+                    <option value="all">All Difficulty Levels</option>
+                    <option value="beginner">👶 Beginner</option>
+                    <option value="intermediate">🚀 Intermediate</option>
+                    <option value="advanced">🏆 Advanced</option>
+                </select>
+                <button id="clear-filters">Clear Filters</button>
+            </div>
+            
+            <div class="search-results" id="search-results">
+                <div class="loading">
+                    <h3>🔄 Loading Pattern Search Index...</h3>
+                    <p>Initializing search for 164+ distributed systems patterns</p>
+                </div>
+            </div>
+
+            <div class="analytics-panel">
+                <h3>📊 Pattern Library Statistics</h3>
+                <div class="analytics-grid" id="analytics-grid">
+                    <!-- Analytics will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock search interface for demo (since we don't have the actual search index files in this demo)
+        class MockPatternSearchInterface {
+            constructor() {
+                this.patterns = this.generateMockPatterns();
+                this.initialized = false;
+                this.searchSuggestions = [
+                    { query: 'circuit breaker', pattern_count: 3, category: 'popular' },
+                    { query: 'microservices', pattern_count: 15, category: 'popular' },
+                    { query: 'netflix', pattern_count: 12, category: 'company' },
+                    { query: 'load balancing', pattern_count: 5, category: 'popular' },
+                    { query: 'event sourcing', pattern_count: 4, category: 'popular' },
+                    { query: 'api gateway', pattern_count: 3, category: 'popular' },
+                    { query: 'caching', pattern_count: 6, category: 'popular' },
+                    { query: 'sharding', pattern_count: 4, category: 'popular' }
+                ];
+            }
+
+            async loadSearchIndex() {
+                // Simulate loading time
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                this.initialized = true;
+                console.log('✅ Mock search index loaded');
+            }
+
+            generateMockPatterns() {
+                const categories = ['architecture', 'resilience', 'data-management', 'scaling', 'coordination', 'security'];
+                const tiers = ['gold', 'silver', 'bronze'];
+                const difficulties = ['beginner', 'intermediate', 'advanced'];
+                const companies = ['netflix', 'google', 'amazon', 'uber', 'microsoft'];
+                
+                const patternTemplates = [
+                    { title: 'Circuit Breaker', category: 'resilience', description: 'Prevent cascade failures by failing fast when error rate exceeds threshold', tier: 'gold' },
+                    { title: 'API Gateway', category: 'architecture', description: 'Unified entry point for microservices providing routing and security', tier: 'gold' },
+                    { title: 'Event Sourcing', category: 'data-management', description: 'Store system state as a sequence of events for audit trails', tier: 'silver' },
+                    { title: 'Load Balancer', category: 'scaling', description: 'Distribute incoming requests across multiple servers', tier: 'gold' },
+                    { title: 'Service Discovery', category: 'coordination', description: 'Dynamically discover and connect to services in distributed systems', tier: 'gold' },
+                    { title: 'Saga Pattern', category: 'data-management', description: 'Manage distributed transactions without two-phase commit', tier: 'silver' },
+                    { title: 'CQRS', category: 'data-management', description: 'Separate read and write models for better scalability', tier: 'silver' },
+                    { title: 'Bulkhead', category: 'resilience', description: 'Isolate resources to prevent cascading failures', tier: 'silver' },
+                    { title: 'Retry with Backoff', category: 'resilience', description: 'Handle transient failures with exponential backoff', tier: 'gold' },
+                    { title: 'Blue-Green Deployment', category: 'deployment', description: 'Zero-downtime deployment using two identical environments', tier: 'gold' },
+                    { title: 'Sharding', category: 'scaling', description: 'Horizontal partitioning strategy for distributing data', tier: 'gold' },
+                    { title: 'Caching Strategies', category: 'scaling', description: 'Optimize performance with multi-layer caching', tier: 'gold' },
+                    { title: 'Service Mesh', category: 'architecture', description: 'Infrastructure layer for service-to-service communication', tier: 'gold' },
+                    { title: 'Zero Trust Architecture', category: 'security', description: 'Never trust, always verify security model', tier: 'gold' },
+                    { title: 'Consistent Hashing', category: 'data-management', description: 'Distributed hash table for load distribution', tier: 'silver' }
+                ];
+
+                return patternTemplates.map((template, index) => ({
+                    id: `pattern_${index}`,
+                    title: template.title,
+                    description: template.description,
+                    category: template.category,
+                    excellence_tier: template.tier,
+                    difficulty: difficulties[Math.floor(Math.random() * difficulties.length)],
+                    pattern_status: 'recommended',
+                    companies: [companies[Math.floor(Math.random() * companies.length)]],
+                    tags: ['distributed-systems', template.category.replace('-', '')],
+                    url: `/pattern-library/${template.category}/${template.title.toLowerCase().replace(/\s+/g, '-')}`,
+                    word_count: 500 + Math.floor(Math.random() * 1000),
+                    reading_time: '10-15 min'
+                }));
+            }
+
+            search(query, filters = {}) {
+                if (!this.initialized) return [];
+
+                let results = [...this.patterns];
+
+                // Apply filters
+                if (filters.category && filters.category !== 'all') {
+                    results = results.filter(p => p.category === filters.category);
+                }
+                if (filters.tier && filters.tier !== 'all') {
+                    results = results.filter(p => p.excellence_tier === filters.tier);
+                }
+                if (filters.difficulty && filters.difficulty !== 'all') {
+                    results = results.filter(p => p.difficulty === filters.difficulty);
+                }
+
+                // Apply text search
+                if (query && query.trim()) {
+                    const queryLower = query.toLowerCase();
+                    results = results.filter(p => 
+                        p.title.toLowerCase().includes(queryLower) ||
+                        p.description.toLowerCase().includes(queryLower) ||
+                        p.category.toLowerCase().includes(queryLower) ||
+                        p.companies.some(c => c.toLowerCase().includes(queryLower)) ||
+                        p.tags.some(t => t.toLowerCase().includes(queryLower))
+                    ).map(p => ({
+                        ...p,
+                        searchScore: this.calculateScore(p, queryLower),
+                        matchReason: this.getMatchReason(p, queryLower)
+                    })).sort((a, b) => b.searchScore - a.searchScore);
+                }
+
+                return results.slice(0, 20);
+            }
+
+            calculateScore(pattern, query) {
+                let score = 0;
+                if (pattern.title.toLowerCase().includes(query)) score += 10;
+                if (pattern.description.toLowerCase().includes(query)) score += 5;
+                if (pattern.category.toLowerCase().includes(query)) score += 3;
+                
+                // Tier bonus
+                const tierBonus = { gold: 2, silver: 1, bronze: 0 };
+                score += tierBonus[pattern.excellence_tier] || 0;
+                
+                return score;
+            }
+
+            getMatchReason(pattern, query) {
+                if (pattern.title.toLowerCase().includes(query)) return 'Title match';
+                if (pattern.description.toLowerCase().includes(query)) return 'Description match';
+                if (pattern.category.toLowerCase().includes(query)) return 'Category match';
+                if (pattern.companies.some(c => c.toLowerCase().includes(query))) return 'Company match';
+                return 'Content match';
+            }
+
+            getSuggestions(query, limit = 8) {
+                if (!query || query.length < 2) {
+                    return this.searchSuggestions.slice(0, limit);
+                }
+
+                const queryLower = query.toLowerCase();
+                return this.searchSuggestions.filter(s => 
+                    s.query.toLowerCase().includes(queryLower)
+                ).slice(0, limit);
+            }
+
+            getSearchAnalytics() {
+                return {
+                    totalPatterns: this.patterns.length,
+                    patternsByTier: this.patterns.reduce((acc, p) => {
+                        acc[p.excellence_tier] = (acc[p.excellence_tier] || 0) + 1;
+                        return acc;
+                    }, {}),
+                    patternsByCategory: this.patterns.reduce((acc, p) => {
+                        acc[p.category] = (acc[p.category] || 0) + 1;
+                        return acc;
+                    }, {}),
+                    categories: new Set(this.patterns.map(p => p.category)).size,
+                    searchTerms: 5313,
+                    companies: 79
+                };
+            }
+        }
+
+        // Initialize the demo
+        let searchInterface;
+        let currentResults = [];
+
+        async function initDemo() {
+            searchInterface = new MockPatternSearchInterface();
+            await searchInterface.loadSearchIndex();
+            
+            setupUI();
+            bindEvents();
+            updateAnalytics();
+            displayInitialResults();
+        }
+
+        function setupUI() {
+            // Populate category filter
+            const categories = [...new Set(searchInterface.patterns.map(p => p.category))];
+            const categoryFilter = document.getElementById('category-filter');
+            
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                categoryFilter.appendChild(option);
+            });
+        }
+
+        function bindEvents() {
+            const searchInput = document.getElementById('pattern-search');
+            const categoryFilter = document.getElementById('category-filter');
+            const tierFilter = document.getElementById('tier-filter');
+            const difficultyFilter = document.getElementById('difficulty-filter');
+            const clearFilters = document.getElementById('clear-filters');
+
+            let searchTimeout;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => performSearch(e.target.value), 300);
+            });
+
+            searchInput.addEventListener('focus', showSuggestions);
+            searchInput.addEventListener('blur', () => setTimeout(hideSuggestions, 150));
+
+            [categoryFilter, tierFilter, difficultyFilter].forEach(filter => {
+                filter.addEventListener('change', () => performSearch());
+            });
+
+            clearFilters.addEventListener('click', () => {
+                searchInput.value = '';
+                categoryFilter.value = 'all';
+                tierFilter.value = 'all';
+                difficultyFilter.value = 'all';
+                performSearch();
+            });
+        }
+
+        function performSearch(query = null) {
+            if (query === null) {
+                query = document.getElementById('pattern-search').value;
+            }
+
+            const filters = {
+                category: document.getElementById('category-filter').value,
+                tier: document.getElementById('tier-filter').value,
+                difficulty: document.getElementById('difficulty-filter').value
+            };
+
+            currentResults = searchInterface.search(query, filters);
+            displayResults(currentResults);
+            updateSearchStats(query, currentResults.length);
+        }
+
+        function displayResults(results) {
+            const container = document.getElementById('search-results');
+
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <h3>No patterns found</h3>
+                        <p>Try different search terms or adjust your filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const html = results.map(pattern => `
+                <div class="pattern-card tier-${pattern.excellence_tier}">
+                    <div class="pattern-header">
+                        <h3>
+                            <a href="${pattern.url}">${pattern.title}</a>
+                        </h3>
+                        <span class="tier-badge ${pattern.excellence_tier}">${pattern.excellence_tier.toUpperCase()}</span>
+                    </div>
+                    ${pattern.matchReason ? `<div class="match-info">Match: ${pattern.matchReason}</div>` : ''}
+                    <p class="pattern-description">${pattern.description}</p>
+                    <div class="pattern-meta">
+                        <span class="category">${pattern.category}</span>
+                        <span class="difficulty">${pattern.difficulty}</span>
+                        ${pattern.companies.length > 0 ? `<span class="companies">${pattern.companies.join(', ')}</span>` : ''}
+                    </div>
+                    <div class="pattern-tags">
+                        ${pattern.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = html;
+        }
+
+        function displayInitialResults() {
+            const goldPatterns = searchInterface.patterns
+                .filter(p => p.excellence_tier === 'gold')
+                .sort((a, b) => b.word_count - a.word_count);
+            displayResults(goldPatterns);
+            updateSearchStats('', goldPatterns.length);
+        }
+
+        function showSuggestions() {
+            const input = document.getElementById('pattern-search');
+            const suggestions = searchInterface.getSuggestions(input.value);
+            const container = document.getElementById('search-suggestions');
+
+            if (suggestions.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            const html = suggestions.map(suggestion => `
+                <div class="suggestion" data-query="${suggestion.query}">
+                    <span class="query">${suggestion.query}</span>
+                    <span class="count">${suggestion.pattern_count} patterns</span>
+                    <span class="category">${suggestion.category}</span>
+                </div>
+            `).join('');
+
+            container.innerHTML = html;
+            container.style.display = 'block';
+
+            container.querySelectorAll('.suggestion').forEach(el => {
+                el.addEventListener('click', () => {
+                    input.value = el.dataset.query;
+                    performSearch(el.dataset.query);
+                    container.style.display = 'none';
+                });
+            });
+        }
+
+        function hideSuggestions() {
+            document.getElementById('search-suggestions').style.display = 'none';
+        }
+
+        function updateSearchStats(query, resultCount) {
+            const statsEl = document.getElementById('search-stats');
+            const analytics = searchInterface.getSearchAnalytics();
+
+            if (query && resultCount !== null) {
+                statsEl.innerHTML = `Found ${resultCount} patterns for "${query}" (${analytics.totalPatterns} total patterns)`;
+            } else {
+                statsEl.innerHTML = `${analytics.totalPatterns} patterns • ${analytics.categories} categories • ${analytics.searchTerms} search terms`;
+            }
+        }
+
+        function updateAnalytics() {
+            const analytics = searchInterface.getSearchAnalytics();
+            const container = document.getElementById('analytics-grid');
+
+            const cards = [
+                { number: analytics.totalPatterns, label: 'Total Patterns' },
+                { number: analytics.categories, label: 'Categories' },
+                { number: analytics.searchTerms.toLocaleString(), label: 'Search Terms' },
+                { number: analytics.companies, label: 'Companies' },
+                { number: analytics.patternsByTier.gold || 0, label: 'Gold Patterns' },
+                { number: analytics.patternsByTier.silver || 0, label: 'Silver Patterns' }
+            ];
+
+            const html = cards.map(card => `
+                <div class="analytics-card">
+                    <div class="analytics-number">${card.number}</div>
+                    <div class="analytics-label">${card.label}</div>
+                </div>
+            `).join('');
+
+            container.innerHTML = html;
+        }
+
+        // Example search function
+        function searchExample(query) {
+            document.getElementById('pattern-search').value = query;
+            performSearch(query);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initDemo);
+    </script>
+</body>
+</html>

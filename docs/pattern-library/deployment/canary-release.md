@@ -1209,15 +1209,15 @@ Alert Tuning:
 
 ## Related Patterns
 
-- **Complementary**: [Feature Flags](feature-flags/) - Fine-grained control over feature exposure
-- **Complementary**: [Blue-Green Deployment](blue-green-deployment/) - Instant rollback capability
-- **Building Block**: [Progressive Rollout](progressive-rollout/) - Advanced traffic management
+- **Complementary**: [Feature Flags](feature-flags.md) - Fine-grained control over feature exposure
+- **Complementary**: [Blue-Green Deployment](blue-green-deployment.md) - Instant rollback capability
+- **Building Block**: [Progressive Rollout](progressive-rollout.md) - Advanced traffic management
 - **Alternative**: A/B testing (for feature comparison rather than deployment)
 - **Extension**: Multi-variate testing for complex scenarios
 
 ## Further Reading
 
-- [Martin Fowler - CanaryRelease](https://martinfowler.com/bliki/CanaryRelease.html/)
-- [Netflix - Automated Canary Analysis](https://netflixtechblog.com/automated-canary-analysis-at-netflix-with-kayenta-3260bc7acc69/)
+- [Martin Fowler - CanaryRelease](https://martinfowler.com/bliki/CanaryRelease.html.md)
+- [Netflix - Automated Canary Analysis](https://netflixtechblog.com/automated-canary-analysis-at-netflix-with-kayenta-3260bc7acc69.md)
 - [Google - Site Reliability Engineering](https://sre.google/sre-book/incident-response.mdindex)
-- [Flagger - Progressive Delivery Operator](https://flagger.app/)
+- [Flagger - Progressive Delivery Operator](https://flagger.app.md)

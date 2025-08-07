@@ -658,9 +658,9 @@ if __name__ == "__main__":
     
     ---
     
-    - [Apache Kafka Streams Guide](../../architects-handbook/implementation-playbooks/guides/kafka-streams.md)
-    - [Apache Flink Best Practices](../../architects-handbook/implementation-playbooks/guides/flink-best-practices.md)
-    - [Stream Processing Monitoring](../../architects-handbook/implementation-playbooks/guides/stream-monitoring.md)
+    - <!-- TODO: Add Apache Kafka Streams Guide from Architects Handbook -->
+    - <!-- TODO: Add Apache Flink Best Practices from Architects Handbook -->
+    - <!-- TODO: Add Stream Processing Monitoring from Architects Handbook -->
 
 </div>
 

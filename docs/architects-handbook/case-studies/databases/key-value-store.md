@@ -1053,7 +1053,7 @@ sequenceDiagram
 
 ### Architecture Alternatives
 
-#### Alternative 1: Master-Slave Architecture
+#### Alternative 1: Primary-Replica Architecture
 ```mermaid
 graph TB
     subgraph "Clients"
@@ -1233,7 +1233,7 @@ graph LR
 
 | Architecture | Consistency | Availability | Partition Tolerance | Latency | Throughput | Complexity | Cost |
 |--------------|-------------|--------------|-------------------|---------|------------|------------|------|
-| **Master-Slave** | Strong | Medium (manual failover) | Low (split-brain) | Low | Medium (master bottleneck) | Low | Low |
+| **Primary-Replica** | Strong | Medium (manual failover) | Low (split-brain) | Low | Medium (primary bottleneck) | Low | Low |
 | **P2P Ring** | Tunable | High (no SPOF) | High (gossip) | Medium | High (distributed) | High | Medium |
 | **Raft Clusters** | Strong | High (auto-failover) | Medium (majority) | Medium | Low (serialized) | Medium | Medium |
 | **Hierarchical Cache** | Eventual | High (stale OK) | High (isolated) | Very Low | Very High | High | High |
@@ -1245,7 +1245,7 @@ graph LR
 ```mermaid
 radar
     title Architecture Comparison
-    "Master-Slave", [7, 5, 4, 8, 5, 9, 9]
+    "Primary-Replica", [7, 5, 4, 8, 5, 9, 9]
     "P2P Ring", [5, 9, 9, 6, 9, 4, 7]
     "Raft Clusters", [9, 8, 6, 6, 4, 7, 7]
     "Hierarchical Cache", [4, 9, 9, 9, 10, 3, 5]
@@ -1373,7 +1373,7 @@ graph LR
     M --> AOF[AOF] & RDB[RDB]
 ```
 **Pros**: <1ms latency, rich data structures, simple, pub/sub
-**Cons**: Memory limited, weak durability, master-slave limits, no sharding
+**Cons**: Memory limited, weak durability, primary-replica limits, no sharding
 **Use**: Caching, real-time analytics, leaderboards
 
 #### Option 4: FoundationDB-Style (Layers)

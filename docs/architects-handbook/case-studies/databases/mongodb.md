@@ -36,7 +36,7 @@ patterns_used:
   - write-concern: Tunable durability guarantees
   - change-streams: Real-time data change notifications
   bronze:
-  - master-slave: Legacy replication replaced by replica sets
+  - primary-replica: Legacy replication replaced by replica sets
 excellence_guides:
 - scale/nosql-databases
 - migration/mongodb-best-practices

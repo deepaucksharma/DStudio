@@ -361,7 +361,7 @@ If you implement nothing else, these patterns provide immediate value:
 
 ## 📚 Pattern Categories Simplified
 
-Instead of 6 categories with 91 patterns, think in terms of problems:
+Instead of 6 categories with 130 patterns, think in terms of problems:
 
 ### 🛡️ "Keep it Running" Patterns (Resilience)
 Circuit Breaker, Retry, Timeout, Bulkhead, Health Check

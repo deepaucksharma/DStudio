@@ -43,8 +43,8 @@ The _______ problem occurs when different replicas accept conflicting updates.
 
 #### 4. [Pattern Match] Replication Types
 Match replication type to characteristic:
-1. Master-slave       A. All nodes can accept writes
-2. Multi-master      B. One writer, many readers
+1. Primary-replica    A. All nodes can accept writes
+2. Multi-primary     B. One writer, many readers
 3. Chain replication C. Sequential propagation
 4. Quorum-based     D. Voting for consensus
 

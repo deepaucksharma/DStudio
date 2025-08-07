@@ -147,7 +147,7 @@ type: pattern
 | **Request** | Retry + Timeout | Handle transient failures | 3 retries with exponential backoff |
 | **Circuit** | Circuit Breaker | Prevent cascade failures | Open after 5 failures in 10s |
 | **Resource** | Bulkhead | Isolate resources | Separate thread pools per service |
-| **Data** | Replication | Prevent data loss | Master-slave with <1s lag |
+| **Data** | Replication | Prevent data loss | Primary-replica with <1s lag |
 | **Service** | Health Checks | Detect failures | HTTP /health every 10s |
 
 ### Advanced Recovery Strategies

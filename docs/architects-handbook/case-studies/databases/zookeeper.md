@@ -35,7 +35,7 @@ patterns_used:
   - service-discovery: Ephemeral nodes for service registry
   - watch-mechanism: Event notifications on data changes
   bronze:
-  - master-slave: Leader-follower architecture
+  - leader-follower: Leader-follower architecture
 excellence_guides:
 - migration/zookeeper-to-etcd
 - operational/coordination-services

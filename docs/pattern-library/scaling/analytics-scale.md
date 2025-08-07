@@ -331,7 +331,7 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [CQRS](../architecture/cqrs.md) | Separate read/write models | Query-optimized analytics storage |
+| [CQRS](../data-management/cqrs.md) | Separate read/write models | Query-optimized analytics storage |
 | [Event Sourcing](../data-management/event-sourcing.md) | Complete audit trail | Event streams feed analytics pipeline |
 | [Cache-Aside](../scaling/caching-strategies.md) | Faster query response | Cache frequent analytical results |
 
@@ -378,7 +378,7 @@ graph LR
     ---
     
     - [Stream Processing](../data-management/streaming.md) - Real-time data ingestion
-    - [CQRS](../architecture/cqrs.md) - Separate analytics queries  
+    - [CQRS](../data-management/cqrs.md) - Separate analytics queries  
     - [Data Lake](../data-management/data-lake.md) - Massive storage foundation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
@@ -399,9 +399,9 @@ graph LR
     
     ---
     
-    - [Analytics Setup Guide](../../architects-handbook/implementation-playbooks/guides/analytics-setup.md)
-    - [Performance Optimization](../../architects-handbook/implementation-playbooks/guides/query-optimization.md)
-    - [Cost Management](../../architects-handbook/implementation-playbooks/guides/analytics-cost-control.md)
+    - <!-- TODO: Add Analytics Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Performance Optimization from Architects Handbook -->
+    - <!-- TODO: Add Cost Management from Architects Handbook -->
 
 </div>
 

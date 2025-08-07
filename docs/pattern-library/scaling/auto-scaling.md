@@ -1078,9 +1078,9 @@ flowchart TD
     
     ---
     
-    - [Auto-scaling Setup Guide](../../architects-handbook/implementation-playbooks/guides/autoscaling-setup.md)
-    - [Metrics Selection Guide](../../architects-handbook/implementation-playbooks/guides/scaling-metrics.md)
-    - [Cost Optimization Guide](../../architects-handbook/implementation-playbooks/guides/scaling-cost-optimization.md)
+    - <!-- TODO: Add Auto-scaling Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Metrics Selection Guide from Architects Handbook -->
+    - <!-- TODO: Add Cost Optimization Guide from Architects Handbook -->
 
 </div>
 

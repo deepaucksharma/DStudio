@@ -161,7 +161,7 @@ Large-scale migration from monolithic to microservices architecture.
 ### Data Distribution
 - **Consistent Hashing** - Minimal data movement during scaling
 - **Sharding** - Horizontal partitioning strategies  
-- **Replication** - Multi-master, master-slave configurations
+- **Replication** - Multi-primary, primary-replica configurations
 - **Partitioning** - Range-based, hash-based, directory-based
 
 ### Fault Tolerance

@@ -507,7 +507,7 @@ graph LR
 
 ## References
 
-- ["Time, Clocks, and the Ordering of Events"](https://lamport.azurewebsites.net/pubs/time-clocks.pdf/) - Lamport's original paper
-- [The TLA+ Book](https://lamport.azurewebsites.net/tla/book.html/) - Formal specification by Lamport
-- ["Distributed Systems for Fun and Profit"](http:/book.mixu.net/distsys/) - Chapter on time and order
+- <!-- TODO: Add "Time, Clocks, and the Ordering of Events" resource --> - Lamport's original paper
+- [The TLA+ Book](https://lamport.azurewebsites.net/tla/book.html.md) - Formal specification by Lamport
+- ["Distributed Systems for Fun and Profit"](http:/book.mixu.net/distsys.md) - Chapter on time and order
 

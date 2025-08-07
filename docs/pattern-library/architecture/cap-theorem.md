@@ -351,9 +351,9 @@ This pattern is deeply connected to fundamental distributed systems laws:
     
     ---
     
-    - [PACELC Analysis Guide](../../architects-handbook/implementation-playbooks/guides/pacelc-analysis.md)
-    - [Tunable Consistency Setup](../../architects-handbook/implementation-playbooks/guides/tunable-consistency.md)
-    - [CRDT Implementation Guide](../../architects-handbook/implementation-playbooks/guides/crdt-setup.md)
+    - <!-- TODO: Add PACELC Analysis Guide from Architects Handbook -->
+    - <!-- TODO: Add Tunable Consistency Setup from Architects Handbook -->
+    - <!-- TODO: Add CRDT Implementation Guide from Architects Handbook -->
 
 </div>
 

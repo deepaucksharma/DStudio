@@ -1782,7 +1782,7 @@ timeline
 - **[Law 7: Economic Reality](../../core-principles/laws/economic-reality.md)** - Aurora's pricing model reflects true cloud economics
 
 ### Related Patterns  
-- **[Database Sharding](../pattern-library/data/database-sharding/)** - Compare with Aurora's storage layer distribution
+- **[Database Sharding](../../pattern-library/scaling/sharding/)** - Compare with Aurora's storage layer distribution
 - **[Read Replicas](../pattern-library/data/read-replicas/)** - Aurora's advanced read replica capabilities
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/)** - Protect applications from database failures
 

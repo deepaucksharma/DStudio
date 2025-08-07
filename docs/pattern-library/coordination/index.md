@@ -56,3 +56,13 @@ Coordination patterns make different trade-offs:
 ---
 
 *Explore individual patterns below or return to the [Pattern Library](../).*
+- [Emergent Leader](emergent-leader.md)
+- [Distributed Queue](distributed-queue.md)
+- [Leader Follower](leader-follower.md)
+- [Two Phase Commit](two-phase-commit.md)
+- [Cas](cas.md)
+- [State Watch](state-watch.md)
+- [Actor Model](actor-model.md)
+- [Low High Water Marks](low-high-water-marks.md)
+
+## Patterns

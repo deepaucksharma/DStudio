@@ -410,9 +410,9 @@ graph LR
     
     ---
     
-    - [WAL Implementation Guide](../../architects-handbook/implementation-playbooks/guides/wal-implementation.md)
-    - [Recovery Testing](../../architects-handbook/implementation-playbooks/guides/recovery-testing.md)
-    - [Storage Optimization](../../architects-handbook/implementation-playbooks/guides/storage-optimization.md)
+    - <!-- TODO: Add WAL Implementation Guide from Architects Handbook -->
+    - <!-- TODO: Add Recovery Testing from Architects Handbook -->
+    - <!-- TODO: Add Storage Optimization from Architects Handbook -->
 
 </div>
 

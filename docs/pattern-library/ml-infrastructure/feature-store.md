@@ -921,9 +921,9 @@ timeline
     
     ---
     
-    - [Feast Setup Guide](../../architects-handbook/implementation-playbooks/guides/feast-setup.md)
-    - [Feature Engineering Best Practices](../../architects-handbook/implementation-playbooks/guides/feature-engineering.md)  
-    - [ML Data Pipeline Design](../../architects-handbook/implementation-playbooks/guides/ml-data-pipelines.md)
+    - <!-- TODO: Add Feast Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Feature Engineering Best Practices from Architects Handbook -->  
+    - <!-- TODO: Add ML Data Pipeline Design from Architects Handbook -->
 
 </div>
 

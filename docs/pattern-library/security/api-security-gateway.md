@@ -585,15 +585,15 @@ Phase 3 (Full Migration):
 
 ## Related Patterns
 
-- **Complementary**: [Zero-Trust Architecture](zero-trust-architecture/) - Identity verification
-- **Complementary**: [Secrets Management](secrets-management/) - API key management
+- **Complementary**: [Zero-Trust Architecture](zero-trust-architecture.md) - Identity verification
+- **Complementary**: [Secrets Management](secrets-management.md) - API key management
 - **Building Block**: Load balancer for high availability
 - **Alternative**: Service mesh (for service-to-service communication)
 - **Extension**: Web Application Firewall (WAF) for additional protection
 
 ## Further Reading
 
-- [OWASP API Security Top 10](https://owasp.org/www-project-api-security/)
-- [Kong Gateway Documentation](https://docs.konghq.com/gateway/)
-- [AWS API Gateway Security Best Practices](https://docs.aws.amazon.com/apigateway/latest/developerguide/security.html/)
-- [Google Cloud API Gateway](https://cloud.google.com/api-gateway/docs/best-practices/)
+- [OWASP API Security Top 10](https://owasp.org/www-project-api-security.md)
+- [Kong Gateway Documentation](https://docs.konghq.com/gateway.md)
+- [AWS API Gateway Security Best Practices](https://docs.aws.amazon.com/apigateway/latest/developerguide/security.html.md)
+- [Google Cloud API Gateway](https://cloud.google.com/api-gateway/docs/best-practices.md)

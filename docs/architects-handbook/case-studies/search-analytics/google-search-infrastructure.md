@@ -33,7 +33,7 @@ patterns_used:
   - bloom-filter: Reduces disk lookups by 99% for URL deduplication
   - consistent-hashing: Distributes crawl load across thousands of servers
   bronze:
-  - master-slave: Legacy GFS architecture before Colossus
+  - primary-replica: Legacy GFS architecture before Colossus
 excellence_guides:
 - scale/internet-scale
 - ../../pattern-library/data-processing

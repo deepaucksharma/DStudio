@@ -38,7 +38,7 @@ patterns_used:
   - api-gateway: API server as single entry point
   - sidecar: Init containers and ambassador patterns
   bronze:
-  - master-slave: Control plane / worker node separation
+  - control-data-plane: Control plane / worker node separation
 excellence_guides:
 - scale/container-orchestration
 - migration/kubernetes-adoption

@@ -523,15 +523,15 @@ Phase 3 (Full Migration):
 
 ## Related Patterns
 
-- **Complementary**: [Zero-Trust Architecture](zero-trust-architecture/) - Identity-based access control
-- **Complementary**: [API Security Gateway](api-security-gateway/) - Secure API key management
-- **Complementary**: [Security Scanning Pipeline](security-scanning-pipeline/) - Secret detection in code
+- **Complementary**: [Zero-Trust Architecture](zero-trust-architecture.md) - Identity-based access control
+- **Complementary**: [API Security Gateway](api-security-gateway.md) - Secure API key management
+- **Complementary**: [Security Scanning Pipeline](security-scanning-pipeline.md) - Secret detection in code
 - **Building Block**: Service mesh for secure secret distribution
 - **Alternative**: Cloud-native secret stores (AWS Secrets Manager, Azure Key Vault)
 
 ## Further Reading
 
-- [HashiCorp Vault Documentation](https://www.vaultproject.io/docs/)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework/)
-- [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html/)
-- [Google Secret Manager Best Practices](https://cloud.google.com/secret-manager/docs/best-practices/)
+- [HashiCorp Vault Documentation](https://www.vaultproject.io/docs.md)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework.md)
+- [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html.md)
+- [Google Secret Manager Best Practices](https://cloud.google.com/secret-manager/docs/best-practices.md)

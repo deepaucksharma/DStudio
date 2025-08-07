@@ -244,11 +244,11 @@ These case studies examine how leading technology companies have built and evolv
 | **DynamoDB** | Consistent Hashing, Quorum Consensus, Vector Clocks, Merkle Trees, Auto-scaling |
 | **Spanner** | Paxos, TrueTime, Multi-Version Concurrency Control, Distributed Transactions |
 | **Kafka** | Partitioning, Replication, Log-structured Storage, Zero-copy |
-| **Redis** | Master-Slave Replication, Sharding, Pub/Sub, Persistence Options |
+| **Redis** | Primary-Replica Replication, Sharding, Pub/Sub, Persistence Options |
 | **Cassandra** | Consistent Hashing, Gossip Protocol, LSM Trees, Bloom Filters |
 | **YouTube** | CDN, Adaptive Bitrate Streaming, Sharding, Caching Hierarchy |
 | **Discord** | Consistent Hashing, WebRTC, Edge Computing, Service Mesh |
-| **Elasticsearch** | Inverted Index, Sharding, Master-Slave, Bulk Processing |
+| **Elasticsearch** | Inverted Index, Sharding, Primary-Replica, Bulk Processing |
 
 ## 🔍 How to Use These Studies
 

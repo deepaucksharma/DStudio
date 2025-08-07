@@ -895,7 +895,7 @@ class IoTTrackingIntegration:
 **Solution**:
 - Regional event processing with asynchronous replication
 - Conflict-free replicated data types (CRDTs) for eventual consistency
-- Master-slave replication with regional failover
+- Primary-replica replication with regional failover
 - Intelligent data partitioning by geographic regions
 
 ### 3. Customer Experience During Exceptions

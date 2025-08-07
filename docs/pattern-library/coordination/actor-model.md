@@ -117,7 +117,7 @@ By understanding the Actor Model, you'll achieve:
     
     While the Actor Model pioneered important concurrency concepts, service mesh, serverless, and event-driven architectures provide better solutions for most use cases. The complexity without clear benefits makes it unsuitable for new projects.
     
-    **Migration Path:** See [Service Mesh](../architecture/service-mesh.md) or [Event-Driven Architecture](../architecture/event-driven.md) for current best practices
+    **Migration Path:** See [Service Mesh](../communication/service-mesh.md) or [Event-Driven Architecture](../architecture/event-driven.md) for current best practices
 
 ## Essential Question
 
@@ -137,7 +137,7 @@ By understanding the Actor Model, you'll achieve:
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| **Microservices** | Service mesh provides better patterns | [Service Mesh](../architecture/service-mesh.md) |
+| **Microservices** | Service mesh provides better patterns | [Service Mesh](../communication/service-mesh.md) |
 | **Serverless Workloads** | Functions are simpler isolated units | [Serverless Functions](../scaling/serverless.md) |
 | **Event Processing** | Stream processing is more efficient | [Event-Driven Architecture](../architecture/event-driven.md) |
 | **Simple CRUD** | Over-engineered for basic operations | Traditional REST APIs |
@@ -346,7 +346,7 @@ graph LR
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
 | [Event Sourcing](../data-management/event-sourcing.md) | Actors naturally emit events | Actor state changes → events |
-| [CQRS](../architecture/cqrs.md) | Actors handle commands | Command actors + query services |
+| [CQRS](../data-management/cqrs.md) | Actors handle commands | Command actors + query services |
 | [Circuit Breaker](../resilience/circuit-breaker.md) | Protect external calls | Wrap external services in actors |
 
 ## Quick Reference
@@ -391,7 +391,7 @@ graph LR
     
     ---
     
-    - [Service Mesh](../architecture/service-mesh.md) - Better for microservices
+    - [Service Mesh](../communication/service-mesh.md) - Better for microservices
     - [Serverless Functions](../scaling/serverless.md) - Simpler isolation
     - [Event-Driven Architecture](../architecture/event-driven.md) - Modern async patterns
 
@@ -413,9 +413,9 @@ graph LR
     
     ---
     
-    - [Actor to Service Mesh](../../architects-handbook/implementation-playbooks/migrations/actor-to-service-mesh.md)
-    - [Actor to Serverless](../../architects-handbook/implementation-playbooks/migrations/actor-to-serverless.md)
-    - [Modern Concurrency Patterns](../../architects-handbook/implementation-playbooks/guides/modern-concurrency.md)
+    - <!-- TODO: Add Actor to Service Mesh from Architects Handbook -->
+    - <!-- TODO: Add Actor to Serverless from Architects Handbook -->
+    - <!-- TODO: Add Modern Concurrency Patterns from Architects Handbook -->
 
 </div>
 

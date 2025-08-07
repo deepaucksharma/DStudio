@@ -437,9 +437,9 @@ graph LR
     
     ---
     
-    - [Delta Compression Guide](../../architects-handbook/implementation-playbooks/guides/delta-compression.md)
-    - [Conflict Resolution Strategies](../../architects-handbook/implementation-playbooks/guides/conflict-resolution.md)
-    - [Sync Performance Testing](../../architects-handbook/implementation-playbooks/guides/sync-testing.md)
+    - <!-- TODO: Add Delta Compression Guide from Architects Handbook -->
+    - <!-- TODO: Add Conflict Resolution Strategies from Architects Handbook -->
+    - <!-- TODO: Add Sync Performance Testing from Architects Handbook -->
 
 </div>
 

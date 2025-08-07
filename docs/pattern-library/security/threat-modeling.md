@@ -831,15 +831,15 @@ Training and Awareness:
 
 ## Related Patterns
 
-- **Complementary**: [Zero-Trust Architecture](zero-trust-architecture/) - Implementation of threat model findings
-- **Complementary**: [Security Scanning Pipeline](security-scanning-pipeline/) - Validation of threat controls
+- **Complementary**: [Zero-Trust Architecture](zero-trust-architecture.md) - Implementation of threat model findings
+- **Complementary**: [Security Scanning Pipeline](security-scanning-pipeline.md) - Validation of threat controls
 - **Building Block**: Secure software development lifecycle
 - **Extension**: Penetration testing for threat validation
 - **Alternative**: Ad-hoc security reviews (not recommended)
 
 ## Further Reading
 
-- [Microsoft Threat Modeling](https://docs.microsoft.com/en-us/azure/security/develop/threat-modeling-tool/)
-- [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling/)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework/)
-- [STRIDE Threat Modeling](https://docs.microsoft.com/en-us/archive/msdn-magazine/2006/november/uncover-security-design-flaws-using-the-stride-approach/)
+- [Microsoft Threat Modeling](https://docs.microsoft.com/en-us/azure/security/develop/threat-modeling-tool.md)
+- [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling.md)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework.md)
+- [STRIDE Threat Modeling](https://docs.microsoft.com/en-us/archive/msdn-magazine/2006/november/uncover-security-design-flaws-using-the-stride-approach.md)

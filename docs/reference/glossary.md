@@ -341,7 +341,7 @@ Fixes inconsistencies during reads by updating stale replicas.
 ### Replica
 Data copy maintained on multiple nodes.
 
-**Types**: Master-slave, master-master, leaderless
+**Types**: Primary-replica, multi-primary, leaderless
 
 **Consistency**: Strong, eventual, causal
 

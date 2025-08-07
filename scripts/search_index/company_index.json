@@ -1,0 +1,613 @@
+{
+  "amazon": [
+    "59883a2e4f46",
+    "9ab43261b348",
+    "fdb6a59111d0",
+    "81fbf51b28f1",
+    "3b3342c7ed50",
+    "09afa7fa63ba",
+    "417458227492",
+    "b74d547b5cf2",
+    "ce6791fe848a",
+    "a420dcda5c0d",
+    "073ee3cab6a4",
+    "78d4b46963fc",
+    "58cefcfdce4d",
+    "5bd9d997eee8",
+    "4d4299ef6027",
+    "f896c91fc15f",
+    "f28658a4fd74",
+    "f83d914aba94",
+    "720459755603",
+    "5393824e9b66",
+    "172faea4786f",
+    "05d97dc137ee",
+    "d4b3d00ea85b",
+    "facebd464d96",
+    "dfb8776d095b",
+    "25a91c7606c5",
+    "3eec60e1931b",
+    "5302304b6cab",
+    "a75527df0eeb",
+    "46b5fd4aaab6",
+    "715226188728",
+    "0f677c0c1836",
+    "f69680d7d2ed",
+    "ae95cc0ed4f5",
+    "9531c70381d0",
+    "98ff1cba1251",
+    "9cc900f3828b"
+  ],
+  "netflix": [
+    "59883a2e4f46",
+    "f500fc931e90",
+    "9ab43261b348",
+    "fdb6a59111d0",
+    "81fbf51b28f1",
+    "b967ba235674",
+    "e6ca959480cb",
+    "5d396276dd70",
+    "adaa60e8dff1",
+    "417458227492",
+    "697fce401d2e",
+    "b74d547b5cf2",
+    "08940f10fe7e",
+    "d88c5c1ed19e",
+    "b8ac56c8929f",
+    "ce6791fe848a",
+    "66bede58547e",
+    "ec36d89aaeef",
+    "073ee3cab6a4",
+    "00c3e904661f",
+    "ff90de3e0d31",
+    "78d4b46963fc",
+    "a3283f578d24",
+    "e6156572ad9b",
+    "58cefcfdce4d",
+    "891eed06e639",
+    "4d4299ef6027",
+    "f896c91fc15f",
+    "0b8a22a574ae",
+    "1806085287ff",
+    "f83d914aba94",
+    "6044ecf946d8",
+    "5393824e9b66",
+    "7a1c73b29f5e",
+    "172faea4786f",
+    "567db459009a",
+    "32b5489305c3",
+    "80d3005ce2b3",
+    "7160d51cab51",
+    "dfb8776d095b",
+    "50ed8aa2735e",
+    "25a91c7606c5",
+    "db3ba8d66679",
+    "3eec60e1931b",
+    "4f926bf8a466",
+    "48801dbb5a7b",
+    "5302304b6cab",
+    "c9354ce266cd",
+    "a75527df0eeb",
+    "31386d5e1014",
+    "398ce936a9b2",
+    "46b5fd4aaab6",
+    "2441069d2d6f",
+    "f07cc6b566dd",
+    "715226188728",
+    "e52c7acac80a",
+    "6f2d89966f7a",
+    "fe4385bd3ccc",
+    "0f677c0c1836",
+    "f69680d7d2ed",
+    "c2b766b3f011",
+    "21d0b86f2f57",
+    "ae95cc0ed4f5",
+    "9531c70381d0",
+    "1b424555cce0",
+    "98ff1cba1251",
+    "67a41d5a9d52",
+    "9cc900f3828b",
+    "b2496bf1caed"
+  ],
+  "google": [
+    "59883a2e4f46",
+    "fdb6a59111d0",
+    "3b3342c7ed50",
+    "417458227492",
+    "697fce401d2e",
+    "b8ac56c8929f",
+    "ce6791fe848a",
+    "66bede58547e",
+    "073ee3cab6a4",
+    "00c3e904661f",
+    "c32476862628",
+    "77f38b9aab80",
+    "a3283f578d24",
+    "2faf81184304",
+    "58cefcfdce4d",
+    "5bd9d997eee8",
+    "f28658a4fd74",
+    "32dc5f7292a9",
+    "172faea4786f",
+    "34b5350905d5",
+    "d4b3d00ea85b",
+    "facebd464d96",
+    "567db459009a",
+    "95a5737953e4",
+    "50ed8aa2735e",
+    "25a91c7606c5",
+    "4f926bf8a466",
+    "5302304b6cab",
+    "303430a069fa",
+    "8d76dc523050",
+    "549a6706b449",
+    "2684c0ed9023",
+    "0d22feecb6cd",
+    "fe4385bd3ccc",
+    "4f4e6cfa041a",
+    "f69680d7d2ed",
+    "9531c70381d0",
+    "1b424555cce0",
+    "98ff1cba1251",
+    "c3bc9093c4c1"
+  ],
+  "meta": [
+    "59883a2e4f46",
+    "58cefcfdce4d",
+    "f28658a4fd74",
+    "2cacca63127d",
+    "bd37a51180a7",
+    "c3bc9093c4c1"
+  ],
+  "uber": [
+    "59883a2e4f46",
+    "f500fc931e90",
+    "9ab43261b348",
+    "fdb6a59111d0",
+    "81fbf51b28f1",
+    "5d396276dd70",
+    "adaa60e8dff1",
+    "417458227492",
+    "08940f10fe7e",
+    "ec36d89aaeef",
+    "c32476862628",
+    "78d4b46963fc",
+    "a3283f578d24",
+    "4d4299ef6027",
+    "0b8a22a574ae",
+    "1806085287ff",
+    "f83d914aba94",
+    "720459755603",
+    "7a1c73b29f5e",
+    "172faea4786f",
+    "567db459009a",
+    "32b5489305c3",
+    "7160d51cab51",
+    "dfb8776d095b",
+    "db3ba8d66679",
+    "3395d223e161",
+    "a75527df0eeb",
+    "31386d5e1014",
+    "46b5fd4aaab6",
+    "715226188728",
+    "6f2d89966f7a",
+    "fe4385bd3ccc",
+    "0f677c0c1836",
+    "ae95cc0ed4f5",
+    "9531c70381d0",
+    "c3bc9093c4c1"
+  ],
+  "facebook": [
+    "fdb6a59111d0",
+    "2cacca63127d",
+    "facebd464d96",
+    "50ed8aa2735e",
+    "25a91c7606c5",
+    "db3ba8d66679",
+    "48801dbb5a7b",
+    "4f4e6cfa041a"
+  ],
+  "airbnb": [
+    "81fbf51b28f1",
+    "b967ba235674",
+    "ec36d89aaeef",
+    "c32476862628",
+    "78d4b46963fc",
+    "e6156572ad9b",
+    "58cefcfdce4d",
+    "891eed06e639",
+    "f83d914aba94",
+    "720459755603",
+    "567db459009a",
+    "32b5489305c3",
+    "a576f7648452",
+    "bd37a51180a7",
+    "31386d5e1014"
+  ],
+  "spotify": [
+    "81fbf51b28f1",
+    "b967ba235674",
+    "417458227492",
+    "b8ac56c8929f",
+    "e6156572ad9b",
+    "891eed06e639",
+    "a257be6c2bce",
+    "a576f7648452",
+    "7160d51cab51",
+    "bd37a51180a7",
+    "5302304b6cab",
+    "46b5fd4aaab6",
+    "2441069d2d6f",
+    "715226188728",
+    "67a41d5a9d52"
+  ],
+  "github": [
+    "b967ba235674",
+    "d738bb20d11e",
+    "ce6791fe848a",
+    "a8b17de59406",
+    "2cacca63127d",
+    "dfb8776d095b",
+    "bd37a51180a7",
+    "29c13875b15d",
+    "0f677c0c1836",
+    "5e4d89b1cb6e",
+    "c3bc9093c4c1",
+    "9cc900f3828b",
+    "b2496bf1caed"
+  ],
+  "slack": [
+    "09afa7fa63ba",
+    "58cefcfdce4d",
+    "facebd464d96",
+    "dfb8776d095b",
+    "9cc900f3828b"
+  ],
+  "azure": [
+    "09afa7fa63ba",
+    "417458227492",
+    "ce6791fe848a",
+    "66bede58547e",
+    "a8b17de59406",
+    "a420dcda5c0d",
+    "c32476862628",
+    "58cefcfdce4d",
+    "5bd9d997eee8",
+    "7a1c73b29f5e",
+    "86e6a46b788a",
+    "4f926bf8a466",
+    "a75527df0eeb",
+    "46b5fd4aaab6",
+    "8d76dc523050",
+    "c3bc9093c4c1",
+    "9cc900f3828b"
+  ],
+  "aws": [
+    "09afa7fa63ba",
+    "417458227492",
+    "b74d547b5cf2",
+    "c068c287eb64",
+    "fb154abd66ef",
+    "ce6791fe848a",
+    "66bede58547e",
+    "073ee3cab6a4",
+    "c32476862628",
+    "ff90de3e0d31",
+    "78d4b46963fc",
+    "58cefcfdce4d",
+    "5bd9d997eee8",
+    "f83d914aba94",
+    "7a1c73b29f5e",
+    "32b5489305c3",
+    "80d3005ce2b3",
+    "dfb8776d095b",
+    "bd37a51180a7",
+    "3eec60e1931b",
+    "4f926bf8a466",
+    "5302304b6cab",
+    "410f3f609f1c",
+    "a75527df0eeb",
+    "46b5fd4aaab6",
+    "8d76dc523050",
+    "549a6706b449",
+    "715226188728",
+    "0f677c0c1836",
+    "f69680d7d2ed",
+    "c2b766b3f011",
+    "21d0b86f2f57",
+    "001dcddee2db",
+    "ae95cc0ed4f5",
+    "9531c70381d0",
+    "1b424555cce0",
+    "c3bc9093c4c1",
+    "9cc900f3828b",
+    "b2496bf1caed"
+  ],
+  "salesforce": [
+    "09afa7fa63ba",
+    "adaa60e8dff1"
+  ],
+  "microsoft": [
+    "09afa7fa63ba",
+    "ce6791fe848a",
+    "a8b17de59406",
+    "a420dcda5c0d",
+    "00c3e904661f",
+    "58cefcfdce4d",
+    "5bd9d997eee8",
+    "715226188728",
+    "1b424555cce0",
+    "c3bc9093c4c1"
+  ],
+  "linkedin": [
+    "5d396276dd70",
+    "417458227492",
+    "08940f10fe7e",
+    "b8ac56c8929f",
+    "ff90de3e0d31",
+    "78d4b46963fc",
+    "a257be6c2bce",
+    "2cacca63127d",
+    "5393824e9b66",
+    "05d97dc137ee",
+    "a576f7648452",
+    "48801dbb5a7b",
+    "c9354ce266cd",
+    "a75527df0eeb",
+    "2684c0ed9023",
+    "9cc900f3828b"
+  ],
+  "paypal": [
+    "adaa60e8dff1",
+    "78d4b46963fc",
+    "db3ba8d66679"
+  ],
+  "stripe": [
+    "adaa60e8dff1",
+    "78d4b46963fc",
+    "bd37a51180a7",
+    "db3ba8d66679",
+    "5302304b6cab",
+    "29c13875b15d",
+    "ae95cc0ed4f5",
+    "9cc900f3828b"
+  ],
+  "doordash": [
+    "417458227492"
+  ],
+  "google cloud": [
+    "417458227492",
+    "66bede58547e",
+    "073ee3cab6a4",
+    "58cefcfdce4d",
+    "5bd9d997eee8",
+    "4f926bf8a466",
+    "5302304b6cab",
+    "2684c0ed9023",
+    "9531c70381d0"
+  ],
+  "booking": [
+    "417458227492",
+    "78d4b46963fc",
+    "720459755603",
+    "a576f7648452",
+    "bd37a51180a7",
+    "715226188728"
+  ],
+  "shopify": [
+    "697fce401d2e",
+    "1806085287ff"
+  ],
+  "intuit": [
+    "d738bb20d11e"
+  ],
+  "adobe": [
+    "d738bb20d11e"
+  ],
+  "weaveworks": [
+    "d738bb20d11e"
+  ],
+  "linkerd": [
+    "d88c5c1ed19e"
+  ],
+  "envoy": [
+    "d88c5c1ed19e"
+  ],
+  "lyft": [
+    "d88c5c1ed19e",
+    "5bd9d997eee8",
+    "dfb8776d095b"
+  ],
+  "istio": [
+    "d88c5c1ed19e"
+  ],
+  "gcp": [
+    "ce6791fe848a",
+    "58cefcfdce4d",
+    "5bd9d997eee8",
+    "7a1c73b29f5e",
+    "32b5489305c3",
+    "5302304b6cab",
+    "46b5fd4aaab6",
+    "9cc900f3828b"
+  ],
+  "hashicorp": [
+    "ce6791fe848a"
+  ],
+  "cloudflare": [
+    "00c3e904661f",
+    "549a6706b449"
+  ],
+  "ibm": [
+    "00c3e904661f"
+  ],
+  "cockroachdb": [
+    "77f38b9aab80",
+    "398ce936a9b2"
+  ],
+  "mongodb": [
+    "77f38b9aab80",
+    "d01121a1829b"
+  ],
+  "yugabytedb": [
+    "77f38b9aab80"
+  ],
+  "rabbitmq": [
+    "ff90de3e0d31"
+  ],
+  "kubernetes": [
+    "d01121a1829b",
+    "1b424555cce0"
+  ],
+  "apache kafka": [
+    "d01121a1829b",
+    "2684c0ed9023"
+  ],
+  "pinterest": [
+    "e6156572ad9b",
+    "58cefcfdce4d",
+    "bd37a51180a7",
+    "3395d223e161"
+  ],
+  "oracle": [
+    "4d4299ef6027",
+    "f83d914aba94"
+  ],
+  "databricks": [
+    "0b8a22a574ae"
+  ],
+  "twitter": [
+    "a257be6c2bce",
+    "86e6a46b788a",
+    "facebd464d96",
+    "48801dbb5a7b",
+    "f71e3a959d48",
+    "29c13875b15d",
+    "6f2d89966f7a",
+    "98ff1cba1251"
+  ],
+  "apache cassandra": [
+    "32dc5f7292a9",
+    "41af2d2cc24b"
+  ],
+  "google chrome": [
+    "32dc5f7292a9"
+  ],
+  "medium": [
+    "32dc5f7292a9"
+  ],
+  "snowflake": [
+    "172faea4786f"
+  ],
+  "google bigquery": [
+    "172faea4786f"
+  ],
+  "amazon redshift": [
+    "172faea4786f"
+  ],
+  "rocksdb": [
+    "41af2d2cc24b"
+  ],
+  "leveldb": [
+    "41af2d2cc24b"
+  ],
+  "amazon dynamodb": [
+    "9899320324f9"
+  ],
+  "bitcoin": [
+    "9899320324f9"
+  ],
+  "git": [
+    "9899320324f9"
+  ],
+  "postgresql": [
+    "68de524a4d22"
+  ],
+  "mysql/innodb": [
+    "68de524a4d22"
+  ],
+  "etcd": [
+    "68de524a4d22"
+  ],
+  "discord": [
+    "d4b3d00ea85b",
+    "facebd464d96",
+    "dfb8776d095b",
+    "3395d223e161",
+    "c9354ce266cd",
+    "f71e3a959d48",
+    "0d22feecb6cd",
+    "c3bc9093c4c1",
+    "9cc900f3828b"
+  ],
+  "twitch": [
+    "d4b3d00ea85b"
+  ],
+  "redis": [
+    "facebd464d96",
+    "2684c0ed9023"
+  ],
+  "figma": [
+    "facebd464d96"
+  ],
+  "riak": [
+    "facebd464d96"
+  ],
+  "dropbox": [
+    "d77b13c3610e"
+  ],
+  "whatsapp": [
+    "d77b13c3610e"
+  ],
+  "google drive": [
+    "d77b13c3610e"
+  ],
+  "openai": [
+    "80d3005ce2b3",
+    "95a5737953e4"
+  ],
+  "tesla": [
+    "80d3005ce2b3",
+    "bd37a51180a7",
+    "8d76dc523050"
+  ],
+  "nvidia": [
+    "95a5737953e4"
+  ],
+  "ebay": [
+    "dfb8776d095b"
+  ],
+  "nordstrom": [
+    "4f926bf8a466"
+  ],
+  "coca-cola": [
+    "4f926bf8a466"
+  ],
+  "reddit": [
+    "48801dbb5a7b"
+  ],
+  "youtube/vitess": [
+    "3395d223e161"
+  ],
+  "zoom": [
+    "303430a069fa"
+  ],
+  "dynamodb global tables": [
+    "398ce936a9b2"
+  ],
+  "cloudflare workers": [
+    "8d76dc523050"
+  ],
+  "apple": [
+    "8d76dc523050"
+  ],
+  "aws iot greengrass": [
+    "8d76dc523050"
+  ],
+  "microsoft azure iot edge": [
+    "8d76dc523050"
+  ],
+  "google cloud pub/sub": [
+    "2684c0ed9023"
+  ]
+}

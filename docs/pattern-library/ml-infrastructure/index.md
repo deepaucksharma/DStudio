@@ -100,5 +100,5 @@ Real-world implementations:
 ## References
 
 - [Core Principles: Intelligence Distribution](../../core-principles/pillars/intelligence-distribution.md)
-- [Architect's Handbook: ML Case Studies](../../architects-handbook/case-studies/)
-- [Excellence Guide: ML Best Practices](../../excellence/implementation-guides/)
+- <!-- TODO: Add Architect's Handbook: ML Case Studies from Architects Handbook -->
+- [Excellence Guide: ML Best Practices](../../excellence/implementation-guides.md)

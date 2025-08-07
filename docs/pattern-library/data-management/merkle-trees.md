@@ -440,9 +440,9 @@ graph LR
     
     ---
     
-    - [Cryptographic Best Practices](../../architects-handbook/implementation-playbooks/guides/crypto-practices.md)
-    - [Tree Structure Optimization](../../architects-handbook/implementation-playbooks/guides/tree-optimization.md)
-    - [Proof System Design](../../architects-handbook/implementation-playbooks/guides/proof-systems.md)
+    - <!-- TODO: Add Cryptographic Best Practices from Architects Handbook -->
+    - <!-- TODO: Add Tree Structure Optimization from Architects Handbook -->
+    - <!-- TODO: Add Proof System Design from Architects Handbook -->
 
 </div>
 

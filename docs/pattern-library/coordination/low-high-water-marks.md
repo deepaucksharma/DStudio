@@ -273,9 +273,9 @@ Water Marks implement:
 - **[Bulkhead](../resilience/bulkhead.md)**: Isolate resources with marks
 
 ### Similar Concepts
-- **[Admission Control](../../pattern-library/scaling/rate-limiting/#admission-control/)**: Entry-point flow control
+- **[Admission Control](../../pattern-library/scaling/rate-limiting/#admission-control.md)**: Entry-point flow control
 - **[Load Shedding](../resilience/load-shedding.md)**: Beyond high water mark
-- **[Throttling](../../pattern-library/scaling/rate-limiting/#throttling/)**: Between water marks
+- **[Throttling](../../pattern-library/scaling/rate-limiting/#throttling.md)**: Between water marks
 
 ---
 

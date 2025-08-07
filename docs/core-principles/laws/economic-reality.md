@@ -1017,7 +1017,7 @@ Core patterns that address economic optimization:
 - [**Rate Limiting**](../../pattern-library/scaling/rate-limiting/) - Cost-aware traffic management 
 - [**Circuit Breaker**](../../pattern-library/resilience/circuit-breaker/) - Prevent cascade cost failures
 - [**Caching Strategies**](../../pattern-library/scaling/caching-strategies/) - Trade memory for compute economics
-- [**Database Sharding**](../../pattern-library/scaling/database-sharding/) - Scale economics through partitioning
+- [**Database Sharding**](../../pattern-library/scaling/sharding/) - Scale economics through partitioning
 
 ### Advanced Economic Applications
 

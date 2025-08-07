@@ -67,7 +67,7 @@ Distributed training is the foundational pattern for scaling machine learning wo
 graph TB
     subgraph "Distributed Training Architecture"
         subgraph "Data Parallelism Layer"
-            A[Master Node<br/>Coordination] --> B1[Worker 1<br/>Model Replica + Data Shard]
+            A[Primary Node<br/>Coordination] --> B1[Worker 1<br/>Model Replica + Data Shard]
             A --> B2[Worker 2<br/>Model Replica + Data Shard]
             A --> B3[Worker N<br/>Model Replica + Data Shard]
         end
@@ -1361,9 +1361,9 @@ timeline
     
     ---
     
-    - [PyTorch Distributed Setup](../../architects-handbook/implementation-playbooks/guides/pytorch-distributed.md)
-    - [GPU Cluster Configuration](../../architects-handbook/implementation-playbooks/guides/gpu-cluster-setup.md)
-    - [Distributed Training Best Practices](../../architects-handbook/implementation-playbooks/guides/distributed-training-best-practices.md)
+    - <!-- TODO: Add PyTorch Distributed Setup from Architects Handbook -->
+    - <!-- TODO: Add GPU Cluster Configuration from Architects Handbook -->
+    - <!-- TODO: Add Distributed Training Best Practices from Architects Handbook -->
 
 </div>
 

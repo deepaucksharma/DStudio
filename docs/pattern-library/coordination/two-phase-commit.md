@@ -117,12 +117,12 @@ class TwoPhaseCommitCoordinator:
 
 ## Related Patterns
 
-- [Pattern 1](../related-pattern-1.md) - Complementary pattern
-- [Pattern 2](../related-pattern-2.md) - Alternative approach
-- [Pattern 3](../related-pattern-3.md) - Building block pattern
+- <!-- TODO: Add actual pattern link --> - Complementary pattern
+- <!-- TODO: Add actual pattern link --> - Alternative approach
+- <!-- TODO: Add actual pattern link --> - Building block pattern
 
 ## References
 
 - [External Resource 1](#)
 - [External Resource 2](#)
-- [Case Study Example](../../architects-handbook/case-studies/example.md)
+- <!-- TODO: Add Case Study Example -->

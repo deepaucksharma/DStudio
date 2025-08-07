@@ -348,9 +348,9 @@ graph LR
     
     ---
     
-    - [Kafka Setup Guide](../../architects-handbook/implementation-playbooks/guides/kafka-setup.md)
-    - [Flink Best Practices](../../architects-handbook/implementation-playbooks/guides/flink-best-practices.md)
-    - [Stream Processing Testing](../../architects-handbook/implementation-playbooks/guides/stream-testing.md)
+    - <!-- TODO: Add Kafka Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Flink Best Practices from Architects Handbook -->
+    - <!-- TODO: Add Stream Processing Testing from Architects Handbook -->
 
 </div>
 

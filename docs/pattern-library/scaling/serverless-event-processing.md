@@ -1592,9 +1592,9 @@ timeline
     
     ---
     
-    - [AWS Lambda Best Practices](../../architects-handbook/implementation-playbooks/guides/lambda-best-practices.md)
-    - [Serverless Cost Optimization](../../architects-handbook/implementation-playbooks/guides/serverless-cost-optimization.md)
-    - [Cold Start Optimization Guide](../../architects-handbook/implementation-playbooks/guides/cold-start-optimization.md)
+    - <!-- TODO: Add AWS Lambda Best Practices from Architects Handbook -->
+    - <!-- TODO: Add Serverless Cost Optimization from Architects Handbook -->
+    - <!-- TODO: Add Cold Start Optimization Guide from Architects Handbook -->
 
 </div>
 

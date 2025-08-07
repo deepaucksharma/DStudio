@@ -357,15 +357,15 @@ graph TD
 ## Decision Framework
 
 ## Related Patterns
-- [Multi-Region](../architecture/multi-region.md) - Architecture patterns for multi-region systems
+- [Multi-Region](../scaling/multi-region.md) - Architecture patterns for multi-region systems
 - [Edge Computing](../scaling/edge-computing.md) - Computation at network edge
-- [CDN Pattern](../performance/cdn.md) - Content delivery networks
-- [Database Replication](../data-management/replication.md) - Data replication strategies
-- [Global Load Balancing](../architecture/global-load-balancing.md) - Traffic distribution
+- [CDN Pattern](../scaling/content-delivery-network.md) - Content delivery networks
+- <!-- TODO: Add replication pattern --> - Data replication strategies
+- [Global Load Balancing](../scaling/geographic-load-balancing.md) - Traffic distribution
 
 ## References
-- [Netflix Global Architecture](https://netflixtechblog.com/)
-- [Stripe's Data Residency](https://stripe.com/guides/data-residency/)
-- [Google Spanner Paper](https://research.google/pubs/pub39966/)
-- [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
+- [Netflix Global Architecture](https://netflixtechblog.com.md)
+- [Stripe's Data Residency](https://stripe.com/guides/data-residency.md)
+- [Google Spanner Paper](https://research.google/pubs/pub39966.md)
+- [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure.md)
 

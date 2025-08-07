@@ -90,5 +90,5 @@ With shuffle sharding, the probability of two customers sharing all the same sha
 
 - [Bulkhead Pattern](../resilience/bulkhead.md)
 - [Cell-Based Architecture](../architecture/cell-based.md)
-- [Consistent Hashing](../coordination/consistent-hashing.md)
+- [Consistent Hashing](../data-management/consistent-hashing.md)
 

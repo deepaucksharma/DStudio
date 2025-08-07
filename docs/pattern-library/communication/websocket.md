@@ -173,14 +173,14 @@ class ResilientWebSocket {
 
 ## References
 
-- [RFC 6455 - The WebSocket Protocol](https://tools.ietf.org/html/rfc6455/)
-- [WebSocket API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/)
-- [Socket.IO](https://socket.io/) - WebSocket library with fallbacks
-- [Discord's WebSocket Gateway](https://discord.com/developers/docs/topics/gateway/)
+- [RFC 6455 - The WebSocket Protocol](https://tools.ietf.org/html/rfc6455.md)
+- [WebSocket API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket.md)
+- [Socket.IO](https://socket.io.md) - WebSocket library with fallbacks
+- [Discord's WebSocket Gateway](https://discord.com/developers/docs/topics/gateway.md)
 
 ---
 
-**Previous**: [Service Discovery Pattern](../communication/service-discovery.md) | **Next**: [Communication Patterns Index](../)
+**Previous**: [Service Discovery Pattern](../communication/service-discovery.md) | **Next**: [Communication Patterns Index](...md)
 
 ## Decision Matrix
 

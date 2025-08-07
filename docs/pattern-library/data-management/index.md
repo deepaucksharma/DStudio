@@ -27,7 +27,7 @@ Data management patterns address the complex challenges of storing, accessing, a
 - **Data Lake** - Centralized raw data storage
 
 ### Replication Patterns
-- **Master-Slave** - Read scaling with single writer
+- **Primary-Replica** - Read scaling with single writer
 - **Multi-Master** - Multiple write nodes
 - **Chain Replication** - Sequential replication
 - **Quorum Replication** - Voting-based consistency
@@ -72,3 +72,29 @@ Each pattern makes different CAP trade-offs:
 - [Pattern Decision Matrix](/pattern-library/pattern-decision-matrix)
 - [Pattern Comparison Tool](/pattern-library/pattern-comparison-tool)
 - [CRDT (Conflict-free Replicated Data Types)](/pattern-library/data-management/crdt)
+
+- [Spatial Indexing](spatial-indexing.md)
+- [Data Lakehouse](data-lakehouse.md)
+- [Double Entry Ledger](double-entry-ledger.md)
+- [Distributed Storage](distributed-storage.md)
+- [Eventual Consistency](eventual-consistency.md)
+- [Outbox](outbox.md)
+- [Cdc](cdc.md)
+- [Stream Processing](stream-processing.md)
+- [Segmented Log](segmented-log.md)
+- [Read Repair](read-repair.md)
+- [Bloom Filter](bloom-filter.md)
+- [Tunable Consistency](tunable-consistency.md)
+- [Materialized View](materialized-view.md)
+- [Deduplication](deduplication.md)
+- [Lsm Tree](lsm-tree.md)
+- [Merkle Trees](merkle-trees.md)
+- [Cqrs](cqrs.md)
+- [Write Ahead Log](write-ahead-log.md)
+- [Data Mesh](data-mesh.md)
+- [Consistent Hashing](consistent-hashing.md)
+- [Crdt](crdt.md)
+- [Delta Sync](delta-sync.md)
+- [Idempotency](idempotency.md)
+
+## Patterns

@@ -248,6 +248,7 @@ plugins:
 - mermaid2:
     version: '10.4.0'
 markdown_extensions:
+- meta
 - abbr
 - admonition
 - attr_list
@@ -384,6 +385,9 @@ nav:
     - Anti-Patterns Guide: pattern-library/pattern-antipatterns-guide.md
     - Implementation Roadmap: pattern-library/pattern-implementation-roadmap.md
     - Pattern Migration Guides: pattern-library/pattern-migration-guides.md
+    - Learning Resources:
+      - Learning Modules Index: pattern-library/LEARNING_MODULES_INDEX.md
+      - Comprehensive Summary: pattern-library/COMPREHENSIVE_LEARNING_SUMMARY.md
   - Communication Patterns:
     - Overview: pattern-library/communication/index.md
     - API Gateway: pattern-library/communication/api-gateway.md
@@ -398,8 +402,11 @@ nav:
     - Overview: pattern-library/resilience/index.md
     - Request Management:
       - Circuit Breaker: pattern-library/resilience/circuit-breaker.md
+      - Circuit Breaker Mastery: pattern-library/resilience/circuit-breaker-mastery.md
       - Retry & Backoff: pattern-library/resilience/retry-backoff.md
       - Timeout: pattern-library/resilience/timeout.md
+      - Advanced Timeout Strategies: pattern-library/resilience/timeout-advanced.md
+      - Rate Limiting Elite: pattern-library/resilience/rate-limiting-elite-engineering.md
     - System Protection:
       - Bulkhead: pattern-library/resilience/bulkhead.md
       - Load Shedding: pattern-library/resilience/load-shedding.md
@@ -411,6 +418,10 @@ nav:
       - Failover: pattern-library/resilience/failover.md
       - Split Brain: pattern-library/resilience/split-brain.md
       - Fault Tolerance: pattern-library/resilience/fault-tolerance.md
+    - Chaos Engineering:
+      - Chaos Engineering Mastery: pattern-library/resilience/chaos-engineering-mastery.md
+    - Examinations:
+      - Resilience Engineering Exam: pattern-library/resilience/resilience-engineering-exam.md
   - Data Management Patterns:
     - Overview: pattern-library/data-management/index.md
     - Event & Command Patterns:
@@ -419,6 +430,9 @@ nav:
       - Saga: pattern-library/data-management/saga.md
       - Change Data Capture (CDC): pattern-library/data-management/cdc.md
       - Outbox Pattern: pattern-library/data-management/outbox.md
+    - Examinations:
+      - Data Consistency Exam: pattern-library/data-management/data-consistency-exam.md
+      - Data Pipeline Exam: pattern-library/data-management/data-pipeline-exam.md
     - Consistency & Synchronization:
       - Eventual Consistency: pattern-library/data-management/eventual-consistency.md
       - Tunable Consistency: pattern-library/data-management/tunable-consistency.md
@@ -480,6 +494,10 @@ nav:
       - Strangler Fig: pattern-library/architecture/strangler-fig.md
       - Container Orchestration: pattern-library/architecture/container-orchestration.md
       - GitOps Deployment: pattern-library/architecture/gitops-deployment.md
+    - Mastery Modules:
+      - API Design Mastery: pattern-library/architecture/api-design-mastery.md
+      - Microservices Decomposition: pattern-library/architecture/microservices-decomposition-mastery.md
+      - Service Mesh Production: pattern-library/architecture/service-mesh-production-mastery.md
     - System Patterns:
       - Cell-Based Architecture: pattern-library/architecture/cell-based.md
       - Shared Nothing: pattern-library/architecture/shared-nothing.md
@@ -497,6 +515,8 @@ nav:
       - CAP Theorem: pattern-library/architecture/cap-theorem.md
   - Coordination Patterns:
     - Overview: pattern-library/coordination/index.md
+    - Mastery Modules:
+      - Saga Pattern Production: pattern-library/coordination/saga-pattern-production-mastery.md
     - Time & Ordering:
       - Hybrid Logical Clocks: pattern-library/coordination/hlc.md
       - Logical Clocks: pattern-library/coordination/logical-clocks.md
@@ -530,11 +550,21 @@ nav:
     - API Security Gateway: pattern-library/security/api-security-gateway.md
     - Security Scanning Pipeline: pattern-library/security/security-scanning-pipeline.md
     - Threat Modeling: pattern-library/security/threat-modeling.md
+    - Examinations:
+      - Distributed Security Exam: pattern-library/security/distributed-security-exam.md
   - Deployment Patterns:
     - Overview: pattern-library/deployment/index.md
     - Blue-Green Deployment: pattern-library/deployment/blue-green-deployment.md
     - Canary Release: pattern-library/deployment/canary-release.md
     - Feature Flags: pattern-library/deployment/feature-flags.md
+    - Mastery Modules:
+      - Kubernetes Distributed Patterns: pattern-library/deployment/kubernetes-distributed-patterns.md
+      - Container Orchestration Advanced: pattern-library/deployment/container-orchestration-advanced.md
+    - Examinations:
+      - Deployment Strategies Exam: pattern-library/deployment/deployment-strategies-exam.md
+  - Observability Patterns:
+    - Examinations:
+      - Distributed Tracing Exam: pattern-library/observability/distributed-tracing-exam.md
   - Cost Optimization Patterns:
     - Overview: pattern-library/cost-optimization/index.md
     - Spot Instance Management: pattern-library/cost-optimization/spot-instance-management.md

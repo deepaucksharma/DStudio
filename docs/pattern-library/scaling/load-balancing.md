@@ -551,9 +551,9 @@ This pattern directly addresses several fundamental laws:
     
     ---
     
-    - [Load Balancer Setup](../../architects-handbook/implementation-playbooks/guides/load-balancer-setup.md)
-    - [Health Check Configuration](../../architects-handbook/implementation-playbooks/guides/health-check-config.md)
-    - [SSL Termination Guide](../../architects-handbook/implementation-playbooks/guides/ssl-termination.md)
+    - <!-- TODO: Add Load Balancer Setup from Architects Handbook -->
+    - <!-- TODO: Add Health Check Configuration from Architects Handbook -->
+    - <!-- TODO: Add SSL Termination Guide from Architects Handbook -->
 
 </div>
 

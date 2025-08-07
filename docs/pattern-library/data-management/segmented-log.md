@@ -202,18 +202,18 @@ graph TD
 - **[Replication Log](../../pattern-library/replication-log.md)**: Segment-based replication
 
 ### Applications
-- **[Kafka](../../architects-handbook/case-studies/kafka.md)**: Canonical implementation
-- **[RocksDB](../../architects-handbook/case-studies/rocksdb.md)**: LSM with segments
-- **[Cassandra](../../architects-handbook/case-studies/cassandra.md)**: SSTables as segments
+- **<!-- TODO: Add Kafka from Architects Handbook -->**: Canonical implementation
+- **<!-- TODO: Add RocksDB from Architects Handbook -->**: LSM with segments
+- **<!-- TODO: Add Cassandra from Architects Handbook -->**: SSTables as segments
 
 ## Further Reading
 
-- [Kafka Log Implementation](https://kafka.apache.org/documentation/#log/)
-- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/)
-- [RocksDB Architecture](https://github.com/facebook/rocksdb/wiki/RocksDB-Overview/)
+- [Kafka Log Implementation](https://kafka.apache.org/documentation/#log.md)
+- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying.md)
+- [RocksDB Architecture](https://github.com/facebook/rocksdb/wiki/RocksDB-Overview.md)
 
 ### Implementation Resources
-- [Building a Distributed Log](https://bravenewgeek.com/building-a-distributed-log-from-scratch-part-1-storage-mechanics/)
-- [Segment Compaction Strategies](https://www.confluent.io/blog/log-compaction-highlights-in-the-apache-kafka-and-stream-processing-community/)
-- [Storage Engine Design](https://www.databass.dev/)
+- [Building a Distributed Log](https://bravenewgeek.com/building-a-distributed-log-from-scratch-part-1-storage-mechanics.md)
+- [Segment Compaction Strategies](https://www.confluent.io/blog/log-compaction-highlights-in-the-apache-kafka-and-stream-processing-community.md)
+- [Storage Engine Design](https://www.databass.dev.md)
 

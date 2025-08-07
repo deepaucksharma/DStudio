@@ -172,10 +172,10 @@ graph TB
  end
  
  subgraph "Redis Cluster"
- subgraph "Master Nodes"
- M1[Master 1<br/>Slots 0-5460]
- M2[Master 2<br/>Slots 5461-10922]
- M3[Master 3<br/>Slots 10923-16383]
+ subgraph "Primary Nodes"
+ M1[Primary 1<br/>Slots 0-5460]
+ M2[Primary 2<br/>Slots 5461-10922]
+ M3[Primary 3<br/>Slots 10923-16383]
  end
  
  subgraph "Replica Nodes"
@@ -235,7 +235,7 @@ graph TB
 <tbody>
  <tr>
  <td data-label="Law">Correlated Failure</td>
- <td data-label="Challenge">Master node failures losing all data</td>
+ <td data-label="Challenge">Primary node failures losing all data</td>
  <td data-label="Solution">Master-replica replication, Redis Sentinel</td>
  <td data-label="Trade-off">2x storage cost, replication lag</td>
  </tr>

@@ -20,7 +20,7 @@ modern_examples:
 pattern_status: recommended
 production_checklist:
 - Design conflict resolution strategy (LWW, CRDT, or custom)
-- Configure replication topology (master-slave, multi-master, or hierarchical)
+- Configure replication topology (primary-replica, multi-master, or hierarchical)
 - Set up monitoring for replication lag across all regions
 - Implement region failover with <5 minute RTO
 - Plan for network partitions between regions
@@ -433,7 +433,7 @@ graph TD
 
 ---
 
-**Related Patterns**: [Multi-Region](../scaling/multi-region.md) | [CDN](../performance/cdn.md) | [Event Sourcing](../data-management/event-sourcing.md)
+**Related Patterns**: [Multi-Region](../scaling/multi-region.md) | [CDN](../scaling/content-delivery-network.md) | [Event Sourcing](../data-management/event-sourcing.md)
 
 **Next**: [ID Generation at Scale →](../scaling/id-generation-scale.md)
 

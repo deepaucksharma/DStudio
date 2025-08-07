@@ -1,14 +1,14 @@
 ---
-title: Master-Slave to Multi-Primary Migration Guide
-description: Migrating from Master-Slave to Multi-Primary replication transforms your database architecture from a single write point to multiple active write node
+title: Primary-Replica to Multi-Primary Migration Guide
+description: Migrating from Primary-Replica to Multi-Primary replication transforms your database architecture from a single write point to multiple active write node
 type: documentation
 ---
 
-# Master-Slave to Multi-Primary Migration Guide
+# Primary-Replica to Multi-Primary Migration Guide
 
 ## Overview
 
-Migrating from Master-Slave to Multi-Primary replication transforms your database architecture from a single write point to multiple active write nodes. This guide provides battle-tested approaches for achieving true multi-master capabilities while maintaining data consistency.
+Migrating from Primary-Replica to Multi-Primary replication transforms your database architecture from a single write point to multiple active write nodes. This guide provides battle-tested approaches for achieving true multi-primary capabilities while maintaining data consistency.
 
 ## Pre-Migration Assessment Checklist
 

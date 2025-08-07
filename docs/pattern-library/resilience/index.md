@@ -90,4 +90,8 @@ For new systems, implement patterns in this order:
 
 ---
 
-*Return to the [Pattern Library](../) or explore [Communication Patterns](../../pattern-library/communication.md/).*
+*Return to the [Pattern Library](../) or explore [Communication Patterns](../../pattern-library/communication.md).*
+- [Fault Tolerance](fault-tolerance.md)
+- [Circuit Breaker Transformed](circuit-breaker-transformed.md)
+
+## Patterns

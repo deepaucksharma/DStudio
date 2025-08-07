@@ -424,9 +424,9 @@ graph LR
     
     ---
     
-    - [NTP Setup Guide](../../architects-handbook/implementation-playbooks/guides/ntp-setup.md)
-    - [PTP Configuration](../../architects-handbook/implementation-playbooks/guides/ptp-config.md)
-    - [Time Monitoring](../../architects-handbook/implementation-playbooks/guides/time-monitoring.md)
+    - <!-- TODO: Add NTP Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add PTP Configuration from Architects Handbook -->
+    - <!-- TODO: Add Time Monitoring from Architects Handbook -->
 
 </div>
 

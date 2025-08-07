@@ -19,7 +19,7 @@ graph TB
     subgraph "State Distribution Architecture"
         subgraph "Data Placement"
             Sharding[Sharding Strategies<br/>Hash-based<br/>Range-based<br/>Directory-based]
-            Replication[Replication<br/>Master-Slave<br/>Multi-Master<br/>Quorum-based]
+            Replication[Replication<br/>Primary-Replica<br/>Multi-Primary<br/>Quorum-based]
         end
         
         subgraph "Consistency Management"
@@ -90,7 +90,7 @@ graph LR
 ```mermaid
 graph TB
     subgraph "Replication Architectures"
-        subgraph "Master-Slave"
+        subgraph "Primary-Replica"
             MS_Master[Master<br/>Writes Only]
             MS_Slave1[Slave 1<br/>Reads Only]
             MS_Slave2[Slave 2<br/>Reads Only] 
@@ -396,7 +396,7 @@ read_quorum = 1   # Any replica
 
 4. **Measure your actual consistency needs** - Most applications claiming they need strong consistency work fine with eventual consistency plus good UX
 
-5. **Start simple, evolve complexity** - Begin with master-slave replication and upgrade to more sophisticated patterns only when business requirements demand it
+5. **Start simple, evolve complexity** - Begin with primary-replica replication and upgrade to more sophisticated patterns only when business requirements demand it
 
 ## Related Topics
 

@@ -28,7 +28,7 @@ Scaling patterns enable systems to handle increasing load by adding resources. T
 
 ### Data Scaling
 - [**Sharding**](./sharding.md) - Horizontal data partitioning
-- [**Database Sharding**](./database-sharding.md) - Advanced sharding strategies
+- [**Database Sharding**](./sharding.md) - Advanced sharding strategies
 - [**Database per Service**](./database-per-service.md) - Service-level data isolation
 - [**Caching Strategies**](./caching-strategies.md) - Multi-level caching
 
@@ -47,7 +47,7 @@ Scaling patterns enable systems to handle increasing load by adding resources. T
 
 | Challenge | Recommended Pattern | Key Benefit |
 |-----------|-------------------|-------------|
-| High database write load | [Database Sharding](./database-sharding.md) | Linear write scaling |
+| High database write load | [Database Sharding](./sharding.md) | Linear write scaling |
 | Global user base | [Geographic Load Balancing](./geographic-load-balancing.md) | Reduced latency |
 | Traffic spikes | [Auto-Scaling](./auto-scaling.md) + [Rate Limiting](./rate-limiting.md) | Cost-effective elasticity |
 | Static content delivery | [CDN](./content-delivery-network.md) | Edge performance |
@@ -73,8 +73,21 @@ For a typical scaling journey:
 2. **Protection**: [Rate Limiting](./rate-limiting.md) + [Backpressure](./backpressure.md)
 3. **Elasticity**: [Auto-Scaling](./auto-scaling.md) or [HPA](./horizontal-pod-autoscaler.md)
 4. **Global Scale**: [Geographic Load Balancing](./geographic-load-balancing.md) + [CDN](./content-delivery-network.md)
-5. **Data Scale**: [Database Sharding](./database-sharding.md) when needed
+5. **Data Scale**: [Database Sharding](./sharding.md) when needed
 
 ---
 
-*Return to the [Pattern Library](../) or explore [Data Management Patterns](../../pattern-library/data-management.md/).*
+*Return to the [Pattern Library](../) or explore [Data Management Patterns](../../pattern-library/data-management.md).*
+- [Serverless Event Processing](serverless-event-processing.md)
+- [Geo Distribution](geo-distribution.md)
+- [Multi Region](multi-region.md)
+- [Shuffle Sharding](shuffle-sharding.md)
+- [Tile Caching](tile-caching.md)
+- [Queues Streaming](queues-streaming.md)
+- [Analytics Scale](analytics-scale.md)
+- [Geo Replication](geo-replication.md)
+- [Id Generation Scale](id-generation-scale.md)
+- [Chunking](chunking.md)
+- [Url Normalization](url-normalization.md)
+
+## Patterns

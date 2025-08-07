@@ -293,13 +293,13 @@ graph TD
 
 ## Further Reading
 
-- [Debezium Documentation](https://debezium.io/documentation/)
-- [Kafka Connect CDC](https://docs.confluent.io/kafka-connect/current/)
-- [AWS DMS CDC](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_CDC.html/)
-- [Change Data Capture Patterns](https://www.confluent.io/blog/cdc-and-streaming-analytics/)
+- [Debezium Documentation](https://debezium.io/documentation.md)
+- [Kafka Connect CDC](https://docs.confluent.io/kafka-connect/current.md)
+- [AWS DMS CDC](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_CDC.html.md)
+- [Change Data Capture Patterns](https://www.confluent.io/blog/cdc-and-streaming-analytics.md)
 
 ### Case Studies
-- [Netflix: DBLog Framework](https://netflixtechblog.com/dblog-a-generic-change-data-capture-framework-69351fb9099b/)
-- [Airbnb: SpinalTap](https://medium.com/airbnb-engineering/capturing-data-evolution-in-a-service-oriented-architecture-72f7c643ee6f/)
-- [Uber: Schemaless CDC](https://eng.uber.com/schemaless-rewrite/)
+- [Netflix: DBLog Framework](https://netflixtechblog.com/dblog-a-generic-change-data-capture-framework-69351fb9099b.md)
+- [Airbnb: SpinalTap](https://medium.com/airbnb-engineering/capturing-data-evolution-in-a-service-oriented-architecture-72f7c643ee6f.md)
+- [Uber: Schemaless CDC](https://eng.uber.com/schemaless-rewrite.md)
 

@@ -796,9 +796,9 @@ timeline
     
     ---
     
-    - [Kubernetes ML Deployment](../../architects-handbook/implementation-playbooks/guides/k8s-ml-deployment.md)
-    - [Model Optimization Guide](../../architects-handbook/implementation-playbooks/guides/model-optimization.md)
-    - [ML Monitoring Best Practices](../../architects-handbook/implementation-playbooks/guides/ml-monitoring.md)
+    - <!-- TODO: Add Kubernetes ML Deployment from Architects Handbook -->
+    - <!-- TODO: Add Model Optimization Guide from Architects Handbook -->
+    - <!-- TODO: Add ML Monitoring Best Practices from Architects Handbook -->
 
 </div>
 

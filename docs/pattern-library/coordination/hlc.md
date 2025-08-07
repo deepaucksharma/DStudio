@@ -283,9 +283,9 @@ graph LR
 
 ## References
 
-- [Logical Physical Clocks and Consistent Snapshots](https://cse.buffalo.edu/tech-reports/2014-04.pdf/) - Original HLC paper
-- [CockroachDB Clock Synchronization](https://www.cockroachlabs.com/docs/stable/architecture/transaction-layer.html#time-and-hybrid-logical-clocks/) 
-- [YugabyteDB Hybrid Time](https://docs.yugabyte.com/preview/architecture/transactions/transactions-overview/#hybrid-time-as-an-mvcc-timestamp/)
-- [Time, Clocks, and the Ordering of Events](https://lamport.azurewebsites.net/pubs/time-clocks.pdf/) - Lamport's foundational work
-- [Spanner: Google's Globally-Distributed Database](https://research.google/pubs/pub39966/) - TrueTime comparison
+- <!-- TODO: Add Logical Physical Clocks and Consistent Snapshots resource --> - Original HLC paper
+- [CockroachDB Clock Synchronization](https://www.cockroachlabs.com/docs/stable/architecture/transaction-layer.html#time-and-hybrid-logical-clocks.md) 
+- [YugabyteDB Hybrid Time](https://docs.yugabyte.com/preview/architecture/transactions/transactions-overview/#hybrid-time-as-an-mvcc-timestamp.md)
+- <!-- TODO: Add Time, Clocks, and the Ordering of Events resource --> - Lamport's foundational work
+- [Spanner: Google's Globally-Distributed Database](https://research.google/pubs/pub39966.md) - TrueTime comparison
 

@@ -40,7 +40,7 @@ Fully centralized control always provides better consistency.
 
 ### 5. [Pattern Matching] Coordination Patterns
 Match pattern to characteristic:
-1. Master-slave       A. Peer equality
+1. Primary-replica    A. Peer equality
 2. Token ring        B. Hierarchical control
 3. Gossip protocol   C. Sequential access
 4. Mesh             D. Epidemic spread

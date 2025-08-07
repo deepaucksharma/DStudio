@@ -18,7 +18,7 @@ implementations:
 last_updated: 2025-07-21
 prerequisites:
 status: complete
-tagline: Master serverless/faas (function-as-a-service) for distributed systems success
+tagline: Excel at serverless/faas (function-as-a-service) for distributed systems success
 trade_offs:
   cons: ['Vendor lock-in concerns', 'Cold start latency issues', 'Limited execution time and resources']
   pros: ['Zero server management and automatic scaling', 'Pay only for actual execution time', 'Rapid development and deployment']

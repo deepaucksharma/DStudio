@@ -12,13 +12,13 @@ Cost optimization in cloud environments requires systematic approaches to resour
 ## Pattern Categories
 
 ### Resource Management
-- [Spot Instance Management](spot-instance-management/) - Leverage low-cost compute capacity
-- [Resource Rightsizing](resource-rightsizing/) - Optimize resource allocation
-- [Reserved Capacity Planning](reserved-capacity-planning/) - Strategic capacity commitment
+- [Spot Instance Management](spot-instance-management.md) - Leverage low-cost compute capacity
+- [Resource Rightsizing](resource-rightsizing.md) - Optimize resource allocation
+- [Reserved Capacity Planning](reserved-capacity-planning.md) - Strategic capacity commitment
 
 ### Multi-Cloud Strategy
-- [Multi-Cloud Arbitrage](multi-cloud-arbitrage/) - Optimize across cloud providers
-- [Cost Allocation and Chargeback](cost-allocation-chargeback/) - Transparent cost management
+- [Multi-Cloud Arbitrage](multi-cloud-arbitrage.md) - Optimize across cloud providers
+- [Cost Allocation and Chargeback](cost-allocation-chargeback.md) - Transparent cost management
 
 ## Quick Selection Guide
 
@@ -36,3 +36,7 @@ Cost optimization in cloud environments requires systematic approaches to resour
 - **Netflix**: $100M+ annual savings through reserved capacity planning
 - **Spotify**: 40% cost reduction via multi-cloud arbitrage
 - **Pinterest**: 50% reduction in compute costs through optimization
+
+- [Finops](finops.md)
+
+## Patterns

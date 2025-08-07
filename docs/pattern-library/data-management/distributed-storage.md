@@ -141,7 +141,7 @@ graph TB
     - ❌ Complex consistency guarantees
     - ❌ Network partition handling
 
-[Home](/) > [Patterns](../#data-patterns/) > Distributed Storage
+[Home](/) > [Patterns](../#data-patterns.md) > Distributed Storage
 
 ## When to Use / When NOT to Use
 
@@ -158,7 +158,7 @@ graph TB
 **Avoid when:**
 - Data fits on a single machine (<1TB)
 - Strong consistency is critical
-- Simple master-slave replication suffices
+- Simple primary-replica replication suffices
 - Operational complexity exceeds team capability
 - Cost of distribution exceeds benefits
 
@@ -172,7 +172,7 @@ graph TB
 | Architecture | Consistency | Scalability | Complexity | Use Case |
 |-------------|-------------|-------------|------------|----------|
 | **Single Node** | Strong | None | Simple | Small apps |
-| **Master-Slave** | Strong | Read only | Medium | Read-heavy |
+| **Primary-Replica** | Strong | Read only | Medium | Read-heavy |
 | **Sharded** | Varies | High | High | Large datasets |
 | **Distributed** | Eventual | Infinite | Very High | Global scale |
 

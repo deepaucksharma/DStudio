@@ -12,13 +12,13 @@ Modern deployment patterns enable safe, reliable, and fast software delivery at 
 ## Pattern Categories
 
 ### Progressive Deployment
-- [Blue-Green Deployment](blue-green-deployment/) - Zero-downtime deployments with instant rollback
-- [Canary Release](canary-release/) - Gradual rollout with risk mitigation
-- [Progressive Rollout](progressive-rollout/) - Controlled feature exposure
+- [Blue-Green Deployment](blue-green-deployment.md) - Zero-downtime deployments with instant rollback
+- [Canary Release](canary-release.md) - Gradual rollout with risk mitigation
+- [Progressive Rollout](progressive-rollout.md) - Controlled feature exposure
 
 ### Feature Management
-- [Feature Flags](feature-flags/) - Runtime feature control and experimentation
-- [Immutable Infrastructure](immutable-infrastructure/) - Consistent, reliable deployments
+- [Feature Flags](feature-flags.md) - Runtime feature control and experimentation
+- [Immutable Infrastructure](immutable-infrastructure.md) - Consistent, reliable deployments
 
 ## Quick Selection Guide
 
@@ -36,3 +36,8 @@ Modern deployment patterns enable safe, reliable, and fast software delivery at 
 - **Amazon**: 50M+ deployments per year with 11.6 second average rollback
 - **Google**: 5500+ releases per day with 99.99% deployment success
 - **Facebook**: 1000+ daily deployments with A/B testing integration
+
+- [Blue Green](blue-green.md)
+- [Blue Green Deployment](blue-green-deployment.md)
+
+## Patterns

@@ -1,0 +1,3809 @@
+{
+  "analysis": {
+    "metadata": {
+      "generated_at": "2025-08-07T21:58:40.076650",
+      "total_patterns": 150,
+      "total_relationships": 21,
+      "categories": [
+        "cost-optimization",
+        "security",
+        "scaling",
+        "communication",
+        "resilience",
+        "architecture",
+        "data-management",
+        "deployment",
+        "general",
+        "ml-infrastructure",
+        "coordination"
+      ]
+    },
+    "graph_metrics": {
+      "nodes": 150,
+      "edges": 21,
+      "density": 0.0009395973154362416,
+      "is_connected": false,
+      "number_of_components": 137,
+      "average_degree": 0.28
+    },
+    "pattern_statistics": {
+      "most_referenced": [
+        [
+          "Circuit Breaker",
+          8
+        ],
+        [
+          "Health Check",
+          3
+        ],
+        [
+          "Event Sourcing",
+          2
+        ],
+        [
+          "Bulkhead",
+          2
+        ],
+        [
+          "Observability",
+          1
+        ],
+        [
+          "Outbox",
+          1
+        ],
+        [
+          "Saga",
+          1
+        ],
+        [
+          "Caching Strategies",
+          1
+        ],
+        [
+          "Load Shedding",
+          1
+        ],
+        [
+          "Timeout",
+          1
+        ]
+      ],
+      "most_referencing": [
+        [
+          "Timeout",
+          3
+        ],
+        [
+          "Change Data Capture (cdc)",
+          2
+        ],
+        [
+          "Saga",
+          2
+        ],
+        [
+          "Health Check",
+          2
+        ],
+        [
+          "Fault Tolerance",
+          2
+        ],
+        [
+          "Heartbeat",
+          2
+        ],
+        [
+          "Graceful Degradation",
+          2
+        ],
+        [
+          "Bulkhead",
+          2
+        ],
+        [
+          "Failover",
+          2
+        ],
+        [
+          "Deduplication",
+          1
+        ]
+      ],
+      "degree_distribution": {
+        "in_degree_stats": {
+          "mean": 0.14,
+          "max": 8,
+          "min": 0
+        },
+        "out_degree_stats": {
+          "mean": 0.14,
+          "max": 3,
+          "min": 0
+        }
+      }
+    },
+    "category_analysis": {
+      "general": {
+        "count": 11,
+        "patterns": [
+          "Pattern Anti-patterns Guide - What Not To Do",
+          "Pattern Comparison Tool - Side-by-side Analysis",
+          "[pattern Name]",
+          "Pattern Synthesis Guide - Making Sense Of 129 Patterns",
+          "Visual Asset Creation Plan",
+          "Observability",
+          "Pattern Relationship Map - Visual Guide To Pattern Connections",
+          "Pattern Migration Guides - Evolve Your Architecture Safely",
+          "Pattern Decision Matrix - Choose The Right Patterns For Your Scenario",
+          "Pattern Combination Recipes - Proven Architectural Stacks",
+          "Pattern Implementation Roadmap - Your Path To Distributed Systems Mastery"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      },
+      "resilience": {
+        "count": 17,
+        "patterns": [
+          "Index",
+          "Service Discovery",
+          "Health Check",
+          "Load Shedding",
+          "Timeout",
+          "Fault Tolerance",
+          "Retry With Exponential Backoff",
+          "Heartbeat",
+          "Circuit Breaker",
+          "Circuit Breaker Pattern - Complete Mastery Guide",
+          "Split-brain Detection & Resolution",
+          "Graceful Degradation",
+          "Bulkhead",
+          "Advanced Timeout",
+          "Rate Limiting - Elite Engineering & State-of-the-art Practices",
+          "Failover",
+          "Deadline Propagation"
+        ],
+        "internal_connections": 15,
+        "external_connections": 1
+      },
+      "architecture": {
+        "count": 20,
+        "patterns": [
+          "Anti-corruption Layer (acl)",
+          "Shared Nothing Architecture",
+          "Graphql Federation",
+          "Choreography",
+          "Kappa Architecture",
+          "Cell-based Architecture",
+          "Cap Theorem",
+          "Event-driven Architecture",
+          "Ambassador",
+          "Container Orchestration",
+          "Strangler Fig",
+          "Event Streaming",
+          "Gitops Deployment",
+          "Sidecar",
+          "Lambda Architecture",
+          "Backends For Frontends (bff)",
+          "Valet Key",
+          "Hybrid Cloud",
+          "Service Mesh Production Mastery",
+          "Serverless/faas (function-as-a-service)"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      },
+      "security": {
+        "count": 8,
+        "patterns": [
+          "Security Patterns",
+          "Consent Management",
+          "Location Privacy",
+          "Security Scanning Pipeline",
+          "Threat Modeling",
+          "Api Security Gateway",
+          "Zero Trust Architecture",
+          "Secrets Management"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      },
+      "coordination": {
+        "count": 18,
+        "patterns": [
+          "Hybrid Logical Clocks (hlc)",
+          "Emergent Leader",
+          "Distributed Queue",
+          "Leader-follower",
+          "Two-phase Commit (2pc)",
+          "Vector Clocks",
+          "Consensus Patterns",
+          "Generation Clock",
+          "Cas (compare-and-swap)",
+          "Saga Pattern - Production Mastery & Elite Engineering",
+          "Logical Clocks (lamport Clocks)",
+          "Distributed Lock",
+          "Lease",
+          "State Watch (change Notification)",
+          "Leader Election",
+          "Actor Model",
+          "Clock Synchronization",
+          "Low-water/high-water Marks"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      },
+      "cost-optimization": {
+        "count": 4,
+        "patterns": [
+          "Cost Optimization Patterns",
+          "Spot Instance Management",
+          "Resource Rightsizing",
+          "Finops"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      },
+      "data-management": {
+        "count": 28,
+        "patterns": [
+          "Spatial Indexing",
+          "Shared Database",
+          "Polyglot Persistence",
+          "Data Lakehouse",
+          "Double-entry Ledger",
+          "Distributed Storage",
+          "Eventual Consistency",
+          "Outbox",
+          "Change Data Capture (cdc)",
+          "Saga",
+          "Stream Processing",
+          "Event Sourcing",
+          "Segmented Log",
+          "Read Repair",
+          "Data Lake",
+          "Bloom Filter",
+          "Tunable Consistency",
+          "Materialized View",
+          "Deduplication",
+          "Lsm Tree (log-structured Merge Tree)",
+          "Merkle Trees",
+          "Cqrs",
+          "Write-ahead Log (wal)",
+          "Data Mesh",
+          "Consistent Hashing",
+          "Crdt (conflict-free Replicated Data Types)",
+          "Delta Sync",
+          "Idempotency"
+        ],
+        "internal_connections": 4,
+        "external_connections": 1
+      },
+      "ml-infrastructure": {
+        "count": 5,
+        "patterns": [
+          "Feature Store",
+          "Model Serving At Scale",
+          "Model Versioning And Rollback",
+          "Distributed Training",
+          "Ml Pipeline Orchestration"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      },
+      "deployment": {
+        "count": 6,
+        "patterns": [
+          "Blue-green Deployment",
+          "Canary Release",
+          "Kubernetes Distributed Patterns",
+          "Deployment Patterns",
+          "Feature Flags",
+          "Canary Deployment"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      },
+      "scaling": {
+        "count": 25,
+        "patterns": [
+          "Serverless Event Processing",
+          "Caching Strategies",
+          "Geo-distribution",
+          "Multi-region Architecture",
+          "Sharding (data Partitioning)",
+          "Horizontal Pod Autoscaler",
+          "Shuffle Sharding",
+          "Tile Caching",
+          "Backpressure",
+          "Queues & Stream Processing",
+          "Analytics At Scale",
+          "Geo-replication",
+          "Auto-scaling",
+          "Database Per Service",
+          "Id Generation At Scale",
+          "Edge Computing/iot Patterns",
+          "Request Batching/pipelining",
+          "Chunking",
+          "Cdn",
+          "Priority Queue",
+          "Geographic Load Balancing",
+          "Rate Limiting",
+          "Load Balancing",
+          "Scatter-gather",
+          "Url Normalization"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      },
+      "communication": {
+        "count": 8,
+        "patterns": [
+          "Publish-subscribe",
+          "Api Gateway",
+          "Request-reply",
+          "Service Registry",
+          "Service Mesh",
+          "Websocket",
+          "Grpc",
+          "Configuration Management"
+        ],
+        "internal_connections": 0,
+        "external_connections": 0
+      }
+    },
+    "hub_patterns": [
+      {
+        "name": "Circuit Breaker",
+        "category": "resilience",
+        "in_degree": 8,
+        "out_degree": 0,
+        "total_degree": 8,
+        "hub_score": 16
+      },
+      {
+        "name": "Health Check",
+        "category": "resilience",
+        "in_degree": 3,
+        "out_degree": 2,
+        "total_degree": 5,
+        "hub_score": 8
+      },
+      {
+        "name": "Bulkhead",
+        "category": "resilience",
+        "in_degree": 2,
+        "out_degree": 2,
+        "total_degree": 4,
+        "hub_score": 6
+      },
+      {
+        "name": "Timeout",
+        "category": "resilience",
+        "in_degree": 1,
+        "out_degree": 3,
+        "total_degree": 4,
+        "hub_score": 5
+      },
+      {
+        "name": "Saga",
+        "category": "data-management",
+        "in_degree": 1,
+        "out_degree": 2,
+        "total_degree": 3,
+        "hub_score": 4
+      },
+      {
+        "name": "Event Sourcing",
+        "category": "data-management",
+        "in_degree": 2,
+        "out_degree": 0,
+        "total_degree": 2,
+        "hub_score": 4
+      },
+      {
+        "name": "Load Shedding",
+        "category": "resilience",
+        "in_degree": 1,
+        "out_degree": 1,
+        "total_degree": 2,
+        "hub_score": 3
+      },
+      {
+        "name": "Observability",
+        "category": "general",
+        "in_degree": 1,
+        "out_degree": 0,
+        "total_degree": 1,
+        "hub_score": 2
+      },
+      {
+        "name": "Outbox",
+        "category": "data-management",
+        "in_degree": 1,
+        "out_degree": 0,
+        "total_degree": 1,
+        "hub_score": 2
+      },
+      {
+        "name": "Change Data Capture (cdc)",
+        "category": "data-management",
+        "in_degree": 0,
+        "out_degree": 2,
+        "total_degree": 2,
+        "hub_score": 2
+      }
+    ],
+    "isolated_patterns": [
+      {
+        "name": "Pattern Anti-patterns Guide - What Not To Do",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-antipatterns-guide.md",
+        "description": "Learn from common mistakes and anti-patterns in distributed systems"
+      },
+      {
+        "name": "Pattern Comparison Tool - Side-by-side Analysis",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-comparison-tool.md",
+        "description": "Compare distributed systems patterns to make informed architectural decisions"
+      },
+      {
+        "name": "Index",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/index.md",
+        "description": "TODO: Add description"
+      },
+      {
+        "name": "[pattern Name]",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-template-v2.md",
+        "description": "[One-line description of what the pattern solves]"
+      },
+      {
+        "name": "Pattern Synthesis Guide - Making Sense Of 129 Patterns",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-synthesis-guide.md",
+        "description": "A comprehensive framework for understanding and applying distributed systems patterns"
+      },
+      {
+        "name": "Visual Asset Creation Plan",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/visual-asset-creation-plan.md",
+        "description": ""
+      },
+      {
+        "name": "Pattern Relationship Map - Visual Guide To Pattern Connections",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-relationship-map.md",
+        "description": "Interactive visual maps showing how distributed systems patterns relate and work together"
+      },
+      {
+        "name": "Pattern Migration Guides - Evolve Your Architecture Safely",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-migration-guides.md",
+        "description": "Step-by-step guides for migrating between patterns with minimal risk"
+      },
+      {
+        "name": "Pattern Decision Matrix - Choose The Right Patterns For Your Scenario",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-decision-matrix.md",
+        "description": "Comprehensive decision matrices for selecting distributed systems patterns based on specific scenarios"
+      },
+      {
+        "name": "Pattern Combination Recipes - Proven Architectural Stacks",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-combination-recipes.md",
+        "description": "Battle-tested pattern combinations used by Netflix, Uber, Amazon and other tech giants"
+      },
+      {
+        "name": "Pattern Implementation Roadmap - Your Path To Distributed Systems Mastery",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-implementation-roadmap.md",
+        "description": "Generate customized implementation roadmaps based on your system requirements"
+      },
+      {
+        "name": "Anti-corruption Layer (acl)",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/anti-corruption-layer.md",
+        "description": "Implement a layer that translates between different subsystems to prevent the spread of undesirable dependencies and maintain clean domain boundaries"
+      },
+      {
+        "name": "Shared Nothing Architecture",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/shared-nothing.md",
+        "description": "Eliminate resource contention by giving each node exclusive ownership of its data and compute resources"
+      },
+      {
+        "name": "Graphql Federation",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/graphql-federation.md",
+        "description": "Compose multiple GraphQL services into a unified API gateway to reduce client round trips"
+      },
+      {
+        "name": "Choreography",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/choreography.md",
+        "description": "Decentralized coordination where services react to events without central orchestration"
+      },
+      {
+        "name": "Kappa Architecture",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/kappa-architecture.md",
+        "description": "This topic is under development"
+      },
+      {
+        "name": "Cell-based Architecture",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/cell-based.md",
+        "description": "Architecture pattern that isolates failures by partitioning systems into independent cells with shared-nothing design"
+      },
+      {
+        "name": "Cap Theorem",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/cap-theorem.md",
+        "description": "Understanding the fundamental trade-offs in distributed systems design"
+      },
+      {
+        "name": "Event-driven Architecture",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/event-driven.md",
+        "description": "Architectural pattern where components communicate through events, enabling loose coupling and scalability"
+      },
+      {
+        "name": "Ambassador",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/ambassador.md",
+        "description": "Create a helper service that sends network requests on behalf of a consumer service, handling complex communication patterns and protocol translations"
+      },
+      {
+        "name": "Container Orchestration",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/container-orchestration.md",
+        "description": "Automate deployment, scaling, and management of containerized applications using orchestration platforms like Kubernetes"
+      },
+      {
+        "name": "Strangler Fig",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/strangler-fig.md",
+        "description": "Incrementally replace legacy systems by gradually routing functionality to new implementations"
+      },
+      {
+        "name": "Event Streaming",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/event-streaming.md",
+        "description": "Process infinite streams of events in real-time with scalable, fault-tolerant streaming architectures"
+      },
+      {
+        "name": "Gitops Deployment",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/gitops-deployment.md",
+        "description": "Manage infrastructure and application deployments through Git-based workflows with automated synchronization and rollback capabilities"
+      },
+      {
+        "name": "Sidecar",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/sidecar.md",
+        "description": "Container-based separation of concerns for cross-cutting infrastructure capabilities"
+      },
+      {
+        "name": "Lambda Architecture",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/lambda-architecture.md",
+        "description": "Hybrid approach combining batch and stream processing to handle both historical and real-time data with eventual consistency"
+      },
+      {
+        "name": "Backends For Frontends (bff)",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/backends-for-frontends.md",
+        "description": "Create purpose-built backend services for specific frontend applications, optimizing API design for each client's unique needs"
+      },
+      {
+        "name": "Valet Key",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/valet-key.md",
+        "description": "Provide limited direct access to resources without exposing credentials or requiring proxy overhead"
+      },
+      {
+        "name": "Hybrid Cloud",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/hybrid-cloud.md",
+        "description": "On-premise and cloud integration"
+      },
+      {
+        "name": "Service Mesh Production Mastery",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/service-mesh-production-mastery.md",
+        "description": "Elite engineering guide to production-scale service mesh implementations with zero-trust networking, observability, and multi-cloud orchestration"
+      },
+      {
+        "name": "Serverless/faas (function-as-a-service)",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/serverless-faas.md",
+        "description": "Execute code without managing servers, paying only for actual compute time with automatic scaling"
+      },
+      {
+        "name": "Security Patterns",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/index.md",
+        "description": "Battle-tested security patterns for distributed systems"
+      },
+      {
+        "name": "Consent Management",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/consent-management.md",
+        "description": "GDPR-compliant user consent and privacy management"
+      },
+      {
+        "name": "Location Privacy",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/location-privacy.md",
+        "description": "Privacy-preserving patterns for location-based services"
+      },
+      {
+        "name": "Security Scanning Pipeline",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/security-scanning-pipeline.md",
+        "description": "Automated security validation integrated into CI/CD pipelines for continuous security assurance"
+      },
+      {
+        "name": "Threat Modeling",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/threat-modeling.md",
+        "description": "Systematic identification and analysis of potential security threats during system design"
+      },
+      {
+        "name": "Api Security Gateway",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/api-security-gateway.md",
+        "description": "Centralized security enforcement point for API authentication, authorization, and threat protection"
+      },
+      {
+        "name": "Zero Trust Architecture",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/zero-trust-architecture.md",
+        "description": "Never trust, always verify - comprehensive security model that eliminates implicit trust"
+      },
+      {
+        "name": "Secrets Management",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/secrets-management.md",
+        "description": "Secure storage, rotation, and distribution of sensitive credentials and configuration data"
+      },
+      {
+        "name": "Hybrid Logical Clocks (hlc)",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/hlc.md",
+        "description": "Combine physical timestamps with logical counters to achieve causally consistent timestamps that are close to wall-clock time while handling clock skew"
+      },
+      {
+        "name": "Emergent Leader",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/emergent-leader.md",
+        "description": "Gossip-based leadership emergence without explicit elections in distributed systems"
+      },
+      {
+        "name": "Distributed Queue",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/distributed-queue.md",
+        "description": "Reliable message queuing across multiple nodes with guarantees for ordering, delivery, and fault tolerance"
+      },
+      {
+        "name": "Leader-follower",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/leader-follower.md",
+        "description": "Coordination pattern for managing distributed state with a single source of truth"
+      },
+      {
+        "name": "Two-phase Commit (2pc)",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/two-phase-commit.md",
+        "description": "Distributed transaction coordination with atomic commit protocol"
+      },
+      {
+        "name": "Vector Clocks",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/vector-clocks.md",
+        "description": "Logical timestamps for tracking causality in distributed systems"
+      },
+      {
+        "name": "Consensus Patterns",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/consensus.md",
+        "description": "Achieve agreement in distributed systems"
+      },
+      {
+        "name": "Generation Clock",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/generation-clock.md",
+        "description": "Monotonic counter to detect stale leaders and prevent split-brain in distributed systems"
+      },
+      {
+        "name": "Cas (compare-and-swap)",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/cas.md",
+        "description": "Lock-free atomic operation for concurrent data structures"
+      },
+      {
+        "name": "Saga Pattern - Production Mastery & Elite Engineering",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/saga-pattern-production-mastery.md",
+        "description": ""
+      },
+      {
+        "name": "Logical Clocks (lamport Clocks)",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/logical-clocks.md",
+        "description": "Order events in distributed systems without synchronized physical clocks using happens-before relationships"
+      },
+      {
+        "name": "Distributed Lock",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/distributed-lock.md",
+        "description": "Mutual exclusion primitive for coordinating access to shared resources across distributed nodes"
+      },
+      {
+        "name": "Lease",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/lease.md",
+        "description": "Time-bound resource ownership with automatic expiration for distributed systems reliability"
+      },
+      {
+        "name": "State Watch (change Notification)",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/state-watch.md",
+        "description": "Distributed mechanism for monitoring state changes and notifying interested parties in real-time"
+      },
+      {
+        "name": "Leader Election",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/leader-election.md",
+        "description": "Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios"
+      },
+      {
+        "name": "Actor Model",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/actor-model.md",
+        "description": "Message-passing concurrency model with isolated actors communicating asynchronously"
+      },
+      {
+        "name": "Clock Synchronization",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/clock-sync.md",
+        "description": "Achieving consistent time across distributed nodes despite clock drift and network delays"
+      },
+      {
+        "name": "Low-water/high-water Marks",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/low-high-water-marks.md",
+        "description": "Flow control boundaries for distributed systems replication, buffering, and resource management"
+      },
+      {
+        "name": "Cost Optimization Patterns",
+        "category": "cost-optimization",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/cost-optimization/index.md",
+        "description": "Battle-tested patterns for optimizing cloud infrastructure and operational costs"
+      },
+      {
+        "name": "Spot Instance Management",
+        "category": "cost-optimization",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/cost-optimization/spot-instance-management.md",
+        "description": "Systematic approach to leveraging low-cost spot instances while maintaining application reliability"
+      },
+      {
+        "name": "Resource Rightsizing",
+        "category": "cost-optimization",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/cost-optimization/resource-rightsizing.md",
+        "description": "Continuous optimization of cloud resources to match actual usage patterns and performance requirements"
+      },
+      {
+        "name": "Finops",
+        "category": "cost-optimization",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/cost-optimization/finops.md",
+        "description": "Implement financial operations practices to optimize cloud costs through visibility, accountability, and continuous optimization"
+      },
+      {
+        "name": "Spatial Indexing",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/spatial-indexing.md",
+        "description": "Geospatial data structures for efficient location queries"
+      },
+      {
+        "name": "Shared Database",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/shared-database.md",
+        "description": "Multiple services share a single database instance for data persistence"
+      },
+      {
+        "name": "Polyglot Persistence",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/polyglot-persistence.md",
+        "description": "Using different data storage technologies for different domain requirements"
+      },
+      {
+        "name": "Data Lakehouse",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/data-lakehouse.md",
+        "description": "Combine data lake flexibility with data warehouse performance for unified analytics architecture supporting both BI and ML workloads"
+      },
+      {
+        "name": "Double-entry Ledger",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/double-entry-ledger.md",
+        "description": "Financial bookkeeping pattern ensuring transaction integrity"
+      },
+      {
+        "name": "Distributed Storage",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/distributed-storage.md",
+        "description": "Patterns and techniques for storing and managing data across multiple nodes in distributed systems"
+      },
+      {
+        "name": "Eventual Consistency",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/eventual-consistency.md",
+        "description": "A consistency model where distributed data converges to a consistent state over time"
+      },
+      {
+        "name": "Stream Processing",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/stream-processing.md",
+        "description": "Process continuous streams of data in real-time using distributed stream processing frameworks for immediate insights and actions"
+      },
+      {
+        "name": "Segmented Log",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/segmented-log.md",
+        "description": "Breaking append-only logs into manageable segments for efficient storage, compaction, and retention"
+      },
+      {
+        "name": "Read Repair",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/read-repair.md",
+        "description": "Technique for detecting and fixing data inconsistencies opportunistically during read operations"
+      },
+      {
+        "name": "Data Lake",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/data-lake.md",
+        "description": "Centralized repository storing vast amounts of raw data in native format for flexible analysis"
+      },
+      {
+        "name": "Bloom Filter",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/bloom-filter.md",
+        "description": "Space-efficient probabilistic data structure for fast set membership testing with controlled false positive rates"
+      },
+      {
+        "name": "Tunable Consistency",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/tunable-consistency.md",
+        "description": "Adjust consistency levels dynamically based on application requirements and trade-offs"
+      },
+      {
+        "name": "Materialized View",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/materialized-view.md",
+        "description": "Pre-compute and store query results for instant access to complex aggregations and joins"
+      },
+      {
+        "name": "Lsm Tree (log-structured Merge Tree)",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/lsm-tree.md",
+        "description": "Write-optimized storage engine that converts random writes to sequential writes through buffering and merging"
+      },
+      {
+        "name": "Merkle Trees",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/merkle-trees.md",
+        "description": "Cryptographic tree structure for efficient data verification and synchronization"
+      },
+      {
+        "name": "Cqrs",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/cqrs.md",
+        "description": "Command Query Responsibility Segregation for scalable systems"
+      },
+      {
+        "name": "Write-ahead Log (wal)",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/write-ahead-log.md",
+        "description": "Ensuring durability by logging changes before applying them - the foundation of crash recovery in databases"
+      },
+      {
+        "name": "Data Mesh",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/data-mesh.md",
+        "description": "Decentralized data architecture with domain ownership"
+      },
+      {
+        "name": "Consistent Hashing",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/consistent-hashing.md",
+        "description": "Load distribution algorithm that minimizes reorganization when nodes are added or removed"
+      },
+      {
+        "name": "Crdt (conflict-free Replicated Data Types)",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/crdt.md",
+        "description": "Data structures that automatically resolve conflicts in distributed systems"
+      },
+      {
+        "name": "Delta Sync",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/delta-sync.md",
+        "description": "Synchronize data by transmitting only changes (deltas) instead of full datasets to minimize bandwidth and improve performance"
+      },
+      {
+        "name": "Idempotency",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/idempotency.md",
+        "description": "Ensuring operations can be safely retried without side effects"
+      },
+      {
+        "name": "Feature Store",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/feature-store.md",
+        "description": "Centralized repository for storing, managing, and serving ML features with versioning, lineage tracking, and consistent access patterns"
+      },
+      {
+        "name": "Model Serving At Scale",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/model-serving-scale.md",
+        "description": "Deploy and scale machine learning models for high-performance inference with automatic scaling, load balancing, and resource optimization"
+      },
+      {
+        "name": "Model Versioning And Rollback",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/model-versioning-rollback.md",
+        "description": "Manage ML model versions with automated rollback, A/B testing, and comprehensive audit trails for production model deployments"
+      },
+      {
+        "name": "Distributed Training",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/distributed-training.md",
+        "description": "Scale ML model training across multiple compute resources using parallel and distributed computing techniques for faster training and handling larger datasets"
+      },
+      {
+        "name": "Ml Pipeline Orchestration",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/ml-pipeline-orchestration.md",
+        "description": "Automate and orchestrate complex ML workflows from data ingestion through model deployment with dependency management, error handling, and monitoring"
+      },
+      {
+        "name": "Blue-green Deployment",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/blue-green-deployment.md",
+        "description": "Zero-downtime deployment pattern using two identical production environments"
+      },
+      {
+        "name": "Canary Release",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/canary-release.md",
+        "description": "Gradual rollout strategy that reduces risk by testing new versions with a small subset of users"
+      },
+      {
+        "name": "Kubernetes Distributed Patterns",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/kubernetes-distributed-patterns.md",
+        "description": ""
+      },
+      {
+        "name": "Deployment Patterns",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/index.md",
+        "description": "Battle-tested deployment patterns for reliable software delivery"
+      },
+      {
+        "name": "Feature Flags",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/feature-flags.md",
+        "description": "Runtime control system for enabling/disabling features without code deployment"
+      },
+      {
+        "name": "Canary Deployment",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/canary.md",
+        "description": "Gradual rollout with early failure detection"
+      },
+      {
+        "name": "Serverless Event Processing",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/serverless-event-processing.md",
+        "description": "Process events using serverless functions that automatically scale from zero to handle varying loads without managing infrastructure"
+      },
+      {
+        "name": "Geo-distribution",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/geo-distribution.md",
+        "description": "Distributes data and compute across geographic regions for performance, availability, and compliance"
+      },
+      {
+        "name": "Multi-region Architecture",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/multi-region.md",
+        "description": "Deployment pattern that spans multiple geographic regions for disaster recovery and latency optimization"
+      },
+      {
+        "name": "Sharding (data Partitioning)",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/sharding.md",
+        "description": "Horizontal partitioning strategy for distributing data across multiple database instances"
+      },
+      {
+        "name": "Horizontal Pod Autoscaler",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/horizontal-pod-autoscaler.md",
+        "description": "Kubernetes autoscaling"
+      },
+      {
+        "name": "Shuffle Sharding",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/shuffle-sharding.md",
+        "description": "Isolation technique to prevent cascade failures"
+      },
+      {
+        "name": "Tile Caching",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/tile-caching.md",
+        "description": "Efficient caching strategy for map tiles and spatial data at multiple zoom levels"
+      },
+      {
+        "name": "Backpressure",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/backpressure.md",
+        "description": "Flow control mechanism that prevents system overload by limiting upstream request rates"
+      },
+      {
+        "name": "Queues & Stream Processing",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/queues-streaming.md",
+        "description": "Decouple producers from consumers using message queues and event streams"
+      },
+      {
+        "name": "Analytics At Scale",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/analytics-scale.md",
+        "description": "High-performance analytics architecture for processing massive datasets with low latency insights"
+      },
+      {
+        "name": "Geo-replication",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/geo-replication.md",
+        "description": "Replicate data across geographical regions for global availability and disaster recovery"
+      },
+      {
+        "name": "Auto-scaling",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/auto-scaling.md",
+        "description": "Dynamic resource management pattern that adjusts capacity based on demand metrics"
+      },
+      {
+        "name": "Database Per Service",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/database-per-service.md",
+        "description": "Microservices data isolation"
+      },
+      {
+        "name": "Id Generation At Scale",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/id-generation-scale.md",
+        "description": ""
+      },
+      {
+        "name": "Edge Computing/iot Patterns",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/edge-computing.md",
+        "description": "Optimize distributed systems for edge devices and IoT deployments where latency and connectivity matter"
+      },
+      {
+        "name": "Request Batching/pipelining",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/request-batching.md",
+        "description": "Group multiple requests together to amortize fixed costs and improve throughput"
+      },
+      {
+        "name": "Chunking",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/chunking.md",
+        "description": "Break large datasets or operations into smaller, manageable pieces for improved performance, memory usage, and fault tolerance"
+      },
+      {
+        "name": "Cdn",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/content-delivery-network.md",
+        "description": "Content delivery at edge"
+      },
+      {
+        "name": "Priority Queue",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/priority-queue.md",
+        "description": "Distributed priority queue systems that process messages based on importance rather than arrival order"
+      },
+      {
+        "name": "Geographic Load Balancing",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/geographic-load-balancing.md",
+        "description": "Distribute load globally"
+      },
+      {
+        "name": "Rate Limiting",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/rate-limiting.md",
+        "description": "Control request flow to protect systems from overload while ensuring fair resource allocation"
+      },
+      {
+        "name": "Load Balancing",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/load-balancing.md",
+        "description": "Traffic distribution pattern that spreads requests across multiple backend instances"
+      },
+      {
+        "name": "Scatter-gather",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/scatter-gather.md",
+        "description": "Parallel request distribution and result aggregation pattern for efficient distributed processing"
+      },
+      {
+        "name": "Url Normalization",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/url-normalization.md",
+        "description": "Standardizing URLs into canonical forms to prevent duplication and improve system efficiency"
+      },
+      {
+        "name": "Publish-subscribe",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/publish-subscribe.md",
+        "description": "Decoupled messaging pattern where publishers send messages to topics and subscribers receive messages based on their interests"
+      },
+      {
+        "name": "Api Gateway",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/api-gateway.md",
+        "description": "Unified entry point for microservices providing routing, authentication, and cross-cutting concerns"
+      },
+      {
+        "name": "Request-reply",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/request-reply.md",
+        "description": ""
+      },
+      {
+        "name": "Service Registry",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/service-registry.md",
+        "description": "Central repository for service metadata, schemas, and versioning in distributed systems"
+      },
+      {
+        "name": "Service Mesh",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/service-mesh.md",
+        "description": "Infrastructure layer providing service-to-service communication, security, and observability"
+      },
+      {
+        "name": "Websocket",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/websocket.md",
+        "description": ""
+      },
+      {
+        "name": "Grpc",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/grpc.md",
+        "description": "High-performance, cross-platform RPC framework using Protocol Buffers and HTTP/2"
+      },
+      {
+        "name": "Service Discovery",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/coordination/service-discovery.md",
+        "description": "Dynamic service location"
+      },
+      {
+        "name": "Configuration Management",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/architecture/configuration-management.md",
+        "description": "Centralized config"
+      },
+      {
+        "name": "Retry With Exponential Backoff",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/retry-backoff.md",
+        "description": ""
+      },
+      {
+        "name": "Circuit Breaker Pattern - Complete Mastery Guide",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/circuit-breaker-mastery.md",
+        "description": ""
+      },
+      {
+        "name": "Split-brain Detection & Resolution",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/split-brain.md",
+        "description": "Detect and resolve network partitions that divide a distributed system into isolated segments"
+      },
+      {
+        "name": "Advanced Timeout",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/timeout-advanced.md",
+        "description": "Sophisticated timeout strategies"
+      },
+      {
+        "name": "Rate Limiting - Elite Engineering & State-of-the-art Practices",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/rate-limiting-elite-engineering.md",
+        "description": ""
+      },
+      {
+        "name": "Deadline Propagation",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/coordination/deadline-propagation.md",
+        "description": "Request deadline tracking"
+      }
+    ],
+    "relationship_analysis": {
+      "relationship_type_distribution": {
+        "related": 21
+      },
+      "bidirectional_relationships": [
+        [
+          "Timeout",
+          "Bulkhead"
+        ]
+      ],
+      "cross_category_relationships": {
+        "data-management → scaling": 1,
+        "resilience → general": 1
+      }
+    },
+    "recommendations": [
+      "Consider reviewing 134 isolated patterns for potential relationships",
+      "Category 'general' has no internal pattern relationships - consider adding cross-references",
+      "Category 'architecture' has no internal pattern relationships - consider adding cross-references",
+      "Category 'security' has no internal pattern relationships - consider adding cross-references",
+      "Category 'coordination' has no internal pattern relationships - consider adding cross-references",
+      "Category 'cost-optimization' has no internal pattern relationships - consider adding cross-references",
+      "Category 'ml-infrastructure' has no internal pattern relationships - consider adding cross-references",
+      "Category 'deployment' has no internal pattern relationships - consider adding cross-references",
+      "Category 'scaling' has no internal pattern relationships - consider adding cross-references",
+      "Category 'communication' has no internal pattern relationships - consider adding cross-references"
+    ]
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "Pattern Anti-patterns Guide - What Not To Do",
+        "name": "Pattern Anti-patterns Guide - What Not To Do",
+        "title": "Pattern Anti-Patterns Guide - What Not to Do",
+        "description": "Learn from common mistakes and anti-patterns in distributed systems",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-antipatterns-guide.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Pattern Comparison Tool - Side-by-side Analysis",
+        "name": "Pattern Comparison Tool - Side-by-side Analysis",
+        "title": "Pattern Comparison Tool - Side-by-Side Analysis",
+        "description": "Compare distributed systems patterns to make informed architectural decisions",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-comparison-tool.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Index",
+        "name": "Index",
+        "title": "Index",
+        "description": "TODO: Add description",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/index.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "[pattern Name]",
+        "name": "[pattern Name]",
+        "title": "[Pattern Name]",
+        "description": "[One-line description of what the pattern solves]",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-template-v2.md",
+        "excellence_tier": "gold|silver|bronze",
+        "pattern_status": "recommended|stable|use-with-expertise|use-with-caution|legacy",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Pattern Synthesis Guide - Making Sense Of 129 Patterns",
+        "name": "Pattern Synthesis Guide - Making Sense Of 129 Patterns",
+        "title": "Pattern Synthesis Guide - Making Sense of 129 Patterns",
+        "description": "A comprehensive framework for understanding and applying distributed systems patterns",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-synthesis-guide.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Visual Asset Creation Plan",
+        "name": "Visual Asset Creation Plan",
+        "title": "Visual Asset Creation Plan",
+        "description": "",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/visual-asset-creation-plan.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Observability",
+        "name": "Observability",
+        "title": "Observability",
+        "description": "Comprehensive system monitoring through metrics, logs, and traces",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/observability.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Pattern Relationship Map - Visual Guide To Pattern Connections",
+        "name": "Pattern Relationship Map - Visual Guide To Pattern Connections",
+        "title": "Pattern Relationship Map - Visual Guide to Pattern Connections",
+        "description": "Interactive visual maps showing how distributed systems patterns relate and work together",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-relationship-map.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Pattern Migration Guides - Evolve Your Architecture Safely",
+        "name": "Pattern Migration Guides - Evolve Your Architecture Safely",
+        "title": "Pattern Migration Guides - Evolve Your Architecture Safely",
+        "description": "Step-by-step guides for migrating between patterns with minimal risk",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-migration-guides.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Pattern Decision Matrix - Choose The Right Patterns For Your Scenario",
+        "name": "Pattern Decision Matrix - Choose The Right Patterns For Your Scenario",
+        "title": "Pattern Decision Matrix - Choose the Right Patterns for Your Scenario",
+        "description": "Comprehensive decision matrices for selecting distributed systems patterns based on specific scenarios",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-decision-matrix.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Pattern Combination Recipes - Proven Architectural Stacks",
+        "name": "Pattern Combination Recipes - Proven Architectural Stacks",
+        "title": "Pattern Combination Recipes - Proven Architectural Stacks",
+        "description": "Battle-tested pattern combinations used by Netflix, Uber, Amazon and other tech giants",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-combination-recipes.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Pattern Implementation Roadmap - Your Path To Distributed Systems Mastery",
+        "name": "Pattern Implementation Roadmap - Your Path To Distributed Systems Mastery",
+        "title": "Pattern Implementation Roadmap - Your Path to Distributed Systems Mastery",
+        "description": "Generate customized implementation roadmaps based on your system requirements",
+        "category": "general",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/pattern-implementation-roadmap.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Anti-corruption Layer (acl)",
+        "name": "Anti-corruption Layer (acl)",
+        "title": "Anti-Corruption Layer (ACL)",
+        "description": "Implement a layer that translates between different subsystems to prevent the spread of undesirable dependencies and maintain clean domain boundaries",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/anti-corruption-layer.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Shared Nothing Architecture",
+        "name": "Shared Nothing Architecture",
+        "title": "Shared Nothing Architecture",
+        "description": "Eliminate resource contention by giving each node exclusive ownership of its data and compute resources",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/shared-nothing.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Graphql Federation",
+        "name": "Graphql Federation",
+        "title": "GraphQL Federation",
+        "description": "Compose multiple GraphQL services into a unified API gateway to reduce client round trips",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/graphql-federation.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-caution",
+        "related_patterns": [
+          "Data Management",
+          "Communication",
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Choreography",
+        "name": "Choreography",
+        "title": "Choreography Pattern",
+        "description": "Decentralized coordination where services react to events without central orchestration",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/choreography.md",
+        "excellence_tier": "bronze",
+        "pattern_status": "legacy",
+        "related_patterns": [
+          "Data Management"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Kappa Architecture",
+        "name": "Kappa Architecture",
+        "title": "Kappa Architecture",
+        "description": "This topic is under development",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/kappa-architecture.md",
+        "excellence_tier": "bronze",
+        "pattern_status": "legacy",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Cell-based Architecture",
+        "name": "Cell-based Architecture",
+        "title": "Cell-Based Architecture Pattern",
+        "description": "Architecture pattern that isolates failures by partitioning systems into independent cells with shared-nothing design",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/cell-based.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Communication",
+          "Resilience",
+          "Scaling"
+        ],
+        "references": [
+          "Wellarchitected",
+          "En Us",
+          "Cell Based Architecture"
+        ],
+        "see_also": [],
+        "laws_connected": [
+          "Law 1",
+          "Law 4",
+          "Law 3",
+          "Law 5",
+          "Law 7"
+        ]
+      },
+      {
+        "id": "Cap Theorem",
+        "name": "Cap Theorem",
+        "title": "CAP Theorem",
+        "description": "Understanding the fundamental trade-offs in distributed systems design",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/cap-theorem.md",
+        "excellence_tier": "bronze",
+        "pattern_status": "use-with-caution",
+        "related_patterns": [
+          "Data Management",
+          "Resilience",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Event-driven Architecture",
+        "name": "Event-driven Architecture",
+        "title": "Event-Driven Architecture",
+        "description": "Architectural pattern where components communicate through events, enabling loose coupling and scalability",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/event-driven.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Ambassador",
+        "name": "Ambassador",
+        "title": "Ambassador Pattern",
+        "description": "Create a helper service that sends network requests on behalf of a consumer service, handling complex communication patterns and protocol translations",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/ambassador.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Container Orchestration",
+        "name": "Container Orchestration",
+        "title": "Container Orchestration",
+        "description": "Automate deployment, scaling, and management of containerized applications using orchestration platforms like Kubernetes",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/container-orchestration.md",
+        "excellence_tier": "gold",
+        "pattern_status": "production-ready",
+        "related_patterns": [
+          "Communication",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Strangler Fig",
+        "name": "Strangler Fig",
+        "title": "Strangler Fig",
+        "description": "Incrementally replace legacy systems by gradually routing functionality to new implementations",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/strangler-fig.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Resilience",
+          "Communication",
+          "Architecture"
+        ],
+        "references": [
+          "Prescriptive Guidance",
+          "Library",
+          "Bliki"
+        ],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Event Streaming",
+        "name": "Event Streaming",
+        "title": "Event Streaming",
+        "description": "Process infinite streams of events in real-time with scalable, fault-tolerant streaming architectures",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/event-streaming.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Data Management",
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Gitops Deployment",
+        "name": "Gitops Deployment",
+        "title": "GitOps Deployment",
+        "description": "Manage infrastructure and application deployments through Git-based workflows with automated synchronization and rollback capabilities",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/gitops-deployment.md",
+        "excellence_tier": "silver",
+        "pattern_status": "production-ready",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Sidecar",
+        "name": "Sidecar",
+        "title": "Sidecar Pattern",
+        "description": "Container-based separation of concerns for cross-cutting infrastructure capabilities",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/sidecar.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Resilience",
+          "Communication",
+          "Architecture"
+        ],
+        "references": [
+          "Docs"
+        ],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Lambda Architecture",
+        "name": "Lambda Architecture",
+        "title": "Lambda Architecture",
+        "description": "Hybrid approach combining batch and stream processing to handle both historical and real-time data with eventual consistency",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/lambda-architecture.md",
+        "excellence_tier": "bronze",
+        "pattern_status": "legacy",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Backends For Frontends (bff)",
+        "name": "Backends For Frontends (bff)",
+        "title": "Backends For Frontends (BFF)",
+        "description": "Create purpose-built backend services for specific frontend applications, optimizing API design for each client's unique needs",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/backends-for-frontends.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Valet Key",
+        "name": "Valet Key",
+        "title": "Valet Key Pattern",
+        "description": "Provide limited direct access to resources without exposing credentials or requiring proxy overhead",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/valet-key.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Hybrid Cloud",
+        "name": "Hybrid Cloud",
+        "title": "Hybrid Cloud",
+        "description": "On-premise and cloud integration",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/hybrid-cloud.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Service Mesh Production Mastery",
+        "name": "Service Mesh Production Mastery",
+        "title": "Service Mesh Production Mastery",
+        "description": "Elite engineering guide to production-scale service mesh implementations with zero-trust networking, observability, and multi-cloud orchestration",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/service-mesh-production-mastery.md",
+        "excellence_tier": "platinum",
+        "pattern_status": "cutting_edge",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Serverless/faas (function-as-a-service)",
+        "name": "Serverless/faas (function-as-a-service)",
+        "title": "Serverless/FaaS (Function-as-a-Service)",
+        "description": "Execute code without managing servers, paying only for actual compute time with automatic scaling",
+        "category": "architecture",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/architecture/serverless-faas.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Security Patterns",
+        "name": "Security Patterns",
+        "title": "Security Patterns",
+        "description": "Battle-tested security patterns for distributed systems",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/index.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Consent Management",
+        "name": "Consent Management",
+        "title": "Consent Management",
+        "description": "GDPR-compliant user consent and privacy management",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/consent-management.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Location Privacy",
+        "name": "Location Privacy",
+        "title": "Location Privacy",
+        "description": "Privacy-preserving patterns for location-based services",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/location-privacy.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Security Scanning Pipeline",
+        "name": "Security Scanning Pipeline",
+        "title": "Security Scanning Pipeline",
+        "description": "Automated security validation integrated into CI/CD pipelines for continuous security assurance",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/security-scanning-pipeline.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Threat Modeling",
+        "name": "Threat Modeling",
+        "title": "Threat Modeling",
+        "description": "Systematic identification and analysis of potential security threats during system design",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/threat-modeling.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Api Security Gateway",
+        "name": "Api Security Gateway",
+        "title": "API Security Gateway",
+        "description": "Centralized security enforcement point for API authentication, authorization, and threat protection",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/api-security-gateway.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Zero Trust Architecture",
+        "name": "Zero Trust Architecture",
+        "title": "Zero Trust Architecture",
+        "description": "Never trust, always verify - comprehensive security model that eliminates implicit trust",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/zero-trust-architecture.md",
+        "excellence_tier": "gold",
+        "pattern_status": "production-ready",
+        "related_patterns": [
+          "Communication"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Secrets Management",
+        "name": "Secrets Management",
+        "title": "Secrets Management",
+        "description": "Secure storage, rotation, and distribution of sensitive credentials and configuration data",
+        "category": "security",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/security/secrets-management.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Hybrid Logical Clocks (hlc)",
+        "name": "Hybrid Logical Clocks (hlc)",
+        "title": "Hybrid Logical Clocks (HLC)",
+        "description": "Combine physical timestamps with logical counters to achieve causally consistent timestamps that are close to wall-clock time while handling clock skew",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/hlc.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Coordination"
+        ],
+        "references": [
+          "Pubs",
+          "Docs",
+          "Preview"
+        ],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Emergent Leader",
+        "name": "Emergent Leader",
+        "title": "Emergent Leader Pattern",
+        "description": "Gossip-based leadership emergence without explicit elections in distributed systems",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/emergent-leader.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Distributed Queue",
+        "name": "Distributed Queue",
+        "title": "Distributed Queue",
+        "description": "Reliable message queuing across multiple nodes with guarantees for ordering, delivery, and fault tolerance",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/distributed-queue.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Resilience"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Leader-follower",
+        "name": "Leader-follower",
+        "title": "Leader-Follower Pattern",
+        "description": "Coordination pattern for managing distributed state with a single source of truth",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/leader-follower.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Two-phase Commit (2pc)",
+        "name": "Two-phase Commit (2pc)",
+        "title": "Two-Phase Commit (2PC)",
+        "description": "Distributed transaction coordination with atomic commit protocol",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/two-phase-commit.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Vector Clocks",
+        "name": "Vector Clocks",
+        "title": "Vector Clocks",
+        "description": "Logical timestamps for tracking causality in distributed systems",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/vector-clocks.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Consensus Patterns",
+        "name": "Consensus Patterns",
+        "title": "Consensus Patterns",
+        "description": "Achieve agreement in distributed systems",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/consensus.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Generation Clock",
+        "name": "Generation Clock",
+        "title": "Generation Clock",
+        "description": "Monotonic counter to detect stale leaders and prevent split-brain in distributed systems",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/generation-clock.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Cas (compare-and-swap)",
+        "name": "Cas (compare-and-swap)",
+        "title": "CAS (Compare-and-Swap)",
+        "description": "Lock-free atomic operation for concurrent data structures",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/cas.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-caution",
+        "related_patterns": [
+          "Data Management",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Saga Pattern - Production Mastery & Elite Engineering",
+        "name": "Saga Pattern - Production Mastery & Elite Engineering",
+        "title": "Saga Pattern - Production Mastery & Elite Engineering",
+        "description": "",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/saga-pattern-production-mastery.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Logical Clocks (lamport Clocks)",
+        "name": "Logical Clocks (lamport Clocks)",
+        "title": "Logical Clocks (Lamport Clocks)",
+        "description": "Order events in distributed systems without synchronized physical clocks using happens-before relationships",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/logical-clocks.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Coordination"
+        ],
+        "references": [
+          "Tla",
+          "Distsys"
+        ],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Distributed Lock",
+        "name": "Distributed Lock",
+        "title": "Distributed Lock Pattern",
+        "description": "Mutual exclusion primitive for coordinating access to shared resources across distributed nodes",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/distributed-lock.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Resilience",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Lease",
+        "name": "Lease",
+        "title": "Lease Pattern",
+        "description": "Time-bound resource ownership with automatic expiration for distributed systems reliability",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/lease.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "State Watch (change Notification)",
+        "name": "State Watch (change Notification)",
+        "title": "State Watch (Change Notification) Pattern",
+        "description": "Distributed mechanism for monitoring state changes and notifying interested parties in real-time",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/state-watch.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Communication",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Leader Election",
+        "name": "Leader Election",
+        "title": "Leader Election Pattern",
+        "description": "Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/leader-election.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Communication",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Actor Model",
+        "name": "Actor Model",
+        "title": "Actor Model",
+        "description": "Message-passing concurrency model with isolated actors communicating asynchronously",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/actor-model.md",
+        "excellence_tier": "bronze",
+        "pattern_status": "legacy",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Clock Synchronization",
+        "name": "Clock Synchronization",
+        "title": "Clock Synchronization",
+        "description": "Achieving consistent time across distributed nodes despite clock drift and network delays",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/clock-sync.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Low-water/high-water Marks",
+        "name": "Low-water/high-water Marks",
+        "title": "Low-Water/High-Water Marks",
+        "description": "Flow control boundaries for distributed systems replication, buffering, and resource management",
+        "category": "coordination",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/coordination/low-high-water-marks.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Resilience",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Cost Optimization Patterns",
+        "name": "Cost Optimization Patterns",
+        "title": "Cost Optimization Patterns",
+        "description": "Battle-tested patterns for optimizing cloud infrastructure and operational costs",
+        "category": "cost-optimization",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/cost-optimization/index.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Spot Instance Management",
+        "name": "Spot Instance Management",
+        "title": "Spot Instance Management",
+        "description": "Systematic approach to leveraging low-cost spot instances while maintaining application reliability",
+        "category": "cost-optimization",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/cost-optimization/spot-instance-management.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Resource Rightsizing",
+        "name": "Resource Rightsizing",
+        "title": "Resource Rightsizing",
+        "description": "Continuous optimization of cloud resources to match actual usage patterns and performance requirements",
+        "category": "cost-optimization",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/cost-optimization/resource-rightsizing.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Finops",
+        "name": "Finops",
+        "title": "FinOps",
+        "description": "Implement financial operations practices to optimize cloud costs through visibility, accountability, and continuous optimization",
+        "category": "cost-optimization",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/cost-optimization/finops.md",
+        "excellence_tier": "gold",
+        "pattern_status": "production-ready",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Spatial Indexing",
+        "name": "Spatial Indexing",
+        "title": "Spatial Indexing",
+        "description": "Geospatial data structures for efficient location queries",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/spatial-indexing.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Shared Database",
+        "name": "Shared Database",
+        "title": "Shared Database Pattern",
+        "description": "Multiple services share a single database instance for data persistence",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/shared-database.md",
+        "excellence_tier": "bronze",
+        "pattern_status": "legacy",
+        "related_patterns": [
+          "Communication",
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Polyglot Persistence",
+        "name": "Polyglot Persistence",
+        "title": "Polyglot Persistence",
+        "description": "Using different data storage technologies for different domain requirements",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/polyglot-persistence.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Data Lakehouse",
+        "name": "Data Lakehouse",
+        "title": "Data Lakehouse",
+        "description": "Combine data lake flexibility with data warehouse performance for unified analytics architecture supporting both BI and ML workloads",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/data-lakehouse.md",
+        "excellence_tier": "gold",
+        "pattern_status": "production-ready",
+        "related_patterns": [
+          "Ml Infrastructure",
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Double-entry Ledger",
+        "name": "Double-entry Ledger",
+        "title": "Double-Entry Ledger",
+        "description": "Financial bookkeeping pattern ensuring transaction integrity",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/double-entry-ledger.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Distributed Storage",
+        "name": "Distributed Storage",
+        "title": "Distributed Storage",
+        "description": "Patterns and techniques for storing and managing data across multiple nodes in distributed systems",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/distributed-storage.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Data Management",
+          "Coordination",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Eventual Consistency",
+        "name": "Eventual Consistency",
+        "title": "Eventual Consistency",
+        "description": "A consistency model where distributed data converges to a consistent state over time",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/eventual-consistency.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Outbox",
+        "name": "Outbox",
+        "title": "Outbox Pattern",
+        "description": "Reliable event publishing pattern that ensures database changes and event publishing happen atomically",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/outbox.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Data Management"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Change Data Capture (cdc)",
+        "name": "Change Data Capture (cdc)",
+        "title": "Change Data Capture (CDC)",
+        "description": "Data synchronization pattern that captures and propagates database changes in real-time",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/cdc.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Event Sourcing",
+          "Saga"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Saga",
+        "name": "Saga",
+        "title": "Saga Pattern",
+        "description": "Manage distributed transactions without two-phase commit",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/saga.md",
+        "excellence_tier": null,
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Event Sourcing",
+          "Outbox",
+          "Resilience",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": [
+          "Law 1",
+          "Law 2",
+          "Law 4",
+          "Law 5",
+          "Law 7"
+        ]
+      },
+      {
+        "id": "Stream Processing",
+        "name": "Stream Processing",
+        "title": "Stream Processing",
+        "description": "Process continuous streams of data in real-time using distributed stream processing frameworks for immediate insights and actions",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/stream-processing.md",
+        "excellence_tier": "gold",
+        "pattern_status": "production-ready",
+        "related_patterns": [
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Event Sourcing",
+        "name": "Event Sourcing",
+        "title": "Event Sourcing Pattern",
+        "description": "Store system state as a sequence of events",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/event-sourcing.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": [
+          "Law 2",
+          "Law 5",
+          "Law 3",
+          "Law 7"
+        ]
+      },
+      {
+        "id": "Segmented Log",
+        "name": "Segmented Log",
+        "title": "Segmented Log",
+        "description": "Breaking append-only logs into manageable segments for efficient storage, compaction, and retention",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/segmented-log.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Lsm Tree",
+          "Pattern Library",
+          "Wal"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Read Repair",
+        "name": "Read Repair",
+        "title": "Read Repair Pattern",
+        "description": "Technique for detecting and fixing data inconsistencies opportunistically during read operations",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/read-repair.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Data Management"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Data Lake",
+        "name": "Data Lake",
+        "title": "Data Lake Pattern",
+        "description": "Centralized repository storing vast amounts of raw data in native format for flexible analysis",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/data-lake.md",
+        "excellence_tier": "bronze",
+        "pattern_status": "use-with-caution",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Bloom Filter",
+        "name": "Bloom Filter",
+        "title": "Bloom Filter Pattern",
+        "description": "Space-efficient probabilistic data structure for fast set membership testing with controlled false positive rates",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/bloom-filter.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Tunable Consistency",
+        "name": "Tunable Consistency",
+        "title": "Tunable Consistency",
+        "description": "Adjust consistency levels dynamically based on application requirements and trade-offs",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/tunable-consistency.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Materialized View",
+        "name": "Materialized View",
+        "title": "Materialized View Pattern",
+        "description": "Pre-compute and store query results for instant access to complex aggregations and joins",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/materialized-view.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Deduplication",
+        "name": "Deduplication",
+        "title": "Deduplication",
+        "description": "Eliminate duplicate data through content-based identification and storage optimization",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/deduplication.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Caching Strategies",
+          "Cas"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Lsm Tree (log-structured Merge Tree)",
+        "name": "Lsm Tree (log-structured Merge Tree)",
+        "title": "LSM Tree (Log-Structured Merge Tree)",
+        "description": "Write-optimized storage engine that converts random writes to sequential writes through buffering and merging",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/lsm-tree.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Merkle Trees",
+        "name": "Merkle Trees",
+        "title": "Merkle Trees Pattern",
+        "description": "Cryptographic tree structure for efficient data verification and synchronization",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/merkle-trees.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Cqrs",
+        "name": "Cqrs",
+        "title": "CQRS Pattern",
+        "description": "Command Query Responsibility Segregation for scalable systems",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/cqrs.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": [
+          "Law 3",
+          "Law 5",
+          "Law 2",
+          "Law 6",
+          "Law 7"
+        ]
+      },
+      {
+        "id": "Write-ahead Log (wal)",
+        "name": "Write-ahead Log (wal)",
+        "title": "Write-Ahead Log (WAL)",
+        "description": "Ensuring durability by logging changes before applying them - the foundation of crash recovery in databases",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/write-ahead-log.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Data Management",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Data Mesh",
+        "name": "Data Mesh",
+        "title": "Data Mesh",
+        "description": "Decentralized data architecture with domain ownership",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/data-mesh.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Consistent Hashing",
+        "name": "Consistent Hashing",
+        "title": "Consistent Hashing",
+        "description": "Load distribution algorithm that minimizes reorganization when nodes are added or removed",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/consistent-hashing.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": [
+          "Law 1",
+          "Law 5",
+          "Law 2",
+          "Law 6",
+          "Law 7"
+        ]
+      },
+      {
+        "id": "Crdt (conflict-free Replicated Data Types)",
+        "name": "Crdt (conflict-free Replicated Data Types)",
+        "title": "CRDT (Conflict-free Replicated Data Types)",
+        "description": "Data structures that automatically resolve conflicts in distributed systems",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/crdt.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Coordination"
+        ],
+        "references": [
+          "Coordination"
+        ],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Delta Sync",
+        "name": "Delta Sync",
+        "title": "Delta Sync Pattern",
+        "description": "Synchronize data by transmitting only changes (deltas) instead of full datasets to minimize bandwidth and improve performance",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/delta-sync.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-caution",
+        "related_patterns": [
+          "Data Management"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Idempotency",
+        "name": "Idempotency",
+        "title": "Idempotency",
+        "description": "Ensuring operations can be safely retried without side effects",
+        "category": "data-management",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/data-management/idempotency.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Feature Store",
+        "name": "Feature Store",
+        "title": "Feature Store",
+        "description": "Centralized repository for storing, managing, and serving ML features with versioning, lineage tracking, and consistent access patterns",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/feature-store.md",
+        "excellence_tier": "gold",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Data Management",
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Model Serving At Scale",
+        "name": "Model Serving At Scale",
+        "title": "Model Serving at Scale",
+        "description": "Deploy and scale machine learning models for high-performance inference with automatic scaling, load balancing, and resource optimization",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/model-serving-scale.md",
+        "excellence_tier": "gold",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Communication",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Model Versioning And Rollback",
+        "name": "Model Versioning And Rollback",
+        "title": "Model Versioning and Rollback",
+        "description": "Manage ML model versions with automated rollback, A/B testing, and comprehensive audit trails for production model deployments",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/model-versioning-rollback.md",
+        "excellence_tier": "silver",
+        "pattern_status": "production-ready",
+        "related_patterns": [
+          "Resilience"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Distributed Training",
+        "name": "Distributed Training",
+        "title": "Distributed Training",
+        "description": "Scale ML model training across multiple compute resources using parallel and distributed computing techniques for faster training and handling larger datasets",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/distributed-training.md",
+        "excellence_tier": "gold",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Architecture",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Ml Pipeline Orchestration",
+        "name": "Ml Pipeline Orchestration",
+        "title": "ML Pipeline Orchestration",
+        "description": "Automate and orchestrate complex ML workflows from data ingestion through model deployment with dependency management, error handling, and monitoring",
+        "category": "ml-infrastructure",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/ml-pipeline-orchestration.md",
+        "excellence_tier": "gold",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Blue-green Deployment",
+        "name": "Blue-green Deployment",
+        "title": "Blue-Green Deployment",
+        "description": "Zero-downtime deployment pattern using two identical production environments",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/blue-green-deployment.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Canary Release",
+        "name": "Canary Release",
+        "title": "Canary Release",
+        "description": "Gradual rollout strategy that reduces risk by testing new versions with a small subset of users",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/canary-release.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Kubernetes Distributed Patterns",
+        "name": "Kubernetes Distributed Patterns",
+        "title": "Kubernetes Distributed Patterns",
+        "description": "",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/kubernetes-distributed-patterns.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Deployment Patterns",
+        "name": "Deployment Patterns",
+        "title": "Deployment Patterns",
+        "description": "Battle-tested deployment patterns for reliable software delivery",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/index.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Feature Flags",
+        "name": "Feature Flags",
+        "title": "Feature Flags",
+        "description": "Runtime control system for enabling/disabling features without code deployment",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/feature-flags.md",
+        "excellence_tier": "gold",
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Canary Deployment",
+        "name": "Canary Deployment",
+        "title": "Canary Deployment",
+        "description": "Gradual rollout with early failure detection",
+        "category": "deployment",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/deployment/canary.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [
+          "Resilience"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Serverless Event Processing",
+        "name": "Serverless Event Processing",
+        "title": "Serverless Event Processing",
+        "description": "Process events using serverless functions that automatically scale from zero to handle varying loads without managing infrastructure",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/serverless-event-processing.md",
+        "excellence_tier": "gold",
+        "pattern_status": "production-ready",
+        "related_patterns": [
+          "Communication",
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Caching Strategies",
+        "name": "Caching Strategies",
+        "title": "Caching Strategies",
+        "description": "Optimize performance by storing frequently accessed data in fast storage layers",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/caching-strategies.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Infrastructure",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Geo-distribution",
+        "name": "Geo-distribution",
+        "title": "Geo-Distribution",
+        "description": "Distributes data and compute across geographic regions for performance, availability, and compliance",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/geo-distribution.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Scaling"
+        ],
+        "references": [
+          "Guides",
+          "Pubs",
+          "About Aws"
+        ],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Multi-region Architecture",
+        "name": "Multi-region Architecture",
+        "title": "Multi-Region Architecture",
+        "description": "Deployment pattern that spans multiple geographic regions for disaster recovery and latency optimization",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/multi-region.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Sharding (data Partitioning)",
+        "name": "Sharding (data Partitioning)",
+        "title": "Sharding (Data Partitioning)",
+        "description": "Horizontal partitioning strategy for distributing data across multiple database instances",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/sharding.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Horizontal Pod Autoscaler",
+        "name": "Horizontal Pod Autoscaler",
+        "title": "Horizontal Pod Autoscaler",
+        "description": "Kubernetes autoscaling",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/horizontal-pod-autoscaler.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Shuffle Sharding",
+        "name": "Shuffle Sharding",
+        "title": "Shuffle Sharding",
+        "description": "Isolation technique to prevent cascade failures",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/shuffle-sharding.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [
+          "Data Management",
+          "Resilience",
+          "Architecture"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Tile Caching",
+        "name": "Tile Caching",
+        "title": "Tile Caching",
+        "description": "Efficient caching strategy for map tiles and spatial data at multiple zoom levels",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/tile-caching.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Backpressure",
+        "name": "Backpressure",
+        "title": "Backpressure Pattern",
+        "description": "Flow control mechanism that prevents system overload by limiting upstream request rates",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/backpressure.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Resilience",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Queues & Stream Processing",
+        "name": "Queues & Stream Processing",
+        "title": "Queues & Stream Processing",
+        "description": "Decouple producers from consumers using message queues and event streams",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/queues-streaming.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Analytics At Scale",
+        "name": "Analytics At Scale",
+        "title": "Analytics at Scale Pattern",
+        "description": "High-performance analytics architecture for processing massive datasets with low latency insights",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/analytics-scale.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Geo-replication",
+        "name": "Geo-replication",
+        "title": "Geo-Replication Pattern",
+        "description": "Replicate data across geographical regions for global availability and disaster recovery",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/geo-replication.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Data Management",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Auto-scaling",
+        "name": "Auto-scaling",
+        "title": "Auto-scaling Pattern",
+        "description": "Dynamic resource management pattern that adjusts capacity based on demand metrics",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/auto-scaling.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Resilience",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": [
+          "Law 1",
+          "Law 2",
+          "Law 7",
+          "Law 4",
+          "Law 6"
+        ]
+      },
+      {
+        "id": "Database Per Service",
+        "name": "Database Per Service",
+        "title": "Database per Service",
+        "description": "Microservices data isolation",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/database-per-service.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Id Generation At Scale",
+        "name": "Id Generation At Scale",
+        "title": "ID Generation at Scale",
+        "description": "",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/id-generation-scale.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Edge Computing/iot Patterns",
+        "name": "Edge Computing/iot Patterns",
+        "title": "Edge Computing/IoT Patterns",
+        "description": "Optimize distributed systems for edge devices and IoT deployments where latency and connectivity matter",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/edge-computing.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Request Batching/pipelining",
+        "name": "Request Batching/pipelining",
+        "title": "Request Batching/Pipelining",
+        "description": "Group multiple requests together to amortize fixed costs and improve throughput",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/request-batching.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Data Management",
+          "Resilience",
+          "Core Principles"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Chunking",
+        "name": "Chunking",
+        "title": "Chunking",
+        "description": "Break large datasets or operations into smaller, manageable pieces for improved performance, memory usage, and fault tolerance",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/chunking.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Performance",
+          "Reliability",
+          "Ui"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Cdn",
+        "name": "Cdn",
+        "title": "CDN",
+        "description": "Content delivery at edge",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/content-delivery-network.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Priority Queue",
+        "name": "Priority Queue",
+        "title": "Priority Queue",
+        "description": "Distributed priority queue systems that process messages based on importance rather than arrival order",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/priority-queue.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-caution",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Geographic Load Balancing",
+        "name": "Geographic Load Balancing",
+        "title": "Geographic Load Balancing",
+        "description": "Distribute load globally",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/geographic-load-balancing.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Rate Limiting",
+        "name": "Rate Limiting",
+        "title": "Rate Limiting Pattern",
+        "description": "Control request flow to protect systems from overload while ensuring fair resource allocation",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/rate-limiting.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Communication",
+          "Resilience"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Load Balancing",
+        "name": "Load Balancing",
+        "title": "Load Balancing Pattern",
+        "description": "Traffic distribution pattern that spreads requests across multiple backend instances",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/load-balancing.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Resilience",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": [
+          "Law 1",
+          "Law 2",
+          "Law 3",
+          "Law 5",
+          "Law 6"
+        ]
+      },
+      {
+        "id": "Scatter-gather",
+        "name": "Scatter-gather",
+        "title": "Scatter-Gather",
+        "description": "Parallel request distribution and result aggregation pattern for efficient distributed processing",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/scatter-gather.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Data Management",
+          "Communication",
+          "Resilience",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Url Normalization",
+        "name": "Url Normalization",
+        "title": "URL Normalization",
+        "description": "Standardizing URLs into canonical forms to prevent duplication and improve system efficiency",
+        "category": "scaling",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/scaling/url-normalization.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Publish-subscribe",
+        "name": "Publish-subscribe",
+        "title": "Publish-Subscribe Pattern",
+        "description": "Decoupled messaging pattern where publishers send messages to topics and subscribers receive messages based on their interests",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/publish-subscribe.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Api Gateway",
+        "name": "Api Gateway",
+        "title": "API Gateway Pattern",
+        "description": "Unified entry point for microservices providing routing, authentication, and cross-cutting concerns",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/api-gateway.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": [
+          "Law 1",
+          "Law 3",
+          "Law 2",
+          "Law 5",
+          "Law 7"
+        ]
+      },
+      {
+        "id": "Request-reply",
+        "name": "Request-reply",
+        "title": "Request-Reply Pattern",
+        "description": "",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/request-reply.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Service Registry",
+        "name": "Service Registry",
+        "title": "Service Registry Pattern",
+        "description": "Central repository for service metadata, schemas, and versioning in distributed systems",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/service-registry.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Service Mesh",
+        "name": "Service Mesh",
+        "title": "Service Mesh",
+        "description": "Infrastructure layer providing service-to-service communication, security, and observability",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/service-mesh.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": [
+          "Law 1",
+          "Law 3",
+          "Law 5",
+          "Law 2",
+          "Law 7"
+        ]
+      },
+      {
+        "id": "Websocket",
+        "name": "Websocket",
+        "title": "WebSocket Pattern",
+        "description": "",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/websocket.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [
+          "Html",
+          "Communication",
+          "En Us",
+          "Developers"
+        ],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Grpc",
+        "name": "Grpc",
+        "title": "gRPC Pattern",
+        "description": "High-performance, cross-platform RPC framework using Protocol Buffers and HTTP/2",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/grpc.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Service Discovery",
+        "name": "Service Discovery",
+        "title": "Service Discovery",
+        "description": "Dynamic service location",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/coordination/service-discovery.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Configuration Management",
+        "name": "Configuration Management",
+        "title": "Configuration Management",
+        "description": "Centralized config",
+        "category": "communication",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/communication/architecture/configuration-management.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Health Check",
+        "name": "Health Check",
+        "title": "Health Check Pattern",
+        "description": "Monitor and verify service health status to enable automated recovery and intelligent load balancing",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/health-check.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Circuit Breaker",
+          "Graceful Shutdown",
+          "Observability",
+          "Scaling",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Load Shedding",
+        "name": "Load Shedding",
+        "title": "Load Shedding Pattern",
+        "description": "Gracefully dropping load to maintain system stability under extreme pressure",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/load-shedding.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Circuit Breaker",
+          "Communication",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Timeout",
+        "name": "Timeout",
+        "title": "Timeout Pattern",
+        "description": "Prevent indefinite waits and resource exhaustion by setting time limits on operations",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/timeout.md",
+        "excellence_tier": "gold",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Retry Backoff",
+          "Circuit Breaker",
+          "Bulkhead",
+          "Health Check",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Fault Tolerance",
+        "name": "Fault Tolerance",
+        "title": "Fault Tolerance Pattern",
+        "description": "Building systems that continue operating properly despite failures of components",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/fault-tolerance.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [
+          "Retry Backoff",
+          "Circuit Breaker",
+          "Bulkhead"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Retry With Exponential Backoff",
+        "name": "Retry With Exponential Backoff",
+        "title": "Retry with Exponential Backoff",
+        "description": "",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/retry-backoff.md",
+        "excellence_tier": "silver",
+        "pattern_status": "recommended",
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Heartbeat",
+        "name": "Heartbeat",
+        "title": "Heartbeat Pattern",
+        "description": "Fundamental mechanism for failure detection and liveness monitoring in distributed systems",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/heartbeat.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Circuit Breaker",
+          "Health Check",
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Circuit Breaker",
+        "name": "Circuit Breaker",
+        "title": "Circuit Breaker Pattern",
+        "description": "Prevent cascading failures by monitoring and breaking connections to failing services",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/circuit-breaker.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Circuit Breaker Pattern - Complete Mastery Guide",
+        "name": "Circuit Breaker Pattern - Complete Mastery Guide",
+        "title": "Circuit Breaker Pattern - Complete Mastery Guide",
+        "description": "",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/circuit-breaker-mastery.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Split-brain Detection & Resolution",
+        "name": "Split-brain Detection & Resolution",
+        "title": "Split-Brain Detection & Resolution",
+        "description": "Detect and resolve network partitions that divide a distributed system into isolated segments",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/split-brain.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Coordination"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Graceful Degradation",
+        "name": "Graceful Degradation",
+        "title": "Graceful Degradation Pattern",
+        "description": "Maintaining partial functionality when systems fail instead of complete outage",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/graceful-degradation.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Deployment",
+          "Circuit Breaker",
+          "Load Shedding"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Bulkhead",
+        "name": "Bulkhead",
+        "title": "Bulkhead Pattern",
+        "description": "Isolate system resources to prevent cascading failures, inspired by ship compartmentalization",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/bulkhead.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Circuit Breaker",
+          "Scaling",
+          "Timeout"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": [
+          "Law 1",
+          "Law 4",
+          "Law 7",
+          "Law 3"
+        ]
+      },
+      {
+        "id": "Advanced Timeout",
+        "name": "Advanced Timeout",
+        "title": "Advanced Timeout",
+        "description": "Sophisticated timeout strategies",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/timeout-advanced.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      },
+      {
+        "id": "Rate Limiting - Elite Engineering & State-of-the-art Practices",
+        "name": "Rate Limiting - Elite Engineering & State-of-the-art Practices",
+        "title": "Rate Limiting - Elite Engineering & State-of-the-Art Practices",
+        "description": "",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/rate-limiting-elite-engineering.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Failover",
+        "name": "Failover",
+        "title": "Failover Pattern",
+        "description": "Automatic switching to backup systems during failures to maintain high availability",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/failover.md",
+        "excellence_tier": "silver",
+        "pattern_status": "use-with-expertise",
+        "related_patterns": [
+          "Circuit Breaker",
+          "Health Check",
+          "Scaling"
+        ],
+        "references": [],
+        "see_also": [],
+        "laws_connected": []
+      },
+      {
+        "id": "Deadline Propagation",
+        "name": "Deadline Propagation",
+        "title": "Deadline Propagation",
+        "description": "Request deadline tracking",
+        "category": "resilience",
+        "file_path": "/home/deepak/DStudio/docs/pattern-library/resilience/coordination/deadline-propagation.md",
+        "excellence_tier": null,
+        "pattern_status": null,
+        "related_patterns": [],
+        "references": [],
+        "see_also": [
+          "Pattern Library"
+        ],
+        "laws_connected": []
+      }
+    ],
+    "edges": [
+      {
+        "source": "Change Data Capture (cdc)",
+        "target": "Event Sourcing",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Change Data Capture (cdc)",
+        "target": "Saga",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Saga",
+        "target": "Event Sourcing",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Saga",
+        "target": "Outbox",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Deduplication",
+        "target": "Caching Strategies",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Health Check",
+        "target": "Circuit Breaker",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Health Check",
+        "target": "Observability",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Load Shedding",
+        "target": "Circuit Breaker",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Timeout",
+        "target": "Circuit Breaker",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Timeout",
+        "target": "Bulkhead",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Timeout",
+        "target": "Health Check",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Fault Tolerance",
+        "target": "Circuit Breaker",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Fault Tolerance",
+        "target": "Bulkhead",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Heartbeat",
+        "target": "Circuit Breaker",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Heartbeat",
+        "target": "Health Check",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Graceful Degradation",
+        "target": "Circuit Breaker",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Graceful Degradation",
+        "target": "Load Shedding",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Bulkhead",
+        "target": "Circuit Breaker",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Bulkhead",
+        "target": "Timeout",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Failover",
+        "target": "Circuit Breaker",
+        "relationship_type": "related"
+      },
+      {
+        "source": "Failover",
+        "target": "Health Check",
+        "relationship_type": "related"
+      }
+    ]
+  }
+}

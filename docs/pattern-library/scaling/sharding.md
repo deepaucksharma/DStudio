@@ -1,27 +1,37 @@
 ---
 title: Sharding (Data Partitioning)
-description: Horizontally partition data across multiple databases to scale beyond single-machine limits
+description: Horizontal partitioning strategy for distributing data across multiple
+  database instances
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2000-01
 current_relevance: mainstream
 category: scaling
-essential_question: How do we scale beyond single-machine database limits while maintaining query performance?
+aliases:
+  - database-sharding.md
+  - database-sharding
+essential_question: How do we scale beyond single-machine database limits while maintaining
+  query performance?
 modern_examples:
-  - {'company': 'Discord', 'implementation': 'Channel-based sharding for messages', 'scale': '1T+ messages, 4,096 logical shards on 177 Cassandra nodes'}
-  - {'company': 'Pinterest', 'implementation': 'User-based sharding with virtual buckets', 'scale': '240B+ pins on 8,192 virtual shards across 800 MySQL servers'}
-  - {'company': 'YouTube/Vitess', 'implementation': 'Automatic sharding proxy for MySQL', 'scale': '100,000+ MySQL instances handling exabytes of data'}
+- company: Discord
+  implementation: Channel-based sharding for messages
+  scale: 1T+ messages, 4,096 logical shards on 177 Cassandra nodes
+- company: Pinterest
+  implementation: User-based sharding with virtual buckets
+  scale: 240B+ pins on 8,192 virtual shards across 800 MySQL servers
+- company: YouTube/Vitess
+  implementation: Automatic sharding proxy for MySQL
+  scale: 100,000+ MySQL instances handling exabytes of data
 production_checklist:
-  - Choose sharding key matching access patterns (user_id, tenant_id)
-  - Start with more virtual shards than needed (easier to merge than split)
-  - Implement shard-aware connection pooling and routing
-  - Monitor shard balance continuously (hot spot detection)
-  - Plan resharding strategy from day one
-  - Build cross-shard query capabilities carefully
-  - Use consistent hashing for stable assignment
-  - Implement distributed transactions only if essential
+- Choose sharding key matching access patterns (user_id, tenant_id)
+- Start with more virtual shards than needed (easier to merge than split)
+- Implement shard-aware connection pooling and routing
+- Monitor shard balance continuously (hot spot detection)
+- Plan resharding strategy from day one
+- Build cross-shard query capabilities carefully
+- Use consistent hashing for stable assignment
+- Implement distributed transactions only if essential
 ---
-
 
 # Sharding (Data Partitioning)
 
@@ -330,21 +340,87 @@ This pattern directly addresses several fundamental distributed systems laws:
 ## Related Patterns
 
 ### Foundation
-- [Consistent Hashing](../scaling/consistent-hashing.md) - Core algorithm for sharding
-- [Database per Service](../data/database-per-service.md) - Natural sharding boundary
-- [CQRS](../data/cqrs.md) - Separate read/write sharding strategies
+- [Consistent Hashing](../data-management/consistent-hashing.md) - Core algorithm for sharding
+- [Database per Service](../scaling/database-per-service.md) - Natural sharding boundary
+- [CQRS](../data-management/cqrs.md) - Separate read/write sharding strategies
 
 ### Operations  
 - [Circuit Breaker](../resilience/circuit-breaker.md) - Handle shard failures
 - [Bulkhead](../resilience/bulkhead.md) - Isolate shard impacts
-- [Service Mesh](../infrastructure/service-mesh.md) - Shard-aware routing
+- [Service Mesh](../communication/service-mesh.md) - Shard-aware routing
 
 ### Case Studies
-- [Discord: Message Sharding](../../architects-handbook/case-studies/discord-messages.md)
-- [Pinterest: MySQL Sharding](../../architects-handbook/case-studies/pinterest-sharding.md)
-- [Uber: Schemaless](../../architects-handbook/case-studies/uber-schemaless.md)
+- <!-- TODO: Add Discord: Message Sharding from Architects Handbook -->
+- <!-- TODO: Add Pinterest: MySQL Sharding from Architects Handbook -->
+- <!-- TODO: Add Uber: Schemaless from Architects Handbook -->
 
 ---
 
 *"The best shard key is the one you'll never need to change."*
 
+## The Complete Blueprint
+
+Database sharding is the horizontal partitioning of data across multiple database instances, enabling systems to scale beyond the limits of a single database server. This pattern breaks a large dataset into smaller, more manageable pieces (shards) distributed across multiple servers, with each shard containing a subset of the total data. The fundamental challenge is determining how to partition the data - by user ID, geographic region, feature, or other criteria - while maintaining query efficiency and avoiding hot spots. Successful sharding requires careful consideration of four key elements: the sharding key (how to split data), shard routing (how to find the right shard), cross-shard queries (how to handle operations spanning multiple shards), and rebalancing (how to redistribute data as the system grows). The pattern becomes complex when dealing with transactions, joins, and data that doesn't naturally partition.
+
+```mermaid
+graph TB
+    subgraph "Application Layer"
+        App[Application Server]
+        Router[Shard Router<br/>Query Coordinator]
+    end
+    
+    subgraph "Sharding Logic"
+        ShardKey[Shard Key<br/>user_id % num_shards]
+        Mapping[Shard Mapping<br/>Key → Shard Location]
+    end
+    
+    subgraph "Data Shards"
+        Shard1[(Shard 1<br/>users 0-999)]
+        Shard2[(Shard 2<br/>users 1000-1999)]
+        Shard3[(Shard 3<br/>users 2000-2999)]
+        ShardN[(Shard N<br/>users N000-N999)]
+    end
+    
+    subgraph "Cross-Shard Operations"
+        Aggregator[Result Aggregator]
+        Transaction[Distributed Transaction<br/>Coordinator]
+    end
+    
+    subgraph "Management Layer"
+        Monitor[Shard Monitor]
+        Rebalancer[Data Rebalancer]
+        Config[Shard Configuration]
+    end
+    
+    App --> Router
+    Router --> ShardKey
+    ShardKey --> Mapping
+    
+    Router --> Shard1
+    Router --> Shard2
+    Router --> Shard3
+    Router --> ShardN
+    
+    Router --> Aggregator
+    Router --> Transaction
+    
+    Monitor --> Shard1
+    Monitor --> Shard2
+    Monitor --> Shard3
+    Monitor --> ShardN
+    
+    Monitor --> Rebalancer
+    Rebalancer --> Config
+    Config --> Mapping
+```
+
+### What You'll Master
+
+- **Shard key design**: Choose partitioning strategies that distribute load evenly while enabling efficient queries
+- **Query routing**: Implement logic to direct queries to the correct shard(s) based on the sharding key
+- **Cross-shard operations**: Handle aggregations, joins, and transactions that span multiple shards
+- **Operational management**: Plan for shard rebalancing, monitoring, and disaster recovery across distributed data
+
+# Database Sharding
+
+Horizontal database partitioning

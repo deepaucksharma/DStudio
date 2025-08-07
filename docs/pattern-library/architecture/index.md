@@ -70,3 +70,21 @@ Architecture patterns define the high-level structure of distributed systems. Th
 ---
 
 *Browse individual patterns below or return to the [Pattern Library](../).*
+
+## Featured Learning Modules
+
+- **[API Design Mastery](api-design-mastery.md)** - Comprehensive guide to designing scalable APIs (420+ min)
+
+## Architecture Patterns
+
+- [Graphql Federation](graphql-federation.md)
+- [Kappa Architecture](kappa-architecture.md)
+- [Cap Theorem](cap-theorem.md)
+- [Container Orchestration](container-orchestration.md)
+- [Event Streaming](event-streaming.md)
+- [Gitops Deployment](gitops-deployment.md)
+- [Lambda Architecture](lambda-architecture.md)
+- [Valet Key](valet-key.md)
+- [Hybrid Cloud](hybrid-cloud.md)
+
+## Patterns

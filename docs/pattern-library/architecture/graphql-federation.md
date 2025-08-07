@@ -288,13 +288,13 @@ This maps to category theory where services are categories and federation is a f
 
 ## Related Patterns
 
-- [API Gateway](../architecture/api-gateway.md) - Simpler alternative for REST APIs
-- [Service Mesh](../architecture/service-mesh.md) - Network-level service composition
-- [CQRS](../architecture/cqrs.md) - Separate read/write models
-- [Event Sourcing](../architecture/event-sourcing.md) - Event-driven composition
-- [BFF Pattern](../architecture/bff.md) - Backend for Frontend alternative
+- [API Gateway](../communication/api-gateway.md) - Simpler alternative for REST APIs
+- [Service Mesh](../communication/service-mesh.md) - Network-level service composition
+- [CQRS](../data-management/cqrs.md) - Separate read/write models
+- [Event Sourcing](../data-management/event-sourcing.md) - Event-driven composition
+- [BFF Pattern](../architecture/backends-for-frontends.md) - Backend for Frontend alternative
 
 ---
 
-**Previous**: [← API Gateway](../architecture/api-gateway.md) | **Next**: [Event Streaming →](../architecture/event-streaming.md)
+**Previous**: [← API Gateway](../communication/api-gateway.md) | **Next**: [Event Streaming →](../architecture/event-streaming.md)
 

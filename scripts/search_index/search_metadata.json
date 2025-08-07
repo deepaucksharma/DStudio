@@ -1,0 +1,50 @@
+{
+  "total_patterns": 164,
+  "build_time": "2025-08-07T22:06:10.130236",
+  "categories": {
+    "other": 29,
+    "pattern-library": 1,
+    "observability": 1,
+    "architecture": 21,
+    "security": 8,
+    "coordination": 18,
+    "cost-optimization": 4,
+    "data-management": 27,
+    "ml-infrastructure": 5,
+    "visual-assets": 1,
+    "deployment": 4,
+    "scaling": 21,
+    "communication": 9,
+    "resilience": 15
+  },
+  "excellence_tiers": {
+    "silver": 111,
+    "bronze": 7,
+    "gold": 45,
+    "platinum": 1
+  },
+  "pattern_status": {
+    "stable": 63,
+    "recommended": 61,
+    "use-with-caution": 6,
+    "legacy": 5,
+    "production-ready": 8,
+    "use-with-expertise": 20,
+    "cutting_edge": 1
+  },
+  "difficulty_levels": {
+    "intermediate": 136,
+    "expert": 3,
+    "advanced": 23,
+    "beginner": 2
+  },
+  "relevance_status": {
+    "mainstream": 151,
+    "niche": 6,
+    "growing": 2,
+    "declining": 4,
+    "revolutionary": 1
+  },
+  "total_search_terms": 5313,
+  "avg_tokens_per_pattern": 96.8170731707317
+}

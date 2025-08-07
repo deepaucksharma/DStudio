@@ -11,7 +11,7 @@ tags:
 
 # Pattern Dependency Graph
 
-Understanding pattern dependencies is crucial for implementation order and architectural decisions. This analysis reveals the prerequisite relationships between all 112 patterns.
+Understanding pattern dependencies is crucial for implementation order and architectural decisions. This analysis reveals the prerequisite relationships between all 130 patterns.
 
 ## 🎯 Core Dependency Insights
 
@@ -370,4 +370,4 @@ Dependencies reveal the natural order:
 
 ---
 
-*Understanding pattern dependencies is crucial for successful implementation. This analysis shows that mastering just 15 foundational patterns enables implementation of all 112 patterns.*
+*Understanding pattern dependencies is crucial for successful implementation. This analysis shows that mastering just 15 foundational patterns enables implementation of all 130 patterns.*

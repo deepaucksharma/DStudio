@@ -278,28 +278,28 @@ Month 4-6:
 ### By Implementation Phase
 
 1. **Foundation Phase**
-   - [Health Check Pattern](../resilience/health-check/)
-   - [Load Balancing Basics](../scaling/load-balancing/)
-   - [Caching Strategies](../scaling/caching-strategies/)
+   - [Health Check Pattern](../resilience/health-check.md)
+   - [Load Balancing Basics](../scaling/load-balancing.md)
+   - [Caching Strategies](../scaling/caching-strategies.md)
 
 2. **Resilience Phase**
-   - [Circuit Breaker Deep Dive](../resilience/circuit-breaker/)
-   - [Retry Patterns](../resilience/retry-backoff/)
-   - [Timeout Strategies](../resilience/timeout/)
+   - [Circuit Breaker Deep Dive](../resilience/circuit-breaker.md)
+   - [Retry Patterns](../resilience/retry-backoff.md)
+   - [Timeout Strategies](../resilience/timeout.md)
 
 3. **Scale Phase**
-   - [Auto-scaling Guide](../scaling/auto-scaling/)
-   - [Sharding Strategies](../scaling/sharding/)
-   - [Event-Driven Architecture](../architecture/event-driven/)
+   - [Auto-scaling Guide](../scaling/auto-scaling.md)
+   - [Sharding Strategies](../scaling/sharding.md)
+   - [Event-Driven Architecture](../architecture/event-driven.md)
 
 ## 🌟 Roadmap Templates
 
 ### Download Customizable Templates
 
-- **[Startup Roadmap (Excel)](roadmaps/startup-roadmap.xlsx/)** - 0 to 100K users
-- **[Scale Roadmap (Excel)](roadmaps/scale-roadmap.xlsx/)** - 100K to 1M users
-- **[Enterprise Roadmap (Excel)](roadmaps/enterprise-roadmap.xlsx/)** - 1M+ users
-- **[Migration Roadmap (Excel)](roadmaps/migration-roadmap.xlsx/)** - Monolith to microservices
+- **[Startup Roadmap (Excel)](roadmaps/startup-roadmap.xlsx.md)** - 0 to 100K users
+- **[Scale Roadmap (Excel)](roadmaps/scale-roadmap.xlsx.md)** - 100K to 1M users
+- **[Enterprise Roadmap (Excel)](roadmaps/enterprise-roadmap.xlsx.md)** - 1M+ users
+- **[Migration Roadmap (Excel)](roadmaps/migration-roadmap.xlsx.md)** - Monolith to microservices
 
 ## 👥 Team Alignment
 

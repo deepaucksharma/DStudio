@@ -1280,9 +1280,9 @@ timeline
     
     ---
     
-    - [Model Registry Setup](../../architects-handbook/implementation-playbooks/guides/model-registry.md)
-    - [Rollback Testing Procedures](../../architects-handbook/implementation-playbooks/guides/rollback-testing.md)
-    - [ML Monitoring Best Practices](../../architects-handbook/implementation-playbooks/guides/ml-monitoring.md)
+    - <!-- TODO: Add Model Registry Setup from Architects Handbook -->
+    - <!-- TODO: Add Rollback Testing Procedures from Architects Handbook -->
+    - <!-- TODO: Add ML Monitoring Best Practices from Architects Handbook -->
 
 </div>
 

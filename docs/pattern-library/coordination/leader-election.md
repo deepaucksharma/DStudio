@@ -410,9 +410,9 @@ graph LR
     
     ---
     
-    - [Election Setup Guide](../../architects-handbook/implementation-playbooks/guides/election-setup.md)
-    - [Testing Guide](../../architects-handbook/implementation-playbooks/guides/partition-testing.md)
-    - [Raft Implementation](../../architects-handbook/implementation-playbooks/guides/raft-implementation.md)
+    - <!-- TODO: Add Election Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Testing Guide from Architects Handbook -->
+    - <!-- TODO: Add Raft Implementation from Architects Handbook -->
 
 </div>
 

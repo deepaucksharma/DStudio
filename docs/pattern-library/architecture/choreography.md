@@ -380,7 +380,7 @@ graph LR
     ---
     
     - [Event Sourcing](../data-management/event-sourcing.md) - Audit trail for choreography
-    - [Saga Pattern](../coordination/saga.md) - Orchestrated alternative
+    - [Saga Pattern](../data-management/saga.md) - Orchestrated alternative
     - [CQRS](../data-management/cqrs.md) - Event-driven read/write separation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
@@ -401,9 +401,9 @@ graph LR
     
     ---
     
-    - [Choreography to Event Streaming](../../architects-handbook/implementation-playbooks/migrations/choreography-to-streaming.md)
-    - [Choreography to Saga Orchestration](../../architects-handbook/implementation-playbooks/migrations/choreography-to-saga.md)
-    - [Event Bus Setup Guide](../../architects-handbook/implementation-playbooks/guides/event-bus-setup.md)
+    - <!-- TODO: Add Choreography to Event Streaming from Architects Handbook -->
+    - <!-- TODO: Add Choreography to Saga Orchestration from Architects Handbook -->
+    - <!-- TODO: Add Event Bus Setup Guide from Architects Handbook -->
 
 </div>
 

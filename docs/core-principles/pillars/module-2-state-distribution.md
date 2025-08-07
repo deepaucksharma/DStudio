@@ -204,16 +204,16 @@ All three replicas say they have the latest data. Node 1 shows user balance = $1
 
 ### CORE CONCEPT: The Three Replication Architectures
 
-**Master-Slave Replication**:
+**Primary-Replica Replication**:
 ```python
-class MasterSlaveDB:
+class PrimaryReplicaDB:
     def write(self, key, value):
-        # All writes go to master
-        result = self.master.write(key, value)
+        # All writes go to primary
+        result = self.primary.write(key, value)
         
-        # Async replication to slaves
-        for slave in self.slaves:
-            self.replicate_async(slave, key, value)
+        # Async replication to replicas
+        for replica in self.replicas:
+            self.replicate_async(replica, key, value)
         
         return result
     
@@ -290,7 +290,7 @@ class QuorumDB:
 ```mermaid
 graph TB
     subgraph "Replication Strategies Comparison"
-        subgraph "Master-Slave"
+        subgraph "Primary-Replica"
             MS_PRO[✅ Simple<br/>✅ Consistent reads from master<br/>✅ High read scalability]
             MS_CON[❌ Single point of failure<br/>❌ Slave reads may be stale<br/>❌ Write bottleneck]
         end
@@ -311,7 +311,7 @@ graph TB
 
 Replication is like backing up important documents:
 
-- **Master-Slave**: Keep one master copy in a safe, make photocopies for daily use
+- **Primary-Replica**: Keep one primary copy in a safe, make photocopies for daily use
 - **Multi-Master**: Everyone has an original, changes get merged later
 - **Quorum**: Committee votes on what the "true" document says
 
@@ -359,7 +359,7 @@ for data_type in system_requirements:
 ### CONSOLIDATION PROMPT 2
 
 **CRITICAL THINKING**:
-1. What happens to your read latency if a master fails in master-slave replication?
+1. What happens to your read latency if a primary fails in primary-replica replication?
 2. How would you detect and handle split-brain in multi-master systems?
 3. What's the minimum number of nodes needed for quorum-based replication?
 

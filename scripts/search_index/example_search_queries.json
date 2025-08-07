@@ -1,0 +1,138 @@
+{
+  "basic_queries": {
+    "description": "Simple keyword searches",
+    "examples": [
+      {
+        "query": "circuit breaker",
+        "expected": "Resilience patterns for preventing cascading failures"
+      },
+      {
+        "query": "microservices",
+        "expected": "Architecture patterns for service decomposition"
+      },
+      {
+        "query": "caching",
+        "expected": "Performance patterns for data access optimization"
+      },
+      {
+        "query": "load balancer",
+        "expected": "Scaling patterns for traffic distribution"
+      },
+      {
+        "query": "event sourcing",
+        "expected": "Data management patterns for audit trails"
+      }
+    ]
+  },
+  "company_queries": {
+    "description": "Find patterns used by specific companies",
+    "examples": [
+      {
+        "query": "netflix",
+        "expected": "Patterns proven at Netflix scale"
+      },
+      {
+        "query": "uber",
+        "expected": "Real-time and geo-distributed patterns"
+      },
+      {
+        "query": "google",
+        "expected": "Large-scale infrastructure patterns"
+      },
+      {
+        "query": "amazon",
+        "expected": "E-commerce and cloud patterns"
+      }
+    ]
+  },
+  "problem_queries": {
+    "description": "Find patterns by problem domain",
+    "examples": [
+      {
+        "query": "failure handling",
+        "expected": "Resilience patterns for fault tolerance"
+      },
+      {
+        "query": "data consistency",
+        "expected": "Patterns for distributed data management"
+      },
+      {
+        "query": "real-time",
+        "expected": "Patterns for live data processing"
+      },
+      {
+        "query": "high availability",
+        "expected": "Patterns for system uptime"
+      },
+      {
+        "query": "performance",
+        "expected": "Optimization patterns for speed"
+      }
+    ]
+  },
+  "technical_queries": {
+    "description": "Technology-specific searches",
+    "examples": [
+      {
+        "query": "kubernetes",
+        "expected": "Container orchestration patterns"
+      },
+      {
+        "query": "graphql",
+        "expected": "API federation and gateway patterns"
+      },
+      {
+        "query": "kafka",
+        "expected": "Event streaming and messaging patterns"
+      },
+      {
+        "query": "redis",
+        "expected": "Caching and session management patterns"
+      }
+    ]
+  },
+  "composite_queries": {
+    "description": "Multi-word complex searches",
+    "examples": [
+      {
+        "query": "distributed transaction",
+        "expected": "Saga and 2PC patterns"
+      },
+      {
+        "query": "service mesh security",
+        "expected": "Zero-trust and mTLS patterns"
+      },
+      {
+        "query": "machine learning deployment",
+        "expected": "ML infrastructure patterns"
+      },
+      {
+        "query": "multi-region database",
+        "expected": "Geo-replication patterns"
+      }
+    ]
+  },
+  "filter_examples": {
+    "description": "Category and tier filtering",
+    "examples": [
+      {
+        "category": "resilience",
+        "tier": "gold",
+        "expected": "Battle-tested resilience patterns"
+      },
+      {
+        "category": "scaling",
+        "difficulty": "beginner",
+        "expected": "Simple scaling solutions"
+      },
+      {
+        "tier": "bronze",
+        "expected": "Legacy patterns to avoid"
+      },
+      {
+        "relevance": "growing",
+        "expected": "Trending modern patterns"
+      }
+    ]
+  }
+}

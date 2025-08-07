@@ -377,31 +377,31 @@ graph TD
     
     ---
     
-    - [Pattern 1](../category/pattern1.md) - [How it relates]
-    - [Pattern 2](../category/pattern2.md) - [How it relates]
-    - [Pattern 3](../category/pattern3.md) - [How it relates]
+    - <!-- TODO: Add actual pattern link --> - [How it relates]
+    - <!-- TODO: Add actual pattern link --> - [How it relates]
+    - <!-- TODO: Add actual pattern link --> - [How it relates]
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Name](../../core-principles/laws/law1.md) - [Connection]
-    - [Law 2: Name](../../core-principles/laws/law2.md) - [Connection]
+    - <!-- TODO: Add actual law reference --> - [Connection]
+    - <!-- TODO: Add actual law reference --> - [Connection]
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 1: Name](../../core-principles/pillars/pillar1.md) - [Implementation]
-    - [Pillar 2: Name](../../core-principles/pillars/pillar2.md) - [Implementation]
+    - <!-- TODO: Add actual pillar reference --> - [Implementation]
+    - <!-- TODO: Add pillar reference --> - [Implementation]
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Setup Guide](../../architects-handbook/implementation-playbooks/guides/pattern-setup.md)
-    - [Testing Guide](../../architects-handbook/implementation-playbooks/guides/pattern-testing.md)
-    - [Migration Guide](../../architects-handbook/implementation-playbooks/migrations/to-pattern.md)
+    - <!-- TODO: Add Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Testing Guide from Architects Handbook -->
+    - <!-- TODO: Add Migration Guide from Architects Handbook -->
 
 </div>
 

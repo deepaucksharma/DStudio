@@ -371,9 +371,9 @@ graph LR
     
     ---
     
-    - [Lock-Free Programming Guide](../../architects-handbook/implementation-playbooks/guides/lock-free-programming.md)
-    - [Memory Model Tutorial](../../architects-handbook/implementation-playbooks/guides/memory-models.md)
-    - [Performance Testing Guide](../../architects-handbook/implementation-playbooks/guides/concurrency-testing.md)
+    - <!-- TODO: Add Lock-Free Programming Guide from Architects Handbook -->
+    - <!-- TODO: Add Memory Model Tutorial from Architects Handbook -->
+    - <!-- TODO: Add Performance Testing Guide from Architects Handbook -->
 
 </div>
 

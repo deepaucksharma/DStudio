@@ -379,9 +379,9 @@ graph LR
     
     ---
     
-    - [Data Mesh Architecture](../../architects-handbook/implementation-playbooks/guides/data-mesh-patterns.md) - Domain-oriented data ownership
-    - [Lakehouse Pattern](../../architects-handbook/implementation-playbooks/guides/lakehouse-architecture.md) - Best of lakes and warehouses
-    - [Feature Store](../../architects-handbook/implementation-playbooks/guides/feature-store-design.md) - ML-focused data management
+    - <!-- TODO: Add Data Mesh Architecture from Architects Handbook --> - Domain-oriented data ownership
+    - <!-- TODO: Add Lakehouse Pattern from Architects Handbook --> - Best of lakes and warehouses
+    - <!-- TODO: Add Feature Store from Architects Handbook --> - ML-focused data management
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -401,13 +401,13 @@ graph LR
     
     ---
     
-    - [Data Lake to Mesh Migration](../../architects-handbook/implementation-playbooks/migrations/data-lake-to-mesh.md)
-    - [Lakehouse Implementation](../../architects-handbook/implementation-playbooks/migrations/lake-to-lakehouse.md)
-    - [Governance Framework Setup](../../architects-handbook/implementation-playbooks/guides/data-governance.md)
+    - <!-- TODO: Add Data Lake to Mesh Migration from Architects Handbook -->
+    - <!-- TODO: Add Lakehouse Implementation from Architects Handbook -->
+    - <!-- TODO: Add Governance Framework Setup from Architects Handbook -->
 
 </div>
 
 ---
 
-*Next: [Data Mesh](../../architects-handbook/implementation-playbooks/guides/data-mesh-patterns.md) - Modern domain-oriented data architecture*
+*Next: <!-- TODO: Add Data Mesh from Architects Handbook --> - Modern domain-oriented data architecture*
 

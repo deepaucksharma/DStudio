@@ -211,9 +211,9 @@ graph TB
 graph TB
  subgraph "Elasticsearch Cluster"
  subgraph "Master-Eligible Nodes"
- M1[Master Node 1<br/>Cluster coordination]
- M2[Master Node 2<br/>Standby master]
- M3[Master Node 3<br/>Standby master]
+ M1[Primary Node 1<br/>Cluster coordination]
+ M2[Primary Node 2<br/>Standby primary]
+ M3[Primary Node 3<br/>Standby primary]
  end
  
  subgraph "Data Nodes"

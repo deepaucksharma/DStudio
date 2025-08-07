@@ -604,7 +604,7 @@ if __name__ == "__main__":
     ---
     
     - [Container Orchestration](container-orchestration.md) - Kubernetes deployment target
-    - [CI/CD Pipeline](../../architects-handbook/implementation-playbooks/implementation-guides/modern-distributed-systems-2025.md) - Integration with GitOps
+    - <!-- TODO: Add CI/CD Pipeline from Architects Handbook --> - Integration with GitOps
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -617,8 +617,8 @@ if __name__ == "__main__":
     
     ---
     
-    - [ArgoCD Setup Guide](../../architects-handbook/implementation-playbooks/guides/argocd-setup.md)
-    - [GitOps Security Best Practices](../../architects-handbook/implementation-playbooks/guides/gitops-security.md)
+    - <!-- TODO: Add ArgoCD Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add GitOps Security Best Practices from Architects Handbook -->
 
 </div>
 

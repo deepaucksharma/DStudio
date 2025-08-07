@@ -354,7 +354,7 @@ graph LR
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
 | [Event Sourcing](../data-management/event-sourcing.md) | Events flow through queues | Queue as event transport |
-| [Saga Pattern](../coordination/saga.md) | Coordinate distributed transactions | Queue for saga orchestration |
+| [Saga Pattern](../data-management/saga.md) | Coordinate distributed transactions | Queue for saga orchestration |
 | [Circuit Breaker](../resilience/circuit-breaker.md) | Protect downstream services | Circuit breaker in consumers |
 
 ## Quick Reference
@@ -400,7 +400,7 @@ graph LR
     ---
     
     - [Event Sourcing](../data-management/event-sourcing.md) - Events through queues
-    - [Saga Pattern](../coordination/saga.md) - Distributed transactions
+    - [Saga Pattern](../data-management/saga.md) - Distributed transactions
     - [Circuit Breaker](../resilience/circuit-breaker.md) - Consumer protection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
@@ -421,9 +421,9 @@ graph LR
     
     ---
     
-    - [Kafka Setup Guide](../../architects-handbook/implementation-playbooks/guides/kafka-setup.md)
-    - [Queue Monitoring Guide](../../architects-handbook/implementation-playbooks/guides/queue-monitoring.md)
-    - [DLQ Strategies](../../architects-handbook/implementation-playbooks/guides/dlq-patterns.md)
+    - <!-- TODO: Add Kafka Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add Queue Monitoring Guide from Architects Handbook -->
+    - <!-- TODO: Add DLQ Strategies from Architects Handbook -->
 
 </div>
 

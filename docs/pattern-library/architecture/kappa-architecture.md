@@ -132,7 +132,7 @@ Coming soon...
 
 ## Related Topics
 
-- See other [patterns](../)
+- See other [patterns](...md)
 
 ---
 

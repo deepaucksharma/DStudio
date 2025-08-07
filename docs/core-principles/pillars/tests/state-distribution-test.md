@@ -58,8 +58,8 @@ In a 5-replica system, quorum reads require:
 With 3 replicas and quorum writes (2), what % of nodes can fail?
 - **Answer:** 33% (1 node)
 
-### 8. [True/False] Master-slave
-Master-slave replication eliminates all consistency issues.
+### 8. [True/False] Primary-replica
+Primary-replica replication eliminates all consistency issues.
 - **Answer:** False
 - **Reason:** Replication lag causes temporary inconsistency.
 

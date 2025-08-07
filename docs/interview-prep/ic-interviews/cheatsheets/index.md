@@ -146,8 +146,8 @@ These cheatsheets provide rapid access to key information during interviews. Pri
 ### Data Patterns
 | Pattern | Consistency | Use Case |
 |---------|-------------|----------|
-| Master-Slave | Eventual | Read heavy |
-| Multi-Master | Eventual | Write heavy |
+| Primary-Replica | Eventual | Read heavy |
+| Multi-Primary | Eventual | Write heavy |
 | 2PC | Strong | Transactions |
 | Saga | Eventual | Long transactions |
 | Event Sourcing | Eventual | Audit trail |

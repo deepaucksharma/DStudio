@@ -1108,15 +1108,15 @@ Classification Framework:
 
 ## Related Patterns
 
-- **Complementary**: [Resource Rightsizing](resource-rightsizing/) - Optimize instance sizes
-- **Complementary**: [Reserved Capacity Planning](reserved-capacity-planning/) - Long-term cost optimization
+- **Complementary**: [Resource Rightsizing](resource-rightsizing.md) - Optimize instance sizes
+- **Complementary**: [Reserved Capacity Planning](reserved-capacity-planning.md) - Long-term cost optimization
 - **Building Block**: Auto Scaling Groups for dynamic scaling
 - **Extension**: Multi-cloud spot instance arbitrage
 - **Alternative**: Preemptible instances (GCP) or Low-priority VMs (Azure)
 
 ## Further Reading
 
-- [AWS Spot Instance Best Practices](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-best-practices.html/)
-- [Azure Spot Virtual Machines](https://docs.microsoft.com/en-us/azure/virtual-machines/spot-vms/)
-- [Google Cloud Preemptible VMs](https://cloud.google.com/compute/docs/instances/preemptible/)
-- [Kubernetes Spot Instance Guide](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+- [AWS Spot Instance Best Practices](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-best-practices.html.md)
+- [Azure Spot Virtual Machines](https://docs.microsoft.com/en-us/azure/virtual-machines/spot-vms.md)
+- [Google Cloud Preemptible VMs](https://cloud.google.com/compute/docs/instances/preemptible.md)
+- [Kubernetes Spot Instance Guide](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction.md)

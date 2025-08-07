@@ -400,9 +400,9 @@ graph LR
     
     ---
     
-    - [View Design Guide](../../architects-handbook/implementation-playbooks/guides/materialized-view-design.md)
-    - [Refresh Strategy Guide](../../architects-handbook/implementation-playbooks/guides/mv-refresh-strategies.md)
-    - [Performance Tuning](../../architects-handbook/implementation-playbooks/guides/mv-performance-tuning.md)
+    - <!-- TODO: Add View Design Guide from Architects Handbook -->
+    - <!-- TODO: Add Refresh Strategy Guide from Architects Handbook -->
+    - <!-- TODO: Add Performance Tuning from Architects Handbook -->
 
 </div>
 

@@ -63,13 +63,13 @@ Tile caching optimizes the storage and delivery of map tiles by pre-rendering an
 - **Invalidation Strategy**: Updating tiles when data changes
 
 ## Related Patterns
-- [CDN Pattern](../scaling/edge-computing/)
+- [CDN Pattern](../scaling/edge-computing.md)
 - [Cache-Aside](cache-aside.md)
 - Spatial Indexing (Coming Soon)
 - Vector Maps (Coming Soon)
 
 ## References
-- [Google Maps Case Study](../../architects-handbook/case-studies/google-maps/) - Implements multi-level tile caching
+- <!-- TODO: Add Google Maps Case Study --> - Implements multi-level tile caching
 
 ## Level 1: Intuition (5 minutes)
 

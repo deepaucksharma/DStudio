@@ -326,15 +326,15 @@ graph TD
 
 ## Related Patterns
 
-- **[Service Mesh](../architecture/service-mesh.md)**: Orchestrates multiple sidecars
+- **[Service Mesh](../communication/service-mesh.md)**: Orchestrates multiple sidecars
 - **[Ambassador](../architecture/ambassador.md)**: Specialized proxy pattern
 - **[Circuit Breaker](../resilience/circuit-breaker.md)**: Often implemented in sidecars
 - **[Bulkhead](../resilience/bulkhead.md)**: Isolation via sidecars
-- **[API Gateway](../architecture/api-gateway.md)**: Centralized alternative
+- **[API Gateway](../communication/api-gateway.md)**: Centralized alternative
 
 ## References
 
-- [Envoy Proxy Architecture](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/intro/intro/)
-- [Kubernetes Sidecar Containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/)
-- [Service Mesh Comparison](https://servicemesh.io/)
+- [Envoy Proxy Architecture](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/intro/intro.md)
+- [Kubernetes Sidecar Containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers.md)
+- [Service Mesh Comparison](https://servicemesh.io.md)
 

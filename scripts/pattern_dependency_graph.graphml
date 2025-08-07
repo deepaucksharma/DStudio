@@ -1,0 +1,1938 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d11" for="edge" attr.name="relationship_type" attr.type="string" />
+  <key id="d10" for="node" attr.name="pattern_status" attr.type="string" />
+  <key id="d9" for="node" attr.name="excellence_tier" attr.type="string" />
+  <key id="d8" for="node" attr.name="laws_connected" attr.type="string" />
+  <key id="d7" for="node" attr.name="see_also" attr.type="string" />
+  <key id="d6" for="node" attr.name="references" attr.type="string" />
+  <key id="d5" for="node" attr.name="related_patterns" attr.type="string" />
+  <key id="d4" for="node" attr.name="file_path" attr.type="string" />
+  <key id="d3" for="node" attr.name="category" attr.type="string" />
+  <key id="d2" for="node" attr.name="description" attr.type="string" />
+  <key id="d1" for="node" attr.name="title" attr.type="string" />
+  <key id="d0" for="node" attr.name="name" attr.type="string" />
+  <graph edgedefault="directed">
+    <node id="Pattern Anti-patterns Guide - What Not To Do">
+      <data key="d0">Pattern Anti-patterns Guide - What Not To Do</data>
+      <data key="d1">Pattern Anti-Patterns Guide - What Not to Do</data>
+      <data key="d2">Learn from common mistakes and anti-patterns in distributed systems</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-antipatterns-guide.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Pattern Comparison Tool - Side-by-side Analysis">
+      <data key="d0">Pattern Comparison Tool - Side-by-side Analysis</data>
+      <data key="d1">Pattern Comparison Tool - Side-by-Side Analysis</data>
+      <data key="d2">Compare distributed systems patterns to make informed architectural decisions</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-comparison-tool.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Index">
+      <data key="d0">Index</data>
+      <data key="d1">Index</data>
+      <data key="d2">TODO: Add description</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/index.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="[pattern Name]">
+      <data key="d0">[pattern Name]</data>
+      <data key="d1">[Pattern Name]</data>
+      <data key="d2">[One-line description of what the pattern solves]</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-template-v2.md</data>
+      <data key="d9">gold|silver|bronze</data>
+      <data key="d10">recommended|stable|use-with-expertise|use-with-caution|legacy</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Pattern Synthesis Guide - Making Sense Of 129 Patterns">
+      <data key="d0">Pattern Synthesis Guide - Making Sense Of 129 Patterns</data>
+      <data key="d1">Pattern Synthesis Guide - Making Sense of 129 Patterns</data>
+      <data key="d2">A comprehensive framework for understanding and applying distributed systems patterns</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-synthesis-guide.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Visual Asset Creation Plan">
+      <data key="d0">Visual Asset Creation Plan</data>
+      <data key="d1">Visual Asset Creation Plan</data>
+      <data key="d2" />
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/visual-asset-creation-plan.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Observability">
+      <data key="d0">Observability</data>
+      <data key="d1">Observability</data>
+      <data key="d2">Comprehensive system monitoring through metrics, logs, and traces</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/observability.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Pattern Relationship Map - Visual Guide To Pattern Connections">
+      <data key="d0">Pattern Relationship Map - Visual Guide To Pattern Connections</data>
+      <data key="d1">Pattern Relationship Map - Visual Guide to Pattern Connections</data>
+      <data key="d2">Interactive visual maps showing how distributed systems patterns relate and work together</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-relationship-map.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Pattern Migration Guides - Evolve Your Architecture Safely">
+      <data key="d0">Pattern Migration Guides - Evolve Your Architecture Safely</data>
+      <data key="d1">Pattern Migration Guides - Evolve Your Architecture Safely</data>
+      <data key="d2">Step-by-step guides for migrating between patterns with minimal risk</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-migration-guides.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Pattern Decision Matrix - Choose The Right Patterns For Your Scenario">
+      <data key="d0">Pattern Decision Matrix - Choose The Right Patterns For Your Scenario</data>
+      <data key="d1">Pattern Decision Matrix - Choose the Right Patterns for Your Scenario</data>
+      <data key="d2">Comprehensive decision matrices for selecting distributed systems patterns based on specific scenarios</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-decision-matrix.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Pattern Combination Recipes - Proven Architectural Stacks">
+      <data key="d0">Pattern Combination Recipes - Proven Architectural Stacks</data>
+      <data key="d1">Pattern Combination Recipes - Proven Architectural Stacks</data>
+      <data key="d2">Battle-tested pattern combinations used by Netflix, Uber, Amazon and other tech giants</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-combination-recipes.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Pattern Implementation Roadmap - Your Path To Distributed Systems Mastery">
+      <data key="d0">Pattern Implementation Roadmap - Your Path To Distributed Systems Mastery</data>
+      <data key="d1">Pattern Implementation Roadmap - Your Path to Distributed Systems Mastery</data>
+      <data key="d2">Generate customized implementation roadmaps based on your system requirements</data>
+      <data key="d3">general</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/pattern-implementation-roadmap.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Anti-corruption Layer (acl)">
+      <data key="d0">Anti-corruption Layer (acl)</data>
+      <data key="d1">Anti-Corruption Layer (ACL)</data>
+      <data key="d2">Implement a layer that translates between different subsystems to prevent the spread of undesirable dependencies and maintain clean domain boundaries</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/anti-corruption-layer.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Shared Nothing Architecture">
+      <data key="d0">Shared Nothing Architecture</data>
+      <data key="d1">Shared Nothing Architecture</data>
+      <data key="d2">Eliminate resource contention by giving each node exclusive ownership of its data and compute resources</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/shared-nothing.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Graphql Federation">
+      <data key="d0">Graphql Federation</data>
+      <data key="d1">GraphQL Federation</data>
+      <data key="d2">Compose multiple GraphQL services into a unified API gateway to reduce client round trips</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/graphql-federation.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-caution</data>
+      <data key="d5">['Data Management', 'Communication', 'Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Choreography">
+      <data key="d0">Choreography</data>
+      <data key="d1">Choreography Pattern</data>
+      <data key="d2">Decentralized coordination where services react to events without central orchestration</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/choreography.md</data>
+      <data key="d9">bronze</data>
+      <data key="d10">legacy</data>
+      <data key="d5">['Data Management']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Kappa Architecture">
+      <data key="d0">Kappa Architecture</data>
+      <data key="d1">Kappa Architecture</data>
+      <data key="d2">This topic is under development</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/kappa-architecture.md</data>
+      <data key="d9">bronze</data>
+      <data key="d10">legacy</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Cell-based Architecture">
+      <data key="d0">Cell-based Architecture</data>
+      <data key="d1">Cell-Based Architecture Pattern</data>
+      <data key="d2">Architecture pattern that isolates failures by partitioning systems into independent cells with shared-nothing design</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/cell-based.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Communication', 'Resilience', 'Scaling']</data>
+      <data key="d6">['Wellarchitected', 'En Us', 'Cell Based Architecture']</data>
+      <data key="d7">[]</data>
+      <data key="d8">['Law 1', 'Law 4', 'Law 3', 'Law 5', 'Law 7']</data>
+    </node>
+    <node id="Cap Theorem">
+      <data key="d0">Cap Theorem</data>
+      <data key="d1">CAP Theorem</data>
+      <data key="d2">Understanding the fundamental trade-offs in distributed systems design</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/cap-theorem.md</data>
+      <data key="d9">bronze</data>
+      <data key="d10">use-with-caution</data>
+      <data key="d5">['Data Management', 'Resilience', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Event-driven Architecture">
+      <data key="d0">Event-driven Architecture</data>
+      <data key="d1">Event-Driven Architecture</data>
+      <data key="d2">Architectural pattern where components communicate through events, enabling loose coupling and scalability</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/event-driven.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Ambassador">
+      <data key="d0">Ambassador</data>
+      <data key="d1">Ambassador Pattern</data>
+      <data key="d2">Create a helper service that sends network requests on behalf of a consumer service, handling complex communication patterns and protocol translations</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/ambassador.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Container Orchestration">
+      <data key="d0">Container Orchestration</data>
+      <data key="d1">Container Orchestration</data>
+      <data key="d2">Automate deployment, scaling, and management of containerized applications using orchestration platforms like Kubernetes</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/container-orchestration.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">production-ready</data>
+      <data key="d5">['Communication', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Strangler Fig">
+      <data key="d0">Strangler Fig</data>
+      <data key="d1">Strangler Fig</data>
+      <data key="d2">Incrementally replace legacy systems by gradually routing functionality to new implementations</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/strangler-fig.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Resilience', 'Communication', 'Architecture']</data>
+      <data key="d6">['Prescriptive Guidance', 'Library', 'Bliki']</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Event Streaming">
+      <data key="d0">Event Streaming</data>
+      <data key="d1">Event Streaming</data>
+      <data key="d2">Process infinite streams of events in real-time with scalable, fault-tolerant streaming architectures</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/event-streaming.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Data Management', 'Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Gitops Deployment">
+      <data key="d0">Gitops Deployment</data>
+      <data key="d1">GitOps Deployment</data>
+      <data key="d2">Manage infrastructure and application deployments through Git-based workflows with automated synchronization and rollback capabilities</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/gitops-deployment.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">production-ready</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Sidecar">
+      <data key="d0">Sidecar</data>
+      <data key="d1">Sidecar Pattern</data>
+      <data key="d2">Container-based separation of concerns for cross-cutting infrastructure capabilities</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/sidecar.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Resilience', 'Communication', 'Architecture']</data>
+      <data key="d6">['Docs']</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Lambda Architecture">
+      <data key="d0">Lambda Architecture</data>
+      <data key="d1">Lambda Architecture</data>
+      <data key="d2">Hybrid approach combining batch and stream processing to handle both historical and real-time data with eventual consistency</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/lambda-architecture.md</data>
+      <data key="d9">bronze</data>
+      <data key="d10">legacy</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Backends For Frontends (bff)">
+      <data key="d0">Backends For Frontends (bff)</data>
+      <data key="d1">Backends For Frontends (BFF)</data>
+      <data key="d2">Create purpose-built backend services for specific frontend applications, optimizing API design for each client's unique needs</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/backends-for-frontends.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Valet Key">
+      <data key="d0">Valet Key</data>
+      <data key="d1">Valet Key Pattern</data>
+      <data key="d2">Provide limited direct access to resources without exposing credentials or requiring proxy overhead</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/valet-key.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Hybrid Cloud">
+      <data key="d0">Hybrid Cloud</data>
+      <data key="d1">Hybrid Cloud</data>
+      <data key="d2">On-premise and cloud integration</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/hybrid-cloud.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Service Mesh Production Mastery">
+      <data key="d0">Service Mesh Production Mastery</data>
+      <data key="d1">Service Mesh Production Mastery</data>
+      <data key="d2">Elite engineering guide to production-scale service mesh implementations with zero-trust networking, observability, and multi-cloud orchestration</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/service-mesh-production-mastery.md</data>
+      <data key="d9">platinum</data>
+      <data key="d10">cutting_edge</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Serverless/faas (function-as-a-service)">
+      <data key="d0">Serverless/faas (function-as-a-service)</data>
+      <data key="d1">Serverless/FaaS (Function-as-a-Service)</data>
+      <data key="d2">Execute code without managing servers, paying only for actual compute time with automatic scaling</data>
+      <data key="d3">architecture</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/architecture/serverless-faas.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Security Patterns">
+      <data key="d0">Security Patterns</data>
+      <data key="d1">Security Patterns</data>
+      <data key="d2">Battle-tested security patterns for distributed systems</data>
+      <data key="d3">security</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/security/index.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Consent Management">
+      <data key="d0">Consent Management</data>
+      <data key="d1">Consent Management</data>
+      <data key="d2">GDPR-compliant user consent and privacy management</data>
+      <data key="d3">security</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/security/consent-management.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Location Privacy">
+      <data key="d0">Location Privacy</data>
+      <data key="d1">Location Privacy</data>
+      <data key="d2">Privacy-preserving patterns for location-based services</data>
+      <data key="d3">security</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/security/location-privacy.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Security Scanning Pipeline">
+      <data key="d0">Security Scanning Pipeline</data>
+      <data key="d1">Security Scanning Pipeline</data>
+      <data key="d2">Automated security validation integrated into CI/CD pipelines for continuous security assurance</data>
+      <data key="d3">security</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/security/security-scanning-pipeline.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Threat Modeling">
+      <data key="d0">Threat Modeling</data>
+      <data key="d1">Threat Modeling</data>
+      <data key="d2">Systematic identification and analysis of potential security threats during system design</data>
+      <data key="d3">security</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/security/threat-modeling.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Api Security Gateway">
+      <data key="d0">Api Security Gateway</data>
+      <data key="d1">API Security Gateway</data>
+      <data key="d2">Centralized security enforcement point for API authentication, authorization, and threat protection</data>
+      <data key="d3">security</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/security/api-security-gateway.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Zero Trust Architecture">
+      <data key="d0">Zero Trust Architecture</data>
+      <data key="d1">Zero Trust Architecture</data>
+      <data key="d2">Never trust, always verify - comprehensive security model that eliminates implicit trust</data>
+      <data key="d3">security</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/security/zero-trust-architecture.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">production-ready</data>
+      <data key="d5">['Communication']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Secrets Management">
+      <data key="d0">Secrets Management</data>
+      <data key="d1">Secrets Management</data>
+      <data key="d2">Secure storage, rotation, and distribution of sensitive credentials and configuration data</data>
+      <data key="d3">security</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/security/secrets-management.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Hybrid Logical Clocks (hlc)">
+      <data key="d0">Hybrid Logical Clocks (hlc)</data>
+      <data key="d1">Hybrid Logical Clocks (HLC)</data>
+      <data key="d2">Combine physical timestamps with logical counters to achieve causally consistent timestamps that are close to wall-clock time while handling clock skew</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/hlc.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Coordination']</data>
+      <data key="d6">['Pubs', 'Docs', 'Preview']</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Emergent Leader">
+      <data key="d0">Emergent Leader</data>
+      <data key="d1">Emergent Leader Pattern</data>
+      <data key="d2">Gossip-based leadership emergence without explicit elections in distributed systems</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/emergent-leader.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Distributed Queue">
+      <data key="d0">Distributed Queue</data>
+      <data key="d1">Distributed Queue</data>
+      <data key="d2">Reliable message queuing across multiple nodes with guarantees for ordering, delivery, and fault tolerance</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/distributed-queue.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Resilience']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Leader-follower">
+      <data key="d0">Leader-follower</data>
+      <data key="d1">Leader-Follower Pattern</data>
+      <data key="d2">Coordination pattern for managing distributed state with a single source of truth</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/leader-follower.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Two-phase Commit (2pc)">
+      <data key="d0">Two-phase Commit (2pc)</data>
+      <data key="d1">Two-Phase Commit (2PC)</data>
+      <data key="d2">Distributed transaction coordination with atomic commit protocol</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/two-phase-commit.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Vector Clocks">
+      <data key="d0">Vector Clocks</data>
+      <data key="d1">Vector Clocks</data>
+      <data key="d2">Logical timestamps for tracking causality in distributed systems</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/vector-clocks.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Consensus Patterns">
+      <data key="d0">Consensus Patterns</data>
+      <data key="d1">Consensus Patterns</data>
+      <data key="d2">Achieve agreement in distributed systems</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/consensus.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Generation Clock">
+      <data key="d0">Generation Clock</data>
+      <data key="d1">Generation Clock</data>
+      <data key="d2">Monotonic counter to detect stale leaders and prevent split-brain in distributed systems</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/generation-clock.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Cas (compare-and-swap)">
+      <data key="d0">Cas (compare-and-swap)</data>
+      <data key="d1">CAS (Compare-and-Swap)</data>
+      <data key="d2">Lock-free atomic operation for concurrent data structures</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/cas.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-caution</data>
+      <data key="d5">['Data Management', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Saga Pattern - Production Mastery &amp; Elite Engineering">
+      <data key="d0">Saga Pattern - Production Mastery &amp; Elite Engineering</data>
+      <data key="d1">Saga Pattern - Production Mastery &amp; Elite Engineering</data>
+      <data key="d2" />
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/saga-pattern-production-mastery.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Logical Clocks (lamport Clocks)">
+      <data key="d0">Logical Clocks (lamport Clocks)</data>
+      <data key="d1">Logical Clocks (Lamport Clocks)</data>
+      <data key="d2">Order events in distributed systems without synchronized physical clocks using happens-before relationships</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/logical-clocks.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Coordination']</data>
+      <data key="d6">['Tla', 'Distsys']</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Distributed Lock">
+      <data key="d0">Distributed Lock</data>
+      <data key="d1">Distributed Lock Pattern</data>
+      <data key="d2">Mutual exclusion primitive for coordinating access to shared resources across distributed nodes</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/distributed-lock.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Resilience', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Lease">
+      <data key="d0">Lease</data>
+      <data key="d1">Lease Pattern</data>
+      <data key="d2">Time-bound resource ownership with automatic expiration for distributed systems reliability</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/lease.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="State Watch (change Notification)">
+      <data key="d0">State Watch (change Notification)</data>
+      <data key="d1">State Watch (Change Notification) Pattern</data>
+      <data key="d2">Distributed mechanism for monitoring state changes and notifying interested parties in real-time</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/state-watch.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Communication', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Leader Election">
+      <data key="d0">Leader Election</data>
+      <data key="d1">Leader Election Pattern</data>
+      <data key="d2">Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/leader-election.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Communication', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Actor Model">
+      <data key="d0">Actor Model</data>
+      <data key="d1">Actor Model</data>
+      <data key="d2">Message-passing concurrency model with isolated actors communicating asynchronously</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/actor-model.md</data>
+      <data key="d9">bronze</data>
+      <data key="d10">legacy</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Clock Synchronization">
+      <data key="d0">Clock Synchronization</data>
+      <data key="d1">Clock Synchronization</data>
+      <data key="d2">Achieving consistent time across distributed nodes despite clock drift and network delays</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/clock-sync.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Low-water/high-water Marks">
+      <data key="d0">Low-water/high-water Marks</data>
+      <data key="d1">Low-Water/High-Water Marks</data>
+      <data key="d2">Flow control boundaries for distributed systems replication, buffering, and resource management</data>
+      <data key="d3">coordination</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/coordination/low-high-water-marks.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Resilience', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Cost Optimization Patterns">
+      <data key="d0">Cost Optimization Patterns</data>
+      <data key="d1">Cost Optimization Patterns</data>
+      <data key="d2">Battle-tested patterns for optimizing cloud infrastructure and operational costs</data>
+      <data key="d3">cost-optimization</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/cost-optimization/index.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Spot Instance Management">
+      <data key="d0">Spot Instance Management</data>
+      <data key="d1">Spot Instance Management</data>
+      <data key="d2">Systematic approach to leveraging low-cost spot instances while maintaining application reliability</data>
+      <data key="d3">cost-optimization</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/cost-optimization/spot-instance-management.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Resource Rightsizing">
+      <data key="d0">Resource Rightsizing</data>
+      <data key="d1">Resource Rightsizing</data>
+      <data key="d2">Continuous optimization of cloud resources to match actual usage patterns and performance requirements</data>
+      <data key="d3">cost-optimization</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/cost-optimization/resource-rightsizing.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Finops">
+      <data key="d0">Finops</data>
+      <data key="d1">FinOps</data>
+      <data key="d2">Implement financial operations practices to optimize cloud costs through visibility, accountability, and continuous optimization</data>
+      <data key="d3">cost-optimization</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/cost-optimization/finops.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">production-ready</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Spatial Indexing">
+      <data key="d0">Spatial Indexing</data>
+      <data key="d1">Spatial Indexing</data>
+      <data key="d2">Geospatial data structures for efficient location queries</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/spatial-indexing.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Shared Database">
+      <data key="d0">Shared Database</data>
+      <data key="d1">Shared Database Pattern</data>
+      <data key="d2">Multiple services share a single database instance for data persistence</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/shared-database.md</data>
+      <data key="d9">bronze</data>
+      <data key="d10">legacy</data>
+      <data key="d5">['Communication', 'Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Polyglot Persistence">
+      <data key="d0">Polyglot Persistence</data>
+      <data key="d1">Polyglot Persistence</data>
+      <data key="d2">Using different data storage technologies for different domain requirements</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/polyglot-persistence.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Data Lakehouse">
+      <data key="d0">Data Lakehouse</data>
+      <data key="d1">Data Lakehouse</data>
+      <data key="d2">Combine data lake flexibility with data warehouse performance for unified analytics architecture supporting both BI and ML workloads</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/data-lakehouse.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">production-ready</data>
+      <data key="d5">['Ml Infrastructure', 'Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Double-entry Ledger">
+      <data key="d0">Double-entry Ledger</data>
+      <data key="d1">Double-Entry Ledger</data>
+      <data key="d2">Financial bookkeeping pattern ensuring transaction integrity</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/double-entry-ledger.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Distributed Storage">
+      <data key="d0">Distributed Storage</data>
+      <data key="d1">Distributed Storage</data>
+      <data key="d2">Patterns and techniques for storing and managing data across multiple nodes in distributed systems</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/distributed-storage.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Data Management', 'Coordination', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Eventual Consistency">
+      <data key="d0">Eventual Consistency</data>
+      <data key="d1">Eventual Consistency</data>
+      <data key="d2">A consistency model where distributed data converges to a consistent state over time</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/eventual-consistency.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Outbox">
+      <data key="d0">Outbox</data>
+      <data key="d1">Outbox Pattern</data>
+      <data key="d2">Reliable event publishing pattern that ensures database changes and event publishing happen atomically</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/outbox.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Data Management']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Change Data Capture (cdc)">
+      <data key="d0">Change Data Capture (cdc)</data>
+      <data key="d1">Change Data Capture (CDC)</data>
+      <data key="d2">Data synchronization pattern that captures and propagates database changes in real-time</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/cdc.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Event Sourcing', 'Saga']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Saga">
+      <data key="d0">Saga</data>
+      <data key="d1">Saga Pattern</data>
+      <data key="d2">Manage distributed transactions without two-phase commit</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/saga.md</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Event Sourcing', 'Outbox', 'Resilience', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">['Law 1', 'Law 2', 'Law 4', 'Law 5', 'Law 7']</data>
+    </node>
+    <node id="Stream Processing">
+      <data key="d0">Stream Processing</data>
+      <data key="d1">Stream Processing</data>
+      <data key="d2">Process continuous streams of data in real-time using distributed stream processing frameworks for immediate insights and actions</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/stream-processing.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">production-ready</data>
+      <data key="d5">['Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Event Sourcing">
+      <data key="d0">Event Sourcing</data>
+      <data key="d1">Event Sourcing Pattern</data>
+      <data key="d2">Store system state as a sequence of events</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/event-sourcing.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">['Law 2', 'Law 5', 'Law 3', 'Law 7']</data>
+    </node>
+    <node id="Segmented Log">
+      <data key="d0">Segmented Log</data>
+      <data key="d1">Segmented Log</data>
+      <data key="d2">Breaking append-only logs into manageable segments for efficient storage, compaction, and retention</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/segmented-log.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Lsm Tree', 'Pattern Library', 'Wal']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Read Repair">
+      <data key="d0">Read Repair</data>
+      <data key="d1">Read Repair Pattern</data>
+      <data key="d2">Technique for detecting and fixing data inconsistencies opportunistically during read operations</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/read-repair.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Data Management']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Data Lake">
+      <data key="d0">Data Lake</data>
+      <data key="d1">Data Lake Pattern</data>
+      <data key="d2">Centralized repository storing vast amounts of raw data in native format for flexible analysis</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/data-lake.md</data>
+      <data key="d9">bronze</data>
+      <data key="d10">use-with-caution</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Bloom Filter">
+      <data key="d0">Bloom Filter</data>
+      <data key="d1">Bloom Filter Pattern</data>
+      <data key="d2">Space-efficient probabilistic data structure for fast set membership testing with controlled false positive rates</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/bloom-filter.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Tunable Consistency">
+      <data key="d0">Tunable Consistency</data>
+      <data key="d1">Tunable Consistency</data>
+      <data key="d2">Adjust consistency levels dynamically based on application requirements and trade-offs</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/tunable-consistency.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Materialized View">
+      <data key="d0">Materialized View</data>
+      <data key="d1">Materialized View Pattern</data>
+      <data key="d2">Pre-compute and store query results for instant access to complex aggregations and joins</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/materialized-view.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Deduplication">
+      <data key="d0">Deduplication</data>
+      <data key="d1">Deduplication</data>
+      <data key="d2">Eliminate duplicate data through content-based identification and storage optimization</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/deduplication.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Caching Strategies', 'Cas']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Lsm Tree (log-structured Merge Tree)">
+      <data key="d0">Lsm Tree (log-structured Merge Tree)</data>
+      <data key="d1">LSM Tree (Log-Structured Merge Tree)</data>
+      <data key="d2">Write-optimized storage engine that converts random writes to sequential writes through buffering and merging</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/lsm-tree.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Merkle Trees">
+      <data key="d0">Merkle Trees</data>
+      <data key="d1">Merkle Trees Pattern</data>
+      <data key="d2">Cryptographic tree structure for efficient data verification and synchronization</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/merkle-trees.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Cqrs">
+      <data key="d0">Cqrs</data>
+      <data key="d1">CQRS Pattern</data>
+      <data key="d2">Command Query Responsibility Segregation for scalable systems</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/cqrs.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">['Law 3', 'Law 5', 'Law 2', 'Law 6', 'Law 7']</data>
+    </node>
+    <node id="Write-ahead Log (wal)">
+      <data key="d0">Write-ahead Log (wal)</data>
+      <data key="d1">Write-Ahead Log (WAL)</data>
+      <data key="d2">Ensuring durability by logging changes before applying them - the foundation of crash recovery in databases</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/write-ahead-log.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Data Management', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Data Mesh">
+      <data key="d0">Data Mesh</data>
+      <data key="d1">Data Mesh</data>
+      <data key="d2">Decentralized data architecture with domain ownership</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/data-mesh.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Consistent Hashing">
+      <data key="d0">Consistent Hashing</data>
+      <data key="d1">Consistent Hashing</data>
+      <data key="d2">Load distribution algorithm that minimizes reorganization when nodes are added or removed</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/consistent-hashing.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">['Law 1', 'Law 5', 'Law 2', 'Law 6', 'Law 7']</data>
+    </node>
+    <node id="Crdt (conflict-free Replicated Data Types)">
+      <data key="d0">Crdt (conflict-free Replicated Data Types)</data>
+      <data key="d1">CRDT (Conflict-free Replicated Data Types)</data>
+      <data key="d2">Data structures that automatically resolve conflicts in distributed systems</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/crdt.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Coordination']</data>
+      <data key="d6">['Coordination']</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Delta Sync">
+      <data key="d0">Delta Sync</data>
+      <data key="d1">Delta Sync Pattern</data>
+      <data key="d2">Synchronize data by transmitting only changes (deltas) instead of full datasets to minimize bandwidth and improve performance</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/delta-sync.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-caution</data>
+      <data key="d5">['Data Management']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Idempotency">
+      <data key="d0">Idempotency</data>
+      <data key="d1">Idempotency</data>
+      <data key="d2">Ensuring operations can be safely retried without side effects</data>
+      <data key="d3">data-management</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/data-management/idempotency.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Feature Store">
+      <data key="d0">Feature Store</data>
+      <data key="d1">Feature Store</data>
+      <data key="d2">Centralized repository for storing, managing, and serving ML features with versioning, lineage tracking, and consistent access patterns</data>
+      <data key="d3">ml-infrastructure</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/feature-store.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Data Management', 'Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Model Serving At Scale">
+      <data key="d0">Model Serving At Scale</data>
+      <data key="d1">Model Serving at Scale</data>
+      <data key="d2">Deploy and scale machine learning models for high-performance inference with automatic scaling, load balancing, and resource optimization</data>
+      <data key="d3">ml-infrastructure</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/model-serving-scale.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Communication', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Model Versioning And Rollback">
+      <data key="d0">Model Versioning And Rollback</data>
+      <data key="d1">Model Versioning and Rollback</data>
+      <data key="d2">Manage ML model versions with automated rollback, A/B testing, and comprehensive audit trails for production model deployments</data>
+      <data key="d3">ml-infrastructure</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/model-versioning-rollback.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">production-ready</data>
+      <data key="d5">['Resilience']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Distributed Training">
+      <data key="d0">Distributed Training</data>
+      <data key="d1">Distributed Training</data>
+      <data key="d2">Scale ML model training across multiple compute resources using parallel and distributed computing techniques for faster training and handling larger datasets</data>
+      <data key="d3">ml-infrastructure</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/distributed-training.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Architecture', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Ml Pipeline Orchestration">
+      <data key="d0">Ml Pipeline Orchestration</data>
+      <data key="d1">ML Pipeline Orchestration</data>
+      <data key="d2">Automate and orchestrate complex ML workflows from data ingestion through model deployment with dependency management, error handling, and monitoring</data>
+      <data key="d3">ml-infrastructure</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/ml-infrastructure/ml-pipeline-orchestration.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Blue-green Deployment">
+      <data key="d0">Blue-green Deployment</data>
+      <data key="d1">Blue-Green Deployment</data>
+      <data key="d2">Zero-downtime deployment pattern using two identical production environments</data>
+      <data key="d3">deployment</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/deployment/blue-green-deployment.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Canary Release">
+      <data key="d0">Canary Release</data>
+      <data key="d1">Canary Release</data>
+      <data key="d2">Gradual rollout strategy that reduces risk by testing new versions with a small subset of users</data>
+      <data key="d3">deployment</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/deployment/canary-release.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Kubernetes Distributed Patterns">
+      <data key="d0">Kubernetes Distributed Patterns</data>
+      <data key="d1">Kubernetes Distributed Patterns</data>
+      <data key="d2" />
+      <data key="d3">deployment</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/deployment/kubernetes-distributed-patterns.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Deployment Patterns">
+      <data key="d0">Deployment Patterns</data>
+      <data key="d1">Deployment Patterns</data>
+      <data key="d2">Battle-tested deployment patterns for reliable software delivery</data>
+      <data key="d3">deployment</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/deployment/index.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Feature Flags">
+      <data key="d0">Feature Flags</data>
+      <data key="d1">Feature Flags</data>
+      <data key="d2">Runtime control system for enabling/disabling features without code deployment</data>
+      <data key="d3">deployment</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/deployment/feature-flags.md</data>
+      <data key="d9">gold</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Canary Deployment">
+      <data key="d0">Canary Deployment</data>
+      <data key="d1">Canary Deployment</data>
+      <data key="d2">Gradual rollout with early failure detection</data>
+      <data key="d3">deployment</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/deployment/canary.md</data>
+      <data key="d5">['Resilience']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Serverless Event Processing">
+      <data key="d0">Serverless Event Processing</data>
+      <data key="d1">Serverless Event Processing</data>
+      <data key="d2">Process events using serverless functions that automatically scale from zero to handle varying loads without managing infrastructure</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/serverless-event-processing.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">production-ready</data>
+      <data key="d5">['Communication', 'Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Caching Strategies">
+      <data key="d0">Caching Strategies</data>
+      <data key="d1">Caching Strategies</data>
+      <data key="d2">Optimize performance by storing frequently accessed data in fast storage layers</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/caching-strategies.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Infrastructure', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Geo-distribution">
+      <data key="d0">Geo-distribution</data>
+      <data key="d1">Geo-Distribution</data>
+      <data key="d2">Distributes data and compute across geographic regions for performance, availability, and compliance</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/geo-distribution.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Scaling']</data>
+      <data key="d6">['Guides', 'Pubs', 'About Aws']</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Multi-region Architecture">
+      <data key="d0">Multi-region Architecture</data>
+      <data key="d1">Multi-Region Architecture</data>
+      <data key="d2">Deployment pattern that spans multiple geographic regions for disaster recovery and latency optimization</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/multi-region.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Sharding (data Partitioning)">
+      <data key="d0">Sharding (data Partitioning)</data>
+      <data key="d1">Sharding (Data Partitioning)</data>
+      <data key="d2">Horizontal partitioning strategy for distributing data across multiple database instances</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/sharding.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Horizontal Pod Autoscaler">
+      <data key="d0">Horizontal Pod Autoscaler</data>
+      <data key="d1">Horizontal Pod Autoscaler</data>
+      <data key="d2">Kubernetes autoscaling</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/horizontal-pod-autoscaler.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Shuffle Sharding">
+      <data key="d0">Shuffle Sharding</data>
+      <data key="d1">Shuffle Sharding</data>
+      <data key="d2">Isolation technique to prevent cascade failures</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/shuffle-sharding.md</data>
+      <data key="d5">['Data Management', 'Resilience', 'Architecture']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Tile Caching">
+      <data key="d0">Tile Caching</data>
+      <data key="d1">Tile Caching</data>
+      <data key="d2">Efficient caching strategy for map tiles and spatial data at multiple zoom levels</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/tile-caching.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Backpressure">
+      <data key="d0">Backpressure</data>
+      <data key="d1">Backpressure Pattern</data>
+      <data key="d2">Flow control mechanism that prevents system overload by limiting upstream request rates</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/backpressure.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Resilience', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Queues &amp; Stream Processing">
+      <data key="d0">Queues &amp; Stream Processing</data>
+      <data key="d1">Queues &amp; Stream Processing</data>
+      <data key="d2">Decouple producers from consumers using message queues and event streams</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/queues-streaming.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Analytics At Scale">
+      <data key="d0">Analytics At Scale</data>
+      <data key="d1">Analytics at Scale Pattern</data>
+      <data key="d2">High-performance analytics architecture for processing massive datasets with low latency insights</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/analytics-scale.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Geo-replication">
+      <data key="d0">Geo-replication</data>
+      <data key="d1">Geo-Replication Pattern</data>
+      <data key="d2">Replicate data across geographical regions for global availability and disaster recovery</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/geo-replication.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Data Management', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Auto-scaling">
+      <data key="d0">Auto-scaling</data>
+      <data key="d1">Auto-scaling Pattern</data>
+      <data key="d2">Dynamic resource management pattern that adjusts capacity based on demand metrics</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/auto-scaling.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Resilience', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">['Law 1', 'Law 2', 'Law 7', 'Law 4', 'Law 6']</data>
+    </node>
+    <node id="Database Per Service">
+      <data key="d0">Database Per Service</data>
+      <data key="d1">Database per Service</data>
+      <data key="d2">Microservices data isolation</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/database-per-service.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Id Generation At Scale">
+      <data key="d0">Id Generation At Scale</data>
+      <data key="d1">ID Generation at Scale</data>
+      <data key="d2" />
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/id-generation-scale.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Edge Computing/iot Patterns">
+      <data key="d0">Edge Computing/iot Patterns</data>
+      <data key="d1">Edge Computing/IoT Patterns</data>
+      <data key="d2">Optimize distributed systems for edge devices and IoT deployments where latency and connectivity matter</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/edge-computing.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Request Batching/pipelining">
+      <data key="d0">Request Batching/pipelining</data>
+      <data key="d1">Request Batching/Pipelining</data>
+      <data key="d2">Group multiple requests together to amortize fixed costs and improve throughput</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/request-batching.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Data Management', 'Resilience', 'Core Principles']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Chunking">
+      <data key="d0">Chunking</data>
+      <data key="d1">Chunking</data>
+      <data key="d2">Break large datasets or operations into smaller, manageable pieces for improved performance, memory usage, and fault tolerance</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/chunking.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Performance', 'Reliability', 'Ui']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Cdn">
+      <data key="d0">Cdn</data>
+      <data key="d1">CDN</data>
+      <data key="d2">Content delivery at edge</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/content-delivery-network.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Priority Queue">
+      <data key="d0">Priority Queue</data>
+      <data key="d1">Priority Queue</data>
+      <data key="d2">Distributed priority queue systems that process messages based on importance rather than arrival order</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/priority-queue.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-caution</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Geographic Load Balancing">
+      <data key="d0">Geographic Load Balancing</data>
+      <data key="d1">Geographic Load Balancing</data>
+      <data key="d2">Distribute load globally</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/geographic-load-balancing.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Rate Limiting">
+      <data key="d0">Rate Limiting</data>
+      <data key="d1">Rate Limiting Pattern</data>
+      <data key="d2">Control request flow to protect systems from overload while ensuring fair resource allocation</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/rate-limiting.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Communication', 'Resilience']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Load Balancing">
+      <data key="d0">Load Balancing</data>
+      <data key="d1">Load Balancing Pattern</data>
+      <data key="d2">Traffic distribution pattern that spreads requests across multiple backend instances</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/load-balancing.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Resilience', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">['Law 1', 'Law 2', 'Law 3', 'Law 5', 'Law 6']</data>
+    </node>
+    <node id="Scatter-gather">
+      <data key="d0">Scatter-gather</data>
+      <data key="d1">Scatter-Gather</data>
+      <data key="d2">Parallel request distribution and result aggregation pattern for efficient distributed processing</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/scatter-gather.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Data Management', 'Communication', 'Resilience', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Url Normalization">
+      <data key="d0">Url Normalization</data>
+      <data key="d1">URL Normalization</data>
+      <data key="d2">Standardizing URLs into canonical forms to prevent duplication and improve system efficiency</data>
+      <data key="d3">scaling</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/scaling/url-normalization.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Publish-subscribe">
+      <data key="d0">Publish-subscribe</data>
+      <data key="d1">Publish-Subscribe Pattern</data>
+      <data key="d2">Decoupled messaging pattern where publishers send messages to topics and subscribers receive messages based on their interests</data>
+      <data key="d3">communication</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/communication/publish-subscribe.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Api Gateway">
+      <data key="d0">Api Gateway</data>
+      <data key="d1">API Gateway Pattern</data>
+      <data key="d2">Unified entry point for microservices providing routing, authentication, and cross-cutting concerns</data>
+      <data key="d3">communication</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/communication/api-gateway.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">['Law 1', 'Law 3', 'Law 2', 'Law 5', 'Law 7']</data>
+    </node>
+    <node id="Request-reply">
+      <data key="d0">Request-reply</data>
+      <data key="d1">Request-Reply Pattern</data>
+      <data key="d2" />
+      <data key="d3">communication</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/communication/request-reply.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Service Registry">
+      <data key="d0">Service Registry</data>
+      <data key="d1">Service Registry Pattern</data>
+      <data key="d2">Central repository for service metadata, schemas, and versioning in distributed systems</data>
+      <data key="d3">communication</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/communication/service-registry.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Service Mesh">
+      <data key="d0">Service Mesh</data>
+      <data key="d1">Service Mesh</data>
+      <data key="d2">Infrastructure layer providing service-to-service communication, security, and observability</data>
+      <data key="d3">communication</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/communication/service-mesh.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">['Law 1', 'Law 3', 'Law 5', 'Law 2', 'Law 7']</data>
+    </node>
+    <node id="Websocket">
+      <data key="d0">Websocket</data>
+      <data key="d1">WebSocket Pattern</data>
+      <data key="d2" />
+      <data key="d3">communication</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/communication/websocket.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">['Html', 'Communication', 'En Us', 'Developers']</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Grpc">
+      <data key="d0">Grpc</data>
+      <data key="d1">gRPC Pattern</data>
+      <data key="d2">High-performance, cross-platform RPC framework using Protocol Buffers and HTTP/2</data>
+      <data key="d3">communication</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/communication/grpc.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Service Discovery">
+      <data key="d0">Service Discovery</data>
+      <data key="d1">Service Discovery</data>
+      <data key="d2">Dynamic service location</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/coordination/service-discovery.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Configuration Management">
+      <data key="d0">Configuration Management</data>
+      <data key="d1">Configuration Management</data>
+      <data key="d2">Centralized config</data>
+      <data key="d3">communication</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/communication/architecture/configuration-management.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Health Check">
+      <data key="d0">Health Check</data>
+      <data key="d1">Health Check Pattern</data>
+      <data key="d2">Monitor and verify service health status to enable automated recovery and intelligent load balancing</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/health-check.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Circuit Breaker', 'Graceful Shutdown', 'Observability', 'Scaling', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Load Shedding">
+      <data key="d0">Load Shedding</data>
+      <data key="d1">Load Shedding Pattern</data>
+      <data key="d2">Gracefully dropping load to maintain system stability under extreme pressure</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/load-shedding.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Circuit Breaker', 'Communication', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Timeout">
+      <data key="d0">Timeout</data>
+      <data key="d1">Timeout Pattern</data>
+      <data key="d2">Prevent indefinite waits and resource exhaustion by setting time limits on operations</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/timeout.md</data>
+      <data key="d9">gold</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Retry Backoff', 'Circuit Breaker', 'Bulkhead', 'Health Check', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Fault Tolerance">
+      <data key="d0">Fault Tolerance</data>
+      <data key="d1">Fault Tolerance Pattern</data>
+      <data key="d2">Building systems that continue operating properly despite failures of components</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/fault-tolerance.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">['Retry Backoff', 'Circuit Breaker', 'Bulkhead']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Retry With Exponential Backoff">
+      <data key="d0">Retry With Exponential Backoff</data>
+      <data key="d1">Retry with Exponential Backoff</data>
+      <data key="d2" />
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/retry-backoff.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">recommended</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Heartbeat">
+      <data key="d0">Heartbeat</data>
+      <data key="d1">Heartbeat Pattern</data>
+      <data key="d2">Fundamental mechanism for failure detection and liveness monitoring in distributed systems</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/heartbeat.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Circuit Breaker', 'Health Check', 'Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Circuit Breaker">
+      <data key="d0">Circuit Breaker</data>
+      <data key="d1">Circuit Breaker Pattern</data>
+      <data key="d2">Prevent cascading failures by monitoring and breaking connections to failing services</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/circuit-breaker.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Circuit Breaker Pattern - Complete Mastery Guide">
+      <data key="d0">Circuit Breaker Pattern - Complete Mastery Guide</data>
+      <data key="d1">Circuit Breaker Pattern - Complete Mastery Guide</data>
+      <data key="d2" />
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/circuit-breaker-mastery.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Split-brain Detection &amp; Resolution">
+      <data key="d0">Split-brain Detection &amp; Resolution</data>
+      <data key="d1">Split-Brain Detection &amp; Resolution</data>
+      <data key="d2">Detect and resolve network partitions that divide a distributed system into isolated segments</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/split-brain.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Coordination']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Graceful Degradation">
+      <data key="d0">Graceful Degradation</data>
+      <data key="d1">Graceful Degradation Pattern</data>
+      <data key="d2">Maintaining partial functionality when systems fail instead of complete outage</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/graceful-degradation.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Deployment', 'Circuit Breaker', 'Load Shedding']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Bulkhead">
+      <data key="d0">Bulkhead</data>
+      <data key="d1">Bulkhead Pattern</data>
+      <data key="d2">Isolate system resources to prevent cascading failures, inspired by ship compartmentalization</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/bulkhead.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Circuit Breaker', 'Scaling', 'Timeout']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">['Law 1', 'Law 4', 'Law 7', 'Law 3']</data>
+    </node>
+    <node id="Advanced Timeout">
+      <data key="d0">Advanced Timeout</data>
+      <data key="d1">Advanced Timeout</data>
+      <data key="d2">Sophisticated timeout strategies</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/timeout-advanced.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Rate Limiting - Elite Engineering &amp; State-of-the-art Practices">
+      <data key="d0">Rate Limiting - Elite Engineering &amp; State-of-the-art Practices</data>
+      <data key="d1">Rate Limiting - Elite Engineering &amp; State-of-the-Art Practices</data>
+      <data key="d2" />
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/rate-limiting-elite-engineering.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Failover">
+      <data key="d0">Failover</data>
+      <data key="d1">Failover Pattern</data>
+      <data key="d2">Automatic switching to backup systems during failures to maintain high availability</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/failover.md</data>
+      <data key="d9">silver</data>
+      <data key="d10">use-with-expertise</data>
+      <data key="d5">['Circuit Breaker', 'Health Check', 'Scaling']</data>
+      <data key="d6">[]</data>
+      <data key="d7">[]</data>
+      <data key="d8">[]</data>
+    </node>
+    <node id="Deadline Propagation">
+      <data key="d0">Deadline Propagation</data>
+      <data key="d1">Deadline Propagation</data>
+      <data key="d2">Request deadline tracking</data>
+      <data key="d3">resilience</data>
+      <data key="d4">/home/deepak/DStudio/docs/pattern-library/resilience/coordination/deadline-propagation.md</data>
+      <data key="d5">[]</data>
+      <data key="d6">[]</data>
+      <data key="d7">['Pattern Library']</data>
+      <data key="d8">[]</data>
+    </node>
+    <edge source="Change Data Capture (cdc)" target="Event Sourcing">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Change Data Capture (cdc)" target="Saga">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Saga" target="Event Sourcing">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Saga" target="Outbox">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Deduplication" target="Caching Strategies">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Health Check" target="Circuit Breaker">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Health Check" target="Observability">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Load Shedding" target="Circuit Breaker">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Timeout" target="Circuit Breaker">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Timeout" target="Bulkhead">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Timeout" target="Health Check">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Fault Tolerance" target="Circuit Breaker">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Fault Tolerance" target="Bulkhead">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Heartbeat" target="Circuit Breaker">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Heartbeat" target="Health Check">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Graceful Degradation" target="Circuit Breaker">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Graceful Degradation" target="Load Shedding">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Bulkhead" target="Circuit Breaker">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Bulkhead" target="Timeout">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Failover" target="Circuit Breaker">
+      <data key="d11">related</data>
+    </edge>
+    <edge source="Failover" target="Health Check">
+      <data key="d11">related</data>
+    </edge>
+  </graph>
+</graphml>

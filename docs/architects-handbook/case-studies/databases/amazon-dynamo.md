@@ -256,11 +256,11 @@ graph LR
  E -->|Global Tables| F[100M+ RPS]
  
  A -.-> A1[Single Node<br/>Simple Setup]
- B -.-> B1[Master-Slave<br/>Read Scaling]
+ B -.-> B1[Primary-Replica<br/>Read Scaling]
  C -.-> C1[Sharding<br/>Write Scaling]
  D -.-> D1[Auto-partitioning<br/>Elastic Scaling]
  E -.-> E1[Cross-region<br/>Global Scale]
- F -.-> F1[Global Tables<br/>Multi-master]
+ F -.-> F1[Global Tables<br/>Multi-primary]
 ```
 
 ## Failure Scenarios & Lessons

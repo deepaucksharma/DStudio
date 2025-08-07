@@ -340,7 +340,7 @@ graph LR
     
     ---
     
-    - [Saga Pattern](../coordination/saga.md) - Uses outbox for step coordination
+    - [Saga Pattern](../data-management/saga.md) - Uses outbox for step coordination
     - [CQRS](../data-management/cqrs.md) - Outbox for command events
     - [Event Sourcing](../data-management/event-sourcing.md) - Alternative approach
 
@@ -362,9 +362,9 @@ graph LR
     
     ---
     
-    - [Outbox Setup Guide](../../architects-handbook/implementation-playbooks/guides/outbox-setup.md)
-    - [CDC Configuration](../../architects-handbook/implementation-playbooks/guides/cdc-setup.md)
-    - [Event Schema Design](../../architects-handbook/implementation-playbooks/guides/event-schemas.md)
+    - <!-- TODO: Add Outbox Setup Guide from Architects Handbook -->
+    - <!-- TODO: Add CDC Configuration from Architects Handbook -->
+    - <!-- TODO: Add Event Schema Design from Architects Handbook -->
 
 </div>
 

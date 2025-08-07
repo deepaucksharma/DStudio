@@ -375,9 +375,9 @@ graph LR
     
     ---
     
-    - [Read Repair Setup](../../architects-handbook/implementation-playbooks/guides/read-repair-setup.md)
-    - [Consistency Tuning](../../architects-handbook/implementation-playbooks/guides/consistency-tuning.md)
-    - [Performance Optimization](../../architects-handbook/implementation-playbooks/guides/repair-optimization.md)
+    - <!-- TODO: Add Read Repair Setup from Architects Handbook -->
+    - <!-- TODO: Add Consistency Tuning from Architects Handbook -->
+    - <!-- TODO: Add Performance Optimization from Architects Handbook -->
 
 </div>
 

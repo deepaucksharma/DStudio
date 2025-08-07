@@ -305,7 +305,7 @@ graph TD
 | **[Law 7: Economic Reality](core-principles/laws/economic-reality.md)** | Axiom | Cost optimization driver |
 | **[Pillar 4: Control](core-principles../core-principles/pillars/control-distribution.md)** | Pillar | Access control principles |
 | **[CDN Pattern](../scaling/edge-computing.md)** | Pattern | Combine for global scale |
-| **[Encryption at Rest](../data-management/distributed-storage/#encryption/)** | Pattern | Secure storage layer |
+| **[Encryption at Rest](../data-management/distributed-storage/#encryption.md)** | Pattern | Secure storage layer |
 
 ## Summary
 

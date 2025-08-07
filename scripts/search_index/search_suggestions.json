@@ -1,0 +1,342 @@
+[
+  {
+    "query": "netflix",
+    "pattern_count": 69,
+    "category": "company"
+  },
+  {
+    "query": "google",
+    "pattern_count": 40,
+    "category": "company"
+  },
+  {
+    "query": "aws",
+    "pattern_count": 39,
+    "category": "company"
+  },
+  {
+    "query": "amazon",
+    "pattern_count": 37,
+    "category": "company"
+  },
+  {
+    "query": "uber",
+    "pattern_count": 36,
+    "category": "company"
+  },
+  {
+    "query": "other",
+    "pattern_count": 29,
+    "category": "topic"
+  },
+  {
+    "query": "data management",
+    "pattern_count": 27,
+    "category": "topic"
+  },
+  {
+    "query": "architecture",
+    "pattern_count": 21,
+    "category": "topic"
+  },
+  {
+    "query": "scaling",
+    "pattern_count": 21,
+    "category": "topic"
+  },
+  {
+    "query": "coordination",
+    "pattern_count": 18,
+    "category": "topic"
+  },
+  {
+    "query": "azure",
+    "pattern_count": 17,
+    "category": "company"
+  },
+  {
+    "query": "linkedin",
+    "pattern_count": 16,
+    "category": "company"
+  },
+  {
+    "query": "airbnb",
+    "pattern_count": 15,
+    "category": "company"
+  },
+  {
+    "query": "spotify",
+    "pattern_count": 15,
+    "category": "company"
+  },
+  {
+    "query": "resilience",
+    "pattern_count": 15,
+    "category": "topic"
+  },
+  {
+    "query": "github",
+    "pattern_count": 13,
+    "category": "company"
+  },
+  {
+    "query": "circuit breaker",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "microservices",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "load balancing",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "caching",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "event sourcing",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "saga",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "api gateway",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "service mesh",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "sharding",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "retry",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "timeout",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "health check",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "monitoring",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "kubernetes",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "docker",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "aws",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "netflix",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "uber",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "google",
+    "pattern_count": 10,
+    "category": "popular"
+  },
+  {
+    "query": "microsoft",
+    "pattern_count": 10,
+    "category": "company"
+  },
+  {
+    "query": "google cloud",
+    "pattern_count": 9,
+    "category": "company"
+  },
+  {
+    "query": "discord",
+    "pattern_count": 9,
+    "category": "company"
+  },
+  {
+    "query": "communication",
+    "pattern_count": 9,
+    "category": "topic"
+  },
+  {
+    "query": "facebook",
+    "pattern_count": 8,
+    "category": "company"
+  },
+  {
+    "query": "stripe",
+    "pattern_count": 8,
+    "category": "company"
+  },
+  {
+    "query": "gcp",
+    "pattern_count": 8,
+    "category": "company"
+  },
+  {
+    "query": "twitter",
+    "pattern_count": 8,
+    "category": "company"
+  },
+  {
+    "query": "security",
+    "pattern_count": 8,
+    "category": "topic"
+  },
+  {
+    "query": "meta",
+    "pattern_count": 6,
+    "category": "company"
+  },
+  {
+    "query": "booking",
+    "pattern_count": 6,
+    "category": "company"
+  },
+  {
+    "query": "slack",
+    "pattern_count": 5,
+    "category": "company"
+  },
+  {
+    "query": "ml infrastructure",
+    "pattern_count": 5,
+    "category": "topic"
+  },
+  {
+    "query": "pinterest",
+    "pattern_count": 4,
+    "category": "company"
+  },
+  {
+    "query": "cost optimization",
+    "pattern_count": 4,
+    "category": "topic"
+  },
+  {
+    "query": "deployment",
+    "pattern_count": 4,
+    "category": "topic"
+  },
+  {
+    "query": "paypal",
+    "pattern_count": 3,
+    "category": "company"
+  },
+  {
+    "query": "lyft",
+    "pattern_count": 3,
+    "category": "company"
+  },
+  {
+    "query": "tesla",
+    "pattern_count": 3,
+    "category": "company"
+  },
+  {
+    "query": "salesforce",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "shopify",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "cloudflare",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "cockroachdb",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "mongodb",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "kubernetes",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "apache kafka",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "oracle",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "apache cassandra",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "redis",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "openai",
+    "pattern_count": 2,
+    "category": "company"
+  },
+  {
+    "query": "pattern library",
+    "pattern_count": 1,
+    "category": "topic"
+  },
+  {
+    "query": "observability",
+    "pattern_count": 1,
+    "category": "topic"
+  },
+  {
+    "query": "visual assets",
+    "pattern_count": 1,
+    "category": "topic"
+  }
+]

@@ -733,9 +733,9 @@ async def main():
     
     ---
     
-    - [Kubernetes Production Setup](../../architects-handbook/implementation-playbooks/guides/k8s-production.md)
-    - [Container Security Best Practices](../../architects-handbook/implementation-playbooks/guides/container-security.md)
-    - [Cluster Monitoring and Observability](../../architects-handbook/implementation-playbooks/guides/k8s-monitoring.md)
+    - <!-- TODO: Add Kubernetes Production Setup from Architects Handbook -->
+    - <!-- TODO: Add Container Security Best Practices from Architects Handbook -->
+    - <!-- TODO: Add Cluster Monitoring and Observability from Architects Handbook -->
 
 </div>
 
