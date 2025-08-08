@@ -9,7 +9,7 @@ repo_url: https://github.com/deepaucksharma/DStudio
 edit_uri: edit/main/docs/
 
 # Enable strict mode for validation
-strict: true
+strict: false
 validation:
   nav:
     omitted_files: warn
@@ -977,7 +977,6 @@ nav:
   - Admonition Guide: reference/admonition-guide.md
   - Recipe Cards: reference/recipe-cards.md
   - Offline Support: reference/offline.md
-strict: false
 use_directory_urls: true
 docs_dir: docs
 site_dir: site
