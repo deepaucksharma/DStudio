@@ -2,22 +2,29 @@
 // Provides offline support and performance optimization
 
 const CACHE_NAME = 'dstudio-v1';
-const OFFLINE_URL = '/offline/';
+
+// Determine the base path of the service worker. This allows the worker to
+// operate correctly when the site is served from a subdirectory such as on
+// GitHub Pages.
+const BASE_PATH = self.location.pathname.replace(/sw\.js$/, '');
+
+// Construct URLs relative to the service worker's location
+const OFFLINE_URL = `${BASE_PATH}offline/`;
 
 // Files to cache immediately
 const PRECACHE_URLS = [
-  '/',
-  '/offline/',
-  '/assets/stylesheets/main.css',
-  '/assets/javascripts/bundle.js',
-  '/stylesheets/layout.css',
-  '/stylesheets/custom.css',
-  '/stylesheets/navigation.css',
-  '/stylesheets/themes.css',
-  '/javascripts/custom.js',
-  '/javascripts/navigation.js',
-  '/javascripts/keyboard-shortcuts.js'
-];
+  '', // Root page
+  'offline/',
+  'assets/stylesheets/main.css',
+  'assets/javascripts/bundle.js',
+  'stylesheets/layout.css',
+  'stylesheets/custom.css',
+  'stylesheets/navigation.css',
+  'stylesheets/themes.css',
+  'javascripts/custom.js',
+  'javascripts/navigation.js',
+  'javascripts/keyboard-shortcuts.js'
+].map(path => `${BASE_PATH}${path}`);
 
 // Install event - cache essential files
 self.addEventListener('install', event => {
