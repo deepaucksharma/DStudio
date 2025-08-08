@@ -10,27 +10,27 @@ repos:
         language: python
         files: \.md$
         additional_dependencies: [pyyaml]
-        
+
       - id: validate-law-references
         name: Check Law References
         entry: python scripts/validate-law-references.py
         language: python
         files: \.md$
         additional_dependencies: [pyyaml]
-        
+
       - id: validate-paths
         name: Validate Path Consistency
         entry: python scripts/validate-paths.py
         language: python
         files: \.md$
-        
+
       - id: check-broken-links
         name: Check Broken Internal Links
         entry: python scripts/check-broken-links.py
         language: python
         files: \.md$
         pass_filenames: false
-        
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
@@ -41,7 +41,7 @@ repos:
         args: ['--maxkb=1000']
       - id: mixed-line-ending
         args: ['--fix=lf']
-        
+
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.37.0
     hooks:
