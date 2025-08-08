@@ -2,21 +2,26 @@
 // Provides offline support and performance optimization
 
 const CACHE_NAME = 'dstudio-v1';
-const OFFLINE_URL = '/offline/';
+const OFFLINE_URL = 'reference/offline/';
 
 // Files to cache immediately
 const PRECACHE_URLS = [
-  '/',
-  '/offline/',
-  '/assets/stylesheets/main.css',
-  '/assets/javascripts/bundle.js',
-  '/stylesheets/layout.css',
-  '/stylesheets/custom.css',
-  '/stylesheets/navigation.css',
-  '/stylesheets/themes.css',
-  '/javascripts/custom.js',
-  '/javascripts/navigation.js',
-  '/javascripts/keyboard-shortcuts.js'
+  './',
+  'reference/offline/',
+  'stylesheets/calculator.css',
+  'stylesheets/content-limits.css',
+  'stylesheets/custom.css',
+  'stylesheets/extra.css',
+  'stylesheets/hide-toc.css',
+  'stylesheets/pattern-filtering.css',
+  'stylesheets/progress-tracker.css',
+  'stylesheets/responsive-table.css',
+  'stylesheets/visual-components.css',
+  'javascripts/custom.js',
+  'javascripts/mathjax-config.js',
+  'javascripts/mermaid-init.js',
+  'javascripts/pattern-filtering.js',
+  'javascripts/progress-tracker.js'
 ];
 
 // Install event - cache essential files
@@ -69,7 +74,7 @@ self.addEventListener('fetch', event => {
         if (event.request.mode === 'navigate') {
           return caches.match(OFFLINE_URL);
         }
-        
+
         // For other requests, return a fallback response
         return new Response('Offline', {
           status: 503,
@@ -108,7 +113,7 @@ self.addEventListener('message', event => {
   if (event.data.action === 'skipWaiting') {
     self.skipWaiting();
   }
-  
+
   if (event.data.action === 'clearCache') {
     caches.delete(CACHE_NAME).then(() => {
       console.log('Service Worker: Cache cleared');
@@ -140,12 +145,12 @@ async function updateContent() {
   // Update cached content in background
   const cache = await caches.open(CACHE_NAME);
   const requests = await cache.keys();
-  
+
   // Update HTML pages
-  const htmlRequests = requests.filter(request => 
+  const htmlRequests = requests.filter(request =>
     request.url.endsWith('/') || request.url.endsWith('.html')
   );
-  
+
   for (const request of htmlRequests) {
     try {
       const response = await fetch(request);
