@@ -256,7 +256,6 @@ plugins:
       # excellence/: architects-handbook/implementation-playbooks/ # Directory redirect removed
       # excellence/tools/: architects-handbook/tools/ # Directory redirect removed
       # excellence/case-studies/: architects-handbook/case-studies/ # Directory redirect removed
-      excellence/migrations/MIGRATION_GUIDES_COMPLETE.md: excellence/migrations/index.md
 - mermaid2:
     version: '10.4.0'
 markdown_extensions:
@@ -727,13 +726,12 @@ nav:
       - Anti-Entropy to CRDT: excellence/migrations/anti-entropy-to-crdt.md
       - Batch to Streaming: excellence/migrations/batch-to-streaming.md
       - Gossip to Service Mesh: excellence/migrations/gossip-to-service-mesh.md
-      - Master-Slave to Multi-Primary: excellence/migrations/master-slave-to-multi-primary.md
+      - Primary-Replica to Multi-Primary: excellence/migrations/primary-replica-to-multi-primary.md
       - Monolith to Microservices: excellence/migrations/monolith-to-microservices.md
       - Polling to WebSocket: excellence/migrations/polling-to-websocket.md
       - Shared Database to Microservices: excellence/migrations/shared-database-to-microservices.md
       - Thick Client to API First: excellence/migrations/thick-client-to-api-first.md
       - Vector Clocks to HLC: excellence/migrations/vector-clocks-to-hlc.md
-      - Migration Guides Complete: excellence/migrations/MIGRATION_GUIDES_COMPLETE.md
   - Quantitative Analysis:
     - Overview: architects-handbook/quantitative-analysis/index.md
     - Core Laws & Principles:
