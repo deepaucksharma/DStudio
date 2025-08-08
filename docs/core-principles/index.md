@@ -48,6 +48,7 @@ graph TB
     |-----|---------|
     | [Correlated Failure](laws/correlated-failure.md) | Failures cascade across system boundaries |
     | [Asynchronous Reality](laws/asynchronous-reality.md) | Networks are inherently unreliable and slow |
+    | [Temporal Constraints](laws/temporal-constraints.md) | Perfect time synchronization is unattainable |
     | [Emergent Chaos](laws/emergent-chaos.md) | Complexity emerges from simple interactions |
     | [Multidimensional Optimization](laws/multidimensional-optimization.md) | Every trade-off has multiple dimensions |
     | [Distributed Knowledge](laws/distributed-knowledge.md) | Perfect knowledge is physically impossible |

@@ -65,12 +65,20 @@ Choose your learning intensity:
     *📖 Study time: 2-3 hours | 🧠 Difficulty: Low | 💼 Immediate impact: Very High*
 
 - **[Law of Asynchronous Reality](asynchronous-reality.md)**
-    
+
     ---
-    
+
     Perfect synchronization is impossible in distributed systems
-    
+
     *📖 Study time: 4-5 hours | 🧠 Difficulty: High | 💼 Immediate impact: High*
+
+- **[Law of Temporal Constraints](temporal-constraints.md)**
+
+    ---
+
+    Clock drift and relativistic limits prevent a single global timeline
+
+    *📖 Study time: 3-4 hours | 🧠 Difficulty: Medium | 💼 Immediate impact: High*
 
 - **[Law of Multidimensional Optimization](multidimensional-optimization.md)**
     

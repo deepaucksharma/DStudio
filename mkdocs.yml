@@ -350,6 +350,7 @@ nav:
     - Law 5 - Distributed Knowledge: core-principles/laws/distributed-knowledge.md
     - Law 6 - Cognitive Load: core-principles/laws/cognitive-load.md
     - Law 7 - Economic Reality: core-principles/laws/economic-reality.md
+    - Law 8 - Temporal Constraints: core-principles/laws/temporal-constraints.md
     - Interactive Tests:
       - Overview: core-principles/laws/tests/index.md
       - Law 1 Learning Module: core-principles/laws/tests/correlated-failure-test.md
