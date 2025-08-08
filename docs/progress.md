@@ -27,14 +27,37 @@ Using the progress tracker involves selecting appropriate learning paths based o
 
 ## Examples
 
-*This section needs to be completed.*
+Below are sample ways to record and review progress:
+
+### Milestone tracking for a learning path
+
+| Date       | Path        | Milestone                            | Status |
+|------------|-------------|--------------------------------------|--------|
+| 2025-08-07 | Foundations | Complete module 1: Work Distribution | ✅ Done |
+| 2025-08-08 | Foundations | Quiz for module 1                    | 🚧 In progress |
+| 2025-08-09 | Foundations | Begin module 2: State Distribution   | ⏳ Planned |
+
+### Use case: skill refresh cycle
+
+1. Select the "Flow Control" module.
+2. Log daily practice exercises in the tracker.
+3. Mark the milestone complete when practice questions reach 80% accuracy.
 
 
 ## Troubleshooting
 
-*This section needs to be completed.*
+Common issues and fixes:
+
+- **Lost progress entries**
+  - Verify that the tracker is synced to a remote repository or cloud storage.
+  - Restore from a previous commit or backup of `LEARNING_MODULE_TRACKER.md` if available.
+- **Incorrect milestone status**
+  - Confirm that milestones map to the correct module and update the entry if needed.
+  - Recalculate completion metrics after making corrections.
 
 
 ## Next Steps
 
-*This section needs to be completed.*
+- Explore detailed learning paths in the [Start Here](start-here/) guide to choose your next module.
+- Use the [Learning Module Tracker](../LEARNING_MODULE_TRACKER.md) for full module tracking across the 7 Fundamental Laws.
+- Try advanced tools such as the [Availability Calculator](architects-handbook/tools/availability-calculator/) or the [Pattern Health Dashboard](reference/pattern-health-dashboard/) to plan future study sessions.
