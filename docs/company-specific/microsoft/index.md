@@ -1,6 +1,6 @@
 ---
 title: Microsoft Interview Guide
-description: > **Note**: This company-specific guide is under construction.
+description: Comprehensive interview preparation guide for Microsoft's engineering roles, emphasizing growth mindset, inclusive leadership, and enterprise-scale solutions.
 type: documentation
 category: company-specific
 tags: [company-specific]

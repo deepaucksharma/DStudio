@@ -559,10 +559,81 @@ Prevents emergent cascading behaviors:
 
 ## Related Patterns
 
-| Pattern | Relationship | When to Combine |
-|---------|--------------|-----------------|
-| [Retry](./retry-backoff.md) | Handles transient failures | Always - retry before circuit opens |
-| [Bulkhead](./bulkhead.md) | Isolates resources | High-traffic services |
-| [Timeout](./timeout.md) | Triggers breaker | Always - timeout < breaker window |
-| [Health Check](./health-check.md) | Proactive detection | Large deployments |
-| [Rate Limiter](../scaling/rate-limiting.md) | Prevents overload | Public APIs |
+### Complementary Patterns (Work Well Together)
+
+| Pattern | Relationship | Integration Strategy | When to Combine |
+|---------|--------------|---------------------|------------------|
+| **[Retry with Backoff](./retry-backoff.md)** | **Primary complement** - Retry handles transient failures before circuit opens | Circuit breaker timeout must be longer than total retry duration (including backoff). Retry logic should check circuit state before each attempt | Always - Essential combination for any external dependency |
+| **[Timeout](./timeout.md)** | **Essential prerequisite** - Timeout triggers circuit breaker failure detection | Configure timeout values in cascade: client timeout > circuit timeout > service timeout. Circuit breaker failure threshold should account for timeout frequency | Always - Circuit breaker cannot function without proper timeouts |
+| **[Bulkhead](./bulkhead.md)** | **Resource isolation** - Contains circuit breaker failures to specific resource pools | Deploy separate circuit breakers per bulkhead/resource pool. Configure different thresholds based on resource criticality | High-traffic services with multiple dependencies |
+| **[Health Check](./health-check.md)** | **Proactive detection** - Detects failures before circuit breaker reactive measures | Use health check data to inform circuit breaker thresholds. Combine passive (health check) and active (circuit breaker) failure detection | Large deployments with predictable failure patterns |
+
+### Alternative Patterns (Different Approaches)
+
+| Pattern | Relationship | Trade-offs | When to Choose Circuit Breaker |
+|---------|--------------|------------|--------------------------------|
+| **[Rate Limiting](../scaling/rate-limiting.md)** | **Load management** - Both prevent overload but different mechanisms | Rate limiting caps requests vs circuit breaker stops failing calls. Combine for comprehensive protection | When failures are due to capacity issues rather than traffic volume |
+| **[Load Shedding](./load-shedding.md)** | **Traffic management** - Drops traffic under extreme load vs failing fast | Load shedding drops lowest priority vs circuit breaker stops all traffic. Complementary rather than alternative | When you need smart failure handling vs bulk traffic dropping |
+
+### Extension Patterns (Build Upon Circuit Breaker)
+
+| Pattern | Relationship | Implementation | When to Extend |
+|---------|--------------|----------------|----------------|
+| **[Graceful Degradation](./graceful-degradation.md)** | **Failure response** - Provides meaningful fallback when circuit is open | Circuit breaker triggers graceful degradation modes. Use circuit state to determine degradation level | Non-critical features that can operate in reduced functionality |
+| **[Service Discovery](../communication/service-discovery.md)** | **Dynamic routing** - Routes around failing services based on circuit state | Integrate circuit breaker state with service registry. Remove services with open circuits from load balancing pools | Microservices architectures with dynamic topologies |
+| **[Load Balancing](../scaling/load-balancing.md)** | **Traffic distribution** - Uses circuit state for routing decisions | Load balancer should check circuit breaker state before routing. Remove backends with open circuits from active pool | Multi-instance services requiring intelligent traffic distribution |
+
+### Advanced Pattern Combinations
+
+#### Triple Protection Pattern (Circuit Breaker + Retry + Timeout)
+```yaml
+Configuration:
+  timeout: 2s              # Individual request timeout
+  circuit_breaker:
+    failure_threshold: 5    # Open after 5 failures
+    timeout: 30s           # Stay open for 30s
+  retry:
+    max_attempts: 3
+    backoff: exponential
+    total_timeout: 5s      # Must be < circuit_breaker.timeout
+```
+
+**Benefits**: Handles transient failures (retry), prevents cascade failures (circuit breaker), bounds resource usage (timeout)  
+**Use Case**: External API calls, database connections, microservice communication
+
+#### Bulkhead Isolation Pattern (Circuit Breaker per Resource Pool)
+```yaml
+bulkheads:
+  critical_services:
+    thread_pool_size: 50
+    circuit_breaker:
+      failure_threshold: 3   # More sensitive for critical
+      timeout: 15s
+  
+  analytics_services:
+    thread_pool_size: 20
+    circuit_breaker:
+      failure_threshold: 10  # More tolerant for non-critical
+      timeout: 60s
+```
+
+**Benefits**: Prevents cross-contamination between service types, allows different reliability policies  
+**Use Case**: Multi-tenant systems, mixed-criticality services
+
+### Implementation Priority Guide
+
+**Phase 1: Essential Dependencies (Week 1)**
+1. **Timeout Implementation** - Must be in place before circuit breaker
+2. **Basic Retry Logic** - Handle transient failures first
+3. **Monitoring Foundation** - Track failure rates and response times
+
+**Phase 2: Circuit Breaker Core (Week 2-3)**
+1. **State Machine Implementation** - CLOSED/OPEN/HALF-OPEN logic
+2. **Threshold Configuration** - Start conservative (5 failures, 30s timeout)
+3. **Fallback Mechanisms** - Basic error responses or cached data
+
+**Phase 3: Advanced Integration (Week 4+)**
+1. **Bulkhead Integration** - Per-service or per-resource-pool circuit breakers
+2. **Health Check Coordination** - Proactive failure detection
+3. **Load Balancer Integration** - Remove failing services from rotation
+4. **Graceful Degradation** - Sophisticated fallback strategies

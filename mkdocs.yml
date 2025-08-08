@@ -22,6 +22,7 @@ validation:
 theme:
   name: material
   language: en
+  custom_dir: overrides
   features:
   - navigation.instant
   - navigation.instant.prefetch
@@ -50,6 +51,8 @@ theme:
   - content.tooltips
   - header.autohide
   - announce.dismiss
+  - status.badges
+  - navigation.breadcrumbs
   palette:
   - media: (prefers-color-scheme)
     toggle:
@@ -77,10 +80,30 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
+  favicon: assets/favicon.ico
 plugins:
 - search:
     lang: en
     separator: '[\s\-\.]+'
+    prebuild_index: python
+- tags:
+    tags_file: reference/tags.md
+- git-revision-date-localized:
+    type: date
+    enable_creation_date: true
+- minify:
+    minify_html: true
+    minify_js: true
+    minify_css: true
+    htmlmin_opts:
+      remove_comments: true
+- glightbox:
+    touchNavigation: true
+    loop: false
+    effect: zoom
+    slide_effect: slide
+    width: 100%
+    height: auto
 - redirects:
     redirect_maps:
       patterns/anti-entropy.md: pattern-library/data-management/event-sourcing.md
@@ -312,15 +335,28 @@ extra_javascript:
 extra:
   generator: false
   tags:
-    laws: part1-axioms
-    pillars: part2-pillars
-    patterns: patterns
+    laws: core-principles-laws
+    pillars: core-principles-pillars
+    patterns: pattern-library
+    gold-tier: gold-patterns
+    mastery: mastery-modules
+    case-studies: case-studies
+    tools: interactive-tools
   version:
     provider: mike
     default: latest
   analytics:
     provider: google
     property: G-XXXXXXXXXX
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/deepaucksharma/DStudio
+    - icon: fontawesome/solid/book
+      link: https://deepaucksharma.github.io/DStudio/
+  status:
+    new: "New in v2.0"
+    updated: "Updated in v2.0" 
+    deprecated: "Deprecated"
   mathjax:
     path: https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
     options:
@@ -338,7 +374,12 @@ exclude_docs: 'templates/
   '
 nav:
 - Home: index.md
-- Start Here: start-here/index.md
+- 🚀 Quick Links:
+  - Start Here: start-here/index.md
+  - Glossary: glossary.md
+  - Pattern Discovery: excellence/pattern-discovery/index.md
+  - Cross-Reference Matrix: reference/cross-reference-matrix.md
+  - Problem-Pattern Guide: pattern-library/problem-pattern-guide.md
 - Part 1 - Core Principles:
   - Overview: core-principles/index.md
   - The 7 Laws:
@@ -387,7 +428,8 @@ nav:
         - Quick Assessment: core-principles/pillars/tests/intelligence-distribution-test.md
 - Part 2 - Pattern Library:
   - Overview: pattern-library/index.md
-  - Pattern Tools & Resources:
+  - 🔧 Pattern Tools & Resources:
+    - Problem-Pattern Guide: pattern-library/problem-pattern-guide.md
     - Pattern Synthesis Guide: pattern-library/pattern-synthesis-guide.md
     - Pattern Relationship Map: pattern-library/pattern-relationship-map.md
     - Pattern Decision Matrix: pattern-library/pattern-decision-matrix.md
@@ -416,12 +458,15 @@ nav:
       - Circuit Breaker Mastery: pattern-library/resilience/circuit-breaker-mastery.md
       - Circuit Breaker Module: pattern-library/resilience/circuit-breaker-module.md
       - Retry & Backoff: pattern-library/resilience/retry-backoff.md
+      - Retry & Backoff Elite: pattern-library/resilience/retry-backoff-gold.md
       - Timeout: pattern-library/resilience/timeout.md
       - Advanced Timeout Strategies: pattern-library/resilience/timeout-advanced.md
       - Rate Limiting Elite: pattern-library/resilience/rate-limiting-elite-engineering.md
     - System Protection:
       - Bulkhead: pattern-library/resilience/bulkhead.md
+      - Bulkhead Elite: pattern-library/resilience/bulkhead-gold.md
       - Load Shedding: pattern-library/resilience/load-shedding.md
+      - Load Shedding Elite: pattern-library/resilience/load-shedding-gold.md
       - Graceful Degradation: pattern-library/resilience/graceful-degradation.md
     - Health & Monitoring:
       - Health Check: pattern-library/resilience/health-check.md
@@ -468,6 +513,7 @@ nav:
     - Data Quality & Processing:
       - Write-Ahead Log: pattern-library/data-management/write-ahead-log.md
       - Deduplication: pattern-library/data-management/deduplication.md
+      - Idempotency Keys Elite: pattern-library/data-management/idempotency-keys-gold.md
   - Scaling Patterns:
     - Overview: pattern-library/scaling/index.md
     - Load Distribution:
@@ -476,6 +522,7 @@ nav:
       - Scatter-Gather: pattern-library/scaling/scatter-gather.md
     - Caching & Performance:
       - Caching Strategies: pattern-library/scaling/caching-strategies.md
+      - Cache-Aside Elite: pattern-library/scaling/cache-aside-gold.md
       - Tile Caching: pattern-library/scaling/tile-caching.md
     - Resource Management:
       - Auto-Scaling: pattern-library/scaling/auto-scaling.md
@@ -583,9 +630,17 @@ nav:
     - Resource Rightsizing: pattern-library/cost-optimization/resource-rightsizing.md
 - Part 3 - Architect's Handbook:
   - Overview: architects-handbook/index.md
-  - Case Studies:
+  - 🏆 Featured Case Studies:
+    - Overview: case-studies/index.md
+    - Amazon DynamoDB: case-studies/amazon-dynamodb.md
+    - Apache Kafka: case-studies/apache-kafka.md
+    - Google Spanner: case-studies/google-spanner.md
+    - Netflix Playback Pipeline: case-studies/netflix-playback-pipeline.md
+    - Twitter Timeline: case-studies/twitter-timeline.md
+    - Uber Location Services: case-studies/uber-location-services.md
+  - 📚 Comprehensive Case Studies:
     - Overview: architects-handbook/case-studies/index.md
-    - System Design:
+    - System Design Classics:
       - News Feed: architects-handbook/case-studies/social-communication/news-feed.md
       - Payment System: architects-handbook/case-studies/financial-commerce/payment-system.md
       - Video Streaming: architects-handbook/case-studies/messaging-streaming/netflix-streaming.md
@@ -717,9 +772,15 @@ nav:
       - Service Communication: excellence/implementation-guides/service-communication.md
     - Pattern Discovery:
       - Overview: excellence/pattern-discovery/index.md
-      - Gold Patterns: excellence/pattern-discovery/gold-patterns/index.md
-      - Silver Patterns: excellence/pattern-discovery/silver-patterns/index.md
-      - Bronze Patterns: excellence/pattern-discovery/bronze-patterns/index.md
+      - Gold Tier Patterns:
+      - Overview: excellence/pattern-discovery/gold-patterns/index.md
+      - Idempotency Keys Elite: pattern-library/data-management/idempotency-keys-gold.md
+      - Bulkhead Elite: pattern-library/resilience/bulkhead-gold.md
+      - Load Shedding Elite: pattern-library/resilience/load-shedding-gold.md
+      - Retry & Backoff Elite: pattern-library/resilience/retry-backoff-gold.md
+      - Cache-Aside Elite: pattern-library/scaling/cache-aside-gold.md
+    - Silver Patterns: excellence/pattern-discovery/silver-patterns/index.md
+    - Bronze Patterns: excellence/pattern-discovery/bronze-patterns/index.md
     - Migration Guides:
       - Overview: excellence/migrations/index.md
       - Migration Playbook Template: excellence/migrations/migration-playbook-template.md
@@ -955,29 +1016,37 @@ nav:
     - Overview: interview-prep/coding-interviews/index.md
     - Algorithm Patterns: interview-prep/coding-interviews/algorithm-patterns.md
     - Interview Tips: interview-prep/coding-interviews/interview-tips.md
-- Reference:
-  - Overview: reference/index.md
+- 📋 Contributing:
   - How to Contribute: reference/contributing.md
-  - Glossary: reference/glossary.md
-  - Formatting Guide: reference/formatting-guide.md
-  - Validation Guide: reference/validation-guide.md
-  - Pattern Health Dashboard: reference/pattern-health-dashboard.md
-  - Your Progress: progress.md
-  - Pattern Meta-Analysis: reference/pattern-meta-analysis.md
-  - Pattern Dependency Graph: reference/pattern-dependency-graph.md
-  - Pattern Evolution Timeline: reference/pattern-evolution-timeline.md
-  - Pattern Selection Cheatsheet: reference/pattern-selection-cheatsheet.md
-  - Pattern Template: reference/pattern-template.md
-  - Security Considerations: reference/security.md
-  - Cheat Sheets: reference/cheat-sheets.md
-  - Keyboard Shortcuts: reference/keyboard-shortcuts.md
-  - Tags: reference/tags.md
-  - Navigation Guide: reference/navigation-guide.md
-  - Navigation Maintenance: reference/navigation-maintenance.md
-  - Law Mapping Guide: reference/law-mapping-guide.md
-  - Admonition Guide: reference/admonition-guide.md
-  - Recipe Cards: reference/recipe-cards.md
-  - Offline Support: reference/offline.md
+  - Style Guide: contributing/style-guide.md
+- 📚 Reference & Resources:
+  - Overview: reference/index.md
+  - Quick Reference:
+    - Glossary: reference/glossary.md
+    - Main Glossary: glossary.md
+    - Cross-Reference Matrix: reference/cross-reference-matrix.md
+    - Tags: reference/tags.md
+    - Cheat Sheets: reference/cheat-sheets.md
+  - Documentation Guides:
+    - Formatting Guide: reference/formatting-guide.md
+    - Validation Guide: reference/validation-guide.md
+    - Admonition Guide: reference/admonition-guide.md
+    - Navigation Guide: reference/navigation-guide.md
+    - Navigation Maintenance: reference/navigation-maintenance.md
+  - Pattern Resources:
+    - Pattern Health Dashboard: reference/pattern-health-dashboard.md
+    - Pattern Meta-Analysis: reference/pattern-meta-analysis.md
+    - Pattern Dependency Graph: reference/pattern-dependency-graph.md
+    - Pattern Evolution Timeline: reference/pattern-evolution-timeline.md
+    - Pattern Selection Cheatsheet: reference/pattern-selection-cheatsheet.md
+    - Pattern Template: reference/pattern-template.md
+    - Law Mapping Guide: reference/law-mapping-guide.md
+  - Tools & Utilities:
+    - Your Progress: progress.md
+    - Security Considerations: reference/security.md
+    - Keyboard Shortcuts: reference/keyboard-shortcuts.md
+    - Recipe Cards: reference/recipe-cards.md
+    - Offline Support: reference/offline.md
 use_directory_urls: true
 docs_dir: docs
 site_dir: site

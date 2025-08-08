@@ -1,8 +1,8 @@
 ---
 type: pattern
 category: pattern-library
-title: Index
-description: 'TODO: Add description'
+title: Pattern Library Index
+description: 'Comprehensive collection of 130+ battle-tested distributed systems patterns from industry leaders like Netflix, Google, Amazon, and Uber'
 ---
 
 # Pattern Library: 130 Distributed Systems Patterns

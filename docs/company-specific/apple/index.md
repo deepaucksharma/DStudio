@@ -1,6 +1,6 @@
 ---
 title: Apple Interview Guide
-description: > **Note**: This company-specific guide is under construction.
+description: Comprehensive interview preparation guide for Apple's engineering roles, focusing on privacy-first design, user experience excellence, and cross-platform integration.
 type: documentation
 category: company-specific
 tags: [company-specific]

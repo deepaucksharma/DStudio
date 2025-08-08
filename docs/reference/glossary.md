@@ -27,7 +27,7 @@ Messages may be delivered multiple times but will not be lost. Requires idempote
 
 **Trade-offs**: Higher reliability vs. duplicate handling complexity
 
-**Related**: Idempotent Receiver (Coming Soon), [Outbox Pattern](../pattern-library/data-management/outbox.md)
+**Related**: Idempotent processing patterns, [Outbox Pattern](../pattern-library/data-management/outbox.md)
 
 ### Availability
 Percentage of time a system is operational. Often measured as "nines".

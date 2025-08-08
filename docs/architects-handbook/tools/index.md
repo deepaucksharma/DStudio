@@ -1,119 +1,56 @@
 ---
-title: Tools
-description: Tools overview and navigation
+title: Interactive Tools & Calculators
+description: Production-ready tools for capacity planning, performance analysis, and architectural decision-making in distributed systems.
+type: documentation
+reading_time: 5 min
 ---
 
 # Interactive Tools & Calculators
-
-
 
 ## Overview
 
-Tools
-description: Tools overview and navigation
----
+These interactive tools transform the mathematical principles from our [Quantitative Analysis Toolkit](../quantitative-analysis/index.md) into practical calculators for real-world architectural decisions. Each tool provides immediate feedback on system design trade-offs with production-validated formulas.
 
-# Interactive Tools & Calculators
+## 📊 Performance & Capacity Planning
 
-## Table of Contents
+### Core Performance Tools
 
-- [Quick Links to Theory](#quick-links-to-theory)
-- [How to Use These Tools](#how-to-use-these-tools)
-- [Coming Soon](#coming-soon)
-- [Contribute](#contribute)
-
-
-
-<div class="tools-intro">
-<h2>🛠️ Distributed Systems Calculators</h2>
-<p>Interactive tools to help you make data-driven decisions for your distributed systems. Based on the mathematical principles from our <a href=".
-
-**Reading time:** ~2 minutes
-
-## Table of Contents
-
-- [Quick Links to Theory](#quick-links-to-theory)
-- [How to Use These Tools](#how-to-use-these-tools)
-- [Coming Soon](#coming-soon)
-- [Contribute](#contribute)
-
-
-
-<div class="tools-intro">
-<h2>🛠️ Distributed Systems Calculators</h2>
-<p>Interactive tools to help you make data-driven decisions for your distributed systems. Based on the mathematical principles from our <a href="../quantitative-analysis/index.md">Quantitative Toolkit</a>.</p>
-
-<h3>📊 Performance & Capacity</h3>
 <div class="tools-grid">
 
-<a href="latency-calculator.md" class="tool-card">
-<div class="tool-icon">⏱️
-Latency Calculator
-Calculate end-to-end latency, network delays, and response times using Little's Law and queueing theory.
-</a>
-
-<a href="capacity-calculator.md" class="tool-card">
-📈
-Capacity Planning Calculator
-Plan resource allocation, predict scaling needs, and optimize throughput based on workload patterns.
-</a>
-
-<a href="throughput-calculator.md" class="tool-card">
-🚀
-Throughput Optimizer
-Find optimal batch sizes, concurrency levels, and pipeline configurations for maximum throughput.
-</a>
+- **[⏱️ Latency Calculator](latency-calculator.md)** - Calculate end-to-end latency, network delays, and response times using Little's Law and queueing theory
+- **[📈 Capacity Planning Calculator](capacity-calculator.md)** - Plan resource allocation, predict scaling needs, and optimize throughput based on workload patterns  
+- **[🚀 Throughput Optimizer](throughput-calculator.md)** - Find optimal batch sizes, concurrency levels, and pipeline configurations for maximum throughput
 
 </div>
-</div>
 
-<h3>🛡️ Reliability & Availability</h3>
+### 🛡️ Reliability & Availability
+
 <div class="tools-grid">
 
-<a href="availability-calculator.md" class="tool-card">
-<div class="tool-icon">✅
-Availability Calculator
-Calculate system availability, MTBF, MTTR, and the impact of redundancy on uptime.
-</a>
-
-<!-- Coming Soon: Failure Probability Estimator -->
-
-<!-- Coming Soon: Replication Strategy Planner -->
+- **[✅ Availability Calculator](availability-calculator.md)** - Calculate system availability, MTBF, MTTR, and the impact of redundancy on uptime
+- **[⚠️ Failure Probability Estimator](../quantitative-analysis/reliability-theory.md)** - Analyze failure modes and calculate system reliability
+- **[🔄 Replication Strategy Planner](../quantitative-analysis/consistency-models.md)** - Compare replication strategies and consistency guarantees
 
 </div>
-</div>
 
-<h3>💰 Cost & Economics</h3>
+### 💰 Cost & Economics
+
 <div class="tools-grid">
 
-<a href="cost-optimizer.md" class="tool-card">
-<div class="tool-icon">💵
-Cost Optimization Calculator
-Compare on-premise vs cloud costs, calculate TCO, and find optimal resource allocation.
-</a>
-
-<!-- Coming Soon: Architecture ROI Calculator -->
-
-<!-- Coming Soon: Storage Economics Calculator -->
+- **[💵 Cost Optimization Calculator](cost-optimizer.md)** - Compare on-premise vs cloud costs, calculate TCO, and find optimal resource allocation
+- **[📊 Architecture ROI Calculator](../quantitative-analysis/storage-economics.md)** - Calculate return on investment for architectural improvements
+- **[💾 Storage Economics Calculator](../quantitative-analysis/storage-economics.md)** - Optimize storage costs across different tiers and providers
 
 </div>
-</div>
 
-<h3>🎯 Decision Support</h3>
+### 🎯 Decision Support
+
 <div class="tools-grid">
 
-<a href="consistency-calculator.md" class="tool-card">
-<div class="tool-icon">🔄
-Consistency Calculator
-Explore CAP theorem trade-offs, calculate consistency guarantees, and compare consistency models.
-</a>
+- **[🔄 Consistency Calculator](../quantitative-analysis/consistency-models.md)** - Explore CAP theorem trade-offs, calculate consistency guarantees, and compare consistency models
+- **[🗂️ Partition Strategy Simulator](../quantitative-analysis/sharding-strategies.md)** - Model different sharding approaches and their performance characteristics
+- **[📥 Queue Analyzer](../quantitative-analysis/queueing-networks.md)** - Analyze queue behavior, predict wait times, and optimize queue configurations
 
-<!-- Coming Soon: Partition Strategy Simulator -->
-
-<!-- Coming Soon: Queue Analyzer -->
-
-</div>
-</div>
 </div>
 
 ## Quick Links to Theory

@@ -1,6 +1,6 @@
 ---
 title: Amazon Interview Guide
-description: > **Note**: This company-specific guide is under construction.
+description: Comprehensive interview preparation guide for Amazon's engineering roles, emphasizing leadership principles, large-scale distributed systems, and operational excellence.
 type: documentation
 category: company-specific
 tags: [company-specific]

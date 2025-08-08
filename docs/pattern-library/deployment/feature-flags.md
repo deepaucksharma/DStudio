@@ -123,6 +123,43 @@ graph TB
     style Dashboard fill:#45b7d1
 ```
 
+## When to Use / When NOT to Use
+
+### ✅ Use When
+
+| Scenario | Example | Expected Benefit |
+|----------|---------|------------------|
+| **Progressive Rollouts** | Rolling out new checkout flow | Reduce risk by starting with 1% of users |
+| **A/B Testing** | Testing different recommendation algorithms | Data-driven optimization with controlled experiments |
+| **Kill Switch Requirements** | Critical payment processing features | Instant disable capability during incidents |
+| **Multiple Deployment Environments** | Different configs for dev/staging/prod | Environment-specific behavior without code changes |
+| **Long-Running Feature Development** | Multi-sprint UI redesign | Merge code early, activate when ready |
+| **Regulatory Compliance** | GDPR privacy features by region | Geographic feature targeting |
+| **Operational Safety** | Database migration features | Gradual activation with instant rollback |
+| **User Experience Testing** | New onboarding flow | Measure impact before full deployment |
+
+### ❌ DON'T Use When
+
+| Scenario | Why | Better Approach |
+|----------|-----|----------------|
+| **Simple Configuration Values** | Over-engineering for basic settings | Environment variables or config files |
+| **Security-Critical Logic** | Flags can be manipulated or fail | Compile-time security controls |
+| **Performance-Critical Code Paths** | Flag evaluation adds latency overhead | Profile first, optimize hot paths differently |
+| **Short-Term Experiments** | Permanent flags for temporary tests | Time-bound experiments with auto-cleanup |
+| **Every Code Branch** | Flag explosion creates maintenance burden | Reserve for business-critical decisions |
+| **Infrastructure Configuration** | Database connections, service URLs | Infrastructure as Code (IaC) tools |
+
+### Decision Factors
+
+| Factor | Use Feature Flags | Alternative Approach |
+|--------|------------------|-------------------|
+| **Change Frequency** | High (multiple times per day) | Low (weekly or less) |
+| **Rollback Speed Required** | Immediate (<1 minute) | Can tolerate deployment time |
+| **User Impact** | Visible user-facing changes | Internal system changes |
+| **Risk Level** | High-risk new features | Low-risk bug fixes |
+| **Testing Needs** | A/B testing required | Simple pass/fail testing |
+| **Team Size** | Multiple teams/services | Single small team |
+
 ## Architecture Components
 
 ### 1. Flag Service

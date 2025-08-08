@@ -1,6 +1,6 @@
 ---
 title: Netflix Interview Guide
-description: > **Note**: This company-specific guide is under construction.
+description: Comprehensive interview preparation guide for Netflix's engineering roles, focusing on streaming infrastructure, chaos engineering, and freedom-responsibility culture.
 type: documentation
 category: company-specific
 tags: [company-specific]

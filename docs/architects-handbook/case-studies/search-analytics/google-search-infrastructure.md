@@ -73,6 +73,67 @@ lessons_learned:
 
 Google Search processes over 8.5 billion searches daily, indexing the entire web and returning results in under 100 milliseconds. Through innovations like MapReduce, Bigtable, and distributed caching, Google built infrastructure that handles internet-scale data processing while maintaining sub-second response times. Their architecture demonstrates how to build systems that process exabytes of data daily while serving billions of users.
 
+## Mapping to Fundamental Laws
+
+### Law Analysis
+
+Google Search represents one of the most sophisticated distributed systems ever built, showcasing solutions to every fundamental constraint:
+
+<table class="responsive-table">
+<thead>
+ <tr>
+ <th>Law</th>
+ <th>Challenge</th>
+ <th>Solution</th>
+ <th>Trade-off</th>
+ </tr>
+</thead>
+<tbody>
+ <tr>
+ <td data-label="Law">Correlated Failure</td>
+ <td data-label="Challenge">Data center outages, power grid failures, and fiber cuts affecting serving capacity for millions of users</td>
+ <td data-label="Solution">Multi-region replication with anycast routing; automatic failover between data centers; index sharding across failure domains</td>
+ <td data-label="Trade-off">10x storage overhead for global replication; complexity of maintaining consistency across regions</td>
+ </tr>
+ <tr>
+ <td data-label="Law">Asynchronous Reality</td>
+ <td data-label="Challenge">Speed of light limits between continents create 100-300ms latency for global users</td>
+ <td data-label="Solution">Aggressive caching at every layer; pre-computed query suggestions; edge server deployment in 40+ regions</td>
+ <td data-label="Trade-off">Massive cache infrastructure costs; stale results for breaking news; cache consistency complexity</td>
+ </tr>
+ <tr>
+ <td data-label="Law">Emergent Chaos</td>
+ <td data-label="Challenge">Web crawler feedback loops; viral search spikes; malicious bot traffic overwhelming infrastructure</td>
+ <td data-label="Solution">Intelligent crawl rate limiting; query traffic shaping; bot detection and mitigation; circuit breakers</td>
+ <td data-label="Trade-off">Delayed indexing of new content; false positives blocking legitimate users; complex rate limiting logic</td>
+ </tr>
+ <tr>
+ <td data-label="Law">Multidimensional Optimization</td>
+ <td data-label="Challenge">Balance search quality, response latency, infrastructure cost, and power consumption across global scale</td>
+ <td data-label="Solution">Machine learning for query routing; tiered storage (SSD → HDD → Tape); dynamic resource allocation</td>
+ <td data-label="Trade-off">Extremely complex optimization algorithms; unpredictable resource usage; ML model training costs</td>
+ </tr>
+ <tr>
+ <td data-label="Law">Distributed Knowledge</td>
+ <td data-label="Challenge">Monitoring health and performance across 2.5M+ servers, 40+ data centers, and millions of daily index changes</td>
+ <td data-label="Solution">Borgmon monitoring; distributed tracing; real-time alerting; automated anomaly detection</td>
+ <td data-label="Trade-off">Monitoring infrastructure consuming 5-10% of total capacity; alert fatigue; debugging complexity</td>
+ </tr>
+ <tr>
+ <td data-label="Law">Cognitive Load</td>
+ <td data-label="Challenge">Managing complexity of web-scale distributed system across thousands of engineers</td>
+ <td data-label="Solution">Internal APIs and frameworks; automated deployment and scaling; extensive documentation and training</td>
+ <td data-label="Trade-off">Abstraction hiding performance issues; framework lock-in; high learning curve for new engineers</td>
+ </tr>
+ <tr>
+ <td data-label="Law">Economic Reality</td>
+ <td data-label="Challenge">Cost optimization for exabyte-scale storage and computation while maintaining 99.999% availability</td>
+ <td data-label="Solution">Custom hardware design; renewable energy datacenters; usage-based resource allocation; compression</td>
+ <td data-label="Trade-off">Vendor lock-in to custom hardware; complexity of hybrid cloud; upfront infrastructure investment</td>
+ </tr>
+</tbody>
+</table>
+
 ## System Architecture
 
 ### High-Level Overview

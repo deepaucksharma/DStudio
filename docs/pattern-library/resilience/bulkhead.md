@@ -371,17 +371,148 @@ graph TB
     
     **Success Metric**: Achieve fault isolation - when one workload saturates resources, other workloads remain unaffected
 
+## Related Patterns
+
+### Complementary Patterns (Work Well Together)
+
+| Pattern | Relationship | Integration Strategy | When to Combine |
+|---------|--------------|---------------------|------------------|
+| **[Circuit Breaker](./circuit-breaker.md)** | **Fail-fast per bulkhead** - Each bulkhead should have its own circuit breaker | Deploy separate circuit breakers per bulkhead with different thresholds based on criticality. Critical bulkheads get more sensitive circuit breakers | Always - Essential for preventing bulkhead saturation |
+| **[Timeout](./timeout.md)** | **Resource reclamation** - Timeouts prevent requests from holding bulkhead resources indefinitely | Set per-bulkhead timeout policies. More critical bulkheads get shorter timeouts for faster resource recovery | Always - Without timeouts, bulkheads can become permanently exhausted |
+| **[Rate Limiting](../scaling/rate-limiting.md)** | **Admission control** - Controls flow into each bulkhead | Implement per-bulkhead rate limiting at entry points. Use different limits based on bulkhead capacity and priority | High-traffic systems where bulkhead overflow is common |
+| **[Health Check](./health-check.md)** | **Resource monitoring** - Monitors bulkhead health and capacity utilization | Track per-bulkhead metrics: queue depth, active connections, error rates, latency. Remove unhealthy bulkheads from rotation | Large-scale systems with dynamic bulkhead management |
+
+### Prerequisite Patterns (Required for Effective Bulkheads)
+
+| Pattern | Relationship | Implementation | Why It's Required |
+|---------|--------------|----------------|------------------|
+| **[Load Balancing](../scaling/load-balancing.md)** | **Traffic distribution** - Routes traffic to appropriate bulkheads | Load balancer should understand bulkhead topology and capacity. Route based on request type, tenant, or priority | Multi-bulkhead deployments need intelligent traffic routing |
+| **[Service Discovery](../communication/service-discovery.md)** | **Dynamic bulkhead management** - Tracks available bulkheads and their capacity | Service registry should include bulkhead metadata: capacity, current load, health status | Dynamic environments where bulkheads scale up/down |
+
+### Alternative Patterns (Different Isolation Approaches)
+
+| Pattern | Relationship | Trade-offs | When to Choose Bulkheads |
+|---------|--------------|------------|--------------------------|
+| **[Process Isolation](../deployment/container-orchestration.md)** | **Complete separation** - Separate processes vs shared resource pools | Processes: Complete isolation, higher overhead vs Bulkheads: Resource sharing, faster communication | When you need fine-grained resource control without process overhead |
+| **[Network Segmentation](../security/network-segmentation.md)** | **Network-level isolation** - Separate networks vs application-level pools | Network: Infrastructure isolation vs Bulkheads: Application-level resource management | When failures are resource-related rather than network-related |
+
+### Extension Patterns (Build Upon Bulkheads)
+
+| Pattern | Relationship | Implementation | When to Extend |
+|---------|--------------|----------------|----------------|
+| **[Auto-scaling](../scaling/auto-scaling.md)** | **Dynamic bulkhead sizing** - Automatically adjusts bulkhead capacity based on load | Scale bulkhead resources (threads, connections, memory) based on utilization metrics. Scale out by adding new bulkheads | Variable load patterns where static bulkhead sizing is inefficient |
+| **[Priority Queue](../scaling/priority-queue.md)** | **Hierarchical bulkheads** - Different priority levels within bulkheads | Implement priority-based bulkheads: VIP users get dedicated bulkhead, premium gets shared high-priority, standard gets best-effort | Multi-tenant systems with different SLA requirements |
+| **[Graceful Degradation](./graceful-degradation.md)** | **Bulkhead overflow handling** - Defines behavior when bulkheads are full | When bulkhead is full, degrade to lower-cost alternatives: cached responses, simplified processing, queue for later | User-facing systems where rejection is worse than degraded service |
+
+### Advanced Pattern Combinations
+
+#### Hierarchical Bulkheads with Circuit Breakers
+```yaml
+bulkhead_hierarchy:
+  tenant_based:
+    vip_tenants:
+      thread_pool: 100
+      connection_pool: 50
+      circuit_breaker:
+        failure_threshold: 3  # More sensitive
+        timeout: 10s
+    
+    standard_tenants:
+      thread_pool: 200
+      connection_pool: 80
+      circuit_breaker:
+        failure_threshold: 10  # More tolerant
+        timeout: 30s
+    
+    background_jobs:
+      thread_pool: 50
+      connection_pool: 20
+      circuit_breaker:
+        failure_threshold: 20  # Very tolerant
+        timeout: 120s
+```
+
+#### Auto-scaling Bulkheads with Load Balancing
+```python
+class AutoScalingBulkheadManager:
+    def __init__(self):
+        self.bulkheads = {}
+        self.load_balancer = LoadBalancer()
+        self.metrics_collector = MetricsCollector()
+        
+    def manage_bulkhead_scaling(self):
+        for bulkhead_id, bulkhead in self.bulkheads.items():
+            utilization = self.metrics_collector.get_utilization(bulkhead_id)
+            
+            if utilization > 80:
+                # Scale up bulkhead
+                new_capacity = bulkhead.capacity * 1.5
+                self.scale_bulkhead(bulkhead_id, new_capacity)
+                
+            elif utilization < 20:
+                # Scale down bulkhead
+                new_capacity = max(bulkhead.min_capacity, bulkhead.capacity * 0.8)
+                self.scale_bulkhead(bulkhead_id, new_capacity)
+            
+            # Update load balancer with new capacity
+            self.load_balancer.update_bulkhead_capacity(bulkhead_id, bulkhead.capacity)
+```
+
+#### Smart Degradation with Bulkhead Overflow
+```python
+class BulkheadOverflowHandler:
+    def __init__(self):
+        self.bulkheads = {}
+        self.degradation_strategies = {}
+        
+    def handle_request(self, request, tenant_id):
+        primary_bulkhead = self.get_bulkhead_for_tenant(tenant_id)
+        
+        if primary_bulkhead.has_capacity():
+            return primary_bulkhead.process_request(request)
+        
+        # Primary bulkhead full - try degradation strategies
+        if self.can_degrade_request(request):
+            return self.process_degraded_request(request, tenant_id)
+        
+        # Try lower priority bulkhead if available
+        fallback_bulkhead = self.get_fallback_bulkhead(tenant_id)
+        if fallback_bulkhead and fallback_bulkhead.has_capacity():
+            return fallback_bulkhead.process_request(request)
+        
+        # Final fallback - queue for later or reject
+        return self.handle_overflow(request, tenant_id)
+```
+
+### Anti-Patterns and Common Mistakes
+
+| Anti-Pattern | Why It's Bad | Correct Approach |
+|--------------|--------------|------------------|
+| **Uniform bulkhead sizes** | Wastes resources on low-priority workloads | Size bulkheads based on importance and load patterns |
+| **No monitoring per bulkhead** | Can't detect bulkhead-specific issues | Implement comprehensive per-bulkhead metrics |
+| **Shared dependencies across bulkheads** | Defeats the purpose of isolation | Ensure true isolation including databases, caches, etc. |
+| **Too many small bulkheads** | Management overhead exceeds benefits | Start with 3-5 major bulkheads, subdivide only if needed |
+
+### Implementation Priority Guide
+
+**Phase 1: Basic Isolation (Week 1)**
+1. **Workload Classification** - Identify different workload types and their resource needs
+2. **Initial Bulkhead Design** - Start with 3-4 major bulkheads (Critical, Standard, Background)
+3. **Resource Pool Creation** - Implement basic thread/connection pool separation
+
+**Phase 2: Protection Mechanisms (Week 2)**
+1. **Circuit Breaker Integration** - Add per-bulkhead circuit breakers
+2. **Timeout Configuration** - Set different timeout policies per bulkhead
+3. **Basic Monitoring** - Track utilization and health per bulkhead
+
+**Phase 3: Dynamic Management (Week 3+)**
+1. **Auto-scaling Integration** - Implement dynamic bulkhead sizing
+2. **Load Balancer Integration** - Route traffic based on bulkhead capacity
+3. **Advanced Degradation** - Implement overflow handling and graceful degradation
+
 ### Related Resources
 
 <div class="grid cards" markdown>
-
-- :material-book-open-variant:{ .lg .middle } **Related Patterns**
-    
-    ---
-    
-    - [Circuit Breaker](./circuit-breaker.md) - Fail fast when bulkhead is full
-    - [Rate Limiting](../scaling/rate-limiting.md) - Control flow into bulkheads
-    - [Timeout](./timeout.md) - Prevent resource hogging within bulkheads
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

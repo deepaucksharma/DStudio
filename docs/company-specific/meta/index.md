@@ -1,6 +1,6 @@
 ---
 title: Meta Interview Guide
-description: > **Note**: This company-specific guide is under construction.
+description: Comprehensive interview preparation guide for Meta's engineering roles, focusing on social scale systems, move-fast culture, and product impact.
 type: documentation
 category: company-specific
 tags: [company-specific]

@@ -390,17 +390,149 @@ graph LR
 - [ ] Implemented adaptive limits for different system load conditions
 - [ ] Created runbooks for rate limit adjustment and incident response
 
+## Related Patterns
+
+### Complementary Patterns (Work Well Together)
+
+| Pattern | Relationship | Integration Strategy | When to Combine |
+|---------|--------------|---------------------|------------------|
+| **[Circuit Breaker](../resilience/circuit-breaker.md)** | **Failure protection** - Rate limiting prevents overload, circuit breaker handles downstream failures | Rate limiting reduces load to prevent circuit breaker activation. When circuit is open, rate limits can be relaxed to allow recovery | Always - Prevents both overload and cascade failures |
+| **[Retry with Backoff](../resilience/retry-backoff.md)** | **Request management** - Rate limiting controls incoming flow, retry manages failing requests | Implement retry budget limits that work within rate limit quotas. Use rate limit headers to inform retry timing | High-traffic APIs where both patterns prevent system overload |
+| **[Load Balancing](./load-balancing.md)** | **Traffic distribution** - Distribute rate-limited traffic across healthy backends | Implement rate limiting at load balancer level, then distribute allowed traffic. Consider per-backend rate limits | Always - Rate limiting without load balancing creates bottlenecks |
+| **[API Gateway](../communication/api-gateway.md)** | **Centralized control** - Single point for rate limiting policies across all services | Gateway implements global rate limiting, per-service limits, and request routing. Provides consistent rate limit headers | Microservices architectures requiring unified rate limiting policy |
+
+### Extension Patterns (Build Upon Rate Limiting)
+
+| Pattern | Relationship | Implementation | When to Extend |
+|---------|--------------|----------------|----------------|
+| **[Bulkhead](../resilience/bulkhead.md)** | **Resource isolation** - Separate rate limits for different resource pools | Implement per-bulkhead rate limiting: VIP users get dedicated quotas, different limits for different service tiers | Multi-tenant systems with different SLA requirements |
+| **[Priority Queue](./priority-queue.md)** | **Request prioritization** - Rate limit different request types differently | High-priority requests get higher rate limits or reserved capacity. Lower-priority requests get throttled first | Systems with mixed-criticality workloads |
+| **[Graceful Degradation](../resilience/graceful-degradation.md)** | **Rate limit overflow handling** - Defines behavior when rate limits are exceeded | Instead of rejecting requests, degrade to lower-cost operations: cached responses, simplified processing | User-facing systems where rejection provides poor experience |
+
+### Alternative Patterns (Different Flow Control Approaches)
+
+| Pattern | Relationship | Trade-offs | When to Choose Rate Limiting |
+|---------|--------------|------------|------------------------------|
+| **[Load Shedding](../resilience/load-shedding.md)** | **Traffic dropping** - Proactive vs reactive traffic control | Rate Limiting: Predictable, fair vs Load Shedding: Adaptive, priority-based | When you need predictable, fair access rather than adaptive dropping |
+| **[Backpressure](./backpressure.md)** | **Flow control** - Client-side awareness vs server-side enforcement | Backpressure: Cooperative, efficient vs Rate Limiting: Enforced, simple | When you need enforcement rather than cooperation |
+| **[Queue-based Processing](../coordination/distributed-queue.md)** | **Async processing** - Immediate rejection vs queued processing | Queue: Higher throughput, eventual processing vs Rate Limiting: Immediate feedback, bounded latency | When immediate response is required and queuing latency is unacceptable |
+
+### Specialized Pattern Combinations
+
+#### Adaptive Rate Limiting with Circuit Breaker
+```python
+class AdaptiveRateLimiter:
+    def __init__(self):
+        self.circuit_breaker = CircuitBreaker()
+        self.rate_limiter = TokenBucketRateLimiter()
+        self.system_health = SystemHealthMonitor()
+        
+    def allow_request(self, client_id):
+        # Adjust rate limits based on system health
+        health_score = self.system_health.get_health_score()
+        
+        if health_score > 0.9:
+            # System healthy - allow normal rates
+            multiplier = 1.0
+        elif health_score > 0.7:
+            # System stressed - reduce by 20%
+            multiplier = 0.8
+        else:
+            # System unhealthy - aggressive limiting
+            multiplier = 0.5
+            
+        adjusted_limit = self.rate_limiter.base_limit * multiplier
+        
+        # Check circuit breaker state
+        if self.circuit_breaker.is_open():
+            # Circuit open - very restrictive limiting
+            adjusted_limit *= 0.1
+            
+        return self.rate_limiter.allow_request(client_id, adjusted_limit)
+```
+
+#### Multi-tier Rate Limiting with Priority
+```python
+class PriorityRateLimiter:
+    def __init__(self):
+        self.tiers = {
+            'premium': RateLimiter(limit=1000, window=60),  # 1000/min
+            'standard': RateLimiter(limit=100, window=60),   # 100/min  
+            'basic': RateLimiter(limit=10, window=60),       # 10/min
+            'global': RateLimiter(limit=5000, window=60)     # Global cap
+        }
+        self.priority_queue = PriorityQueue()
+        
+    def handle_request(self, request):
+        client_tier = self.get_client_tier(request.client_id)
+        
+        # Check global limit first
+        if not self.tiers['global'].allow_request('global'):
+            raise GlobalRateLimitException()
+            
+        # Check tier-specific limit
+        if not self.tiers[client_tier].allow_request(request.client_id):
+            # Add to priority queue for later processing
+            priority = self.get_priority_for_tier(client_tier)
+            self.priority_queue.enqueue(request, priority)
+            raise TierRateLimitException(f"Tier {client_tier} limit exceeded")
+            
+        return self.process_request(request)
+```
+
+#### Cost-based Rate Limiting
+```python
+class CostBasedRateLimiter:
+    def __init__(self):
+        self.cost_calculator = OperationCostCalculator()
+        self.token_bucket = TokenBucket(capacity=1000, refill_rate=100)  # 1000 cost units
+        
+    def allow_request(self, request):
+        operation_cost = self.cost_calculator.calculate_cost(request)
+        
+        # Different operations have different costs
+        # Simple read: 1 token
+        # Complex query: 10 tokens  
+        # Write operation: 5 tokens
+        # Expensive analytics: 50 tokens
+        
+        if self.token_bucket.consume(operation_cost):
+            return True
+        else:
+            # Calculate how long to wait for tokens
+            wait_time = self.token_bucket.time_until_tokens(operation_cost)
+            raise RateLimitException(f"Rate limited, retry after {wait_time}s")
+```
+
+### Implementation Priority Guide
+
+**Phase 1: Basic Rate Limiting (Week 1)**
+1. **Algorithm Selection** - Choose token bucket for most use cases
+2. **Single-tier Implementation** - Start with simple per-client limiting
+3. **Basic Headers** - Return X-RateLimit-* headers for client guidance
+
+**Phase 2: Multi-tier and Distribution (Week 2)**
+1. **Client Tiers** - Implement different limits for different client types
+2. **Distributed Coordination** - Use Redis or similar for multi-instance rate limiting
+3. **Circuit Breaker Integration** - Coordinate with downstream failure handling
+
+**Phase 3: Advanced Features (Week 3+)**
+1. **Adaptive Limits** - Adjust limits based on system health and load
+2. **Cost-based Quotas** - Implement operation-cost-aware limiting
+3. **Priority Handling** - Add request prioritization and queuing
+
+### Anti-Patterns and Common Mistakes
+
+| Anti-Pattern | Why It's Bad | Correct Approach |
+|--------------|--------------|------------------|
+| **Same limit for all operations** | Expensive operations consume same quota as cheap ones | Use cost-based or operation-specific rate limits |
+| **No graceful handling of exceeded limits** | Poor user experience with hard rejections | Implement queuing, graceful degradation, or retry guidance |
+| **Rate limiting without load balancing** | Creates bottlenecks at rate limiter | Distribute rate-limited requests across multiple backends |
+| **Ignoring distributed coordination** | Inconsistent limits across service instances | Use shared state (Redis) or distributed algorithms |
+
 ### Related Resources
 
 <div class="grid cards" markdown>
-
-- :material-book-open-variant:{ .lg .middle } **Related Patterns**
-    
-    ---
-    
-    - [Circuit Breaker](../resilience/circuit-breaker.md) - Complementary failure protection
-    - [API Gateway](../communication/api-gateway.md) - Centralized rate limiting
-    - [Bulkhead](../resilience/bulkhead.md) - Resource isolation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
