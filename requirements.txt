@@ -1,16 +1,16 @@
-mkdocs>=1.5.3
-mkdocs-material>=9.4.0
-pymdown-extensions>=10.2
-mkdocs-macros-plugin>=1.0.0
-mkdocs-mermaid2-plugin>=1.1.1
-markdown-exec[ansi]>=1.8.0
+mkdocs==1.5.3
+mkdocs-material==9.4.0
+pymdown-extensions==10.2
+mkdocs-macros-plugin==1.3.7
+mkdocs-mermaid2-plugin==1.1.1
+markdown-exec[ansi]==1.8.0
 
 # Performance & SEO Enhancements
-mkdocs-minify-plugin>=0.7.1
-mkdocs-git-revision-date-localized-plugin>=1.2.0
+mkdocs-minify-plugin==0.7.1
+mkdocs-git-revision-date-localized-plugin==1.2.0
 
 # Optional Features (uncomment as needed)
-# mkdocs-exclude-search>=0.6.5
-# markdown-include>=0.8.1
-mkdocs-redirects>=1.2.0
-# mkdocs-awesome-pages-plugin>=2.9.0
+# mkdocs-exclude-search==0.6.5
+# markdown-include==0.8.1
+mkdocs-redirects==1.2.0
+# mkdocs-awesome-pages-plugin==2.9.0
