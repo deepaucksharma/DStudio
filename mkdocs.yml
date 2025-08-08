@@ -83,6 +83,7 @@ plugins:
     separator: '[\s\-\.]+'
 - redirects:
     redirect_maps:
+      architects-handbook/QUALITY_ASSURANCE_STRATEGY.md: architects-handbook/quality-assurance-strategy.md
       patterns/anti-entropy.md: pattern-library/data-management/event-sourcing.md
       patterns/vector-clocks.md: pattern-library/coordination/hlc.md
       patterns/two-phase-commit.md: pattern-library/data-management/saga.md
