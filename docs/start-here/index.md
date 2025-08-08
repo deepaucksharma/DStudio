@@ -14,10 +14,6 @@ date: 2025-08-07
 
 Start Here: Your Journey into Distributed Systems
 
-## Table of Contents
-
-- [What Brings You Here Today? Our system is on fire!
-
 **Reading time:** ~5 minutes
 
 ## Table of Contents
@@ -49,7 +45,7 @@ Start Here: Your Journey into Distributed Systems
 
 | Problem | Quick Fix | Time | Deep Dive |
 |---------|-----------|------|-----------|
-| Service failures cascading | [Circuit Breaker](../pattern-library/resilience/circuit-breaker/) | 1 hour | [Resilience patterns](../pattern-library/resilience.md/) |
+| Service failures cascading | [Circuit Breaker](../pattern-library/resilience/circuit-breaker/) | 1 hour | [Resilience patterns](../pattern-library/resilience/) |
 | Database overwhelmed | [Read replicas + Caching](../pattern-library/scaling/caching-strategies/) | 2 hours | [Scaling patterns](../pattern-library/scaling/) |
 | API rate limit breaches | [Rate Limiting](../pattern-library/scaling/rate-limiting/) | 30 mins | [Backpressure patterns](../pattern-library/scaling/backpressure/) |
 | Inconsistent data across services | [Saga pattern](../pattern-library/data-management/saga/) | 4 hours | [Data consistency guide](/excellence/implementation-guides/data-consistency/) |
@@ -73,8 +69,8 @@ Start Here: Your Journey into Distributed Systems
 
 #### Quick Learning Wins
 
-- **Understand in 30 minutes**: [The 7 Fundamental Laws](../core-principles/laws.md/)
-- **Master in 1 day**: [The 5 Distribution Pillars](../core-principles/pillars.md/)
+- **Understand in 30 minutes**: [The 7 Fundamental Laws](../core-principles/laws/)
+- **Master in 1 day**: [The 5 Distribution Pillars](../core-principles/pillars/)
 - **Apply in 1 week**: [Gold-tier patterns](/excellence/pattern-discovery/gold-patterns/)
 
 ---
@@ -91,7 +87,7 @@ Start Here: Your Journey into Distributed Systems
 | 1M-10M | <10TB | Sharding + Event Streaming + CQRS | [Social Media Feed](../architects-handbook/case-studies/social-communication/social-media-feed/) |
 | 10M+ | >10TB | Cell-based + Multi-region + Edge Computing | [Netflix Architecture](../architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering/) |
 
-[**→ Pattern Discovery Tool**](/patterns/) | [**→ Architecture Decision Framework**](../pattern-library/pattern-decision-matrix.md)
+[**→ Pattern Discovery Tool**](/patterns/) | [**→ Architecture Decision Framework**](../pattern-library/pattern-decision-matrix/)
 
 ---
 
@@ -195,7 +191,7 @@ Start Here: Your Journey into Distributed Systems
    - [ ] Team Lead → [Leadership Path](../architects-handbook/learning-paths/manager/)
 
 2. **Your immediate need?**
-   - [ ] Learn concepts → [7 Laws](../core-principles/laws.md/)
+   - [ ] Learn concepts → [7 Laws](../core-principles/laws/)
    - [ ] Solve problems → [Pattern Library](../pattern-library/)
    - [ ] See examples → [Case Studies](../architects-handbook/case-studies/)
    - [ ] Build something → [Implementation Guides](/excellence/implementation-guides/)
