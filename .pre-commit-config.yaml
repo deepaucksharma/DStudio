@@ -6,21 +6,21 @@ repos:
     hooks:
       - id: validate-frontmatter
         name: Validate Frontmatter Consistency
-        entry: python scripts/validate-frontmatter.py
+        entry: python scripts/validation/validate-frontmatter.py
         language: python
         files: \.md$
         additional_dependencies: [pyyaml]
         
       - id: validate-law-references
         name: Check Law References
-        entry: python scripts/validate-law-references.py
+        entry: python scripts/validation/validate-law-references.py
         language: python
         files: \.md$
         additional_dependencies: [pyyaml]
         
       - id: validate-paths
         name: Validate Path Consistency
-        entry: python scripts/validate-paths.py
+        entry: python scripts/validation/validate-paths.py
         language: python
         files: \.md$
         
@@ -47,3 +47,4 @@ repos:
     hooks:
       - id: markdownlint
         args: ['--disable', 'MD013', 'MD033', 'MD041']  # Disable line length, HTML, and first line heading
+
