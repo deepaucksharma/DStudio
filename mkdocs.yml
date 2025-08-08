@@ -414,6 +414,7 @@ nav:
     - Request Management:
       - Circuit Breaker: pattern-library/resilience/circuit-breaker.md
       - Circuit Breaker Mastery: pattern-library/resilience/circuit-breaker-mastery.md
+      - Circuit Breaker Module: pattern-library/resilience/circuit-breaker-module.md
       - Retry & Backoff: pattern-library/resilience/retry-backoff.md
       - Timeout: pattern-library/resilience/timeout.md
       - Advanced Timeout Strategies: pattern-library/resilience/timeout-advanced.md
