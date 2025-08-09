@@ -95,7 +95,15 @@ jobs:
         WARNING_COUNT=$(grep -c "WARNING" build.log || echo "0")
         ERROR_COUNT=$(grep -c "ERROR" build.log || echo "0")
         
-        # Ensure no newlines in the output values
+        # Ensure values are clean (no newlines or extra spaces)
+        WARNING_COUNT=$(echo $WARNING_COUNT | tr -d '\n\r ')
+        ERROR_COUNT=$(echo $ERROR_COUNT | tr -d '\n\r ')
+        
+        # Set default values if empty
+        WARNING_COUNT=${WARNING_COUNT:-0}
+        ERROR_COUNT=${ERROR_COUNT:-0}
+        
+        # Write to GitHub output
         echo "warning_count=${WARNING_COUNT}" >> $GITHUB_OUTPUT
         echo "error_count=${ERROR_COUNT}" >> $GITHUB_OUTPUT
         
@@ -128,12 +136,14 @@ jobs:
         
         # Check site directory size
         SITE_SIZE=$(du -sh site/ | cut -f1)
-        echo "site_size=$SITE_SIZE" >> $GITHUB_OUTPUT
+        SITE_SIZE=$(echo $SITE_SIZE | tr -d '\n\r ')
+        SITE_SIZE=${SITE_SIZE:-0M}
+        echo "site_size=${SITE_SIZE}" >> $GITHUB_OUTPUT
         
         if [ "$BUILD_SUCCESS" = "true" ]; then
-          echo "✅ Build succeeded with $WARNING_COUNT warnings and $ERROR_COUNT errors"
+          echo "✅ Build succeeded with ${WARNING_COUNT} warnings and ${ERROR_COUNT} errors"
         else
-          echo "⚠️ Build completed with issues: $WARNING_COUNT warnings and $ERROR_COUNT errors"
+          echo "⚠️ Build completed with issues: ${WARNING_COUNT} warnings and ${ERROR_COUNT} errors"
         fi
         
         # Add summary for PRs
