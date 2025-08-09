@@ -383,6 +383,9 @@ nav:
   - Problem-Pattern Guide: pattern-library/problem-pattern-guide.md
 - Part 1 - Core Principles:
   - Overview: core-principles/index.md
+  - Theoretical Foundations:
+    - Impossibility Results (FLP, CAP, Byzantine): core-principles/impossibility-results.md
+    - Graph Theory in Distributed Systems: core-principles/graph-theory-distributed-systems.md
   - The 7 Laws:
     - All Laws Overview: core-principles/laws/index.md
     - Implementation Guide & Diagrams: core-principles/laws/laws-implementation-guide.md
@@ -921,6 +924,11 @@ nav:
       - Load Balancer Simulator: architects-handbook/tools/load-balancer-simulator.md
       - Observability Cost Calculator: architects-handbook/tools/observability-cost-calculator.md
       - Rate Limiting Calculator: architects-handbook/tools/rate-limiting-calculator.md
+- Advanced Topics:
+  - Overview: advanced-topics/index.md
+  - Blockchain & Distributed Ledgers:
+    - Fundamentals: advanced-topics/blockchain/index.md
+  - Content Gap Analysis: reference/content-gap-analysis.md
 - Part 4 - Interview Preparation:
   - Overview: interview-prep/index.md
   - Engineering Leadership:
