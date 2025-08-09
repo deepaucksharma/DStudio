@@ -2,7 +2,7 @@
 type: pattern
 category: pattern-library
 title: Pattern Library Index
-description: 'Comprehensive collection of 130+ battle-tested distributed systems patterns from industry leaders like Netflix, Google, Amazon, and Uber'
+description: 'Catalog of 130 distributed systems patterns for building scalable, resilient services'
 ---
 
 # Pattern Library: 130 Distributed Systems Patterns
@@ -16,7 +16,7 @@ description: 'Comprehensive collection of 130+ battle-tested distributed systems
   - [👶 Beginner Path (2-4 weeks)](#beginner-path-2-4-weeks)
   - [🚀 Intermediate Path (1-2 months)](#intermediate-path-1-2-months)
   - [🏆 Advanced Path (3-6 months)](#advanced-path-3-6-months)
-- [🔍 Pattern Explorer {#pattern-explorer}](#pattern-explorer-pattern-explorer)
+- [🔍 Pattern Explorer](#pattern-explorer)
 - [📈 Pattern Statistics at a Glance](#pattern-statistics-at-a-glance)
 - [🏆 Top Patterns by Impact](#top-patterns-by-impact)
   - [The Elite 15 - Master These First](#the-elite-15-master-these-first)

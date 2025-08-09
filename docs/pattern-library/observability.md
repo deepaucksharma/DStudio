@@ -8,8 +8,8 @@ tags: ["observability", "patterns"]
 # Observability
 
 !!! info "Pattern Overview"
-    **Category**: observability  
-    **Complexity**: Medium  
+    **Category**: observability
+    **Complexity**: Medium
     **Use Cases**: monitoring, debugging, performance analysis
 
 ## Problem
@@ -27,7 +27,7 @@ Observability provides comprehensive system insights through three pillars: metr
 class ObservabilityStack:
     def __init__(self):
         pass
-    
+
     def execute(self):
         # Implementation details
         pass
@@ -53,12 +53,12 @@ class ObservabilityStack:
 
 ## Related Patterns
 
-- <!-- TODO: Add actual pattern link --> - Complementary pattern
-- <!-- TODO: Add actual pattern link --> - Alternative approach
-- <!-- TODO: Add actual pattern link --> - Building block pattern
+- [Service Mesh](communication/service-mesh.md) - Complementary pattern
+- [Canary Release](deployment/canary-release.md) - Alternative approach
+- [Feature Flags](deployment/feature-flags.md) - Building block pattern
 
 ## References
 
 - [External Resource 1](#)
 - [External Resource 2](#)
-- <!-- TODO: Add Case Study Example -->
+- [Case Study: Uber's Jaeger Tracing System](https://eng.uber.com/jaeger/)

@@ -53,14 +53,14 @@ hide:
 </div>
 
 <script>
-/ Check connection status periodically
+// Check connection status periodically
 setInterval(() => {
   if (navigator.onLine) {
     window.location.reload();
   }
 }, 5000);
 
-/ Reload when connection is restored
+// Reload when connection is restored
 window.addEventListener('online', () => {
   window.location.reload();
 });

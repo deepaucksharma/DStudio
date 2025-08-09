@@ -2,7 +2,7 @@
 type: pattern
 category: coordination
 title: Index
-description: 'TODO: Add description'
+description: 'Patterns for consensus, time synchronization, and resource coordination in distributed systems.'
 ---
 
 # Coordination Patterns

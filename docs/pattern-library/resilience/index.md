@@ -2,7 +2,7 @@
 type: pattern
 category: resilience
 title: Index
-description: 'TODO: Add description'
+description: 'Patterns enabling fault tolerance, graceful degradation, and rapid recovery from failures.'
 ---
 
 # Resilience Patterns
@@ -63,7 +63,7 @@ graph TD
     HB[Heartbeat] --> HC
     GD[Graceful Degradation] --> LS[Load Shedding]
     TO --> RB
-    
+
     style CB fill:#f9f,stroke:#333,stroke-width:4px
     style TO fill:#bbf,stroke:#333,stroke-width:2px
     style BH fill:#bbf,stroke:#333,stroke-width:2px

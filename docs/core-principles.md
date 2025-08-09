@@ -11,13 +11,13 @@ The foundation of distributed systems mastery lies in understanding fundamental 
 
 Every distributed system, regardless of scale or complexity, is governed by these immutable laws:
 
-1. **[The Inevitability of Failure](core-principles/laws/correlated-failure.md)** - Systems will fail
-2. **[The Economics of Scale](core-principles/laws/economic-reality.md)** - Cost shapes architecture
-3. **[The Constraints of Time](core-principles/laws/temporal-constraints.md)** - Time is never synchronized
-4. **[The Reality of Networks](core-principles/laws/asynchronous-reality.md)** - Networks are unreliable
-5. **[The Human Factor](core-principles/laws/cognitive-load.md)** - Humans have limits
-6. **[The Nature of Knowledge](core-principles/laws/distributed-knowledge.md)** - Knowledge is always partial
-7. **[The Emergence of Chaos](core-principles/laws/emergent-chaos.md)** - Complexity breeds unpredictability
+1. **[Correlated Failure](core-principles/laws/correlated-failure.md)** - Failures rarely occur alone
+2. **[Asynchronous Reality](core-principles/laws/asynchronous-reality.md)** - Time is never synchronized
+3. **[Emergent Chaos](core-principles/laws/emergent-chaos.md)** - Complexity breeds unpredictability
+4. **[Multidimensional Optimization](core-principles/laws/multidimensional-optimization.md)** - Every design is a trade-off
+5. **[Distributed Knowledge](core-principles/laws/distributed-knowledge.md)** - Knowledge is always partial
+6. **[Cognitive Load](core-principles/laws/cognitive-load.md)** - Humans have limits
+7. **[Economic Reality](core-principles/laws/economic-reality.md)** - Cost shapes architecture
 
 [Explore the Laws →](core-principles/laws/)
 
@@ -43,5 +43,4 @@ These principles manifest in concrete patterns:
 
 ## Start Your Journey
 
-Begin with [Law 1: The Inevitability of Failure](core-principles/laws/correlated-failure.md) - it's the foundation everything else builds upon.
-
+Begin with [Law 1: Correlated Failure](core-principles/laws/correlated-failure.md) - it's the foundation everything else builds upon.

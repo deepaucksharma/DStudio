@@ -1,12 +1,12 @@
 ---
-title: Start Here: Quick Orientation Guide
+title: Start Here: Your Journey into Distributed Systems
 description: Get oriented quickly and find the right resources for your distributed systems journey
 category: getting-started
 tags: [orientation, quick-start, learning-path]
 date: 2025-08-07
 ---
 
-# Start Here: Quick Orientation Guide
+# Start Here: Your Journey into Distributed Systems
 
 **Reading time:** ~5 minutes
 
@@ -95,7 +95,7 @@ graph LR
 
 Master these in order for maximum impact:
 
-1. **[The 7 Fundamental Laws](../core-principles/laws/index.md)** (30 min) — Understand the unbreakable rules
+1. **[The 7 Fundamental Laws](../core-principles/laws/)** (30 min) — Understand the unbreakable rules
 2. **[The 5 Core Pillars](../core-principles/pillars/index.md)** (2 hours) — Learn architectural dimensions
 3. **[Top 10 Patterns](../pattern-library/index.md#essential-patterns)** (1 day) — Cover 80% of use cases
 4. **[Netflix Case Study](../architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering.md)** (1 hour) — See everything in action
@@ -200,7 +200,7 @@ Is your main challenge:
 ### 📖 Core References
 
 **Must-Read Content:**
-- [7 Fundamental Laws](../core-principles/laws/index.md) — 30 min foundation
+- [7 Fundamental Laws](../core-principles/laws/) — 30 min foundation
 - [5 Core Pillars](../core-principles/pillars/index.md) — Architectural dimensions
 - [Cross-Reference Guide](../reference/cross-reference-guide.md) — Connect all concepts
 - [Pattern Decision Matrix](../reference/cross-reference-guide.md#decision-trees) — Choose right patterns

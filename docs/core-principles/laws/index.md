@@ -48,60 +48,60 @@ Choose your learning intensity:
 
 <div class="grid cards" markdown>
 
-- **[Law of Correlated Failure](correlated-failure.md)** 
-    
+- **[Law of Correlated Failure](correlated-failure.md)**
+
     ---
-    
+
     Failures in distributed systems are never independent
-    
+
     *📖 Study time: 3-4 hours | 🧠 Difficulty: Medium | 💼 Immediate impact: High*
 
-- **[Law of Cognitive Load](cognitive-load.md)**
-    
-    ---
-    
-    Human understanding is the ultimate bottleneck
-    
-    *📖 Study time: 2-3 hours | 🧠 Difficulty: Low | 💼 Immediate impact: Very High*
-
 - **[Law of Asynchronous Reality](asynchronous-reality.md)**
-    
+
     ---
-    
+
     Perfect synchronization is impossible in distributed systems
-    
+
     *📖 Study time: 4-5 hours | 🧠 Difficulty: High | 💼 Immediate impact: High*
 
-- **[Law of Multidimensional Optimization](multidimensional-optimization.md)**
-    
-    ---
-    
-    You cannot optimize all dimensions simultaneously
-    
-    *📖 Study time: 3-4 hours | 🧠 Difficulty: Medium | 💼 Immediate impact: Medium*
-
 - **[Law of Emergent Chaos](emergent-chaos.md)**
-    
+
     ---
-    
+
     Complex behaviors emerge from simple interactions
-    
+
     *📖 Study time: 4-6 hours | 🧠 Difficulty: Very High | 💼 Immediate impact: Medium*
 
-- **[Law of Distributed Knowledge](distributed-knowledge.md)**
-    
+- **[Law of Multidimensional Optimization](multidimensional-optimization.md)**
+
     ---
-    
+
+    You cannot optimize all dimensions simultaneously
+
+    *📖 Study time: 3-4 hours | 🧠 Difficulty: Medium | 💼 Immediate impact: Medium*
+
+- **[Law of Distributed Knowledge](distributed-knowledge.md)**
+
+    ---
+
     No single node can have complete, current knowledge
-    
+
     *📖 Study time: 3-4 hours | 🧠 Difficulty: High | 💼 Immediate impact: High*
 
-- **[Law of Economic Reality](economic-reality.md)**
-    
+- **[Law of Cognitive Load](cognitive-load.md)**
+
     ---
-    
+
+    Human understanding is the ultimate bottleneck
+
+    *📖 Study time: 2-3 hours | 🧠 Difficulty: Low | 💼 Immediate impact: Very High*
+
+- **[Law of Economic Reality](economic-reality.md)**
+
+    ---
+
     Every technical decision has economic consequences
-    
+
     *📖 Study time: 2-3 hours | 🧠 Difficulty: Low | 💼 Immediate impact: Very High*
 
 </div>

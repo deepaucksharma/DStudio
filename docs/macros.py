@@ -34,7 +34,7 @@ def define_env(env):
 
     # Add variables
     env.variables["current_year"] = datetime.datetime.now().year
-    env.variables["project_name"] = "The Compendium of Distributed Systems"
+    env.variables["project_name"] = "Distributed Systems Studio"
     env.variables["github_repo"] = "https://github.com/deepaucksharma/DStudio"
 
     # Build a lookup of pattern slugs to their category paths
