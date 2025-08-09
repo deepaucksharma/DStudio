@@ -95,29 +95,33 @@ jobs:
         WARNING_COUNT=$(grep -c "WARNING" build.log || echo "0")
         ERROR_COUNT=$(grep -c "ERROR" build.log || echo "0")
         
-        echo "warning_count=$WARNING_COUNT" >> $GITHUB_OUTPUT
-        echo "error_count=$ERROR_COUNT" >> $GITHUB_OUTPUT
+        # Ensure no newlines in the output values
+        echo "warning_count=${WARNING_COUNT}" >> $GITHUB_OUTPUT
+        echo "error_count=${ERROR_COUNT}" >> $GITHUB_OUTPUT
         
         # Check if the build completed successfully by looking for the success message
         if grep -q "Documentation built in" build.log; then
           echo "✅ MkDocs build completed successfully"
+          
+          # Now check if site was actually created
+          if [ ! -d "site" ] || [ ! -f "site/index.html" ]; then
+            echo "⚠️ Build reported success but site directory not found"
+            echo "Contents of current directory:"
+            ls -la
+            if [ -d "site" ]; then
+              echo "Contents of site directory:"
+              ls -la site/
+            fi
+            echo ""
+            echo "Last 50 lines of build.log:"
+            tail -50 build.log
+            exit 1
+          else
+            echo "✅ Site directory created successfully"
+            ls -la site/ | head -5
+          fi
         else
           echo "❌ MkDocs build did not complete"
-          tail -50 build.log
-          exit 1
-        fi
-        
-        # Ensure site was built
-        if [ ! -d "site" ] || [ ! -f "site/index.html" ]; then
-          echo "❌ Build failed - site directory not created or incomplete"
-          echo "Contents of current directory:"
-          ls -la
-          if [ -d "site" ]; then
-            echo "Contents of site directory:"
-            ls -la site/
-          fi
-          echo ""
-          echo "Last 50 lines of build.log:"
           tail -50 build.log
           exit 1
         fi
