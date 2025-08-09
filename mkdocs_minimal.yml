@@ -1,0 +1,167 @@
+site_name: Distributed Systems Studio
+site_url: https://deepaucksharma.github.io/DStudio/
+site_description: A comprehensive knowledge base for distributed systems patterns, principles, and best practices
+site_author: Distributed Systems Community
+copyright: '&copy; 2024 Distributed Systems Studio. All rights reserved.'
+
+repo_name: deepaucksharma/DStudio
+repo_url: https://github.com/deepaucksharma/DStudio
+edit_uri: edit/main/docs/
+
+# Disable strict mode temporarily
+strict: false
+
+theme:
+  name: material
+  language: en
+  features:
+  - navigation.instant
+  - navigation.tracking
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - navigation.sections
+  - navigation.expand
+  - navigation.path
+  - navigation.indexes
+  - navigation.top
+  - navigation.footer
+  - search.suggest
+  - search.highlight
+  - search.share
+  - content.code.copy
+  - content.code.annotate
+  - content.tabs.link
+  - content.action.edit
+  - content.action.view
+  - content.tooltips
+  - announce.dismiss
+  - toc.follow
+  palette:
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: indigo
+    accent: indigo
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: indigo
+    accent: indigo
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/favicon.ico
+
+plugins:
+- search:
+    lang: en
+
+markdown_extensions:
+- abbr
+- admonition
+- attr_list
+- def_list
+- footnotes
+- md_in_html
+- toc:
+    permalink: true
+    permalink_title: Anchor link to this section for reference
+    toc_depth: 3
+- tables
+- codehilite:
+    css_class: highlight
+    guess_lang: false
+- pymdownx.arithmatex:
+    generic: true
+- pymdownx.betterem:
+    smart_enable: all
+- pymdownx.caret
+- pymdownx.details
+- pymdownx.emoji
+- pymdownx.highlight:
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: true
+    use_pygments: true
+- pymdownx.inlinehilite
+- pymdownx.keys
+- pymdownx.mark
+- pymdownx.smartsymbols
+- pymdownx.snippets
+- pymdownx.superfences:
+    preserve_tabs: true
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+- pymdownx.tabbed:
+    alternate_style: true
+- pymdownx.tasklist:
+    custom_checkbox: true
+- pymdownx.tilde
+
+extra_css:
+- stylesheets/extra.css
+
+extra_javascript:
+- javascripts/custom.js
+- javascripts/mathjax-config.js
+- https://polyfill.io/v3/polyfill.min.js?features=es6
+- https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+  - icon: fontawesome/brands/github
+    link: https://github.com/deepaucksharma/DStudio
+  - icon: fontawesome/brands/twitter
+    link: https://twitter.com/distributedstudio
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/company/distributed-systems-studio
+  generator: false
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+  consent:
+    title: Cookie consent
+    description: We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.
+
+nav:
+- Home: index.md
+- 🚀 Quick Links:
+  - Start Here: start-here/index.md
+  - Glossary: glossary.md
+  - Cross-Reference Matrix: reference/cross-reference-matrix.md
+- Part 1 - Core Principles:
+  - Overview: core-principles/index.md
+  - Theoretical Foundations:
+    - Impossibility Results (FLP, CAP, Byzantine): core-principles/impossibility-results.md
+    - Graph Theory in Distributed Systems: core-principles/graph-theory-distributed-systems.md
+  - The 7 Laws:
+    - All Laws Overview: core-principles/laws/index.md
+    - Implementation Guide & Diagrams: core-principles/laws/laws-implementation-guide.md
+    - Comprehensive Diagrams:
+      - Law 1 Diagram: core-principles/laws/law-1-diagram.md
+      - Law 2 Diagram: core-principles/laws/law-2-diagram.md
+      - Law 3 Diagram: core-principles/laws/law-3-diagram.md
+      - Law 4 Diagram: core-principles/laws/law-4-diagram.md
+      - Law 5 Diagram: core-principles/laws/law-5-diagram.md
+      - Law 6 Diagram: core-principles/laws/law-6-diagram.md
+      - Law 7 Diagram: core-principles/laws/law-7-diagram.md
+    - Law 1 - Correlated Failure: core-principles/laws/correlated-failure.md
+    - Law 2 - Asynchronous Reality: core-principles/laws/asynchronous-reality.md
+    - Law 3 - Emergent Chaos: core-principles/laws/emergent-chaos.md
+    - Law 4 - Multidimensional Optimization: core-principles/laws/multidimensional-optimization.md
+    - Law 5 - Distributed Knowledge: core-principles/laws/distributed-knowledge.md
+    - Law 6 - Cognitive Load: core-principles/laws/cognitive-load.md
+    - Law 7 - Economic Reality: core-principles/laws/economic-reality.md
+
+use_directory_urls: true
+docs_dir: docs
+site_dir: site
