@@ -23,6 +23,16 @@ These laws represent fundamental constraints that no amount of engineering can o
 
 **Why This Matters to You:** Every production outage, every performance bottleneck, every architectural decision you've struggled with—they all trace back to violations of these laws. Master them, and you'll see patterns everywhere.
 
+## 🎯 NEW: Implementation Guide with Master Diagrams
+
+**[📊 Laws Implementation Guide - Master Diagrams & Playbooks](laws-implementation-guide.md)**
+
+Get production-ready diagrams, metrics, thresholds, and runbooks for all 7 laws. Each law includes:
+- Visual implementation diagrams with concrete design choices
+- Monitoring and telemetry configurations  
+- Operational playbooks you can run today
+- Success criteria and ROI calculations
+
 ## Quick Start Paths {#quick-start}
 
 Choose your learning intensity:

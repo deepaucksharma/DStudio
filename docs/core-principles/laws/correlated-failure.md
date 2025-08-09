@@ -25,7 +25,7 @@ mlu_count: 8
 
 **Definition**: Failures in distributed systems are never truly independent—they cluster and cascade through hidden correlations (shared dependencies, infrastructure, knowledge) that violate probability theory and destroy reliability assumptions, with correlation coefficients (ρ) of 0.6-0.95 transforming "99.9% reliable" systems into 10% reliable disasters.
 
-![Dominoes falling in a cascade effect](./images/dominoes.jpg)
+![Correlated Failure Visualization](../../assets/correlated-failure-diagram.svg)
 
 ## Architectural Implications
 

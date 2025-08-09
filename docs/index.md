@@ -44,6 +44,7 @@ From emergency fixes to enterprise architecture — get the right solution for y
 
 **Quick Wins:**
 - [7 Fundamental Laws](core-principles/laws/index.md) — Understand in 30 minutes
+- [📊 Laws Implementation Guide](core-principles/laws/laws-implementation-guide.md) — Production-ready diagrams & playbooks
 - [5 Core Pillars](core-principles/pillars/index.md) — Master in 1 day
 - [Gold-tier Patterns](pattern-library/index.md#gold-tier) — Apply in 1 week
 
