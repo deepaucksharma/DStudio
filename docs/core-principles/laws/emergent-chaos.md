@@ -10,6 +10,8 @@ tags: ["chaos-theory", "statistical-mechanics", "phase-transitions", "emergence"
 
 # Law 3: The Law of Emergent Chaos
 
+> **[📊 View Comprehensive Visual Diagram](law-3-diagram.md)** - Complete implementation diagram with all concepts, formulas, and operational guidance
+
 **Definition**: At approximately 70% system utilization, individual components following simple rules suddenly synchronize and exhibit collective behavior that nobody programmed, creating emergent system-wide intelligence that follows the same statistical mechanics as phase transitions in physics.
 
 ## Architectural Implications

@@ -10,6 +10,8 @@ tags: [cognitive-science, human-factors, operational-design, team-health, apex-l
 
 # Law 6: The Law of Cognitive Load - Your Humans Are Not Machines
 
+> **[📊 View Comprehensive Visual Diagram](law-6-diagram.md)** - Complete implementation diagram with all concepts, formulas, and operational guidance
+
 **Definition**: Human working memory can only process 7±2 chunks of information simultaneously, and under stress this capacity drops to 2-3 chunks, creating a fundamental bottleneck where system complexity must be designed around human cognitive limits rather than technical possibilities.
 
 ## Architectural Implications

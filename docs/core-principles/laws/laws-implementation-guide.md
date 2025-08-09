@@ -78,6 +78,8 @@ graph TB
 
 ## Law 1: Correlated Failure - Implementation Diagram
 
+> **[📊 View Comprehensive Law 1 Diagram](law-1-diagram.md)** - Full visual representation with all concepts, formulas, and case studies
+
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#fff', 'primaryTextColor': '#000', 'primaryBorderColor': '#000', 'lineColor': '#000', 'secondaryColor': '#f5f5f5', 'tertiaryColor': '#ddd'}}}%%
 flowchart TB
@@ -188,6 +190,8 @@ runbooks:
 ---
 
 ## Law 2: Asynchronous Reality - Implementation Diagram
+
+> **[📊 View Comprehensive Law 2 Diagram](law-2-diagram.md)** - Complete timing, consensus, and consistency patterns
 
 ```mermaid
 flowchart TB
@@ -307,6 +311,8 @@ patterns:
 ---
 
 ## Law 3: Emergent Chaos - Implementation Diagram
+
+> **[📊 View Comprehensive Law 3 Diagram](law-3-diagram.md)** - Chaos theory, feedback loops, and control mechanisms
 
 ```mermaid
 flowchart TB
@@ -443,6 +449,8 @@ chaos:
 ---
 
 ## Law 4: Multidimensional Optimization - Implementation Diagram
+
+> **[📊 View Comprehensive Law 4 Diagram](law-4-diagram.md)** - Trade-off matrices, CAP theorem, and decision frameworks
 
 ```mermaid
 flowchart TB
@@ -593,6 +601,8 @@ decision:
 
 ## Law 5: Distributed Knowledge - Implementation Diagram
 
+> **[📊 View Comprehensive Law 5 Diagram](law-5-diagram.md)** - Byzantine fault tolerance, consensus algorithms, and CRDTs
+
 ```mermaid
 flowchart TB
     subgraph HEADER["LAW 5: DISTRIBUTED KNOWLEDGE - Partial View Management"]
@@ -725,6 +735,8 @@ reconciliation:
 ---
 
 ## Law 6: Cognitive Load - Implementation Diagram
+
+> **[📊 View Comprehensive Law 6 Diagram](law-6-diagram.md)** - Human limitations, complexity metrics, and team topologies
 
 ```mermaid
 flowchart TB
@@ -869,6 +881,8 @@ documentation:
 ---
 
 ## Law 7: Economic Reality - Implementation Diagram
+
+> **[📊 View Comprehensive Law 7 Diagram](law-7-diagram.md)** - Cost models, ROI calculations, and financial governance
 
 ```mermaid
 flowchart TB

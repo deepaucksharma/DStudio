@@ -13,6 +13,8 @@ learning_objectives:
 
 # Law 5: The Law of Distributed Knowledge
 
+> **[📊 View Comprehensive Visual Diagram](law-5-diagram.md)** - Complete implementation diagram with all concepts, formulas, and operational guidance
+
 ## Crisp Definition
 
 **In distributed systems, no single node can possess complete, current knowledge of global state—every decision must be made with partial, stale information while the truth continues evolving elsewhere, making perfect consensus physically impossible and creating fundamental trade-offs between consistency, availability, and partition tolerance.**

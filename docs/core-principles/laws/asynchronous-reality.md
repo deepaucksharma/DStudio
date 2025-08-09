@@ -8,6 +8,8 @@ reading_time: 75 min
 
 # Law 2: The Law of Asynchronous Reality
 
+> **[📊 View Comprehensive Visual Diagram](law-2-diagram.md)** - Complete implementation diagram with all concepts, formulas, and operational guidance
+
 **Definition**: Perfect synchronization is physically impossible in distributed systems because information cannot travel faster than light, creating fundamental minimum delays that make "simultaneous" operations observer-dependent and global "now" meaningless.
 
 ## Architectural Implications

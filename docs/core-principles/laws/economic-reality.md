@@ -9,6 +9,8 @@ tags: ["economics", "finops", "cost-optimization", "tco", "roi"]
 
 # Law 7: The Law of Economic Reality
 
+> **[📊 View Comprehensive Visual Diagram](law-7-diagram.md)** - Complete implementation diagram with all concepts, formulas, and operational guidance
+
 **Definition**: Every technical decision has economic consequences where the visible sticker price is only 30-50% of true costs, with hidden operational expenses, technical debt compounding at 78% annually, and human costs typically exceeding infrastructure costs by 3-5x, making financial impact the ultimate measure of architectural success.
 
 ## Architectural Implications

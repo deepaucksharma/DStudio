@@ -386,6 +386,14 @@ nav:
   - The 7 Laws:
     - All Laws Overview: core-principles/laws/index.md
     - Implementation Guide & Diagrams: core-principles/laws/laws-implementation-guide.md
+    - Comprehensive Diagrams:
+      - Law 1 Diagram: core-principles/laws/law-1-diagram.md
+      - Law 2 Diagram: core-principles/laws/law-2-diagram.md
+      - Law 3 Diagram: core-principles/laws/law-3-diagram.md
+      - Law 4 Diagram: core-principles/laws/law-4-diagram.md
+      - Law 5 Diagram: core-principles/laws/law-5-diagram.md
+      - Law 6 Diagram: core-principles/laws/law-6-diagram.md
+      - Law 7 Diagram: core-principles/laws/law-7-diagram.md
     - Law 1 - Correlated Failure: core-principles/laws/correlated-failure.md
     - Law 2 - Asynchronous Reality: core-principles/laws/asynchronous-reality.md
     - Law 3 - Emergent Chaos: core-principles/laws/emergent-chaos.md

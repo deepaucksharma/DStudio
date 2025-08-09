@@ -10,6 +10,8 @@ apex_protocol: true
 
 # Law 4: The Law of Multidimensional Optimization
 
+> **[📊 View Comprehensive Visual Diagram](law-4-diagram.md)** - Complete implementation diagram with all concepts, formulas, and operational guidance
+
 **Definition**: Every system exists on a multidimensional Pareto frontier where improving one dimension (performance, cost, reliability, simplicity) requires degrading others—this constraint is not a design limitation but mathematical law, making universal optimization impossible and forcing conscious trade-off decisions.
 
 ## Architectural Implications
