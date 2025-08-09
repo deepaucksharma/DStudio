@@ -1,0 +1,33 @@
+site_name: Distributed Systems Studio
+site_url: https://deepaucksharma.github.io/DStudio/
+site_description: A comprehensive knowledge base for distributed systems patterns, principles, and best practices
+site_author: Distributed Systems Community
+copyright: '&copy; 2024 Distributed Systems Studio. All rights reserved.'
+
+repo_name: deepaucksharma/DStudio
+repo_url: https://github.com/deepaucksharma/DStudio
+
+theme:
+  name: material
+  
+plugins:
+- search
+
+markdown_extensions:
+- admonition
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+
+nav:
+- Home: index.md
+- Start Here: start-here/index.md
+- Core Principles:
+  - Overview: core-principles/index.md
+  - Laws:
+    - All Laws: core-principles/laws/index.md
+    - Law 1: core-principles/laws/correlated-failure.md
+
+docs_dir: docs
+site_dir: site

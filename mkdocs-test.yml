@@ -1,0 +1,15 @@
+site_name: Distributed Systems Studio
+site_url: https://deepaucksharma.github.io/DStudio/
+site_description: A comprehensive knowledge base for distributed systems patterns, principles, and best practices
+site_author: Distributed Systems Community
+
+theme:
+  name: material
+  language: en
+
+nav:
+- Home: index.md
+- Quick Start: start-here/index.md
+
+docs_dir: docs
+site_dir: site

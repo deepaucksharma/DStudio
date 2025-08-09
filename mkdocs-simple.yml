@@ -1,0 +1,96 @@
+site_name: Distributed Systems Studio
+site_url: https://deepaucksharma.github.io/DStudio/
+site_description: A comprehensive knowledge base for distributed systems patterns, principles, and best practices
+site_author: Distributed Systems Community
+copyright: '&copy; 2024 Distributed Systems Studio. All rights reserved.'
+
+repo_name: deepaucksharma/DStudio
+repo_url: https://github.com/deepaucksharma/DStudio
+edit_uri: edit/main/docs/
+
+# Disable strict mode temporarily
+strict: false
+
+theme:
+  name: material
+  language: en
+  features:
+  - navigation.instant
+  - navigation.tabs
+  - navigation.sections
+  - navigation.expand
+  - navigation.indexes
+  - navigation.top
+  - search.suggest
+  - search.highlight
+  - content.code.copy
+  palette:
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: indigo
+    accent: indigo
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: indigo
+    accent: indigo
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+plugins:
+- search
+
+markdown_extensions:
+- admonition
+- attr_list
+- def_list
+- footnotes
+- md_in_html
+- toc:
+    permalink: true
+- tables
+- pymdownx.arithmatex:
+    generic: true
+- pymdownx.details
+- pymdownx.emoji
+- pymdownx.highlight:
+    anchor_linenums: true
+- pymdownx.inlinehilite
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+- pymdownx.tabbed:
+    alternate_style: true
+- pymdownx.tasklist:
+    custom_checkbox: true
+
+extra_javascript:
+- https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+- Home: index.md
+- Start Here: start-here/index.md
+- Core Principles:
+  - Overview: core-principles/index.md
+  - Laws:
+    - All Laws: core-principles/laws/index.md
+    - Law 1: core-principles/laws/correlated-failure.md
+    - Law 2: core-principles/laws/asynchronous-reality.md
+    - Law 3: core-principles/laws/emergent-chaos.md
+    - Law 4: core-principles/laws/multidimensional-optimization.md
+    - Law 5: core-principles/laws/distributed-knowledge.md
+    - Law 6: core-principles/laws/cognitive-load.md
+    - Law 7: core-principles/laws/economic-reality.md
+
+use_directory_urls: true
+docs_dir: docs
+site_dir: site
