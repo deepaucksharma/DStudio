@@ -1,14 +1,26 @@
-mkdocs==1.5.3
-mkdocs-material==9.4.0
-pymdown-extensions==10.2
-mkdocs-macros-plugin==1.0.0
-mkdocs-mermaid2-plugin==1.1.1
-markdown-exec[ansi]==1.8.0
+# Core MkDocs
+mkdocs>=1.5.3,<2.0
+mkdocs-material>=9.4.0,<10.0
+pymdown-extensions>=10.2,<11.0
+
+# MkDocs Plugins
+mkdocs-macros-plugin>=1.0.0,<2.0
+mkdocs-mermaid2-plugin>=1.1.1,<2.0
+markdown-exec[ansi]>=1.8.0,<2.0
 
 # Performance & SEO Enhancements
-mkdocs-minify-plugin==0.7.1
-mkdocs-git-revision-date-localized-plugin==1.2.0
-mkdocs-redirects==1.2.0
+mkdocs-minify-plugin>=0.7.1,<1.0
+mkdocs-git-revision-date-localized-plugin>=1.2.0,<2.0
+mkdocs-redirects>=1.2.0,<2.0
+
+# Missing dependencies for MkDocs Material
+mkdocs-glightbox>=0.3.4,<1.0
+
+# Additional dependencies that might be needed
+pyyaml>=6.0
+markdown>=3.4
+jinja2>=3.0
+click>=8.0
 
 # Optional Features (uncomment as needed)
 # mkdocs-exclude-search==0.6.5

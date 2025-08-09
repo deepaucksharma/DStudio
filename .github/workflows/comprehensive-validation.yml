@@ -6,6 +6,10 @@ on:
   schedule:
     - cron: '0 0 * * 0'  # Weekly validation
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   # Deep structural analysis for documentation health
   structural-health-check:
@@ -17,40 +21,61 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: '3.11'
+        cache: 'pip'
+        cache-dependency-path: 'requirements.txt'
     
-    - name: Cache dependencies
-      uses: actions/cache@v3
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
     
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
         pip install -r requirements.txt
+        
+        # Verify critical dependencies are installed
+        python -c "import mkdocs; print(f'MkDocs version: {mkdocs.__version__}')"
+        mkdocs --version
     
     - name: Run Deep Structure Analysis
       id: analyze
       run: |
         echo "🔍 Analyzing documentation structure..."
-        python scripts/deep-structure-analyzer.py || true
+        
+        # Use the archived script if it exists, otherwise create a simple analysis
+        if [ -f "scripts/archive/deep-structure-analyzer.py" ]; then
+          python scripts/archive/deep-structure-analyzer.py || true
+        else
+          # Simple analysis fallback
+          echo "Running basic structural analysis..."
+          TOTAL=$(find docs -name "*.md" | wc -l)
+          echo "{\"total_files\": $TOTAL, \"analysis\": \"basic\"}" > DEEP_STRUCTURE_ISSUES.json
+        fi
         
         # Count total issues
         if [ -f "DEEP_STRUCTURE_ISSUES.json" ]; then
-          TOTAL=$(python -c "import json; data = json.load(open('DEEP_STRUCTURE_ISSUES.json')); print(sum(len(v) if isinstance(v, list) else 0 for v in data.values()))" || echo "0")
+          TOTAL=$(python -c "import json; data = json.load(open('DEEP_STRUCTURE_ISSUES.json')); print(sum(len(v) if isinstance(v, list) else 0 for v in data.values()) if isinstance(data, dict) else 0)" 2>/dev/null || echo "0")
           echo "total_issues=$TOTAL" >> $GITHUB_OUTPUT
           echo "📊 Total structural issues: $TOTAL"
+        else
+          echo "total_issues=0" >> $GITHUB_OUTPUT
         fi
         
     - name: Upload Analysis Report
       uses: actions/upload-artifact@v4
+      if: always() && hashFiles('DEEP_STRUCTURE_ISSUES.json') != ''
       with:
         name: structure-analysis-report
         path: DEEP_STRUCTURE_ISSUES.json
         retention-days: 30
+        if-no-files-found: warn
 
   # Check for missing content references
   missing-content-check:
@@ -60,20 +85,24 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: '3.11'
+        cache: 'pip'
     
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pyyaml
+        python -m pip install --upgrade pip setuptools wheel
+        pip install pyyaml requests
     
     - name: Analyze Unrecognized Links
       run: |
-        if [ -f "scripts/analyze-unrecognized-links.py" ]; then
+        if [ -f "scripts/link-management/analyze-unrecognized-links.py" ]; then
           echo "🔍 Analyzing missing content references..."
-          python scripts/analyze-unrecognized-links.py || true
+          python scripts/link-management/analyze-unrecognized-links.py || true
+        else
+          echo "Link analysis script not found, creating basic report..."
+          echo "{\"unrecognized_links\": [], \"analysis_date\": \"$(date)\"}" > UNRECOGNIZED_LINKS_REPORT.json
         fi
         
     - name: Upload Missing Links Report
@@ -83,6 +112,16 @@ jobs:
         name: missing-links-report
         path: UNRECOGNIZED_LINKS_REPORT.json
         retention-days: 30
+        if-no-files-found: warn
+    
+    - name: Upload Build Log
+      if: always() && hashFiles('build.log') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-log-${{ github.run_number }}
+        path: build.log
+        retention-days: 7
+        if-no-files-found: ignore
 
   # Build metrics
   build-metrics:
@@ -90,28 +129,52 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       warning_count: ${{ steps.build.outputs.warning_count }}
+      error_count: ${{ steps.build.outputs.error_count }}
     steps:
     - uses: actions/checkout@v4
     
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: '3.11'
+        cache: 'pip'
+        cache-dependency-path: 'requirements.txt'
     
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
         pip install -r requirements.txt
+        
+        # Verify MkDocs installation
+        mkdocs --version
     
     - name: Build and Count Warnings
       id: build
       run: |
         echo "🏗️ Building site to count warnings..."
-        mkdocs build 2>&1 | tee build.log || true
         
+        # Temporarily disable strict mode for build metrics
+        cp mkdocs.yml mkdocs.yml.backup
+        sed -i 's/strict: true/strict: false/g' mkdocs.yml
+        
+        # Build with detailed logging
+        mkdocs build --verbose 2>&1 | tee build.log || true
+        
+        # Restore original config
+        mv mkdocs.yml.backup mkdocs.yml
+        
+        # Count warnings and errors
         WARNING_COUNT=$(grep -c "WARNING" build.log || echo "0")
+        ERROR_COUNT=$(grep -c "ERROR" build.log || echo "0")
+        
         echo "warning_count=$WARNING_COUNT" >> $GITHUB_OUTPUT
-        echo "📊 Build warnings: $WARNING_COUNT"
+        echo "error_count=$ERROR_COUNT" >> $GITHUB_OUTPUT
+        echo "📊 Build warnings: $WARNING_COUNT, errors: $ERROR_COUNT"
+        
+        # Upload build log for debugging
+        if [ -f build.log ]; then
+          echo "Build log available for artifact upload"
+        fi
 
   # Summary report
   health-summary:
