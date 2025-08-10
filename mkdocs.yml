@@ -647,25 +647,7 @@ nav:
     - Search UX: architects-handbook/human-factors/search-ux.md
 
 - Part 6 - Implementation Guides:
-  - Overview: architects-handbook/implementation-playbooks/index.md
   - Improvement Guidelines: IMPROVEMENT_GUIDELINES.md
-  
-  - Migration Guides:
-    - Global Expansion: architects-handbook/implementation-playbooks/global-expansion/index.md
-    - Migration Checklist: architects-handbook/implementation-playbooks/migration-checklist/index.md
-    - Monolith Decomposition: architects-handbook/implementation-playbooks/monolith-decomposition/index.md
-    - Monolith to Microservices: architects-handbook/implementation-playbooks/monolith-to-microservices/index.md
-    - Pattern Selection Wizard: architects-handbook/implementation-playbooks/pattern-selection-wizard/index.md
-    - Zero Downtime: architects-handbook/implementation-playbooks/zero-downtime/index.md
-  
-  - Implementation Playbooks:
-    - Overview: implementation-playbooks/index.md
-    - Compliance Checklist: implementation-playbooks/compliance-checklist/index.md
-    - Incident Response: implementation-playbooks/incident-response/index.md
-    - Migration Checklist: implementation-playbooks/migration-checklist/index.md
-    - Monolith to Microservices: implementation-playbooks/monolith-to-microservices/index.md
-    - Performance Testing: implementation-playbooks/performance-testing/index.md
-    - Security Audit: implementation-playbooks/security-audit/index.md
   
   - Learning Paths:
     - Overview: architects-handbook/learning-paths/index.md
