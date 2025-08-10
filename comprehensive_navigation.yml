@@ -12,6 +12,10 @@ nav:
   
   - Theoretical Foundations:
     - Impossibility Results (FLP, CAP, Byzantine): core-principles/impossibility-results.md
+    - Two Generals Problem Deep Dive: core-principles/two-generals-problem.md
+    - FLP Impossibility Deep Dive: core-principles/flp-impossibility.md
+    - CAP Theorem Deep Dive: core-principles/cap-theorem.md
+    - Consensus Number Hierarchy Deep Dive: core-principles/consensus-number-hierarchy.md
     - Graph Theory in Distributed Systems: core-principles/graph-theory-distributed-systems.md
   
   - The 7 Laws:
