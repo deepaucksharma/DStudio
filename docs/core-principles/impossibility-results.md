@@ -22,31 +22,6 @@ last_updated: 2025-08-09
 
 **Fischer, Lynch, and Paterson (1985)**: In an asynchronous distributed system with even one faulty process, no consensus protocol can guarantee termination.
 
-### Mathematical Proof Outline
-
-```
-Given:
-- Asynchronous system (no timing assumptions)
-- At least 3 processes
-- At most 1 crash failure
-- Reliable message delivery (eventually)
-
-Proof by contradiction:
-1. Assume protocol P solves consensus with termination guarantee
-2. Define valency of configurations:
-   - 0-valent: Will decide 0
-   - 1-valent: Will decide 1
-   - Bivalent: Can still decide either
-
-3. Initial configuration must be bivalent (by input independence)
-4. From any bivalent configuration:
-   - There exists a critical step that determines outcome
-   - But asynchrony allows delaying this message
-   - Process can crash before/after critical step
-   - Creates indistinguishable scenarios → contradiction
-
-Therefore: No protocol can guarantee both safety and liveness
-```
 
 ### Practical Implications
 
