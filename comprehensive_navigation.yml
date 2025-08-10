@@ -50,8 +50,6 @@ nav:
     
     - Tests & Assessments:
       - Overview: core-principles/laws/tests/index.md
-      - Test Implementation Review: core-principles/laws/tests/TEST_IMPLEMENTATION_REVIEW.md
-      - Revised Test Strategy: core-principles/laws/tests/REVISED_TEST_STRATEGY.md
       - Law 1 Tests:
         - Correlated Failure Test: core-principles/laws/tests/correlated-failure-test.md
         - Correlated Failure Exam: core-principles/laws/tests/correlated-failure-exam.md
@@ -75,7 +73,7 @@ nav:
   
   - The 5 Pillars:
     - Overview: core-principles/pillars/index.md
-    - Pillars Reference: core-principles/pillars.md
+    - Pillars Reference: core-principles/pillars/index.md
     - Pillar 1 - Work Distribution: core-principles/pillars/work-distribution.md
     - Pillar 2 - State Distribution: core-principles/pillars/state-distribution.md
     - Pillar 3 - Truth Distribution: core-principles/pillars/truth-distribution.md
@@ -344,7 +342,7 @@ nav:
     - Amazon DynamoDB: case-studies/amazon-dynamodb.md
     - Apache Kafka: case-studies/apache-kafka.md
     - Google Spanner: case-studies/google-spanner.md
-    - Netflix Playback Pipeline: case-studies/netflix-playbook-pipeline.md
+    - Netflix Playback Pipeline: case-studies/netflix-playback-pipeline.md
     - Twitter Timeline: case-studies/twitter-timeline.md
     - Uber Location Services: case-studies/uber-location-services.md
   
