@@ -1,0 +1,94 @@
+{
+  "name": "indian-ecommerce-mysql-source-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "database.hostname": "mysql-primary.mumbai.aws.internal",
+    "database.port": "3306", 
+    "database.user": "cdc_user",
+    "database.password": "${file:/opt/kafka/secrets/mysql-cdc-password.txt}",
+    "database.server.id": "184054",
+    "database.server.name": "flipkart_mumbai_primary",
+    "database.include.list": "flipkart_orders,payments,inventory,users",
+    "table.include.list": "flipkart_orders.orders,flipkart_orders.order_items,payments.transactions,payments.refunds,inventory.stock_movements,users.profiles",
+    
+    "database.history.kafka.bootstrap.servers": "kafka-cluster-mumbai.internal:9092",
+    "database.history.kafka.topic": "flipkart.cdc.schema.history",
+    "database.history.kafka.recovery.poll.interval.ms": "5000",
+    "database.history.kafka.recovery.attempts": "10",
+    
+    "topic.prefix": "flipkart.mumbai",
+    "include.schema.changes": "true",
+    "include.query": "false",
+    "provide.transaction.metadata": "true",
+    
+    "snapshot.mode": "schema_only_recovery",
+    "snapshot.locking.mode": "none",
+    "snapshot.select.statement.overrides": "flipkart_orders.orders",
+    
+    "transforms": "route,unwrap,addMetadata",
+    
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "transforms.route.replacement": "$1.$3",
+    
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "false",
+    "transforms.unwrap.delete.handling.mode": "rewrite",
+    "transforms.unwrap.add.fields": "table,lsn,ts_ms",
+    
+    "transforms.addMetadata.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+    "transforms.addMetadata.static.field": "datacenter",
+    "transforms.addMetadata.static.value": "mumbai-aws-region",
+    
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false",
+    
+    "decimal.handling.mode": "double",
+    "time.precision.mode": "adaptive_time_microseconds",
+    "bigint.unsigned.handling.mode": "precise",
+    
+    "max.batch.size": "2048",
+    "max.queue.size": "8192",
+    "poll.interval.ms": "1000",
+    "max.queue.size.in.bytes": "100000000",
+    
+    "heartbeat.interval.ms": "30000",
+    "heartbeat.topics.prefix": "flipkart.heartbeat",
+    
+    "skipped.operations": "",
+    "tombstones.on.delete": "true",
+    
+    "database.ssl.mode": "preferred",
+    "database.ssl.keystore": "/opt/kafka/ssl/keystore.jks",
+    "database.ssl.keystore.password": "${file:/opt/kafka/secrets/keystore-password.txt}",
+    "database.ssl.truststore": "/opt/kafka/ssl/truststore.jks", 
+    "database.ssl.truststore.password": "${file:/opt/kafka/secrets/truststore-password.txt}",
+    
+    "signal.kafka.bootstrap.servers": "kafka-cluster-mumbai.internal:9092",
+    "signal.kafka.topic": "flipkart.cdc.signals",
+    
+    "schema.name.adjustment.mode": "avro",
+    
+    "binlog.buffer.size": "32768",
+    
+    "database.connectionTimeZone": "Asia/Kolkata",
+    "event.processing.failure.handling.mode": "fail",
+    
+    "table.exclude.list": "flipkart_orders.audit_logs,payments.temp_*,inventory.backup_*",
+    
+    "column.mask.with.8.chars": "flipkart_orders.users.credit_card_number,payments.transactions.account_number",
+    "column.mask.hash.SHA-256.with.salt.CzQMA0cB5K": "flipkart_orders.users.aadhaar_number,users.profiles.pan_number",
+    
+    "database.query.timeout.ms": "600000",
+    
+    "inconsistent.schema.handling.mode": "warn",
+    
+    "retriable.restart.connector.wait.ms": "10000",
+    
+    "notification.enabled.channels": "log,jmx",
+    
+    "custom.metric.tags": "environment:production,region:mumbai,platform:flipkart"
+  }
+}

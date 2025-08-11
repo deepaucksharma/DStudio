@@ -1,0 +1,91 @@
+# Episode 13: CDC & Real-Time Data Pipelines - Python Dependencies
+
+# Core CDC and streaming libraries
+kafka-python==2.0.2
+confluent-kafka==2.3.0
+debezium-client==0.1.0
+
+# Database drivers and connectors
+psycopg2-binary==2.9.9
+asyncpg==0.29.0
+pymongo==4.6.1
+motor==3.3.2
+mysql-connector-python==8.2.0
+
+# Redis for caching and state management
+redis==5.0.1
+hiredis==2.2.3
+
+# Async and web framework support
+asyncio==3.4.3
+aiohttp==3.9.1
+websockets==12.0
+fastapi==0.104.1
+uvicorn==0.24.0
+
+# Data processing and serialization
+avro==1.11.3
+avro-python3==1.11.3
+fastavro==1.9.2
+jsonschema==4.20.0
+pydantic==2.5.2
+
+# Monitoring and metrics
+prometheus-client==0.19.0
+influxdb-client==1.39.0
+grafana-api==1.0.3
+
+# Indian context and geospatial
+geopy==2.4.1
+pytz==2023.3.post1
+
+# Logging and configuration
+structlog==23.2.0
+python-json-logger==2.0.7
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# HTTP and API clients
+requests==2.31.0
+httpx==0.25.2
+
+# Data validation and utilities
+marshmallow==3.20.1
+validators==0.22.0
+python-dateutil==2.8.2
+
+# Testing and development
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+factory-boy==3.3.0
+
+# Security and authentication
+cryptography==41.0.8
+pyjwt==2.8.0
+passlib==1.7.4
+
+# Performance and optimization
+numpy==1.25.2
+pandas==2.1.4
+cachetools==5.3.2
+
+# Error handling and retry logic
+tenacity==8.2.3
+backoff==2.2.1
+
+# Development tools
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
+pre-commit==3.6.0
+
+# Documentation
+mkdocs==1.5.3
+mkdocs-material==9.4.8
+
+# Specific Indian payment and business libraries
+# (These are placeholder names - actual libraries may differ)
+# indian-payment-gateway==1.0.0  # For UPI/payment processing
+# festival-calendar==2024.1      # Indian festival detection
+# regional-utils==1.2.0          # Indian regional utilities

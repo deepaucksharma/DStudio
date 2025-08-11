@@ -1,0 +1,31 @@
+# API Gateway dependencies for production deployment
+
+# FastAPI and ASGI server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# HTTP client for backend requests
+aiohttp==3.9.1
+requests==2.31.0
+
+# Authentication and security
+PyJWT==2.8.0
+cryptography==41.0.8
+
+# Redis for rate limiting and caching
+redis==5.0.1
+hiredis==2.2.3
+
+# Monitoring and metrics
+prometheus-client==0.19.0
+
+# Data handling
+pydantic==2.5.0
+
+# Development and testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
+
+# Production requirements
+gunicorn==21.2.0
