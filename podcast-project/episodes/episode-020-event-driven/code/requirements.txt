@@ -1,0 +1,55 @@
+# Event-Driven Architecture Examples - Python Dependencies
+
+# Core async and data handling
+asyncio>=3.4.3
+dataclasses>=0.6; python_version < "3.7"
+typing>=3.7.4
+uuid>=1.30
+
+# Redis for DLQ and Exactly-Once examples
+redis>=4.3.4
+
+# Kafka for distributed messaging
+kafka-python>=2.0.2
+
+# JSON schema validation for schema versioning
+jsonschema>=4.17.3
+
+# WebSocket support for real-time streaming
+websockets>=11.0.3
+
+# Database support
+sqlite3  # Built-in with Python
+
+# Data serialization
+json  # Built-in with Python
+
+# Logging and utilities
+logging  # Built-in with Python
+
+# Testing framework
+pytest>=7.2.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.10.0
+
+# Development and debugging
+memory-profiler>=0.60.0  # For memory profiling
+psutil>=5.9.0  # For system monitoring
+
+# Documentation
+markdown>=3.4.1  # For README processing
+
+# Optional: Enhanced JSON handling
+ujson>=5.7.0  # Faster JSON processing (optional)
+
+# Optional: Better datetime handling
+python-dateutil>=2.8.2
+
+# Optional: Enhanced logging
+structlog>=23.1.0  # Structured logging (optional)
+
+# Optional: HTTP client for testing
+requests>=2.28.2
+
+# Optional: Load testing
+locust>=2.14.2  # For load testing (optional)
