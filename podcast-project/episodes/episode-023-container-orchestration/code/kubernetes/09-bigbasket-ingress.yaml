@@ -1,0 +1,633 @@
+# BigBasket Ingress Controller Configuration
+# भारत की सबसे बड़ी online grocery platform के लिए traffic routing
+# Handles 5M+ daily visitors across 300+ cities
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bigbasket-main-ingress
+  namespace: bigbasket-platform
+  labels:
+    app: bigbasket-ingress
+    component: traffic-routing
+    tier: edge
+  annotations:
+    # NGINX Ingress Controller annotations
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    
+    # SSL/TLS configuration
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    
+    # Performance optimizations for Indian traffic
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    
+    # Rate limiting to prevent abuse
+    nginx.ingress.kubernetes.io/rate-limit-connections: "20"
+    nginx.ingress.kubernetes.io/rate-limit-connections-per-second: "5"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+    
+    # Geographic routing for Indian cities
+    nginx.ingress.kubernetes.io/server-snippet: |
+      set $city_backend "default";
+      if ($geoip_city = "Mumbai") {
+        set $city_backend "mumbai";
+      }
+      if ($geoip_city = "Delhi") {
+        set $city_backend "delhi";
+      }
+      if ($geoip_city = "Bangalore") {
+        set $city_backend "bangalore";
+      }
+      if ($geoip_city = "Chennai") {
+        set $city_backend "chennai";
+      }
+      if ($geoip_city = "Hyderabad") {
+        set $city_backend "hyderabad";
+      }
+    
+    # Caching for static assets
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+        add_header X-City-Backend $city_backend;
+      }
+      
+      location /api/products/images/ {
+        expires 7d;
+        add_header Cache-Control "public";
+      }
+      
+      # Indian language support headers
+      add_header Accept-Language "hi,en,ta,te,kn,ml,bn,gu,mr";
+      add_header X-Content-Language $http_accept_language;
+    
+    # Load balancing algorithm
+    nginx.ingress.kubernetes.io/load-balance: "least_conn"
+    
+    # Session affinity for shopping cart
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/affinity-mode: "persistent"
+    nginx.ingress.kubernetes.io/session-cookie-name: "bigbasket-session"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "86400"  # 24 hours
+    
+    # CORS configuration for mobile apps
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://bigbasket.com,https://m.bigbasket.com,https://app.bigbasket.com"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET,POST,PUT,DELETE,OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,X-City-Code,X-Customer-Id"
+    
+    # Security headers
+    nginx.ingress.kubernetes.io/custom-http-errors: "404,503,500,502"
+    nginx.ingress.kubernetes.io/default-backend: "bigbasket-error-pages"
+
+spec:
+  # TLS configuration for HTTPS
+  tls:
+  - hosts:
+    - bigbasket.com
+    - www.bigbasket.com
+    - api.bigbasket.com
+    - m.bigbasket.com
+    - app.bigbasket.com
+    secretName: bigbasket-tls-certificate
+  
+  rules:
+  # Main website - www.bigbasket.com
+  - host: www.bigbasket.com
+    http:
+      paths:
+      # Homepage and category pages
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-frontend-service
+            port:
+              number: 80
+      
+      # Product search and catalog
+      - path: /products(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-product-catalog-service
+            port:
+              number: 8080
+      
+      # Shopping cart service
+      - path: /cart(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-cart-service
+            port:
+              number: 8080
+      
+      # Order management
+      - path: /orders(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-order-service
+            port:
+              number: 8080
+      
+      # User account management
+      - path: /account(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-user-service
+            port:
+              number: 8080
+      
+      # Payment processing
+      - path: /payment(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-payment-service
+            port:
+              number: 8443  # HTTPS for payment security
+  
+  # API subdomain - api.bigbasket.com
+  - host: api.bigbasket.com
+    http:
+      paths:
+      # API versioning
+      - path: /v1/products(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-product-api-v1
+            port:
+              number: 8080
+      
+      - path: /v2/products(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-product-api-v2
+            port:
+              number: 8080
+      
+      # Customer API
+      - path: /v1/customers(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-customer-api-service
+            port:
+              number: 8080
+      
+      # Inventory API for real-time stock
+      - path: /v1/inventory(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-inventory-service
+            port:
+              number: 8080
+      
+      # Delivery tracking API
+      - path: /v1/delivery(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-delivery-tracking-service
+            port:
+              number: 8080
+      
+      # Recommendations API
+      - path: /v1/recommendations(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-recommendation-engine
+            port:
+              number: 8080
+  
+  # Mobile website - m.bigbasket.com  
+  - host: m.bigbasket.com
+    http:
+      paths:
+      # Mobile-optimized frontend
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-mobile-frontend-service
+            port:
+              number: 80
+      
+      # AMP pages for fast loading on 2G/3G
+      - path: /amp(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-amp-service
+            port:
+              number: 8080
+  
+  # App API - app.bigbasket.com
+  - host: app.bigbasket.com
+    http:
+      paths:
+      # Mobile app API
+      - path: /api/v1(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-mobile-api-service
+            port:
+              number: 8080
+      
+      # Push notification service
+      - path: /notifications(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-notification-service
+            port:
+              number: 8080
+      
+      # App analytics
+      - path: /analytics(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-analytics-service
+            port:
+              number: 8080
+
+---
+# City-specific Ingress for Mumbai region
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bigbasket-mumbai-ingress
+  namespace: bigbasket-platform
+  labels:
+    app: bigbasket-ingress
+    region: mumbai
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/server-alias: "mumbai.bigbasket.com"
+    
+    # Mumbai-specific configuration
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # Mumbai delivery zones
+      set $delivery_zone "default";
+      if ($remote_addr ~ "^10\.1\..*") { set $delivery_zone "bandra"; }
+      if ($remote_addr ~ "^10\.2\..*") { set $delivery_zone "andheri"; }
+      if ($remote_addr ~ "^10\.3\..*") { set $delivery_zone "powai"; }
+      
+      # Mumbai traffic-aware timeouts (longer during peak hours)
+      set $peak_hours "no";
+      if ($time_iso8601 ~ "T(07|08|09|18|19|20)") { set $peak_hours "yes"; }
+      
+      if ($peak_hours = "yes") {
+        proxy_connect_timeout 15s;
+        proxy_read_timeout 180s;
+      }
+      
+      add_header X-Delivery-Zone $delivery_zone;
+      add_header X-Peak-Hours $peak_hours;
+
+spec:
+  tls:
+  - hosts:
+    - mumbai.bigbasket.com
+    secretName: bigbasket-mumbai-tls
+  
+  rules:
+  - host: mumbai.bigbasket.com
+    http:
+      paths:
+      # Mumbai-specific product catalog
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-mumbai-catalog-service
+            port:
+              number: 8080
+      
+      # Local store integration
+      - path: /stores(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bigbasket-mumbai-stores-service
+            port:
+              number: 8080
+
+---
+# Load Balancer Service for external traffic
+apiVersion: v1
+kind: Service
+metadata:
+  name: bigbasket-ingress-nginx
+  namespace: bigbasket-platform
+  labels:
+    app: ingress-nginx
+  annotations:
+    # AWS Load Balancer configuration
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    
+    # Health check configuration
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "10"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: "2"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
+    
+    # SSL termination
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-south-1:123456789012:certificate/bigbasket-cert"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local  # Preserve client IP for rate limiting
+  
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: 80
+    protocol: TCP
+  
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+
+---
+# Error pages service for custom error handling
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bigbasket-error-pages
+  namespace: bigbasket-platform
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: error-pages
+  template:
+    metadata:
+      labels:
+        app: error-pages
+    spec:
+      containers:
+      - name: error-pages
+        image: bigbasket.azurecr.io/error-pages:v1.0.0
+        ports:
+        - containerPort: 8080
+        
+        # Error page configuration
+        env:
+        - name: ERROR_FILES_PATH
+          value: "/usr/share/nginx/html"
+        - name: DEFAULT_ERROR_CODE
+          value: "503"
+        - name: BRAND_NAME
+          value: "BigBasket"
+        - name: SUPPORT_EMAIL
+          value: "help@bigbasket.com"
+        - name: SUPPORT_PHONE
+          value: "1860-123-1000"
+        
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bigbasket-error-pages
+  namespace: bigbasket-platform
+spec:
+  selector:
+    app: error-pages
+  ports:
+  - port: 80
+    targetPort: 8080
+
+---
+# ConfigMap for NGINX custom configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bigbasket-nginx-config
+  namespace: bigbasket-platform
+data:
+  # Custom NGINX configuration for BigBasket
+  nginx.conf: |
+    # BigBasket Custom NGINX Configuration
+    # भारतीय grocery platform के लिए optimized settings
+    
+    # Geographic IP mapping for Indian cities
+    geoip_country /etc/nginx/geoip/GeoIP.dat;
+    geoip_city /etc/nginx/geoip/GeoLiteCity.dat;
+    
+    # Rate limiting zones
+    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+    limit_req_zone $binary_remote_addr zone=search:20m rate=5r/s;
+    limit_req_zone $binary_remote_addr zone=checkout:5m rate=2r/s;
+    
+    # Connection limiting
+    limit_conn_zone $binary_remote_addr zone=conn_limit_per_ip:10m;
+    limit_conn conn_limit_per_ip 20;
+    
+    # Upstream backends for different services
+    upstream bigbasket_products {
+        least_conn;
+        server bigbasket-product-catalog-service:8080 max_fails=3 fail_timeout=30s;
+        server bigbasket-product-catalog-service:8080 max_fails=3 fail_timeout=30s;
+        keepalive 32;
+    }
+    
+    upstream bigbasket_cart {
+        ip_hash;  # Session affinity for cart
+        server bigbasket-cart-service:8080 max_fails=2 fail_timeout=10s;
+        server bigbasket-cart-service:8080 max_fails=2 fail_timeout=10s;
+        keepalive 16;
+    }
+    
+    upstream bigbasket_payment {
+        least_conn;
+        server bigbasket-payment-service:8443 max_fails=1 fail_timeout=5s;
+        server bigbasket-payment-service:8443 max_fails=1 fail_timeout=5s;
+        keepalive 8;
+    }
+    
+    # Cache zones
+    proxy_cache_path /var/cache/nginx/products 
+                     levels=1:2 
+                     keys_zone=products_cache:100m 
+                     inactive=60m 
+                     max_size=1g;
+    
+    proxy_cache_path /var/cache/nginx/images 
+                     levels=1:2 
+                     keys_zone=images_cache:50m 
+                     inactive=30d 
+                     max_size=5g;
+    
+    # Server configuration
+    server {
+        listen 80;
+        server_name bigbasket.com www.bigbasket.com;
+        
+        # Security headers
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+        
+        # Indian language support
+        charset utf-8;
+        
+        # Gzip compression
+        gzip on;
+        gzip_vary on;
+        gzip_min_length 1000;
+        gzip_types
+            application/atom+xml
+            application/javascript
+            application/json
+            application/ld+json
+            application/manifest+json
+            application/rss+xml
+            application/vnd.geo+json
+            application/vnd.ms-fontobject
+            application/x-font-ttf
+            application/x-web-app-manifest+json
+            application/xhtml+xml
+            application/xml
+            font/opentype
+            image/bmp
+            image/svg+xml
+            image/x-icon
+            text/cache-manifest
+            text/css
+            text/plain
+            text/vcard
+            text/vnd.rim.location.xloc
+            text/vtt
+            text/x-component
+            text/x-cross-domain-policy;
+        
+        # Product search with rate limiting
+        location /search {
+            limit_req zone=search burst=10 nodelay;
+            proxy_cache products_cache;
+            proxy_cache_valid 200 5m;
+            proxy_cache_key "$scheme$request_method$host$request_uri";
+            proxy_pass http://bigbasket_products;
+        }
+        
+        # Cart operations with session affinity
+        location /cart {
+            limit_req zone=checkout burst=5 nodelay;
+            proxy_pass http://bigbasket_cart;
+            proxy_cache off;  # Never cache cart operations
+        }
+        
+        # Payment with enhanced security
+        location /payment {
+            limit_req zone=checkout burst=3 nodelay;
+            proxy_pass https://bigbasket_payment;
+            proxy_ssl_verify on;
+            proxy_cache off;
+            
+            # Additional security headers for payment
+            add_header Content-Security-Policy "default-src 'self'" always;
+            add_header X-Payment-Security "encrypted" always;
+        }
+        
+        # Static assets with long-term caching
+        location ~* \.(jpg|jpeg|png|gif|ico|css|js|woff|woff2)$ {
+            proxy_cache images_cache;
+            proxy_cache_valid 200 30d;
+            expires 30d;
+            add_header Cache-Control "public, immutable";
+        }
+        
+        # Health check endpoint
+        location /health {
+            access_log off;
+            return 200 "healthy\n";
+            add_header Content-Type text/plain;
+        }
+    }
+
+---
+# Network Policy for Ingress traffic control
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: bigbasket-ingress-network-policy
+  namespace: bigbasket-platform
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-nginx
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic from load balancer
+  - from: []
+    ports:
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 443
+  
+  # Allow health check traffic
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 10254  # NGINX metrics port
+  
+  egress:
+  # Allow traffic to backend services
+  - to:
+    - podSelector:
+        matchLabels:
+          tier: backend
+    ports:
+    - protocol: TCP
+      port: 8080
+    - protocol: TCP  
+      port: 8443
+  
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53

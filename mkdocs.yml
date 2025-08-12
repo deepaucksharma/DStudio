@@ -759,6 +759,7 @@ nav:
     - Primary Replica to Multi-Primary: excellence/migrations/primary-replica-to-multi-primary.md
     - Shared Database to Microservices: excellence/migrations/shared-database-to-microservices.md
     - Thick Client to API First: excellence/migrations/thick-client-to-api-first.md
+    - Vector Clocks to HLC: excellence/migrations/vector-clocks-to-hlc.md
   
   - Pattern Discovery:
     - Overview: excellence/pattern-discovery/index.md
@@ -941,42 +942,50 @@ nav:
 
 - Part 15 - Content Standards & Guidelines:
   - Overview: reference/index.md
-  - Content Guidelines:
-    - Admonition Guide: reference/admonition-guide.md
-    - Visual Design Standards: reference/visual-design-standards.md
-    - Navigation Guide: reference/navigation-guide.md
-    - Keyboard Shortcuts: reference/keyboard-shortcuts.md
-  - Interactive Tools:
-    - Pattern Health Dashboard: reference/pattern-health-dashboard.md
 
 - Reference & Utilities:
   - Glossary: glossary.md
-  - Cross-Reference Matrix: reference/cross-reference-matrix.md
-  - Pattern Selection Guide: reference/pattern-selection-cheatsheet.md
-  - Contributing Guidelines: contributing/style-guide.md
+  
+  - Quick Reference Guides:
+    - Pattern Selection Guide: reference/pattern-selection-cheatsheet.md
+    - Cheat Sheets: reference/cheat-sheets.md
+    - Cross-Reference Guide: reference/cross-reference-guide.md
+    - Keyboard Shortcuts: reference/keyboard-shortcuts.md
+    - Law Mapping Guide: reference/law-mapping-guide.md
+  
+  - Content Guidelines:
+    - Admonition Guide: reference/admonition-guide.md
+    - Visual Design Standards: reference/visual-design-standards.md
+    - Visual Implementation Guide: reference/visual-implementation-guide.md
+    - Navigation Guide: reference/navigation-guide.md
+    - Navigation Maintenance: reference/navigation-maintenance.md
+    - Formatting Guide: reference/formatting-guide.md
+    - Validation Guide: reference/validation-guide.md
+    - Contributing Guidelines: contributing/style-guide.md
+    - Contributing Reference: reference/contributing.md
+  
+  - Templates & Examples:
+    - Pattern Template: reference/pattern-template.md
+    - Code Example Framework: reference/code-example-framework.md
+    - Mermaid Templates: reference/mermaid-templates.md
+    - Performance Visualization Templates: reference/performance-visualization-templates.md
+    - Recipe Cards: reference/recipe-cards.md
+  
+  - Pattern Analysis Tools:
+    - Pattern Health Dashboard: reference/pattern-health-dashboard.md
+    - Pattern Meta Analysis: reference/pattern-meta-analysis.md
+    - Pattern Dependency Graph: reference/pattern-dependency-graph.md
+    - Pattern Evolution Timeline: reference/pattern-evolution-timeline.md
+    - Pattern Consistency Report: reference/pattern-consistency-report.md
+    - Content Gap Analysis: reference/content-gap-analysis.md
   
   - Reference Materials:
-    - Architecture Patterns: reference/architecture-patterns.md
-    - Best Practices: reference/best-practices.md
-    - Cheat Sheets: reference/cheat-sheets.md
-    - Communication Patterns: reference/communication-patterns.md
-    - Comparison Matrix: reference/comparison-matrix.md
-    - Consistency Models: reference/consistency-models.md
-    - Data Management Patterns: reference/data-management-patterns.md
-    - Deployment Patterns: reference/deployment-patterns.md
-    - Design Principles: reference/design-principles.md
-    - Evolution Guide: reference/evolution-guide.md
     - Glossary Extended: reference/glossary.md
-    - Implementation Checklist: reference/implementation-checklist.md
-    - Mathematical Models: reference/mathematical-models.md
-    - Performance Metrics: reference/performance-metrics.md
-    - Quick Reference: reference/quick-reference.md
-    - Resilience Patterns: reference/resilience-patterns.md
-    - Scaling Patterns: reference/scaling-patterns.md
-    - Security Patterns: reference/security-patterns.md
-    - System Design Templates: reference/system-design-templates.md
-    - Technology Radar: reference/technology-radar.md
-    - Trade-off Matrix: reference/trade-off-matrix.md
+  
+  - Utilities:
+    - Security Reference: reference/security.md
+    - Tags Reference: reference/tags.md
+    - Offline Guide: reference/offline.md
 
 use_directory_urls: true
 docs_dir: docs

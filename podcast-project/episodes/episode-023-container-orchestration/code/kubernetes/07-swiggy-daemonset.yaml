@@ -1,0 +1,605 @@
+# Swiggy Delivery Tracking DaemonSet - GPS Location Service
+# भारत के सबसे बड़े food delivery platform के लिए real-time tracking
+# Every node में ek GPS tracking service चलेगी
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: swiggy-delivery-tracker
+  namespace: swiggy-platform
+  labels:
+    app: delivery-tracker
+    component: location-service
+    tier: edge
+  annotations:
+    description: "Real-time GPS tracking service for Swiggy delivery partners"
+spec:
+  selector:
+    matchLabels:
+      app: delivery-tracker
+  
+  # Update strategy for DaemonSet rolling updates
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1  # Update one node at a time
+  
+  template:
+    metadata:
+      labels:
+        app: delivery-tracker
+        component: location-service
+        version: v2.3.0
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+    spec:
+      # Service account for accessing node resources
+      serviceAccountName: swiggy-delivery-tracker-sa
+      
+      # Host network for GPS device access
+      hostNetwork: true
+      hostPID: true
+      
+      # DNS policy for host network
+      dnsPolicy: ClusterFirstWithHostNet
+      
+      # Node selector for delivery hubs only
+      nodeSelector:
+        node-type: "delivery-hub"
+        zone: "metro-city"
+      
+      # Tolerations for running on all delivery nodes
+      tolerations:
+      - key: "swiggy.com/delivery-hub"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      - key: "node.kubernetes.io/disk-pressure"
+        operator: "Exists"
+        effect: "NoSchedule"
+      
+      # Priority class for critical delivery tracking
+      priorityClassName: swiggy-critical-workload
+      
+      # Security context for accessing GPS hardware
+      securityContext:
+        runAsUser: 0  # Root access needed for GPS devices
+      
+      # Init container to setup GPS device permissions
+      initContainers:
+      - name: gps-device-setup
+        image: swiggy.azurecr.io/gps-device-init:v1.0.0
+        command:
+        - sh
+        - -c
+        - |
+          # GPS device setup script
+          # भारतीय cities में GPS device configuration
+          
+          echo "Setting up GPS devices for delivery tracking..."
+          
+          # Check for GPS devices
+          if [ -c /dev/ttyUSB0 ]; then
+            chmod 666 /dev/ttyUSB0
+            echo "GPS device /dev/ttyUSB0 configured"
+          fi
+          
+          if [ -c /dev/ttyAMA0 ]; then
+            chmod 666 /dev/ttyAMA0  
+            echo "GPS device /dev/ttyAMA0 configured"
+          fi
+          
+          # Set up GPIO pins for Indian GPS modules
+          if [ -d /sys/class/gpio ]; then
+            echo "18" > /sys/class/gpio/export 2>/dev/null || true
+            echo "out" > /sys/class/gpio/gpio18/direction 2>/dev/null || true
+            echo "1" > /sys/class/gpio/gpio18/value 2>/dev/null || true
+          fi
+          
+          echo "GPS device setup completed"
+        
+        securityContext:
+          privileged: true
+        
+        volumeMounts:
+        - name: dev
+          mountPath: /dev
+        - name: sys
+          mountPath: /sys
+      
+      containers:
+      # Main delivery tracking service
+      - name: delivery-tracker
+        image: swiggy.azurecr.io/delivery-tracker:v2.3.0
+        imagePullPolicy: Always
+        
+        # Container ports
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9090
+          name: metrics
+          protocol: TCP
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        
+        # Environment variables for Indian delivery context
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: SWIGGY_REGION
+          value: "india"
+        - name: TIMEZONE
+          value: "Asia/Kolkata"
+        - name: CURRENCY
+          value: "INR"
+        - name: GPS_UPDATE_INTERVAL
+          value: "5s"  # 5-second GPS updates for real-time tracking
+        - name: DELIVERY_RADIUS_KM
+          value: "10"  # 10km delivery radius for Indian cities
+        - name: MAX_DELIVERY_PARTNERS
+          value: "500"  # Max partners per node/hub
+        
+        # Database connection for location storage
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: swiggy-mongodb-credentials
+              key: connection-string
+        
+        # Redis for real-time location cache
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: swiggy-redis-credentials
+              key: url
+        
+        # Kafka for location event streaming
+        - name: KAFKA_BROKERS
+          valueFrom:
+            configMapKeyRef:
+              name: swiggy-kafka-config
+              key: brokers
+        
+        # API keys for external services
+        - name: GOOGLE_MAPS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: swiggy-api-keys
+              key: google-maps
+        - name: HERE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: swiggy-api-keys  
+              key: here-maps
+        
+        # Resource limits for GPS processing
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "2Gi"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+            ephemeral-storage: "5Gi"
+        
+        # Health checks for service availability
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+        
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        
+        # Startup probe for GPS initialization
+        startupProbe:
+          httpGet:
+            path: /health/startup
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 30  # Allow 2.5 minutes for GPS lock
+        
+        # Volume mounts for GPS devices and logs
+        volumeMounts:
+        - name: dev
+          mountPath: /dev
+          readOnly: false
+        - name: sys
+          mountPath: /sys
+          readOnly: true
+        - name: gps-config
+          mountPath: /app/config
+          readOnly: true
+        - name: delivery-logs
+          mountPath: /var/log/swiggy
+        - name: location-cache
+          mountPath: /tmp/gps-cache
+        
+        # Security context for GPS access
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - SYS_TIME
+            - SYS_ADMIN
+            drop:
+            - ALL
+      
+      # Log collection sidecar
+      - name: log-collector
+        image: fluent/fluent-bit:2.2.0
+        env:
+        - name: FLUENT_CONF
+          value: fluent-bit.conf
+        - name: FLUENT_OPT
+          value: ""
+        
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        
+        volumeMounts:
+        - name: delivery-logs
+          mountPath: /var/log/swiggy
+          readOnly: true
+        - name: fluent-bit-config
+          mountPath: /fluent-bit/etc/fluent-bit.conf
+          subPath: fluent-bit.conf
+          readOnly: true
+      
+      # Prometheus node exporter for hardware metrics
+      - name: node-exporter
+        image: prom/node-exporter:v1.7.0
+        args:
+        - --path.procfs=/host/proc
+        - --path.sysfs=/host/sys
+        - --path.rootfs=/host/root
+        - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+        - --collector.textfile.directory=/var/lib/node_exporter/textfile_collector
+        
+        ports:
+        - containerPort: 9100
+          name: node-metrics
+        
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        
+        volumeMounts:
+        - name: proc
+          mountPath: /host/proc
+          readOnly: true
+        - name: sys
+          mountPath: /host/sys
+          readOnly: true
+        - name: root
+          mountPath: /host/root
+          readOnly: true
+        - name: node-exporter-textfile
+          mountPath: /var/lib/node_exporter/textfile_collector
+          readOnly: true
+        
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+      
+      # Volumes for device access and configuration
+      volumes:
+      - name: dev
+        hostPath:
+          path: /dev
+          type: Directory
+      - name: sys
+        hostPath:
+          path: /sys
+          type: Directory
+      - name: proc
+        hostPath:
+          path: /proc
+          type: Directory
+      - name: root
+        hostPath:
+          path: /
+          type: Directory
+      
+      # ConfigMap for GPS configuration
+      - name: gps-config
+        configMap:
+          name: swiggy-gps-config
+          defaultMode: 0644
+      
+      # ConfigMap for Fluent Bit logging
+      - name: fluent-bit-config
+        configMap:
+          name: swiggy-fluent-bit-config
+      
+      # Log storage
+      - name: delivery-logs
+        hostPath:
+          path: /var/log/swiggy
+          type: DirectoryOrCreate
+      
+      # Location cache for GPS data
+      - name: location-cache
+        emptyDir:
+          sizeLimit: 1Gi
+      
+      # Node exporter textfile collector
+      - name: node-exporter-textfile
+        hostPath:
+          path: /var/lib/node_exporter/textfile_collector
+          type: DirectoryOrCreate
+
+---
+# Service for delivery tracker communication
+apiVersion: v1
+kind: Service
+metadata:
+  name: swiggy-delivery-tracker-service
+  namespace: swiggy-platform
+  labels:
+    app: delivery-tracker
+spec:
+  type: ClusterIP
+  clusterIP: None  # Headless service for direct pod communication
+  selector:
+    app: delivery-tracker
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  - name: https
+    port: 8443
+    targetPort: 8443
+    protocol: TCP
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+
+---
+# ConfigMap for GPS device configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: swiggy-gps-config
+  namespace: swiggy-platform
+data:
+  gps-config.yaml: |
+    # GPS Configuration for Swiggy Delivery Tracking
+    # भारतीय cities के लिए GPS settings
+    
+    gps:
+      # Device settings
+      device: "/dev/ttyUSB0"
+      baudrate: 9600
+      timeout: 10
+      
+      # Update frequencies
+      position_update_interval: 5s
+      health_check_interval: 30s
+      
+      # Indian coordinate system
+      coordinate_system: "WGS84"
+      datum: "WGS84"
+      
+      # Accuracy requirements
+      minimum_accuracy_meters: 10
+      maximum_dilution_of_precision: 5.0
+      
+      # Regional settings for India
+      regions:
+        mumbai:
+          bounds:
+            north: 19.2700
+            south: 18.8900
+            east: 72.9800
+            west: 72.7700
+          traffic_zones:
+            - "BKC"
+            - "Andheri"
+            - "Powai"
+            - "Lower Parel"
+        
+        bangalore:
+          bounds:
+            north: 13.1400
+            south: 12.8300
+            east: 77.7500
+            west: 77.4600
+          traffic_zones:
+            - "Whitefield"
+            - "Koramangala"
+            - "Indiranagar"
+            - "HSR Layout"
+        
+        delhi:
+          bounds:
+            north: 28.8800
+            south: 28.4100
+            east: 77.3500
+            west: 76.8400
+          traffic_zones:
+            - "Connaught Place"
+            - "Gurgaon"
+            - "Noida"
+            - "Dwarka"
+
+  delivery-zones.json: |
+    {
+      "delivery_zones": [
+        {
+          "city": "Mumbai",
+          "zones": [
+            {
+              "name": "South Mumbai",
+              "polygon": [
+                [18.9067, 72.8147],
+                [18.9167, 72.8347],
+                [18.9267, 72.8247],
+                [18.9167, 72.8047]
+              ],
+              "max_delivery_time_minutes": 30,
+              "surge_multiplier": 1.2
+            },
+            {
+              "name": "Bandra-Kurla Complex",
+              "polygon": [
+                [19.0596, 72.8656],
+                [19.0696, 72.8756],
+                [19.0796, 72.8656],
+                [19.0696, 72.8556]
+              ],
+              "max_delivery_time_minutes": 25,
+              "surge_multiplier": 1.0
+            }
+          ]
+        },
+        {
+          "city": "Bangalore", 
+          "zones": [
+            {
+              "name": "Koramangala",
+              "polygon": [
+                [12.9279, 77.6271],
+                [12.9379, 77.6371],
+                [12.9479, 77.6271],
+                [12.9379, 77.6171]
+              ],
+              "max_delivery_time_minutes": 35,
+              "surge_multiplier": 1.1
+            }
+          ]
+        }
+      ]
+    }
+
+---
+# ConfigMap for Fluent Bit logging configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: swiggy-fluent-bit-config
+  namespace: swiggy-platform
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush         5
+        Log_Level     info
+        Daemon        off
+        Parsers_File  parsers.conf
+        HTTP_Server   On
+        HTTP_Listen   0.0.0.0
+        HTTP_Port     2020
+
+    [INPUT]
+        Name              tail
+        Path              /var/log/swiggy/*.log
+        Parser            json
+        Tag               swiggy.delivery.*
+        Refresh_Interval  5
+
+    [FILTER]
+        Name                kubernetes
+        Match               swiggy.delivery.*
+        Kube_URL            https://kubernetes.default.svc:443
+        Kube_CA_File        /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        Kube_Token_File     /var/run/secrets/kubernetes.io/serviceaccount/token
+        Merge_Log           On
+        Keep_Log            Off
+
+    [OUTPUT]
+        Name  kafka
+        Match swiggy.delivery.*
+        Brokers kafka-cluster:9092
+        Topics  swiggy-delivery-logs
+        Format  json
+
+---
+# ServiceAccount for DaemonSet
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: swiggy-delivery-tracker-sa
+  namespace: swiggy-platform
+
+---
+# ClusterRole for node access
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: swiggy-delivery-tracker-cluster-role
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "nodes/metrics", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["endpoints", "services"]
+  verbs: ["get", "list", "watch"]
+
+---
+# ClusterRoleBinding for ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: swiggy-delivery-tracker-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: swiggy-delivery-tracker-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: swiggy-delivery-tracker-sa
+  namespace: swiggy-platform
+
+---
+# PriorityClass for critical delivery workload
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: swiggy-critical-workload
+value: 1000000
+globalDefault: false
+description: "Critical priority class for Swiggy delivery tracking services"

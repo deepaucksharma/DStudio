@@ -1,0 +1,79 @@
+# Indian E-commerce Platform Helm Chart
+# भारतीय e-commerce platform के लिए comprehensive Helm chart
+# Supports multi-region deployment across Indian cities
+
+apiVersion: v2
+name: indian-ecommerce-platform
+description: A comprehensive Helm chart for Indian e-commerce platform with multi-city support
+type: application
+version: 2.1.0
+appVersion: "3.2.1"
+home: https://github.com/indian-ecommerce/platform
+sources:
+  - https://github.com/indian-ecommerce/platform
+  - https://github.com/indian-ecommerce/helm-charts
+
+maintainers:
+  - name: Platform Team
+    email: platform-team@ecommerce.in
+    url: https://platform.ecommerce.in
+  - name: DevOps Team
+    email: devops@ecommerce.in
+
+keywords:
+  - ecommerce
+  - india
+  - microservices
+  - payments
+  - logistics
+  - multi-city
+  - kubernetes
+
+annotations:
+  category: E-commerce
+  licenses: Apache-2.0
+  images: |
+    - name: product-catalog
+      image: ecommerce.azurecr.io/product-catalog:3.2.1
+    - name: user-service
+      image: ecommerce.azurecr.io/user-service:3.2.1
+    - name: order-service
+      image: ecommerce.azurecr.io/order-service:3.2.1
+    - name: payment-service
+      image: ecommerce.azurecr.io/payment-service:3.2.1
+    - name: inventory-service
+      image: ecommerce.azurecr.io/inventory-service:3.2.1
+    - name: logistics-service
+      image: ecommerce.azurecr.io/logistics-service:3.2.1
+
+# Dependencies for Indian e-commerce requirements
+dependencies:
+  - name: postgresql
+    version: "12.8.0"
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+  
+  - name: redis
+    version: "17.3.7"
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enabled
+  
+  - name: kafka
+    version: "20.0.6"
+    repository: https://charts.bitnami.com/bitnami
+    condition: kafka.enabled
+    
+  - name: elasticsearch
+    version: "8.5.1"
+    repository: https://helm.elastic.co
+    condition: elasticsearch.enabled
+    
+  - name: prometheus
+    version: "15.18.0"
+    repository: https://prometheus-community.github.io/helm-charts
+    condition: monitoring.prometheus.enabled
+    
+  - name: grafana
+    version: "6.44.11"
+    repository: https://grafana.github.io/helm-charts
+    condition: monitoring.grafana.enabled

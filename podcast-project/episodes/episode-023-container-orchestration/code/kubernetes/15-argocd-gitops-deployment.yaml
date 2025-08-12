@@ -1,0 +1,804 @@
+# ArgoCD GitOps Deployment for Indian E-commerce Platform
+# भारतीय e-commerce platform के लिए GitOps deployment automation
+# Manages deployments across Mumbai, Delhi, Bangalore regions
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+  labels:
+    name: argocd
+    tier: gitops
+    region: multi-region
+
+---
+# ArgoCD Server Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+  namespace: argocd
+  labels:
+    app: argocd-server
+    component: server
+spec:
+  replicas: 3  # HA for critical GitOps operations
+  selector:
+    matchLabels:
+      app: argocd-server
+  template:
+    metadata:
+      labels:
+        app: argocd-server
+        component: server
+    spec:
+      serviceAccountName: argocd-server
+      
+      # Anti-affinity for HA
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: argocd-server
+              topologyKey: kubernetes.io/hostname
+      
+      containers:
+      - name: argocd-server
+        image: quay.io/argoproj/argocd:v2.9.3
+        imagePullPolicy: Always
+        
+        command:
+        - argocd-server
+        args:
+        - --staticassets
+        - /shared/app
+        - --repo-server
+        - argocd-repo-server:8081
+        - --dex-server
+        - http://argocd-dex-server:5556
+        - --logformat
+        - json
+        - --loglevel
+        - info
+        - --redis
+        - argocd-redis:6379
+        - --server-side-diff
+        
+        ports:
+        - containerPort: 8080
+          name: server
+        - containerPort: 8083
+          name: metrics
+        
+        # Environment variables for Indian deployment
+        env:
+        - name: ARGOCD_SERVER_INSECURE
+          value: "false"
+        - name: ARGOCD_SERVER_ENABLE_PROXY_PROTOCOL
+          value: "true"
+        - name: TZ
+          value: "Asia/Kolkata"  # Indian timezone
+        - name: ARGOCD_SERVER_OTLP_ADDRESS
+          value: "jaeger:4317"   # Observability
+        
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+        
+        livenessProbe:
+          httpGet:
+            path: /healthz?full=true
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+        
+        volumeMounts:
+        - name: ssh-known-hosts
+          mountPath: /app/config/ssh
+        - name: tls-certs
+          mountPath: /app/config/tls
+        - name: argocd-repo-server-tls
+          mountPath: /app/config/server/tls
+      
+      volumes:
+      - name: ssh-known-hosts
+        configMap:
+          name: argocd-ssh-known-hosts-cm
+      - name: tls-certs
+        configMap:
+          name: argocd-tls-certs-cm
+      - name: argocd-repo-server-tls
+        secret:
+          secretName: argocd-repo-server-tls
+
+---
+# ArgoCD Repository Server for Git operations
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+  namespace: argocd
+  labels:
+    app: argocd-repo-server
+    component: repo-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: argocd-repo-server
+  template:
+    metadata:
+      labels:
+        app: argocd-repo-server
+        component: repo-server
+    spec:
+      serviceAccountName: argocd-repo-server
+      
+      containers:
+      - name: argocd-repo-server
+        image: quay.io/argoproj/argocd:v2.9.3
+        imagePullPolicy: Always
+        
+        command:
+        - argocd-repo-server
+        args:
+        - --redis
+        - argocd-redis:6379
+        - --loglevel
+        - info
+        - --logformat
+        - json
+        
+        ports:
+        - containerPort: 8081
+          name: server
+        - containerPort: 8084
+          name: metrics
+        
+        env:
+        - name: TZ
+          value: "Asia/Kolkata"
+        - name: ARGOCD_RECONCILIATION_TIMEOUT
+          value: "180s"  # 3 minute timeout for Indian repos
+        - name: ARGOCD_EXEC_TIMEOUT
+          value: "90s"
+        
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+        
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        
+        volumeMounts:
+        - name: ssh-known-hosts
+          mountPath: /app/config/ssh
+        - name: tls-certs
+          mountPath: /app/config/tls
+        - name: gpg-keys
+          mountPath: /app/config/gpg/source
+        - name: tmp
+          mountPath: /tmp
+      
+      volumes:
+      - name: ssh-known-hosts
+        configMap:
+          name: argocd-ssh-known-hosts-cm
+      - name: tls-certs
+        configMap:
+          name: argocd-tls-certs-cm
+      - name: gpg-keys
+        configMap:
+          name: argocd-gpg-keys-cm
+      - name: tmp
+        emptyDir: {}
+
+---
+# ArgoCD Application Controller
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-application-controller
+  namespace: argocd
+  labels:
+    app: argocd-application-controller
+    component: application-controller
+spec:
+  replicas: 1  # Single controller to avoid conflicts
+  selector:
+    matchLabels:
+      app: argocd-application-controller
+  template:
+    metadata:
+      labels:
+        app: argocd-application-controller
+        component: application-controller
+    spec:
+      serviceAccountName: argocd-application-controller
+      
+      containers:
+      - name: argocd-application-controller
+        image: quay.io/argoproj/argocd:v2.9.3
+        imagePullPolicy: Always
+        
+        command:
+        - argocd-application-controller
+        args:
+        - --status-processors
+        - "20"
+        - --operation-processors
+        - "10"
+        - --app-resync
+        - "180"  # 3 minute sync for Indian infrastructure
+        - --repo-server
+        - argocd-repo-server:8081
+        - --loglevel
+        - info
+        - --logformat
+        - json
+        - --redis
+        - argocd-redis:6379
+        - --metrics-port
+        - "8082"
+        
+        ports:
+        - containerPort: 8082
+          name: metrics
+        
+        env:
+        - name: TZ
+          value: "Asia/Kolkata"
+        - name: ARGOCD_CONTROLLER_REPLICAS
+          value: "1"
+        - name: ARGOCD_RECONCILIATION_TIMEOUT
+          value: "180s"
+        # Indian cluster configurations
+        - name: ARGOCD_K8SCLIENT_QPS
+          value: "50"
+        - name: ARGOCD_K8SCLIENT_BURST
+          value: "100"
+        
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+        
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8082
+          initialDelaySeconds: 90
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8082
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        
+        volumeMounts:
+        - name: argocd-repo-server-tls
+          mountPath: /app/config/controller/tls
+      
+      volumes:
+      - name: argocd-repo-server-tls
+        secret:
+          secretName: argocd-repo-server-tls
+
+---
+# Redis for ArgoCD caching
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-redis
+  namespace: argocd
+  labels:
+    app: argocd-redis
+    component: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argocd-redis
+  template:
+    metadata:
+      labels:
+        app: argocd-redis
+        component: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7.2.3-alpine
+        imagePullPolicy: Always
+        
+        command:
+        - redis-server
+        - /usr/local/etc/redis/redis.conf
+        
+        ports:
+        - containerPort: 6379
+          name: redis
+        
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 15
+        
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        
+        volumeMounts:
+        - name: redis-config
+          mountPath: /usr/local/etc/redis
+        - name: redis-data
+          mountPath: /data
+      
+      volumes:
+      - name: redis-config
+        configMap:
+          name: argocd-redis-config
+      - name: redis-data
+        emptyDir: {}
+
+---
+# Services for ArgoCD components
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-server
+  namespace: argocd
+  labels:
+    app: argocd-server
+spec:
+  type: ClusterIP
+  selector:
+    app: argocd-server
+  ports:
+  - name: server
+    port: 80
+    targetPort: 8080
+  - name: grpc
+    port: 443
+    targetPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-repo-server
+  namespace: argocd
+  labels:
+    app: argocd-repo-server
+spec:
+  type: ClusterIP
+  selector:
+    app: argocd-repo-server
+  ports:
+  - port: 8081
+    targetPort: 8081
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-redis
+  namespace: argocd
+  labels:
+    app: argocd-redis
+spec:
+  type: ClusterIP
+  selector:
+    app: argocd-redis
+  ports:
+  - port: 6379
+    targetPort: 6379
+
+---
+# ArgoCD Application for Indian E-commerce Platform
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: indian-ecommerce-platform
+  namespace: argocd
+  labels:
+    app: ecommerce
+    environment: production
+    region: multi-region
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: indian-ecommerce
+  
+  # Git repository configuration
+  source:
+    repoURL: https://github.com/indian-ecommerce/k8s-manifests
+    path: overlays/production
+    targetRevision: main
+    
+    # Helm configuration
+    helm:
+      valueFiles:
+      - values.yaml
+      - values-production.yaml
+      - values-mumbai.yaml  # Region-specific values
+      
+      parameters:
+      - name: global.environment
+        value: production
+      - name: global.region
+        value: ap-south-1
+      - name: global.timezone
+        value: Asia/Kolkata
+  
+  # Target cluster configuration
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ecommerce-platform
+  
+  # Sync policy
+  syncPolicy:
+    automated:
+      prune: true      # Remove resources not in Git
+      selfHeal: true   # Automatically fix drift
+      allowEmpty: false
+    
+    syncOptions:
+    - CreateNamespace=true
+    - PruneLast=true
+    - ApplyOutOfSyncOnly=true
+    
+    # Retry configuration for Indian network conditions
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  # Health checks
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas  # Ignore HPA-managed replica changes
+  
+  # Revision history limit
+  revisionHistoryLimit: 10
+
+---
+# ArgoCD Application for Mumbai Region Specific Services
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mumbai-region-services
+  namespace: argocd
+  labels:
+    app: ecommerce
+    environment: production
+    region: mumbai
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: indian-ecommerce
+  
+  source:
+    repoURL: https://github.com/indian-ecommerce/region-specific
+    path: mumbai
+    targetRevision: main
+    
+    kustomize:
+      namePrefix: mumbai-
+      commonLabels:
+        region: mumbai
+        city: mumbai
+      
+      patchesStrategicMerge:
+      - mumbai-storage-config.yaml
+      - mumbai-network-policy.yaml
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mumbai-services
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    
+    retry:
+      limit: 3
+      backoff:
+        duration: 10s
+        maxDuration: 2m
+
+---
+# ArgoCD AppProject for Indian E-commerce
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: indian-ecommerce
+  namespace: argocd
+  labels:
+    project: ecommerce
+    compliance: pci-dss
+spec:
+  description: "Indian E-commerce Platform GitOps Project"
+  
+  # Source repositories allowed
+  sourceRepos:
+  - 'https://github.com/indian-ecommerce/*'
+  - 'https://charts.bitnami.com/bitnami'
+  - 'https://prometheus-community.github.io/helm-charts'
+  - 'https://grafana.github.io/helm-charts'
+  
+  # Destination clusters and namespaces
+  destinations:
+  - namespace: 'ecommerce-*'
+    server: 'https://kubernetes.default.svc'
+  - namespace: 'mumbai-*'
+    server: 'https://kubernetes.default.svc'
+  - namespace: 'delhi-*'
+    server: 'https://kubernetes.default.svc'
+  - namespace: 'bangalore-*'
+    server: 'https://kubernetes.default.svc'
+  
+  # Allowed cluster resource kinds
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+  
+  # Namespace resource whitelist
+  namespaceResourceWhitelist:
+  - group: ''
+    kind: ConfigMap
+  - group: ''
+    kind: Service
+  - group: ''
+    kind: Secret
+  - group: apps
+    kind: Deployment
+  - group: apps
+    kind: StatefulSet
+  - group: batch
+    kind: Job
+  - group: batch
+    kind: CronJob
+  - group: networking.k8s.io
+    kind: NetworkPolicy
+  - group: policy
+    kind: PodDisruptionBudget
+  - group: autoscaling
+    kind: HorizontalPodAutoscaler
+  
+  # RBAC configuration
+  roles:
+  - name: ecommerce-admin
+    description: "Full access to ecommerce applications"
+    policies:
+    - p, proj:indian-ecommerce:ecommerce-admin, applications, *, indian-ecommerce/*, allow
+    - p, proj:indian-ecommerce:ecommerce-admin, repositories, *, *, allow
+    groups:
+    - ecommerce-platform-team
+  
+  - name: ecommerce-developer
+    description: "Developer access to ecommerce applications"
+    policies:
+    - p, proj:indian-ecommerce:ecommerce-developer, applications, get, indian-ecommerce/*, allow
+    - p, proj:indian-ecommerce:ecommerce-developer, applications, sync, indian-ecommerce/*, allow
+    groups:
+    - ecommerce-developers
+  
+  - name: ecommerce-viewer
+    description: "Read-only access to ecommerce applications"
+    policies:
+    - p, proj:indian-ecommerce:ecommerce-viewer, applications, get, indian-ecommerce/*, allow
+    groups:
+    - ecommerce-stakeholders
+
+---
+# ConfigMap for ArgoCD configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-cm
+data:
+  # Server configuration
+  url: https://argocd.platform.in
+  
+  # Git repositories configuration
+  repositories: |
+    - type: git
+      url: https://github.com/indian-ecommerce/k8s-manifests
+      name: ecommerce-manifests
+    - type: git
+      url: https://github.com/indian-ecommerce/helm-charts
+      name: ecommerce-charts
+    - type: helm
+      url: https://charts.bitnami.com/bitnami
+      name: bitnami
+  
+  # OIDC configuration for Indian identity providers
+  oidc.config: |
+    name: "Indian Identity Provider"
+    issuer: https://identity.platform.in/auth/realms/ecommerce
+    clientId: argocd
+    clientSecret: $oidc.keycloak.clientSecret
+    requestedScopes: ["openid", "profile", "email", "groups"]
+    requestedIDTokenClaims: {"groups": {"essential": true}}
+  
+  # Policy for Indian compliance
+  policy.default: role:readonly
+  policy.csv: |
+    # Default policies for Indian e-commerce platform
+    
+    # Platform team - full access
+    g, platform-team, role:admin
+    
+    # DevOps team - application management
+    g, devops-team, role:ecommerce-admin
+    
+    # Developers - limited sync access
+    g, developers, role:ecommerce-developer
+    
+    # Stakeholders - read only
+    g, stakeholders, role:ecommerce-viewer
+    
+    # Regional access controls
+    g, mumbai-team, role:mumbai-admin
+    g, delhi-team, role:delhi-admin
+    g, bangalore-team, role:bangalore-admin
+  
+  # Indian specific configurations
+  application.instanceLabelKey: argocd.argoproj.io/instance
+  server.rbac.log.enforce.enable: "true"
+  
+  # Timeout configurations for Indian infrastructure
+  controller.status.processors: "20"
+  controller.operation.processors: "10"
+  controller.self.heal.timeout.seconds: "5"
+  controller.repo.server.timeout.seconds: "60"
+  
+  # Resource customizations
+  resource.customizations: |
+    # Custom health checks for payment services
+    payment.india.com/PaymentGateway:
+      health.lua: |
+        hs = {}
+        if obj.status ~= nil then
+          if obj.status.phase == "Active" then
+            hs.status = "Healthy"
+            hs.message = "Payment gateway is active and connected"
+          elseif obj.status.phase == "Failed" then
+            hs.status = "Degraded"
+            hs.message = obj.status.error.message or "Payment gateway failed"
+          else
+            hs.status = "Progressing"
+            hs.message = "Payment gateway is " .. (obj.status.phase or "Unknown")
+          end
+        else
+          hs.status = "Unknown"
+          hs.message = "Payment gateway status unknown"
+        end
+        return hs
+
+---
+# Ingress for ArgoCD UI
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+  namespace: argocd
+  labels:
+    app: argocd-server
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    nginx.ingress.kubernetes.io/grpc-backend: "true"
+spec:
+  tls:
+  - hosts:
+    - argocd.platform.in
+    secretName: argocd-server-tls
+  rules:
+  - host: argocd.platform.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              number: 443
+
+---
+# ServiceMonitor for Prometheus monitoring
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: argocd-metrics
+  namespace: argocd
+  labels:
+    app: argocd
+spec:
+  selector:
+    matchLabels:
+      app: argocd-server
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
+  - port: server
+    path: /metrics
+    interval: 30s

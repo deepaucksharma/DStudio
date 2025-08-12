@@ -1,0 +1,540 @@
+# Docker Compose for Local Development - Indian E-commerce Platform
+# भारतीय e-commerce platform के लिए local development environment
+# Complete stack with all services for developers
+
+version: '3.8'
+
+networks:
+  ecommerce-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  elasticsearch-data:
+    driver: local
+  kafka-data:
+    driver: local
+  zookeeper-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+services:
+  # Database Services
+  postgres:
+    image: postgres:15-alpine
+    container_name: ecommerce-postgres
+    environment:
+      POSTGRES_DB: ecommerce
+      POSTGRES_USER: ecommerce_user
+      POSTGRES_PASSWORD: ecommerce_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+      TZ: Asia/Kolkata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecommerce_user -d ecommerce"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Redis for caching and sessions
+  redis:
+    image: redis:7.2-alpine
+    container_name: ecommerce-redis
+    environment:
+      TZ: Asia/Kolkata
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Elasticsearch for product search
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: ecommerce-elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=ecommerce-search
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - xpack.security.enabled=false
+      - TZ=Asia/Kolkata
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Zookeeper for Kafka
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: ecommerce-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      TZ: Asia/Kolkata
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Kafka for event streaming
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: ecommerce-kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      TZ: Asia/Kolkata
+    ports:
+      - "9092:9092"
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Product Catalog Service
+  product-catalog:
+    build: 
+      context: ./services/product-catalog
+      dockerfile: Dockerfile
+    container_name: ecommerce-product-catalog
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/ecommerce
+      - DATABASE_USERNAME=ecommerce_user
+      - DATABASE_PASSWORD=ecommerce_password
+      - REDIS_URL=redis://redis:6379
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - TZ=Asia/Kolkata
+      - CURRENCY=INR
+      - DEFAULT_LANGUAGE=hi
+    ports:
+      - "8081:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # User Service
+  user-service:
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-user-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/ecommerce
+      - DATABASE_USERNAME=ecommerce_user
+      - DATABASE_PASSWORD=ecommerce_password
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - JWT_SECRET=indian-ecommerce-jwt-secret-2024
+      - TZ=Asia/Kolkata
+      - PHONE_COUNTRY_CODE=+91
+      - KYC_AADHAAR_ENABLED=true
+      - KYC_PAN_ENABLED=true
+    ports:
+      - "8082:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Order Service
+  order-service:
+    build:
+      context: ./services/order-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-order-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/ecommerce
+      - DATABASE_USERNAME=ecommerce_user
+      - DATABASE_PASSWORD=ecommerce_password
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - PAYMENT_SERVICE_URL=http://payment-service:8080
+      - INVENTORY_SERVICE_URL=http://inventory-service:8080
+      - TZ=Asia/Kolkata
+      - GST_RATE=0.18
+      - CURRENCY=INR
+    ports:
+      - "8083:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Payment Service
+  payment-service:
+    build:
+      context: ./services/payment-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-payment-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/ecommerce
+      - DATABASE_USERNAME=ecommerce_user
+      - DATABASE_PASSWORD=ecommerce_password
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - TZ=Asia/Kolkata
+      - CURRENCY=INR
+      # Indian Payment Gateway configurations (use test credentials in dev)
+      - RAZORPAY_KEY_ID=rzp_test_key
+      - RAZORPAY_KEY_SECRET=rzp_test_secret
+      - CASHFREE_CLIENT_ID=cf_test_client
+      - CASHFREE_CLIENT_SECRET=cf_test_secret
+      - PHONEPE_MERCHANT_ID=PHONEPE_TEST
+      - UPI_MAX_AMOUNT=100000
+      - CARD_MAX_AMOUNT=500000
+      - WALLET_MAX_AMOUNT=20000
+      - COD_MAX_AMOUNT=5000
+    ports:
+      - "8084:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Inventory Service
+  inventory-service:
+    build:
+      context: ./services/inventory-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-inventory-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/ecommerce
+      - DATABASE_USERNAME=ecommerce_user
+      - DATABASE_PASSWORD=ecommerce_password
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - TZ=Asia/Kolkata
+      - WAREHOUSE_LOCATIONS=Mumbai,Delhi,Bangalore,Chennai
+      - LOW_STOCK_THRESHOLD=10
+      - AUTO_REORDER_ENABLED=true
+    ports:
+      - "8085:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Logistics Service
+  logistics-service:
+    build:
+      context: ./services/logistics-service
+      dockerfile: Dockerfile
+    container_name: ecommerce-logistics-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/ecommerce
+      - DATABASE_USERNAME=ecommerce_user
+      - DATABASE_PASSWORD=ecommerce_password
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - TZ=Asia/Kolkata
+      # Indian delivery partners (test APIs)
+      - BLUEDART_API_KEY=bluedart_test_key
+      - DELHIVERY_API_KEY=delhivery_test_key
+      - ECOM_EXPRESS_API_KEY=ecom_test_key
+      - DTDC_API_KEY=dtdc_test_key
+      - STANDARD_DELIVERY_COST=40
+      - EXPRESS_DELIVERY_COST=100
+      - SAME_DAY_DELIVERY_COST=200
+    ports:
+      - "8086:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # API Gateway (NGINX)
+  api-gateway:
+    image: nginx:alpine
+    container_name: ecommerce-api-gateway
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/ssl:/etc/nginx/ssl
+    depends_on:
+      - product-catalog
+      - user-service
+      - order-service
+      - payment-service
+      - inventory-service
+      - logistics-service
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Frontend (React App)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: ecommerce-frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost/api
+      - REACT_APP_ENVIRONMENT=development
+      - REACT_APP_CURRENCY=INR
+      - REACT_APP_COUNTRY=IN
+      - REACT_APP_TIMEZONE=Asia/Kolkata
+      - REACT_APP_SUPPORTED_LANGUAGES=hi,en,ta,te,kn,ml,bn,gu,mr
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api-gateway
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    command: npm start
+
+  # Monitoring Services
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ecommerce-prometheus
+    environment:
+      TZ: Asia/Kolkata
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ecommerce-grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_DEFAULT_INSTANCE_NAME=Indian E-commerce Platform
+      - TZ=Asia/Kolkata
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./config/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Jaeger for distributed tracing
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: ecommerce-jaeger
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - TZ=Asia/Kolkata
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "14250:14250"  # gRPC
+      - "14268:14268"  # HTTP
+      - "6831:6831"    # UDP
+      - "6832:6832"    # UDP
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Mailhog for email testing
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ecommerce-mailhog
+    environment:
+      TZ: Asia/Kolkata
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # MinIO for S3-compatible object storage
+  minio:
+    image: minio/minio:latest
+    container_name: ecommerce-minio
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+      - TZ=Asia/Kolkata
+    ports:
+      - "9000:9000"   # API
+      - "9001:9001"   # Console
+    volumes:
+      - ./data/minio:/data
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+
+  # Kafka UI for Kafka management
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: ecommerce-kafka-ui
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=ecommerce-local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+      - TZ=Asia/Kolkata
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # pgAdmin for PostgreSQL management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ecommerce-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@ecommerce.local
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - TZ=Asia/Kolkata
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Redis Commander for Redis management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: ecommerce-redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - TZ=Asia/Kolkata
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - ecommerce-network
+    restart: unless-stopped

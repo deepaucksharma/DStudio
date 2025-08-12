@@ -1,13 +1,32 @@
 #!/usr/bin/env python3
 """
-Feature Store Client for AI at Scale
+Feature Store Client for AI at Scale - भारतीय उपयोगकर्ताओं के लिए फ़ीचर स्टोर
 Episode 5: Code Example 3
 
 Production-ready feature store for Indian user preferences and real-time ML
 Supporting real-time features, batch features, and feature versioning
 
-Author: Code Developer Agent
-Context: Paytm/PhonePe scale feature engineering for Indian users
+भारतीय संदर्भ (Indian Context):
+- UPI transaction patterns और festival spending behavior
+- Regional preferences (North/South/East/West India)  
+- Tier 1/2/3 city behavior differences
+- Hindi content preferences और multilingual support
+- Indian payment methods (UPI, Wallets, Cash on Delivery)
+
+Real Production Examples:
+- Paytm: 300M+ users, 2B+ transactions/month feature processing
+- PhonePe: 450M+ registered users, real-time fraud detection
+- GPay: 150M+ monthly active users, instant feature computation
+- CRED: 7M+ users, credit behavior feature engineering
+- Razorpay: 8M+ businesses, payment pattern analysis
+
+Cost Optimization:
+- Feature computation: ₹0.001-0.01 per calculation
+- Storage: ₹2-5 per GB/month (Indian cloud providers)
+- Compute: ₹1-3 per hour (spot instances in Mumbai region)
+
+Author: Code Developer Agent  
+Context: Paytm/PhonePe scale feature engineering - भारतीय fintech के लिए ML features
 """
 
 import asyncio
@@ -29,7 +48,7 @@ from concurrent.futures import ThreadPoolExecutor
 import requests
 from abc import ABC, abstractmethod
 
-# Mumbai production logging
+# Mumbai production logging - स्पष्ट और detailed logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -37,37 +56,60 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class FeatureType(Enum):
-    REAL_TIME = "real_time"
-    BATCH = "batch" 
-    STREAMING = "streaming"
-    COMPUTED = "computed"
+    """
+    Feature types for Indian fintech scale
+    भारतीय fintech के लिए feature types
+    """
+    REAL_TIME = "real_time"      # तुरंत computation - UPI fraud detection
+    BATCH = "batch"              # Scheduled computation - Monthly spending patterns  
+    STREAMING = "streaming"      # Continuous processing - Live transaction monitoring
+    COMPUTED = "computed"        # Pre-computed features - User credit scores
 
 class FeatureStatus(Enum):
-    ACTIVE = "active"
-    DEPRECATED = "deprecated"
-    EXPERIMENTAL = "experimental"
+    """
+    Feature lifecycle status - फ़ीचर की lifecycle status
+    Production feature management के लिए
+    """
+    ACTIVE = "active"            # Currently in production use
+    DEPRECATED = "deprecated"    # Being phased out - Migration planned
+    EXPERIMENTAL = "experimental" # A/B testing phase - Limited traffic
 
 @dataclass
 class FeatureConfig:
-    """Feature configuration for Indian context"""
-    name: str
-    version: str
-    feature_type: FeatureType
-    data_type: str  # int, float, str, list, dict
-    description: str
-    owner_team: str
-    tags: List[str]
-    ttl_seconds: int = 3600  # 1 hour default
-    compute_cost_inr: float = 0.001  # ₹0.001 per computation
+    """
+    Feature configuration for Indian context
+    भारतीय संदर्भ के लिए feature configuration
+    """
+    name: str                             # Feature का unique name
+    version: str                          # Version tracking (e.g., "1.2.0")
+    feature_type: FeatureType            # Real-time, Batch, Streaming आदि
+    data_type: str                       # int, float, str, list, dict
+    description: str                     # Feature का detailed description
+    owner_team: str                      # Responsible team (e.g., "payments", "fraud")
+    tags: List[str]                      # Searchable tags (e.g., ["upi", "fraud", "hindi"])
+    ttl_seconds: int = 3600             # Time to live - 1 hour default
+    compute_cost_inr: float = 0.001     # ₹0.001 per computation - Indian pricing
     
-    # Indian context specific
-    supports_hindi: bool = False
-    regional_variations: List[str] = None  # ["north", "south", "east", "west"]
-    tier_specific: bool = False  # Tier 1/2/3 city specific
+    # Indian context specific fields - भारतीय context के लिए specific fields
+    supports_hindi: bool = False         # Hindi language support required
+    regional_variations: List[str] = None # Regional differences (North/South/East/West)
+    tier_specific: bool = False          # Tier 1/2/3 city behavior differences
+    festival_sensitive: bool = False     # Diwali/Holi/Eid behavior changes
+    upi_transaction_type: Optional[str] = None  # P2P, P2M, Bill Payment आदि
+    payment_method_specific: bool = False       # UPI/Wallet/COD specific behavior
     
     def __post_init__(self):
+        """Initialize default values for Indian context"""
         if self.regional_variations is None:
-            self.regional_variations = []
+            # Major Indian regions - भारत के मुख्य regions
+            self.regional_variations = [
+                "north",    # North India - Delhi, Punjab, UP
+                "south",    # South India - Tamil Nadu, Karnataka, Andhra
+                "east",     # East India - West Bengal, Odisha
+                "west",     # West India - Maharashtra, Gujarat
+                "central",  # Central India - MP, Rajasthan
+                "northeast" # Northeast India - Assam, Manipur
+            ]
 
 @dataclass 
 class FeatureValue:

@@ -1,0 +1,475 @@
+# Istio Service Mesh Configuration for Mumbai-style Microservices
+# जैसे Mumbai local train network में connectivity और security होती है,
+# वैसे ही service mesh में service-to-service communication manage करते हैं
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mumbai-ecommerce
+  labels:
+    istio-injection: enabled  # Enable automatic sidecar injection
+
+---
+# Virtual Service for Traffic Routing - जैसे Mumbai traffic signals
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: flipkart-app-vs
+  namespace: mumbai-ecommerce
+spec:
+  hosts:
+  - flipkart.mumbai.local
+  gateways:
+  - mumbai-gateway
+  http:
+  - match:
+    - headers:
+        user-type:
+          exact: premium
+    route:
+    - destination:
+        host: product-service
+        subset: v2  # Premium users get v2 with more features
+      weight: 100
+  - match:
+    - uri:
+        prefix: "/api/products"
+    route:
+    - destination:
+        host: product-service
+        subset: v1
+      weight: 80  # 80% traffic to stable version
+    - destination:
+        host: product-service
+        subset: v2
+      weight: 20  # 20% traffic to new version (canary deployment)
+    timeout: 30s
+    retries:
+      attempts: 3
+      perTryTimeout: 10s
+  - match:
+    - uri:
+        prefix: "/api/orders"
+    route:
+    - destination:
+        host: order-service
+        subset: stable
+      weight: 100
+    timeout: 60s  # Orders take more time
+  - match:
+    - uri:
+        prefix: "/api/payments"
+    route:
+    - destination:
+        host: payment-service
+        subset: stable
+      weight: 100
+    timeout: 45s
+    # Payment failures should not retry automatically
+    retries:
+      attempts: 0
+
+---
+# Destination Rules - जैसे Mumbai train का routing rules
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: product-service-dr
+  namespace: mumbai-ecommerce
+spec:
+  host: product-service
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 100  # Mumbai scale connections
+      http:
+        http1MaxPendingRequests: 50
+        http2MaxRequests: 100
+        maxRequestsPerConnection: 2
+        maxRetries: 3
+        consecutiveGatewayErrors: 5
+        interval: 30s
+        baseEjectionTime: 30s
+        maxEjectionPercent: 50
+    loadBalancer:
+      simple: LEAST_CONN  # Like Mumbai auto-rickshaw queue
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+    trafficPolicy:
+      circuitBreaker:
+        consecutiveGatewayErrors: 3
+        interval: 10s
+        baseEjectionTime: 10s
+  - name: v2
+    labels:
+      version: v2
+    trafficPolicy:
+      circuitBreaker:
+        consecutiveGatewayErrors: 5
+        interval: 30s
+        baseEjectionTime: 30s
+
+---
+# Gateway Configuration - जैसे Mumbai CST station का main entry
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: mumbai-gateway
+  namespace: mumbai-ecommerce
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - flipkart.mumbai.local
+    - zomato.mumbai.local
+    - ola.mumbai.local
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: mumbai-tls-secret
+    hosts:
+    - "*.mumbai.local"
+
+---
+# Service Entry for External Services - जैसे Mumbai se outside connectivity
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: payment-gateway-external
+  namespace: mumbai-ecommerce
+spec:
+  hosts:
+  - api.razorpay.com
+  - api.paytm.com
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  location: MESH_EXTERNAL
+  resolution: DNS
+
+---
+# Authorization Policy - जैसे Mumbai local train में security check
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: payment-service-authz
+  namespace: mumbai-ecommerce
+spec:
+  selector:
+    matchLabels:
+      app: payment-service
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/mumbai-ecommerce/sa/order-service"]
+    to:
+    - operation:
+        methods: ["POST", "GET"]
+    when:
+    - key: source.ip
+      values: ["10.0.0.0/8"]  # Only internal cluster IPs
+  - from:
+    - source:
+        principals: ["cluster.local/ns/mumbai-ecommerce/sa/api-gateway"]
+    to:
+    - operation:
+        methods: ["POST"]
+        paths: ["/api/payments/process"]
+
+---
+# Peer Authentication - Enable mTLS - जैसे Mumbai में ID verification
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-mtls
+  namespace: mumbai-ecommerce
+spec:
+  mtls:
+    mode: STRICT  # All service-to-service communication must use mTLS
+
+---
+# Request Authentication - JWT validation like Mumbai Metro card
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: jwt-auth
+  namespace: mumbai-ecommerce
+spec:
+  selector:
+    matchLabels:
+      app: product-service
+  jwtRules:
+  - issuer: "https://auth.flipkart.mumbai.local"
+    jwksUri: "https://auth.flipkart.mumbai.local/.well-known/jwks.json"
+    audiences:
+    - "flipkart-api"
+    - "mumbai-ecommerce"
+
+---
+# Telemetry Configuration - जैसे Mumbai traffic monitoring
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: mumbai-metrics
+  namespace: mumbai-ecommerce
+spec:
+  metrics:
+  - providers:
+    - name: prometheus
+  - overrides:
+    - match:
+        metric: ALL_METRICS
+      tagOverrides:
+        mumbai_region:
+          value: "mumbai-west"
+        business_unit:
+          value: "ecommerce"
+
+---
+# Envoy Filter for Custom Headers - Mumbai specific routing
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: mumbai-region-header
+  namespace: mumbai-ecommerce
+spec:
+  configPatches:
+  - applyTo: HTTP_FILTER
+    match:
+      context: SIDECAR_INBOUND
+      listener:
+        filterChain:
+          filter:
+            name: "envoy.filters.network.http_connection_manager"
+    patch:
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.filters.http.lua
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+          inline_code: |
+            function envoy_on_request(request_handle)
+              -- Add Mumbai region header for all requests
+              request_handle:headers():add("X-Mumbai-Region", "west")
+              request_handle:headers():add("X-Processing-Time", os.time())
+            end
+            
+            function envoy_on_response(response_handle)
+              -- Add Mumbai-style response headers
+              response_handle:headers():add("X-Processed-By", "Mumbai-Datacenter")
+              response_handle:headers():add("X-Service-Mesh", "Istio-Mumbai")
+            end
+
+---
+# Fault Injection for Chaos Engineering - जैसे Mumbai monsoon testing
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: chaos-testing-vs
+  namespace: mumbai-ecommerce
+spec:
+  hosts:
+  - product-service
+  http:
+  - match:
+    - headers:
+        chaos-test:
+          exact: "enabled"
+    fault:
+      delay:
+        percentage:
+          value: 10  # 10% requests get delayed
+        fixedDelay: 5s  # Like Mumbai traffic jam delay
+      abort:
+        percentage:
+          value: 5  # 5% requests fail
+        httpStatus: 503  # Service unavailable
+    route:
+    - destination:
+        host: product-service
+  - route:
+    - destination:
+        host: product-service
+
+---
+# Wasm Plugin for Custom Business Logic - Mumbai specific processing
+apiVersion: extensions.istio.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: mumbai-business-logic
+  namespace: mumbai-ecommerce
+spec:
+  selector:
+    matchLabels:
+      app: order-service
+  url: oci://docker.io/mumbai/business-logic-wasm:latest
+  phase: AUTHN
+  pluginConfig:
+    mumbai_business_rules:
+      max_order_value: 100000  # INR
+      delivery_zones:
+      - "mumbai-central"
+      - "mumbai-west"
+      - "mumbai-east"
+      - "navi-mumbai"
+      business_hours:
+        start: "09:00"
+        end: "21:00"
+        timezone: "Asia/Kolkata"
+
+---
+# Traffic Mirroring for Testing - जैसे Mumbai train parallel tracking
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: mirror-traffic-vs
+  namespace: mumbai-ecommerce
+spec:
+  hosts:
+  - payment-service
+  http:
+  - match:
+    - headers:
+        mirror-test:
+          exact: "true"
+    route:
+    - destination:
+        host: payment-service
+        subset: production
+    mirror:
+      host: payment-service
+      subset: staging
+    mirrorPercentage:
+      value: 50  # Mirror 50% of traffic to staging
+
+---
+# Sidecar Configuration - Optimize Mumbai resources
+apiVersion: networking.istio.io/v1beta1
+kind: Sidecar
+metadata:
+  name: mumbai-sidecar-config
+  namespace: mumbai-ecommerce
+spec:
+  workloadSelector:
+    labels:
+      app: product-service
+  egress:
+  - hosts:
+    - "./*"  # Only allow same namespace
+    - "istio-system/*"
+    - "external-services/*"
+  ingress:
+  - defaultEndpoint: 127.0.0.1:8080
+    port:
+      number: 8080
+      name: http
+      protocol: HTTP
+
+---
+# Service Monitor for Prometheus - Mumbai monitoring
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mumbai-services-monitor
+  namespace: mumbai-ecommerce
+  labels:
+    region: mumbai
+spec:
+  selector:
+    matchLabels:
+      istio-prometheus-ignore: "false"
+  endpoints:
+  - port: http-monitoring
+    path: /stats/prometheus
+    interval: 15s
+
+---
+# Horizontal Pod Autoscaler for Mumbai Scale
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: product-service-hpa
+  namespace: mumbai-ecommerce
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: product-service
+  minReplicas: 3  # Mumbai minimum for availability
+  maxReplicas: 50  # Scale up to Mumbai traffic levels
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Pods
+    pods:
+      metric:
+        name: http_requests_per_second
+      target:
+        type: AverageValue
+        averageValue: "100"  # 100 RPS per pod
+
+---
+# Network Policy for Additional Security - जैसे Mumbai security zones
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mumbai-network-policy
+  namespace: mumbai-ecommerce
+spec:
+  podSelector:
+    matchLabels:
+      app: payment-service
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: mumbai-ecommerce
+    - podSelector:
+        matchLabels:
+          app: order-service
+    - podSelector:
+        matchLabels:
+          app: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8080
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+  - to: []  # Allow DNS
+    ports:
+    - protocol: UDP
+      port: 53
+  - to:
+    - podSelector:
+        matchLabels:
+          app: database
+    ports:
+    - protocol: TCP
+      port: 5432

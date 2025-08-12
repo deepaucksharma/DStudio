@@ -1,0 +1,203 @@
+# Flipkart Product Catalog Microservice - Basic Kubernetes Deployment
+# भारत का सबसे बड़ा e-commerce platform के लिए microservice deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flipkart-product-catalog
+  namespace: flipkart-platform
+  labels:
+    app: product-catalog
+    team: catalog-team
+    business-unit: marketplace
+    cost-center: "IN-BLR-001"
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    description: "Flipkart product catalog service - handles 100M+ products"
+spec:
+  replicas: 10  # Normal traffic के लिए, Big Billion Day में auto-scale होगा
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%      # 25% extra pods during deployment
+      maxUnavailable: 0  # Zero downtime deployment
+  selector:
+    matchLabels:
+      app: product-catalog
+  template:
+    metadata:
+      labels:
+        app: product-catalog
+        version: v2.1.0
+        region: india
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        sidecar.istio.io/inject: "true"
+    spec:
+      # Node scheduling preference - prefer cheaper spot instances
+      nodeSelector:
+        instance-type: "cost-optimized"
+        region: "ap-south-1"  # Mumbai region
+      # Pod security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+      containers:
+      - name: product-catalog
+        image: flipkart.azurecr.io/product-catalog:v2.1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 8090
+          name: metrics
+        # Resource requests and limits based on load testing
+        resources:
+          requests:
+            memory: "2Gi"    # Minimum memory for JVM startup
+            cpu: "1"         # 1 CPU core guaranteed
+            ephemeral-storage: "5Gi"
+          limits:
+            memory: "4Gi"    # Maximum memory to prevent OOM
+            cpu: "2"         # Maximum CPU during burst
+            ephemeral-storage: "10Gi"
+        # Environment variables for Indian context
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production,india"
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: flipkart-db-credentials
+              key: host
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: flipkart-db-credentials
+              key: password
+        - name: JAVA_OPTS
+          value: "-Xmx3g -Xms2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+        - name: TIMEZONE
+          value: "Asia/Kolkata"
+        - name: CURRENCY
+          value: "INR"
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 60  # JVM startup time
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        # Volume mounts
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: logs-volume
+          mountPath: /app/logs
+        # Security context for container
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+      # Init container to wait for database
+      initContainers:
+      - name: db-migration
+        image: flipkart.azurecr.io/db-migrator:latest
+        command: ['sh', '-c', 'flyway migrate']
+        env:
+        - name: DB_URL
+          valueFrom:
+            secretKeyRef:
+              name: flipkart-db-credentials
+              key: url
+      volumes:
+      - name: config-volume
+        configMap:
+          name: flipkart-product-config
+      - name: logs-volume
+        emptyDir: {}
+      # Service account for pod identity
+      serviceAccountName: flipkart-product-catalog-sa
+      # Image pull secrets for private registry
+      imagePullSecrets:
+      - name: flipkart-registry-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flipkart-product-catalog-service
+  namespace: flipkart-platform
+  labels:
+    app: product-catalog
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  - port: 8090
+    targetPort: 8090
+    protocol: TCP
+    name: metrics
+  selector:
+    app: product-catalog
+
+---
+# ConfigMap for application configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flipkart-product-config
+  namespace: flipkart-platform
+data:
+  application.yaml: |
+    server:
+      port: 8080
+    spring:
+      datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        hikari:
+          maximum-pool-size: 50
+          minimum-idle: 10
+      cache:
+        type: redis
+    flipkart:
+      features:
+        enable-recommendations: true
+        enable-price-comparison: true
+        enable-regional-pricing: true
+      regions:
+        primary: "mumbai"
+        secondary: "bangalore"
+        dr: "chennai"
+      business:
+        currency: "INR"
+        tax-rate: 0.18  # Indian GST rate
+        regional-languages: ["hi", "en", "ta", "te", "kn"]
+
+---
+# Service Account for pod identity
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: flipkart-product-catalog-sa
+  namespace: flipkart-platform
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/FlipkartProductCatalogRole

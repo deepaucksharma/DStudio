@@ -1,0 +1,44 @@
+# Paytm Payment Processor Dependencies
+# भारतीय payment ecosystem के लिए required packages
+
+# Web framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+uvloop==0.19.0
+
+# HTTP client for gateway communication
+httpx==0.25.2
+
+# Redis for caching and session management
+redis[hiredis]==5.0.1
+
+# Cryptography for RBI compliance
+cryptography==41.0.7
+
+# Database connectivity
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+
+# Monitoring and observability
+prometheus-client==0.19.0
+structlog==23.2.0
+
+# Data validation
+pydantic==2.5.0
+
+# Authentication and security
+pyjwt==2.8.0
+passlib[bcrypt]==1.7.4
+
+# Testing framework
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+
+# Linting and code quality
+black==23.11.0
+isort==5.12.0
+mypy==1.7.1
+
+# Production server
+gunicorn==21.2.0

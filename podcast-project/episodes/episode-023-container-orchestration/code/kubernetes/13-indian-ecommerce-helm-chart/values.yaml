@@ -1,0 +1,636 @@
+# Default values for Indian E-commerce Platform
+# भारतीय e-commerce platform के लिए default configuration values
+
+# Global configuration for all services
+global:
+  # Docker registry settings
+  imageRegistry: "ecommerce.azurecr.io"
+  imagePullSecrets: 
+    - name: ecommerce-registry-secret
+  
+  # Indian regional settings
+  region: "ap-south-1"  # Mumbai region by default
+  timezone: "Asia/Kolkata"
+  currency: "INR"
+  country: "IN"
+  defaultLanguage: "hi"  # Hindi as default
+  supportedLanguages: ["hi", "en", "ta", "te", "kn", "ml", "bn", "gu", "mr"]
+  
+  # Multi-city deployment configuration
+  cities:
+    - name: "mumbai"
+      zone: "ap-south-1a"
+      datacenter: "mumbai-dc1"
+    - name: "delhi" 
+      zone: "ap-south-1b"
+      datacenter: "delhi-dc1"
+    - name: "bangalore"
+      zone: "ap-south-1c"
+      datacenter: "bangalore-dc1"
+  
+  # Storage configuration
+  storageClass: "gp3-encrypted"
+  
+  # Security settings
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+    fsGroup: 1001
+
+# Namespace configuration
+namespace:
+  create: true
+  name: "ecommerce-platform"
+  labels:
+    environment: "production"
+    team: "platform"
+    compliance: "pci-dss"
+
+# Service account configuration
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/EcommerceServiceRole"
+  name: "ecommerce-platform-sa"
+
+# Product Catalog Service
+productCatalog:
+  enabled: true
+  image:
+    repository: product-catalog
+    tag: "3.2.1"
+    pullPolicy: Always
+  
+  replicaCount: 10  # High availability for product searches
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+  
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "1"
+    limits:
+      memory: "4Gi" 
+      cpu: "2"
+  
+  # Auto-scaling configuration
+  autoscaling:
+    enabled: true
+    minReplicas: 10
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+  
+  # Health checks
+  livenessProbe:
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8080
+    initialDelaySeconds: 60
+    periodSeconds: 30
+  
+  readinessProbe:
+    httpGet:
+      path: /actuator/health/readiness
+      port: 8080
+    initialDelaySeconds: 30
+    periodSeconds: 15
+  
+  # Configuration
+  config:
+    database:
+      host: "ecommerce-postgresql"
+      port: 5432
+      database: "product_catalog"
+    cache:
+      enabled: true
+      redis:
+        host: "ecommerce-redis-master"
+        port: 6379
+    search:
+      elasticsearch:
+        host: "ecommerce-elasticsearch"
+        port: 9200
+        index: "products"
+    
+    # Indian product categories
+    categories:
+      - "Electronics & Mobile"
+      - "Fashion & Lifestyle"
+      - "Home & Kitchen"
+      - "Books & Media" 
+      - "Sports & Fitness"
+      - "Beauty & Personal Care"
+      - "Grocery & Gourmet"
+      - "Baby & Kids"
+      - "Automotive"
+      - "Health & Wellness"
+
+# User Service for customer management
+userService:
+  enabled: true
+  image:
+    repository: user-service
+    tag: "3.2.1"
+    pullPolicy: Always
+  
+  replicaCount: 8
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+  
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 8
+    maxReplicas: 50
+    targetCPUUtilizationPercentage: 70
+  
+  config:
+    authentication:
+      jwt:
+        secret: "user-jwt-secret"
+        expiration: "86400"  # 24 hours
+      otp:
+        enabled: true
+        length: 6
+        expiration: 300  # 5 minutes
+    
+    # Indian phone number validation
+    phoneValidation:
+      countryCode: "+91"
+      pattern: "^[6-9]\\d{9}$"  # Indian mobile pattern
+    
+    # KYC settings for Indian compliance
+    kyc:
+      required: true
+      aadhaar:
+        enabled: true
+        verification: "aadhaar-api"
+      pan:
+        enabled: true
+        verification: "pan-api"
+
+# Order Service for order processing  
+orderService:
+  enabled: true
+  image:
+    repository: order-service
+    tag: "3.2.1"
+    pullPolicy: Always
+  
+  replicaCount: 12  # High volume order processing
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+  
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "1"
+    limits:
+      memory: "4Gi"
+      cpu: "2"
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 12
+    maxReplicas: 80
+    targetCPUUtilizationPercentage: 65
+  
+  config:
+    orderProcessing:
+      timeout: 300  # 5 minutes
+      retryAttempts: 3
+      
+    # Indian tax configuration
+    taxation:
+      gst:
+        enabled: true
+        rate: 0.18  # 18% GST
+        hsn_codes: true
+      
+    # Order states specific to Indian market
+    orderStates:
+      - "PLACED"
+      - "CONFIRMED"
+      - "PROCESSING" 
+      - "SHIPPED"
+      - "OUT_FOR_DELIVERY"
+      - "DELIVERED"
+      - "RETURNED"
+      - "REFUNDED"
+      - "CANCELLED"
+
+# Payment Service for Indian payment methods
+paymentService:
+  enabled: true
+  image:
+    repository: payment-service
+    tag: "3.2.1"
+    pullPolicy: Always
+  
+  replicaCount: 15  # Critical payment processing
+  
+  service:
+    type: ClusterIP
+    port: 443  # HTTPS for payments
+    targetPort: 8443
+  
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "1"
+    limits:
+      memory: "4Gi"
+      cpu: "2"
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 15
+    maxReplicas: 60
+    targetCPUUtilizationPercentage: 60  # Conservative for payments
+  
+  config:
+    paymentMethods:
+      upi:
+        enabled: true
+        providers: ["PhonePe", "GooglePay", "Paytm", "BHIM"]
+        maxAmount: 100000  # ₹1 lakh UPI limit
+        
+      cards:
+        enabled: true
+        types: ["CREDIT", "DEBIT"]
+        networks: ["VISA", "MASTERCARD", "RUPAY", "AMEX"]
+        maxAmount: 500000  # ₹5 lakh card limit
+        
+      netbanking:
+        enabled: true
+        banks: ["SBI", "HDFC", "ICICI", "AXIS", "PNB", "BOI", "CANARA"]
+        maxAmount: 1000000  # ₹10 lakh net banking limit
+        
+      wallets:
+        enabled: true
+        providers: ["Paytm", "MobiKwik", "Freecharge", "AmazonPay"]
+        maxAmount: 20000   # ₹20,000 wallet limit
+        
+      cod:
+        enabled: true
+        maxAmount: 5000    # ₹5,000 COD limit
+        coverage: ["metro", "tier1", "tier2"]
+    
+    # Payment gateway configuration
+    gateways:
+      razorpay:
+        enabled: true
+        keyId: "rzp_live_key"
+        
+      cashfree:
+        enabled: true
+        appId: "cf_live_app"
+        
+      payu:
+        enabled: true
+        merchantKey: "payu_merchant_key"
+
+# Inventory Service
+inventoryService:
+  enabled: true
+  image:
+    repository: inventory-service
+    tag: "3.2.1"
+    pullPolicy: Always
+  
+  replicaCount: 6
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+  
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+  
+  config:
+    warehouse:
+      locations:
+        - name: "Mumbai Warehouse"
+          code: "MUM001"
+          pincode: "400001"
+          capacity: 100000
+        - name: "Delhi Warehouse"  
+          code: "DEL001"
+          pincode: "110001"
+          capacity: 80000
+        - name: "Bangalore Warehouse"
+          code: "BLR001"
+          pincode: "560001"
+          capacity: 60000
+    
+    stockManagement:
+      lowStockThreshold: 10
+      alertEnabled: true
+      autoReorderEnabled: true
+
+# Logistics Service for delivery management
+logisticsService:
+  enabled: true
+  image:
+    repository: logistics-service
+    tag: "3.2.1"
+    pullPolicy: Always
+  
+  replicaCount: 8
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+  
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+  
+  config:
+    deliveryPartners:
+      - name: "BlueDart"
+        enabled: true
+        coverage: "pan-india"
+        cod: true
+      - name: "Delhivery"
+        enabled: true
+        coverage: "pan-india" 
+        cod: true
+      - name: "Ecom Express"
+        enabled: true
+        coverage: "metro-tier1"
+        cod: true
+      - name: "DTDC"
+        enabled: true
+        coverage: "all-india"
+        cod: true
+    
+    deliveryOptions:
+      standard:
+        enabled: true
+        days: "3-5"
+        cost: 40  # ₹40
+      express:
+        enabled: true
+        days: "1-2"
+        cost: 100  # ₹100
+      sameDay:
+        enabled: true
+        cities: ["Mumbai", "Delhi", "Bangalore", "Chennai"]
+        cost: 200  # ₹200
+
+# Database Configuration (PostgreSQL)
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "ecommerce-admin-password"
+    database: "ecommerce"
+  
+  primary:
+    persistence:
+      enabled: true
+      size: 100Gi
+      storageClass: "gp3-encrypted"
+    
+    resources:
+      requests:
+        memory: "4Gi"
+        cpu: "2"
+      limits:
+        memory: "8Gi" 
+        cpu: "4"
+  
+  readReplicas:
+    replicaCount: 2
+    persistence:
+      enabled: true
+      size: 100Gi
+    resources:
+      requests:
+        memory: "2Gi"
+        cpu: "1"
+      limits:
+        memory: "4Gi"
+        cpu: "2"
+
+# Redis Configuration for caching
+redis:
+  enabled: true
+  architecture: replication
+  auth:
+    enabled: true
+    password: "redis-password"
+  
+  master:
+    persistence:
+      enabled: true
+      size: 20Gi
+    resources:
+      requests:
+        memory: "2Gi"
+        cpu: "1"
+      limits:
+        memory: "4Gi"
+        cpu: "2"
+  
+  replica:
+    replicaCount: 2
+    persistence:
+      enabled: true
+      size: 20Gi
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "2Gi"
+        cpu: "1"
+
+# Kafka Configuration for event streaming
+kafka:
+  enabled: true
+  replicaCount: 3
+  
+  persistence:
+    enabled: true
+    size: 50Gi
+    storageClass: "gp3-encrypted"
+  
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "1"
+    limits:
+      memory: "4Gi"
+      cpu: "2"
+  
+  # Kafka topics for e-commerce events
+  topics:
+    - name: "order-events"
+      partitions: 12
+      replicationFactor: 3
+    - name: "payment-events"
+      partitions: 12
+      replicationFactor: 3
+    - name: "inventory-events"
+      partitions: 8
+      replicationFactor: 3
+    - name: "user-events"
+      partitions: 8
+      replicationFactor: 3
+
+# Elasticsearch for product search
+elasticsearch:
+  enabled: true
+  replicas: 3
+  minimumMasterNodes: 2
+  
+  esConfig:
+    elasticsearch.yml: |
+      cluster.name: "ecommerce-search"
+      network.host: 0.0.0.0
+      discovery.seed_hosts: ["elasticsearch-master"]
+      cluster.initial_master_nodes: ["elasticsearch-master-0", "elasticsearch-master-1", "elasticsearch-master-2"]
+  
+  resources:
+    requests:
+      memory: "4Gi"
+      cpu: "2"
+    limits:
+      memory: "8Gi"
+      cpu: "4"
+  
+  persistence:
+    enabled: true
+    size: 100Gi
+
+# Monitoring configuration
+monitoring:
+  enabled: true
+  
+  prometheus:
+    enabled: true
+    server:
+      persistentVolume:
+        enabled: true
+        size: 50Gi
+      resources:
+        requests:
+          memory: "2Gi"
+          cpu: "1"
+        limits:
+          memory: "4Gi"
+          cpu: "2"
+  
+  grafana:
+    enabled: true
+    persistence:
+      enabled: true
+      size: 10Gi
+    
+    # Pre-configured dashboards for e-commerce metrics
+    dashboards:
+      - name: "E-commerce Overview"
+        file: "ecommerce-overview.json"
+      - name: "Order Processing"
+        file: "order-processing.json"
+      - name: "Payment Analytics"
+        file: "payment-analytics.json"
+      - name: "Inventory Management"
+        file: "inventory-management.json"
+
+# Ingress configuration
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+  
+  hosts:
+    - host: ecommerce.in
+      paths:
+        - path: /
+          pathType: Prefix
+          service: product-catalog
+    - host: api.ecommerce.in
+      paths:
+        - path: /v1/users
+          pathType: Prefix
+          service: user-service
+        - path: /v1/orders
+          pathType: Prefix
+          service: order-service
+        - path: /v1/payments
+          pathType: Prefix
+          service: payment-service
+        - path: /v1/inventory
+          pathType: Prefix
+          service: inventory-service
+        - path: /v1/logistics
+          pathType: Prefix
+          service: logistics-service
+  
+  tls:
+    - secretName: ecommerce-tls
+      hosts:
+        - ecommerce.in
+        - api.ecommerce.in
+
+# Network Policies for security
+networkPolicies:
+  enabled: true
+  policyTypes:
+    - Ingress
+    - Egress
+  
+  # Default deny all, explicit allow required services
+  defaultDeny: true
+
+# Pod Disruption Budgets
+podDisruptionBudget:
+  enabled: true
+  minAvailable: "70%"  # Ensure high availability during maintenance
+
+# Resource Quotas
+resourceQuotas:
+  enabled: true
+  hard:
+    requests.cpu: "100"
+    requests.memory: "400Gi"
+    limits.cpu: "200"
+    limits.memory: "800Gi"
+    persistentvolumeclaims: "50"
+    services: "50"
+    secrets: "100"
+    configmaps: "100"

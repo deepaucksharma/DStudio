@@ -1,0 +1,107 @@
+# Multi-stage Docker build for Paytm Payment Processing Service
+# Paytm के लिए optimized container image - production ready
+
+# Stage 1: Build stage - भारी dependencies यहां install करते हैं
+FROM python:3.11-slim as builder
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies for building Python packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    libssl-dev \
+    libffi-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better Docker layer caching
+COPY requirements.txt .
+
+# Create virtual environment and install dependencies
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install Python dependencies
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Run tests to ensure code quality (fail build if tests fail)
+RUN python -m pytest tests/ -v || exit 1
+
+# Stage 2: Runtime stage - minimal image सिर्फ runtime के लिए
+FROM python:3.11-slim as runtime
+
+# Create non-root user for security
+RUN groupadd -r paytm && useradd -r -g paytm paytm
+
+# Install minimal runtime dependencies only
+RUN apt-get update && apt-get install -y \
+    libpq5 \
+    curl \
+    tini \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Copy virtual environment from builder stage
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Set working directory
+WORKDIR /app
+
+# Copy application code from builder
+COPY --from=builder /app/02-paytm-docker-multistage.py ./paytm_payment_processor.py
+
+# Create directories for logs and temporary files
+RUN mkdir -p /app/logs /app/tmp && \
+    chown -R paytm:paytm /app
+
+# Set environment variables for production
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app \
+    PORT=8080 \
+    WORKERS=4 \
+    ENVIRONMENT=production \
+    TIMEZONE=Asia/Kolkata \
+    CURRENCY=INR
+
+# Security: Run as non-root user
+USER paytm
+
+# Expose port (Indian fintech standard port)
+EXPOSE 8080
+
+# Health check for Kubernetes liveness/readiness probes
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+# Use tini for proper signal handling in containers
+ENTRYPOINT ["/usr/bin/tini", "--"]
+
+# Command to run the application
+CMD ["python", "-m", "uvicorn", "paytm_payment_processor:app", \
+     "--host", "0.0.0.0", \
+     "--port", "8080", \
+     "--workers", "4", \
+     "--access-log", \
+     "--loop", "uvloop"]
+
+# Labels for container metadata (Indian context)
+LABEL maintainer="paytm-platform-team@paytm.com" \
+      version="2.1.0" \
+      description="Paytm Payment Processing Service - भारत की डिजिटल पेमेंट सेवा" \
+      vendor="Paytm" \
+      country="India" \
+      compliance="RBI" \
+      build-date="" \
+      vcs-url="https://github.com/paytm/payment-processor" \
+      org.opencontainers.image.title="Paytm Payment Processor" \
+      org.opencontainers.image.description="Production-ready payment processing service" \
+      org.opencontainers.image.vendor="Paytm" \
+      org.opencontainers.image.version="2.1.0"

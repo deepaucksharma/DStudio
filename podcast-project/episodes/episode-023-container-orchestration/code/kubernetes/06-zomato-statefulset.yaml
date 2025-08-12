@@ -1,0 +1,600 @@
+# Zomato Restaurant Data StatefulSet - PostgreSQL Cluster
+# भारत के सबसे बड़े food delivery platform के लिए database cluster
+# 500+ cities, 200K+ restaurants, 50M+ orders monthly
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zomato-restaurant-db
+  namespace: zomato-platform
+  labels:
+    app: restaurant-database
+    component: postgresql
+    tier: data
+  annotations:
+    description: "Zomato restaurant data PostgreSQL cluster with streaming replication"
+spec:
+  serviceName: zomato-restaurant-db-headless
+  replicas: 3  # Primary + 2 read replicas for high availability
+  
+  # Update strategy for zero-downtime deployments
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 0
+  
+  # Pod management policy
+  podManagementPolicy: OrderedReady
+  
+  selector:
+    matchLabels:
+      app: restaurant-database
+  
+  template:
+    metadata:
+      labels:
+        app: restaurant-database
+        component: postgresql
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9187"
+        prometheus.io/path: "/metrics"
+    spec:
+      # Service account for database operations
+      serviceAccountName: zomato-db-service-account
+      
+      # Security context for PostgreSQL containers
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        
+      # Anti-affinity to spread replicas across nodes
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: restaurant-database
+            topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-type
+                operator: In
+                values: ["database", "storage-optimized"]
+              - key: region
+                operator: In
+                values: ["mumbai", "bangalore", "delhi"]
+      
+      # Init container to set up PostgreSQL directories and permissions
+      initContainers:
+      - name: postgres-init
+        image: postgres:15-alpine
+        command:
+        - sh
+        - -c
+        - |
+          # PostgreSQL data directory setup
+          # डेटाबेस directories की initialization
+          chown -R 999:999 /var/lib/postgresql/data
+          chmod 700 /var/lib/postgresql/data
+          
+          # Create required directories
+          mkdir -p /var/lib/postgresql/data/pg_wal
+          mkdir -p /var/lib/postgresql/data/pg_log
+          mkdir -p /var/lib/postgresql/backup
+          
+          echo "PostgreSQL directories initialized successfully"
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+        securityContext:
+          runAsUser: 0  # Root for initial setup
+          
+      containers:
+      # Main PostgreSQL container
+      - name: postgresql
+        image: postgres:15.5-alpine
+        imagePullPolicy: Always
+        
+        # Environment variables for PostgreSQL configuration
+        env:
+        - name: POSTGRES_DB
+          value: "zomato_restaurants"
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: zomato-db-credentials
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: zomato-db-credentials
+              key: password
+        - name: POSTGRES_REPLICATION_USER
+          valueFrom:
+            secretKeyRef:
+              name: zomato-db-credentials
+              key: replication_user
+        - name: POSTGRES_REPLICATION_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: zomato-db-credentials
+              key: replication_password
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        
+        # Container resource limits for Indian restaurant scale
+        resources:
+          requests:
+            memory: "4Gi"     # Minimum for restaurant data caching
+            cpu: "2"          # 2 CPU cores for query processing
+            ephemeral-storage: "10Gi"
+          limits:
+            memory: "8Gi"     # Maximum for large restaurant datasets
+            cpu: "4"          # Burst capacity for complex queries
+            ephemeral-storage: "20Gi"
+        
+        # Container ports
+        ports:
+        - name: postgresql
+          containerPort: 5432
+          protocol: TCP
+        - name: metrics
+          containerPort: 9187
+          protocol: TCP
+        
+        # Liveness probe to check PostgreSQL health
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - |
+              pg_isready -U $POSTGRES_USER -d $POSTGRES_DB -h localhost -p 5432
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+        
+        # Readiness probe for traffic routing
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - |
+              pg_isready -U $POSTGRES_USER -d $POSTGRES_DB -h localhost -p 5432 &&
+              psql -U $POSTGRES_USER -d $POSTGRES_DB -c "SELECT 1" > /dev/null 2>&1
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        
+        # Volume mounts for persistent storage
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+        - name: postgres-config
+          mountPath: /etc/postgresql/postgresql.conf
+          subPath: postgresql.conf
+          readOnly: true
+        - name: postgres-hba
+          mountPath: /etc/postgresql/pg_hba.conf
+          subPath: pg_hba.conf
+          readOnly: true
+        - name: postgres-scripts
+          mountPath: /docker-entrypoint-initdb.d
+          readOnly: true
+        - name: postgres-backup
+          mountPath: /backup
+        
+        # Startup command with custom configuration
+        command:
+        - sh
+        - -c
+        - |
+          # Copy configuration files
+          cp /etc/postgresql/postgresql.conf /var/lib/postgresql/data/
+          cp /etc/postgresql/pg_hba.conf /var/lib/postgresql/data/
+          
+          # Set replica configuration based on pod name
+          if [[ "$POD_NAME" == "zomato-restaurant-db-0" ]]; then
+            echo "Starting as PRIMARY database server"
+            export POSTGRES_REPLICA_MODE="primary"
+          else
+            echo "Starting as REPLICA database server"
+            export POSTGRES_REPLICA_MODE="replica"
+            export POSTGRES_PRIMARY_HOST="zomato-restaurant-db-0.zomato-restaurant-db-headless"
+          fi
+          
+          # Start PostgreSQL with custom configuration
+          exec docker-entrypoint.sh postgres \
+            -c config_file=/var/lib/postgresql/data/postgresql.conf \
+            -c hba_file=/var/lib/postgresql/data/pg_hba.conf
+        
+      # PostgreSQL Exporter for Prometheus monitoring
+      - name: postgres-exporter
+        image: quay.io/prometheuscommunity/postgres-exporter:latest
+        env:
+        - name: DATA_SOURCE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: zomato-db-credentials
+              key: exporter_connection_string
+        ports:
+        - containerPort: 9187
+          name: metrics
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 9187
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 9187
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      
+      # WAL-G sidecar for continuous backup to S3
+      - name: wal-g-backup
+        image: wal-g/wal-g:latest
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: zomato-backup-credentials
+              key: aws_access_key
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: zomato-backup-credentials
+              key: aws_secret_key
+        - name: AWS_REGION
+          value: "ap-south-1"  # Mumbai region
+        - name: WALG_S3_PREFIX
+          value: "s3://zomato-db-backups/restaurant-data"
+        - name: WALG_COMPRESSION_METHOD
+          value: "lz4"
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        command:
+        - sh
+        - -c
+        - |
+          # Continuous WAL archiving for point-in-time recovery
+          # भारतीय restaurant data के लिए continuous backup
+          while true; do
+            if [[ "$POD_NAME" == "zomato-restaurant-db-0" ]]; then
+              echo "Running WAL archiving for primary database"
+              wal-g backup-push /var/lib/postgresql/data/pgdata
+            fi
+            sleep 3600  # Backup every hour
+          done
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+        - name: postgres-backup
+          mountPath: /backup
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+      
+      # Shared volumes configuration
+      volumes:
+      - name: postgres-config
+        configMap:
+          name: zomato-postgres-config
+          defaultMode: 0644
+      - name: postgres-hba
+        configMap:
+          name: zomato-postgres-hba
+          defaultMode: 0600
+      - name: postgres-scripts
+        configMap:
+          name: zomato-postgres-init-scripts
+          defaultMode: 0755
+      - name: postgres-backup
+        emptyDir:
+          sizeLimit: "50Gi"
+  
+  # Volume claim templates for persistent storage
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+      labels:
+        app: restaurant-database
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "ssd-retain"  # High-performance SSD storage
+      resources:
+        requests:
+          storage: 500Gi  # 500GB for restaurant data and indexes
+      selector:
+        matchLabels:
+          type: postgres-data
+
+---
+# Headless service for StatefulSet discovery
+apiVersion: v1
+kind: Service
+metadata:
+  name: zomato-restaurant-db-headless
+  namespace: zomato-platform
+  labels:
+    app: restaurant-database
+spec:
+  clusterIP: None  # Headless service
+  selector:
+    app: restaurant-database
+  ports:
+  - name: postgresql
+    port: 5432
+    targetPort: 5432
+
+---
+# Service for database connections (primary only)
+apiVersion: v1
+kind: Service
+metadata:
+  name: zomato-restaurant-db-primary
+  namespace: zomato-platform
+  labels:
+    app: restaurant-database
+    role: primary
+spec:
+  type: ClusterIP
+  selector:
+    app: restaurant-database
+    # Only primary pod (index 0)
+    statefulset.kubernetes.io/pod-name: zomato-restaurant-db-0
+  ports:
+  - name: postgresql
+    port: 5432
+    targetPort: 5432
+
+---
+# Service for read-only connections (replicas)
+apiVersion: v1
+kind: Service
+metadata:
+  name: zomato-restaurant-db-replica
+  namespace: zomato-platform
+  labels:
+    app: restaurant-database
+    role: replica
+spec:
+  type: ClusterIP
+  selector:
+    app: restaurant-database
+  ports:
+  - name: postgresql
+    port: 5432
+    targetPort: 5432
+
+---
+# ConfigMap for PostgreSQL configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zomato-postgres-config
+  namespace: zomato-platform
+data:
+  postgresql.conf: |
+    # PostgreSQL configuration for Zomato restaurant data
+    # भारतीय restaurant scale के लिए optimized settings
+    
+    # Connection settings
+    listen_addresses = '*'
+    port = 5432
+    max_connections = 200
+    superuser_reserved_connections = 3
+    
+    # Memory settings optimized for restaurant queries
+    shared_buffers = '2GB'
+    effective_cache_size = '6GB'
+    work_mem = '32MB'
+    maintenance_work_mem = '512MB'
+    
+    # WAL settings for replication
+    wal_level = replica
+    max_wal_senders = 10
+    max_replication_slots = 10
+    wal_keep_size = '2GB'
+    hot_standby = on
+    hot_standby_feedback = on
+    
+    # Checkpoint settings
+    checkpoint_completion_target = 0.9
+    wal_buffers = '64MB'
+    
+    # Query optimization for restaurant searches
+    random_page_cost = 1.1  # SSD optimized
+    effective_io_concurrency = 200
+    
+    # Logging for audit compliance
+    log_destination = 'stderr,csvlog'
+    logging_collector = on
+    log_directory = '/var/lib/postgresql/data/pg_log'
+    log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+    log_statement = 'ddl'
+    log_min_duration_statement = 1000  # Log slow queries > 1s
+    
+    # Indian timezone
+    timezone = 'Asia/Kolkata'
+    log_timezone = 'Asia/Kolkata'
+    
+    # Performance monitoring
+    track_activities = on
+    track_counts = on
+    track_io_timing = on
+    track_functions = all
+
+---
+# ConfigMap for PostgreSQL HBA (Host-Based Authentication)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zomato-postgres-hba
+  namespace: zomato-platform
+data:
+  pg_hba.conf: |
+    # PostgreSQL HBA configuration for Zomato
+    # TYPE  DATABASE        USER            ADDRESS                 METHOD
+    
+    # Local connections
+    local   all             all                                     trust
+    
+    # Replication connections
+    host    replication     replicator      0.0.0.0/0              md5
+    
+    # Application connections from pods
+    host    zomato_restaurants  zomato_user    10.0.0.0/8           md5
+    host    zomato_restaurants  zomato_readonly 10.0.0.0/8          md5
+    
+    # Monitoring connections
+    host    all             postgres_exporter  0.0.0.0/0           md5
+    
+    # Backup connections
+    host    all             backup_user     0.0.0.0/0              md5
+
+---
+# ConfigMap for database initialization scripts
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zomato-postgres-init-scripts
+  namespace: zomato-platform
+data:
+  01-create-users.sql: |
+    -- Create database users for Zomato application
+    -- भारतीय restaurant platform के लिए database users
+    
+    -- Application user with read/write permissions
+    CREATE USER zomato_user WITH PASSWORD 'ZomatoUser2024$';
+    GRANT CONNECT ON DATABASE zomato_restaurants TO zomato_user;
+    
+    -- Read-only user for analytics and reporting
+    CREATE USER zomato_readonly WITH PASSWORD 'ZomatoReadOnly2024$';
+    GRANT CONNECT ON DATABASE zomato_restaurants TO zomato_readonly;
+    
+    -- Replication user for streaming replication
+    CREATE USER replicator WITH REPLICATION PASSWORD 'ZomatoRepl2024$';
+    
+    -- Monitoring user for Prometheus exporter
+    CREATE USER postgres_exporter WITH PASSWORD 'ZomatoExporter2024$';
+    GRANT pg_monitor TO postgres_exporter;
+    
+    -- Backup user for WAL-G
+    CREATE USER backup_user WITH PASSWORD 'ZomatoBackup2024$';
+    GRANT pg_read_all_data TO backup_user;
+
+  02-create-schema.sql: |
+    -- Create schema for Zomato restaurant data
+    -- भारतीय restaurants के लिए database schema
+    
+    -- Restaurants table with Indian city data
+    CREATE TABLE restaurants (
+        id BIGSERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        city VARCHAR(100) NOT NULL,
+        state VARCHAR(100) NOT NULL,
+        pincode VARCHAR(10) NOT NULL,
+        latitude DECIMAL(10, 8) NOT NULL,
+        longitude DECIMAL(11, 8) NOT NULL,
+        cuisine_types TEXT[],
+        average_cost_for_two INTEGER DEFAULT 0,
+        rating DECIMAL(3, 2) DEFAULT 0.0,
+        delivery_time_minutes INTEGER DEFAULT 30,
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    -- Menu items table
+    CREATE TABLE menu_items (
+        id BIGSERIAL PRIMARY KEY,
+        restaurant_id BIGINT REFERENCES restaurants(id),
+        name VARCHAR(255) NOT NULL,
+        description TEXT,
+        price INTEGER NOT NULL, -- Price in paisa (INR * 100)
+        category VARCHAR(100),
+        is_vegetarian BOOLEAN DEFAULT FALSE,
+        is_available BOOLEAN DEFAULT TRUE,
+        spice_level VARCHAR(20) DEFAULT 'MEDIUM',
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    -- Orders table for transaction tracking
+    CREATE TABLE orders (
+        id BIGSERIAL PRIMARY KEY,
+        order_number VARCHAR(50) UNIQUE NOT NULL,
+        restaurant_id BIGINT REFERENCES restaurants(id),
+        customer_id BIGINT NOT NULL,
+        delivery_address TEXT NOT NULL,
+        total_amount INTEGER NOT NULL, -- Amount in paisa
+        payment_method VARCHAR(50),
+        order_status VARCHAR(50) DEFAULT 'PLACED',
+        estimated_delivery_time TIMESTAMP WITH TIME ZONE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    -- Indexes for optimal query performance
+    CREATE INDEX idx_restaurants_city ON restaurants(city);
+    CREATE INDEX idx_restaurants_location ON restaurants USING GIST (POINT(longitude, latitude));
+    CREATE INDEX idx_restaurants_rating ON restaurants(rating DESC) WHERE is_active = TRUE;
+    CREATE INDEX idx_menu_items_restaurant ON menu_items(restaurant_id) WHERE is_available = TRUE;
+    CREATE INDEX idx_orders_restaurant_date ON orders(restaurant_id, created_at);
+    CREATE INDEX idx_orders_status ON orders(order_status, created_at);
+    
+    -- Grant permissions to application users
+    GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO zomato_user;
+    GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO zomato_user;
+    GRANT SELECT ON ALL TABLES IN SCHEMA public TO zomato_readonly;
+
+  03-seed-data.sql: |
+    -- Insert sample restaurant data for Indian cities
+    -- भारतीय शहरों में sample restaurant data
+    
+    INSERT INTO restaurants (name, city, state, pincode, latitude, longitude, cuisine_types, average_cost_for_two, rating) VALUES
+    ('Saravana Bhavan', 'Mumbai', 'Maharashtra', '400001', 19.0760, 72.8777, ARRAY['South Indian', 'Vegetarian'], 40000, 4.2),
+    ('Karim''s', 'Delhi', 'Delhi', '110006', 28.6562, 77.2373, ARRAY['Mughlai', 'Non-Vegetarian'], 60000, 4.5),
+    ('MTR', 'Bangalore', 'Karnataka', '560002', 12.9716, 77.5946, ARRAY['South Indian', 'Vegetarian'], 35000, 4.3),
+    ('Murugan Idli Shop', 'Chennai', 'Tamil Nadu', '600001', 13.0827, 80.2707, ARRAY['South Indian', 'Vegetarian'], 25000, 4.1),
+    ('Oh! Calcutta', 'Kolkata', 'West Bengal', '700001', 22.5726, 88.3639, ARRAY['Bengali', 'Fish'], 80000, 4.4),
+    ('Trishna', 'Mumbai', 'Maharashtra', '400001', 19.0760, 72.8777, ARRAY['Seafood', 'Contemporary'], 250000, 4.7),
+    ('Bukhara', 'Delhi', 'Delhi', '110003', 28.6139, 77.2090, ARRAY['North Indian', 'Tandoor'], 500000, 4.8),
+    ('Koshy''s', 'Bangalore', 'Karnataka', '560001', 12.9716, 77.5946, ARRAY['Continental', 'Indian'], 100000, 4.0);
+
+---
+# Service Account for database operations
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: zomato-db-service-account
+  namespace: zomato-platform

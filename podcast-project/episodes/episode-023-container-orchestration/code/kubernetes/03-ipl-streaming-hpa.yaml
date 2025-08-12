@@ -1,0 +1,260 @@
+# IPL Streaming Platform - Horizontal Pod Autoscaler
+# भारत बनाम पाकिस्तान मैच के लिए auto-scaling configuration
+# 400M+ concurrent users के लिए designed
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hotstar-ipl-streaming-hpa
+  namespace: hotstar-streaming
+  labels:
+    app: ipl-streaming
+    event: "india-vs-pakistan"
+    priority: "critical"
+  annotations:
+    description: "IPL streaming auto-scaler for peak traffic during India vs Pakistan match"
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hotstar-streaming-service
+  minReplicas: 100    # Base load - 10M concurrent users
+  maxReplicas: 2000   # Peak load - 400M concurrent users (World Record)
+  
+  # Scaling policies
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60  # 1 minute stabilization
+      selectPolicy: Max  # Most aggressive scaling policy
+      policies:
+      - type: Percent
+        value: 100    # Double the pods
+        periodSeconds: 60
+      - type: Pods
+        value: 50     # Add 50 pods at once during spike
+        periodSeconds: 15
+    scaleDown:
+      stabilizationWindowSeconds: 300  # 5 minutes stabilization
+      selectPolicy: Min  # Conservative scale down
+      policies:
+      - type: Percent
+        value: 10     # Reduce by 10% only
+        periodSeconds: 60
+      - type: Pods
+        value: 5      # Remove max 5 pods at once
+        periodSeconds: 60
+  
+  # Metrics for scaling decisions
+  metrics:
+  # CPU-based scaling
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70  # Scale when CPU > 70%
+  
+  # Memory-based scaling  
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80  # Scale when memory > 80%
+  
+  # Custom metric: Concurrent stream count
+  - type: Object
+    object:
+      metric:
+        name: concurrent_streams
+      target:
+        type: AverageValue
+        averageValue: "50000"  # 50K streams per pod maximum
+      describedObject:
+        apiVersion: v1
+        kind: Service
+        name: hotstar-streaming-service
+  
+  # Custom metric: Request rate per second
+  - type: Pods
+    pods:
+      metric:
+        name: requests_per_second
+        selector:
+          matchLabels:
+            app: ipl-streaming
+      target:
+        type: AverageValue
+        averageValue: "1000"  # 1K RPS per pod
+  
+  # Network bandwidth utilization
+  - type: Object
+    object:
+      metric:
+        name: network_bytes_transmitted_per_second
+      target:
+        type: Value
+        value: "1G"  # Scale when network > 1Gbps per pod
+      describedObject:
+        apiVersion: v1
+        kind: Service  
+        name: hotstar-streaming-service
+
+---
+# Vertical Pod Autoscaler for resource optimization
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: hotstar-ipl-streaming-vpa
+  namespace: hotstar-streaming
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hotstar-streaming-service
+  updatePolicy:
+    updateMode: "Auto"  # Automatic resource updates
+  resourcePolicy:
+    containerPolicies:
+    - containerName: streaming-service
+      minAllowed:
+        memory: "2Gi"    # Minimum for HD streaming
+        cpu: "1"
+      maxAllowed:
+        memory: "16Gi"   # Maximum for 4K streaming with ads
+        cpu: "8"
+      controlledResources: ["cpu", "memory"]
+
+---
+# Pod Disruption Budget to maintain availability during scaling
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: hotstar-ipl-streaming-pdb
+  namespace: hotstar-streaming
+spec:
+  minAvailable: 80%  # Always keep 80% pods running
+  selector:
+    matchLabels:
+      app: ipl-streaming
+  unhealthyPodEvictionPolicy: AlwaysAllow
+
+---
+# Service Monitor for Prometheus metrics collection
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hotstar-ipl-metrics
+  namespace: hotstar-streaming
+  labels:
+    app: ipl-streaming
+spec:
+  selector:
+    matchLabels:
+      app: ipl-streaming
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 10s  # High frequency during IPL matches
+    scrapeTimeout: 5s
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      regex: 'hotstar_streaming_(.*)'
+      targetLabel: __name__
+      replacement: 'ipl_${1}'
+
+---
+# Custom Resource: IPL Match Event for predictive scaling
+apiVersion: streaming.hotstar.com/v1
+kind: IPLMatch
+metadata:
+  name: india-vs-pakistan-final
+  namespace: hotstar-streaming
+spec:
+  teams: ["India", "Pakistan"]
+  matchType: "Final"
+  venue: "Narendra Modi Stadium, Ahmedabad"
+  startTime: "2024-03-31T19:30:00+05:30"  # IST
+  expectedViewers: 450000000  # 45 crore viewers
+  
+  # Pre-scaling configuration
+  preScaling:
+    enabled: true
+    minutesBefore: 30     # Start scaling 30 minutes before match
+    targetReplicas: 800   # Pre-scale to 800 pods
+  
+  # Peak scaling during crucial moments
+  peakEvents:
+  - name: "toss"
+    time: "19:30:00+05:30"
+    scaleMultiplier: 1.2
+  - name: "first-ball"
+    time: "20:00:00+05:30" 
+    scaleMultiplier: 1.5
+  - name: "super-over"
+    time: "23:30:00+05:30"
+    scaleMultiplier: 2.0
+  - name: "final-ball"
+    time: "23:59:00+05:30"
+    scaleMultiplier: 3.0  # Maximum scaling
+
+---
+# Network Policy for IPL streaming pods
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: hotstar-ipl-streaming-network-policy
+  namespace: hotstar-streaming
+spec:
+  podSelector:
+    matchLabels:
+      app: ipl-streaming
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic from load balancer
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-system
+    ports:
+    - protocol: TCP
+      port: 8080
+  
+  # Allow metrics collection
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 9090
+  
+  egress:
+  # Allow database connections
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: database
+    ports:
+    - protocol: TCP
+      port: 5432
+  
+  # Allow Redis cache connections
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: cache
+    ports:
+    - protocol: TCP
+      port: 6379
+  
+  # Allow external CDN connections
+  - to: []  # Allow all external traffic for CDN
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80

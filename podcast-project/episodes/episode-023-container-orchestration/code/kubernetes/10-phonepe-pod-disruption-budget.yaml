@@ -1,0 +1,696 @@
+# PhonePe Pod Disruption Budget - High Availability Configuration
+# भारत की सबसे बड़ी UPI payment app के लिए availability assurance
+# Handles 2B+ transactions monthly with 99.99% uptime requirement
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: phonepe-payment-processing-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-payment-processing
+    component: core-payments
+    criticality: critical
+    compliance: rbi-payment-system
+  annotations:
+    description: "PDB for PhonePe core payment processing services - ensures high availability during node maintenance"
+    owner: "phonepe-sre-team"
+    escalation: "phonepe-oncall-primary"
+spec:
+  # Minimum available pods during disruptions (80% availability)
+  minAvailable: 80%
+  
+  selector:
+    matchLabels:
+      app: phonepe-payment-processing
+      tier: core-payment
+  
+  # Maximum unavailable pods (alternative to minAvailable)
+  # maxUnavailable: 2
+
+---
+# PDB for UPI Transaction Processing
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: phonepe-upi-processor-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-upi-processor
+    component: upi-gateway
+    criticality: critical
+  annotations:
+    description: "PDB for UPI transaction processing - handles NPCI integration"
+spec:
+  minAvailable: 5  # Minimum 5 pods always running for UPI processing
+  
+  selector:
+    matchLabels:
+      app: phonepe-upi-processor
+      component: npci-gateway
+
+---
+# PDB for Payment Gateway Services
+apiVersion: policy/v1 
+kind: PodDisruptionBudget
+metadata:
+  name: phonepe-payment-gateway-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-payment-gateway
+    component: external-gateway
+    criticality: high
+spec:
+  maxUnavailable: 1  # Only 1 pod can be down at a time
+  
+  selector:
+    matchLabels:
+      app: phonepe-payment-gateway
+      tier: gateway
+
+---
+# PDB for Authentication Service
+apiVersion: policy/v1
+kind: PodDisruptionBudget  
+metadata:
+  name: phonepe-auth-service-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-auth-service
+    component: user-authentication
+    criticality: critical
+spec:
+  minAvailable: 75%  # 75% pods must remain available
+  
+  selector:
+    matchLabels:
+      app: phonepe-auth-service
+      component: biometric-auth
+
+---
+# PDB for Fraud Detection System
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: phonepe-fraud-detection-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-fraud-detection
+    component: ml-fraud-engine
+    criticality: critical
+spec:
+  minAvailable: 4  # Minimum 4 ML models running for fraud detection
+  
+  selector:
+    matchLabels:
+      app: phonepe-fraud-detection
+      component: ml-engine
+
+---
+# PDB for Merchant Payment Processing
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: phonepe-merchant-payments-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-merchant-payments
+    component: merchant-services
+    criticality: high
+spec:
+  maxUnavailable: 25%  # Max 25% pods can be unavailable
+  
+  selector:
+    matchLabels:
+      app: phonepe-merchant-payments
+      tier: merchant-backend
+
+---
+# PDB for Wallet Services
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: phonepe-wallet-service-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-wallet-service
+    component: digital-wallet
+    criticality: high
+spec:
+  minAvailable: 8  # Minimum 8 pods for wallet operations
+  
+  selector:
+    matchLabels:
+      app: phonepe-wallet-service
+      component: balance-management
+
+---
+# PDB for Notification Service
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: phonepe-notification-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-notification-service
+    component: push-notifications
+    criticality: medium
+spec:
+  maxUnavailable: 50%  # Notifications can tolerate higher disruption
+  
+  selector:
+    matchLabels:
+      app: phonepe-notification-service
+      tier: notification
+
+---
+# PDB for Analytics and Reporting
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: phonepe-analytics-pdb
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-analytics
+    component: real-time-analytics
+    criticality: medium
+spec:
+  minAvailable: 2  # Minimum analytics capability during disruptions
+  
+  selector:
+    matchLabels:
+      app: phonepe-analytics
+      component: stream-processor
+
+---
+# Deployment for PhonePe Payment Processing with PDB integration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phonepe-payment-processing
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-payment-processing
+    tier: core-payment
+spec:
+  # High replica count for availability
+  replicas: 20  # 20 replicas to ensure availability with PDB constraints
+  
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 20%  # Coordinated with PDB settings
+      maxSurge: 25%
+  
+  selector:
+    matchLabels:
+      app: phonepe-payment-processing
+      tier: core-payment
+  
+  template:
+    metadata:
+      labels:
+        app: phonepe-payment-processing
+        tier: core-payment
+        component: payment-engine
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+    spec:
+      # Anti-affinity to spread pods across nodes
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: phonepe-payment-processing
+              topologyKey: kubernetes.io/hostname
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: phonepe-payment-processing  
+              topologyKey: topology.kubernetes.io/zone
+      
+      # Service account for payment operations
+      serviceAccountName: phonepe-payment-sa
+      
+      # Security context for payment processing
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+      
+      containers:
+      - name: payment-processor
+        image: phonepe.azurecr.io/payment-processor:v3.2.1
+        imagePullPolicy: Always
+        
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 8443
+          name: https
+        - containerPort: 9090
+          name: metrics
+        
+        # Environment variables for Indian payment ecosystem
+        env:
+        - name: NPCI_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: phonepe-payment-config
+              key: npci-endpoint
+        - name: UPI_PROVIDER_ID
+          value: "PHONEPE"
+        - name: PAYMENT_GATEWAY_ID
+          value: "PHONEPE_GATEWAY_001"
+        - name: RBI_COMPLIANCE_MODE
+          value: "STRICT"
+        - name: TIMEZONE
+          value: "Asia/Kolkata"
+        - name: CURRENCY
+          value: "INR"
+        
+        # Database connections
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: phonepe-db-credentials
+              key: host
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: phonepe-db-credentials
+              key: password
+        
+        # Redis for session management
+        - name: REDIS_CLUSTER_ENDPOINTS
+          valueFrom:
+            configMapKeyRef:
+              name: phonepe-redis-config
+              key: cluster-endpoints
+        
+        # Kafka for event streaming
+        - name: KAFKA_BROKERS
+          valueFrom:
+            configMapKeyRef:
+              name: phonepe-kafka-config
+              key: brokers
+        
+        # Resource limits for payment processing
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+            ephemeral-storage: "5Gi"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+            ephemeral-storage: "10Gi"
+        
+        # Health checks for payment availability
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+        
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        
+        # Startup probe for payment system initialization
+        startupProbe:
+          httpGet:
+            path: /actuator/health/startup
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30  # Allow 5 minutes for payment system startup
+        
+        # Volume mounts
+        volumeMounts:
+        - name: payment-config
+          mountPath: /app/config
+          readOnly: true
+        - name: payment-logs
+          mountPath: /app/logs
+        - name: temp-storage
+          mountPath: /tmp/payment
+      
+      volumes:
+      - name: payment-config
+        configMap:
+          name: phonepe-payment-config
+      - name: payment-logs
+        emptyDir:
+          sizeLimit: 2Gi
+      - name: temp-storage
+        emptyDir:
+          sizeLimit: 1Gi
+
+---
+# Service for Payment Processing
+apiVersion: v1
+kind: Service
+metadata:
+  name: phonepe-payment-processing-service
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-payment-processing
+spec:
+  type: ClusterIP
+  selector:
+    app: phonepe-payment-processing
+    tier: core-payment
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  - name: https
+    port: 443
+    targetPort: 8443
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+
+---
+# HorizontalPodAutoscaler coordinated with PDB
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: phonepe-payment-processing-hpa
+  namespace: phonepe-platform
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: phonepe-payment-processing
+  
+  # Scale between 20-100 pods (coordinated with PDB minAvailable)
+  minReplicas: 20   # Higher than PDB minAvailable to ensure availability
+  maxReplicas: 100  # Scale up to 100 pods during peak UPI usage
+  
+  # Scaling behavior coordinated with PDB
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      selectPolicy: Max
+      policies:
+      - type: Percent
+        value: 50    # Scale up by 50% at once
+        periodSeconds: 60
+      - type: Pods
+        value: 10    # Add 10 pods at once during traffic spikes
+        periodSeconds: 30
+    
+    scaleDown:
+      stabilizationWindowSeconds: 300  # 5 minute cooldown
+      selectPolicy: Min  # Conservative scale down to respect PDB
+      policies:
+      - type: Percent
+        value: 10    # Scale down by max 10% to respect PDB
+        periodSeconds: 60
+      - type: Pods
+        value: 2     # Remove max 2 pods at once
+        periodSeconds: 60
+  
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  
+  # Custom metric for payment processing rate
+  - type: Object
+    object:
+      metric:
+        name: payments_per_second
+      target:
+        type: Value
+        value: "1000"  # Scale when processing >1000 payments/sec per pod
+      describedObject:
+        apiVersion: v1
+        kind: Service
+        name: phonepe-payment-processing-service
+
+---
+# ConfigMap for Payment Processing Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: phonepe-payment-config
+  namespace: phonepe-platform
+data:
+  application.yaml: |
+    # PhonePe Payment Processing Configuration
+    # भारतीय UPI ecosystem के लिए payment processing
+    
+    phonepe:
+      # NPCI UPI Configuration
+      upi:
+        npci-endpoint: "https://api.npci.org.in/upi/v1"
+        provider-id: "PHONEPE"
+        merchant-id: "PHONEPE001"
+        timeout-seconds: 30
+        retry-attempts: 3
+      
+      # Payment methods configuration
+      payment-methods:
+        upi:
+          enabled: true
+          max-amount: 100000  # ₹1 lakh UPI limit
+          daily-limit: 1000000 # ₹10 lakh daily limit
+        
+        cards:
+          enabled: true
+          max-amount: 500000  # ₹5 lakh card limit
+          supported-networks: ["VISA", "MASTERCARD", "RUPAY", "AMEX"]
+        
+        wallet:
+          enabled: true
+          max-balance: 200000  # ₹2 lakh wallet limit
+          kyc-required-above: 10000  # KYC required above ₹10,000
+        
+        bank-account:
+          enabled: true
+          max-amount: 2000000  # ₹20 lakh bank transfer limit
+      
+      # Fraud detection settings
+      fraud-detection:
+        enabled: true
+        risk-scoring-threshold: 0.7
+        velocity-checks: true
+        device-fingerprinting: true
+        ml-model-endpoint: "http://phonepe-fraud-detection:8080"
+      
+      # Transaction processing
+      transaction:
+        processing-timeout: 60
+        confirmation-timeout: 300
+        settlement-mode: "T+1"  # Next day settlement
+      
+      # Monitoring and alerting
+      monitoring:
+        success-rate-threshold: 99.5
+        latency-threshold-ms: 500
+        error-rate-threshold: 0.5
+      
+      # RBI compliance
+      compliance:
+        audit-logging: true
+        data-retention-days: 2555  # 7 years
+        pci-dss-compliant: true
+        encryption-algorithm: "AES-256"
+
+  redis-config.yaml: |
+    # Redis Configuration for Session Management
+    redis:
+      cluster:
+        enabled: true
+        nodes:
+          - phonepe-redis-0.phonepe-redis:6379
+          - phonepe-redis-1.phonepe-redis:6379  
+          - phonepe-redis-2.phonepe-redis:6379
+          - phonepe-redis-3.phonepe-redis:6379
+          - phonepe-redis-4.phonepe-redis:6379
+          - phonepe-redis-5.phonepe-redis:6379
+        
+        timeout: 2000
+        max-redirections: 3
+        pool:
+          max-active: 100
+          max-idle: 20
+          min-idle: 5
+      
+      # Session configuration
+      session:
+        timeout: 1800  # 30 minutes
+        key-prefix: "phonepe:session:"
+        serialization: "JSON"
+
+  kafka-config.yaml: |
+    # Kafka Configuration for Event Streaming
+    kafka:
+      bootstrap-servers:
+        - phonepe-kafka-0.phonepe-kafka:9092
+        - phonepe-kafka-1.phonepe-kafka:9092
+        - phonepe-kafka-2.phonepe-kafka:9092
+      
+      # Producer configuration
+      producer:
+        acks: "all"
+        retries: 3
+        batch-size: 16384
+        linger-ms: 5
+        buffer-memory: 33554432
+        compression-type: "lz4"
+      
+      # Consumer configuration
+      consumer:
+        group-id: "phonepe-payment-processor"
+        auto-offset-reset: "latest"
+        enable-auto-commit: false
+        max-poll-records: 500
+      
+      # Topics
+      topics:
+        payment-events: "phonepe.payment.events"
+        fraud-alerts: "phonepe.fraud.alerts"
+        audit-logs: "phonepe.audit.logs"
+        settlement-events: "phonepe.settlement.events"
+
+---
+# ServiceMonitor for Prometheus monitoring
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: phonepe-payment-processing-monitor
+  namespace: phonepe-platform
+  labels:
+    app: phonepe-payment-processing
+spec:
+  selector:
+    matchLabels:
+      app: phonepe-payment-processing
+  
+  endpoints:
+  - port: metrics
+    path: /actuator/prometheus
+    interval: 15s
+    scrapeTimeout: 10s
+    
+    # Relabeling for better metrics organization
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      regex: 'phonepe_payment_(.*)'
+      targetLabel: __name__
+      replacement: 'payment_${1}'
+    
+    - sourceLabels: [pod]
+      targetLabel: instance
+    
+    - targetLabel: service
+      replacement: phonepe-payment-processing
+
+---
+# NetworkPolicy for payment processing security
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: phonepe-payment-processing-netpol
+  namespace: phonepe-platform
+spec:
+  podSelector:
+    matchLabels:
+      app: phonepe-payment-processing
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic from API gateway
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8080
+    - protocol: TCP
+      port: 8443
+  
+  # Allow monitoring traffic
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 9090
+  
+  egress:
+  # Allow database connections
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: database
+    ports:
+    - protocol: TCP
+      port: 5432
+  
+  # Allow Redis connections
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: cache
+    ports:
+    - protocol: TCP
+      port: 6379
+  
+  # Allow Kafka connections
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: streaming
+    ports:
+    - protocol: TCP
+      port: 9092
+  
+  # Allow external NPCI API calls
+  - to: []  # Allow all external traffic for payment gateways
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+  
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53

@@ -1,0 +1,557 @@
+# Daily Settlement Batch CronJob - Indian Fintech Payment Settlement
+# भारतीय fintech companies के लिए automated settlement processing
+# Runs daily at 6:00 AM IST for T+1 settlements
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-settlement-batch
+  namespace: fintech-platform
+  labels:
+    app: settlement-batch
+    component: payment-processing
+    compliance: rbi-compliant
+  annotations:
+    description: "Daily settlement processing for UPI, Cards, Wallets, Net Banking"
+    owner: "fintech-settlement-team"
+    compliance: "RBI T+1 settlement guidelines"
+spec:
+  # Schedule: Daily at 6:00 AM IST (00:30 UTC)
+  schedule: "30 0 * * *"
+  timeZone: "Asia/Kolkata"
+  
+  # Job history limits
+  successfulJobsHistoryLimit: 7    # Keep 7 successful jobs
+  failedJobsHistoryLimit: 3        # Keep 3 failed jobs for debugging
+  
+  # Concurrency policy - prevent overlapping jobs
+  concurrencyPolicy: Forbid
+  
+  # Deadline for job completion (4 hours)
+  startingDeadlineSeconds: 14400
+  
+  jobTemplate:
+    metadata:
+      labels:
+        app: settlement-batch
+        batch-type: daily
+    spec:
+      # Completion policy
+      completions: 1
+      parallelism: 1
+      backoffLimit: 2  # Retry twice on failure
+      activeDeadlineSeconds: 10800  # 3 hour timeout
+      
+      template:
+        metadata:
+          labels:
+            app: settlement-batch
+            job-type: daily-settlement
+          annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/port: "8080"
+        spec:
+          # Service account for database and external API access
+          serviceAccountName: settlement-batch-sa
+          
+          # Security context
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+            fsGroup: 1001
+          
+          # Node selection for batch processing nodes
+          nodeSelector:
+            node-type: "batch-processing"
+            region: "mumbai"
+          
+          # Restart policy for batch jobs
+          restartPolicy: Never
+          
+          # Init container for database connectivity check
+          initContainers:
+          - name: db-connectivity-check
+            image: postgres:15-alpine
+            command:
+            - sh
+            - -c
+            - |
+              echo "🔍 Checking database connectivity..."
+              
+              # Check PostgreSQL connectivity
+              pg_isready -h $POSTGRES_HOST -p 5432 -U $POSTGRES_USER
+              
+              if [ $? -eq 0 ]; then
+                echo "✅ Database connectivity verified"
+              else
+                echo "❌ Database connectivity failed"
+                exit 1
+              fi
+              
+              # Check Redis connectivity for caching
+              nc -z $REDIS_HOST 6379
+              
+              if [ $? -eq 0 ]; then
+                echo "✅ Redis connectivity verified"
+              else
+                echo "❌ Redis connectivity failed"
+                exit 1
+              fi
+              
+              echo "🚀 All dependencies verified, starting settlement batch..."
+            
+            env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: fintech-db-credentials
+                  key: host
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: fintech-db-credentials
+                  key: username
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: fintech-cache-config
+                  key: redis-host
+          
+          containers:
+          # Main settlement processing container
+          - name: settlement-processor
+            image: fintech.azurecr.io/settlement-batch:v2.1.0
+            imagePullPolicy: Always
+            
+            # Environment variables for Indian fintech context
+            env:
+            # Database configuration
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: fintech-db-credentials
+                  key: jdbc-url
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: fintech-db-credentials
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fintech-db-credentials
+                  key: password
+            
+            # Redis configuration for caching
+            - name: SPRING_REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: fintech-cache-config
+                  key: redis-host
+            - name: SPRING_REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: fintech-cache-config
+                  key: redis-port
+            
+            # Payment gateway credentials
+            - name: UPI_NPCI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: payment-gateway-secrets
+                  key: npci-api-key
+            - name: CARD_PROCESSOR_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: payment-gateway-secrets
+                  key: card-processor-key
+            
+            # Bank integration credentials
+            - name: SBI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bank-api-credentials
+                  key: sbi-api-key
+            - name: HDFC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bank-api-credentials
+                  key: hdfc-api-key
+            - name: ICICI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bank-api-credentials
+                  key: icici-api-key
+            
+            # Regional and compliance settings
+            - name: TIMEZONE
+              value: "Asia/Kolkata"
+            - name: CURRENCY
+              value: "INR"
+            - name: COUNTRY_CODE
+              value: "IN"
+            - name: COMPLIANCE_MODE
+              value: "RBI_COMPLIANT"
+            
+            # Batch processing configuration
+            - name: BATCH_SIZE
+              value: "1000"  # Process 1000 transactions per batch
+            - name: PARALLEL_THREADS
+              value: "10"    # 10 parallel threads for processing
+            - name: SETTLEMENT_MODE
+              value: "T_PLUS_1"  # T+1 settlement as per RBI guidelines
+            
+            # Monitoring and alerting
+            - name: ENABLE_METRICS
+              value: "true"
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: alerting-config
+                  key: slack-webhook
+            
+            # JVM configuration for batch processing
+            - name: JAVA_OPTS
+              value: "-Xmx4g -Xms2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+HeapDumpOnOutOfMemoryError"
+            
+            # Resource limits for batch processing
+            resources:
+              requests:
+                memory: "2Gi"
+                cpu: "1"
+                ephemeral-storage: "5Gi"
+              limits:
+                memory: "6Gi"
+                cpu: "4"
+                ephemeral-storage: "10Gi"
+            
+            # Ports for monitoring and health checks
+            ports:
+            - containerPort: 8080
+              name: http
+            - containerPort: 8443
+              name: https
+            - containerPort: 9090
+              name: metrics
+            
+            # Liveness probe to ensure job is running
+            livenessProbe:
+              httpGet:
+                path: /actuator/health/liveness
+                port: 8080
+              initialDelaySeconds: 60
+              periodSeconds: 30
+              timeoutSeconds: 10
+              failureThreshold: 3
+            
+            # Readiness probe not needed for batch jobs
+            # but useful for monitoring
+            readinessProbe:
+              httpGet:
+                path: /actuator/health/readiness
+                port: 8080
+              initialDelaySeconds: 30
+              periodSeconds: 15
+              timeoutSeconds: 5
+            
+            # Volume mounts for logging and temporary data
+            volumeMounts:
+            - name: settlement-logs
+              mountPath: /app/logs
+            - name: temp-data
+              mountPath: /tmp/settlement
+            - name: settlement-config
+              mountPath: /app/config
+              readOnly: true
+            
+            # Command to run the settlement batch
+            command: ["java"]
+            args:
+            - "-jar"
+            - "/app/daily-settlement-batch.jar"
+            - "--spring.profiles.active=production,batch"
+            - "--logging.file.name=/app/logs/settlement-batch.log"
+            - "--spring.batch.job.names=dailySettlementJob"
+          
+          # Sidecar container for log shipping
+          - name: log-shipper
+            image: fluent/fluent-bit:2.2.0
+            
+            env:
+            - name: FLUENT_CONF
+              value: fluent-bit.conf
+            
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "100m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+            
+            volumeMounts:
+            - name: settlement-logs
+              mountPath: /var/log/settlement
+              readOnly: true
+            - name: fluent-bit-config
+              mountPath: /fluent-bit/etc/fluent-bit.conf
+              subPath: fluent-bit.conf
+          
+          # Monitoring sidecar for metrics collection
+          - name: metrics-exporter
+            image: prom/jmx-exporter:0.19.0
+            
+            ports:
+            - containerPort: 9999
+              name: jmx-metrics
+            
+            env:
+            - name: JMX_EXPORTER_CONFIG
+              value: /etc/jmx-exporter/config.yaml
+            
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "50m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            
+            volumeMounts:
+            - name: jmx-exporter-config
+              mountPath: /etc/jmx-exporter
+              readOnly: true
+          
+          # Volumes for configuration and logging
+          volumes:
+          - name: settlement-logs
+            emptyDir:
+              sizeLimit: 5Gi
+          
+          - name: temp-data
+            emptyDir:
+              sizeLimit: 10Gi
+          
+          - name: settlement-config
+            configMap:
+              name: settlement-batch-config
+          
+          - name: fluent-bit-config
+            configMap:
+              name: fluent-bit-settlement-config
+          
+          - name: jmx-exporter-config
+            configMap:
+              name: jmx-exporter-config
+
+---
+# Manual Settlement Job for adhoc processing
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: manual-settlement-job
+  namespace: fintech-platform
+  labels:
+    app: settlement-batch
+    type: manual
+spec:
+  ttlSecondsAfterFinished: 3600  # Clean up after 1 hour
+  completions: 1
+  parallelism: 1
+  backoffLimit: 1
+  
+  template:
+    metadata:
+      labels:
+        app: settlement-batch
+        type: manual
+    spec:
+      serviceAccountName: settlement-batch-sa
+      restartPolicy: Never
+      
+      containers:
+      - name: manual-settlement
+        image: fintech.azurecr.io/settlement-batch:v2.1.0
+        
+        env:
+        - name: SETTLEMENT_MODE
+          value: "MANUAL"
+        - name: SETTLEMENT_DATE
+          value: "2024-01-15"  # Specific date for manual settlement
+        
+        # Same configuration as CronJob but for manual execution
+        command: ["java"]
+        args:
+        - "-jar"
+        - "/app/daily-settlement-batch.jar"
+        - "--spring.profiles.active=production,manual"
+        - "--settlement.date=$(SETTLEMENT_DATE)"
+        
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+
+---
+# ConfigMap for settlement batch configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: settlement-batch-config
+  namespace: fintech-platform
+data:
+  application.yaml: |
+    # Settlement Batch Configuration
+    # भारतीय fintech settlement batch की settings
+    
+    spring:
+      batch:
+        initialize-schema: never
+        job:
+          enabled: false  # Disable auto-start of batch jobs
+      
+      datasource:
+        driver-class-name: org.postgresql.Driver
+        hikari:
+          maximum-pool-size: 20
+          minimum-idle: 5
+          connection-timeout: 20000
+    
+    # Settlement configuration
+    settlement:
+      # Indian payment methods
+      payment-methods:
+        upi:
+          enabled: true
+          fee-percentage: 0.5
+          settlement-time: "T+1"
+          max-amount: 100000  # ₹1 lakh UPI limit
+        
+        credit-card:
+          enabled: true
+          fee-percentage: 2.5
+          settlement-time: "T+2"
+          max-amount: 1000000  # ₹10 lakh limit
+        
+        debit-card:
+          enabled: true
+          fee-percentage: 1.5
+          settlement-time: "T+1"
+          max-amount: 500000   # ₹5 lakh limit
+        
+        net-banking:
+          enabled: true
+          fee-percentage: 1.2
+          settlement-time: "T+1"
+          max-amount: 2000000  # ₹20 lakh limit
+        
+        wallet:
+          enabled: true
+          fee-percentage: 0.8
+          settlement-time: "T+0"  # Instant for wallets
+          max-amount: 20000    # ₹20,000 wallet limit
+      
+      # GST configuration
+      gst:
+        rate: 18.0  # 18% GST on payment processing fees
+        hsn-code: "997159"
+      
+      # Bank integration
+      banks:
+        timeout-seconds: 30
+        retry-attempts: 3
+        bulk-transfer-limit: 1000
+      
+      # RBI compliance
+      compliance:
+        reporting-enabled: true
+        audit-trail: true
+        data-retention-days: 2555  # 7 years as per RBI
+        encryption: "AES-256"
+    
+    # Logging configuration
+    logging:
+      level:
+        com.fintech.settlement: DEBUG
+        org.springframework.batch: INFO
+      pattern:
+        file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{batch-id}] %logger{36} - %msg%n"
+
+  bank-endpoints.yaml: |
+    # Indian Bank API Endpoints
+    # भारतीय banks की API endpoints
+    
+    banks:
+      SBI:
+        name: "State Bank of India"
+        api-endpoint: "https://api.onlinesbi.com/settlement"
+        timeout: 45
+        bulk-limit: 500
+      
+      HDFC:
+        name: "HDFC Bank"
+        api-endpoint: "https://api.hdfcbank.com/corporate/settlement"
+        timeout: 30
+        bulk-limit: 1000
+      
+      ICICI:
+        name: "ICICI Bank"  
+        api-endpoint: "https://api.icicibank.com/settlement"
+        timeout: 35
+        bulk-limit: 800
+      
+      AXIS:
+        name: "Axis Bank"
+        api-endpoint: "https://api.axisbank.com/settlement"
+        timeout: 25
+        bulk-limit: 600
+      
+      PNB:
+        name: "Punjab National Bank"
+        api-endpoint: "https://api.pnb.co.in/settlement"
+        timeout: 40
+        bulk-limit: 300
+
+---
+# ServiceAccount for settlement batch jobs
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: settlement-batch-sa
+  namespace: fintech-platform
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/SettlementBatchRole"
+
+---
+# Role for batch job permissions
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: fintech-platform
+  name: settlement-batch-role
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "list"]
+- apiGroups: ["batch"]
+  resources: ["jobs"]
+  verbs: ["get", "list", "create"]
+
+---
+# RoleBinding for settlement batch
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: settlement-batch-role-binding
+  namespace: fintech-platform
+subjects:
+- kind: ServiceAccount
+  name: settlement-batch-sa
+  namespace: fintech-platform
+roleRef:
+  kind: Role
+  name: settlement-batch-role
+  apiGroup: rbac.authorization.k8s.io

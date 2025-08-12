@@ -1,0 +1,736 @@
+# Indian Payment Gateway Operator - Custom Resource Definition
+# भारतीय payment gateway के लिए Kubernetes operator
+# Manages UPI, Cards, Wallets, Net Banking integrations automatically
+
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: paymentgateways.payment.india.com
+  labels:
+    operator: indian-payment-operator
+    version: v1
+  annotations:
+    description: "Manages Indian payment gateways including UPI, Cards, Wallets"
+    controller-gen.kubebuilder.io/version: v0.9.0
+spec:
+  group: payment.india.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              # Payment gateway provider (Razorpay, Cashfree, PayU, etc.)
+              provider:
+                type: string
+                enum: ["razorpay", "cashfree", "payu", "ccavenue", "instamojo", "phonepe", "paytm"]
+                description: "Indian payment gateway provider"
+              
+              # Environment (sandbox/production)
+              environment:
+                type: string
+                enum: ["sandbox", "production"]
+                default: "sandbox"
+              
+              # Payment methods configuration
+              paymentMethods:
+                type: object
+                properties:
+                  upi:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                        default: true
+                      providers:
+                        type: array
+                        items:
+                          type: string
+                          enum: ["phonepe", "googlepay", "paytm", "bhim", "amazonpay"]
+                      maxAmount:
+                        type: integer
+                        default: 100000  # ₹1 lakh UPI limit
+                      minAmount:
+                        type: integer
+                        default: 100     # ₹1 minimum
+                  
+                  cards:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                        default: true
+                      creditCards:
+                        type: boolean
+                        default: true
+                      debitCards:
+                        type: boolean
+                        default: true
+                      networks:
+                        type: array
+                        items:
+                          type: string
+                          enum: ["visa", "mastercard", "rupay", "amex", "diners"]
+                      maxAmount:
+                        type: integer
+                        default: 500000  # ₹5 lakh card limit
+                  
+                  netBanking:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                        default: true
+                      banks:
+                        type: array
+                        items:
+                          type: string
+                        description: "Supported Indian banks"
+                      maxAmount:
+                        type: integer
+                        default: 1000000  # ₹10 lakh net banking limit
+                  
+                  wallets:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                        default: true
+                      providers:
+                        type: array
+                        items:
+                          type: string
+                          enum: ["paytm", "mobikwik", "freecharge", "olamoney", "amazonpay"]
+                      maxAmount:
+                        type: integer
+                        default: 20000   # ₹20,000 wallet limit
+                  
+                  cod:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                        default: false
+                      maxAmount:
+                        type: integer
+                        default: 5000    # ₹5,000 COD limit
+                      coverage:
+                        type: array
+                        items:
+                          type: string
+                          enum: ["metro", "tier1", "tier2", "tier3"]
+              
+              # Merchant configuration
+              merchant:
+                type: object
+                properties:
+                  merchantId:
+                    type: string
+                    description: "Merchant ID from payment gateway"
+                  businessName:
+                    type: string
+                    description: "Business name for payment pages"
+                  businessType:
+                    type: string
+                    enum: ["ecommerce", "fintech", "food", "travel", "utility", "education", "healthcare"]
+                  
+                  # KYC and compliance
+                  kyc:
+                    type: object
+                    properties:
+                      completed:
+                        type: boolean
+                        default: false
+                      panNumber:
+                        type: string
+                        pattern: '^[A-Z]{5}[0-9]{4}[A-Z]{1}$'
+                      gstNumber:
+                        type: string
+                        pattern: '^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$'
+                
+                # Webhook configuration
+                webhook:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                      default: true
+                    endpoint:
+                      type: string
+                      format: uri
+                      description: "Webhook URL for payment notifications"
+                    secretToken:
+                      type: string
+                      description: "Secret for webhook verification"
+                    events:
+                      type: array
+                      items:
+                        type: string
+                        enum: ["payment.authorized", "payment.captured", "payment.failed", "refund.created", "settlement.processed"]
+              
+              # Security configuration
+              security:
+                type: object
+                properties:
+                  encryption:
+                    type: object
+                    properties:
+                      algorithm:
+                        type: string
+                        enum: ["AES-256", "RSA-2048"]
+                        default: "AES-256"
+                      keyRotation:
+                        type: boolean
+                        default: true
+                      keyRotationDays:
+                        type: integer
+                        default: 90
+                  
+                  rateLimit:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                        default: true
+                      requestsPerMinute:
+                        type: integer
+                        default: 100
+                      burstSize:
+                        type: integer
+                        default: 20
+                  
+                  ipWhitelist:
+                    type: array
+                    items:
+                      type: string
+                    description: "Allowed IP addresses for API access"
+              
+              # Monitoring and alerting
+              monitoring:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                    default: true
+                  metricsPort:
+                    type: integer
+                    default: 9090
+                  alerting:
+                    type: object
+                    properties:
+                      slackWebhook:
+                        type: string
+                        format: uri
+                      emailAlerts:
+                        type: array
+                        items:
+                          type: string
+                          format: email
+                      
+                      # SLA thresholds
+                      sla:
+                        type: object
+                        properties:
+                          successRate:
+                            type: number
+                            minimum: 0.95
+                            maximum: 1.0
+                            default: 0.99
+                          responseTime:
+                            type: integer
+                            default: 2000  # 2 seconds
+                          uptime:
+                            type: number
+                            minimum: 0.99
+                            maximum: 1.0
+                            default: 0.999
+          
+          status:
+            type: object
+            properties:
+              # Gateway status
+              phase:
+                type: string
+                enum: ["Pending", "Configuring", "Active", "Failed", "Updating"]
+              
+              # Connection status
+              connected:
+                type: boolean
+              
+              lastHeartbeat:
+                type: string
+                format: date-time
+              
+              # Payment method status
+              paymentMethodStatus:
+                type: object
+                properties:
+                  upi:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum: ["active", "inactive", "error"]
+                      lastTest:
+                        type: string
+                        format: date-time
+                  cards:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum: ["active", "inactive", "error"]
+                      lastTest:
+                        type: string
+                        format: date-time
+                  netBanking:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum: ["active", "inactive", "error"]
+                      lastTest:
+                        type: string
+                        format: date-time
+                  wallets:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum: ["active", "inactive", "error"]
+                      lastTest:
+                        type: string
+                        format: date-time
+              
+              # Error information
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  code:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+              
+              # Statistics
+              stats:
+                type: object
+                properties:
+                  totalTransactions:
+                    type: integer
+                  successfulTransactions:
+                    type: integer
+                  failedTransactions:
+                    type: integer
+                  totalVolume:
+                    type: number
+                    description: "Total transaction volume in INR"
+                  lastUpdated:
+                    type: string
+                    format: date-time
+    
+    # Additional validation
+    additionalPrinterColumns:
+    - name: Provider
+      type: string
+      jsonPath: .spec.provider
+    - name: Environment
+      type: string
+      jsonPath: .spec.environment
+    - name: Status
+      type: string
+      jsonPath: .status.phase
+    - name: Connected
+      type: boolean
+      jsonPath: .status.connected
+    - name: Age
+      type: date
+      jsonPath: .metadata.creationTimestamp
+  
+  scope: Namespaced
+  names:
+    plural: paymentgateways
+    singular: paymentgateway
+    kind: PaymentGateway
+    shortNames:
+    - pg
+    - paygate
+
+---
+# Sample PaymentGateway Custom Resource - Razorpay Configuration
+apiVersion: payment.india.com/v1
+kind: PaymentGateway
+metadata:
+  name: razorpay-prod-gateway
+  namespace: ecommerce-payments
+  labels:
+    environment: production
+    provider: razorpay
+  annotations:
+    description: "Production Razorpay gateway for e-commerce platform"
+spec:
+  provider: "razorpay"
+  environment: "production"
+  
+  paymentMethods:
+    upi:
+      enabled: true
+      providers: ["phonepe", "googlepay", "paytm", "bhim"]
+      maxAmount: 100000
+      minAmount: 100
+    
+    cards:
+      enabled: true
+      creditCards: true
+      debitCards: true
+      networks: ["visa", "mastercard", "rupay"]
+      maxAmount: 500000
+    
+    netBanking:
+      enabled: true
+      banks: ["SBI", "HDFC", "ICICI", "AXIS", "PNB", "BOI", "CANARA", "UNION", "KOTAK"]
+      maxAmount: 1000000
+    
+    wallets:
+      enabled: true
+      providers: ["paytm", "mobikwik", "freecharge", "amazonpay"]
+      maxAmount: 20000
+    
+    cod:
+      enabled: true
+      maxAmount: 5000
+      coverage: ["metro", "tier1", "tier2"]
+  
+  merchant:
+    merchantId: "rzp_live_merchant123"
+    businessName: "Indian E-commerce Platform"
+    businessType: "ecommerce"
+    kyc:
+      completed: true
+      panNumber: "ABCDE1234F"
+      gstNumber: "29ABCDE1234F1Z5"
+  
+  webhook:
+    enabled: true
+    endpoint: "https://api.ecommerce.in/webhooks/razorpay"
+    secretToken: "razorpay-webhook-secret"
+    events: ["payment.authorized", "payment.captured", "payment.failed", "refund.created"]
+  
+  security:
+    encryption:
+      algorithm: "AES-256"
+      keyRotation: true
+      keyRotationDays: 90
+    rateLimit:
+      enabled: true
+      requestsPerMinute: 1000
+      burstSize: 100
+    ipWhitelist:
+    - "203.192.*.* "  # Razorpay IP range
+    - "10.0.0.0/8"    # Internal cluster IPs
+  
+  monitoring:
+    enabled: true
+    metricsPort: 9090
+    alerting:
+      slackWebhook: "https://hooks.slack.com/services/payment-alerts"
+      emailAlerts: ["devops@ecommerce.in", "finance@ecommerce.in"]
+      sla:
+        successRate: 0.995
+        responseTime: 1500
+        uptime: 0.9995
+
+---
+# Sample PaymentGateway - PhonePe UPI Gateway
+apiVersion: payment.india.com/v1
+kind: PaymentGateway
+metadata:
+  name: phonepe-upi-gateway
+  namespace: fintech-platform
+  labels:
+    environment: production
+    provider: phonepe
+    specialization: upi
+spec:
+  provider: "phonepe"
+  environment: "production"
+  
+  paymentMethods:
+    upi:
+      enabled: true
+      providers: ["phonepe", "googlepay", "paytm", "bhim", "amazonpay"]
+      maxAmount: 100000
+      minAmount: 100
+    
+    # Disable other methods for UPI-focused gateway
+    cards:
+      enabled: false
+    netBanking:
+      enabled: false
+    wallets:
+      enabled: false
+    cod:
+      enabled: false
+  
+  merchant:
+    merchantId: "PHONEPE_MERCHANT_001"
+    businessName: "Fintech Payment Platform"
+    businessType: "fintech"
+    kyc:
+      completed: true
+      panNumber: "FINTECH1234A"
+      gstNumber: "27FINTECH1234A1Z6"
+  
+  webhook:
+    enabled: true
+    endpoint: "https://api.fintech.in/webhooks/phonepe"
+    secretToken: "phonepe-webhook-secret-2024"
+    events: ["payment.authorized", "payment.captured", "payment.failed"]
+  
+  security:
+    encryption:
+      algorithm: "AES-256"
+      keyRotation: true
+      keyRotationDays: 60  # More frequent rotation for fintech
+    rateLimit:
+      enabled: true
+      requestsPerMinute: 2000  # Higher limit for UPI
+      burstSize: 200
+  
+  monitoring:
+    enabled: true
+    metricsPort: 9090
+    alerting:
+      slackWebhook: "https://hooks.slack.com/services/fintech-payments"
+      emailAlerts: ["sre@fintech.in", "compliance@fintech.in"]
+      sla:
+        successRate: 0.999   # Higher SLA for UPI
+        responseTime: 1000   # 1 second for UPI
+        uptime: 0.9999
+
+---
+# Payment Gateway Operator Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indian-payment-operator
+  namespace: payment-operator-system
+  labels:
+    app: payment-operator
+    version: v1.0.0
+spec:
+  replicas: 2  # HA for critical payment operations
+  selector:
+    matchLabels:
+      app: payment-operator
+  template:
+    metadata:
+      labels:
+        app: payment-operator
+        version: v1.0.0
+    spec:
+      serviceAccountName: payment-operator-sa
+      
+      containers:
+      - name: payment-operator
+        image: payment-operator:v1.0.0
+        imagePullPolicy: Always
+        
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 9443
+          name: webhook
+        - containerPort: 9090
+          name: metrics
+        
+        env:
+        - name: OPERATOR_NAME
+          value: "indian-payment-operator"
+        - name: WATCH_NAMESPACE
+          value: ""  # Watch all namespaces
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: OPERATOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        
+        # Indian payment gateway API credentials
+        - name: RAZORPAY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-credentials
+              key: razorpay-api-key
+        - name: CASHFREE_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-credentials
+              key: cashfree-client-id
+        - name: PHONEPE_MERCHANT_ID
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-credentials
+              key: phonepe-merchant-id
+        - name: PAYU_MERCHANT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-credentials
+              key: payu-merchant-key
+        
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        
+        # Volume mounts for certificates and configs
+        volumeMounts:
+        - name: webhook-certs
+          mountPath: /etc/webhook/certs
+          readOnly: true
+        - name: operator-config
+          mountPath: /etc/operator/config
+          readOnly: true
+      
+      volumes:
+      - name: webhook-certs
+        secret:
+          secretName: payment-operator-webhook-certs
+      - name: operator-config
+        configMap:
+          name: payment-operator-config
+
+---
+# ServiceAccount for Payment Operator
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: payment-operator-sa
+  namespace: payment-operator-system
+
+---
+# ClusterRole for Payment Gateway management
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: payment-operator-role
+rules:
+# PaymentGateway resources
+- apiGroups: ["payment.india.com"]
+  resources: ["paymentgateways"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["payment.india.com"]
+  resources: ["paymentgateways/status"]
+  verbs: ["get", "update", "patch"]
+
+# Core resources for operator functionality
+- apiGroups: [""]
+  resources: ["configmaps", "secrets", "services", "endpoints"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+# Events for operator logging
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["create", "patch"]
+
+---
+# ClusterRoleBinding for Payment Operator
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: payment-operator-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: payment-operator-role
+subjects:
+- kind: ServiceAccount
+  name: payment-operator-sa
+  namespace: payment-operator-system
+
+---
+# ConfigMap for operator configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment-operator-config
+  namespace: payment-operator-system
+data:
+  operator.yaml: |
+    # Indian Payment Operator Configuration
+    # भारतीय payment operator की configuration
+    
+    operator:
+      name: "indian-payment-operator"
+      version: "v1.0.0"
+      reconcile_interval: "30s"
+      
+    # Indian payment gateway endpoints
+    payment_gateways:
+      razorpay:
+        api_url: "https://api.razorpay.com/v1"
+        dashboard_url: "https://dashboard.razorpay.com"
+        webhook_tolerance: 300  # 5 minutes
+        
+      cashfree:
+        api_url: "https://api.cashfree.com/pg"
+        dashboard_url: "https://merchant.cashfree.com"
+        webhook_tolerance: 300
+        
+      phonepe:
+        api_url: "https://api.phonepe.com/apis/hermes"
+        dashboard_url: "https://business.phonepe.com"
+        webhook_tolerance: 180  # 3 minutes for real-time UPI
+        
+      payu:
+        api_url: "https://secure.payu.in/_payment"
+        dashboard_url: "https://onboarding.payu.in"
+        webhook_tolerance: 300
+    
+    # Monitoring configuration
+    monitoring:
+      metrics_port: 9090
+      health_check_interval: "10s"
+      payment_method_test_interval: "5m"
+      
+    # Security settings
+    security:
+      webhook_signature_verification: true
+      api_key_rotation_days: 90
+      max_retry_attempts: 3
+      
+    # Compliance settings for Indian regulations
+    compliance:
+      rbi_guidelines: true
+      data_localization: true
+      kyc_verification: required
+      audit_logging: enabled

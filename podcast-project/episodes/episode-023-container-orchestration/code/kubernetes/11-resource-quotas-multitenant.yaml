@@ -1,0 +1,620 @@
+# Multi-tenant SaaS Resource Quotas - Indian Enterprise Platform
+# भारतीय enterprise customers के लिए multi-tenant resource management
+# Handles 500+ enterprise clients with strict resource isolation
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-tcs
+  labels:
+    tenant: "tcs"
+    tier: "enterprise"
+    region: "mumbai"
+    contract: "premium"
+  annotations:
+    tenant.platform/company: "Tata Consultancy Services"
+    tenant.platform/contact: "cloud-ops@tcs.com"
+    tenant.platform/contract-value: "₹50,00,000"
+    tenant.platform/start-date: "2024-01-01"
+    tenant.platform/end-date: "2024-12-31"
+
+---
+# Resource Quota for TCS (Enterprise Tier)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tcs-enterprise-quota
+  namespace: tenant-tcs
+  labels:
+    tenant: "tcs"
+    quota-tier: "enterprise"
+  annotations:
+    description: "Enterprise resource quota for TCS - Premium tier"
+spec:
+  hard:
+    # Compute resources
+    requests.cpu: "100"        # 100 CPU cores guaranteed
+    requests.memory: "400Gi"   # 400GB RAM guaranteed
+    limits.cpu: "200"          # 200 CPU cores burst limit
+    limits.memory: "800Gi"     # 800GB RAM burst limit
+    
+    # Storage resources
+    requests.storage: "5Ti"                    # 5TB storage
+    persistentvolumeclaims: "50"              # Max 50 PVCs
+    tcs.com/ssd-storage: "2Ti"                # 2TB SSD storage
+    tcs.com/backup-storage: "10Ti"            # 10TB backup storage
+    
+    # Network resources
+    services: "100"                           # Max 100 services
+    services.loadbalancers: "20"              # Max 20 load balancers
+    services.nodeports: "10"                  # Max 10 NodePort services
+    
+    # API objects
+    pods: "1000"                              # Max 1000 pods
+    replicationcontrollers: "50"              # Max 50 RCs
+    deployments.apps: "100"                   # Max 100 deployments
+    statefulsets.apps: "20"                   # Max 20 StatefulSets
+    jobs.batch: "200"                         # Max 200 batch jobs
+    cronjobs.batch: "50"                      # Max 50 cron jobs
+    
+    # Security and networking
+    secrets: "200"                            # Max 200 secrets
+    configmaps: "300"                         # Max 300 ConfigMaps
+    networkpolicies.networking.k8s.io: "50"   # Max 50 network policies
+    
+    # Custom resources for enterprise features
+    tcs.com/databases: "10"                   # Max 10 databases
+    tcs.com/gpu-hours: "1000"                 # 1000 GPU hours/month
+    tcs.com/api-calls: "10000000"             # 10M API calls/month
+
+---
+# Namespace for Infosys (Enterprise Tier)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-infosys
+  labels:
+    tenant: "infosys"
+    tier: "enterprise"
+    region: "bangalore"
+    contract: "premium"
+  annotations:
+    tenant.platform/company: "Infosys Limited"
+    tenant.platform/contact: "cloud-services@infosys.com"
+    tenant.platform/contract-value: "₹45,00,000"
+
+---
+# Resource Quota for Infosys (Enterprise Tier)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: infosys-enterprise-quota
+  namespace: tenant-infosys
+  labels:
+    tenant: "infosys"
+    quota-tier: "enterprise"
+spec:
+  hard:
+    # Slightly lower than TCS based on contract value
+    requests.cpu: "90"
+    requests.memory: "360Gi"
+    limits.cpu: "180"
+    limits.memory: "720Gi"
+    
+    requests.storage: "4Ti"
+    persistentvolumeclaims: "40"
+    infosys.com/ssd-storage: "1.5Ti"
+    infosys.com/backup-storage: "8Ti"
+    
+    services: "80"
+    services.loadbalancers: "15"
+    pods: "800"
+    deployments.apps: "80"
+    
+    infosys.com/databases: "8"
+    infosys.com/gpu-hours: "800"
+    infosys.com/api-calls: "8000000"
+
+---
+# Namespace for Wipro (Standard Tier)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-wipro
+  labels:
+    tenant: "wipro"
+    tier: "standard"
+    region: "pune"
+    contract: "standard"
+  annotations:
+    tenant.platform/company: "Wipro Technologies"
+    tenant.platform/contact: "platform@wipro.com"
+    tenant.platform/contract-value: "₹25,00,000"
+
+---
+# Resource Quota for Wipro (Standard Tier)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: wipro-standard-quota
+  namespace: tenant-wipro
+  labels:
+    tenant: "wipro"
+    quota-tier: "standard"
+spec:
+  hard:
+    # Standard tier resources
+    requests.cpu: "50"
+    requests.memory: "200Gi"
+    limits.cpu: "100"
+    limits.memory: "400Gi"
+    
+    requests.storage: "2Ti"
+    persistentvolumeclaims: "25"
+    wipro.com/ssd-storage: "500Gi"
+    wipro.com/backup-storage: "4Ti"
+    
+    services: "50"
+    services.loadbalancers: "8"
+    pods: "500"
+    deployments.apps: "50"
+    
+    wipro.com/databases: "5"
+    wipro.com/gpu-hours: "200"
+    wipro.com/api-calls: "2000000"
+
+---
+# Namespace for Zomato (Growth Tier)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-zomato
+  labels:
+    tenant: "zomato"
+    tier: "growth"
+    region: "gurgaon"
+    contract: "growth"
+  annotations:
+    tenant.platform/company: "Zomato Media Pvt Ltd"
+    tenant.platform/contact: "devops@zomato.com"
+    tenant.platform/contract-value: "₹15,00,000"
+
+---
+# Resource Quota for Zomato (Growth Tier)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: zomato-growth-quota
+  namespace: tenant-zomato
+  labels:
+    tenant: "zomato"
+    quota-tier: "growth"
+spec:
+  hard:
+    # Growth tier resources
+    requests.cpu: "30"
+    requests.memory: "120Gi"
+    limits.cpu: "60"
+    limits.memory: "240Gi"
+    
+    requests.storage: "1Ti"
+    persistentvolumeclaims: "15"
+    zomato.com/ssd-storage: "300Gi"
+    zomato.com/backup-storage: "2Ti"
+    
+    services: "30"
+    services.loadbalancers: "5"
+    pods: "300"
+    deployments.apps: "30"
+    
+    zomato.com/databases: "3"
+    zomato.com/gpu-hours: "100"
+    zomato.com/api-calls: "1000000"
+
+---
+# Namespace for Startup (Basic Tier)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-startup-fintech
+  labels:
+    tenant: "startup-fintech"
+    tier: "basic"
+    region: "bangalore"
+    contract: "basic"
+  annotations:
+    tenant.platform/company: "Fintech Startup Pvt Ltd"
+    tenant.platform/contact: "tech@fintechstartup.com"
+    tenant.platform/contract-value: "₹5,00,000"
+
+---
+# Resource Quota for Startup (Basic Tier)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: startup-basic-quota
+  namespace: tenant-startup-fintech
+  labels:
+    tenant: "startup-fintech"
+    quota-tier: "basic"
+spec:
+  hard:
+    # Basic tier resources - cost-conscious startup
+    requests.cpu: "10"
+    requests.memory: "40Gi"
+    limits.cpu: "20"
+    limits.memory: "80Gi"
+    
+    requests.storage: "500Gi"
+    persistentvolumeclaims: "10"
+    startup.com/ssd-storage: "100Gi"
+    startup.com/backup-storage: "1Ti"
+    
+    services: "15"
+    services.loadbalancers: "2"
+    pods: "100"
+    deployments.apps: "15"
+    
+    startup.com/databases: "2"
+    startup.com/gpu-hours: "20"
+    startup.com/api-calls: "100000"
+
+---
+# Limit Range for TCS namespace - Pod-level resource constraints
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: tcs-pod-limit-range
+  namespace: tenant-tcs
+  labels:
+    tenant: "tcs"
+spec:
+  limits:
+  # Pod limits
+  - type: Pod
+    max:
+      cpu: "8"          # Max 8 CPU cores per pod
+      memory: "32Gi"    # Max 32GB RAM per pod
+    min:
+      cpu: "100m"       # Min 100m CPU per pod
+      memory: "128Mi"   # Min 128MB RAM per pod
+  
+  # Container limits
+  - type: Container
+    default:
+      cpu: "1"          # Default CPU limit
+      memory: "2Gi"     # Default memory limit
+    defaultRequest:
+      cpu: "500m"       # Default CPU request
+      memory: "1Gi"     # Default memory request
+    max:
+      cpu: "4"          # Max CPU per container
+      memory: "16Gi"    # Max memory per container
+    min:
+      cpu: "50m"        # Min CPU per container
+      memory: "64Mi"    # Min memory per container
+  
+  # PVC limits
+  - type: PersistentVolumeClaim
+    max:
+      storage: "1Ti"    # Max 1TB per PVC
+    min:
+      storage: "10Gi"   # Min 10GB per PVC
+
+---
+# Limit Range for Startup namespace - More restrictive
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: startup-pod-limit-range
+  namespace: tenant-startup-fintech
+  labels:
+    tenant: "startup-fintech"
+spec:
+  limits:
+  # Pod limits - more restrictive for cost control
+  - type: Pod
+    max:
+      cpu: "2"          # Max 2 CPU cores per pod
+      memory: "8Gi"     # Max 8GB RAM per pod
+    min:
+      cpu: "50m"        # Min 50m CPU per pod
+      memory: "64Mi"    # Min 64MB RAM per pod
+  
+  # Container limits
+  - type: Container
+    default:
+      cpu: "500m"       # Default CPU limit
+      memory: "1Gi"     # Default memory limit
+    defaultRequest:
+      cpu: "200m"       # Default CPU request
+      memory: "512Mi"   # Default memory request
+    max:
+      cpu: "1"          # Max CPU per container
+      memory: "4Gi"     # Max memory per container
+    min:
+      cpu: "50m"        # Min CPU per container
+      memory: "64Mi"    # Min memory per container
+  
+  # PVC limits
+  - type: PersistentVolumeClaim
+    max:
+      storage: "100Gi"  # Max 100GB per PVC
+    min:
+      storage: "1Gi"    # Min 1GB per PVC
+
+---
+# Network Policy for Tenant Isolation
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tcs-tenant-isolation
+  namespace: tenant-tcs
+  labels:
+    tenant: "tcs"
+spec:
+  podSelector: {}  # Apply to all pods in namespace
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic from ingress controller
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-system
+    ports:
+    - protocol: TCP
+      port: 8080
+    - protocol: TCP
+      port: 443
+  
+  # Allow traffic from monitoring (shared service)
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 9090
+  
+  egress:
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+  
+  # Allow external API calls (for business logic)
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+  
+  # Allow database access (shared service)
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: database
+    ports:
+    - protocol: TCP
+      port: 5432
+
+---
+# Priority Class for Enterprise tenants
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: enterprise-tenant-priority
+value: 2000000
+globalDefault: false
+description: "High priority class for enterprise tenants (TCS, Infosys)"
+
+---
+# Priority Class for Growth tenants
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: growth-tenant-priority
+value: 1000000
+globalDefault: false
+description: "Medium priority class for growth tier tenants"
+
+---
+# Priority Class for Basic tenants
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: basic-tenant-priority
+value: 500000
+globalDefault: false
+description: "Lower priority class for basic tier tenants"
+
+---
+# Custom Resource Definition for Tenant Management
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: tenants.platform.example.com
+spec:
+  group: platform.example.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              companyName:
+                type: string
+              tier:
+                type: string
+                enum: ["basic", "growth", "standard", "enterprise"]
+              region:
+                type: string
+              contractValue:
+                type: string
+              contactEmail:
+                type: string
+              resourceQuotas:
+                type: object
+                properties:
+                  cpu:
+                    type: string
+                  memory:
+                    type: string
+                  storage:
+                    type: string
+          status:
+            type: object
+            properties:
+              phase:
+                type: string
+              resourceUsage:
+                type: object
+  scope: Namespaced
+  names:
+    plural: tenants
+    singular: tenant
+    kind: Tenant
+
+---
+# Sample Tenant Custom Resource
+apiVersion: platform.example.com/v1
+kind: Tenant
+metadata:
+  name: tcs-tenant
+  namespace: tenant-tcs
+spec:
+  companyName: "Tata Consultancy Services"
+  tier: "enterprise"
+  region: "mumbai"
+  contractValue: "₹50,00,000"
+  contactEmail: "cloud-ops@tcs.com"
+  resourceQuotas:
+    cpu: "100"
+    memory: "400Gi"
+    storage: "5Ti"
+status:
+  phase: "Active"
+  resourceUsage:
+    cpu: "45"
+    memory: "180Gi"
+    storage: "1.2Ti"
+
+---
+# ServiceMonitor for tenant resource monitoring
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: tenant-resource-monitor
+  namespace: monitoring
+  labels:
+    monitoring: tenant-resources
+spec:
+  namespaceSelector:
+    matchLabels:
+      tenant: "" # Monitor all tenant namespaces
+  selector:
+    matchLabels:
+      monitoring: "tenant-resources"
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
+    
+    # Relabel metrics with tenant information
+    metricRelabelings:
+    - sourceLabels: [__meta_kubernetes_namespace_label_tenant]
+      targetLabel: tenant
+    - sourceLabels: [__meta_kubernetes_namespace_label_tier]
+      targetLabel: tier
+    - sourceLabels: [__meta_kubernetes_namespace_label_region]
+      targetLabel: region
+
+---
+# ConfigMap for tenant billing configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tenant-billing-config
+  namespace: platform-system
+data:
+  billing-rates.yaml: |
+    # Indian pricing model for multi-tenant platform
+    # भारतीय multi-tenant platform की pricing
+    
+    pricing:
+      currency: "INR"
+      
+      # Compute pricing (per hour)
+      compute:
+        cpu_per_core: 5.50        # ₹5.50 per CPU core per hour
+        memory_per_gb: 2.20       # ₹2.20 per GB RAM per hour
+        gpu_per_hour: 450.00      # ₹450 per GPU per hour
+      
+      # Storage pricing (per GB per month)
+      storage:
+        standard_disk: 3.50       # ₹3.50 per GB standard disk
+        ssd_disk: 7.20           # ₹7.20 per GB SSD
+        backup_storage: 1.80     # ₹1.80 per GB backup
+      
+      # Network pricing
+      network:
+        data_transfer_gb: 0.50   # ₹0.50 per GB data transfer
+        load_balancer: 800.00    # ₹800 per load balancer per month
+      
+      # API pricing
+      api:
+        calls_per_million: 150.00 # ₹150 per million API calls
+      
+      # Tier-based discounts
+      discounts:
+        enterprise: 0.25         # 25% discount
+        standard: 0.15           # 15% discount
+        growth: 0.10             # 10% discount
+        basic: 0.00              # No discount
+      
+      # Indian tax (GST)
+      tax_rate: 0.18             # 18% GST
+
+  tenant-limits.yaml: |
+    # Resource limits per tier
+    tiers:
+      basic:
+        max_cpu: 20
+        max_memory: "80Gi"
+        max_storage: "1Ti"
+        max_pods: 100
+        max_services: 15
+        
+      growth:
+        max_cpu: 60
+        max_memory: "240Gi"
+        max_storage: "3Ti"
+        max_pods: 300
+        max_services: 30
+        
+      standard:
+        max_cpu: 100
+        max_memory: "400Gi" 
+        max_storage: "5Ti"
+        max_pods: 500
+        max_services: 50
+        
+      enterprise:
+        max_cpu: 200
+        max_memory: "800Gi"
+        max_storage: "10Ti"
+        max_pods: 1000
+        max_services: 100

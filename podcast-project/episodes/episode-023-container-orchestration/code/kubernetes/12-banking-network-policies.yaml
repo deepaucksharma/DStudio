@@ -1,0 +1,775 @@
+# Banking Network Security Policies - RBI Compliance
+# भारतीय banking sector के लिए network security और RBI compliance
+# Implements zero-trust networking for financial services
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: core-banking-network-policy
+  namespace: banking-core
+  labels:
+    app: core-banking
+    security-tier: maximum
+    compliance: rbi-compliant
+  annotations:
+    description: "Core banking system network security policy - RBI compliant"
+    security.banking.com/classification: "restricted"
+    compliance.rbi.gov.in/guidelines: "2023-cyber-security"
+    last-audit: "2024-01-15"
+spec:
+  podSelector:
+    matchLabels:
+      app: core-banking-system
+      tier: core-banking
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic only from authenticated API gateway
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: banking-api-gateway
+      podSelector:
+        matchLabels:
+          app: authenticated-api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443  # HTTPS only for core banking
+  
+  # Allow traffic from fraud detection system
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: fraud-detection
+      podSelector:
+        matchLabels:
+          app: fraud-analyzer
+          security-clearance: high
+    ports:
+    - protocol: TCP
+      port: 9443  # Secure fraud detection port
+  
+  # Allow monitoring from security operations center
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: security-monitoring
+      podSelector:
+        matchLabels:
+          app: banking-monitor
+          role: security-operator
+    ports:
+    - protocol: TCP
+      port: 9090  # Metrics endpoint
+  
+  egress:
+  # Allow connection to core banking database (encrypted)
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: banking-database
+      podSelector:
+        matchLabels:
+          app: core-banking-db
+          encryption: tde-enabled
+    ports:
+    - protocol: TCP
+      port: 5432  # PostgreSQL with TDE
+  
+  # Allow connection to RBI reporting system
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: rbi-reporting
+      podSelector:
+        matchLabels:
+          app: rbi-connector
+          compliance: verified
+    ports:
+    - protocol: TCP
+      port: 443   # HTTPS to RBI systems
+  
+  # Allow NEFT/RTGS payment gateway connections
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: payment-gateway
+      podSelector:
+        matchLabels:
+          app: neft-rtgs-gateway
+          certification: rbi-approved
+    ports:
+    - protocol: TCP
+      port: 8443  # Secure payment processing
+  
+  # Allow DNS resolution (restricted)
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+
+---
+# Network Policy for Customer-Facing Banking Services
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: customer-banking-services-netpol
+  namespace: banking-customer
+  labels:
+    app: customer-banking
+    security-tier: high
+    compliance: rbi-compliant
+spec:
+  podSelector:
+    matchLabels:
+      app: customer-banking-services
+      tier: customer-facing
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic from internet via load balancer (with WAF)
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-controller
+      podSelector:
+        matchLabels:
+          app: waf-enabled-ingress
+          security: ddos-protection
+    ports:
+    - protocol: TCP
+      port: 8080  # Customer web interface
+    - protocol: TCP
+      port: 8443  # Mobile banking API
+  
+  # Allow traffic from mobile banking apps
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: mobile-banking
+      podSelector:
+        matchLabels:
+          app: mobile-app-backend
+          device-verification: enabled
+    ports:
+    - protocol: TCP
+      port: 9443  # Secure mobile API
+  
+  egress:
+  # Allow connection to customer database
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: customer-database
+      podSelector:
+        matchLabels:
+          app: customer-db
+          encryption: field-level
+    ports:
+    - protocol: TCP
+      port: 5432
+  
+  # Allow connection to core banking for transactions
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: banking-core
+      podSelector:
+        matchLabels:
+          app: core-banking-system
+    ports:
+    - protocol: TCP
+      port: 8443
+  
+  # Allow SMS/email notification services
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: notification-services
+      podSelector:
+        matchLabels:
+          app: secure-notifications
+          compliance: telecom-approved
+    ports:
+    - protocol: TCP
+      port: 443
+
+---
+# Network Policy for UPI Payment Processing
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: upi-payment-processing-netpol
+  namespace: banking-upi
+  labels:
+    app: upi-processing
+    security-tier: critical
+    compliance: npci-rbi-compliant
+spec:
+  podSelector:
+    matchLabels:
+      app: upi-payment-processor
+      certification: npci-certified
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic only from NPCI-certified sources
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: upi-gateway
+      podSelector:
+        matchLabels:
+          app: npci-gateway
+          certification: npci-production
+    ports:
+    - protocol: TCP
+      port: 8443  # UPI processing endpoint
+  
+  # Allow traffic from UPI switch
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: upi-switch
+      podSelector:
+        matchLabels:
+          app: upi-transaction-switch
+          compliance: real-time-processing
+    ports:
+    - protocol: TCP
+      port: 9443  # UPI switch communication
+  
+  egress:
+  # Allow connection to NPCI servers (external)
+  - to: []  # External NPCI endpoints
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 8443
+  
+  # Allow connection to UPI fraud detection
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: upi-fraud-detection
+      podSelector:
+        matchLabels:
+          app: real-time-fraud-detector
+          ml-model: upi-optimized
+    ports:
+    - protocol: TCP
+      port: 8443
+  
+  # Allow connection to UPI settlement system
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: settlement-system
+      podSelector:
+        matchLabels:
+          app: upi-settlement-processor
+          schedule: t-plus-one
+    ports:
+    - protocol: TCP
+      port: 8443
+
+---
+# Network Policy for Card Payment Processing
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: card-payment-processing-netpol
+  namespace: banking-cards
+  labels:
+    app: card-processing
+    security-tier: critical
+    compliance: pci-dss-rbi
+spec:
+  podSelector:
+    matchLabels:
+      app: card-payment-processor
+      pci-compliance: level-1
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic from PCI-compliant card networks
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: card-networks
+      podSelector:
+        matchLabels:
+          network: visa-mastercard-rupay
+          pci-compliance: certified
+    ports:
+    - protocol: TCP
+      port: 8443  # Card processing endpoint
+  
+  # Allow traffic from tokenization service
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: tokenization
+      podSelector:
+        matchLabels:
+          app: card-tokenization-service
+          rbi-compliant: token-guidelines-2022
+    ports:
+    - protocol: TCP
+      port: 9443
+  
+  egress:
+  # Allow connection to card networks (Visa, MasterCard, RuPay)
+  - to: []  # External card network endpoints
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 8443
+  
+  # Allow connection to card database (tokenized data only)
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: secure-card-database
+      podSelector:
+        matchLabels:
+          app: tokenized-card-db
+          encryption: hsm-protected
+    ports:
+    - protocol: TCP
+      port: 5432
+  
+  # Allow connection to fraud detection
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: card-fraud-detection
+      podSelector:
+        matchLabels:
+          app: card-fraud-analyzer
+          ai-model: card-transaction-ml
+    ports:
+    - protocol: TCP
+      port: 8443
+
+---
+# Network Policy for Internet Banking
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: internet-banking-netpol
+  namespace: banking-internet
+  labels:
+    app: internet-banking
+    security-tier: high
+    compliance: rbi-cyber-security
+spec:
+  podSelector:
+    matchLabels:
+      app: internet-banking-portal
+      security: multi-factor-auth
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic from WAF-protected ingress
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: waf-ingress
+      podSelector:
+        matchLabels:
+          app: banking-waf
+          protection: owasp-top10
+    ports:
+    - protocol: TCP
+      port: 8443  # HTTPS internet banking
+  
+  # Allow traffic from OTP service
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: otp-services
+      podSelector:
+        matchLabels:
+          app: multi-channel-otp
+          channels: sms-email-voice
+    ports:
+    - protocol: TCP
+      port: 9443
+  
+  egress:
+  # Allow connection to customer authentication
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: customer-auth
+      podSelector:
+        matchLabels:
+          app: multi-factor-authenticator
+          methods: biometric-otp-token
+    ports:
+    - protocol: TCP
+      port: 8443
+  
+  # Allow connection to session management
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: session-management
+      podSelector:
+        matchLabels:
+          app: secure-session-manager
+          timeout: configurable
+    ports:
+    - protocol: TCP
+      port: 6379  # Redis for sessions
+  
+  # Allow connection to transaction processing
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: banking-core
+      podSelector:
+        matchLabels:
+          app: core-banking-system
+    ports:
+    - protocol: TCP
+      port: 8443
+
+---
+# Network Policy for RBI Reporting and Compliance
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: rbi-reporting-netpol
+  namespace: banking-compliance
+  labels:
+    app: rbi-reporting
+    security-tier: maximum
+    compliance: rbi-mandatory
+spec:
+  podSelector:
+    matchLabels:
+      app: rbi-reporting-system
+      classification: regulatory-data
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow traffic from compliance officer workstations only
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: compliance-workstations
+      podSelector:
+        matchLabels:
+          app: compliance-dashboard
+          role: chief-compliance-officer
+    ports:
+    - protocol: TCP
+      port: 8443
+  
+  # Allow automated compliance data collection
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: data-collection
+      podSelector:
+        matchLabels:
+          app: compliance-data-collector
+          schedule: automated-daily
+    ports:
+    - protocol: TCP
+      port: 9443
+  
+  egress:
+  # Allow connection to RBI servers (external)
+  - to: []  # RBI external reporting endpoints
+    ports:
+    - protocol: TCP
+      port: 443
+  
+  # Allow access to all banking systems for compliance data
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          compliance: rbi-compliant
+    ports:
+    - protocol: TCP
+      port: 8443
+    - protocol: TCP
+      port: 5432  # Database access for auditing
+
+---
+# Network Policy for Fraud Detection System
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: fraud-detection-netpol
+  namespace: banking-fraud-detection
+  labels:
+    app: fraud-detection
+    security-tier: critical
+    ml-enabled: real-time-analysis
+spec:
+  podSelector:
+    matchLabels:
+      app: fraud-detection-engine
+      capability: real-time-ml
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow transaction data from all payment channels
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          payment-channel: "true"
+    ports:
+    - protocol: TCP
+      port: 8443  # Fraud analysis endpoint
+  
+  # Allow access from security operations center
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: security-ops
+      podSelector:
+        matchLabels:
+          app: fraud-monitoring-dashboard
+          role: fraud-analyst
+    ports:
+    - protocol: TCP
+      port: 9443
+  
+  egress:
+  # Allow connection to ML model storage
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: ml-models
+      podSelector:
+        matchLabels:
+          app: fraud-ml-models
+          training: continuous-learning
+    ports:
+    - protocol: TCP
+      port: 8443
+  
+  # Allow connection to customer database for verification
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: customer-database
+      podSelector:
+        matchLabels:
+          app: customer-profile-db
+          access: read-only-fraud
+    ports:
+    - protocol: TCP
+      port: 5432
+  
+  # Allow external threat intelligence feeds
+  - to: []  # External security feeds
+    ports:
+    - protocol: TCP
+      port: 443
+
+---
+# Global Network Policy - Default Deny All
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: banking-default-deny
+  namespace: banking-core
+  labels:
+    policy-type: default-security
+    enforcement: strict
+spec:
+  podSelector: {}  # Apply to all pods in namespace
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  # Explicit empty rules = deny all traffic
+  # All communication must be explicitly allowed by other policies
+
+---
+# Network Policy for Database Security
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: banking-database-security-netpol
+  namespace: banking-database
+  labels:
+    app: banking-databases
+    security-tier: maximum
+    encryption: tde-field-level
+spec:
+  podSelector:
+    matchLabels:
+      tier: database
+      encryption: enabled
+  
+  policyTypes:
+  - Ingress
+  - Egress
+  
+  ingress:
+  # Allow connections only from authenticated banking services
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          security-clearance: database-access
+      podSelector:
+        matchLabels:
+          authentication: service-account-verified
+    ports:
+    - protocol: TCP
+      port: 5432  # PostgreSQL
+    - protocol: TCP
+      port: 3306  # MySQL (if used)
+  
+  # Allow backup service connections
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: backup-services
+      podSelector:
+        matchLabels:
+          app: encrypted-backup-agent
+          schedule: point-in-time-recovery
+    ports:
+    - protocol: TCP
+      port: 5432
+  
+  egress:
+  # Allow connection to backup storage
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: backup-storage
+      podSelector:
+        matchLabels:
+          app: encrypted-storage
+          location: multi-region
+    ports:
+    - protocol: TCP
+      port: 443
+  
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+
+---
+# ConfigMap for Network Policy Management
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: banking-network-policy-config
+  namespace: banking-security
+data:
+  network-security-guidelines.yaml: |
+    # Banking Network Security Guidelines
+    # भारतीय banking network security के guidelines
+    
+    security_principles:
+      - "Zero Trust Architecture - Never trust, always verify"
+      - "Defense in Depth - Multiple layers of security"
+      - "Principle of Least Privilege - Minimum required access"
+      - "Continuous Monitoring - Real-time threat detection"
+    
+    rbi_compliance_requirements:
+      - "Cyber Security Framework for Banks (2016)"
+      - "Guidelines on Managing Risks in Third Party IT Services (2023)"
+      - "Baseline Cyber Security and Resilience Requirements (2018)"
+      - "Digital Payment Security Controls (2021)"
+    
+    network_zones:
+      dmz:
+        description: "Internet-facing services with WAF protection"
+        security_level: "High"
+        monitoring: "Real-time DDoS protection"
+      
+      application:
+        description: "Customer-facing banking applications"
+        security_level: "High" 
+        authentication: "Multi-factor required"
+      
+      core_banking:
+        description: "Core banking transaction processing"
+        security_level: "Maximum"
+        access: "Restricted to authorized services only"
+      
+      database:
+        description: "Banking data storage with encryption"
+        security_level: "Maximum"
+        encryption: "TDE + Field-level encryption"
+      
+      compliance:
+        description: "RBI reporting and audit systems"
+        security_level: "Maximum"
+        access: "Compliance officers only"
+    
+    monitoring_requirements:
+      - "All network traffic must be logged"
+      - "Real-time anomaly detection required"
+      - "Integration with SIEM systems mandatory"
+      - "Automated incident response for critical alerts"
+    
+    incident_response:
+      security_operations_center: "24x7 monitoring"
+      escalation_matrix: "L1 -> L2 -> L3 -> CISO"
+      communication_plan: "RBI notification within 2 hours for major incidents"
+      recovery_time_objective: "< 4 hours for critical systems"
+
+  allowed-external-endpoints.yaml: |
+    # External endpoints allowed for banking operations
+    # बाहरी endpoints जो banking operations के लिए allowed हैं
+    
+    rbi_endpoints:
+      - "rbi.org.in"
+      - "npci.org.in"
+      - "cersai.net.in"
+      - "cbdt.gov.in"
+    
+    payment_networks:
+      - "visa.com"
+      - "mastercard.com" 
+      - "rupay.npci.org.in"
+      - "swift.com"
+    
+    regulatory_systems:
+      - "sebi.gov.in"
+      - "irdai.gov.in"
+      - "pfrda.org.in"
+    
+    security_feeds:
+      - "cert-in.org.in"
+      - "us-cert.cisa.gov"
+      - "threatintel.banking.com"
