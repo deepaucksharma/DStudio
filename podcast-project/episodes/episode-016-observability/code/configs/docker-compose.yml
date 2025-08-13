@@ -1,0 +1,367 @@
+# Episode 16: Observability & Monitoring
+# Complete Observability Stack for Indian Applications
+# 
+# भारतीय scale के लिए production-ready monitoring stack
+# Prometheus, Grafana, Jaeger, Elasticsearch के साथ
+
+version: '3.8'
+
+services:
+  # Prometheus - Metrics Collection
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus_rules.yml:/etc/prometheus/prometheus_rules.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+    networks:
+      - monitoring
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Grafana - Visualization Dashboard
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana_dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana_datasources:/etc/grafana/provisioning/datasources
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_DOMAIN=localhost
+      - GF_SMTP_ENABLED=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel
+      # Indian timezone configuration
+      - GF_DEFAULT_TIMEZONE=Asia/Kolkata
+      - GF_DATE_FORMATS_DEFAULT_TIMEZONE=Asia/Kolkata
+    networks:
+      - monitoring
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Alertmanager - Alert Management
+  alertmanager:
+    image: prom/alertmanager:v0.26.0
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - alertmanager_data:/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=http://localhost:9093'
+      - '--web.route-prefix=/'
+    networks:
+      - monitoring
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Jaeger - Distributed Tracing
+  jaeger:
+    image: jaegertracing/all-in-one:1.49
+    container_name: jaeger
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"  # Jaeger UI
+      - "14268:14268"  # Jaeger collector HTTP
+      - "14250:14250"  # Jaeger collector gRPC
+      - "9411:9411"    # Zipkin compatible endpoint
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - SPAN_STORAGE_TYPE=memory
+      # For production, use Elasticsearch or Cassandra
+      # - SPAN_STORAGE_TYPE=elasticsearch
+      # - ES_SERVER_URLS=http://elasticsearch:9200
+    networks:
+      - monitoring
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Elasticsearch - Log Storage
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - bootstrap.memory_lock=true
+      # Indian context settings
+      - cluster.name=indian-logs-cluster
+      - node.name=elasticsearch-mumbai
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - monitoring
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Kibana - Log Analysis UI
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.10.0
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_NAME=kibana-mumbai
+      # Indian timezone
+      - KIBANA_DEFAULT_TIMEZONE=Asia/Kolkata
+    networks:
+      - monitoring
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Logstash - Log Processing
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.10.0
+    container_name: logstash
+    ports:
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    volumes:
+      - ./logstash_pipeline:/usr/share/logstash/pipeline
+      - ./logstash.yml:/usr/share/logstash/config/logstash.yml
+    environment:
+      - "LS_JAVA_OPTS=-Xmx1g -Xms1g"
+    networks:
+      - monitoring
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Redis - Caching and Session Storage
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - monitoring
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Node Exporter - System Metrics
+  node-exporter:
+    image: prom/node-exporter:v1.6.1
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - monitoring
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # cAdvisor - Container Metrics
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    privileged: true
+    devices:
+      - /dev/kmsg
+    networks:
+      - monitoring
+    restart: unless-stopped
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # UPI Monitoring Service (Python)
+  upi-monitoring:
+    build:
+      context: ../python
+      dockerfile: Dockerfile
+    container_name: upi-monitoring
+    ports:
+      - "8000:8000"
+    environment:
+      - PROMETHEUS_GATEWAY=http://prometheus:9090
+      - LOG_LEVEL=INFO
+      - INDIAN_REGION=true
+    networks:
+      - monitoring
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+      - redis
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # Payment Metrics Exporter (Go)
+  payment-exporter:
+    build:
+      context: ../go
+      dockerfile: Dockerfile
+    container_name: payment-exporter
+    ports:
+      - "8001:8080"
+    environment:
+      - METRICS_PORT=8080
+      - LOG_LEVEL=info
+      - REGION=mumbai
+    networks:
+      - monitoring
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    labels:
+      - "org.label-schema.group=monitoring"
+
+  # IRCTC Dashboard Service (Java)
+  irctc-service:
+    build:
+      context: ../java
+      dockerfile: Dockerfile
+    container_name: irctc-service
+    ports:
+      - "8002:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health,metrics,prometheus
+      - JAVA_OPTS=-Xms512m -Xmx1g
+    networks:
+      - monitoring
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    labels:
+      - "org.label-schema.group=monitoring"
+
+# Networks
+networks:
+  monitoring:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# Volumes
+volumes:
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  alertmanager_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# Health checks and monitoring
+x-healthcheck: &healthcheck
+  test: ["CMD", "curl", "-f", "http://localhost:9090/-/healthy"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s
+
+# भारतीय Production Deployment Notes:
+#
+# 1. Resource Requirements:
+#    - RAM: 8GB minimum, 16GB recommended
+#    - CPU: 4 cores minimum, 8 cores recommended
+#    - Storage: 100GB minimum for logs and metrics
+#
+# 2. Network Configuration:
+#    - All services in same network for internal communication
+#    - Exposed ports for external access
+#    - Indian timezone configuration
+#
+# 3. Data Persistence:
+#    - Named volumes for data persistence
+#    - Regular backup strategy needed
+#    - Retention policies configured
+#
+# 4. Security Considerations:
+#    - Change default passwords in production
+#    - Use proper authentication
+#    - Secure network configuration
+#    - SSL/TLS termination at load balancer
+#
+# 5. Scaling for Indian Load:
+#    - Prometheus federation for multiple regions
+#    - Elasticsearch cluster for high log volume
+#    - Grafana clustering for high availability
+#    - Regional deployment (Mumbai, Bangalore, Delhi)
+#
+# 6. Monitoring Targets:
+#    - Application metrics from all services
+#    - Infrastructure metrics from nodes
+#    - Business metrics (UPI, payments, bookings)
+#    - Regional performance metrics
+#
+# 7. Indian Context Features:
+#    - IST timezone configuration
+#    - Festival season scaling
+#    - Regional performance tracking
+#    - Multi-language log support
+#
+# 8. Commands:
+#    docker-compose up -d              # Start all services
+#    docker-compose logs -f prometheus # View Prometheus logs
+#    docker-compose down -v            # Stop and remove volumes
+#    docker-compose ps                 # Check service status

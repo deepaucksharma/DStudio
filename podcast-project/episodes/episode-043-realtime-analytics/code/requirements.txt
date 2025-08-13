@@ -1,0 +1,149 @@
+# Episode 43: Real-time Analytics at Scale - Python Dependencies
+# Production-ready dependencies for Indian tech company scale
+
+# Core Streaming और Analytics
+kafka-python==2.0.2           # Apache Kafka client for Python
+apache-flink==1.18.0          # PyFlink for stream processing
+redis==5.0.1                  # Redis client for caching और time series
+aioredis==2.0.1              # Async Redis client
+confluent-kafka==2.3.0       # High-performance Kafka client
+
+# Real-time Data Processing
+pandas==2.1.3                # Data manipulation और analysis
+numpy==1.25.2                # Numerical computing
+scipy==1.11.4                # Scientific computing for analytics
+
+# Async Programming (Critical for high throughput)
+asyncio==3.4.3               # Asynchronous I/O
+aiohttp==3.9.1               # Async HTTP client/server
+websockets==12.0             # WebSocket support for real-time dashboards
+uvloop==0.19.0               # Fast asyncio event loop (Unix only)
+
+# Time Series और Analytics
+influxdb-client==1.38.0     # InfluxDB for time series storage
+prometheus-client==0.19.0    # Prometheus metrics collection
+grafana-api==1.0.3          # Grafana dashboard API client
+
+# Machine Learning (for fraud detection examples)
+scikit-learn==1.3.2         # Machine learning algorithms
+xgboost==2.0.2              # Gradient boosting for fraud detection
+lightgbm==4.1.0             # Light gradient boosting
+joblib==1.3.2               # Efficient ML model persistence
+
+# Database Connectivity
+psycopg2-binary==2.9.9      # PostgreSQL adapter
+pymongo==4.6.0              # MongoDB client
+cassandra-driver==3.28.0    # Apache Cassandra client
+mysql-connector-python==8.2.0  # MySQL connectivity
+
+# Data Validation और Serialization
+pydantic==2.5.0             # Data validation using Python type hints
+marshmallow==3.20.1         # Object serialization/deserialization
+jsonschema==4.20.0          # JSON schema validation
+msgpack==1.0.7              # MessagePack serialization
+
+# Monitoring और Observability
+structlog==23.2.0           # Structured logging
+elastic-apm==6.18.1         # Elastic APM for monitoring
+sentry-sdk==1.39.1          # Error tracking and performance monitoring
+opencensus==0.11.2          # Distributed tracing
+
+# HTTP और API Libraries
+requests==2.31.0            # HTTP library
+httpx==0.25.2               # Modern async HTTP client
+fastapi==0.104.1            # Modern web framework
+uvicorn==0.24.0             # ASGI server
+
+# Caching और Performance
+aiocache==0.12.2            # Async caching framework
+diskcache==5.6.3            # Disk-based cache
+cachetools==5.3.2           # In-memory caching utilities
+
+# Geographic और Location Services (for Ola/Swiggy examples)
+geopy==2.4.1                # Geocoding library
+shapely==2.0.2              # Geometric operations
+folium==0.15.0              # Interactive maps visualization
+
+# Financial और Trading Libraries (for Zerodha example)
+yfinance==0.2.28            # Yahoo Finance API
+alpha-vantage==2.3.1        # Alpha Vantage API client
+ccxt==4.1.77                # Cryptocurrency trading library
+
+# Indian Payment Systems (for Paytm examples)
+razorpay==1.3.0             # Razorpay payment gateway
+phonepe==1.0.0              # PhonePe API client
+paytmchecksum==1.7.0        # Paytm checksum utility
+
+# Development और Testing
+pytest==7.4.3              # Testing framework
+pytest-asyncio==0.21.1     # Async testing support
+pytest-mock==3.12.0        # Mock object library
+factory-boy==3.3.0         # Test data generation
+faker==20.1.0               # Fake data generation
+locust==2.17.0              # Load testing tool
+
+# Code Quality
+black==23.11.0              # Code formatter
+flake8==6.1.0               # Linting tool
+mypy==1.7.1                 # Static type checker
+pre-commit==3.5.0           # Pre-commit hooks
+
+# Documentation
+sphinx==7.2.6              # Documentation generator
+mkdocs==1.5.3              # Markdown documentation
+jupyter==1.0.0             # Jupyter notebooks for analysis
+
+# Utilities
+python-dotenv==1.0.0       # Environment variable management
+click==8.1.7                # Command line interface creation
+rich==13.7.0                # Rich text और beautiful formatting
+tqdm==4.66.1                # Progress bars
+
+# Indian Localization
+babel==2.14.0               # Internationalization utilities
+pytz==2023.3.post1         # Timezone handling
+python-dateutil==2.8.2     # Date utility functions
+
+# Production Deployment
+gunicorn==21.2.0            # WSGI HTTP Server
+supervisor==4.2.5          # Process control system
+docker==6.1.3              # Docker API client
+kubernetes==28.1.0         # Kubernetes Python client
+
+# Specific versions for production stability
+# All versions are pinned to ensure reproducible deployments
+
+# Performance Monitoring
+memory-profiler==0.61.0    # Memory usage profiling
+line-profiler==4.1.1       # Line-by-line profiling
+py-spy==0.3.14             # Sampling profiler
+
+# Indian Context Specific
+# These libraries help with Indian market requirements
+indic-transliteration==2.3.37  # Indian language transliteration  
+polyglot==16.7.4           # Multi-language processing
+langdetect==1.0.9          # Language detection
+
+# Cost Optimization Libraries
+boto3==1.34.0              # AWS SDK for cost monitoring
+google-cloud-monitoring==2.16.0  # GCP monitoring
+azure-monitor==0.3.1       # Azure cost monitoring
+
+# Regional Database Support
+sqlite3==                  # Built-in lightweight database
+duckdb==0.9.1             # Embedded analytical database
+
+# Message Queues (besides Kafka)
+celery==5.3.4              # Distributed task queue
+kombu==5.3.4               # Message queue library
+pika==1.3.2                # RabbitMQ client
+
+# Additional Indian Context Libraries
+indian-banks==0.1.0       # Indian bank codes और IFSC
+indian-states==0.1.0      # Indian states और cities data
+pincode==0.1.0             # Indian pincode utilities
+
+# Note: Some Indian-specific libraries may need custom installation
+# Check GitHub repositories for latest versions:
+# - https://github.com/indian-dev/indian-banks
+# - https://github.com/indian-dev/pincode-utils

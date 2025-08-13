@@ -1,0 +1,88 @@
+# Episode 2: Chaos Engineering & Queues - Python Dependencies  
+# Mumbai Local Train और Queue Management के लिए आवश्यक packages
+
+# Core Python Libraries
+numpy>=1.21.0               # Mathematical operations - Queue theory calculations के लिए
+pandas>=1.3.0               # Data analysis - Performance metrics के लिए
+matplotlib>=3.5.0           # Plotting - Queue visualization के लिए
+scipy>=1.7.0                # Scientific computing - Little's Law implementation के लिए
+
+# Queue & Async Management
+asyncio>=3.4.0              # Async operations - Concurrent chaos testing के लिए
+aiohttp>=3.8.0              # Async HTTP - Network chaos simulation के लिए
+celery>=5.2.0               # Task queues - Background chaos jobs के लिए
+redis>=4.1.0                # Message broker - Queue backend के लिए
+kafka-python>=2.0.0         # Apache Kafka - Stream processing के लिए
+
+# Chaos Engineering Tools
+chaostoolkit>=1.12.0        # Chaos engineering framework - Chaos experiments के लिए
+locust>=2.8.0               # Load testing - Performance testing के लिए
+requests>=2.27.0            # HTTP requests - API chaos testing के लिए
+
+# System Monitoring & Metrics
+psutil>=5.8.0               # System resource monitoring - System health के लिए
+prometheus-client>=0.13.0    # Metrics collection - Performance monitoring के लिए
+grafana-api>=1.0.3          # Grafana integration - Dashboard creation के लिए
+structlog>=21.5.0           # Structured logging - Chaos event logging के लिए
+
+# Network Simulation & Chaos
+netifaces>=0.11.0           # Network interface info - Network topology के लिए
+scapy>=2.4.5                # Packet manipulation - Network chaos के लिए
+paramiko>=2.9.0             # SSH client - Remote chaos injection के लिए
+
+# Database & Storage
+pymongo>=4.0.0              # MongoDB - NoSQL chaos testing के लिए
+sqlalchemy>=1.4.0           # SQL databases - Database chaos के लिए
+cassandra-driver>=3.25.0    # Cassandra - Distributed DB testing के लिए
+
+# Time Series & Analytics
+influxdb-client>=1.27.0     # Time series database - Performance metrics के लिए
+arrow>=1.2.0                # Datetime handling - Time-based analysis के लिए
+pytz>=2021.3                # Timezone support - Mumbai/IST timezone के लिए
+
+# Mathematical & Statistical Analysis
+statsmodels>=0.13.0         # Statistical modeling - Queue analysis के लिए
+sympy>=1.9.0                # Symbolic mathematics - Mathematical proofs के लिए
+
+# Indian Context Libraries
+phonenumbers>=8.12.0        # Phone number validation - Indian mobile validation के लिए
+geopy>=2.2.0                # Geocoding - Mumbai locations के लिए
+
+# Configuration & Environment
+python-dotenv>=0.19.0       # Environment variables - Config management के लिए
+pyyaml>=6.0                 # YAML parsing - Chaos config files के लिए
+click>=8.0.0                # CLI creation - Command line tools के लिए
+
+# Security & Authentication
+cryptography>=36.0.0        # Encryption - Security testing के लिए
+jwt>=1.3.0                  # JWT tokens - Auth chaos testing के लिए
+
+# Testing & Development
+pytest>=7.0.0               # Testing framework - Unit tests के लिए
+pytest-asyncio>=0.18.0      # Async testing - Async chaos tests के लिए
+pytest-mock>=3.6.0         # Mocking - Mock services के लिए
+pytest-benchmark>=3.4.0     # Performance testing - Benchmark tests के लिए
+pytest-xdist>=2.5.0        # Parallel testing - Distributed tests के लिए
+
+# Code Quality
+black>=22.0.0               # Code formatting - Code quality के लिए
+flake8>=4.0.0               # Linting - Code standards के लिए
+mypy>=0.931                 # Type checking - Type safety के लिए
+
+# Performance Monitoring
+memory-profiler>=0.60.0     # Memory profiling - Memory chaos testing के लिए
+py-spy>=0.3.0               # CPU profiling - Performance bottlenecks के लिए
+line-profiler>=3.5.0        # Line-by-line profiling - Code optimization के लिए
+
+# Container & Orchestration (for advanced chaos)
+docker>=5.0.0               # Docker API - Container chaos के लिए
+kubernetes>=21.7.0          # K8s API - K8s chaos engineering के लिए
+
+# Advanced Visualization
+plotly>=5.6.0               # Interactive plots - Queue visualizations के लिए
+seaborn>=0.11.0             # Statistical plots - Performance analysis के लिए
+networkx>=2.6.0             # Network graphs - System topology के लिए
+
+# Mumbai/Indian Specific Data
+indian-cities>=1.0.0        # Indian cities data - Location-based testing के लिए
+holidays>=0.18.0            # Holiday calendar - Festival impact analysis के लिए

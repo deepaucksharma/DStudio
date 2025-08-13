@@ -1,0 +1,79 @@
+# Container Orchestration Requirements - Episode 17
+# Hindi Podcast Series - Production-Ready Examples
+
+# Core Dependencies
+kubernetes==28.1.0
+docker==7.0.0
+docker-compose==1.29.2
+
+# Service Discovery & Configuration
+consul==1.1.0
+etcd3==0.12.0
+python-consul==1.1.0
+
+# Monitoring & Observability
+prometheus-client==0.19.0
+grafana-api==1.0.3
+jaeger-client==4.8.0
+opentelemetry-api==1.21.0
+opentelemetry-sdk==1.21.0
+opentelemetry-instrumentation==0.42b0
+
+# Logging
+elasticsearch==8.11.0
+loguru==0.7.2
+fluent-logger==0.10.0
+
+# Security & Secrets Management
+hvac==2.0.0  # Vault client
+cryptography==41.0.8
+
+# Testing & Quality
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-docker==2.0.1
+testcontainers==3.7.1
+
+# API & Web Framework
+fastapi==0.104.1
+uvicorn==0.24.0
+flask==3.0.0
+gunicorn==21.2.0
+
+# Database & Storage
+redis==5.0.1
+pymongo==4.6.0
+psycopg2-binary==2.9.9
+
+# Networking & Load Balancing
+nginx==1.21.0  # For configuration generation
+haproxy==2.8.0  # For configuration generation
+requests==2.31.0
+
+# Infrastructure as Code
+ansible==8.7.0
+terraform==1.6.0
+
+# Data Processing & Analytics
+pandas==2.1.4
+numpy==1.24.4
+
+# Utility Libraries
+pyyaml==6.0.1
+jinja2==3.1.2
+click==8.1.7
+rich==13.7.0
+tabulate==0.9.0
+
+# Development Tools
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
+
+# Hindi Language Support
+indic-transliteration==2.3.30
+
+# Indian Context Libraries
+pytz==2023.3  # For IST timezone handling
+indian-states==1.0.0  # Indian geographical data

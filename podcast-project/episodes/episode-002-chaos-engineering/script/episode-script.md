@@ -117,6 +117,254 @@ But Netflix didn't stop there. They created an entire Simian Army:
 - **Conformity Monkey**: Checks if instances follow best practices
 - **Security Monkey**: Checks for security vulnerabilities
 
+### Section 1.2.1: Chaos Engineering Mastery - Advanced Principles
+
+Before diving into Indian examples, let's understand the deeper principles of chaos engineering mastery. According to distributed systems resilience patterns (reference: docs/pattern-library/resilience/chaos-engineering-mastery.md), advanced chaos engineering follows these principles:
+
+**The Five Pillars of Chaos Engineering Mastery:**
+
+1. **Hypothesis-Driven Experimentation**
+   - Define clear success metrics before starting
+   - Mumbai Example: "Peak hour local train delays should not exceed 15 minutes"
+   - System Example: "99.9% of payments should complete within 3 seconds under 10x load"
+
+2. **Blast Radius Control**
+   - Start with 1% of traffic, gradually increase
+   - Use feature flags for instant rollback
+   - Mumbai Local Analogy: Test new route during off-peak before applying to rush hour
+
+3. **Real Production Testing**
+   - Staging environments don't have real user behavior
+   - Only production reveals true dependencies
+   - Like testing train capacity during actual festival rush, not empty practice runs
+
+4. **Automated Recovery Validation**
+   - Don't just break things, ensure they heal automatically
+   - Test self-healing capabilities
+   - Mumbai trains have automatic block signaling - systems should too
+
+5. **Continuous Chaos Culture**
+   - Make breaking things a daily habit
+   - Chaos as code, not one-time experiments
+   - Like Mumbai's resilience - built through daily challenges
+
+**Advanced Chaos Patterns:**
+
+```python
+import asyncio
+import random
+from typing import Dict, List, Callable
+from datetime import datetime, timedelta
+
+class AdvancedChaosOrchestrator:
+    """
+    Advanced chaos engineering orchestrator
+    Based on Netflix's Chaos Engineering principles
+    Enhanced for Indian scale and context
+    """
+    
+    def __init__(self):
+        self.active_experiments = {}
+        self.blast_radius_config = {
+            'start_percentage': 1,
+            'max_percentage': 10,
+            'increment_step': 2,
+            'safety_threshold': 0.95  # System health must be >95%
+        }
+        self.monitoring_hooks = []
+        
+    async def create_chaos_experiment(self, 
+                                    name: str,
+                                    target_service: str,
+                                    failure_type: str,
+                                    hypothesis: str,
+                                    success_criteria: Dict):
+        """Create a new chaos experiment with proper safeguards"""
+        
+        experiment = {
+            'id': f"chaos_{name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+            'name': name,
+            'target': target_service,
+            'failure_type': failure_type,
+            'hypothesis': hypothesis,
+            'success_criteria': success_criteria,
+            'blast_radius': self.blast_radius_config['start_percentage'],
+            'status': 'initialized',
+            'start_time': None,
+            'metrics': [],
+            'safety_violations': 0
+        }
+        
+        self.active_experiments[experiment['id']] = experiment
+        return experiment['id']
+    
+    async def execute_gradual_chaos(self, experiment_id: str):
+        """Execute chaos with gradual blast radius increase"""
+        experiment = self.active_experiments[experiment_id]
+        
+        experiment['status'] = 'running'
+        experiment['start_time'] = datetime.now()
+        
+        # Start with minimal blast radius
+        current_radius = self.blast_radius_config['start_percentage']
+        
+        while current_radius <= self.blast_radius_config['max_percentage']:
+            print(f"🎯 Executing {experiment['name']} with {current_radius}% blast radius")
+            
+            # Inject failure for current radius
+            await self.inject_failure(
+                experiment['target'],
+                experiment['failure_type'],
+                current_radius
+            )
+            
+            # Monitor for 5 minutes
+            await asyncio.sleep(300)
+            
+            # Collect metrics
+            metrics = await self.collect_metrics(experiment['target'])
+            experiment['metrics'].append({
+                'timestamp': datetime.now(),
+                'blast_radius': current_radius,
+                'metrics': metrics
+            })
+            
+            # Check success criteria
+            if not self.evaluate_success_criteria(metrics, experiment['success_criteria']):
+                experiment['safety_violations'] += 1
+                print(f"⚠️ Safety violation detected at {current_radius}% blast radius")
+                
+                if experiment['safety_violations'] >= 2:
+                    print(f"🛑 Aborting experiment {experiment['name']} due to safety violations")
+                    await self.abort_experiment(experiment_id)
+                    return
+            
+            # Stop failure injection
+            await self.stop_failure_injection(experiment['target'])
+            
+            # Wait for recovery
+            await asyncio.sleep(60)
+            
+            # Increase blast radius
+            current_radius += self.blast_radius_config['increment_step']
+        
+        experiment['status'] = 'completed'
+        print(f"✅ Chaos experiment {experiment['name']} completed successfully")
+    
+    async def inject_failure(self, target: str, failure_type: str, percentage: float):
+        """Inject specific failure types with controlled blast radius"""
+        
+        failure_patterns = {
+            'network_latency': lambda: self.inject_network_latency(target, percentage),
+            'database_timeout': lambda: self.inject_db_timeout(target, percentage),
+            'memory_pressure': lambda: self.inject_memory_pressure(target, percentage),
+            'cpu_spike': lambda: self.inject_cpu_spike(target, percentage),
+            'disk_io_delay': lambda: self.inject_disk_delay(target, percentage),
+            'dependency_failure': lambda: self.inject_dependency_failure(target, percentage)
+        }
+        
+        if failure_type in failure_patterns:
+            await failure_patterns[failure_type]()
+        else:
+            raise ValueError(f"Unknown failure type: {failure_type}")
+    
+    async def inject_network_latency(self, target: str, percentage: float):
+        """Inject network latency for percentage of requests"""
+        # Use iptables/tc commands to inject latency
+        latency_ms = random.randint(500, 2000)  # 0.5-2 second delays
+        
+        print(f"💥 Injecting {latency_ms}ms network latency to {percentage}% of {target} traffic")
+        
+        # Implementation would use Linux traffic control
+        # tc qdisc add dev eth0 root netem delay {latency_ms}ms
+        
+    async def collect_metrics(self, target: str) -> Dict:
+        """Collect comprehensive metrics during chaos experiment"""
+        
+        # Simulate metrics collection from monitoring system
+        return {
+            'response_time_p95': random.uniform(200, 800),
+            'error_rate': random.uniform(0.001, 0.05),
+            'throughput': random.uniform(8000, 12000),
+            'cpu_usage': random.uniform(0.3, 0.8),
+            'memory_usage': random.uniform(0.4, 0.7),
+            'active_connections': random.randint(1000, 5000),
+            'queue_depth': random.randint(10, 100)
+        }
+    
+    def evaluate_success_criteria(self, metrics: Dict, criteria: Dict) -> bool:
+        """Evaluate if current metrics meet success criteria"""
+        
+        for metric, threshold in criteria.items():
+            if metric in metrics:
+                if isinstance(threshold, dict):
+                    # Range criteria
+                    if 'min' in threshold and metrics[metric] < threshold['min']:
+                        return False
+                    if 'max' in threshold and metrics[metric] > threshold['max']:
+                        return False
+                else:
+                    # Simple threshold
+                    if metrics[metric] > threshold:
+                        return False
+        
+        return True
+
+# Example usage for Indian fintech scale
+async def flipkart_payment_chaos_test():
+    """Real-world chaos test for Flipkart payment system"""
+    
+    orchestrator = AdvancedChaosOrchestrator()
+    
+    # Define experiment for payment service chaos
+    experiment_id = await orchestrator.create_chaos_experiment(
+        name="big_billion_day_payment_resilience",
+        target_service="payment_gateway_service",
+        failure_type="database_timeout",
+        hypothesis="Payment system can handle database timeouts during peak sale periods",
+        success_criteria={
+            'response_time_p95': 3000,  # Max 3 seconds
+            'error_rate': 0.01,         # Max 1% errors
+            'throughput': {'min': 5000} # Min 5K TPS
+        }
+    )
+    
+    # Execute gradual chaos
+    await orchestrator.execute_gradual_chaos(experiment_id)
+
+# Example for IRCTC booking system
+async def irctc_tatkal_chaos_test():
+    """Chaos test for IRCTC Tatkal booking system"""
+    
+    orchestrator = AdvancedChaosOrchestrator()
+    
+    experiment_id = await orchestrator.create_chaos_experiment(
+        name="tatkal_booking_load_resilience",
+        target_service="booking_service",
+        failure_type="memory_pressure",
+        hypothesis="Booking system remains functional during memory pressure",
+        success_criteria={
+            'response_time_p95': 5000,  # Max 5 seconds for booking
+            'error_rate': 0.05,         # Max 5% errors (acceptable for tatkal)
+            'throughput': {'min': 1000} # Min 1K bookings/minute
+        }
+    )
+    
+    await orchestrator.execute_gradual_chaos(experiment_id)
+```
+
+**Mumbai Train Chaos Engineering:**
+
+Mumbai locals actually do chaos engineering daily! Notice the patterns:
+
+1. **Daily Stress Testing**: Rush hour is daily chaos experiment
+2. **Failure Recovery**: When trains break down, system reroutes automatically
+3. **Load Balancing**: Passengers naturally distribute across platforms
+4. **Circuit Breakers**: Stations halt entry when overcrowded
+5. **Graceful Degradation**: Slow trains better than no trains
+
+These are the exact same patterns we implement in software systems!
+
 ### Section 1.3: Indian Context - IRCTC, Flipkart, and Digital India
 
 **IRCTC's Daily Chaos: Tatkal Booking**
@@ -426,9 +674,280 @@ public class FlipkartChaosFramework {
 
 ## Part 2: Queue Theory - Line Mein Lago! 📊
 
-### Section 2.1: The Mathematics of Waiting
+### Section 2.1: The Mathematics of Waiting - Advanced Queueing Models
 
 Queue theory isn't just about standing in line - it's the mathematical study of waiting lines. From Mumbai local train platforms to API rate limiting, queues are everywhere!
+
+According to queueing analysis principles (reference: docs/analysis/queueing-models.md), advanced queueing systems require understanding of multiple mathematical models that govern system behavior under stress.
+
+**Advanced Queueing Model Classifications:**
+
+**1. M/M/1 Queue (Markovian Arrivals, Markovian Service, 1 Server)**
+- Most basic but powerful model
+- Mumbai Example: Single ticket counter at local station
+- System Example: Single database connection handling requests
+
+**2. M/M/c Queue (Multiple Servers)**
+- Multiple parallel servers
+- Mumbai Example: Multiple ticket counters working simultaneously
+- System Example: Database connection pool with c connections
+
+**3. M/G/1 Queue (General Service Distribution)**
+- Non-exponential service times
+- Mumbai Example: Train arrivals (not perfectly random)
+- System Example: API calls with variable processing complexity
+
+**4. G/G/c Queue (General Arrivals and Service)**
+- Most realistic but complex model
+- Mumbai Example: Real-world train station with irregular patterns
+- System Example: Production microservice with bursty traffic
+
+**Mathematical Foundation for Indian Scale Systems:**
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import special
+from typing import Tuple, List, Dict
+import math
+
+class AdvancedQueueingAnalyzer:
+    """
+    Advanced queueing theory analyzer for Indian scale systems
+    Implements multiple queueing models with real production metrics
+    """
+    
+    def __init__(self):
+        self.historical_data = {}
+        self.model_cache = {}
+    
+    def mm1_analysis(self, arrival_rate: float, service_rate: float) -> Dict:
+        """
+        M/M/1 queue analysis - foundation for all queueing
+        Perfect for single-threaded systems like IRCTC booking
+        """
+        if arrival_rate >= service_rate:
+            return {"error": "System unstable - arrival rate exceeds service rate"}
+        
+        rho = arrival_rate / service_rate  # Utilization
+        
+        metrics = {
+            'utilization': rho,
+            'avg_customers_in_system': rho / (1 - rho),
+            'avg_customers_in_queue': (rho ** 2) / (1 - rho),
+            'avg_time_in_system': 1 / (service_rate - arrival_rate),
+            'avg_wait_time': rho / (service_rate - arrival_rate),
+            'probability_empty_system': 1 - rho,
+            'probability_n_customers': lambda n: (1 - rho) * (rho ** n)
+        }
+        
+        return metrics
+    
+    def mmc_analysis(self, arrival_rate: float, service_rate: float, num_servers: int) -> Dict:
+        """
+        M/M/c queue analysis - for load balanced systems
+        Perfect for distributed services like payment gateways
+        """
+        rho = arrival_rate / service_rate  # Traffic intensity per server
+        total_rho = arrival_rate / (num_servers * service_rate)
+        
+        if total_rho >= 1:
+            return {"error": "System unstable - total utilization >= 1"}
+        
+        # Calculate C(c, rho) - Erlang C formula
+        erlang_c = self.calculate_erlang_c(rho, num_servers)
+        
+        metrics = {
+            'utilization_per_server': total_rho,
+            'total_utilization': total_rho * num_servers,
+            'probability_wait': erlang_c,
+            'avg_wait_time': (erlang_c / (num_servers * service_rate - arrival_rate)),
+            'avg_customers_waiting': erlang_c * total_rho / (1 - total_rho),
+            'avg_customers_in_system': (erlang_c * total_rho / (1 - total_rho)) + arrival_rate / service_rate
+        }
+        
+        return metrics
+    
+    def calculate_erlang_c(self, rho: float, c: int) -> float:
+        """Calculate Erlang C formula for M/M/c queue"""
+        
+        # Calculate sum in denominator
+        sum_term = 0
+        for k in range(c):
+            sum_term += (rho ** k) / math.factorial(k)
+        
+        # Calculate (ρ^c / c!) / (1 - ρ/c)
+        numerator = (rho ** c) / math.factorial(c)
+        denominator_part = 1 - (rho / c)
+        
+        erlang_c = numerator / denominator_part
+        total_denominator = sum_term + erlang_c
+        
+        return erlang_c / total_denominator
+    
+    def analyze_indian_fintech_queue(self, company: str, scenario: str) -> Dict:
+        """Analyze real Indian fintech queueing scenarios"""
+        
+        scenarios = {
+            'paytm_festival_surge': {
+                'normal_arrival_rate': 2000,     # 2K TPS normal
+                'peak_arrival_rate': 50000,      # 50K TPS during festival
+                'service_rate': 60000,           # Max processing capacity
+                'num_servers': 20,               # Database connections
+                'surge_duration_hours': 2
+            },
+            'irctc_tatkal_booking': {
+                'normal_arrival_rate': 100,      # 100 bookings/sec normal
+                'peak_arrival_rate': 100000,     # 100K bookings/sec at 10 AM
+                'service_rate': 150000,          # Theoretical max capacity
+                'num_servers': 50,               # Application servers
+                'surge_duration_hours': 0.25     # 15 minutes peak
+            },
+            'flipkart_big_billion_day': {
+                'normal_arrival_rate': 10000,    # 10K orders/minute normal
+                'peak_arrival_rate': 500000,     # 500K orders/minute peak
+                'service_rate': 600000,          # Order processing capacity
+                'num_servers': 100,              # Microservice instances
+                'surge_duration_hours': 24       # Full day sale
+            },
+            'zomato_dinner_rush': {
+                'normal_arrival_rate': 1000,     # 1K orders/minute normal
+                'peak_arrival_rate': 25000,      # 25K orders/minute dinner
+                'service_rate': 30000,           # Order processing capacity
+                'num_servers': 15,               # Order processing workers
+                'surge_duration_hours': 3        # 7-10 PM rush
+            }
+        }
+        
+        if scenario not in scenarios:
+            return {"error": f"Unknown scenario: {scenario}"}
+        
+        config = scenarios[scenario]
+        
+        # Analyze normal operations
+        normal_analysis = self.mmc_analysis(
+            config['normal_arrival_rate'],
+            config['service_rate'] / config['num_servers'],
+            config['num_servers']
+        )
+        
+        # Analyze peak operations
+        peak_analysis = self.mmc_analysis(
+            config['peak_arrival_rate'],
+            config['service_rate'] / config['num_servers'],
+            config['num_servers']
+        )
+        
+        # Calculate business impact
+        business_impact = self.calculate_business_impact(
+            company, scenario, config, normal_analysis, peak_analysis
+        )
+        
+        return {
+            'company': company,
+            'scenario': scenario,
+            'normal_operations': normal_analysis,
+            'peak_operations': peak_analysis,
+            'business_impact': business_impact,
+            'recommendations': self.generate_recommendations(normal_analysis, peak_analysis)
+        }
+    
+    def calculate_business_impact(self, company: str, scenario: str, config: Dict, 
+                                normal: Dict, peak: Dict) -> Dict:
+        """Calculate business impact of queueing delays"""
+        
+        # Revenue per transaction (estimates in INR)
+        revenue_per_transaction = {
+            'paytm': 15,           # ₹15 per UPI transaction
+            'irctc': 200,          # ₹200 average booking value
+            'flipkart': 1500,      # ₹1500 average order value
+            'zomato': 400          # ₹400 average order value
+        }
+        
+        company_key = company.lower()
+        revenue = revenue_per_transaction.get(company_key, 100)
+        
+        # Calculate lost transactions due to long wait times
+        # Assume customers abandon if wait time > 10 seconds
+        abandon_threshold = 10  # seconds
+        
+        peak_wait_time = peak.get('avg_wait_time', 0)
+        if peak_wait_time > abandon_threshold:
+            abandon_rate = min(0.8, (peak_wait_time - abandon_threshold) / 30)
+        else:
+            abandon_rate = 0
+        
+        # Calculate financial impact
+        peak_arrival_rate = config['peak_arrival_rate']
+        surge_duration = config['surge_duration_hours']
+        
+        total_peak_transactions = peak_arrival_rate * surge_duration * 3600
+        lost_transactions = total_peak_transactions * abandon_rate
+        lost_revenue = lost_transactions * revenue
+        
+        return {
+            'peak_wait_time_seconds': peak_wait_time,
+            'abandon_rate_percentage': abandon_rate * 100,
+            'lost_transactions': int(lost_transactions),
+            'lost_revenue_inr': int(lost_revenue),
+            'lost_revenue_crores': lost_revenue / 10000000,  # Convert to crores
+            'infrastructure_stress': peak.get('total_utilization', 0)
+        }
+    
+    def generate_recommendations(self, normal: Dict, peak: Dict) -> List[str]:
+        """Generate infrastructure recommendations based on queueing analysis"""
+        
+        recommendations = []
+        
+        peak_util = peak.get('total_utilization', 0)
+        peak_wait = peak.get('avg_wait_time', 0)
+        
+        if peak_util > 0.8:
+            recommendations.append("🚨 Add more servers - utilization too high")
+        
+        if peak_wait > 5:
+            recommendations.append("⚡ Implement request prioritization")
+        
+        if peak_wait > 10:
+            recommendations.append("🔄 Add circuit breakers to prevent cascade failures")
+        
+        if peak_util > 0.9:
+            recommendations.append("📈 Scale horizontally - add 50% more capacity")
+        
+        recommendations.append("🎯 Implement queue depth monitoring")
+        recommendations.append("⏰ Add request timeout mechanisms")
+        
+        return recommendations
+
+# Real analysis for Indian companies
+analyzer = AdvancedQueueingAnalyzer()
+
+# Analyze Paytm festival surge
+paytm_analysis = analyzer.analyze_indian_fintech_queue('Paytm', 'paytm_festival_surge')
+print("📊 PAYTM FESTIVAL SURGE ANALYSIS:")
+print(f"Normal wait time: {paytm_analysis['normal_operations']['avg_wait_time']:.2f} seconds")
+print(f"Peak wait time: {paytm_analysis['peak_operations']['avg_wait_time']:.2f} seconds")
+print(f"Potential revenue loss: ₹{paytm_analysis['business_impact']['lost_revenue_crores']:.1f} crores")
+
+# Analyze IRCTC Tatkal booking
+irctc_analysis = analyzer.analyze_indian_fintech_queue('IRCTC', 'irctc_tatkal_booking')
+print("\n🚂 IRCTC TATKAL BOOKING ANALYSIS:")
+print(f"Normal wait time: {irctc_analysis['normal_operations']['avg_wait_time']:.2f} seconds")
+print(f"Peak wait time: {irctc_analysis['peak_operations']['avg_wait_time']:.2f} seconds")
+print(f"Booking abandon rate: {irctc_analysis['business_impact']['abandon_rate_percentage']:.1f}%")
+```
+
+**Mumbai Local Train Queue Analysis:**
+
+Every Mumbai commuter unconsciously understands advanced queueing theory! Consider platform behavior:
+
+1. **Multi-Server Queue**: Multiple coaches = multiple servers
+2. **Priority Queue**: Ladies coach, senior citizen priority
+3. **Load Balancing**: People naturally spread across platform
+4. **Circuit Breaker**: Station stops entry when overcrowded
+5. **Queue Jumping**: First class vs second class (different service rates)
+
+These are the exact same patterns we implement in software systems!
 
 **Little's Law - The Universal Truth**
 

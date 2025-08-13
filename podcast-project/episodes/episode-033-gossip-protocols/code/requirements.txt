@@ -1,0 +1,103 @@
+# Episode 33 - Gossip Protocols
+# Python Dependencies for all examples
+
+# Core dependencies
+asyncio>=3.4.3
+dataclasses>=0.6; python_version<"3.7"
+typing>=3.7.4; python_version<"3.8"
+enum34>=1.1.10; python_version<"3.4"
+
+# Network and communication
+requests>=2.25.1
+websockets>=10.0
+aiohttp>=3.8.0
+
+# Data serialization and hashing
+json5>=0.9.0
+hashlib-compat>=1.0.0
+msgpack>=1.0.0
+
+# Cryptography and security
+cryptography>=3.4.0
+pycryptodome>=3.15.0
+
+# Math and statistics
+numpy>=1.21.0
+scipy>=1.7.0
+matplotlib>=3.5.0
+
+# Async and concurrency
+asyncio-pool>=0.6.0
+concurrent-futures>=3.1.1; python_version<"3.2"
+
+# Time and scheduling
+pytz>=2021.1
+python-dateutil>=2.8.0
+
+# Logging and monitoring
+structlog>=21.1.0
+colorlog>=6.4.1
+
+# Testing dependencies
+pytest>=6.2.0
+pytest-asyncio>=0.15.0
+pytest-mock>=3.6.0
+pytest-cov>=2.12.0
+
+# Development dependencies
+black>=21.0.0
+flake8>=3.9.0
+mypy>=0.910
+isort>=5.9.0
+
+# Simulation and modeling
+simpy>=4.0.1
+networkx>=2.6.0
+
+# Performance monitoring
+psutil>=5.8.0
+memory-profiler>=0.60.0
+
+# Optional dependencies for specific examples
+redis>=3.5.3  # For Redis-based examples
+kafka-python>=2.0.2  # For Kafka examples
+pymongo>=3.12.0  # For MongoDB examples
+cassandra-driver>=3.25.0  # For Cassandra examples
+
+# Data visualization (optional)
+plotly>=5.0.0
+seaborn>=0.11.0
+bokeh>=2.4.0
+
+# Configuration and environment
+python-dotenv>=0.19.0
+pyyaml>=5.4.0
+configparser>=5.0.0
+
+# HTTP clients and APIs
+httpx>=0.24.0
+urllib3>=1.26.0
+
+# UUID and random generation
+uuid>=1.30
+secrets>=3.3.0; python_version>="3.6"
+
+# Bloom filter implementation
+pybloom-live>=3.0.0
+mmh3>=3.0.0
+
+# Message queuing
+pika>=1.2.0  # RabbitMQ
+kombu>=5.1.0  # Message queue abstraction
+
+# Distributed systems utilities
+zookeeper>=0.1  # For ZooKeeper examples
+consul>=1.1.0  # For Consul examples
+
+# Networking utilities
+netifaces>=0.11.0
+ipaddress>=1.0.23; python_version<"3.3"
+
+# System monitoring
+resource>=0.2.1
+tracemalloc>=0.1.0; python_version>="3.4"

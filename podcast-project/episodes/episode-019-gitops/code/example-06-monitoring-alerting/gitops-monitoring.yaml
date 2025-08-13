@@ -1,0 +1,582 @@
+# GitOps Monitoring and Alerting
+# Indian Production Environment के लिए comprehensive monitoring
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitops-monitoring
+  labels:
+    monitoring: enabled
+    region: india
+    compliance: rbi-approved
+
+---
+# Prometheus Configuration for GitOps Monitoring
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-gitops-config
+  namespace: gitops-monitoring
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+      external_labels:
+        cluster: 'indian-production'
+        region: 'mumbai'
+        compliance: 'rbi'
+    
+    rule_files:
+      - "/etc/prometheus/rules/*.yml"
+    
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets:
+              - alertmanager.gitops-monitoring.svc.cluster.local:9093
+    
+    scrape_configs:
+      # ArgoCD Metrics
+      - job_name: 'argocd-metrics'
+        static_configs:
+          - targets: ['argocd-metrics.argocd.svc.cluster.local:8082']
+        scrape_interval: 30s
+        metrics_path: /metrics
+        relabel_configs:
+          - source_labels: [__name__]
+            target_label: component
+            replacement: 'argocd'
+      
+      # Flux Metrics
+      - job_name: 'flux-system'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names:
+                - flux-system
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+      
+      # GitOps Applications Health
+      - job_name: 'gitops-applications'
+        kubernetes_sd_configs:
+          - role: service
+            namespaces:
+              names:
+                - payment-production
+                - user-production
+                - order-production
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+      
+      # Indian Payment Gateway Metrics
+      - job_name: 'payment-gateways'
+        static_configs:
+          - targets:
+            - 'razorpay-gateway.payment-production.svc.cluster.local:8080'
+            - 'paytm-gateway.payment-production.svc.cluster.local:8080'
+            - 'upi-gateway.payment-production.svc.cluster.local:8080'
+        scrape_interval: 10s # Frequent monitoring for payments
+        metrics_path: /metrics
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: payment_gateway
+            regex: '([^.]+)\..*'
+            replacement: '${1}'
+      
+      # Database Metrics for Indian Banking
+      - job_name: 'databases'
+        static_configs:
+          - targets:
+            - 'postgres-exporter.db-production.svc.cluster.local:9187'
+            - 'redis-exporter.cache-production.svc.cluster.local:9121'
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: database_type
+            regex: '([^-]+)-.*'
+            replacement: '${1}'
+
+---
+# PrometheusRule for GitOps Alerting
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gitops-alerts
+  namespace: gitops-monitoring
+  labels:
+    prometheus: kube-prometheus
+    role: alert-rules
+spec:
+  groups:
+    # ArgoCD Health Alerts
+    - name: argocd.alerts
+      interval: 30s
+      rules:
+        - alert: ArgoCDApplicationOutOfSync
+          expr: argocd_app_info{sync_status!="Synced"} == 1
+          for: 5m
+          labels:
+            severity: warning
+            team: platform
+            component: argocd
+            impact: deployment
+          annotations:
+            summary: "ArgoCD Application {{ $labels.name }} out of sync"
+            description: "Application {{ $labels.name }} in project {{ $labels.project }} has been out of sync for more than 5 minutes"
+            runbook_url: "https://runbooks.company.com/argocd-out-of-sync"
+            dashboard_url: "https://grafana.company.com/d/argocd/argocd-dashboard"
+        
+        - alert: ArgoCDApplicationDegraded
+          expr: argocd_app_info{health_status!="Healthy"} == 1
+          for: 2m
+          labels:
+            severity: critical
+            team: platform
+            component: argocd
+            impact: service
+          annotations:
+            summary: "ArgoCD Application {{ $labels.name }} degraded"
+            description: "Application {{ $labels.name }} health status is {{ $labels.health_status }}"
+            runbook_url: "https://runbooks.company.com/argocd-degraded"
+        
+        - alert: ArgoCDSyncFailed
+          expr: increase(argocd_app_sync_total{phase="Failed"}[5m]) > 3
+          for: 1m
+          labels:
+            severity: critical
+            team: platform
+            component: argocd
+            impact: deployment
+          annotations:
+            summary: "ArgoCD Sync failures detected"
+            description: "Application {{ $labels.name }} has {{ $value }} sync failures in last 5 minutes"
+            runbook_url: "https://runbooks.company.com/argocd-sync-failed"
+    
+    # Flux Health Alerts
+    - name: flux.alerts
+      interval: 30s
+      rules:
+        - alert: FluxReconciliationFailure
+          expr: gotk_reconcile_condition{type="Ready",status="False"} == 1
+          for: 15m
+          labels:
+            severity: warning
+            team: platform
+            component: flux
+            impact: deployment
+          annotations:
+            summary: "Flux reconciliation failing"
+            description: "{{ $labels.kind }} {{ $labels.name }} reconciliation has been failing for 15 minutes"
+            runbook_url: "https://runbooks.company.com/flux-reconciliation-failed"
+        
+        - alert: FluxSourceNotReady
+          expr: gotk_reconcile_condition{kind=~"GitRepository|HelmRepository|Bucket",type="Ready",status="False"} == 1
+          for: 5m
+          labels:
+            severity: critical
+            team: platform
+            component: flux
+            impact: deployment
+          annotations:
+            summary: "Flux source not ready"
+            description: "{{ $labels.kind }} {{ $labels.name }} has been not ready for 5 minutes"
+    
+    # Indian Payment System Alerts
+    - name: indian-payments.alerts
+      interval: 15s
+      rules:
+        - alert: PaymentGatewayHighErrorRate
+          expr: |
+            (
+              sum(rate(http_requests_total{job="payment-gateways",code=~"5.."}[2m])) /
+              sum(rate(http_requests_total{job="payment-gateways"}[2m]))
+            ) * 100 > 2
+          for: 1m
+          labels:
+            severity: critical
+            team: payments
+            component: payment-gateway
+            impact: revenue
+            region: india
+          annotations:
+            summary: "Payment gateway error rate high: {{ $value }}%"
+            description: "Payment gateway {{ $labels.payment_gateway }} error rate is {{ $value }}% for 1 minute"
+            impact: "Revenue loss estimated at ₹{{ $value | humanize }}K per minute"
+            runbook_url: "https://runbooks.company.com/payment-gateway-errors"
+        
+        - alert: UPITransactionFailures
+          expr: |
+            sum(rate(upi_transactions_total{status="failed"}[1m])) /
+            sum(rate(upi_transactions_total[1m])) * 100 > 5
+          for: 30s
+          labels:
+            severity: critical
+            team: payments
+            component: upi-gateway
+            impact: customer-experience
+            compliance: npci
+          annotations:
+            summary: "UPI transaction failure rate high"
+            description: "UPI failure rate is {{ $value }}% - above NPCI threshold of 5%"
+            compliance_impact: "NPCI reporting required if sustained"
+            runbook_url: "https://runbooks.company.com/upi-failures"
+        
+        - alert: PaymentLatencyHigh
+          expr: |
+            histogram_quantile(0.95, 
+              sum(rate(payment_request_duration_seconds_bucket{job="payment-gateways"}[5m])) by (le, payment_gateway)
+            ) * 1000 > 3000
+          for: 2m
+          labels:
+            severity: warning
+            team: payments
+            component: payment-gateway
+            impact: customer-experience
+          annotations:
+            summary: "Payment latency high: {{ $value }}ms"
+            description: "95th percentile payment latency is {{ $value }}ms for {{ $labels.payment_gateway }}"
+            customer_impact: "Slow payment experience affecting conversions"
+    
+    # Database Alerts for Indian Banking
+    - name: database.alerts
+      interval: 30s
+      rules:
+        - alert: DatabaseConnectionHigh
+          expr: |
+            sum(pg_stat_database_numbackends) by (datname) /
+            sum(pg_settings_max_connections) by (datname) * 100 > 80
+          for: 5m
+          labels:
+            severity: warning
+            team: platform
+            component: database
+            impact: performance
+          annotations:
+            summary: "Database connections high: {{ $value }}%"
+            description: "Database {{ $labels.datname }} connections at {{ $value }}% of max"
+        
+        - alert: DatabaseReplicationLag
+          expr: pg_stat_replication_lag_seconds > 30
+          for: 1m
+          labels:
+            severity: critical
+            team: platform
+            component: database
+            impact: data-consistency
+            compliance: rbi
+          annotations:
+            summary: "Database replication lag: {{ $value }}s"
+            description: "Replication lag is {{ $value }} seconds - may affect DR capability"
+            compliance_impact: "RBI requires minimal lag for disaster recovery"
+    
+    # GitOps Deployment Alerts
+    - name: gitops-deployments.alerts
+      interval: 60s
+      rules:
+        - alert: DeploymentStuck
+          expr: |
+            (
+              kube_deployment_spec_replicas{namespace=~".*-production"} -
+              kube_deployment_status_ready_replicas{namespace=~".*-production"}
+            ) > 0
+          for: 10m
+          labels:
+            severity: warning
+            team: platform
+            component: deployment
+            impact: availability
+          annotations:
+            summary: "Deployment {{ $labels.deployment }} stuck"
+            description: "Deployment {{ $labels.deployment }} in {{ $labels.namespace }} has been stuck for 10 minutes"
+        
+        - alert: HighPodRestarts
+          expr: |
+            increase(kube_pod_container_status_restarts_total{namespace=~".*-production"}[1h]) > 5
+          for: 5m
+          labels:
+            severity: warning
+            team: platform
+            component: pods
+            impact: stability
+          annotations:
+            summary: "High pod restart rate"
+            description: "Pod {{ $labels.pod }} in {{ $labels.namespace }} restarted {{ $value }} times in last hour"
+    
+    # Indian Compliance Alerts
+    - name: compliance.alerts
+      interval: 300s # Check every 5 minutes
+      rules:
+        - alert: RBIComplianceViolation
+          expr: compliance_check{authority="rbi",status="failed"} == 1
+          for: 0s # Immediate alert
+          labels:
+            severity: critical
+            team: compliance
+            component: regulatory
+            impact: legal
+            authority: rbi
+          annotations:
+            summary: "RBI compliance violation detected"
+            description: "Compliance check {{ $labels.check_name }} has failed"
+            legal_impact: "Immediate remediation required to avoid regulatory action"
+            escalation: "Legal and compliance teams must be notified immediately"
+        
+        - alert: DataResidencyViolation
+          expr: data_residency_check{location!~"mumbai|delhi|bangalore|chennai|hyderabad"} == 1
+          for: 0s
+          labels:
+            severity: critical
+            team: platform
+            component: data-residency
+            impact: legal
+            compliance: rbi
+          annotations:
+            summary: "Data residency violation - data outside India"
+            description: "Data detected in {{ $labels.location }} - violates RBI data localization"
+            action_required: "Immediate data migration to Indian regions required"
+
+---
+# AlertManager Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-config
+  namespace: gitops-monitoring
+data:
+  alertmanager.yml: |
+    global:
+      smtp_smarthost: 'localhost:587'
+      smtp_from: 'alerts@company.com'
+      smtp_auth_username: 'alerts@company.com'
+      smtp_auth_password: 'alertpassword'
+    
+    # Indian team structure
+    route:
+      group_by: ['alertname', 'cluster', 'service']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 4h
+      receiver: 'default'
+      routes:
+        # Critical payment alerts - immediate escalation
+        - match:
+            component: payment-gateway
+            severity: critical
+          receiver: 'payment-critical'
+          group_wait: 10s
+          repeat_interval: 5m
+        
+        # RBI compliance violations - legal team
+        - match:
+            authority: rbi
+          receiver: 'compliance-critical'
+          group_wait: 0s
+          repeat_interval: 1h
+        
+        # Platform issues - SRE team
+        - match:
+            team: platform
+          receiver: 'platform-team'
+        
+        # Payment issues - payments team
+        - match:
+            team: payments
+          receiver: 'payments-team'
+        
+        # Business hours vs after hours
+        - match_re:
+            severity: warning|info
+          receiver: 'business-hours'
+          active_time_intervals:
+            - business-hours-india
+        
+        - match_re:
+            severity: critical
+          receiver: 'after-hours'
+    
+    time_intervals:
+      - name: business-hours-india
+        time_intervals:
+          - times:
+            - start_time: '09:00'
+              end_time: '18:00'
+            weekdays: ['monday:friday']
+            location: 'Asia/Kolkata'
+    
+    receivers:
+      - name: 'default'
+        slack_configs:
+          - api_url: 'https://hooks.slack.com/services/DEFAULT_WEBHOOK'
+            channel: '#ops-alerts'
+            title: 'Alert: {{ .GroupLabels.alertname }}'
+            text: |
+              {{ range .Alerts }}
+              *Alert:* {{ .Annotations.summary }}
+              *Description:* {{ .Annotations.description }}
+              *Severity:* {{ .Labels.severity }}
+              *Team:* {{ .Labels.team }}
+              {{ end }}
+      
+      - name: 'payment-critical'
+        slack_configs:
+          - api_url: 'https://hooks.slack.com/services/PAYMENT_CRITICAL_WEBHOOK'
+            channel: '#payment-critical'
+            title: '🚨 CRITICAL PAYMENT ALERT'
+            text: |
+              {{ range .Alerts }}
+              *URGENT PAYMENT ISSUE*
+              *Summary:* {{ .Annotations.summary }}
+              *Impact:* {{ .Annotations.impact }}
+              *Revenue Impact:* {{ .Annotations.revenue_impact }}
+              *Runbook:* {{ .Annotations.runbook_url }}
+              {{ end }}
+        pagerduty_configs:
+          - service_key: 'PAYMENT_PAGERDUTY_KEY'
+            description: '{{ .GroupLabels.alertname }}: {{ .CommonAnnotations.summary }}'
+        email_configs:
+          - to: 'payment-oncall@company.com'
+            subject: 'CRITICAL: {{ .GroupLabels.alertname }}'
+            body: |
+              Critical payment system alert.
+              
+              {{ range .Alerts }}
+              Alert: {{ .Annotations.summary }}
+              Description: {{ .Annotations.description }}
+              Time: {{ .StartsAt.Format "2006-01-02 15:04:05 IST" }}
+              {{ end }}
+      
+      - name: 'compliance-critical'
+        email_configs:
+          - to: 'legal@company.com,compliance@company.com,cto@company.com'
+            subject: 'URGENT: RBI Compliance Violation'
+            body: |
+              IMMEDIATE ACTION REQUIRED
+              
+              {{ range .Alerts }}
+              Compliance Issue: {{ .Annotations.summary }}
+              Authority: {{ .Labels.authority }}
+              Legal Impact: {{ .Annotations.legal_impact }}
+              Action Required: {{ .Annotations.action_required }}
+              Time: {{ .StartsAt.Format "2006-01-02 15:04:05 IST" }}
+              {{ end }}
+        slack_configs:
+          - api_url: 'https://hooks.slack.com/services/COMPLIANCE_WEBHOOK'
+            channel: '#compliance-alerts'
+            title: '🏛️ RBI COMPLIANCE VIOLATION'
+            text: |
+              {{ range .Alerts }}
+              *COMPLIANCE VIOLATION DETECTED*
+              *Authority:* {{ .Labels.authority }}
+              *Issue:* {{ .Annotations.summary }}
+              *Legal Impact:* {{ .Annotations.legal_impact }}
+              *Escalation:* {{ .Annotations.escalation }}
+              {{ end }}
+      
+      - name: 'platform-team'
+        slack_configs:
+          - api_url: 'https://hooks.slack.com/services/PLATFORM_WEBHOOK'
+            channel: '#platform-alerts'
+            title: 'Platform Alert: {{ .GroupLabels.alertname }}'
+      
+      - name: 'payments-team'
+        slack_configs:
+          - api_url: 'https://hooks.slack.com/services/PAYMENTS_WEBHOOK'
+            channel: '#payments-alerts'
+            title: 'Payment Alert: {{ .GroupLabels.alertname }}'
+      
+      - name: 'business-hours'
+        slack_configs:
+          - api_url: 'https://hooks.slack.com/services/BUSINESS_HOURS_WEBHOOK'
+            channel: '#business-alerts'
+            title: 'Business Hours Alert: {{ .GroupLabels.alertname }}'
+      
+      - name: 'after-hours'
+        pagerduty_configs:
+          - service_key: 'AFTER_HOURS_PAGERDUTY_KEY'
+            description: 'After Hours Critical: {{ .GroupLabels.alertname }}'
+        slack_configs:
+          - api_url: 'https://hooks.slack.com/services/AFTER_HOURS_WEBHOOK'
+            channel: '#critical-alerts'
+            title: '🌙 After Hours Critical: {{ .GroupLabels.alertname }}'
+
+---
+# Grafana Dashboard ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitops-dashboard
+  namespace: gitops-monitoring
+data:
+  gitops-overview.json: |
+    {
+      "dashboard": {
+        "id": null,
+        "title": "GitOps Overview - Indian Production",
+        "tags": ["gitops", "argocd", "flux", "india"],
+        "timezone": "Asia/Kolkata",
+        "panels": [
+          {
+            "id": 1,
+            "title": "ArgoCD Application Status",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(argocd_app_info{sync_status=\"Synced\"}) by (sync_status)",
+                "legendFormat": "Synced Applications"
+              },
+              {
+                "expr": "sum(argocd_app_info{sync_status!=\"Synced\"}) by (sync_status)", 
+                "legendFormat": "Out of Sync Applications"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+          },
+          {
+            "id": 2,
+            "title": "Payment Gateway Health",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum(rate(http_requests_total{job=\"payment-gateways\"}[5m])) by (payment_gateway)",
+                "legendFormat": "{{ payment_gateway }} RPS"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+          },
+          {
+            "id": 3,
+            "title": "Indian Regional Health",
+            "type": "table",
+            "targets": [
+              {
+                "expr": "up{region=~\"mumbai|delhi|bangalore|chennai|hyderabad\"}",
+                "format": "table"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}
+          }
+        ],
+        "time": {
+          "from": "now-1h",
+          "to": "now"
+        },
+        "refresh": "30s"
+      }
+    }

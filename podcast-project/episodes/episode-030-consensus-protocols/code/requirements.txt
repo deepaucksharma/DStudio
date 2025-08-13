@@ -1,0 +1,187 @@
+# Requirements for Episode 030 - Consensus Protocols
+# Mumbai Style Distributed Systems Code Examples
+# ================================================
+
+# Core Python packages for consensus implementations
+# -------------------------------------------------
+
+# Networking and async programming
+asyncio>=3.4.3
+aiohttp>=3.8.0
+websockets>=10.0
+
+# Cryptography for hashing and signatures
+cryptography>=3.4.8
+hashlib2>=1.0.0
+
+# Data structures and utilities
+dataclasses-json>=0.5.7
+typing-extensions>=4.0.0
+
+# Concurrency and threading
+concurrent-futures>=3.1.1
+threading2>=0.1.2
+
+# Time and scheduling
+schedule>=1.1.0
+python-dateutil>=2.8.2
+
+# Logging and monitoring
+structlog>=21.1.0
+prometheus-client>=0.12.0
+
+# Testing frameworks
+pytest>=6.2.4
+pytest-asyncio>=0.15.1
+pytest-mock>=3.6.1
+
+# Mathematical operations
+numpy>=1.21.0
+scipy>=1.7.0
+
+# Network simulation
+simpy>=4.0.1
+
+# UUID and random generation
+uuid>=1.30
+secrets>=3.3
+
+# JSON handling
+orjson>=3.6.0
+
+# Performance profiling
+cProfile>=1.0
+memory-profiler>=0.60.0
+
+# Code quality
+black>=21.6b0
+flake8>=3.9.2
+mypy>=0.910
+
+# Documentation
+sphinx>=4.0.2
+sphinx-rtd-theme>=0.5.2
+
+# Mumbai-specific examples dependencies
+# ------------------------------------
+
+# For Indian banking examples
+rupees>=0.1.0  # Currency formatting
+
+# For stock exchange simulation
+pandas>=1.3.0  # Data analysis
+matplotlib>=3.4.2  # Plotting
+
+# For blockchain examples
+merkletools>=1.0.3  # Merkle trees
+ecdsa>=0.17.0  # Digital signatures
+
+# For Parliament simulation
+parliament-calendar>=1.0.0  # Indian calendar
+
+# Development and testing
+# ----------------------
+
+# Code formatting
+autopep8>=1.5.7
+isort>=5.9.2
+
+# Testing coverage
+coverage>=5.5
+pytest-cov>=2.12.1
+
+# Performance benchmarking
+timeit>=1.0.0
+benchmark>=1.0.0
+
+# Memory usage analysis
+psutil>=5.8.0
+memory-profiler>=0.60.0
+
+# Optional enhancements
+# --------------------
+
+# For advanced visualization
+plotly>=5.1.0
+bokeh>=2.3.2
+
+# For database integration (if needed)
+sqlite3>=2.6.0  # Built-in, but listed for completeness
+
+# For web interface (if building demo UI)
+flask>=2.0.1
+jinja2>=3.0.1
+
+# For configuration management
+pyyaml>=5.4.1
+configparser>=5.0.2
+
+# For serialization
+pickle5>=0.0.12  # Python 3.8+ pickle protocol 5
+
+# System monitoring
+resource>=0.2.1
+
+# Installation Notes for Mumbai Developers
+# =======================================
+
+# 1. Create virtual environment:
+#    python -m venv consensus_env
+#    source consensus_env/bin/activate  # Linux/Mac
+#    consensus_env\Scripts\activate     # Windows
+
+# 2. Install all dependencies:
+#    pip install -r requirements.txt
+
+# 3. For development:
+#    pip install -e .
+
+# 4. Run tests:
+#    pytest tests/ -v
+
+# 5. Format code:
+#    black . && isort .
+
+# System Requirements
+# ==================
+# Python >= 3.8
+# RAM >= 2GB (for simulation)
+# Storage >= 1GB
+# Network: Stable internet for external API calls
+
+# Mumbai Network Considerations
+# ============================
+# - Handle network timeouts gracefully
+# - Implement retry mechanisms for API calls
+# - Cache data locally when possible
+# - Use async/await for better concurrency
+
+# Performance Optimization
+# ========================
+# For better performance in Mumbai conditions:
+# - Use multiprocessing for CPU-intensive tasks
+# - Implement connection pooling
+# - Add request rate limiting
+# - Use local caching strategies
+
+# Security Considerations
+# ======================
+# - Always validate input data
+# - Use secure random number generation
+# - Implement proper authentication
+# - Log security events
+
+# Mumbai-specific Configurations
+# ==============================
+# Set appropriate timeouts for:
+# - Network requests: 30-60 seconds
+# - Database queries: 10-30 seconds
+# - File operations: 5-15 seconds
+
+# Monitoring and Alerting
+# ======================
+# Recommended tools for production:
+# - Prometheus for metrics
+# - Grafana for visualization
+# - ELK stack for logging
+# - Custom health checks

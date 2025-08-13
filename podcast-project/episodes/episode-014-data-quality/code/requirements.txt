@@ -1,0 +1,131 @@
+# Episode 14: Data Quality & Validation - Dependencies
+# Episode 14: डेटा गुणवत्ता और सत्यापन - आवश्यकताएं
+
+# Core data processing libraries
+pandas>=2.0.0
+numpy>=1.24.0
+great-expectations>=0.18.0
+
+# Data validation and schema libraries  
+pydantic>=2.0.0
+jsonschema>=4.17.0
+cerberus>=1.3.4
+marshmallow>=3.19.0
+
+# Database connectivity
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.5
+pymongo>=4.3.3
+redis>=4.5.1
+elasticsearch>=8.6.0
+
+# Machine learning for anomaly detection
+scikit-learn>=1.3.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.13.0
+
+# Data profiling and exploration
+pandas-profiling>=3.6.0
+sweetviz>=2.1.4
+dataprep>=0.4.5
+
+# Streaming and real-time processing
+kafka-python>=2.0.2
+apache-beam[gcp]>=2.46.0
+apache-airflow>=2.5.0
+
+# Indian-specific libraries
+# Aadhaar validation
+python-stdnum>=1.18  # For various ID validations
+phonenumbers>=8.13.7  # For Indian phone number validation
+
+# Web frameworks for APIs
+fastapi>=0.95.0
+uvicorn>=0.21.0
+flask>=2.2.3
+
+# Monitoring and logging
+prometheus-client>=0.16.0
+grafana-client>=3.5.0
+loguru>=0.6.0
+
+# Security and encryption
+cryptography>=40.0.0
+passlib>=1.7.4
+python-jose>=3.3.0
+
+# Testing libraries
+pytest>=7.2.2
+pytest-mock>=3.10.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0
+
+# Configuration and environment
+python-dotenv>=1.0.0
+pyyaml>=6.0
+click>=8.1.3
+
+# Data visualization for dashboards
+dash>=2.9.3
+streamlit>=1.21.0
+bokeh>=3.1.0
+
+# Cloud services (AWS, GCP, Azure)
+boto3>=1.26.0
+google-cloud-storage>=2.7.0
+azure-storage-blob>=12.14.1
+
+# Performance monitoring
+memory-profiler>=0.60.0
+line-profiler>=4.0.2
+py-spy>=0.3.14
+
+# Documentation generation
+sphinx>=6.1.3
+mkdocs>=1.4.2
+mkdocs-material>=9.1.3
+
+# Development tools
+black>=23.1.0
+flake8>=6.0.0
+mypy>=1.1.1
+pre-commit>=3.2.0
+
+# Indian banking and government API integrations
+requests>=2.28.2
+httpx>=0.23.3
+aiohttp>=3.8.4
+
+# Date and time handling
+python-dateutil>=2.8.2
+pytz>=2022.7.1
+
+# File processing
+openpyxl>=3.1.1
+xlsxwriter>=3.0.9
+PyPDF2>=3.0.1
+
+# Concurrency and async
+asyncio>=3.4.3
+concurrent-futures>=3.1.1
+multiprocessing-logging>=0.3.4
+
+# Network and API rate limiting
+ratelimit>=2.2.1
+backoff>=2.2.1
+
+# Configuration management for different environments
+dynaconf>=3.1.12
+hydra-core>=1.3.2
+
+# Indian regional language support
+indic-transliteration>=2.3.36
+polyglot>=16.7.4
+
+# Specialized Indian data validation
+# Custom additions for Indian context
+validate-email>=1.3
+python-magic>=0.4.27  # For file type validation
+bleach>=6.0.0  # For data sanitization

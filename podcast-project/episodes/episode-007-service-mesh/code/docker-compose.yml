@@ -1,0 +1,435 @@
+# Mumbai Service Mesh Development Environment
+# Docker Compose setup for local testing
+# Context: PhonePe/Paytm style microservices with service mesh
+
+version: '3.8'
+
+services:
+  # Istio Control Plane - Mumbai Traffic Control Center
+  istio-pilot:
+    image: istio/pilot:1.19.0
+    container_name: mumbai-istio-pilot
+    ports:
+      - "15010:15010"  # xDS gRPC server
+      - "15011:15011"  # Secure xDS gRPC server
+      - "15014:15014"  # Control plane monitoring
+    environment:
+      - PILOT_ENABLE_CROSS_CLUSTER_WORKLOAD_ENTRY=true
+      - PILOT_SCOPE_GATEWAY_TO_NAMESPACE=false
+      - EXTERNAL_ISTIOD=false
+    volumes:
+      - ./config/istio:/etc/istio/config
+    networks:
+      - mumbai-mesh
+    command: [
+      "pilot-discovery",
+      "discovery",
+      "--monitoringAddr=:15014",
+      "--log_output_level=default:info",
+      "--domain=mumbai.local"
+    ]
+    labels:
+      - "traefik.enable=false"
+      - "mumbai.service=control-plane"
+
+  # Envoy Proxy - Mumbai Traffic Signal
+  envoy-proxy:
+    image: envoyproxy/envoy:v1.28.0
+    container_name: mumbai-envoy-proxy
+    ports:
+      - "10000:10000"  # Proxy port
+      - "9901:9901"    # Admin port
+    volumes:
+      - ./config/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - ./certs:/etc/ssl/certs:ro
+    networks:
+      - mumbai-mesh
+    depends_on:
+      - istio-pilot
+    command: [
+      "envoy",
+      "-c", "/etc/envoy/envoy.yaml",
+      "--service-cluster", "mumbai-proxy",
+      "--service-node", "mumbai-proxy-1",
+      "--log-level", "info"
+    ]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.envoy.rule=Host(`envoy.mumbai.local`)"
+      - "mumbai.service=proxy"
+
+  # Jaeger - Mumbai Route Tracking System
+  jaeger:
+    image: jaegertracing/all-in-one:1.50
+    container_name: mumbai-jaeger
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "14268:14268"  # Jaeger collector HTTP
+      - "14250:14250"  # Jaeger collector gRPC
+      - "6831:6831/udp"  # Jaeger agent UDP
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    networks:
+      - mumbai-mesh
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jaeger.rule=Host(`jaeger.mumbai.local`)"
+      - "mumbai.service=tracing"
+
+  # Prometheus - Mumbai Metrics Collection
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: mumbai-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - mumbai-mesh
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.mumbai.local`)"
+      - "mumbai.service=metrics"
+
+  # Grafana - Mumbai Dashboard System
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: mumbai-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=mumbai123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+    volumes:
+      - ./config/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    networks:
+      - mumbai-mesh
+    depends_on:
+      - prometheus
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.mumbai.local`)"
+      - "mumbai.service=dashboard"
+
+  # Sample Services - Mumbai Food Delivery Style
+
+  # Order Service - Zomato/Swiggy Order Management
+  order-service-v1:
+    build: 
+      context: ./services/order-service
+      dockerfile: Dockerfile
+    container_name: mumbai-order-service-v1
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVICE_NAME=order-service
+      - SERVICE_VERSION=v1
+      - SERVICE_PORT=8080
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - MYSQL_HOST=mysql
+      - REDIS_HOST=redis
+    volumes:
+      - ./certs/order-service:/etc/ssl/certs:ro
+    networks:
+      - mumbai-mesh
+    depends_on:
+      - mysql
+      - redis
+      - jaeger
+    labels:
+      - "mumbai.service=order-service"
+      - "mumbai.version=v1"
+      - "mumbai.zone=mumbai-west"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Order Service v2 - Canary deployment
+  order-service-v2:
+    build: 
+      context: ./services/order-service
+      dockerfile: Dockerfile
+    container_name: mumbai-order-service-v2
+    ports:
+      - "8081:8080"
+    environment:
+      - SERVICE_NAME=order-service
+      - SERVICE_VERSION=v2
+      - SERVICE_PORT=8080
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - MYSQL_HOST=mysql
+      - REDIS_HOST=redis
+      - FEATURE_NEW_ALGORITHM=true
+    volumes:
+      - ./certs/order-service:/etc/ssl/certs:ro
+    networks:
+      - mumbai-mesh
+    depends_on:
+      - mysql
+      - redis
+      - jaeger
+    labels:
+      - "mumbai.service=order-service"
+      - "mumbai.version=v2"
+      - "mumbai.zone=mumbai-west"
+      - "mumbai.canary=true"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Payment Service - UPI Payment Processing
+  payment-service:
+    build:
+      context: ./services/payment-service
+      dockerfile: Dockerfile
+    container_name: mumbai-payment-service
+    ports:
+      - "8082:8080"
+    environment:
+      - SERVICE_NAME=payment-service
+      - SERVICE_VERSION=v1
+      - SERVICE_PORT=8080
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - REDIS_HOST=redis
+      - RAZORPAY_KEY=test_key
+      - UPI_GATEWAY_URL=http://mock-upi-gateway:8080
+    volumes:
+      - ./certs/payment-service:/etc/ssl/certs:ro
+    networks:
+      - mumbai-mesh
+    depends_on:
+      - redis
+      - jaeger
+      - mock-upi-gateway
+    labels:
+      - "mumbai.service=payment-service"
+      - "mumbai.version=v1"
+      - "mumbai.zone=mumbai-east"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Restaurant Service - Restaurant Management
+  restaurant-service:
+    build:
+      context: ./services/restaurant-service
+      dockerfile: Dockerfile
+    container_name: mumbai-restaurant-service
+    ports:
+      - "8083:8080"
+    environment:
+      - SERVICE_NAME=restaurant-service
+      - SERVICE_VERSION=v1
+      - SERVICE_PORT=8080
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - MYSQL_HOST=mysql
+    volumes:
+      - ./certs/restaurant-service:/etc/ssl/certs:ro
+    networks:
+      - mumbai-mesh
+    depends_on:
+      - mysql
+      - jaeger
+    labels:
+      - "mumbai.service=restaurant-service"
+      - "mumbai.version=v1"
+      - "mumbai.zone=mumbai-west"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Infrastructure Services
+
+  # MySQL - Database
+  mysql:
+    image: mysql:8.0
+    container_name: mumbai-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=mumbai123
+      - MYSQL_DATABASE=fooddelivery
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app123
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./config/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - mumbai-mesh
+    labels:
+      - "mumbai.service=database"
+
+  # Redis - Caching and Session Store
+  redis:
+    image: redis:7-alpine
+    container_name: mumbai-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass mumbai123
+    volumes:
+      - redis-data:/data
+    networks:
+      - mumbai-mesh
+    labels:
+      - "mumbai.service=cache"
+
+  # Mock UPI Gateway - Indian Payment System
+  mock-upi-gateway:
+    build:
+      context: ./services/mock-upi-gateway
+      dockerfile: Dockerfile
+    container_name: mumbai-mock-upi
+    ports:
+      - "8090:8080"
+    environment:
+      - SERVICE_NAME=mock-upi-gateway
+      - SERVICE_VERSION=v1
+    networks:
+      - mumbai-mesh
+    labels:
+      - "mumbai.service=upi-gateway"
+      - "mumbai.type=mock"
+
+  # Service Mesh Controller - Our Custom Controller
+  mesh-controller:
+    build:
+      context: ./go
+      dockerfile: Dockerfile
+    container_name: mumbai-mesh-controller
+    ports:
+      - "8088:8080"
+    environment:
+      - LOG_LEVEL=info
+      - KUBECONFIG=/dev/null  # Disable k8s integration for local testing
+    volumes:
+      - ./config/mesh-controller:/etc/config:ro
+    networks:
+      - mumbai-mesh
+    depends_on:
+      - istio-pilot
+      - prometheus
+    labels:
+      - "mumbai.service=mesh-controller"
+      - "traefik.enable=true"
+      - "traefik.http.routers.controller.rule=Host(`controller.mumbai.local`)"
+
+  # Observability Dashboard
+  observability-dashboard:
+    build:
+      context: ./python
+      dockerfile: Dockerfile.dashboard
+    container_name: mumbai-observability-dashboard
+    ports:
+      - "8089:8080"
+    environment:
+      - PROMETHEUS_URL=http://prometheus:9090
+      - JAEGER_URL=http://jaeger:16686
+    networks:
+      - mumbai-mesh
+    depends_on:
+      - prometheus
+      - jaeger
+    labels:
+      - "mumbai.service=observability-dashboard"
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.mumbai.local`)"
+
+  # Load Balancer / Reverse Proxy
+  traefik:
+    image: traefik:v3.0
+    container_name: mumbai-traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Traefik dashboard
+    command:
+      - --api.dashboard=true
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --log.level=INFO
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/traefik/certificates:/certificates:ro
+    networks:
+      - mumbai-mesh
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.mumbai.local`)"
+
+# Networks
+networks:
+  mumbai-mesh:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+    labels:
+      - "mumbai.network=service-mesh"
+
+# Volumes
+volumes:
+  mysql-data:
+    driver: local
+    labels:
+      - "mumbai.data=mysql"
+  redis-data:
+    driver: local
+    labels:
+      - "mumbai.data=redis"
+  prometheus-data:
+    driver: local
+    labels:
+      - "mumbai.data=prometheus"
+  grafana-data:
+    driver: local
+    labels:
+      - "mumbai.data=grafana"
+
+# Development override for faster iteration
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+---
+version: '3.8'
+
+# docker-compose.dev.yml (separate file)
+services:
+  # Development overrides
+  order-service-v1:
+    volumes:
+      - ./services/order-service:/app:ro
+    command: ["watchmedo", "auto-restart", "--patterns=*.py", "--recursive", "--", "python", "app.py"]
+    
+  payment-service:
+    volumes:
+      - ./services/payment-service:/app:ro
+    command: ["watchmedo", "auto-restart", "--patterns=*.py", "--recursive", "--", "python", "app.py"]
+    
+  restaurant-service:
+    volumes:
+      - ./services/restaurant-service:/app:ro
+    command: ["watchmedo", "auto-restart", "--patterns=*.py", "--recursive", "--", "python", "app.py"]

@@ -1,0 +1,55 @@
+# Infrastructure as Code - Dependencies
+# यह file सभी tools और dependencies की list है
+
+# Python Dependencies
+boto3==1.34.34                # AWS SDK for Python
+botocore==1.34.34              # Core library for boto3
+ansible==8.7.0                 # Configuration management
+ansible-core==2.15.8           # Core Ansible functionality
+jinja2==3.1.2                  # Template engine for Ansible
+PyYAML==6.0.1                  # YAML parser for Ansible
+
+# Testing Dependencies
+pytest==7.4.4                  # Testing framework
+pytest-cov==4.1.0              # Coverage reporting
+requests==2.31.0               # HTTP library for API testing
+responses==0.24.1              # Mock HTTP responses for testing
+
+# Cost Optimization Dependencies
+pandas==2.1.4                  # Data analysis for cost reports
+matplotlib==3.8.2              # Plotting for cost visualization
+seaborn==0.13.0                # Statistical visualization
+openpyxl==3.1.2                # Excel file handling for reports
+
+# Infrastructure Testing (Go modules - install separately)
+# go get github.com/gruntwork-io/terratest/modules/terraform@v0.46.8
+# go get github.com/stretchr/testify/assert@v1.8.4
+# go get github.com/aws/aws-sdk-go@v1.49.0
+
+# Monitoring and Logging
+psutil==5.9.7                  # System monitoring
+prometheus-client==0.19.0      # Prometheus metrics
+grafana-api==1.0.3             # Grafana integration
+
+# Security and Compliance
+cryptography==41.0.8           # Encryption and security
+certifi==2023.11.17            # SSL certificate verification
+python-gnupg==0.5.2            # GPG encryption for secrets
+
+# Utilities
+click==8.1.7                   # Command line interface
+colorama==0.4.6                # Colored terminal output
+tabulate==0.9.0                # Pretty table printing
+tqdm==4.66.1                   # Progress bars
+python-dateutil==2.8.2         # Date parsing utilities
+
+# Development Tools
+black==23.12.1                 # Code formatting
+flake8==7.0.0                  # Linting
+mypy==1.8.0                    # Type checking
+pre-commit==3.6.0              # Git hooks
+
+# Documentation
+mkdocs==1.5.3                  # Documentation generator
+mkdocs-material==9.5.3         # Material theme for MkDocs
+mkdocs-mermaid2-plugin==1.1.1  # Mermaid diagrams

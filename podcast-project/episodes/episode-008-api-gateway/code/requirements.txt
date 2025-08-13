@@ -1,0 +1,123 @@
+# Mumbai API Gateway Requirements
+# Episode 8 - API Gateway Patterns Dependencies
+
+# Core dependencies
+requests>=2.31.0
+pyyaml>=6.0.1
+flask>=2.3.3
+fastapi>=0.103.1
+uvicorn>=0.23.2
+
+# API Gateway specific
+kong-admin-client>=1.0.0
+nginx-python>=1.1.0
+
+# Authentication and authorization
+pyjwt>=2.8.0
+passlib>=1.7.4
+bcrypt>=4.0.1
+python-multipart>=0.0.6
+
+# Rate limiting and throttling
+redis>=5.0.0
+limits>=3.5.0
+flask-limiter>=3.5.0
+
+# HTTP and networking
+httpx>=0.25.0
+aiohttp>=3.8.5
+websockets>=11.0.3
+urllib3>=2.0.5
+
+# API documentation
+openapi-core>=0.18.0
+swagger-ui-bundle>=0.0.9
+redoc>=1.2.3
+
+# Monitoring and observability
+prometheus-client>=0.17.1
+jaeger-client>=4.8.0
+opentelemetry-api>=1.20.0
+opentelemetry-sdk>=1.20.0
+opentelemetry-instrumentation-flask>=0.41b0
+opentelemetry-instrumentation-requests>=0.41b0
+
+# Load balancing and circuit breaking
+circuit-breaker>=1.3.2
+pybreaker>=0.8.0
+
+# Configuration management
+python-dotenv>=1.0.0
+configparser>=6.0.0
+dynaconf>=3.2.2
+
+# Database connections
+psycopg2-binary>=2.9.7  # PostgreSQL for Kong
+sqlalchemy>=2.0.21
+alembic>=1.12.0
+
+# Caching
+redis-py>=5.0.0
+memcached>=1.6.2
+pylibmc>=1.6.3
+
+# Security
+cryptography>=41.0.4
+pyopenssl>=23.2.0
+certifi>=2023.7.22
+
+# Data validation
+marshmallow>=3.20.1
+cerberus>=1.3.5
+pydantic>=2.4.2
+
+# Testing
+pytest>=7.4.2
+pytest-asyncio>=0.21.1
+pytest-mock>=3.11.1
+requests-mock>=1.11.0
+httpx>=0.25.0
+
+# Development tools
+watchdog>=3.0.0
+black>=23.7.0
+flake8>=6.0.0
+mypy>=1.5.1
+
+# Mumbai/Indian specific
+phonenumbers>=8.13.19  # Indian mobile validation
+babel>=2.12.1          # Hindi/regional language support  
+pytz>=2023.3           # IST timezone
+rupee>=1.0.0           # Indian currency formatting
+
+# Performance monitoring
+newrelic>=8.10.0
+sentry-sdk[flask]>=1.32.0
+
+# Kubernetes integration
+kubernetes>=27.2.0
+
+# Load testing
+locust>=2.17.0
+
+# API versioning
+flask-restx>=1.2.0
+
+# CORS handling
+flask-cors>=4.0.0
+
+# Rate limiting with sliding window
+sliding-window>=0.1.0
+
+# Webhook handling
+webhooks>=1.1.0
+
+# Message queuing (for async processing)
+celery>=5.3.1
+kombu>=5.3.2
+
+# Docker integration
+docker>=6.1.3
+
+# Gateway plugins development
+pluggy>=1.3.0

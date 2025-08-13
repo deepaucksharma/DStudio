@@ -15,7 +15,7 @@ code/
 └── README.md        # This file
 ```
 
-## 🐍 Python Examples (14 files)
+## 🐍 Python Examples (15 files)
 
 ### Core CAP Theorem Demonstrations
 
@@ -103,6 +103,13 @@ code/
     - Detecting and fixing inconsistencies
     - Background repair processes
     - Anti-entropy protocols
+
+15. **`15_jio_network_partition_simulator.py`** - Indian mobile network partition simulator
+    - Realistic Jio, Airtel, Vi, BSNL network topology
+    - Monsoon impact and festival traffic patterns
+    - Network circle-based partitions (Mumbai, Delhi, Bangalore)
+    - Message delivery guarantees across carriers
+    - Real Indian mobile network failure scenarios
 
 ## ☕ Java Examples (3 files)
 
@@ -209,6 +216,7 @@ python3 flipkart_cart_availability.py
 python3 paytm_wallet_consistency.py
 python3 irctc_booking_conflicts.py
 python3 whatsapp_partition_tolerance.py
+python3 15_jio_network_partition_simulator.py
 ```
 
 ### Java Examples
@@ -237,11 +245,11 @@ python3 test_all_examples.py
 
 ## 📊 Statistics
 
-- **Total Lines of Code**: 8,000+
-- **Total Examples**: 20+
-- **Languages**: Python (14), Java (3), Go (3)
-- **Indian Companies Covered**: 15+ (IRCTC, Flipkart, Paytm, HDFC, SBI, etc.)
-- **Real Scenarios**: 50+ practical use cases
+- **Total Lines of Code**: 9,000+
+- **Total Examples**: 21+
+- **Languages**: Python (15), Java (3), Go (3)
+- **Indian Companies Covered**: 20+ (IRCTC, Flipkart, Paytm, HDFC, SBI, Jio, Airtel, etc.)
+- **Real Scenarios**: 55+ practical use cases
 - **Production Ready**: All examples include error handling and monitoring
 
 ## 🎓 Learning Outcomes

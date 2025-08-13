@@ -3,6 +3,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates insights from our comprehensive documentation library:
+
+1. **Core ETL Principles**: [`docs/pattern-library/data-management/stream-processing.md`](docs/pattern-library/data-management/stream-processing.md) - Stream processing patterns and real-time data pipelines
+2. **Data Migration Strategies**: [`docs/excellence/migrations/batch-to-streaming.md`](docs/excellence/migrations/batch-to-streaming.md) - Migration from batch to streaming architectures
+3. **Human Factors in Data Operations**: [`docs/architects-handbook/human-factors/operational-excellence.md`](docs/architects-handbook/human-factors/operational-excellence.md) - Building reliable data operations teams
+4. **Apache Spark Case Study**: [`docs/architects-handbook/case-studies/messaging-streaming/apache-spark.md`](docs/architects-handbook/case-studies/messaging-streaming/apache-spark.md) - Production Spark implementations and lessons learned
+5. **Data Quality Patterns**: [`docs/pattern-library/data-management/data-pipeline-exam.md`](docs/pattern-library/data-management/data-pipeline-exam.md) - Testing and validating data pipeline quality
+6. **Event Sourcing for ETL**: [`docs/pattern-library/data-management/event-sourcing.md`](docs/pattern-library/data-management/event-sourcing.md) - Event-driven data processing architectures
+7. **Change Data Capture**: [`docs/pattern-library/data-management/cdc.md`](docs/pattern-library/data-management/cdc.md) - Real-time data synchronization patterns
+
+---
+
 ## Episode Introduction (15 minutes)
 
 **[Mumbai Local Train Sound - Boarding Announcement]**

@@ -1,0 +1,85 @@
+# DataOps Automation - Episode 015 Requirements
+# Production-ready dependencies for Indian data operations
+
+# Core Data Processing
+pandas>=1.5.0
+numpy>=1.21.0
+scipy>=1.9.0
+
+# Machine Learning & AI
+scikit-learn>=1.1.0
+mlflow>=2.0.0
+great-expectations>=0.15.0
+
+# Data Quality & Validation
+jsonschema>=4.0.0
+cerberus>=1.3.0
+phonenumbers>=8.12.0
+
+# Database & Storage
+sqlalchemy>=1.4.0
+sqlite3
+psycopg2-binary>=2.9.0
+pymongo>=4.0.0
+redis>=4.0.0
+
+# Cloud & Infrastructure
+boto3>=1.26.0
+azure-storage-blob>=12.0.0
+google-cloud-storage>=2.7.0
+
+# Container & Orchestration
+docker>=6.0.0
+kubernetes>=24.0.0
+
+# CI/CD & Version Control
+GitPython>=3.1.0
+PyYAML>=6.0
+Jinja2>=3.1.0
+
+# Monitoring & Alerting
+prometheus-client>=0.15.0
+psutil>=5.9.0
+matplotlib>=3.6.0
+seaborn>=0.12.0
+
+# Communication & Notifications
+requests>=2.28.0
+slack-sdk>=3.19.0
+smtplib
+email
+
+# Workflow Orchestration
+apache-airflow>=2.5.0
+prefect>=2.0.0
+
+# Streaming & Messaging
+kafka-python>=2.0.0
+pika>=1.3.0
+
+# Indian Specific
+# Note: These would be actual Indian service SDKs
+# razorpay>=1.3.0
+# paytm-pg>=1.0.0
+# aadhaar-py>=1.0.0
+
+# Development & Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+mypy>=0.990
+
+# Documentation
+sphinx>=5.0.0
+mkdocs>=1.4.0
+
+# Security
+cryptography>=38.0.0
+hashlib
+bcrypt>=4.0.0
+
+# Utilities
+python-dotenv>=0.21.0
+click>=8.1.0
+tqdm>=4.64.0

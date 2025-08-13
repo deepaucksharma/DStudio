@@ -1,0 +1,103 @@
+# Episode 3: Human Factor in Tech - Dependencies
+# ===============================================
+# 
+# Core Python dependencies for human factor analysis tools
+# All examples are designed to work with standard Python libraries first
+# Additional ML/analytics libraries for advanced features
+
+# Core Dependencies (Required)
+# -----------------------------
+dataclasses>=0.8        # For structured data classes (Python 3.6 compatibility)
+typing>=3.7.0           # Type hints support
+enum34>=1.1.10          # Enum support for older Python versions
+datetime>=4.3           # Date and time handling
+collections>=1.0        # Data structures
+json>=2.0.9             # JSON serialization
+hashlib>=1.0            # Hashing for IDs
+statistics>=1.0.3       # Statistical calculations
+asyncio>=3.4.3          # Async operations
+concurrent.futures>=3.1 # Threading support
+
+# Text Processing & NLP (For communication analysis)
+# --------------------------------------------------
+textblob>=0.17.1        # Sentiment analysis and text processing
+nltk>=3.8               # Natural language toolkit
+langdetect>=1.0.9       # Language detection (Hindi/English)
+
+# Data Analysis & Visualization (Optional but recommended)
+# --------------------------------------------------------
+pandas>=1.3.0           # Data manipulation and analysis
+numpy>=1.21.0           # Numerical computations
+matplotlib>=3.5.0       # Basic plotting
+seaborn>=0.11.0         # Statistical visualization
+
+# Machine Learning (For bias detection and pattern analysis)
+# ----------------------------------------------------------
+scikit-learn>=1.0.0     # Machine learning algorithms
+scipy>=1.7.0            # Scientific computing
+
+# Time Zone Support
+# -----------------
+pytz>=2021.3            # Timezone handling for Indian Standard Time
+
+# HTTP Requests (For external integrations)
+# -----------------------------------------
+requests>=2.26.0        # HTTP library for API calls
+urllib3>=1.26.7         # URL handling
+
+# Configuration and Logging
+# -------------------------
+pyyaml>=6.0             # YAML configuration files
+python-dotenv>=0.19.0   # Environment variable management
+
+# Development and Testing
+# -----------------------
+pytest>=6.2.0          # Testing framework
+pytest-asyncio>=0.18.0 # Async testing support
+black>=21.9.0           # Code formatting
+flake8>=4.0.0           # Code linting
+
+# Optional: Advanced Analytics
+# ---------------------------
+# plotly>=5.0.0           # Interactive visualizations
+# dash>=2.0.0             # Web dashboards
+# streamlit>=1.0.0        # Quick web apps for demos
+
+# Platform-Specific (Windows compatibility)
+# -----------------------------------------
+# pywin32>=227            # Windows-specific APIs (if needed)
+
+# Notes for Indian Development Context:
+# ====================================
+# 1. All packages are available on PyPI India mirrors
+# 2. Offline installation: pip download -r requirements.txt
+# 3. Corporate network: Use --trusted-host pypi.org --trusted-host pypi.python.org
+# 4. Alternative: Use poetry or pipenv for better dependency management
+#
+# Installation Commands:
+# ---------------------
+# Basic installation:    pip install -r requirements.txt
+# Development setup:     pip install -r requirements.txt pytest black flake8
+# Minimal installation:  pip install dataclasses typing enum34 datetime
+#
+# For Corporate Networks (Common in Indian IT companies):
+# -------------------------------------------------------
+# pip install -r requirements.txt --proxy http://proxy:8080
+# pip install -r requirements.txt --trusted-host pypi.org --trusted-host files.pythonhosted.org
+#
+# Memory-Efficient Installation (for resource-constrained environments):
+# ----------------------------------------------------------------------
+# pip install --no-cache-dir -r requirements.txt
+#
+# Indian Language Support:
+# ------------------------
+# For Hindi text processing, also install:
+# - indic-transliteration>=2.3.0
+# - polyglot>=16.7.4 (requires additional setup)
+#
+# Performance Notes:
+# -----------------
+# - pandas and numpy can be heavy for simple scripts
+# - Consider using built-in statistics module for basic calculations
+# - textblob downloads additional data on first use (~50MB)
+# - scikit-learn is ~80MB but essential for bias detection algorithms

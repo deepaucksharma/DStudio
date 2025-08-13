@@ -1,0 +1,86 @@
+# Episode 47: Data Governance - Python Dependencies
+# एपिसोड 47: डेटा गवर्नेंस - पायथन निर्भरताएं
+
+# Core Data Processing
+pandas>=1.5.0
+numpy>=1.21.0
+sqlalchemy>=1.4.0
+psycopg2-binary>=2.9.0
+
+# Data Quality & Validation
+great-expectations>=0.15.0
+pydantic>=1.10.0
+cerberus>=1.3.0
+jsonschema>=4.0.0
+
+# Anonymization & Privacy
+faker>=15.0.0
+hashlib>=3.6.0  # Built-in, but documenting usage
+cryptography>=3.4.0
+presidio-analyzer>=2.2.0
+presidio-anonymizer>=2.2.0
+
+# Compliance & Governance
+pyAesCrypt>=6.0.0
+pypdf>=2.0.0
+python-docx>=0.8.11
+
+# Database Connectors
+pymongo>=4.0.0
+redis>=4.3.0
+elasticsearch>=8.0.0
+neo4j>=5.0.0
+
+# API & Web Framework
+fastapi>=0.85.0
+uvicorn>=0.18.0
+requests>=2.28.0
+
+# Configuration & Logging
+pyyaml>=6.0.0
+python-dotenv>=0.19.0
+structlog>=22.0.0
+colorlog>=6.6.0
+
+# Data Lineage & Metadata
+networkx>=2.8.0
+graphviz>=0.20.0
+matplotlib>=3.5.0
+plotly>=5.10.0
+
+# Testing & Quality Assurance
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+mypy>=0.990
+
+# Indian Regulatory Compliance
+indian-phone-validator>=1.0.0  # Custom package for Indian phone validation
+pan-card-validator>=1.0.0      # PAN card validation
+aadhaar-validator>=1.0.0       # Aadhaar number validation
+
+# Data Science & Analytics
+scikit-learn>=1.1.0
+scipy>=1.9.0
+seaborn>=0.11.0
+
+# Time Series & Scheduling
+apscheduler>=3.9.0
+python-dateutil>=2.8.0
+pytz>=2022.1
+
+# File Processing
+openpyxl>=3.0.10
+xlsxwriter>=3.0.3
+python-magic>=0.4.27
+
+# Monitoring & Observability
+prometheus-client>=0.14.0
+statsd>=3.3.0
+sentry-sdk>=1.9.0
+
+# Development & Documentation
+jupyter>=1.0.0
+sphinx>=5.0.0
+sphinx-rtd-theme>=1.0.0

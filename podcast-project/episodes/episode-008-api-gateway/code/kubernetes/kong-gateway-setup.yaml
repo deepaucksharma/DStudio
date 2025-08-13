@@ -1,0 +1,687 @@
+# API Gateway Infrastructure Setup
+# Gateway of India Digital Implementation
+# Context: Paytm/Razorpay style API Gateway for Indian fintech
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mumbai-api-gateway
+  labels:
+    name: mumbai-api-gateway
+    app.kubernetes.io/name: mumbai-digital-gateway
+    # Context: Digital Gateway of India for APIs
+
+---
+# Kong Database (PostgreSQL)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: mumbai-api-gateway
+data:
+  POSTGRES_DB: kong
+  POSTGRES_USER: kong
+  POSTGRES_PASSWORD: kong123
+  PGDATA: /var/lib/postgresql/data/pgdata
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: mumbai-api-gateway
+  labels:
+    app: postgres
+    mumbai.io/component: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        ports:
+        - containerPort: 5432
+        envFrom:
+        - configMapRef:
+            name: postgres-config
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: mumbai-api-gateway
+spec:
+  selector:
+    app: postgres
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: mumbai-api-gateway
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: fast-ssd  # Adjust based on your cluster
+
+---
+# Kong Migration Job
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kong-migrations
+  namespace: mumbai-api-gateway
+  labels:
+    app: kong-migrations
+    mumbai.io/component: migration
+spec:
+  template:
+    metadata:
+      labels:
+        app: kong-migrations
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: kong-migrations
+        image: kong:3.4.0
+        command: ["kong", "migrations", "bootstrap"]
+        env:
+        - name: KONG_DATABASE
+          value: "postgres"
+        - name: KONG_PG_HOST
+          value: "postgres-service"
+        - name: KONG_PG_DATABASE
+          value: "kong"
+        - name: KONG_PG_USER
+          value: "kong"
+        - name: KONG_PG_PASSWORD
+          value: "kong123"
+        # Indian financial services security compliance
+        - name: KONG_PASSWORD_BCRYPT_ROUNDS
+          value: "12"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+---
+# Kong API Gateway Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kong-gateway
+  namespace: mumbai-api-gateway
+  labels:
+    app: kong-gateway
+    mumbai.io/component: gateway
+    version: v1
+spec:
+  replicas: 2  # High availability for production
+  selector:
+    matchLabels:
+      app: kong-gateway
+  template:
+    metadata:
+      labels:
+        app: kong-gateway
+        version: v1
+        # Mumbai context labels
+        mumbai.io/zone: mumbai-west
+        mumbai.io/service: api-gateway
+    spec:
+      containers:
+      - name: kong
+        image: kong:3.4.0
+        ports:
+        - containerPort: 8000  # Proxy HTTP
+          name: proxy-http
+        - containerPort: 8443  # Proxy HTTPS  
+          name: proxy-https
+        - containerPort: 8001  # Admin API
+          name: admin-api
+        - containerPort: 8444  # Admin API HTTPS
+          name: admin-https
+        env:
+        # Database Configuration
+        - name: KONG_DATABASE
+          value: "postgres"
+        - name: KONG_PG_HOST
+          value: "postgres-service"
+        - name: KONG_PG_DATABASE
+          value: "kong"
+        - name: KONG_PG_USER
+          value: "kong"
+        - name: KONG_PG_PASSWORD
+          value: "kong123"
+        
+        # Gateway Configuration
+        - name: KONG_PROXY_ACCESS_LOG
+          value: "/dev/stdout"
+        - name: KONG_ADMIN_ACCESS_LOG
+          value: "/dev/stdout"
+        - name: KONG_PROXY_ERROR_LOG
+          value: "/dev/stderr"
+        - name: KONG_ADMIN_ERROR_LOG
+          value: "/dev/stderr"
+        - name: KONG_LOG_LEVEL
+          value: "info"
+        
+        # Admin API Configuration
+        - name: KONG_ADMIN_LISTEN
+          value: "0.0.0.0:8001"
+        - name: KONG_ADMIN_GUI_URL
+          value: "http://admin.mumbai-gateway.local"
+        
+        # Proxy Configuration
+        - name: KONG_PROXY_LISTEN
+          value: "0.0.0.0:8000, 0.0.0.0:8443 ssl"
+        
+        # Performance Tuning for Indian Scale
+        - name: KONG_WORKER_PROCESSES
+          value: "auto"
+        - name: KONG_WORKER_CONNECTIONS
+          value: "4096"
+        
+        # Security Configuration for Indian Financial Services
+        - name: KONG_REAL_IP_HEADER
+          value: "X-Forwarded-For"
+        - name: KONG_REAL_IP_RECURSIVE
+          value: "on"
+        - name: KONG_TRUSTED_IPS
+          value: "0.0.0.0/0,::/0"
+        
+        # Plugin Configuration
+        - name: KONG_PLUGINS
+          value: "bundled,rate-limiting,key-auth,jwt,oauth2,acl,cors,request-transformer,response-transformer,prometheus"
+        
+        # Indian Context Configuration
+        - name: KONG_HEADERS
+          value: "server_tokens=off,X-Gateway=Mumbai-Digital-Gateway"
+        
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 8001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        
+        readinessProbe:
+          httpGet:
+            path: /status/ready
+            port: 8001
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        
+        volumeMounts:
+        - name: kong-config
+          mountPath: /etc/kong
+        - name: ssl-certs
+          mountPath: /etc/ssl/certs
+          readOnly: true
+      
+      volumes:
+      - name: kong-config
+        configMap:
+          name: kong-config
+      - name: ssl-certs
+        secret:
+          secretName: kong-ssl-certs
+
+---
+# Kong Gateway Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-proxy
+  namespace: mumbai-api-gateway
+  labels:
+    app: kong-gateway
+    mumbai.io/component: proxy
+  annotations:
+    # Load balancer annotations for Indian cloud providers
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+spec:
+  type: LoadBalancer
+  selector:
+    app: kong-gateway
+  ports:
+  - name: proxy-http
+    protocol: TCP
+    port: 80
+    targetPort: 8000
+  - name: proxy-https
+    protocol: TCP
+    port: 443
+    targetPort: 8443
+  # Indian financial services compliance
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800  # 3 hours
+
+---
+# Kong Admin API Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-admin
+  namespace: mumbai-api-gateway
+  labels:
+    app: kong-gateway
+    mumbai.io/component: admin
+spec:
+  type: ClusterIP  # Internal access only for security
+  selector:
+    app: kong-gateway
+  ports:
+  - name: admin-api
+    protocol: TCP
+    port: 8001
+    targetPort: 8001
+  - name: admin-https
+    protocol: TCP
+    port: 8444
+    targetPort: 8444
+
+---
+# Kong Configuration ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-config
+  namespace: mumbai-api-gateway
+data:
+  kong.conf: |
+    # Kong Configuration for Mumbai Digital Gateway
+    
+    # Database
+    database = postgres
+    pg_host = postgres-service
+    pg_port = 5432
+    pg_database = kong
+    pg_user = kong
+    pg_password = kong123
+    pg_ssl = off
+    
+    # Logging
+    log_level = info
+    proxy_access_log = /dev/stdout
+    admin_access_log = /dev/stdout
+    proxy_error_log = /dev/stderr
+    admin_error_log = /dev/stderr
+    
+    # Performance tuning for Indian traffic patterns
+    worker_processes = auto
+    worker_connections = 4096
+    worker_rlimit_nofile = 65536
+    
+    # Proxy settings
+    proxy_listen = 0.0.0.0:8000, 0.0.0.0:8443 ssl
+    admin_listen = 0.0.0.0:8001, 0.0.0.0:8444 ssl
+    
+    # Security headers
+    headers = server_tokens=off,X-Gateway=Mumbai-Digital-Gateway
+    
+    # Rate limiting for Indian APIs
+    # Optimized for UPI transaction patterns
+    upstream_keepalive = 60
+    upstream_keepalive_requests = 100
+    upstream_keepalive_timeout = 60s
+    
+    # Memory optimization
+    lua_shared_dict kong 5m
+    lua_shared_dict kong_db_cache 128m
+    lua_shared_dict kong_db_cache_miss 12m
+    lua_shared_dict kong_locks 100k
+    lua_shared_dict kong_process_events 5m
+    lua_shared_dict kong_cluster_events 5m
+    lua_shared_dict kong_healthchecks 5m
+    lua_shared_dict kong_rate_limiting_counters 12m
+
+---
+# SSL Certificate Secret (would be populated with real certs)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kong-ssl-certs
+  namespace: mumbai-api-gateway
+type: kubernetes.io/tls
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0t  # Base64 encoded cert
+  tls.key: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0t  # Base64 encoded key
+  ca.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0t   # Base64 encoded CA
+
+---
+# Gateway Service Configuration (Kong Ingress Controller Style)
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: mumbai-gateway-config
+  namespace: mumbai-api-gateway
+upstream:
+  # Health checking configuration
+  healthchecks:
+    passive:
+      healthy:
+        successes: 3
+        http_statuses: [200, 201, 202, 301, 302, 307, 308]
+      unhealthy:
+        http_failures: 3
+        http_statuses: [429, 500, 502, 503, 504, 505]
+        timeouts: 3
+        tcp_failures: 3
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses: [200, 302]
+        interval: 10
+        successes: 2
+      http_path: "/health"
+      timeout: 1
+      unhealthy:
+        http_failures: 3
+        http_statuses: [429, 404, 500, 502, 503, 504, 505]
+        interval: 10
+        timeouts: 3
+  # Load balancing for Indian microservices
+  algorithm: "weighted-round-robin"
+  slots: 1000
+  hash_on: "none"
+  hash_fallback: "none"
+proxy:
+  # Connection settings optimized for Indian network conditions
+  connect_timeout: 10000  # 10 seconds
+  read_timeout: 60000     # 1 minute
+  write_timeout: 60000    # 1 minute
+  retries: 3
+route:
+  # Path handling for Indian API patterns
+  strip_path: true
+  preserve_host: false
+  protocols: ["http", "https"]
+
+---
+# Kong Plugin: Rate Limiting for UPI-style APIs
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: mumbai-rate-limiting
+  namespace: mumbai-api-gateway
+plugin: rate-limiting
+config:
+  # Mumbai-specific rate limits
+  # UPI transactions: 20 per minute per user
+  minute: 20
+  # Daily limit for financial transactions: 200 per day
+  day: 200
+  # Policy: Use Redis for distributed rate limiting
+  policy: "redis"
+  redis_host: "redis.mumbai-api-gateway.svc.cluster.local"
+  redis_port: 6379
+  redis_password: "mumbai123"
+  redis_timeout: 2000
+  # Fault tolerance
+  fault_tolerant: true
+  hide_client_headers: false
+
+---
+# Kong Plugin: CORS for Indian web/mobile apps
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: mumbai-cors
+  namespace: mumbai-api-gateway
+plugin: cors
+config:
+  # Allow origins for Indian domains
+  origins: 
+    - "*.paytm.com"
+    - "*.phonepe.com" 
+    - "*.razorpay.com"
+    - "*.mumbai.local"
+    - "localhost:*"
+  methods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "PATCH" 
+    - "DELETE"
+    - "OPTIONS"
+  headers:
+    - "Accept"
+    - "Accept-Version"
+    - "Content-Length"
+    - "Content-MD5"
+    - "Content-Type"
+    - "Date"
+    - "X-Auth-Token"
+    - "X-Request-ID"
+    - "X-User-ID"
+    - "Authorization"
+  exposed_headers:
+    - "X-Auth-Token"
+    - "X-Request-ID"
+  credentials: true
+  max_age: 3600
+
+---
+# Kong Plugin: JWT Authentication for Indian financial APIs
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: mumbai-jwt-auth
+  namespace: mumbai-api-gateway
+plugin: jwt
+config:
+  # JWT Configuration for Indian financial compliance
+  secret_is_base64: false
+  claims_to_verify:
+    - "exp"  # Expiration time
+    - "nbf"  # Not before time
+    - "aud"  # Audience - must match API
+  key_claim_name: "iss"  # Issuer claim
+  maximum_expiration: 7200  # 2 hours max for financial APIs
+  # Cookie settings for web applications
+  cookie_names:
+    - "jwt"
+    - "auth-token"
+  # Header configuration
+  header_names:
+    - "Authorization"
+    - "X-Auth-Token"
+
+---
+# Kong Plugin: Request Transformer for Indian API formats
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: mumbai-request-transformer
+  namespace: mumbai-api-gateway
+plugin: request-transformer
+config:
+  # Add Indian context headers
+  add:
+    headers:
+      - "X-Gateway:Mumbai-Digital-Gateway"
+      - "X-Country:IN"
+      - "X-Currency:INR"
+      - "X-Timezone:Asia/Kolkata"
+    querystring:
+      - "locale:en-IN"
+  # Remove sensitive headers
+  remove:
+    headers:
+      - "X-Internal-Secret"
+      - "X-Debug-Mode"
+  # Rename headers for consistency
+  rename:
+    headers:
+      - "X-User-Id:X-User-ID"
+      - "X-Trace-Id:X-Request-ID"
+
+---
+# Kong Plugin: Response Transformer
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: mumbai-response-transformer
+  namespace: mumbai-api-gateway
+plugin: response-transformer
+config:
+  add:
+    headers:
+      - "X-Served-By:Mumbai-Gateway"
+      - "X-Response-Time:{{upstream_response_time}}"
+      - "X-Gateway-Version:v1.0"
+    json:
+      - "gateway_info.location:Mumbai"
+      - "gateway_info.timezone:Asia/Kolkata"
+  remove:
+    headers:
+      - "Server"
+      - "X-Powered-By"
+    json:
+      - "internal_debug"
+
+---
+# Kong Plugin: Prometheus Metrics
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: mumbai-prometheus
+  namespace: mumbai-api-gateway
+plugin: prometheus
+config:
+  # Metrics configuration for Mumbai gateway monitoring
+  per_consumer: true
+  status_code_metrics: true
+  latency_metrics: true
+  bandwidth_metrics: true
+  upstream_health_metrics: true
+
+---
+# API Gateway Ingress Rules for Indian Services
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mumbai-api-ingress
+  namespace: mumbai-api-gateway
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+    # Apply Mumbai-specific plugins
+    konghq.com/plugins: "mumbai-rate-limiting,mumbai-cors,mumbai-jwt-auth,mumbai-request-transformer,mumbai-response-transformer,mumbai-prometheus"
+    # SSL redirect for financial security
+    konghq.com/https-redirect-status-code: "302"
+spec:
+  tls:
+  - hosts:
+    - api.mumbai-gateway.com
+    - payments.mumbai-gateway.com
+    secretName: kong-ssl-certs
+  rules:
+  # Payment API routes - UPI/Financial services
+  - host: payments.mumbai-gateway.com
+    http:
+      paths:
+      - path: /api/upi
+        pathType: Prefix
+        backend:
+          service:
+            name: upi-service
+            port:
+              number: 8080
+      - path: /api/payments
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-service
+            port:
+              number: 8080
+  # Main API routes
+  - host: api.mumbai-gateway.com
+    http:
+      paths:
+      - path: /api/orders
+        pathType: Prefix
+        backend:
+          service:
+            name: order-service
+            port:
+              number: 8080
+      - path: /api/restaurants
+        pathType: Prefix  
+        backend:
+          service:
+            name: restaurant-service
+            port:
+              number: 8080
+      - path: /api/users
+        pathType: Prefix
+        backend:
+          service:
+            name: user-service
+            port:
+              number: 8080
+
+---
+# Service Monitor for Prometheus Operator
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kong-metrics
+  namespace: mumbai-api-gateway
+  labels:
+    app: kong-gateway
+    mumbai.io/monitoring: "true"
+spec:
+  selector:
+    matchLabels:
+      app: kong-gateway
+  endpoints:
+  - port: admin-api
+    path: /metrics
+    interval: 30s
+    scrapeTimeout: 10s

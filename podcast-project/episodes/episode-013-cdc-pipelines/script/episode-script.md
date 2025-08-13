@@ -1,5 +1,20 @@
 # Episode 13: Change Data Capture (CDC) & Real-time Pipelines
 
+## Documentation References
+
+This episode leverages extensive insights from our documentation library:
+
+1. **Change Data Capture Fundamentals**: [`docs/pattern-library/data-management/cdc.md`](docs/pattern-library/data-management/cdc.md) - Core CDC patterns and implementation strategies
+2. **Stream Processing Architecture**: [`docs/pattern-library/data-management/stream-processing.md`](docs/pattern-library/data-management/stream-processing.md) - Real-time data processing patterns for CDC pipelines
+3. **Event Sourcing Integration**: [`docs/pattern-library/data-management/event-sourcing.md`](docs/pattern-library/data-management/event-sourcing.md) - Event-driven architectures with CDC
+4. **Kafka Streaming Case Study**: [`docs/architects-handbook/case-studies/messaging-streaming/kafka.md`](docs/architects-handbook/case-studies/messaging-streaming/kafka.md) - Production Kafka deployments for CDC
+5. **Data Consistency Models**: [`docs/core-principles/impossibility-results.md`](docs/core-principles/impossibility-results.md) - Understanding consistency trade-offs in distributed data systems
+6. **Migration from Polling to Event-driven**: [`docs/excellence/migrations/polling-to-websocket.md`](docs/excellence/migrations/polling-to-websocket.md) - Evolution from batch to real-time processing
+7. **Human Factors in Data Operations**: [`docs/architects-handbook/human-factors/operational-excellence.md`](docs/architects-handbook/human-factors/operational-excellence.md) - Building reliable real-time data systems
+8. **Resilience Patterns for CDC**: [`docs/pattern-library/resilience/circuit-breaker-mastery.md`](docs/pattern-library/resilience/circuit-breaker-mastery.md) - Ensuring robust CDC pipeline operations
+
+---
+
 ## Mumbai Street-Style Introduction
 
 Yaar, Mumbai ki local train system ko dekho - har second koi na koi train platform pe aa rahi hai, koi ja rahi hai. Station master ko pata chalna chahiye ki kon si train kahan hai, right now. Same cheez banks mein hoti hai - jab aap UPI payment करते हैं, to har transaction ka real-time update Paytm, PhonePe sab jagah instantly pohchna chahiye.

@@ -1,0 +1,171 @@
+# Episode 4: CAP Theorem - Dependencies
+# =====================================
+# 
+# Dependencies for CAP theorem demonstrations with Indian business context
+# Focus on distributed systems, consistency models, and partition tolerance
+
+# Core Dependencies (Required)
+# -----------------------------
+dataclasses>=0.8        # For structured data classes
+typing>=3.7.0           # Type hints support
+enum34>=1.1.10          # Enum support for older Python versions
+uuid>=1.30              # UUID generation for unique identifiers
+json>=2.0.9             # JSON serialization for data exchange
+time>=1.0               # Time operations and delays
+datetime>=4.3           # Date and time handling
+threading>=1.0          # Multi-threading for concurrent operations
+collections>=1.0        # Data structures (deque, defaultdict)
+asyncio>=3.4.3          # Async operations for distributed systems
+concurrent.futures>=3.1 # Threading and process pools
+queue>=1.0              # Thread-safe queues
+random>=1.0             # Random number generation for simulations
+
+# Distributed Systems & Networking
+# --------------------------------
+socket>=1.0             # Network socket operations
+select>=1.0             # I/O multiplexing
+struct>=1.0             # Binary data structures
+hashlib>=1.0            # Hash functions for consistent hashing
+
+# Mathematical & Statistical Operations
+# ------------------------------------
+math>=1.0               # Mathematical functions
+statistics>=1.0.3       # Statistical calculations
+random>=1.0             # Random sampling for failure simulation
+
+# Advanced Dependencies (Optional but recommended)
+# -----------------------------------------------
+# For production-ready implementations
+
+# Network Programming
+requests>=2.26.0        # HTTP requests for REST APIs
+urllib3>=1.26.7         # Advanced URL operations
+websockets>=10.0        # WebSocket support for real-time updates
+
+# Data Serialization
+msgpack>=1.0.0          # Efficient binary serialization
+protobuf>=3.17.0        # Protocol buffers for structured data
+avro-python3>=1.10.0    # Apache Avro for schema evolution
+
+# Database Connectivity (for consistency examples)
+# -----------------------------------------------
+psycopg2-binary>=2.9.0  # PostgreSQL adapter
+pymongo>=3.12.0         # MongoDB driver
+redis>=3.5.0            # Redis client for caching examples
+cassandra-driver>=3.25.0 # Cassandra driver for distributed DB examples
+
+# Monitoring & Metrics
+# -------------------
+prometheus-client>=0.11.0 # Prometheus metrics
+statsd>=3.3.0           # StatsD metrics client
+
+# Testing & Development
+# --------------------
+pytest>=6.2.0          # Testing framework
+pytest-asyncio>=0.18.0 # Async testing support
+mock>=4.0.3             # Mocking for unit tests
+coverage>=6.0           # Code coverage analysis
+
+# Visualization (for dashboards and monitoring)
+# ---------------------------------------------
+matplotlib>=3.5.0       # Basic plotting
+plotly>=5.0.0           # Interactive visualizations
+dash>=2.0.0             # Web dashboards
+flask>=2.0.0            # Lightweight web framework
+
+# Performance & Profiling
+# -----------------------
+memory-profiler>=0.60.0 # Memory usage profiling
+line-profiler>=3.3.0    # Line-by-line profiling
+
+# Configuration Management
+# ------------------------
+pyyaml>=6.0             # YAML configuration
+toml>=0.10.2            # TOML configuration
+configparser>=5.0.0     # INI file parsing
+
+# Logging & Debugging
+# -------------------
+structlog>=21.1.0       # Structured logging
+colorlog>=6.5.0         # Colored console logging
+
+# Indian Banking/Payment Simulation Dependencies
+# ----------------------------------------------
+# For realistic Indian business context examples
+decimal>=1.70           # Precise decimal arithmetic for money
+locale>=1.0             # Indian locale support for currency formatting
+
+# Optional: Advanced Distributed Systems Libraries
+# ------------------------------------------------
+# Uncomment if building production systems
+
+# etcd3>=0.12.0           # etcd client for distributed coordination
+# consul>=1.1.0           # Consul client for service discovery
+# kazoo>=2.8.0            # Apache Zookeeper client
+# pykafka>=2.8.0          # Apache Kafka client
+# celery>=5.2.0           # Distributed task queue
+
+# Cloud Provider SDKs (for multi-region examples)
+# -----------------------------------------------
+# boto3>=1.24.0           # AWS SDK
+# google-cloud>=0.34.0    # Google Cloud SDK
+# azure>=4.0.0            # Microsoft Azure SDK
+
+# Development Notes for Indian Context:
+# ====================================
+# 1. All packages available on PyPI India mirrors
+# 2. Corporate proxy: pip install --proxy http://proxy:8080 -r requirements.txt
+# 3. Offline installation: pip download -r requirements.txt
+# 4. Minimal installation for basic examples: Only core dependencies needed
+
+# Installation Commands:
+# ---------------------
+# Full installation:     pip install -r requirements.txt
+# Core only:            pip install dataclasses typing enum34 uuid json
+# With databases:       pip install -r requirements.txt psycopg2-binary redis pymongo
+# Development setup:    pip install -r requirements.txt pytest coverage black
+
+# Memory Requirements:
+# -------------------
+# Core examples: ~50MB RAM
+# With databases: ~200MB RAM  
+# Full stack: ~500MB RAM
+
+# Network Requirements:
+# --------------------
+# Basic examples: No network required
+# Database examples: Local DB instances
+# Distributed examples: Multiple network interfaces
+
+# Indian Business Context Libraries:
+# ==================================
+# For payment processing simulations:
+# - Support for INR currency formatting
+# - Indian bank account validation patterns
+# - IFSC code validation
+# - UPI ID format validation
+# - GST calculation utilities
+
+# Production Deployment Notes:
+# ============================
+# 1. Use virtual environments: python -m venv cap_theorem_env
+# 2. Pin exact versions for production: pip freeze > requirements-prod.txt
+# 3. Security scanning: pip-audit requirements.txt
+# 4. Vulnerability checks: safety check -r requirements.txt
+#
+# Docker deployment:
+# FROM python:3.9-slim
+# COPY requirements.txt .
+# RUN pip install --no-cache-dir -r requirements.txt
+#
+# Performance optimization:
+# - Use PyPy for CPU-intensive consistency algorithms
+# - Consider Cython compilation for hot paths
+# - Profile memory usage with memory-profiler
+
+# Compatibility Notes:
+# ===================
+# Python 3.7+ required for dataclasses
+# Python 3.8+ recommended for better asyncio performance
+# Java 11+ required for Java examples
+# Go 1.16+ required for Go examples

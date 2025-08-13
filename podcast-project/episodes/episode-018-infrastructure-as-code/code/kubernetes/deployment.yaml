@@ -1,0 +1,358 @@
+# Kubernetes Deployment for Swiggy Food Delivery API
+# Episode 18: Infrastructure as Code
+# Production-ready deployment with Indian business requirements
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swiggy-food-api
+  namespace: swiggy-prod
+  labels:
+    app: swiggy-food-api
+    version: v1.2.0
+    component: backend
+    environment: production
+    region: mumbai
+spec:
+  replicas: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  selector:
+    matchLabels:
+      app: swiggy-food-api
+      version: v1.2.0
+  template:
+    metadata:
+      labels:
+        app: swiggy-food-api
+        version: v1.2.0
+        component: backend
+        environment: production
+        region: mumbai
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      affinity:
+        # Ensure pods are distributed across zones for HA
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - swiggy-food-api
+              topologyKey: kubernetes.io/zone
+        # Prefer nodes in Mumbai region
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 80
+            preference:
+              matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values:
+                - ap-south-1
+      containers:
+      - name: swiggy-food-api
+        image: swiggy/food-api:v1.2.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 8081
+          name: management
+          protocol: TCP
+        env:
+        # Database configuration
+        - name: DB_HOST
+          value: "mysql-cluster.swiggy-prod.svc.cluster.local"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_NAME
+          value: "swiggy_food"
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: password
+        
+        # Redis configuration
+        - name: REDIS_HOST
+          value: "redis-cluster.swiggy-prod.svc.cluster.local"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-credentials
+              key: password
+        
+        # Application configuration
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production,mumbai"
+        - name: SERVER_PORT
+          value: "8080"
+        - name: MANAGEMENT_SERVER_PORT
+          value: "8081"
+        - name: JAVA_OPTS
+          value: "-Xmx1g -Xms512m -XX:+UseG1GC -XX:+UseStringDeduplication"
+        
+        # Indian specific configuration
+        - name: TIMEZONE
+          value: "Asia/Kolkata"
+        - name: CURRENCY
+          value: "INR"
+        - name: REGION
+          value: "mumbai"
+        - name: BUSINESS_HOURS_START
+          value: "06:00"
+        - name: BUSINESS_HOURS_END
+          value: "02:00"
+        
+        # Payment gateway configuration
+        - name: RAZORPAY_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-secrets
+              key: razorpay-key-id
+        - name: RAZORPAY_KEY_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-secrets
+              key: razorpay-key-secret
+        
+        # UPI configuration
+        - name: UPI_GATEWAY_URL
+          value: "https://api.upi-gateway.npci.org.in/v1"
+        - name: UPI_MERCHANT_ID
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-secrets
+              key: upi-merchant-id
+        
+        # External service URLs
+        - name: LOCATION_SERVICE_URL
+          value: "http://location-service.swiggy-prod.svc.cluster.local:8080"
+        - name: NOTIFICATION_SERVICE_URL
+          value: "http://notification-service.swiggy-prod.svc.cluster.local:8080"
+        - name: DELIVERY_SERVICE_URL
+          value: "http://delivery-service.swiggy-prod.svc.cluster.local:8080"
+        
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+            ephemeral-storage: "1Gi"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+            ephemeral-storage: "2Gi"
+        
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8081
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+        
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8081
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        
+        # Startup probe for slow starting applications
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+            scheme: HTTP
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 30
+          successThreshold: 1
+        
+        # Volume mounts
+        volumeMounts:
+        - name: app-config
+          mountPath: /app/config
+          readOnly: true
+        - name: app-logs
+          mountPath: /app/logs
+        - name: tmp
+          mountPath: /tmp
+        
+        # Security context
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          capabilities:
+            drop:
+            - ALL
+      
+      # Init containers for database migrations
+      initContainers:
+      - name: db-migration
+        image: swiggy/db-migrator:v1.2.0
+        env:
+        - name: DB_HOST
+          value: "mysql-cluster.swiggy-prod.svc.cluster.local"
+        - name: DB_NAME
+          value: "swiggy_food"
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: password
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Starting database migration..."
+          /app/migrate.sh
+          echo "Database migration completed"
+      
+      # Volumes
+      volumes:
+      - name: app-config
+        configMap:
+          name: swiggy-food-api-config
+      - name: app-logs
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 100Mi
+      
+      # Service account
+      serviceAccountName: swiggy-food-api
+      
+      # Image pull secrets
+      imagePullSecrets:
+      - name: swiggy-registry-secret
+      
+      # DNS policy
+      dnsPolicy: ClusterFirst
+      
+      # Restart policy
+      restartPolicy: Always
+      
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
+      
+      # Node selector for specific node types
+      nodeSelector:
+        node-type: "application"
+        instance-type: "t3.large"
+      
+      # Tolerations
+      tolerations:
+      - key: "application-workload"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+
+---
+# Horizontal Pod Autoscaler for dynamic scaling
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: swiggy-food-api-hpa
+  namespace: swiggy-prod
+  labels:
+    app: swiggy-food-api
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: swiggy-food-api
+  minReplicas: 3
+  maxReplicas: 50  # High scaling for Indian peak hours
+  metrics:
+  # CPU-based scaling
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  # Memory-based scaling
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  # Custom metric: requests per second
+  - type: Pods
+    pods:
+      metric:
+        name: http_requests_per_second
+      target:
+        type: AverageValue
+        averageValue: "100"
+  
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 60
+      - type: Pods
+        value: 4
+        periodSeconds: 60
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+      selectPolicy: Min
+
+---
+# Pod Disruption Budget for high availability
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: swiggy-food-api-pdb
+  namespace: swiggy-prod
+spec:
+  minAvailable: 60%
+  selector:
+    matchLabels:
+      app: swiggy-food-api

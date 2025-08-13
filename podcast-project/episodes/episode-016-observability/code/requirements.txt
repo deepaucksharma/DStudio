@@ -1,0 +1,78 @@
+# Episode 16: Observability Code Examples - Requirements
+# भारतीय स्केल के लिए Production-Ready Observability Tools
+
+# Core Monitoring Stack
+prometheus-client==0.19.0    # Metrics collection और custom metrics के लिए
+grafana-api==1.0.3          # Dashboard automation के लिए
+jaeger-client==4.8.0        # Distributed tracing के लिए
+opentelemetry-api==1.21.0   # Modern observability standard
+opentelemetry-sdk==1.21.0
+opentelemetry-instrumentation==0.42b0
+opentelemetry-exporter-jaeger==1.21.0
+
+# Logging and Log Aggregation
+structlog==23.2.0           # Structured logging के लिए
+elasticsearch==8.11.0       # ELK stack integration
+python-json-logger==2.0.7   # JSON format logs
+loguru==0.7.2              # Advanced logging features
+
+# Web Framework और HTTP
+fastapi==0.104.1           # Modern API framework
+uvicorn==0.24.0            # ASGI server
+requests==2.31.0           # HTTP client
+aiohttp==3.9.1             # Async HTTP client
+
+# Database और Caching
+redis==5.0.1               # Caching और metrics store
+psycopg2-binary==2.9.9     # PostgreSQL integration
+motor==3.3.2               # Async MongoDB driver
+
+# Message Queues
+kafka-python==2.0.2        # Apache Kafka integration
+pika==1.3.2                # RabbitMQ integration
+
+# Alerting और Notifications
+slack-sdk==3.23.0          # Slack integration for alerts
+twilio==8.10.1             # SMS alerts for Indian numbers
+boto3==1.34.0              # AWS services integration
+
+# Indian Context Specific
+razorpay==1.4.1            # Razorpay payment monitoring
+upi-pay==0.1.0             # UPI transaction simulation
+phonenumbers==8.13.26      # Indian phone number validation
+
+# Data Analysis और ML
+pandas==2.1.3              # Data analysis
+numpy==1.25.2              # Numerical operations
+scikit-learn==1.3.2        # ML for anomaly detection
+matplotlib==3.8.2          # Plotting और visualization
+seaborn==0.13.0            # Statistical visualization
+
+# Testing
+pytest==7.4.3             # Testing framework
+pytest-asyncio==0.21.1    # Async testing
+pytest-mock==3.12.0       # Mocking capabilities
+coverage==7.3.2           # Code coverage
+
+# Development Tools
+black==23.11.0             # Code formatting
+isort==5.12.0              # Import sorting
+mypy==1.7.1               # Type checking
+flake8==6.1.0             # Code linting
+
+# Configuration Management
+pydantic==2.5.1           # Data validation
+python-dotenv==1.0.0      # Environment variables
+pyyaml==6.0.1             # YAML configuration
+
+# Security और Compliance
+cryptography==41.0.7      # Security operations
+python-jwt==4.0.0         # JWT token handling
+
+# Performance और Profiling
+psutil==5.9.6             # System monitoring
+memory-profiler==0.61.0   # Memory usage profiling
+py-spy==0.3.14            # Python performance profiler
+
+# Indian Language Support
+indic-transliteration==2.3.46  # Hindi/English transliteration

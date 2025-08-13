@@ -1,0 +1,503 @@
+# Progressive Delivery with Canary Deployments
+# Indian e-commerce platforms (Flipkart, Amazon India) के लिए
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-canary
+  labels:
+    istio-injection: enabled
+    monitoring: "prometheus"
+    region: "mumbai"
+
+---
+# Flagger Canary Configuration for Flipkart Product Service
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: flipkart-product-service
+  namespace: flipkart-canary
+spec:
+  # Target deployment for canary analysis
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: product-service
+  
+  # Progressive delivery configuration
+  progressDeadlineSeconds: 600 # 10 minutes timeout
+  
+  # Service configuration
+  service:
+    port: 8080
+    targetPort: 8080
+    gateways:
+      - flipkart-gateway
+    hosts:
+      - products.flipkart.local
+    headers:
+      request:
+        add:
+          x-canary-version: "true"
+          x-deployment-region: "mumbai"
+          x-user-segment: "canary"
+    
+    # Traffic routing for Indian users
+    match:
+      - headers:
+          x-user-location:
+            regex: "mumbai|pune|delhi" # Major Indian cities first
+      - headers:
+          x-user-tier:
+            exact: "premium" # Premium users get canary first
+    
+    # CORS settings for Indian e-commerce
+    corsPolicy:
+      allowOrigins:
+        - exact: "https://flipkart.com"
+        - exact: "https://www.flipkart.com"
+        - exact: "https://m.flipkart.com"
+      allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+      allowHeaders:
+        - x-user-id
+        - x-session-id
+        - x-api-key
+        - content-type
+      maxAge: 24h
+
+  # Canary analysis configuration
+  analysis:
+    # Analysis interval
+    interval: 1m
+    
+    # Analysis threshold (minimum success rate)
+    threshold: 5 # 5% traffic to canary
+    
+    # Maximum traffic percentage for canary
+    maxWeight: 50
+    
+    # Step weight increment
+    stepWeight: 10
+    
+    # Number of iterations
+    iterations: 10
+    
+    # Metrics for analysis
+    metrics:
+      # Success rate metric
+      - name: request-success-rate
+        thresholdRange:
+          min: 99.5 # 99.5% minimum success rate
+        interval: 1m
+        
+      # Response time metric (critical for Indian users on slower networks)
+      - name: request-duration
+        thresholdRange:
+          max: 500 # 500ms max response time
+        interval: 1m
+        
+      # Custom metric for Indian e-commerce
+      - name: cart-conversion-rate
+        thresholdRange:
+          min: 15.0 # 15% minimum cart conversion
+        interval: 2m
+        
+      # Error rate metric
+      - name: error-rate
+        thresholdRange:
+          max: 0.5 # 0.5% maximum error rate
+        interval: 1m
+        
+      # Indian specific - payment success rate
+      - name: payment-success-rate
+        thresholdRange:
+          min: 98.0 # 98% payment success (Indian payment gateways)
+        interval: 2m
+    
+    # Webhooks for analysis
+    webhooks:
+      # Pre-rollout hook
+      - name: load-test
+        type: pre-rollout
+        url: http://flagger-loadtester.flipkart-canary/
+        timeout: 15s
+        metadata:
+          type: bash
+          cmd: "hey -z 1m -q 10 -c 2 http://product-service-canary.flipkart-canary:8080/health"
+          
+      # Rollout hook for Indian traffic simulation
+      - name: indian-traffic-test
+        type: rollout
+        url: http://flagger-loadtester.flipkart-canary/
+        timeout: 30s
+        metadata:
+          type: bash
+          cmd: |
+            # Simulate Indian user patterns
+            hey -z 2m -q 50 -c 10 \
+            -H "x-user-location: mumbai" \
+            -H "x-user-segment: premium" \
+            http://product-service-canary.flipkart-canary:8080/api/products
+            
+            # Test cart functionality
+            hey -z 1m -q 20 -c 5 \
+            -H "x-user-location: delhi" \
+            -m POST \
+            -d '{"productId":"electronics_123","quantity":1}' \
+            http://product-service-canary.flipkart-canary:8080/api/cart
+      
+      # Post-rollout validation
+      - name: integration-test
+        type: post-rollout
+        url: http://flagger-loadtester.flipkart-canary/
+        timeout: 10s
+        metadata:
+          type: bash
+          cmd: "curl -sd 'test' http://product-service-canary.flipkart-canary:8080/api/health"
+
+  # Alert manager configuration
+  alert:
+    severity: warn
+    name: flipkart-canary-alert
+    
+---
+# HorizontalPodAutoscaler for Canary Deployment
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: product-service-canary-hpa
+  namespace: flipkart-canary
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: product-service
+  minReplicas: 5 # Minimum for Indian traffic
+  maxReplicas: 100 # Scale for festival traffic
+  
+  metrics:
+    # CPU utilization
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    
+    # Memory utilization
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+    
+    # Custom metric - requests per second
+    - type: Pods
+      pods:
+        metric:
+          name: requests_per_second
+        target:
+          type: AverageValue
+          averageValue: "100" # 100 RPS per pod
+    
+    # Indian specific - concurrent users per pod
+    - type: Pods
+      pods:
+        metric:
+          name: concurrent_indian_users
+        target:
+          type: AverageValue
+          averageValue: "500" # 500 concurrent users per pod
+
+  # Scaling behavior for Indian traffic patterns
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60 # Quick scale up for traffic spikes
+      policies:
+        - type: Percent
+          value: 100 # Double pods quickly
+          periodSeconds: 60
+        - type: Pods
+          value: 5 # Add 5 pods at a time
+          periodSeconds: 60
+    
+    scaleDown:
+      stabilizationWindowSeconds: 300 # Slower scale down (5 minutes)
+      policies:
+        - type: Percent
+          value: 10 # Reduce by 10% slowly
+          periodSeconds: 60
+
+---
+# ServiceMonitor for Prometheus Metrics
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: flipkart-canary-metrics
+  namespace: flipkart-canary
+  labels:
+    app: product-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: product-service
+  
+  endpoints:
+    - port: http-metrics
+      interval: 15s
+      path: /metrics
+      
+      # Additional labels for Indian context
+      metricRelabelings:
+        - sourceLabels: [__name__]
+          regex: "request_duration_seconds.*"
+          targetLabel: "region"
+          replacement: "india"
+        
+        - sourceLabels: [__name__]
+          regex: "http_requests_total.*"
+          targetLabel: "market"
+          replacement: "indian_ecommerce"
+
+---
+# PrometheusRule for Canary Analysis
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flipkart-canary-rules
+  namespace: flipkart-canary
+spec:
+  groups:
+    - name: flipkart.canary.rules
+      interval: 15s
+      rules:
+        # Request success rate
+        - record: request_success_rate
+          expr: |
+            sum(rate(http_requests_total{status!~"5.*",job="product-service"}[1m])) /
+            sum(rate(http_requests_total{job="product-service"}[1m])) * 100
+        
+        # Request duration 99th percentile
+        - record: request_duration_p99
+          expr: |
+            histogram_quantile(0.99,
+              sum(rate(http_request_duration_seconds_bucket{job="product-service"}[1m])) by (le)
+            ) * 1000
+        
+        # Error rate
+        - record: error_rate
+          expr: |
+            sum(rate(http_requests_total{status=~"5.*",job="product-service"}[1m])) /
+            sum(rate(http_requests_total{job="product-service"}[1m])) * 100
+        
+        # Cart conversion rate (Indian e-commerce specific)
+        - record: cart_conversion_rate
+          expr: |
+            sum(rate(cart_checkouts_total{job="product-service"}[5m])) /
+            sum(rate(cart_additions_total{job="product-service"}[5m])) * 100
+        
+        # Payment success rate (Indian payment gateways)
+        - record: payment_success_rate
+          expr: |
+            sum(rate(payment_transactions_total{status="success",job="product-service"}[2m])) /
+            sum(rate(payment_transactions_total{job="product-service"}[2m])) * 100
+        
+        # Indian specific metrics
+        - record: indian_user_satisfaction
+          expr: |
+            sum(rate(user_feedback_positive{region="india",job="product-service"}[5m])) /
+            sum(rate(user_feedback_total{region="india",job="product-service"}[5m])) * 100
+
+      # Alerting rules for canary deployments
+    - name: flipkart.canary.alerts
+      rules:
+        # High error rate alert
+        - alert: CanaryHighErrorRate
+          expr: error_rate > 1.0
+          for: 2m
+          labels:
+            severity: critical
+            service: product-service
+            team: flipkart-engineering
+          annotations:
+            summary: "Canary deployment has high error rate"
+            description: "Error rate is {{ $value }}% for canary deployment"
+            runbook_url: "https://runbooks.flipkart.com/canary-high-error-rate"
+        
+        # High response time alert
+        - alert: CanaryHighLatency
+          expr: request_duration_p99 > 1000
+          for: 1m
+          labels:
+            severity: warning
+            service: product-service
+            team: flipkart-engineering
+          annotations:
+            summary: "Canary deployment has high latency"
+            description: "99th percentile latency is {{ $value }}ms for canary"
+            
+        # Low conversion rate alert (Indian specific)
+        - alert: CanaryLowConversion
+          expr: cart_conversion_rate < 10.0
+          for: 5m
+          labels:
+            severity: warning
+            service: product-service
+            team: flipkart-business
+          annotations:
+            summary: "Canary deployment has low cart conversion"
+            description: "Cart conversion rate is {{ $value }}% for canary"
+            
+        # Payment failure alert (Indian payment systems)
+        - alert: CanaryPaymentFailures
+          expr: payment_success_rate < 95.0
+          for: 3m
+          labels:
+            severity: critical
+            service: product-service
+            team: flipkart-payments
+          annotations:
+            summary: "Canary deployment has payment failures"
+            description: "Payment success rate is {{ $value }}% for canary"
+
+---
+# Gateway configuration for traffic routing
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: flipkart-gateway
+  namespace: flipkart-canary
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - products.flipkart.local
+      # Redirect to HTTPS for security
+      tls:
+        httpsRedirect: true
+    
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - products.flipkart.local
+      tls:
+        mode: SIMPLE
+        credentialName: flipkart-tls-secret
+
+---
+# Virtual Service for canary traffic routing
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: product-service-vs
+  namespace: flipkart-canary
+spec:
+  hosts:
+    - products.flipkart.local
+  gateways:
+    - flipkart-gateway
+  
+  http:
+    # Route for mobile app traffic (high priority)
+    - match:
+        - headers:
+            user-agent:
+              regex: ".*FlipkartApp.*|.*Mobile.*"
+          uri:
+            prefix: /api/
+      route:
+        - destination:
+            host: product-service-primary
+            port:
+              number: 8080
+          weight: 90
+        - destination:
+            host: product-service-canary
+            port:
+              number: 8080
+          weight: 10
+      
+      # Add mobile-specific headers
+      headers:
+        request:
+          add:
+            x-traffic-type: "mobile"
+            x-priority: "high"
+    
+    # Route for premium users (early canary access)
+    - match:
+        - headers:
+            x-user-tier:
+              exact: "premium"
+          uri:
+            prefix: /api/
+      route:
+        - destination:
+            host: product-service-primary
+            port:
+              number: 8080
+          weight: 70
+        - destination:
+            host: product-service-canary
+            port:
+              number: 8080
+          weight: 30
+      
+      headers:
+        request:
+          add:
+            x-traffic-type: "premium"
+            x-user-segment: "early-adopter"
+    
+    # Default route for regular traffic
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: product-service-primary
+            port:
+              number: 8080
+          weight: 95
+        - destination:
+            host: product-service-canary
+            port:
+              number: 8080
+          weight: 5
+      
+      # Add default headers
+      headers:
+        request:
+          add:
+            x-traffic-type: "regular"
+            x-market: "india"
+      
+      # Fault injection for resilience testing
+      fault:
+        delay:
+          percentage:
+            value: 0.1 # 0.1% of requests
+          fixedDelay: 2s
+        abort:
+          percentage:
+            value: 0.05 # 0.05% of requests
+          httpStatus: 503
+      
+      # Timeout configuration for Indian network conditions
+      timeout: 30s
+      retries:
+        attempts: 3
+        perTryTimeout: 10s
+        retryOn: 5xx,reset,connect-failure,refused-stream

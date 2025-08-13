@@ -1,0 +1,47 @@
+# Episode 42: Data Consistency Models - Python Dependencies
+
+# Core dependencies for Python examples
+# All examples are designed to work with standard library only for maximum compatibility
+
+# Optional dependencies for enhanced testing and development
+pytest>=7.0.0                 # For advanced testing capabilities
+pytest-asyncio>=0.21.0        # For testing async code (eventual consistency)
+pytest-timeout>=2.1.0         # For timeout handling in tests
+pytest-mock>=3.10.0           # For mocking in tests
+
+# Development and code quality tools
+black>=22.0.0                 # Code formatting
+flake8>=5.0.0                 # Linting
+mypy>=1.0.0                   # Type checking
+
+# Performance monitoring (optional)
+psutil>=5.9.0                 # System resource monitoring
+memory-profiler>=0.60.0       # Memory usage profiling
+
+# Logging and debugging (optional)
+colorlog>=6.7.0               # Colored logging output
+structlog>=22.0.0             # Structured logging
+
+# Documentation generation (optional)
+sphinx>=5.0.0                 # Documentation generation
+sphinx-rtd-theme>=1.2.0       # Read the Docs theme
+
+# Note: All main examples work with Python standard library only
+# These dependencies are for enhanced development experience and testing
+
+# Minimum Python version: 3.8+
+# Recommended Python version: 3.10+
+
+# Installation instructions:
+# pip install -r requirements.txt
+
+# For basic usage (no external dependencies needed):
+# python code/python/01_strong_consistency_simulator.py
+# python code/python/02_eventual_consistency_demo.py
+# python code/python/03_vector_clock_implementation.py
+# python code/python/04_causal_consistency_checker.py
+# python code/python/05_session_consistency_manager.py
+# python code/python/06_banking_acid_operations.py
+
+# For running tests:
+# python tests/test_python_examples.py

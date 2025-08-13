@@ -1,0 +1,144 @@
+# Episode 48: Cloud Native Patterns - Python Dependencies
+# एपिसोड 48: क्लाउड नेटिव पैटर्न - पायथन निर्भरताएं
+
+# Kubernetes Client Libraries
+kubernetes>=24.2.0
+kubernetes-asyncio>=24.2.0
+kubectl-ng>=1.0.0
+
+# Cloud Native Frameworks
+flask>=2.2.0
+fastapi>=0.85.0
+uvicorn>=0.18.0
+gunicorn>=20.1.0
+
+# Service Mesh & Istio
+istio-py>=0.1.0  # Custom package if available
+envoy-python>=0.1.0
+
+# Container & Docker
+docker>=6.0.0
+docker-compose>=1.29.0
+
+# Configuration Management
+pyyaml>=6.0.0
+python-dotenv>=0.19.0
+configparser>=5.3.0
+helm>=3.0.0  # Helm client
+
+# Metrics & Monitoring
+prometheus-client>=0.15.0
+grafana-api>=1.0.0
+jaeger-client>=4.8.0
+opentelemetry-api>=1.12.0
+opentelemetry-sdk>=1.12.0
+opentelemetry-instrumentation>=0.33b0
+
+# Service Discovery & Registry
+consul-python>=1.1.0
+etcd3>=0.12.0
+zookeeper>=0.1.0  # Kazoo client
+
+# Message Brokers & Event Streaming
+kafka-python>=2.0.2
+confluent-kafka>=1.9.2
+redis>=4.3.0
+celery>=5.2.0
+
+# Database & Persistence
+sqlalchemy>=1.4.0
+asyncpg>=0.26.0
+motor>=3.0.0  # AsyncIO MongoDB
+aioredis>=2.0.0
+
+# HTTP Clients & API
+aiohttp>=3.8.0
+httpx>=0.23.0
+requests>=2.28.0
+websockets>=10.3.0
+
+# Load Balancing & Circuit Breakers
+circuit-breaker>=1.0.0
+haproxy-stats>=2.0.0
+
+# Security & Authentication
+pyjwt>=2.4.0
+cryptography>=3.4.0
+oauth2lib>=0.9.0
+python-jose>=3.3.0
+
+# Service Registry & Health Checks
+healthcheck>=1.3.3
+py-consul>=1.1.0
+requests-oauthlib>=1.3.1
+
+# Cloud Provider SDKs
+boto3>=1.24.0  # AWS
+google-cloud-core>=2.3.0  # GCP
+azure-common>=1.1.0  # Azure
+
+# Container Runtime & CRI
+containerd-python>=0.1.0  # If available
+podman-py>=4.2.0
+
+# Networking & Ingress
+nginx-python>=0.1.0  # Custom if available
+traefik-python>=0.1.0
+
+# Storage & Volumes
+minio>=7.1.0
+awscli>=1.25.0
+
+# Development & Testing
+pytest>=7.0.0
+pytest-asyncio>=0.19.0
+pytest-mock>=3.8.0
+locust>=2.12.0  # Load testing
+k6-python>=0.1.0  # Performance testing
+
+# Logging & Structured Data
+structlog>=22.0.0
+python-json-logger>=2.0.4
+loguru>=0.6.0
+
+# Time Series & Metrics Storage
+influxdb-client>=1.31.0
+timeseries>=0.1.0
+
+# Data Serialization
+protobuf>=4.21.0
+avro-python3>=1.10.0
+msgpack>=1.0.0
+
+# CLI & Utilities
+click>=8.1.0
+rich>=12.5.0
+typer>=0.6.0
+
+# Configuration & Secrets Management
+vault-client>=2.0.0  # HashiCorp Vault
+keyring>=23.8.0
+
+# Distributed Systems
+raft-python>=0.1.0  # Raft consensus
+consul-lock>=0.1.0
+
+# API Gateway & Proxy
+flask-limiter>=2.2.0
+slowapi>=0.1.0  # Rate limiting for FastAPI
+
+# Image Building & Registry
+docker-registry-client>=0.5.2
+skopeo-python>=0.1.0
+
+# GitOps & CI/CD
+pygit2>=1.10.0
+jenkins-job-builder>=4.0.0
+
+# Chaos Engineering
+chaos-toolkit>=1.13.0
+chaostoolkit-kubernetes>=0.26.0
+
+# Multi-tenancy & RBAC
+casbin>=1.17.0
+flask-principal>=0.4.0

@@ -1,0 +1,186 @@
+# Episode 50: System Design Interview Mastery - Code Dependencies
+# Hindi Tech Podcast Series - Production-Ready System Design Examples
+
+# Core Python Dependencies
+python>=3.8.0
+
+# Database and Storage
+redis>=4.5.0
+psycopg2-binary>=2.9.0
+pymongo>=4.3.0
+sqlite3
+
+# Time and Date Handling (IST Support)
+pytz>=2023.3
+python-dateutil>=2.8.0
+
+# Data Processing and Analysis
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Networking and HTTP
+requests>=2.31.0
+httpx>=0.24.0
+aiohttp>=3.8.0
+
+# Concurrency and Threading
+threading
+asyncio
+concurrent.futures
+
+# Logging and Monitoring
+structlog>=23.1.0
+
+# Testing Framework
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.11.0
+
+# Code Quality and Linting
+black>=23.7.0
+flake8>=6.0.0
+isort>=5.12.0
+mypy>=1.5.0
+
+# Development and Debugging
+ipython>=8.14.0
+ipdb>=0.13.0
+
+# Optional Dependencies for Advanced Features
+
+# Message Queue Systems
+celery>=5.3.0
+kombu>=5.3.0
+amqp>=5.2.0
+
+# Distributed Systems
+zeroconf>=0.76.0  # Service discovery
+kazoo>=2.9.0      # ZooKeeper client (if using ZooKeeper for distributed locking)
+
+# Metrics and Observability
+prometheus-client>=0.17.0
+statsd>=4.0.0
+opencensus>=0.11.0
+
+# Security
+cryptography>=41.0.0
+pyjwt>=2.8.0
+
+# API Development (if extending examples)
+fastapi>=0.100.0
+uvicorn>=0.23.0
+pydantic>=2.0.0
+
+# Data Validation
+jsonschema>=4.18.0
+marshmallow>=3.20.0
+
+# Configuration Management
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Memory Profiling and Performance
+memory-profiler>=0.61.0
+line-profiler>=4.0.0
+py-spy>=0.3.14
+
+# Documentation Generation (optional)
+sphinx>=7.1.0
+sphinx-rtd-theme>=1.3.0
+
+# System Resources Monitoring
+psutil>=5.9.0
+
+# Graph and Network Analysis (for system topology)
+networkx>=3.1.0
+
+# JSON and Data Serialization
+orjson>=3.9.0  # Fast JSON library
+
+# Rate Limiting and Throttling
+limits>=3.5.0
+
+# Caching Libraries
+cachetools>=5.3.0
+diskcache>=5.6.0
+
+# Indian Context Specific
+# Phone number validation
+phonenumbers>=8.13.0
+
+# Indian locale and language support
+babel>=2.12.0
+
+# Geographic and Location Services
+geopy>=2.3.0
+
+# Development Dependencies
+tox>=4.6.0
+pre-commit>=3.3.0
+bandit>=1.7.0  # Security linting
+
+# Docker Support (if containerizing examples)
+docker>=6.1.0
+
+# Cloud Services (if extending to cloud examples)
+boto3>=1.28.0  # AWS SDK
+google-cloud-storage>=2.10.0  # Google Cloud SDK
+azure-storage-blob>=12.17.0  # Azure SDK
+
+# Installation Instructions:
+# 
+# Basic installation:
+#   pip install -r requirements.txt
+#
+# Development installation (includes all optional dependencies):
+#   pip install -r requirements.txt[dev]
+#
+# For Indian phone number validation:
+#   pip install phonenumbers
+#
+# For time-series database examples:
+#   pip install numpy pandas pytz
+#
+# For distributed systems examples:
+#   pip install redis psycopg2-binary pymongo
+#
+# For performance testing:
+#   pip install memory-profiler line-profiler psutil
+#
+# Note: Some dependencies may require system-level packages:
+# Ubuntu/Debian:
+#   sudo apt-get install python3-dev libpq-dev redis-server
+#
+# CentOS/RHEL:
+#   sudo yum install python3-devel postgresql-devel redis
+#
+# macOS:
+#   brew install postgresql redis
+#
+# Windows:
+#   Install PostgreSQL and Redis separately from official websites
+
+# Version Compatibility Notes:
+# - All examples tested with Python 3.8+ 
+# - Redis examples require Redis server 6.0+
+# - PostgreSQL examples require PostgreSQL 12+
+# - MongoDB examples require MongoDB 4.4+
+# - IST timezone examples require pytz package
+# - Indian context examples use phonenumbers for validation
+# - Performance examples may require additional system tools
+
+# Production Deployment Notes:
+# - Use specific versions (not >=) in production
+# - Consider using poetry or pipenv for dependency management  
+# - Set up virtual environments for isolation
+# - Monitor dependency security with tools like safety
+# - Use pip-tools for managing dependency trees
+# - Consider using Docker for consistent environments
+
+# Indian Development Environment Setup:
+# - Ensure IST timezone is configured: export TZ=Asia/Kolkata
+# - Install Hindi language support if needed
+# - Configure IDE for UTF-8 encoding (Hindi comments)
+# - Set up local Redis/PostgreSQL with Indian test data
+# - Use Indian phone number formats in test data
+# - Configure logging with IST timestamps

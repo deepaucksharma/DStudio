@@ -8,14 +8,32 @@
 
 ```
 episode-003-human-factor/code/
-├── python/               # Python implementations (15 examples)
-├── java/                # Java implementations (scattered in python folder)
-├── go/                  # Go implementations (scattered in python folder)
+├── python/               # Python implementations (16 examples)
+│   ├── 01_oncall_rotation_manager.py
+│   ├── 02_alert_fatigue_analyzer.py
+│   ├── 03_incident_response_bot.py                    # NEW!
+│   ├── 04_psychological_safety_scorer.py
+│   ├── 05_blameless_postmortem_generator.py
+│   ├── 07_team_cognitive_load_calculator.py
+│   ├── 08_communication_effectiveness_analyzer.py
+│   ├── 09_cultural_bias_detector.py
+│   ├── 10_mental_health_checkin_system.py
+│   ├── 11_knowledge_sharing_platform.py
+│   ├── 12_incident_stress_calculator.py
+│   ├── 14_technical_debt_psychology_tracker.py
+│   ├── 15_sustainable_engineering_metrics.py
+│   └── 16_sre_reliability_dashboard.py               # NEW!
+├── java/                # Java implementations (1 example)
+│   └── 03_incident_command_system.java              # MOVED & ENHANCED!
+├── go/                  # Go implementations (2 examples) 
+│   ├── 06_work_life_balance_monitor.go              # MOVED & ENHANCED!
+│   └── 13_diversity_inclusion_dashboard.go          # MOVED & ENHANCED!
 ├── tests/               # Test files
+├── requirements.txt     # Python dependencies                   # NEW!
 └── README.md           # This file
 ```
 
-## 🐍 Complete Code Examples (15 Examples)
+## 🐍 Complete Code Examples (16 Examples)
 
 ### On-Call & Incident Management
 
@@ -39,15 +57,16 @@ episode-003-human-factor/code/
 - **Cultural Aspects**: Indian work hour patterns, attention span analysis
 - **Run**: `python3 python/02_alert_fatigue_analyzer.py`
 
-### 3. Incident Command System (`03_incident_command_system.java`)
-- **Context**: Major incident handling with hierarchical Indian management style
+### 3. Incident Response Bot (`03_incident_response_bot.py`)
+- **Context**: AI-powered incident response with Hindi/English support
 - **Features**:
-  - Clear command structure (CEO → CTO → VP → Senior → Junior)
-  - Escalation matrix based on Indian corporate hierarchy
-  - Communication patterns respecting seniority
-  - Crisis management with cultural sensitivity
-- **Cultural Aspects**: Respect for hierarchy, face-saving communication
-- **Run**: `javac python/03_incident_command_system.java && java IncidentCommandSystem`
+  - Multi-language incident reporting (Hindi, English, Hinglish)
+  - Indian time zone and festival awareness
+  - Smart incident categorization using NLP
+  - WhatsApp/Slack/Teams integration
+  - Cultural context understanding (festivals, working hours)
+- **Cultural Aspects**: Festival calendar integration, Hinglish communication
+- **Run**: `python3 python/03_incident_response_bot.py`
 
 ### Psychological & Cultural Factors
 
@@ -176,6 +195,54 @@ episode-003-human-factor/code/
   - Indian context sustainability challenges
 - **Cultural Aspects**: Long-term career perspective, family stability needs
 - **Run**: `python3 python/15_sustainable_engineering_metrics.py`
+
+### 16. SRE Reliability Dashboard (`16_sre_reliability_dashboard.py`)
+- **Context**: Site Reliability Engineering dashboard with Indian business context
+- **Features**:
+  - Indian business event awareness (Diwali sales, IPL, monsoon)
+  - Multi-region monitoring (Mumbai, Bangalore, Delhi, Hyderabad)
+  - SLA tracking with Indian holiday calendar
+  - Error budget management and alerting
+  - Team burnout prevention with workload balancing
+- **Cultural Aspects**: Festival seasons, sale events, regional patterns
+- **Run**: `python3 python/16_sre_reliability_dashboard.py`
+
+## ☕ Java Examples (1 Example)
+
+### 3. Incident Command System (`java/03_incident_command_system.java`)
+- **Context**: Enterprise-grade incident management with TCS/Infosys hierarchy
+- **Features**:
+  - Hierarchical command structure (CEO → CTO → VP → Senior → Junior)
+  - Escalation matrix with Indian corporate culture
+  - Multi-language notifications (Hindi/English)
+  - Face-saving communication patterns
+  - Crisis management with cultural sensitivity
+- **Cultural Aspects**: Respect for hierarchy, Indian corporate communication style
+- **Run**: `javac java/03_incident_command_system.java && java -cp java IncidentCommandSystem`
+
+## 🚀 Go Examples (2 Examples)
+
+### 6. Work-Life Balance Monitor (`go/06_work_life_balance_monitor.go`)
+- **Context**: Comprehensive work-life balance tracking for Indian IT industry
+- **Features**:
+  - Regional patterns analysis (Mumbai traffic vs Bangalore)
+  - Monsoon impact on work patterns
+  - Festival calendar integration
+  - Family obligation conflict detection
+  - Burnout prediction with Indian family context
+- **Cultural Aspects**: Indian family structures, regional variations, festival priorities
+- **Run**: `go run go/06_work_life_balance_monitor.go`
+
+### 13. Diversity & Inclusion Dashboard (`go/13_diversity_inclusion_dashboard.go`)
+- **Context**: D&I metrics dashboard celebrating Indian diversity
+- **Features**:
+  - 26+ state representation tracking
+  - Language diversity monitoring (Hindi, Tamil, Telugu, Bengali, etc.)
+  - Regional bias detection (North, South, East, West, Northeast)
+  - Educational background analysis (IIT/NIT vs local colleges)
+  - Gender representation and leadership diversity
+- **Cultural Aspects**: India's regional and linguistic diversity, inclusive hiring
+- **Run**: `go run go/13_diversity_inclusion_dashboard.go`
 
 ## 🛠️ Setup Instructions
 

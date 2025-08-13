@@ -1,0 +1,54 @@
+# Multi-Cluster GitOps Coordination
+# Indian Multi-Region Cluster Federation
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: multi-cluster-coordination
+  labels:
+    cluster-federation: enabled
+    region: india
+
+---
+# Cluster Registry for Indian Regions  
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: mumbai-production
+  namespace: multi-cluster-coordination
+spec:
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+    kind: KubeadmControlPlane
+    name: mumbai-control-plane
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    kind: AWSCluster
+    name: mumbai-cluster
+---
+# Admiral Configuration for Multi-Cluster Service Discovery
+apiVersion: admiral.io/v1alpha1
+kind: GlobalTrafficPolicy
+metadata:
+  name: indian-payment-services
+  namespace: multi-cluster-coordination
+spec:
+  policy:
+    - dns_prefix: payments
+      match:
+        - headers:
+            region:
+              exact: mumbai
+          priority: 1
+          weight: 40
+        - headers:
+            region:
+              exact: delhi  
+          priority: 2
+          weight: 30
+        - headers:
+            region:
+              exact: bangalore
+          priority: 3
+          weight: 30
+  selector:
+    identity: payment-service

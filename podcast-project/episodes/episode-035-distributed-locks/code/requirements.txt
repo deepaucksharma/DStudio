@@ -1,0 +1,47 @@
+# Python Requirements for Episode 35 - Distributed Locks
+# =======================================================
+
+# Redis client for Redlock implementation
+redis==4.5.4
+hiredis==2.2.2
+
+# ZooKeeper client for distributed coordination
+kazoo==2.9.0
+
+# etcd client for cloud-native locks
+etcd3==0.12.0
+
+# Database drivers for database-based locks
+psycopg2-binary==2.9.5
+mysql-connector-python==8.0.33
+
+# Consul client for service mesh locks  
+python-consul==1.1.0
+
+# HTTP client for web services
+requests==2.28.2
+
+# JSON handling
+ujson==5.7.0
+
+# Async support
+asyncio==3.4.3
+aioredis==2.0.1
+
+# Testing and utilities
+pytest==7.2.2
+pytest-asyncio==0.21.0
+mock==5.0.1
+
+# Logging and monitoring
+structlog==22.3.0
+prometheus-client==0.16.0
+
+# Development tools
+black==23.1.0
+flake8==6.0.0
+mypy==1.1.1
+
+# Performance monitoring
+psutil==5.9.4
+memory-profiler==0.60.0

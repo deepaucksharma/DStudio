@@ -1,0 +1,52 @@
+# Episode 34 - Vector Clocks
+# Dependencies for Python implementations
+
+# Core dependencies
+requests==2.31.0
+psutil==5.9.6
+
+# Async programming
+aiohttp==3.9.1
+aiofiles==23.2.1
+
+# Data structures and serialization
+python-json-logger==2.0.7
+msgpack==1.0.7
+dataclasses  # Built-in for Python 3.7+
+
+# Time handling
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Concurrency
+threading  # Built-in
+concurrent.futures  # Built-in
+
+# Collections and data types
+collections  # Built-in
+typing  # Built-in for Python 3.5+
+enum34==1.1.10  # For older Python versions
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+pytest-benchmark==4.0.0
+
+# Development tools
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
+isort==5.12.0
+
+# Optional: For distributed database examples
+redis==5.0.1
+pymongo==4.6.0
+cassandra-driver==3.28.0
+
+# Optional: For visualization
+matplotlib==3.8.2
+networkx==3.2.1
+
+# Optional: For advanced conflict resolution
+pycrdt==0.1.0  # Conflict-free replicated data types

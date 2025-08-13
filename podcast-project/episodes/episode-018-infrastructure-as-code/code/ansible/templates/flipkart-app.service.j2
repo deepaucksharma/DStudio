@@ -1,0 +1,59 @@
+# SystemD Service for Flipkart Application
+# यह template Ansible द्वारा generate होता है
+
+[Unit]
+Description=Flipkart Web Application
+Documentation=https://flipkart.com/docs
+After=network.target nginx.service
+Wants=nginx.service
+
+[Service]
+Type=simple
+User={{ app_user }}
+Group={{ app_group }}
+WorkingDirectory={{ app_home }}/current
+
+# Application execution
+ExecStart=/usr/bin/node server.js
+ExecReload=/bin/kill -USR1 $MAINPID
+
+# Environment variables
+Environment=NODE_ENV={{ environment }}
+Environment=PORT={{ app_port }}
+Environment=APP_NAME={{ app_name }}
+Environment=APP_VERSION={{ app_version }}
+Environment=AWS_REGION={{ region }}
+EnvironmentFile={{ app_home }}/shared/config/.env
+
+# Restart policy
+Restart=always
+RestartSec=10
+StartLimitInterval=60s
+StartLimitBurst=5
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths={{ app_home }} {{ log_dir }}
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=32768
+
+# Process management
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=flipkart-app
+
+# Working directory permissions
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

@@ -3,6 +3,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates comprehensive insights from our documentation library:
+
+1. **Workflow Orchestration Patterns**: [`docs/pattern-library/coordination/distributed-queue.md`](docs/pattern-library/coordination/distributed-queue.md) - Distributed queue management for complex workflows
+2. **Stream Processing Architecture**: [`docs/pattern-library/data-management/stream-processing.md`](docs/pattern-library/data-management/stream-processing.md) - Real-time data processing and pipeline orchestration
+3. **Human Factors in Operations**: [`docs/architects-handbook/human-factors/operational-excellence.md`](docs/architects-handbook/human-factors/operational-excellence.md) - Building reliable operational practices for workflow systems
+4. **Production Case Studies**: [`docs/architects-handbook/case-studies/messaging-streaming/apache-spark.md`](docs/architects-handbook/case-studies/messaging-streaming/apache-spark.md) - Large-scale distributed processing lessons
+5. **Migration Strategies**: [`docs/excellence/migrations/batch-to-streaming.md`](docs/excellence/migrations/batch-to-streaming.md) - Evolution from batch to real-time processing
+6. **Chaos Engineering for Orchestration**: [`docs/pattern-library/resilience/chaos-engineering-mastery.md`](docs/pattern-library/resilience/chaos-engineering-mastery.md) - Testing workflow resilience under failure conditions
+7. **SRE Practices for Data Pipelines**: [`docs/architects-handbook/human-factors/sre-practices.md`](docs/architects-handbook/human-factors/sre-practices.md) - Site Reliability Engineering for workflow orchestration
+
+---
+
 **[Intro Music: Mumbai local train sounds mixed with electronic beats]**
 
 **Host**: Namaste doston! Welcome to Tech Tapri - jahan technology aur chai dono hot serve hote hain! Main hu aapka host, aur aaj hum baat kar rahe hain ek aisi technology ke baare mein jo bilkul Mumbai local trains ki tarah kaam karti hai. Arre, confused ho gaye? Suniye pura episode, samajh jaayega!

@@ -1,0 +1,297 @@
+# Service Mesh Infrastructure Setup
+# Mumbai Traffic Management Inspired Service Mesh Configuration
+# Context: Paytm/PhonePe style microservices communication
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-system
+  labels:
+    name: istio-system
+    # Mumbai context: Traffic control room namespace
+    app.kubernetes.io/name: mumbai-traffic-control
+
+---
+# Istio Control Plane Installation
+# Represents Mumbai Traffic Control Center - Central Command
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: control-plane
+  namespace: istio-system
+spec:
+  values:
+    global:
+      # Enable mTLS across service mesh - जैसे Mumbai police radio encryption
+      meshConfig:
+        defaultConfig:
+          # Auto mTLS - services automatically secure communication
+          proxyStatsMatcher:
+            inclusionRegexps:
+              - ".*circuit_breakers.*"
+              - ".*upstream_rq_retry.*"  
+              - ".*_cx_.*"
+          # Gateway configuration for Indian payment systems
+          gatewayTopology:
+            numTrustedProxies: 2
+      # Paytm UPI style distributed tracing
+      tracer:
+        zipkin:
+          address: jaeger-collector.istio-system:14268
+    pilot:
+      # Central traffic management - Mumbai control room
+      env:
+        PILOT_ENABLE_WORKLOAD_ENTRY_AUTOREGISTRATION: true
+        # Support for Indian bank services outside k8s
+        PILOT_ENABLE_CROSS_CLUSTER_WORKLOAD_ENTRY: true
+        # Performance tuning for high-scale Indian apps
+        PILOT_PUSH_THROTTLE: 10
+        PILOT_DEBOUNCE_AFTER: 100ms
+        PILOT_DEBOUNCE_MAX: 10s
+  components:
+    pilot:
+      k8s:
+        # Control plane scaling for Indian traffic patterns
+        hpaSpec:
+          minReplicas: 2
+          maxReplicas: 10
+          metrics:
+          - type: Resource
+            resource:
+              name: cpu
+              target:
+                type: Utilization
+                averageUtilization: 80
+        resources:
+          requests:
+            # Optimized for Indian cloud providers
+            cpu: 500m
+            memory: 2048Mi
+          limits:
+            cpu: 1000m  
+            memory: 4096Mi
+        env:
+          # Regional configuration for India
+          - name: PILOT_SCOPE_GATEWAY_TO_NAMESPACE
+            value: "false"
+          # Support for Hindi service names
+          - name: PILOT_ENABLE_UTF8_VALIDATION  
+            value: "false"
+
+---
+# Gateway Configuration - Mumbai Gateway of India Style
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: mumbai-gateway
+  namespace: istio-system
+  labels:
+    app: gateway
+    # Context: Digital Gateway of India for microservices
+    context: mumbai-digital-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  # HTTPS Gateway for UPI payments - Production grade security
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: paytm-style-tls-secret
+    hosts:
+    - api.mumbai-services.local
+    - payments.mumbai-services.local
+    - "*.paytm-style.com"
+  # HTTP Gateway for internal services  
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - internal.mumbai-services.local
+    - monitoring.mumbai-services.local
+
+---
+# Service Entry for External Indian Services
+# जैसे NPCI UPI servers, Bank APIs
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: external-indian-services
+  namespace: istio-system
+spec:
+  hosts:
+  # NPCI UPI services
+  - upi.npci.org.in
+  - api.npci.org.in
+  # Major Indian bank APIs
+  - api.hdfcbank.com  
+  - services.icicibank.com
+  - api.sbi.co.in
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  - number: 80
+    name: http  
+    protocol: HTTP
+  location: MESH_EXTERNAL
+  resolution: DNS
+
+---
+# Destination Rule for Traffic Management
+# Mumbai traffic signal timing patterns
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: default-circuit-breaker
+  namespace: istio-system
+spec:
+  host: "*.local"
+  trafficPolicy:
+    # Circuit breaker - जैसे Mumbai traffic signals
+    connectionPool:
+      tcp:
+        maxConnections: 100
+      http:
+        http1MaxPendingRequests: 50
+        http2MaxRequests: 100
+        maxRequestsPerConnection: 2
+        maxRetries: 3
+        # Indian network latency considerations
+        connectTimeout: 30s
+        h2UpgradePolicy: UPGRADE
+    # Outlier detection - Failed service removal
+    outlierDetection:
+      # Remove unhealthy instances faster during peak UPI hours  
+      consecutiveErrors: 5
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+      minHealthPercent: 50
+
+---
+# Peer Authentication - mTLS for all services
+# Mumbai police radio encryption style
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-mtls
+  namespace: istio-system
+spec:
+  # Apply to all namespaces
+  mtls:
+    mode: STRICT
+
+---
+# Authorization Policy - Who can talk to whom
+# Mumbai traffic rules implementation
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: default-deny
+  namespace: istio-system
+spec:
+  # Default deny all - explicit allow required
+  action: DENY
+  rules:
+  - {}
+
+---
+# Allow specific communication patterns
+apiVersion: security.istio.io/v1beta1  
+kind: AuthorizationPolicy
+metadata:
+  name: allow-payment-flow
+  namespace: istio-system
+spec:
+  action: ALLOW
+  rules:
+  # Frontend can call order service
+  - from:
+    - source:
+        principals: ["cluster.local/ns/frontend/sa/frontend-sa"]
+    to:
+    - operation:
+        methods: ["GET", "POST"]
+        paths: ["/api/orders/*"]
+  # Order service can call payment service  
+  - from:
+    - source:
+        principals: ["cluster.local/ns/orders/sa/orders-sa"]
+    to:
+    - operation:
+        methods: ["POST"]
+        paths: ["/api/payments/*"]
+
+---
+# Telemetry Configuration - Observability
+# Mumbai traffic monitoring dashboard style
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: metrics-collection
+  namespace: istio-system
+spec:
+  metrics:
+  - providers:
+    - name: prometheus
+  - overrides:
+    - match:
+        metric: ALL_METRICS
+      tagOverrides:
+        # Add Indian context tags
+        region:
+          value: "india"
+        city: 
+          value: "mumbai"
+        payment_method:
+          value: "upi"
+  accessLogging:
+    providers:
+    - name: otel
+  tracing:
+    providers:
+    - name: jaeger
+
+---
+# Virtual Service - Traffic routing rules
+# Mumbai route optimization patterns
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService  
+metadata:
+  name: payment-routing
+  namespace: istio-system
+spec:
+  hosts:
+  - payments.mumbai-services.local
+  gateways:
+  - mumbai-gateway
+  http:
+  # A/B Testing - 90% stable, 10% canary
+  # Like testing new UPI features
+  - match:
+    - headers:
+        canary:
+          exact: "true"
+    route:
+    - destination:
+        host: payment-service
+        subset: canary
+      weight: 100
+  # Production traffic routing with retries
+  - match:
+    - uri:
+        prefix: "/api/upi"
+    route:
+    - destination:
+        host: payment-service
+        subset: stable
+    retries:
+      attempts: 3
+      perTryTimeout: 5s
+      retryOn: 5xx,reset,connect-failure,refused-stream
+    timeout: 30s

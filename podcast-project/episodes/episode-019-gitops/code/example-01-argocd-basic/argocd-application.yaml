@@ -1,0 +1,138 @@
+# ArgoCD Application Configuration
+# यह configuration IRCTC जैसे high-traffic Indian application के लिए है
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: irctc-booking-service
+  namespace: argocd
+  # Indian railway booking system के लिए labels
+  labels:
+    app.kubernetes.io/name: irctc-booking
+    app.kubernetes.io/component: booking-service
+    environment: production
+    region: mumbai
+spec:
+  # Git repository जहाँ हमारे Kubernetes manifests हैं
+  source:
+    repoURL: https://github.com/irctc/booking-service-gitops
+    targetRevision: main
+    path: manifests/production
+    # Helm values for Indian specific configuration
+    helm:
+      valueFiles:
+        - values-india.yaml
+      parameters:
+        - name: image.tag
+          value: "v2.1.0"
+        - name: replicas
+          value: "50" # High replica count for Indian traffic
+        - name: resources.requests.memory
+          value: "1Gi"
+        - name: resources.limits.memory
+          value: "2Gi"
+  
+  # Destination cluster - Mumbai datacenter
+  destination:
+    server: https://mumbai-k8s-cluster.irctc.com
+    namespace: booking-production
+  
+  # GitOps project configuration
+  project: irctc-production
+  
+  # Sync policy - automatic deployment with self-healing
+  syncPolicy:
+    automated:
+      prune: true # पुराने resources को automatically delete करो
+      selfHeal: true # अगर कोई manual changes करे तो revert करो
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  # Health check configuration for Indian compliance
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas # Allow HPA to manage replicas
+  
+  # Revision history limit
+  revisionHistoryLimit: 10
+
+---
+# ArgoCD AppProject for IRCTC
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: irctc-production
+  namespace: argocd
+spec:
+  description: "IRCTC Production GitOps Project - भारतीय रेलवे टिकट बुकिंग सिस्टम"
+  
+  # Source repositories allowed
+  sourceRepos:
+    - 'https://github.com/irctc/*'
+    - 'https://charts.bitnami.com/bitnami'
+    - 'https://prometheus-community.github.io/helm-charts'
+  
+  # Destination clusters and namespaces
+  destinations:
+    - namespace: 'booking-*'
+      server: 'https://mumbai-k8s-cluster.irctc.com'
+    - namespace: 'payment-*'
+      server: 'https://mumbai-k8s-cluster.irctc.com'
+    - namespace: 'user-*'
+      server: 'https://mumbai-k8s-cluster.irctc.com'
+  
+  # Cluster resource whitelist
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+  
+  # Namespace resource whitelist
+  namespaceResourceWhitelist:
+    - group: ''
+      kind: Service
+    - group: ''
+      kind: ConfigMap
+    - group: ''
+      kind: Secret
+    - group: apps
+      kind: Deployment
+    - group: apps
+      kind: StatefulSet
+    - group: networking.k8s.io
+      kind: Ingress
+    - group: autoscaling
+      kind: HorizontalPodAutoscaler
+  
+  # RBAC roles for Indian team structure
+  roles:
+    - name: irctc-developers
+      description: "Railway developers team"
+      policies:
+        - p, proj:irctc-production:irctc-developers, applications, get, irctc-production/*, allow
+        - p, proj:irctc-production:irctc-developers, applications, sync, irctc-production/*, allow
+      groups:
+        - irctc:developers
+        - railway:engineers
+    
+    - name: irctc-operators
+      description: "Railway operations team"
+      policies:
+        - p, proj:irctc-production:irctc-operators, applications, *, irctc-production/*, allow
+        - p, proj:irctc-production:irctc-operators, repositories, *, *, allow
+      groups:
+        - irctc:operators
+        - railway:sre

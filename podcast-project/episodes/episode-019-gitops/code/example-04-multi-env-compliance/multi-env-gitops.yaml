@@ -1,0 +1,598 @@
+# Multi-Environment GitOps for Indian Compliance
+# RBI, SEBI, IRDAI compliance के साथ multiple environments
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: compliance-environments
+  labels:
+    compliance: rbi-npci-approved
+    audit: enabled
+    data-residency: india
+
+---
+# Development Environment Configuration
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fintech-dev-environment
+  namespace: argocd
+  labels:
+    environment: development
+    compliance-level: basic
+    region: mumbai
+spec:
+  source:
+    repoURL: https://github.com/indianfintech/app-manifests
+    targetRevision: develop
+    path: environments/development
+    helm:
+      valueFiles:
+        - values-dev.yaml
+        - values-mumbai.yaml
+      parameters:
+        - name: environment
+          value: development
+        - name: compliance.rbi.enabled
+          value: "false"  # Dev में RBI compliance optional
+        - name: compliance.audit.level
+          value: "basic"
+        - name: replicas
+          value: "2"
+        - name: resources.requests.memory
+          value: "512Mi"
+  
+  destination:
+    server: https://dev-cluster.mumbai.indianfintech.com
+    namespace: fintech-development
+  
+  project: indian-fintech
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+---
+# Staging Environment - Pre-production with Compliance Testing
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fintech-staging-environment
+  namespace: argocd
+  labels:
+    environment: staging
+    compliance-level: strict
+    region: mumbai
+spec:
+  source:
+    repoURL: https://github.com/indianfintech/app-manifests
+    targetRevision: staging
+    path: environments/staging
+    helm:
+      valueFiles:
+        - values-staging.yaml
+        - values-compliance.yaml
+        - values-mumbai.yaml
+      parameters:
+        - name: environment
+          value: staging
+        - name: compliance.rbi.enabled
+          value: "true"
+        - name: compliance.audit.level
+          value: "strict"
+        - name: compliance.pci.enabled
+          value: "true"
+        - name: replicas
+          value: "5"
+        - name: resources.requests.memory
+          value: "1Gi"
+        - name: monitoring.enabled
+          value: "true"
+        - name: security.pod.securityContext.runAsNonRoot
+          value: "true"
+  
+  destination:
+    server: https://staging-cluster.mumbai.indianfintech.com
+    namespace: fintech-staging
+  
+  project: indian-fintech
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 3
+      backoff:
+        duration: 10s
+        maxDuration: 3m
+
+---
+# Production Environment - Full RBI/NPCI Compliance
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fintech-production-environment
+  namespace: argocd
+  labels:
+    environment: production
+    compliance-level: rbi-strict
+    region: mumbai
+    criticality: high
+spec:
+  source:
+    repoURL: https://github.com/indianfintech/app-manifests
+    targetRevision: main
+    path: environments/production
+    helm:
+      valueFiles:
+        - values-production.yaml
+        - values-rbi-compliance.yaml
+        - values-mumbai.yaml
+        - secrets/prod-secrets.yaml
+      parameters:
+        - name: environment
+          value: production
+        - name: compliance.rbi.enabled
+          value: "true"
+        - name: compliance.npci.enabled
+          value: "true"
+        - name: compliance.audit.level
+          value: "rbi-strict"
+        - name: compliance.pci.level
+          value: "1"
+        - name: replicas
+          value: "20"
+        - name: resources.requests.memory
+          value: "2Gi"
+        - name: resources.limits.memory
+          value: "4Gi"
+        - name: monitoring.enabled
+          value: "true"
+        - name: security.networkPolicy.enabled
+          value: "true"
+        - name: backup.enabled
+          value: "true"
+        - name: disaster.recovery.enabled
+          value: "true"
+  
+  destination:
+    server: https://prod-cluster.mumbai.indianfintech.com
+    namespace: fintech-production
+  
+  project: indian-fintech
+  
+  # Production में manual sync for safety
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 30s
+        maxDuration: 10m
+  
+  # Production health checks
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas  # HPA manages this
+
+---
+# DR Environment - Disaster Recovery in Different Region
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fintech-dr-environment
+  namespace: argocd
+  labels:
+    environment: disaster-recovery
+    compliance-level: rbi-strict
+    region: bangalore
+    purpose: disaster-recovery
+spec:
+  source:
+    repoURL: https://github.com/indianfintech/app-manifests
+    targetRevision: main
+    path: environments/disaster-recovery
+    helm:
+      valueFiles:
+        - values-production.yaml
+        - values-rbi-compliance.yaml
+        - values-bangalore.yaml
+        - values-dr.yaml
+      parameters:
+        - name: environment
+          value: disaster-recovery
+        - name: compliance.rbi.enabled
+          value: "true"
+        - name: replicas
+          value: "10"  # Lower capacity for DR
+        - name: database.mode
+          value: "replica"
+        - name: disaster.recovery.standby
+          value: "true"
+  
+  destination:
+    server: https://dr-cluster.bangalore.indianfintech.com
+    namespace: fintech-dr
+  
+  project: indian-fintech
+  
+  # DR is kept in sync but not active
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+---
+# Compliance Environment - For Regulatory Testing
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fintech-compliance-environment
+  namespace: argocd
+  labels:
+    environment: compliance
+    compliance-level: audit
+    region: delhi
+    purpose: regulatory-testing
+spec:
+  source:
+    repoURL: https://github.com/indianfintech/app-manifests
+    targetRevision: compliance
+    path: environments/compliance
+    helm:
+      valueFiles:
+        - values-compliance.yaml
+        - values-audit.yaml
+        - values-delhi.yaml
+      parameters:
+        - name: environment
+          value: compliance
+        - name: compliance.rbi.audit.mode
+          value: "true"
+        - name: compliance.audit.retention.days
+          value: "2555"  # 7 years as per RBI
+        - name: monitoring.audit.enabled
+          value: "true"
+        - name: replicas
+          value: "3"
+  
+  destination:
+    server: https://compliance-cluster.delhi.indianfintech.com
+    namespace: fintech-compliance
+  
+  project: indian-fintech
+
+---
+# AppProject for Indian FinTech with Compliance
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: indian-fintech
+  namespace: argocd
+spec:
+  description: "Indian FinTech Application with RBI/NPCI Compliance"
+  
+  sourceRepos:
+    - 'https://github.com/indianfintech/*'
+    - 'https://charts.bitnami.com/bitnami'
+    - 'https://prometheus-community.github.io/helm-charts'
+  
+  destinations:
+    # Development clusters (less restricted)
+    - namespace: 'fintech-development'
+      server: 'https://dev-cluster.mumbai.indianfintech.com'
+    
+    # Staging clusters (compliance testing)
+    - namespace: 'fintech-staging'
+      server: 'https://staging-cluster.mumbai.indianfintech.com'
+    
+    # Production clusters (full compliance)
+    - namespace: 'fintech-production'
+      server: 'https://prod-cluster.mumbai.indianfintech.com'
+    
+    # DR clusters
+    - namespace: 'fintech-dr'
+      server: 'https://dr-cluster.bangalore.indianfintech.com'
+    
+    # Compliance testing
+    - namespace: 'fintech-compliance'
+      server: 'https://compliance-cluster.delhi.indianfintech.com'
+  
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+  
+  namespaceResourceWhitelist:
+    - group: ''
+      kind: Service
+    - group: ''
+      kind: ConfigMap
+    - group: ''
+      kind: Secret
+    - group: apps
+      kind: Deployment
+    - group: apps
+      kind: StatefulSet
+    - group: networking.k8s.io
+      kind: Ingress
+    - group: autoscaling
+      kind: HorizontalPodAutoscaler
+    - group: policy
+      kind: PodSecurityPolicy
+    - group: monitoring.coreos.com
+      kind: ServiceMonitor
+  
+  # Indian team roles
+  roles:
+    # Developers - can deploy to dev/staging
+    - name: developers
+      description: "Indian FinTech Developers"
+      policies:
+        - p, proj:indian-fintech:developers, applications, get, indian-fintech/fintech-dev-*, allow
+        - p, proj:indian-fintech:developers, applications, sync, indian-fintech/fintech-dev-*, allow
+        - p, proj:indian-fintech:developers, applications, get, indian-fintech/fintech-staging-*, allow
+        - p, proj:indian-fintech:developers, applications, sync, indian-fintech/fintech-staging-*, allow
+      groups:
+        - fintech:developers
+        - indian-team:engineers
+    
+    # SRE - can deploy to all environments except production
+    - name: sre-team
+      description: "Site Reliability Engineers"
+      policies:
+        - p, proj:indian-fintech:sre-team, applications, *, indian-fintech/fintech-dev-*, allow
+        - p, proj:indian-fintech:sre-team, applications, *, indian-fintech/fintech-staging-*, allow
+        - p, proj:indian-fintech:sre-team, applications, get, indian-fintech/fintech-production-*, allow
+        - p, proj:indian-fintech:sre-team, applications, sync, indian-fintech/fintech-production-*, allow
+      groups:
+        - fintech:sre
+        - indian-team:operations
+    
+    # Production Operations - full access with approval
+    - name: production-ops
+      description: "Production Operations Team"
+      policies:
+        - p, proj:indian-fintech:production-ops, applications, *, indian-fintech/*, allow
+        - p, proj:indian-fintech:production-ops, repositories, *, *, allow
+      groups:
+        - fintech:production-ops
+        - indian-team:senior-sre
+    
+    # Compliance Team - read-only access to all environments
+    - name: compliance-team
+      description: "RBI/NPCI Compliance Team"
+      policies:
+        - p, proj:indian-fintech:compliance-team, applications, get, indian-fintech/*, allow
+        - p, proj:indian-fintech:compliance-team, repositories, get, *, allow
+      groups:
+        - fintech:compliance
+        - rbi:auditors
+        - npci:reviewers
+
+---
+# Compliance ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: indian-compliance-config
+  namespace: argocd
+data:
+  rbi-guidelines.yaml: |
+    rbi:
+      data_residency: "india"
+      audit_retention_years: 7
+      encryption_at_rest: "mandatory"
+      encryption_in_transit: "mandatory"
+      access_logging: "all_transactions"
+      incident_reporting_hours: 6
+      
+      approved_regions:
+        - "mumbai"
+        - "delhi"
+        - "bangalore"
+        - "chennai"
+        - "hyderabad"
+      
+      prohibited_regions:
+        - "us-east-1"
+        - "eu-west-1"
+        - "ap-southeast-1"
+      
+      mandatory_controls:
+        - "network_segregation"
+        - "data_masking"
+        - "audit_trails"
+        - "access_controls"
+        - "incident_response"
+  
+  npci-requirements.yaml: |
+    npci:
+      upi_compliance: "mandatory"
+      transaction_limits:
+        individual: 100000  # 1 lakh INR
+        merchant: 5000000   # 50 lakh INR
+      
+      security_requirements:
+        - "two_factor_authentication"
+        - "transaction_pin"
+        - "device_binding"
+        - "fraud_detection"
+      
+      monitoring:
+        transaction_monitoring: "real_time"
+        fraud_detection: "ml_based"
+        alert_thresholds:
+          failed_transactions: "5_percent"
+          response_time: "3_seconds"
+  
+  pci-dss-requirements.yaml: |
+    pci_dss:
+      level: "1"  # Level 1 for high volume
+      requirements:
+        - "firewall_configuration"
+        - "default_passwords_change"
+        - "cardholder_data_protection"
+        - "encrypted_transmission"
+        - "antivirus_software"
+        - "secure_systems"
+        - "access_restriction"
+        - "unique_user_ids"
+        - "physical_access_restriction"
+        - "network_monitoring"
+        - "regular_testing"
+        - "information_security_policy"
+
+---
+# Environment Promotion Workflow
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: environment-promotion-workflow
+  namespace: argocd
+spec:
+  entrypoint: promote-through-environments
+  
+  templates:
+    - name: promote-through-environments
+      steps:
+        # Step 1: Deploy to Development
+        - - name: deploy-dev
+            template: deploy-environment
+            arguments:
+              parameters:
+                - name: environment
+                  value: "development"
+                - name: compliance-level
+                  value: "basic"
+        
+        # Step 2: Run Dev Tests
+        - - name: test-dev
+            template: run-tests
+            arguments:
+              parameters:
+                - name: environment
+                  value: "development"
+        
+        # Step 3: Deploy to Staging with Compliance
+        - - name: deploy-staging
+            template: deploy-environment
+            arguments:
+              parameters:
+                - name: environment
+                  value: "staging"
+                - name: compliance-level
+                  value: "strict"
+        
+        # Step 4: Run Compliance Tests
+        - - name: compliance-tests
+            template: run-compliance-tests
+            arguments:
+              parameters:
+                - name: environment
+                  value: "staging"
+        
+        # Step 5: Manual Approval for Production
+        - - name: production-approval
+            template: manual-approval
+            arguments:
+              parameters:
+                - name: approvers
+                  value: "fintech:production-ops,rbi:compliance-team"
+        
+        # Step 6: Deploy to Production
+        - - name: deploy-production
+            template: deploy-environment
+            arguments:
+              parameters:
+                - name: environment
+                  value: "production"
+                - name: compliance-level
+                  value: "rbi-strict"
+    
+    - name: deploy-environment
+      inputs:
+        parameters:
+          - name: environment
+          - name: compliance-level
+      script:
+        image: argoproj/argocd:latest
+        command: [sh]
+        source: |
+          echo "Deploying to {{ inputs.parameters.environment }}"
+          echo "Compliance level: {{ inputs.parameters.compliance-level }}"
+          
+          # Sync ArgoCD application
+          argocd app sync fintech-{{ inputs.parameters.environment }}-environment \
+            --prune \
+            --timeout 600
+    
+    - name: run-tests
+      inputs:
+        parameters:
+          - name: environment
+      script:
+        image: curlimages/curl:latest
+        command: [sh]
+        source: |
+          echo "Running tests in {{ inputs.parameters.environment }}"
+          
+          # Health check
+          curl -f http://app.fintech-{{ inputs.parameters.environment }}.svc.cluster.local:8080/health
+          
+          # Basic functionality tests
+          curl -f http://app.fintech-{{ inputs.parameters.environment }}.svc.cluster.local:8080/api/status
+    
+    - name: run-compliance-tests
+      inputs:
+        parameters:
+          - name: environment
+      script:
+        image: python:3.9-slim
+        command: [python]
+        source: |
+          import requests
+          import json
+          
+          env = "{{ inputs.parameters.environment }}"
+          base_url = f"http://app.fintech-{env}.svc.cluster.local:8080"
+          
+          # RBI Compliance Tests
+          print("Running RBI compliance tests...")
+          
+          # Test 1: Data residency check
+          response = requests.get(f"{base_url}/compliance/data-residency")
+          assert response.json()["region"] in ["mumbai", "delhi", "bangalore"]
+          
+          # Test 2: Audit logging check
+          response = requests.get(f"{base_url}/compliance/audit-status")
+          assert response.json()["audit_enabled"] == True
+          
+          # Test 3: Encryption check
+          response = requests.get(f"{base_url}/compliance/encryption-status")
+          assert response.json()["encryption_at_rest"] == True
+          assert response.json()["encryption_in_transit"] == True
+          
+          print("All compliance tests passed!")
+    
+    - name: manual-approval
+      inputs:
+        parameters:
+          - name: approvers
+      suspend: {}  # Wait for manual approval
