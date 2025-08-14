@@ -2,15 +2,15 @@
 
 ## Overview
 
-यह repository Episode 41 के लिए comprehensive database replication strategies के production-ready implementations provide करती है। Indian banking, e-commerce, और fintech systems के real-world scenarios के साथ 15+ detailed examples include किए गए हैं।
+यह repository Episode 41 के लिए comprehensive database replication strategies के production-ready implementations provide करती है। Indian banking, e-commerce, और fintech systems के real-world scenarios के साथ 18+ detailed examples include किए गए हैं।
 
 ## 🎯 Key Features
 
-- **15+ Production-Ready Examples** across Python, Java, और Go
-- **Indian Context Integration** - HDFC Bank, UPI, Flipkart, Myntra scenarios
+- **18+ Production-Ready Examples** across Python, Java, और Go
+- **Indian Context Integration** - HDFC Bank, UPI, Flipkart, Myntra, Zomato scenarios
 - **Real-world Patterns** - Master-slave, Master-master, Async/Sync replication
-- **Advanced Algorithms** - Vector clocks, 2PC, Conflict resolution
-- **Monitoring & Scaling** - Performance benchmarks, Auto-scaling systems
+- **Advanced Algorithms** - Vector clocks, 2PC, Conflict resolution, CDC, Binary log parsing
+- **Monitoring & Scaling** - Performance benchmarks, Auto-scaling systems, Cross-region replication
 - **Complete Test Coverage** - Unit tests, Integration tests, Performance tests
 
 ## 📁 Repository Structure
@@ -24,15 +24,23 @@ episode-041-database-replication/
 │   │   ├── 03_async_replication_eventual_consistency.py
 │   │   ├── 04_sync_replication_2pc.py
 │   │   ├── 05_banking_acid_replication.py
-│   │   └── 06_myntra_inventory_replication.py
+│   │   ├── 06_myntra_inventory_replication.py
+│   │   ├── 07_binary_log_parser.py
+│   │   ├── 08_change_data_capture.py
+│   │   ├── 09_cross_region_replication.py
+│   │   └── 10_upi_transaction_replication.py
 │   │
 │   ├── java/                       # Java implementations
 │   │   ├── PerformanceBenchmarkTool.java
-│   │   └── DataSynchronizationPatterns.java
+│   │   ├── DataSynchronizationPatterns.java
+│   │   ├── HDFCBankingFailoverSystem.java
+│   │   └── FlipkartInventoryCDC.java
 │   │
 │   ├── go/                         # Go implementations
 │   │   ├── replication_lag_monitor.go
-│   │   └── auto_scaling_replication.go
+│   │   ├── auto_scaling_replication.go
+│   │   ├── read_replica_manager.go
+│   │   └── conflict_resolution_engine.go
 │   │
 │   ├── tests/                      # Comprehensive test suite
 │   │   ├── test_all_examples.py
@@ -97,6 +105,18 @@ python python/05_banking_acid_replication.py
 
 # E-commerce Inventory (Myntra)
 python python/06_myntra_inventory_replication.py
+
+# Binary Log Parser (HDFC Banking)
+python python/07_binary_log_parser.py
+
+# Change Data Capture (Real-time sync)
+python python/08_change_data_capture.py
+
+# Cross-region Replication (Global operations)
+python python/09_cross_region_replication.py
+
+# UPI Transaction Replication (NPCI Switch)
+python python/10_upi_transaction_replication.py
 ```
 
 #### Java Examples
@@ -107,6 +127,12 @@ java PerformanceBenchmarkTool
 
 # Data Synchronization Patterns
 java DataSynchronizationPatterns
+
+# HDFC Banking Failover System
+java HDFCBankingFailoverSystem
+
+# Flipkart Inventory CDC
+java FlipkartInventoryCDC
 ```
 
 #### Go Examples
@@ -117,6 +143,12 @@ go run replication_lag_monitor.go
 
 # Auto-scaling Replication
 go run auto_scaling_replication.go
+
+# Read Replica Manager
+go run read_replica_manager.go
+
+# Conflict Resolution Engine
+go run conflict_resolution_engine.go
 ```
 
 ## 🏛️ Architecture Patterns Covered
@@ -171,6 +203,46 @@ go run auto_scaling_replication.go
 - **Features**: Cost optimization, Sale event handling, Regional scaling
 - **File**: `go/auto_scaling_replication.go`
 
+### 11. Binary Log Parser
+- **Use Case**: Real-time monitoring and auditing of database changes
+- **Features**: MySQL binlog parsing, PostgreSQL WAL streaming, Change detection
+- **File**: `python/07_binary_log_parser.py`
+
+### 12. Change Data Capture (CDC)
+- **Use Case**: Real-time data synchronization between systems
+- **Features**: Kafka integration, Event-driven architecture, Multi-system sync
+- **File**: `python/08_change_data_capture.py`
+
+### 13. Cross-region Replication
+- **Use Case**: Global business operations with regional compliance
+- **Features**: Geographic optimization, Compliance handling, Multi-region coordination
+- **File**: `python/09_cross_region_replication.py`
+
+### 14. UPI Transaction Replication
+- **Use Case**: High-volume payment processing at NPCI scale
+- **Features**: 50,000+ TPS handling, Fraud detection, Multi-bank coordination
+- **File**: `python/10_upi_transaction_replication.py`
+
+### 15. HDFC Banking Failover System
+- **Use Case**: Enterprise-grade automated failover for banking
+- **Features**: <30 second failover, RBI compliance, Multi-datacenter setup
+- **File**: `java/HDFCBankingFailoverSystem.java`
+
+### 16. Flipkart Inventory CDC
+- **Use Case**: Real-time inventory synchronization for e-commerce
+- **Features**: Big Billion Days scaling, Multi-warehouse coordination, Real-time updates
+- **File**: `java/FlipkartInventoryCDC.java`
+
+### 17. Read Replica Manager
+- **Use Case**: Intelligent routing and management of read replicas
+- **Features**: Geographic optimization, Health monitoring, Load balancing strategies
+- **File**: `go/read_replica_manager.go`
+
+### 18. Conflict Resolution Engine
+- **Use Case**: Advanced conflict resolution for multi-master systems
+- **Features**: Vector clocks, CRDT algorithms, Business rule enforcement
+- **File**: `go/conflict_resolution_engine.go`
+
 ## 🇮🇳 Indian Context Integration
 
 ### Banking Systems
@@ -180,10 +252,17 @@ go run auto_scaling_replication.go
 - **Core Banking**: ACID guarantees for financial transactions
 
 ### E-commerce Platforms
-- **Flipkart**: Async inventory replication across warehouses
+- **Flipkart**: Async inventory replication across warehouses, Global cross-region setup, Real-time CDC
 - **Myntra**: Multi-variant fashion inventory management
-- **Big Billion Day**: Auto-scaling during sale events
+- **Zomato**: Restaurant status synchronization and delivery optimization
+- **Big Billion Day**: Auto-scaling during sale events, 5x capacity scaling
 - **Regional Distribution**: Mumbai, Delhi, Bangalore, Chennai, Kolkata
+
+### Fintech and Payments
+- **NPCI UPI Switch**: 50,000+ TPS transaction processing and replication
+- **UPI Networks**: Multi-bank coordination and settlement systems
+- **Digital Payments**: Real-time fraud detection and prevention
+- **Payment Aggregators**: Cross-region compliance and data residency
 
 ### Performance Characteristics
 - **Network Latencies**: Inter-city Indian network conditions
@@ -228,6 +307,11 @@ python tests/load_tests.py
 | Async Replication | 2,000-10,000 | 25ms | Eventual | High throughput |
 | Sync Replication | 200-1,000 | 200ms | Strong | Financial |
 | ACID Banking | 100-500 | 500ms | ACID | Critical transactions |
+| Binary Log Parser | 5,000-15,000 | 10ms | Eventual | Monitoring |
+| CDC Systems | 3,000-8,000 | 30ms | Eventual | Real-time sync |
+| Cross-region | 500-2,000 | 150ms | Strong | Global ops |
+| UPI Processing | 20,000-50,000+ | 5ms | Strong | Payments |
+| Failover Systems | N/A | <30s | Strong | Disaster recovery |
 
 ### Regional Performance Variations
 

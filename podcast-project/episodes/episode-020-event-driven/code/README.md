@@ -16,7 +16,11 @@ This repository contains comprehensive implementations of Event-Driven Architect
 - **Circuit Breaker for Event Processing**
 - **CQRS Read/Write Model Separation**
 - **Real-time Event Streaming with WebSockets**
-- **And more...**
+- **Advanced Event Sourcing with Snapshots**
+- **SAGA Orchestration for IRCTC Booking**
+- **Event-Driven Microservices with Kafka**
+- **Complex Event Processing (CEP)**
+- **Indian Payment Event Systems**
 
 ## 📁 Repository Structure
 
@@ -33,7 +37,12 @@ episode-020-event-driven/
 │   │   ├── 07_exactly_once_delivery.py   # Exactly-Once Semantics
 │   │   ├── 08_circuit_breaker.py         # Circuit Breaker Pattern
 │   │   ├── 09_cqrs_pattern.py            # CQRS Implementation
-│   │   └── 10_websocket_streaming.py     # Real-time WebSocket Streaming
+│   │   ├── 10_websocket_streaming.py     # Real-time WebSocket Streaming
+│   │   ├── 11_indian_payment_event_system.py # UPI Payment Event System
+│   │   ├── 12_advanced_event_sourcing_snapshots.py # Event Sourcing with Snapshots
+│   │   ├── 13_saga_orchestration_irctc_booking.py # SAGA Orchestration for IRCTC
+│   │   ├── 14_kafka_microservices_zerodha_trading.py # Kafka Microservices
+│   │   └── 15_complex_event_processing_mumbai_traffic.py # Complex Event Processing
 │   ├── java/                      # Java implementations
 │   │   ├── BasicPubSub.java              # Basic Publisher/Subscriber
 │   │   └── KafkaOlaRideSystem.java       # Kafka PhonePe UPI System
