@@ -8,8 +8,8 @@
 ### Episode Standards (NON-NEGOTIABLE)
 - **Minimum Word Count**: 20,000 words per episode (3-hour content)
 - **Language**: 70% Hindi/Roman Hindi, 30% Technical English terms only
-- **Style**: Mumbai street-style storytelling, NOT academic
-- **Examples**: 30% MUST be Indian context (Paytm, Flipkart, Ola, Zomato, IRCTC)
+- **Style**: Indian street-style storytelling with diverse cultural contexts, NOT academic
+- **Examples**: 30% MUST be Indian context (Paytm, Flipkart, Ola, Zomato, IRCTC, Dream11, Zerodha, etc.)
 - **Code**: 15+ working examples per episode (Python, Java, Go)
 - **Case Studies**: 5+ production failures with timeline and costs
 - **2025 Focus**: All examples must be 2020-2025, no outdated content
@@ -331,12 +331,17 @@ Each agent MUST consider:
    - How many engineers needed?
    - What's the ROI timeline?
 
-4. **Mumbai Metaphor Mapping**
-   - Local train analogy?
-   - Dabba system parallel?
-   - Monsoon flooding comparison?
-   - Street vendor example?
-   - Traffic signal similarity?
+4. **Indian Context Mapping**
+   - Use diverse Indian metaphors from different cities and cultures
+   - Cricket analogies (IPL, Test matches, T20)
+   - Bollywood and regional cinema references
+   - Festival contexts (Diwali, Holi, Durga Puja, Onam)
+   - Food analogies (street food, regional cuisines)
+   - Transportation (local trains, metros, auto-rickshaws, IRCTC)
+   - Cultural events (weddings, Kumbh Mela, Republic Day parade)
+   - Different city contexts (Bangalore traffic, Delhi pollution, Mumbai rains, Chennai floods)
+   - Government services (Aadhaar, UPI, DigiLocker)
+   - Education system (IIT JEE, UPSC, coaching centers)
 
 5. **Code Practicality**
    - Will this run on a laptop?
@@ -455,10 +460,13 @@ python -c "import sys; content=open(sys.argv[1]).read(); words=len(content.split
   - docs/analysis/ - Mathematical models and analysis
 
 ### Style References
-- Mumbai style: Local train announcements
-- Technical terms: Consistent Hindi translations
-- Metaphors: Street food, traffic, monsoon
-- Tone: Friend explaining, not professor
+- Indian storytelling: Mix of urban and regional contexts
+- Technical terms: Consistent Hindi translations with regional variations
+- Metaphors: Diverse - cricket, Bollywood, festivals, food, education, government services
+- Cultural references: Pan-Indian (not just one city)
+- Tone: Friend explaining over chai, not professor lecturing
+- Examples: From metros to tier-2/3 cities
+- Humor: Light Indian humor and pop culture references
 
 ---
 
@@ -551,16 +559,21 @@ Tomorrow's Plan:
 
 ## FINAL NOTES
 
-Remember: Quality > Speed, but maintain discipline. Every episode represents 3 hours of someone's learning time. Make it worth it. Make it memorable. Make it Mumbai.
+Remember: Quality > Speed, but maintain discipline. Every episode represents 3 hours of someone's learning time. Make it worth it. Make it memorable. Make it relatable to all of India - from Kashmir to Kanyakumari, from Gujarat to Arunachal Pradesh.
+
+Use diverse Indian contexts - not just one city. Reference different festivals, languages, foods, cultural practices, and regional differences. The goal is to make every Indian engineer feel included and engaged.
 
 **The 20,000 word minimum is NON-NEGOTIABLE.**
 
 ---
 
-*Last Updated: 2025-01-10*
-*Version: 1.1*
+*Last Updated: 2025-01-15*
+*Version: 1.2*
 *Status: ACTIVE - ENFORCEMENT MODE*
-*Change: Added documentation reference requirements for research agents*
+*Changes: 
+- Added diverse Indian cultural contexts beyond single city focus
+- Expanded metaphor options to include pan-Indian references
+- Updated style guide for inclusive storytelling*
 
 ---
 

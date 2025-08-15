@@ -1,0 +1,107 @@
+{
+  "name": "graphql-federation-examples",
+  "version": "1.0.0",
+  "description": "Comprehensive GraphQL Federation examples for Indian e-commerce - Episode 63 Hindi Tech Podcast",
+  "author": "Hindi Tech Podcast",
+  "license": "MIT",
+  "main": "javascript/01_basic_apollo_server.js",
+  "scripts": {
+    "start": "node javascript/01_basic_apollo_server.js",
+    "gateway": "node javascript/02_federation_gateway.js",
+    "products": "node javascript/03_products_subgraph.js",
+    "stitching": "node javascript/04_schema_stitching.js",
+    "dataloader": "node javascript/05_dataloader_implementation.js",
+    "complexity": "node javascript/09_query_complexity_analysis.js",
+    "subscriptions": "node javascript/11_graphql_subscriptions.js",
+    "errors": "node javascript/13_error_handling_patterns.js",
+    "test": "node javascript/15_graphql_testing_framework.js test",
+    "test-server": "node javascript/15_graphql_testing_framework.js",
+    "dev": "nodemon javascript/01_basic_apollo_server.js",
+    "install-python": "cd python && pip install -r requirements.txt",
+    "python-auth": "cd python && python 07_graphql_authentication.py",
+    "python-rate-limit": "cd python && python 08_graphql_rate_limiting.py",
+    "python-n-plus-one": "cd python && python 06_n_plus_one_solution.py",
+    "python-file-upload": "cd python && python 12_file_upload_graphql.py",
+    "python-caching": "cd python && python 14_graphql_caching_strategies.py",
+    "federation-demo": "concurrently \"npm run products\" \"sleep 5 && npm run gateway\"",
+    "health-check": "curl http://localhost:4000/health",
+    "load-test": "artillery run load-test.yml"
+  },
+  "dependencies": {
+    "apollo-server-express": "^3.12.0",
+    "@apollo/federation": "^0.38.1",
+    "@apollo/gateway": "^2.4.3",
+    "apollo-server": "^3.12.0",
+    "express": "^4.18.2",
+    "graphql": "^16.6.0",
+    "graphql-tools": "^8.3.6",
+    "@graphql-tools/stitch": "^8.7.3",
+    "@graphql-tools/wrap": "^9.4.2",
+    "dataloader": "^2.2.2",
+    "graphql-query-complexity": "^0.12.0",
+    "graphql-depth-limit": "^1.1.0",
+    "subscriptions-transport-ws": "^0.11.0",
+    "graphql-subscriptions": "^2.0.0",
+    "winston": "^3.8.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "node-fetch": "^2.6.9",
+    "redis": "^4.6.5",
+    "express-rate-limit": "^6.7.0",
+    "helmet": "^6.1.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "apollo-server-testing": "^2.25.3",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "sinon": "^15.0.4",
+    "supertest": "^6.3.3",
+    "concurrently": "^8.0.1",
+    "artillery": "^2.0.0-31",
+    "@types/node": "^18.16.3",
+    "eslint": "^8.39.0",
+    "prettier": "^2.8.8"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "graphql",
+    "federation",
+    "apollo",
+    "nodejs",
+    "hindi",
+    "indian",
+    "ecommerce",
+    "microservices",
+    "api",
+    "backend",
+    "tutorial",
+    "examples",
+    "production-ready"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hindi-tech-podcast/graphql-federation-examples.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hindi-tech-podcast/graphql-federation-examples/issues"
+  },
+  "homepage": "https://github.com/hindi-tech-podcast/graphql-federation-examples#readme",
+  "directories": {
+    "examples": ".",
+    "docs": "docs/",
+    "test": "tests/"
+  },
+  "files": [
+    "javascript/",
+    "python/",
+    "java/",
+    "README.md",
+    "requirements.txt"
+  ]
+}

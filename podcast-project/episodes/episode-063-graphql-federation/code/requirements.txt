@@ -1,0 +1,125 @@
+# GraphQL Federation Python Examples - Requirements
+# Episode 63: Hindi Tech Podcast
+
+# Core GraphQL libraries
+graphene==3.3
+graphql-core==3.2.3
+graphql-server-core==3.2.0
+
+# FastAPI and ASGI server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+starlette==0.27.0
+
+# GraphQL specific enhancements
+graphene-file-upload==1.3.0
+starlette-graphene3==0.6.0
+
+# Authentication and Security
+PyJWT==2.8.0
+bcrypt==4.1.2
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Caching and Performance
+aioredis==2.0.1
+aiocache==0.12.2
+
+# Database and ORM (optional)
+databases[postgresql]==0.8.0
+sqlalchemy==2.0.23
+alembic==1.13.0
+
+# File handling and processing
+aiofiles==23.2.1
+Pillow==10.1.0
+pillow-heif==0.13.1
+pandas==2.1.4
+openpyxl==3.1.2
+
+# Rate limiting and monitoring
+slowapi==0.1.9
+prometheus-client==0.19.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
+factory-boy==3.3.0
+
+# Utilities
+python-dotenv==1.0.0
+pydantic==2.5.1
+typing-extensions==4.8.0
+
+# Development tools
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
+pre-commit==3.6.0
+
+# Async utilities
+asyncio-mqtt==0.14.1
+websockets==12.0
+
+# Indian specific libraries
+indic-transliteration==2.3.54
+python-decouple==3.8
+
+# Logging and monitoring
+structlog==23.2.0
+python-json-logger==2.0.7
+
+# HTTP client for testing
+requests==2.31.0
+aiohttp==3.9.1
+
+# Data validation
+cerberus==1.3.5
+marshmallow==3.20.1
+
+# Background tasks
+celery==5.3.4
+redis==5.0.1
+
+# Email and notifications (optional)
+fastapi-mail==1.4.1
+python-telegram-bot==20.7
+
+# Indian payment gateways (mock implementations)
+razorpay==1.4.1  # For Razorpay integration examples
+paytmchecksum==1.7.0  # For Paytm integration examples
+
+# Image processing for Indian documents
+opencv-python==4.8.1.78
+pytesseract==0.3.10  # OCR for document processing
+
+# Geographic data for Indian pincodes
+geopy==2.4.1
+
+# Time zone handling for Indian Standard Time
+pytz==2023.3.post1
+
+# Configuration management
+pyyaml==6.0.1
+configparser==6.0.0
+
+# Development dependencies
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+pytest-xdist==3.5.0
+
+# API documentation
+sphinx==7.2.6
+sphinx-rtd-theme==1.3.0
+
+# Performance monitoring
+py-spy==0.3.14
+memory-profiler==0.61.0
+
+# Code quality
+bandit==1.7.5
+safety==2.3.5
+
+# Environment specific
+python-environ==0.4.54
