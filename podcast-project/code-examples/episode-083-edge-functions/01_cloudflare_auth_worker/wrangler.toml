@@ -1,0 +1,76 @@
+# Cloudflare Worker Configuration for Indian Authentication
+# Episode 083: Edge Functions
+
+name = "indian-auth-worker"
+main = "src/worker.js"
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Worker settings optimized for Indian traffic
+[env.production]
+name = "indian-auth-worker-prod"
+route = { pattern = "auth.yourapp.in/*", zone_name = "yourapp.in" }
+
+[env.staging] 
+name = "indian-auth-worker-staging"
+route = { pattern = "auth-staging.yourapp.in/*", zone_name = "yourapp.in" }
+
+# Environment variables for Indian context
+[vars]
+JWT_SECRET = "your-jwt-secret-key"
+ALLOWED_DOMAINS = "*.paytm.com,*.razorpay.com,*.ola.com,*.swiggy.com"
+RATE_LIMIT_PER_MINUTE = "60"
+MAX_LOGIN_ATTEMPTS = "5"
+INDIAN_PHONE_REGEX = "^[6-9]\\d{9}$"
+SUPPORTED_LANGUAGES = "hi,en,ta,te,bn,gu,kn,ml,mr,pa"
+
+# KV namespaces for session storage
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "your-sessions-kv-namespace-id"
+preview_id = "your-sessions-preview-kv-id"
+
+[[kv_namespaces]]
+binding = "RATE_LIMITS"
+id = "your-rate-limits-kv-namespace-id" 
+preview_id = "your-rate-limits-preview-kv-id"
+
+[[kv_namespaces]]
+binding = "USER_PREFERENCES"
+id = "your-user-prefs-kv-namespace-id"
+preview_id = "your-user-prefs-preview-kv-id"
+
+# Durable Objects for real-time features
+[[durable_objects.bindings]]
+name = "LOGIN_SESSIONS"
+class_name = "LoginSessionManager"
+
+# Analytics and monitoring
+[observability]
+enabled = true
+
+# Custom domains optimized for India
+[[routes]]
+pattern = "auth.yourapp.in/*"
+zone_name = "yourapp.in"
+
+[[routes]]
+pattern = "login.yourapp.in/*" 
+zone_name = "yourapp.in"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = "."
+watch_dir = "src"
+
+# Development settings
+[dev]
+port = 8787
+local_protocol = "https"
+upstream_protocol = "https"
+
+# Limits optimized for Indian scale
+[limits]
+cpu_ms = 50  # 50ms CPU time limit for fast response
+memory_mb = 128  # 128MB memory limit

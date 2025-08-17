@@ -1,0 +1,158 @@
+# Episode Code Examples - Production Docker Compose
+# Complete development and testing environment
+
+version: '3.8'
+
+services:
+  # Episode 081: Real-time Collaboration
+  collaboration-server:
+    build:
+      context: ./episode-081-realtime-collaboration
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    networks:
+      - podcast-network
+
+  # Episode 082: WebAssembly Demo Server
+  wasm-server:
+    build:
+      context: ./episode-082-webassembly
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8000"
+    environment:
+      - RUST_LOG=info
+    volumes:
+      - ./episode-082-webassembly:/app
+    networks:
+      - podcast-network
+
+  # Episode 083: Edge Functions Local Development
+  edge-functions:
+    build:
+      context: ./episode-083-edge-functions
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8787"
+    environment:
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+      - JWT_SECRET=development-secret-key
+    networks:
+      - podcast-network
+
+  # Episode 085: Platform Engineering Tools
+  platform-cli:
+    build:
+      context: ./episode-085-platform-engineering
+      dockerfile: Dockerfile
+    volumes:
+      - ./episode-085-platform-engineering:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - GO_ENV=development
+    networks:
+      - podcast-network
+
+  # Supporting Services
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - podcast-network
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password123
+      - MONGO_INITDB_DATABASE=podcast_examples
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - podcast-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    networks:
+      - podcast-network
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    networks:
+      - podcast-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - collaboration-server
+      - wasm-server
+      - edge-functions
+    networks:
+      - podcast-network
+
+  # Performance Testing
+  performance-test:
+    build:
+      context: ./utils
+      dockerfile: Dockerfile.benchmark
+    volumes:
+      - ./utils:/app
+      - ./results:/app/results
+    environment:
+      - BENCHMARK_DURATION=60
+      - TARGET_HOSTS=collaboration-server:8080,wasm-server:8000
+    depends_on:
+      - collaboration-server
+      - wasm-server
+    networks:
+      - podcast-network
+
+volumes:
+  redis-data:
+  mongodb-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  podcast-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

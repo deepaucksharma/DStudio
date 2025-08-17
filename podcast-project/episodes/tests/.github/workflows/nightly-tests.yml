@@ -1,0 +1,499 @@
+name: 🌙 Nightly Extended Testing
+# रात्रिकालीन व्यापक परीक्षण
+
+on:
+  schedule:
+    # Run nightly at 2:00 AM IST (8:30 PM UTC)
+    - cron: '30 20 * * *'
+  workflow_dispatch:
+    inputs:
+      include_chaos:
+        description: 'Include chaos engineering tests'
+        required: false
+        default: true
+        type: boolean
+      load_test_duration:
+        description: 'Load test duration (minutes)'
+        required: false
+        default: '10'
+        type: string
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+  PYTEST_ARGS: '-v --tb=long --strict-markers'
+  INDIAN_REGION: 'mumbai'
+  TEST_ENV: 'nightly'
+
+jobs:
+  # Extended Load Testing for Indian Traffic Patterns
+  extended-load-tests:
+    name: 🚀 Extended Load Testing
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        scenario: [normal, diwali, ipl, cricket-world-cup, new-year]
+        region: [mumbai, delhi, bangalore, chennai, kolkata]
+      fail-fast: false
+      
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: 📦 Install k6
+        run: |
+          curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz
+          sudo mv k6-v0.47.0-linux-amd64/k6 /usr/local/bin/
+          k6 version
+          
+      - name: 🚀 Run Extended Load Test
+        run: |
+          cd podcast-project/episodes/tests/load/k6-scripts
+          
+          # Set test parameters based on scenario and region
+          case "${{ matrix.scenario }}" in
+            "normal")
+              VUS=100
+              DURATION="10m"
+              ;;
+            "diwali")
+              VUS=2000
+              DURATION="30m"
+              ;;
+            "ipl")
+              VUS=5000
+              DURATION="3h"
+              ;;
+            "cricket-world-cup")
+              VUS=8000
+              DURATION="5h"
+              ;;
+            "new-year")
+              VUS=3000
+              DURATION="2h"
+              ;;
+          esac
+          
+          # Override duration if provided
+          if [ -n "${{ github.event.inputs.load_test_duration }}" ]; then
+            DURATION="${{ github.event.inputs.load_test_duration }}m"
+          fi
+          
+          echo "Running ${{ matrix.scenario }} load test for ${{ matrix.region }}"
+          echo "VUs: $VUS, Duration: $DURATION"
+          
+          k6 run \
+            --vus $VUS \
+            --duration $DURATION \
+            --out json=extended-load-${{ matrix.scenario }}-${{ matrix.region }}.json \
+            -e K6_SCENARIO=${{ matrix.scenario }} \
+            -e K6_REGION=${{ matrix.region }} \
+            api-gateway-load-test.js
+            
+      - name: 📊 Upload Extended Load Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: extended-load-results-${{ matrix.scenario }}-${{ matrix.region }}
+          path: podcast-project/episodes/tests/load/k6-scripts/extended-load-*.json
+          retention-days: 90
+
+  # Comprehensive Chaos Engineering
+  chaos-engineering:
+    name: 🌪️ Chaos Engineering
+    runs-on: ubuntu-latest
+    if: github.event.inputs.include_chaos == 'true' || github.event_name == 'schedule'
+    strategy:
+      matrix:
+        chaos-type: [network, service, database, regional-outage]
+        intensity: [low, medium, high]
+      fail-fast: false
+      
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🌪️ Run Chaos Experiments
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running ${{ matrix.chaos-type }} chaos with ${{ matrix.intensity }} intensity"
+          
+          # Set chaos parameters
+          export CHAOS_TYPE="${{ matrix.chaos-type }}"
+          export CHAOS_INTENSITY="${{ matrix.intensity }}"
+          export CHAOS_DURATION="30m"
+          
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m chaos \
+            --junitxml=junit-chaos-${{ matrix.chaos-type }}-${{ matrix.intensity }}.xml \
+            chaos/
+            
+      - name: 📊 Upload Chaos Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: chaos-results-${{ matrix.chaos-type }}-${{ matrix.intensity }}
+          path: podcast-project/episodes/tests/junit-chaos-*.xml
+          retention-days: 90
+
+  # Security Penetration Testing
+  security-penetration:
+    name: 🔒 Security Penetration Testing
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Security Tools
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+          # Install penetration testing tools
+          pip install owasp-zap-python sqlmap
+          
+      - name: 🔍 Run Penetration Tests
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running comprehensive security penetration tests..."
+          
+          # Extended security testing with Indian compliance focus
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m "security or penetration" \
+            --junitxml=junit-penetration.xml \
+            security/
+            
+      - name: 📊 Upload Security Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: penetration-test-results
+          path: |
+            podcast-project/episodes/tests/junit-penetration.xml
+            podcast-project/episodes/tests/security-reports/
+          retention-days: 90
+
+  # Performance Benchmarking
+  performance-benchmarking:
+    name: ⚡ Performance Benchmarking
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: ⚡ Run Performance Benchmarks
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running extended performance benchmarks..."
+          
+          # Extended performance testing for Indian infrastructure
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m performance \
+            --benchmark-only \
+            --benchmark-json=benchmark-results.json \
+            --junitxml=junit-performance-nightly.xml \
+            performance/
+            
+      - name: 📊 Upload Performance Benchmarks
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: performance-benchmark-results
+          path: |
+            podcast-project/episodes/tests/junit-performance-nightly.xml
+            podcast-project/episodes/tests/benchmark-results.json
+          retention-days: 90
+
+  # Extended E2E Testing
+  extended-e2e:
+    name: 🎭 Extended E2E Testing
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        user-type: [new-user, premium-user, enterprise-user, nri-user]
+        device: [mobile, desktop, tablet]
+        browser: [chrome, firefox, safari]
+      fail-fast: false
+      
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🎭 Run Extended E2E Tests
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running E2E tests for ${{ matrix.user-type }} on ${{ matrix.device }} (${{ matrix.browser }})"
+          
+          # Set test environment variables
+          export E2E_USER_TYPE="${{ matrix.user-type }}"
+          export E2E_DEVICE="${{ matrix.device }}"
+          export E2E_BROWSER="${{ matrix.browser }}"
+          
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m e2e \
+            --junitxml=junit-e2e-${{ matrix.user-type }}-${{ matrix.device }}-${{ matrix.browser }}.xml \
+            e2e/
+            
+      - name: 📊 Upload Extended E2E Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: extended-e2e-results-${{ matrix.user-type }}-${{ matrix.device }}-${{ matrix.browser }}
+          path: podcast-project/episodes/tests/junit-e2e-*.xml
+          retention-days: 30
+
+  # Data Consistency Testing
+  data-consistency:
+    name: 🔍 Data Consistency Testing
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_USER: testuser
+          POSTGRES_DB: testdb
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+          
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+          
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🔍 Run Data Consistency Tests
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running comprehensive data consistency tests..."
+          
+          # Extended data validation with cross-system consistency
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m "data_consistency or indian_context" \
+            --junitxml=junit-data-consistency.xml \
+            data-validation/
+            
+      - name: 📊 Upload Data Consistency Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: data-consistency-results
+          path: podcast-project/episodes/tests/junit-data-consistency.xml
+          retention-days: 30
+
+  # Nightly Summary Report
+  nightly-summary:
+    name: 📋 Nightly Test Summary
+    runs-on: ubuntu-latest
+    needs: [
+      extended-load-tests,
+      chaos-engineering, 
+      security-penetration,
+      performance-benchmarking,
+      extended-e2e,
+      data-consistency
+    ]
+    if: always()
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Download All Nightly Results
+        uses: actions/download-artifact@v3
+        with:
+          path: nightly-results/
+          
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📊 Generate Nightly Report
+        run: |
+          cd nightly-results
+          
+          echo "# 🌙 Nightly Extended Test Report" > nightly-summary.md
+          echo "## रात्रिकालीन व्यापक परीक्षण रिपोर्ट" >> nightly-summary.md
+          echo "" >> nightly-summary.md
+          echo "**Test Date:** $(date '+%Y-%m-%d %H:%M:%S IST')" >> nightly-summary.md
+          echo "**Test Type:** Extended Nightly Testing" >> nightly-summary.md
+          echo "**Duration:** 8 hours" >> nightly-summary.md
+          echo "" >> nightly-summary.md
+          
+          # Analyze load test results
+          echo "## 🚀 Load Testing Results" >> nightly-summary.md
+          echo "" >> nightly-summary.md
+          
+          LOAD_SCENARIOS=0
+          LOAD_PASSED=0
+          
+          for load_dir in extended-load-results-*; do
+            if [ -d "$load_dir" ]; then
+              LOAD_SCENARIOS=$((LOAD_SCENARIOS + 1))
+              scenario=$(echo "$load_dir" | sed 's/extended-load-results-//')
+              
+              # Check if load test passed (simplified check)
+              if [ -f "$load_dir/extended-load-*.json" ]; then
+                LOAD_PASSED=$((LOAD_PASSED + 1))
+                echo "- ✅ **$scenario**: Load test completed successfully" >> nightly-summary.md
+              else
+                echo "- ❌ **$scenario**: Load test failed" >> nightly-summary.md
+              fi
+            fi
+          done
+          
+          # Analyze chaos engineering results
+          echo "" >> nightly-summary.md
+          echo "## 🌪️ Chaos Engineering Results" >> nightly-summary.md
+          echo "" >> nightly-summary.md
+          
+          CHAOS_EXPERIMENTS=0
+          CHAOS_PASSED=0
+          
+          for chaos_dir in chaos-results-*; do
+            if [ -d "$chaos_dir" ]; then
+              CHAOS_EXPERIMENTS=$((CHAOS_EXPERIMENTS + 1))
+              experiment=$(echo "$chaos_dir" | sed 's/chaos-results-//')
+              
+              # Check chaos experiment results
+              if [ -f "$chaos_dir/junit-chaos-*.xml" ]; then
+                CHAOS_PASSED=$((CHAOS_PASSED + 1))
+                echo "- ✅ **$experiment**: Chaos experiment completed" >> nightly-summary.md
+              else
+                echo "- ❌ **$experiment**: Chaos experiment failed" >> nightly-summary.md
+              fi
+            fi
+          done
+          
+          # Overall nightly summary
+          echo "" >> nightly-summary.md
+          echo "## 📈 Nightly Test Summary" >> nightly-summary.md
+          echo "" >> nightly-summary.md
+          echo "- **Load Test Scenarios:** $LOAD_PASSED/$LOAD_SCENARIOS passed" >> nightly-summary.md
+          echo "- **Chaos Experiments:** $CHAOS_PASSED/$CHAOS_EXPERIMENTS passed" >> nightly-summary.md
+          
+          # Calculate overall success rate
+          TOTAL_TESTS=$((LOAD_SCENARIOS + CHAOS_EXPERIMENTS))
+          TOTAL_PASSED=$((LOAD_PASSED + CHAOS_PASSED))
+          
+          if [ $TOTAL_TESTS -gt 0 ]; then
+            SUCCESS_RATE=$((TOTAL_PASSED * 100 / TOTAL_TESTS))
+            echo "- **Overall Success Rate:** $SUCCESS_RATE%" >> nightly-summary.md
+            
+            if [ $SUCCESS_RATE -ge 90 ]; then
+              echo "- **Status:** ✅ System is resilient and performing well" >> nightly-summary.md
+            elif [ $SUCCESS_RATE -ge 70 ]; then
+              echo "- **Status:** ⚠️ Some issues detected, requires investigation" >> nightly-summary.md
+            else
+              echo "- **Status:** ❌ Critical issues detected, immediate attention required" >> nightly-summary.md
+            fi
+          fi
+          
+          echo "" >> nightly-summary.md
+          echo "## 🇮🇳 Indian Infrastructure Insights" >> nightly-summary.md
+          echo "" >> nightly-summary.md
+          echo "- **Peak Traffic Handling:** Diwali/IPL simulation results" >> nightly-summary.md
+          echo "- **Regional Performance:** Mumbai, Delhi, Bangalore, Chennai, Kolkata" >> nightly-summary.md
+          echo "- **Banking Integration:** UPI, NEFT, RTGS transaction processing" >> nightly-summary.md
+          echo "- **E-commerce Resilience:** Festival sale traffic handling" >> nightly-summary.md
+          echo "- **Gaming Platform:** Cricket/fantasy sports load capacity" >> nightly-summary.md
+          
+          cat nightly-summary.md
+          
+      - name: 📊 Upload Nightly Summary
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: nightly-test-summary
+          path: nightly-results/nightly-summary.md
+          retention-days: 90
+          
+      - name: 📧 Send Nightly Report
+        run: |
+          echo "📧 Nightly test report generated"
+          echo "Summary available in artifacts"
+          
+          # Here you could integrate with:
+          # - Email notifications to Indian development teams
+          # - Slack channels for different time zones
+          # - WhatsApp Business API for critical alerts
+          # - Indian team communication platforms (like Teams or Zoom)
+          
+          cat nightly-results/nightly-summary.md

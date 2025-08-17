@@ -1,0 +1,45 @@
+[package]
+name = "crypto-hash-wasm"
+version = "0.1.0"
+edition = "2021"
+description = "Razorpay-style cryptographic hash module compiled to WebAssembly"
+license = "MIT"
+repository = "https://github.com/hindi-tech-podcast/episode-082-webassembly"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+sha2 = "0.10"
+md5 = "0.7"
+blake3 = "1.5"
+ring = "0.17"
+base64 = "0.21"
+hex = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen = "0.4"
+js-sys = "0.3"
+getrandom = { version = "0.2", features = ["js"] }
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console",
+  "Performance",
+  "Window",
+  "Crypto",
+  "CryptoKey",
+  "SubtleCrypto",
+]
+
+[profile.release]
+# Optimize for size and speed for Indian networks
+opt-level = "s"  # Optimize for size
+lto = true       # Link time optimization
+debug = false    # Remove debug info
+panic = "abort"  # Reduce binary size
+codegen-units = 1
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-Os", "--enable-mutable-globals"]

@@ -1,0 +1,36 @@
+[package]
+name = "financial-calculator-wasm"
+version = "0.1.0"
+edition = "2021"
+description = "Zerodha Kite-style financial calculator compiled to WebAssembly"
+license = "MIT"
+repository = "https://github.com/hindi-tech-podcast/episode-082-webassembly"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen = "0.4"
+chrono = { version = "0.4", features = ["wasm-bindgen"] }
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console",
+  "Performance",
+  "Window",
+  "Document",
+]
+
+[profile.release]
+# Optimize for financial calculations
+opt-level = 3    # Maximum optimization for performance
+lto = true       # Link time optimization
+debug = false    # Remove debug info
+panic = "abort"  # Reduce binary size
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-O3", "--enable-mutable-globals"]

@@ -1,0 +1,65 @@
+# Python Service Discovery Requirements
+# Episode 64: Service Discovery Examples
+
+# Core service discovery libraries
+python-consul==1.1.0          # Consul client for service discovery
+etcd3==0.12.0                  # etcd v3 client for Kubernetes-style discovery
+kazoo==2.8.0                   # Zookeeper client for coordination
+dnspython==2.3.0               # DNS operations for custom discovery
+
+# HTTP and networking
+requests==2.31.0               # HTTP client for health checks and API calls
+urllib3==2.0.4                 # HTTP library (requests dependency)
+
+# Data serialization
+pyyaml==6.0.1                  # YAML parsing for configuration
+
+# Async support (for advanced examples)
+aiohttp==3.8.5                 # Async HTTP client
+asyncio-compat==0.1.1          # Asyncio compatibility
+
+# Monitoring and observability
+prometheus-client==0.17.1      # Metrics collection for monitoring
+structlog==23.1.0              # Structured logging
+
+# Testing and development
+pytest==7.4.0                  # Testing framework
+pytest-asyncio==0.21.1         # Async testing support
+mock==5.1.0                    # Mocking for unit tests
+
+# Production utilities
+click==8.1.6                   # CLI interface
+colorama==0.4.6                # Colored terminal output
+tabulate==0.9.0                # Pretty table formatting
+
+# Health checking and circuit breakers
+pybreaker==0.8.0               # Circuit breaker implementation
+retrying==1.3.4                # Retry logic with exponential backoff
+
+# Security (for production deployments)
+cryptography==41.0.3           # Encryption and certificates
+pyjwt==2.8.0                   # JWT token handling
+
+# Configuration management
+python-decouple==3.8           # Environment configuration
+configparser==5.3.0            # Config file parsing
+
+# Optional: gRPC support (for advanced service discovery)
+grpcio==1.57.0                 # gRPC library
+grpcio-tools==1.57.0           # gRPC tools
+
+# Optional: Kubernetes integration
+kubernetes==27.2.0             # Kubernetes client (optional)
+
+# Development and code quality
+black==23.7.0                  # Code formatting
+flake8==6.0.0                  # Code linting
+mypy==1.5.1                    # Type checking
+
+# Performance monitoring
+psutil==5.9.5                  # System monitoring
+memory-profiler==0.60.0        # Memory usage profiling
+
+# Indian context utilities (custom)
+phonenumbers==8.13.17          # Phone number validation (for Indian numbers)
+pycountry==22.3.5               # Country/region information

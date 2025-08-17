@@ -1,0 +1,369 @@
+# Episode 081: Real-time Collaboration Systems
+# Production dependencies for CRDT, WebRTC, and collaborative tools
+
+# Core asyncio and WebSocket libraries
+websockets==12.0
+asyncio-mqtt==0.16.1
+aiohttp==3.9.1
+aiofiles==23.2.1
+
+# CRDT and operational transform libraries
+# Note: Some are custom implementations in our code examples
+pycrdt==0.7.9
+automerge-py==0.1.1
+
+# Real-time data synchronization
+redis==5.0.1
+aioredis==2.0.1
+pymongo==4.6.0
+motor==3.3.2
+
+# WebRTC support (Python bindings)
+aiortc==1.6.0
+aioice==0.9.0
+av==10.0.0
+
+# Networking and protocols
+dnspython==2.4.2
+stun==0.1.0
+netifaces==0.11.0
+
+# Serialization and data formats
+msgpack==1.0.7
+orjson==3.9.10
+ujson==5.8.0
+cbor2==5.4.6
+
+# Time and synchronization
+pendulum==2.1.2
+arrow==1.3.0
+python-dateutil==2.8.2
+
+# Cryptography and security
+cryptography==41.0.8
+nacl==1.5.0
+pyotp==2.9.0
+
+# Performance and profiling
+cProfile==1.0.0
+memory-profiler==0.61.0
+psutil==5.9.6
+py-spy==0.3.14
+
+# Testing and simulation
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-benchmark==4.0.0
+locust==2.18.3
+faker==20.1.0
+
+# Logging and monitoring
+structlog==23.2.0
+loguru==0.7.2
+prometheus-client==0.19.0
+
+# HTTP clients for API testing
+httpx==0.25.2
+requests==2.31.0
+
+# Development utilities
+black==23.11.0
+isort==5.12.0
+mypy==1.7.1
+pre-commit==3.6.0
+
+# Indian context specific
+# For Indian language processing and localization
+indic-transliteration==2.3.44
+
+# WebSocket server framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+starlette==0.27.0
+
+# Data validation and models
+pydantic==2.5.2
+marshmallow==3.20.1
+
+# Background tasks
+celery==5.3.4
+dramatiq==1.14.2
+
+# File handling for canvas/media
+pillow==10.1.0
+opencv-python==4.8.1.78
+
+# Mathematics for canvas operations
+numpy==1.25.2
+scipy==1.11.4
+
+# Configuration management
+python-dotenv==1.0.0
+pyyaml==6.0.1
+
+# Event sourcing and CQRS
+eventstore==1.2.4
+
+# Distributed systems utilities
+consistent-hash==1.1
+distributed==2023.12.0
+
+# Indian payment gateways (for demo purposes)
+razorpay==1.3.0
+
+# Cloud storage for collaboration files
+boto3==1.34.0  # AWS S3
+google-cloud-storage==2.10.0  # Google Cloud
+
+# Document processing
+python-docx==0.8.11
+pypdf==3.17.1
+
+# Video/Audio processing for WebRTC
+ffmpeg-python==0.2.0
+
+# Geolocation for Indian context
+geopy==2.4.1
+
+# Rate limiting for collaborative sessions
+slowapi==0.1.9
+
+# Session management
+itsdangerous==2.1.2
+
+# Email notifications
+emails==0.6
+
+# Phone number validation (Indian numbers)
+phonenumbers==8.13.26
+
+# QR code generation for sharing
+qrcode[pil]==7.4.2
+
+# UUID utilities
+shortuuid==1.0.11
+
+# Base64 utilities for media handling
+base64io==1.0.3
+
+# Color utilities for canvas
+colorthief==0.2.1
+webcolors==1.13
+
+# Text processing for collaborative editing
+textdistance==4.6.0
+difflib==3.7.1
+
+# Network quality monitoring
+ping3==4.0.4
+speedtest-cli==2.1.3
+
+# Browser automation for testing WebRTC
+selenium==4.16.0
+playwright==1.40.1
+
+# Machine learning for smart collaboration features
+scikit-learn==1.3.2
+
+# Time series data for performance monitoring
+pandas==2.1.4
+
+# Compression for efficient data transfer
+zstandard==0.22.0
+lz4==4.3.2
+
+# SSL/TLS certificates
+certifi==2023.11.17
+pyopenssl==23.3.0
+
+# Memory caching
+python-memcached==1.59
+pymemcache==4.0.0
+
+# Job scheduling
+schedule==1.2.0
+apscheduler==3.10.4
+
+# Mathematical operations for CRDT
+sympy==1.12
+
+# Graph algorithms for collaboration networks
+networkx==3.2.1
+
+# Database migrations
+alembic==1.12.1
+
+# API documentation
+sphinx==7.2.6
+sphinx-rtd-theme==1.3.0
+
+# Indian timezone handling
+pytz==2023.3.post1
+
+# CORS handling for web applications
+fastapi-cors==0.0.6
+
+# Health check utilities
+healthcheck==1.3.3
+
+# Process management
+supervisor==4.2.5
+
+# Container utilities
+docker==6.1.3
+
+# Load balancing simulation
+haproxy-stats==2.2.0
+
+# Message queuing
+kombu==5.3.4
+pika==1.3.2
+
+# Workflow orchestration
+prefect==2.14.21
+
+# API rate limiting
+limits==3.6.0
+
+# Feature flags for A/B testing
+featureflags==2.0.6
+
+# Indian regional settings
+babel==2.13.1
+locale==1.1.0
+
+# Search functionality
+whoosh==2.7.4
+elasticsearch==8.11.0
+
+# PDF generation for exports
+reportlab==4.0.8
+weasyprint==61.0
+
+# Excel file handling
+openpyxl==3.1.2
+xlsxwriter==3.1.9
+
+# Image manipulation for avatars
+wand==0.6.13
+
+# Voice processing (future WebRTC enhancements)
+speechrecognition==3.10.0
+pydub==0.25.1
+
+# Natural language processing
+nltk==3.8.1
+
+# Clustering for user grouping
+kmeans-pytorch==0.3
+
+# Statistical analysis
+statsmodels==0.14.0
+
+# Benchmarking utilities
+timeit==1.0.0
+
+# Memory leak detection
+tracemalloc==1.0
+
+# Profiling
+cprofilev==1.2.0
+
+# Documentation generation
+mkdocs==1.5.3
+mkdocs-material==9.4.7
+
+# Code coverage
+coverage==7.3.2
+
+# Static analysis
+pylint==3.0.3
+bandit==1.7.5
+
+# Environment management
+python-decouple==3.8
+
+# SSH connections for distributed testing
+paramiko==3.4.0
+
+# FTP for file sharing
+ftplib==1.0.0
+
+# SMTP for notifications
+smtplib==1.0.0
+
+# ZIP file handling
+zipfile36==0.1.3
+
+# JSON schema validation
+jsonschema==4.20.0
+
+# URL parsing
+urllib3==2.1.0
+
+# HTML parsing for web scraping
+beautifulsoup4==4.12.2
+
+# XML processing
+lxml==4.9.3
+
+# INI file configuration
+configparser==6.0.0
+
+# Environment variables
+python-environ==0.4.54
+
+# Cache backends
+django-redis==5.4.0
+
+# Task queues
+rq==1.15.1
+
+# Websocket authentication
+websocket-auth==0.1.0
+
+# Load testing specific to WebRTC
+webrtc-load-testing==0.1.0
+
+# Indian language support
+polyglot==16.7.4
+
+# Fuzzy string matching
+fuzzywuzzy==0.18.0
+
+# Indian phone number utilities
+indian-phone-numbers==0.1.0
+
+# GST number validation
+gst-validator==0.1.0
+
+# PAN card validation
+pan-validator==0.1.0
+
+# Aadhaar validation utilities
+aadhaar-validator==0.1.0
+
+# Indian postal code utilities
+indian-pincode==0.1.0
+
+# Indian bank IFSC codes
+ifsc-api==0.1.0
+
+# UPI utilities
+upi-utils==0.1.0
+
+# Indian holiday calendar
+indian-holidays==0.1.0
+
+# Regional language fonts
+indic-fonts==0.1.0
+
+# Currency formatting for INR
+money==1.3.0
+
+# Indian numbering system
+indian-numbering==0.1.0
+
+# Note: Some packages marked as 0.1.0 are placeholder versions
+# for Indian-specific utilities that would need to be developed
+# or sourced from appropriate Indian tech repositories

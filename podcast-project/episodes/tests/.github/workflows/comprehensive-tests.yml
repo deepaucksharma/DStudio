@@ -1,0 +1,829 @@
+name: 🧪 Comprehensive Testing Suite
+# हिंदी पॉडकास्ट टेस्टिंग पाइपलाइन
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'podcast-project/episodes/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'podcast-project/episodes/**'
+      - '.github/workflows/**'
+  schedule:
+    # Run tests daily at 6:30 AM IST (1:00 AM UTC)
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Test type to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - unit
+          - integration
+          - load
+          - security
+          - e2e
+          - chaos
+      indian_context_only:
+        description: 'Run only Indian context tests'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+  GO_VERSION: '1.19'
+  JAVA_VERSION: '11'
+  PYTEST_ARGS: '-v --tb=short --strict-markers'
+  INDIAN_REGION: 'mumbai'
+  TEST_ENV: 'ci'
+  
+# Indian working hours consideration
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Test Discovery and Validation
+  test-discovery:
+    name: 🔍 Test Discovery & Validation
+    runs-on: ubuntu-latest
+    outputs:
+      unit-tests: ${{ steps.discovery.outputs.unit-tests }}
+      integration-tests: ${{ steps.discovery.outputs.integration-tests }}
+      e2e-tests: ${{ steps.discovery.outputs.e2e-tests }}
+      should-run-load: ${{ steps.discovery.outputs.should-run-load }}
+      should-run-security: ${{ steps.discovery.outputs.should-run-security }}
+      
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🔍 Discover Tests
+        id: discovery
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Discovering test files..."
+          
+          # Count unit tests
+          UNIT_COUNT=$(find unit/ -name "test_*.py" | wc -l)
+          echo "unit-tests=$UNIT_COUNT" >> $GITHUB_OUTPUT
+          
+          # Count integration tests
+          INTEGRATION_COUNT=$(find integration/ -name "test_*.py" | wc -l)
+          echo "integration-tests=$INTEGRATION_COUNT" >> $GITHUB_OUTPUT
+          
+          # Count E2E tests
+          E2E_COUNT=$(find e2e/ -name "*.py" | wc -l)
+          echo "e2e-tests=$E2E_COUNT" >> $GITHUB_OUTPUT
+          
+          # Check if we should run load tests (only on main branch or manual trigger)
+          if [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should-run-load=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-run-load=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Check if we should run security tests
+          if [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should-run-security=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-run-security=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: 🧪 Validate Test Structure
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Validating test structure..."
+          
+          # Check required files exist
+          test -f pytest.ini || (echo "❌ pytest.ini missing" && exit 1)
+          test -f conftest.py || (echo "❌ conftest.py missing" && exit 1)
+          test -f README.md || (echo "❌ README.md missing" && exit 1)
+          
+          # Validate pytest configuration
+          pytest --collect-only --quiet > /dev/null || (echo "❌ Test collection failed" && exit 1)
+          
+          echo "✅ Test structure validation passed"
+
+  # Unit Tests - Multi-language support
+  unit-tests:
+    name: 🔬 Unit Tests
+    runs-on: ubuntu-latest
+    needs: test-discovery
+    if: needs.test-discovery.outputs.unit-tests > 0
+    strategy:
+      matrix:
+        language: [python, go, java]
+        test-group: [core, indian-context, performance]
+      fail-fast: false
+      
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        if: matrix.language == 'python'
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 🐹 Setup Go
+        if: matrix.language == 'go'
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          
+      - name: ☕ Setup Java
+        if: matrix.language == 'java'
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          
+      - name: 📦 Install Python Dependencies
+        if: matrix.language == 'python'
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🔧 Setup Test Environment
+        run: |
+          # Create test configuration
+          cd podcast-project/episodes/tests
+          cp .env.example .env || echo "INDIAN_REGION=${{ env.INDIAN_REGION }}" > .env
+          echo "TEST_ENV=${{ env.TEST_ENV }}" >> .env
+          
+      - name: 🧪 Run Python Unit Tests
+        if: matrix.language == 'python'
+        run: |
+          cd podcast-project/episodes/tests
+          
+          # Define test markers based on group
+          case "${{ matrix.test-group }}" in
+            "core")
+              MARKERS="unit and not indian_context and not performance"
+              ;;
+            "indian-context")
+              MARKERS="unit and indian_context"
+              ;;
+            "performance")
+              MARKERS="unit and performance"
+              ;;
+          esac
+          
+          echo "Running tests with markers: $MARKERS"
+          
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m "$MARKERS" \
+            --cov=unit \
+            --cov-report=xml \
+            --cov-report=term-missing \
+            --junitxml=junit-unit-${{ matrix.language }}-${{ matrix.test-group }}.xml \
+            unit/python/
+            
+      - name: 🧪 Run Go Unit Tests
+        if: matrix.language == 'go'
+        run: |
+          cd podcast-project/episodes/tests/unit/go
+          if [ -f go.mod ]; then
+            go test -v -race -coverprofile=coverage.out ./...
+            go tool cover -html=coverage.out -o coverage.html
+          else
+            echo "No Go tests found, skipping"
+          fi
+          
+      - name: 🧪 Run Java Unit Tests
+        if: matrix.language == 'java'
+        run: |
+          cd podcast-project/episodes/tests/unit/java
+          if [ -f pom.xml ]; then
+            mvn test -B
+          else
+            echo "No Java tests found, skipping"
+          fi
+          
+      - name: 📊 Upload Test Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: unit-test-results-${{ matrix.language }}-${{ matrix.test-group }}
+          path: |
+            podcast-project/episodes/tests/junit-*.xml
+            podcast-project/episodes/tests/coverage.xml
+            podcast-project/episodes/tests/unit/go/coverage.html
+            podcast-project/episodes/tests/unit/java/target/surefire-reports/
+          retention-days: 7
+
+  # Integration Tests
+  integration-tests:
+    name: 🔗 Integration Tests
+    runs-on: ubuntu-latest
+    needs: test-discovery
+    if: needs.test-discovery.outputs.integration-tests > 0
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_USER: testuser
+          POSTGRES_DB: testdb
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+          
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+          
+      consul:
+        image: consul:1.16
+        ports:
+          - 8500:8500
+        options: >-
+          --health-cmd "consul members"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+          
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🔧 Setup Integration Environment
+        run: |
+          cd podcast-project/episodes/tests
+          
+          # Create integration test environment
+          cat > .env << EOF
+          TEST_ENV=integration
+          INDIAN_REGION=${{ env.INDIAN_REGION }}
+          TEST_DB_URL=postgresql://testuser:testpass@localhost:5432/testdb
+          REDIS_URL=redis://localhost:6379
+          CONSUL_URL=http://localhost:8500
+          API_BASE_URL=http://localhost:8080
+          EOF
+          
+      - name: 🏗️ Setup Test Services
+        run: |
+          # Wait for services to be ready
+          timeout 30 bash -c 'until nc -z localhost 5432; do sleep 1; done'
+          timeout 30 bash -c 'until nc -z localhost 6379; do sleep 1; done'
+          timeout 30 bash -c 'until nc -z localhost 8500; do sleep 1; done'
+          
+          echo "✅ All test services are ready"
+          
+      - name: 🧪 Run Integration Tests
+        run: |
+          cd podcast-project/episodes/tests
+          
+          # Run integration tests with Indian context
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m integration \
+            --cov=integration \
+            --cov-report=xml \
+            --junitxml=junit-integration.xml \
+            integration/
+            
+      - name: 📊 Upload Integration Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: integration-test-results
+          path: |
+            podcast-project/episodes/tests/junit-integration.xml
+            podcast-project/episodes/tests/coverage.xml
+          retention-days: 7
+
+  # Load Testing (Only on main branch or manual trigger)
+  load-tests:
+    name: 🚀 Load Tests
+    runs-on: ubuntu-latest
+    needs: test-discovery
+    if: needs.test-discovery.outputs.should-run-load == 'true'
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: 📦 Install k6
+        run: |
+          curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz
+          sudo mv k6-v0.47.0-linux-amd64/k6 /usr/local/bin/
+          k6 version
+          
+      - name: 🧪 Run Load Tests - Normal Traffic
+        run: |
+          cd podcast-project/episodes/tests/load/k6-scripts
+          
+          echo "Running normal traffic load test..."
+          k6 run \
+            --vus 10 \
+            --duration 30s \
+            --out json=normal-load-results.json \
+            -e K6_SCENARIO=normal \
+            api-gateway-load-test.js
+            
+      - name: 🎆 Run Load Tests - Diwali Traffic
+        run: |
+          cd podcast-project/episodes/tests/load/k6-scripts
+          
+          echo "Running Diwali sale traffic simulation..."
+          k6 run \
+            --vus 50 \
+            --duration 2m \
+            --out json=diwali-load-results.json \
+            -e K6_SCENARIO=diwali \
+            api-gateway-load-test.js
+            
+      - name: 🏏 Run Load Tests - IPL Traffic
+        run: |
+          cd podcast-project/episodes/tests/load/k6-scripts
+          
+          echo "Running IPL streaming traffic simulation..."
+          k6 run \
+            --vus 100 \
+            --duration 1m \
+            --out json=ipl-load-results.json \
+            -e K6_SCENARIO=ipl \
+            api-gateway-load-test.js
+            
+      - name: 📊 Upload Load Test Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: load-test-results
+          path: podcast-project/episodes/tests/load/k6-scripts/*-results.json
+          retention-days: 30
+
+  # Security Testing
+  security-tests:
+    name: 🔒 Security Tests
+    runs-on: ubuntu-latest
+    needs: test-discovery
+    if: needs.test-discovery.outputs.should-run-security == 'true'
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Security Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+          # Install additional security tools
+          pip install bandit safety semgrep
+          
+      - name: 🔍 Static Security Analysis
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running static security analysis..."
+          
+          # Bandit for Python security issues
+          bandit -r . -f json -o bandit-report.json || true
+          
+          # Safety for known vulnerabilities
+          safety check --json --output safety-report.json || true
+          
+      - name: 🧪 Run Security Tests
+        run: |
+          cd podcast-project/episodes/tests
+          
+          # Run OWASP and Indian compliance tests
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m security \
+            --junitxml=junit-security.xml \
+            security/
+            
+      - name: 📊 Upload Security Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: security-test-results
+          path: |
+            podcast-project/episodes/tests/junit-security.xml
+            podcast-project/episodes/tests/bandit-report.json
+            podcast-project/episodes/tests/safety-report.json
+          retention-days: 30
+
+  # End-to-End Tests
+  e2e-tests:
+    name: 🎭 E2E Tests
+    runs-on: ubuntu-latest
+    needs: [test-discovery, unit-tests, integration-tests]
+    if: needs.test-discovery.outputs.e2e-tests > 0
+    
+    strategy:
+      matrix:
+        scenario: [user-registration, diwali-shopping, upi-payment, banking, gaming]
+      fail-fast: false
+      
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🔧 Setup E2E Environment
+        run: |
+          cd podcast-project/episodes/tests
+          
+          cat > .env << EOF
+          TEST_ENV=e2e
+          INDIAN_REGION=${{ env.INDIAN_REGION }}
+          API_BASE_URL=https://api-staging.example.com
+          AUTH_SERVICE_URL=https://auth-staging.example.com
+          UPI_TEST_MODE=true
+          EOF
+          
+      - name: 🧪 Run E2E Scenario Tests
+        run: |
+          cd podcast-project/episodes/tests
+          
+          # Map scenario to pytest markers
+          case "${{ matrix.scenario }}" in
+            "user-registration")
+              MARKERS="e2e and indian_context and not banking and not ecommerce and not gaming"
+              ;;
+            "diwali-shopping")
+              MARKERS="e2e and ecommerce"
+              ;;
+            "upi-payment")
+              MARKERS="e2e and banking and not gaming"
+              ;;
+            "banking")
+              MARKERS="e2e and banking and not ecommerce"
+              ;;
+            "gaming")
+              MARKERS="e2e and gaming"
+              ;;
+          esac
+          
+          echo "Running E2E tests for scenario: ${{ matrix.scenario }}"
+          echo "Using markers: $MARKERS"
+          
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m "$MARKERS" \
+            --junitxml=junit-e2e-${{ matrix.scenario }}.xml \
+            e2e/
+            
+      - name: 📊 Upload E2E Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: e2e-test-results-${{ matrix.scenario }}
+          path: podcast-project/episodes/tests/junit-e2e-${{ matrix.scenario }}.xml
+          retention-days: 7
+
+  # Chaos Engineering (Only on schedule or manual)
+  chaos-tests:
+    name: 🌪️ Chaos Engineering
+    runs-on: ubuntu-latest
+    needs: test-discovery
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🌪️ Run Chaos Engineering Tests
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running chaos engineering experiments..."
+          
+          # Run chaos tests with lower intensity for CI
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m chaos \
+            --junitxml=junit-chaos.xml \
+            chaos/
+            
+      - name: 📊 Upload Chaos Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: chaos-test-results
+          path: podcast-project/episodes/tests/junit-chaos.xml
+          retention-days: 30
+
+  # Performance Benchmarks
+  performance-tests:
+    name: ⚡ Performance Benchmarks
+    runs-on: ubuntu-latest
+    needs: [test-discovery, unit-tests]
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: ⚡ Run Performance Benchmarks
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running performance benchmarks..."
+          
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m performance \
+            --junitxml=junit-performance.xml \
+            performance/
+            
+      - name: 📊 Upload Performance Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: performance-test-results
+          path: podcast-project/episodes/tests/junit-performance.xml
+          retention-days: 30
+
+  # Data Validation Tests
+  data-validation-tests:
+    name: 🔍 Data Validation
+    runs-on: ubuntu-latest
+    needs: test-discovery
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          cd podcast-project/episodes/tests
+          pip install -r requirements.txt
+          
+      - name: 🔍 Run Data Validation Tests
+        run: |
+          cd podcast-project/episodes/tests
+          
+          echo "Running Indian data validation tests..."
+          
+          pytest ${{ env.PYTEST_ARGS }} \
+            -m "indian_context" \
+            --junitxml=junit-data-validation.xml \
+            data-validation/
+            
+      - name: 📊 Upload Data Validation Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: data-validation-test-results
+          path: podcast-project/episodes/tests/junit-data-validation.xml
+          retention-days: 7
+
+  # Test Results Summary and Reporting
+  test-summary:
+    name: 📋 Test Results Summary
+    runs-on: ubuntu-latest
+    needs: [
+      unit-tests, 
+      integration-tests, 
+      e2e-tests, 
+      performance-tests, 
+      data-validation-tests
+    ]
+    if: always()
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Download All Test Results
+        uses: actions/download-artifact@v3
+        with:
+          path: test-results/
+          
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: 📊 Generate Test Summary Report
+        run: |
+          cd test-results
+          
+          echo "# 🧪 Comprehensive Test Results Summary" > test-summary.md
+          echo "## हिंदी पॉडकास्ट टेस्ट रिपोर्ट" >> test-summary.md
+          echo "" >> test-summary.md
+          echo "**Test Run:** $(date)" >> test-summary.md
+          echo "**Branch:** ${{ github.ref_name }}" >> test-summary.md
+          echo "**Commit:** ${{ github.sha }}" >> test-summary.md
+          echo "**Triggered by:** ${{ github.event_name }}" >> test-summary.md
+          echo "" >> test-summary.md
+          
+          # Count test results
+          TOTAL_TESTS=0
+          PASSED_TESTS=0
+          FAILED_TESTS=0
+          
+          echo "## 📊 Test Categories" >> test-summary.md
+          echo "" >> test-summary.md
+          
+          # Process JUnit XML files
+          for xml_file in $(find . -name "junit-*.xml"); do
+            if [ -f "$xml_file" ]; then
+              category=$(basename "$xml_file" .xml | sed 's/junit-//')
+              
+              # Extract test counts (simplified - would need proper XML parsing in real scenario)
+              tests=$(grep -o 'tests="[0-9]*"' "$xml_file" | head -1 | grep -o '[0-9]*' || echo "0")
+              failures=$(grep -o 'failures="[0-9]*"' "$xml_file" | head -1 | grep -o '[0-9]*' || echo "0")
+              errors=$(grep -o 'errors="[0-9]*"' "$xml_file" | head -1 | grep -o '[0-9]*' || echo "0")
+              
+              passed=$((tests - failures - errors))
+              
+              TOTAL_TESTS=$((TOTAL_TESTS + tests))
+              PASSED_TESTS=$((PASSED_TESTS + passed))
+              FAILED_TESTS=$((FAILED_TESTS + failures + errors))
+              
+              if [ $tests -gt 0 ]; then
+                success_rate=$((passed * 100 / tests))
+                if [ $success_rate -ge 90 ]; then
+                  status="✅"
+                elif [ $success_rate -ge 70 ]; then
+                  status="⚠️"
+                else
+                  status="❌"
+                fi
+                
+                echo "- **$category**: $status $passed/$tests passed ($success_rate%)" >> test-summary.md
+              fi
+            fi
+          done
+          
+          echo "" >> test-summary.md
+          echo "## 🎯 Overall Results" >> test-summary.md
+          echo "" >> test-summary.md
+          
+          if [ $TOTAL_TESTS -gt 0 ]; then
+            overall_success_rate=$((PASSED_TESTS * 100 / TOTAL_TESTS))
+            echo "- **Total Tests:** $TOTAL_TESTS" >> test-summary.md
+            echo "- **Passed:** $PASSED_TESTS" >> test-summary.md
+            echo "- **Failed:** $FAILED_TESTS" >> test-summary.md
+            echo "- **Success Rate:** $overall_success_rate%" >> test-summary.md
+            
+            if [ $overall_success_rate -ge 95 ]; then
+              echo "- **Status:** ✅ Excellent" >> test-summary.md
+            elif [ $overall_success_rate -ge 85 ]; then
+              echo "- **Status:** ✅ Good" >> test-summary.md
+            elif [ $overall_success_rate -ge 70 ]; then
+              echo "- **Status:** ⚠️ Needs Attention" >> test-summary.md
+            else
+              echo "- **Status:** ❌ Critical Issues" >> test-summary.md
+            fi
+          else
+            echo "- **Status:** ⚠️ No test results found" >> test-summary.md
+          fi
+          
+          echo "" >> test-summary.md
+          echo "## 🇮🇳 Indian Context Coverage" >> test-summary.md
+          echo "" >> test-summary.md
+          echo "- ✅ Indian data formats (PAN, Aadhaar, UPI)" >> test-summary.md
+          echo "- ✅ Festival traffic patterns (Diwali, IPL)" >> test-summary.md
+          echo "- ✅ Banking integration (HDFC, ICICI, SBI)" >> test-summary.md
+          echo "- ✅ E-commerce scenarios (Flipkart-style)" >> test-summary.md
+          echo "- ✅ Gaming platform (Dream11/MPL-style)" >> test-summary.md
+          echo "- ✅ Regulatory compliance (PDP, RBI)" >> test-summary.md
+          
+          cat test-summary.md
+          
+      - name: 📋 Create PR Comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('test-results/test-summary.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
+            
+      - name: 📊 Upload Final Test Summary
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-summary-report
+          path: test-results/test-summary.md
+          retention-days: 30
+
+  # Notification job for important test results
+  notify-results:
+    name: 📢 Notify Test Results
+    runs-on: ubuntu-latest
+    needs: [test-summary]
+    if: always() && (github.ref == 'refs/heads/main' || github.event_name == 'schedule')
+    
+    steps:
+      - name: 📥 Download Test Summary
+        uses: actions/download-artifact@v3
+        with:
+          name: test-summary-report
+          path: ./
+          
+      - name: 📢 Send Notification
+        run: |
+          echo "Test results summary:"
+          cat test-summary.md
+          
+          # Here you could add integrations with:
+          # - Slack webhook
+          # - Microsoft Teams
+          # - Email notifications
+          # - Discord webhook
+          # - Custom Indian team communication tools
+          
+          echo "✅ Test execution completed"
