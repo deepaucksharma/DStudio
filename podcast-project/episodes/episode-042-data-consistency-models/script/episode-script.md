@@ -7,6 +7,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/data-management/tunable-consistency.md - Configurable consistency models
+- **Pattern Library**: docs/pattern-library/data-management/eventual-consistency.md - Eventual consistency patterns and implementation
+- **Core Principles**: docs/core-principles/cap-theorem.md - CAP theorem implications for consistency models
+- **Case Studies**: docs/architects-handbook/case-studies/databases/amazon-dynamo.md - DynamoDB consistency models
+- **Case Studies**: docs/architects-handbook/case-studies/databases/cassandra.md - Cassandra tunable consistency
+- **Analysis**: docs/analysis/cap-theorem.md - Mathematical analysis of consistency trade-offs
+- **Pattern Library**: docs/pattern-library/coordination/consensus.md - Consensus protocols for strong consistency
+
+---
+
 ## Part 1: Strong Consistency - Jaise Mumbai Local Ki Pakki Time Table (60 minutes)
 
 ### Introduction - Railway Timetable Ka Philosophy (15 minutes)

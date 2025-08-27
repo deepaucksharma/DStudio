@@ -1,0 +1,110 @@
+# Episode 124: Real-time Data Lakes - Production Requirements
+
+# Apache Kafka & Streaming
+kafka-python==2.0.2
+confluent-kafka==2.3.0
+kafka-python-ng==2.2.0
+avro-python3==1.11.3
+confluent-kafka[avro]==2.3.0
+
+# Schema Registry
+schema-registry-client==2.5.0
+fastavro==1.9.0
+
+# Debezium & CDC
+debezium-server-dist==2.4.2
+mysql-connector-python==8.2.0
+psycopg2-binary==2.9.9
+pymongo==4.6.0
+
+# Apache Spark & Streaming
+pyspark==3.5.0
+findspark==2.0.1
+delta-spark==3.0.0
+py4j==0.10.9.7
+
+# Apache Flink
+apache-flink==1.18.0
+pyflink==1.18.0
+
+# Data Lake Formats
+deltalake==0.15.0
+pyiceberg==0.5.1
+hudi-python==0.14.0
+
+# Database Connectors
+sqlalchemy==2.0.23
+pymongo==4.6.0
+redis==5.0.1
+cassandra-driver==3.29.0
+elasticsearch==8.11.0
+
+# Data Processing & Analytics
+pandas==2.1.4
+numpy==1.24.4
+pyarrow==14.0.2
+polars==0.20.2
+duckdb==0.9.2
+
+# API & Web Framework
+fastapi==0.104.1
+uvicorn==0.24.0
+httpx==0.25.2
+pydantic==2.5.0
+aiofiles==23.2.1
+
+# Monitoring & Observability
+prometheus-client==0.19.0
+grafana-api==1.0.3
+structlog==23.2.0
+opentelemetry-api==1.21.0
+opentelemetry-exporter-prometheus==1.12.0rc1
+
+# Testing & Development
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+factory-boy==3.3.0
+faker==20.1.0
+
+# Data Quality & Validation
+great-expectations==0.18.8
+pydantic==2.5.0
+cerberus==1.3.5
+
+# MLflow & ML Integration
+mlflow==2.8.1
+scikit-learn==1.3.2
+xgboost==2.0.3
+
+# Cloud & Storage
+boto3==1.34.0
+google-cloud-storage==2.10.0
+azure-storage-blob==12.19.0
+minio==7.2.0
+
+# Security & Authentication
+cryptography==41.0.7
+pyjwt==2.8.0
+passlib[bcrypt]==1.7.4
+
+# Configuration & Environment
+python-dotenv==1.0.0
+pyyaml==6.0.1
+click==8.1.7
+
+# Indian APIs Integration
+requests==2.31.0
+beautifulsoup4==4.12.2
+selenium==4.16.0
+
+# Development Tools
+black==23.11.0
+mypy==1.7.1
+pre-commit==3.6.0
+jupyter==1.0.0
+
+# Production Deployment
+gunicorn==21.2.0
+docker==6.1.3
+kubernetes==28.1.0

@@ -1,0 +1,653 @@
+# Kubernetes Deployment Manifests for Indian E-commerce Platform
+# Episode 092: Container Orchestration
+# Context: Production-ready deployments with Indian infrastructure considerations
+
+---
+# Product Catalog Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-catalog
+  namespace: flipkart-production
+  labels:
+    app: product-catalog
+    version: v2.1.0
+    tier: business-critical
+    team: catalog-team
+    region: mumbai
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    description: "Core product catalog service handling 10M+ products"
+    performance-sla: "99.9%"
+    cost-optimization: "auto-scaling-enabled"
+spec:
+  replicas: 6  # High replica count for traffic from 350M+ users
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  selector:
+    matchLabels:
+      app: product-catalog
+      version: v2.1.0
+  template:
+    metadata:
+      labels:
+        app: product-catalog
+        version: v2.1.0
+        tier: business-critical
+        team: catalog-team
+        region: mumbai
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+        sidecar.istio.io/inject: "true"
+        backup.velero.io/backup-volumes: "logs"
+    spec:
+      # Indian region node affinity
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: ["ap-south-1"]  # Mumbai region
+              - key: node.kubernetes.io/instance-type
+                operator: In
+                values: ["c5.xlarge", "c5.2xlarge"]
+        # Pod anti-affinity for high availability
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values: ["product-catalog"]
+              topologyKey: kubernetes.io/hostname
+      # Service account for RBAC
+      serviceAccountName: product-catalog-sa
+      # Security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+      # Init container for database migration
+      initContainers:
+      - name: db-migration
+        image: flipkart/product-catalog-migrations:v2.1.0
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: url
+        - name: MIGRATION_TIMEOUT
+          value: "300"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+      containers:
+      - name: product-catalog
+        image: flipkart/product-catalog:v2.1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        - name: grpc
+          containerPort: 9090
+          protocol: TCP
+        - name: metrics
+          containerPort: 8081
+          protocol: TCP
+        # Environment variables
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production,mumbai"
+        - name: SERVER_PORT
+          value: "8080"
+        - name: MANAGEMENT_PORT
+          value: "8081"
+        - name: GRPC_PORT
+          value: "9090"
+        - name: JVM_OPTS
+          value: "-Xms2g -Xmx4g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+UseStringDeduplication"
+        - name: REGION
+          value: "mumbai"
+        - name: DATACENTER
+          value: "mumbai-west"
+        - name: INSTANCE_TYPE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INDIAN_TIMEZONE
+          value: "Asia/Kolkata"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: url
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: redis-credentials
+              key: url
+        - name: ELASTICSEARCH_URL
+          valueFrom:
+            configMapKeyRef:
+              name: search-config
+              key: elasticsearch-url
+        # Resource specifications optimized for Indian infrastructure costs
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+            ephemeral-storage: "5Gi"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+            ephemeral-storage: "10Gi"
+        # Volume mounts
+        volumeMounts:
+        - name: application-config
+          mountPath: /app/config
+          readOnly: true
+        - name: logs
+          mountPath: /app/logs
+        - name: tmp
+          mountPath: /tmp
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8081
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 3
+        # Startup probe for slow-starting applications
+        startupProbe:
+          httpGet:
+            path: /actuator/health/startup
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
+        # Lifecycle hooks
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 15"]
+      # Volumes
+      volumes:
+      - name: application-config
+        configMap:
+          name: product-catalog-config
+      - name: logs
+        emptyDir:
+          sizeLimit: 10Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
+      # Image pull secrets
+      imagePullSecrets:
+      - name: flipkart-registry-secret
+
+---
+# Order Management Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-management
+  namespace: flipkart-production
+  labels:
+    app: order-management
+    version: v1.8.0
+    tier: business-critical
+    team: order-team
+    region: mumbai
+  annotations:
+    description: "Order processing service handling millions of transactions"
+    performance-sla: "99.95%"
+spec:
+  replicas: 8  # High replica count for order processing
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 20%
+      maxSurge: 30%
+  selector:
+    matchLabels:
+      app: order-management
+      version: v1.8.0
+  template:
+    metadata:
+      labels:
+        app: order-management
+        version: v1.8.0
+        tier: business-critical
+        team: order-team
+        region: mumbai
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        sidecar.istio.io/inject: "true"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: ["ap-south-1"]
+              - key: node.kubernetes.io/instance-type
+                operator: In
+                values: ["c5.xlarge", "c5.2xlarge", "m5.xlarge"]
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values: ["order-management"]
+              topologyKey: kubernetes.io/hostname
+      serviceAccountName: order-management-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+      containers:
+      - name: order-management
+        image: flipkart/order-management:v1.8.0
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: metrics
+          containerPort: 8081
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production,mumbai"
+        - name: JVM_OPTS
+          value: "-Xms1g -Xmx2g -XX:+UseG1GC -XX:+EnableJVMCI"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: order-db-credentials
+              key: url
+        - name: KAFKA_BROKERS
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-config
+              key: brokers
+        - name: PAYMENT_SERVICE_URL
+          value: "http://payment-service:8080"
+        - name: INVENTORY_SERVICE_URL
+          value: "http://inventory-service:8080"
+        - name: CIRCUIT_BREAKER_ENABLED
+          value: "true"
+        - name: TIMEOUT_MS
+          value: "5000"
+        - name: MAX_RETRY_ATTEMPTS
+          value: "3"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "3Gi"
+            cpu: "1500m"
+        volumeMounts:
+        - name: application-config
+          mountPath: /app/config
+          readOnly: true
+        - name: logs
+          mountPath: /app/logs
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 2
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 20"]
+      volumes:
+      - name: application-config
+        configMap:
+          name: order-management-config
+      - name: logs
+        emptyDir:
+          sizeLimit: 5Gi
+      terminationGracePeriodSeconds: 30
+      imagePullSecrets:
+      - name: flipkart-registry-secret
+
+---
+# Payment Service Deployment - PCI Compliant
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+  namespace: flipkart-production
+  labels:
+    app: payment-service
+    version: v3.2.0
+    tier: critical
+    team: payment-team
+    region: mumbai
+    compliance: pci-dss
+  annotations:
+    description: "PCI-DSS compliant payment processing service"
+    performance-sla: "99.99%"
+    security-level: "critical"
+spec:
+  replicas: 10  # High replica count for payment reliability
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 10%
+      maxSurge: 20%
+  selector:
+    matchLabels:
+      app: payment-service
+      version: v3.2.0
+  template:
+    metadata:
+      labels:
+        app: payment-service
+        version: v3.2.0
+        tier: critical
+        team: payment-team
+        region: mumbai
+        compliance: pci-dss
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8443"
+        prometheus.io/scheme: "https"
+        sidecar.istio.io/inject: "true"
+        sidecar.istio.io/proxyCPU: "100m"
+        sidecar.istio.io/proxyMemory: "128Mi"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: ["ap-south-1"]
+              - key: node.kubernetes.io/instance-type
+                operator: In
+                values: ["c5.2xlarge", "c5.4xlarge"]  # Higher instance types for payment
+              - key: security-compliance
+                operator: In
+                values: ["pci-dss"]
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values: ["payment-service"]
+            topologyKey: kubernetes.io/hostname
+      serviceAccountName: payment-service-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: payment-service
+        image: flipkart/payment-service:v3.2.0
+        ports:
+        - name: https
+          containerPort: 8443
+        - name: metrics
+          containerPort: 8444
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production,mumbai,pci-compliant"
+        - name: SERVER_PORT
+          value: "8443"
+        - name: SERVER_SSL_ENABLED
+          value: "true"
+        - name: JVM_OPTS
+          value: "-Xms2g -Xmx4g -XX:+UseG1GC -XX:+AlwaysPreTouch"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: payment-db-credentials
+              key: url
+        - name: VAULT_URL
+          valueFrom:
+            secretKeyRef:
+              name: vault-credentials
+              key: url
+        - name: VAULT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vault-credentials
+              key: token
+        - name: RAZORPAY_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-credentials
+              key: razorpay-key-id
+        - name: RAZORPAY_KEY_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: payment-gateway-credentials
+              key: razorpay-key-secret
+        - name: UPI_GATEWAY_URL
+          value: "https://api.npci.org.in/upi"
+        - name: PCI_COMPLIANCE_MODE
+          value: "true"
+        - name: ENCRYPTION_ENABLED
+          value: "true"
+        - name: TLS_VERSION
+          value: "TLSv1.3"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "5Gi"
+            cpu: "2500m"
+        volumeMounts:
+        - name: tls-certs
+          mountPath: /app/certs
+          readOnly: true
+        - name: application-config
+          mountPath: /app/config
+          readOnly: true
+        - name: logs
+          mountPath: /app/logs
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8444
+            scheme: HTTPS
+          initialDelaySeconds: 90
+          periodSeconds: 20
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8444
+            scheme: HTTPS
+          initialDelaySeconds: 45
+          periodSeconds: 10
+          failureThreshold: 2
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 30"]
+      volumes:
+      - name: tls-certs
+        secret:
+          secretName: payment-tls-certs
+      - name: application-config
+        configMap:
+          name: payment-service-config
+      - name: logs
+        emptyDir:
+          sizeLimit: 10Gi
+      terminationGracePeriodSeconds: 60
+      imagePullSecrets:
+      - name: flipkart-registry-secret
+
+---
+# Inventory Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-service
+  namespace: flipkart-production
+  labels:
+    app: inventory-service
+    version: v2.0.0
+    tier: business
+    team: inventory-team
+    region: mumbai
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  selector:
+    matchLabels:
+      app: inventory-service
+      version: v2.0.0
+  template:
+    metadata:
+      labels:
+        app: inventory-service
+        version: v2.0.0
+        tier: business
+        team: inventory-team
+        region: mumbai
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        sidecar.istio.io/inject: "true"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: ["ap-south-1"]
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values: ["inventory-service"]
+              topologyKey: kubernetes.io/hostname
+      serviceAccountName: inventory-service-sa
+      containers:
+      - name: inventory-service
+        image: flipkart/inventory-service:v2.0.0
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: inventory-db-credentials
+              key: url
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: redis-credentials
+              key: url
+        - name: WAREHOUSE_LOCATIONS
+          value: "mumbai,delhi,bangalore,kolkata,chennai,hyderabad"
+        - name: REAL_TIME_SYNC_ENABLED
+          value: "true"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: application-config
+          mountPath: /app/config
+          readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      volumes:
+      - name: application-config
+        configMap:
+          name: inventory-service-config
+      imagePullSecrets:
+      - name: flipkart-registry-secret

@@ -1,0 +1,1064 @@
+# Episode 092: Advanced Container Orchestration 
+# Complete production-ready container orchestration environment
+# Context: Flipkart/Amazon India style microservices architecture
+# Focus: Multi-region deployment with Indian cloud infrastructure
+
+version: '3.8'
+
+services:
+  # =================================================================
+  # CONTROL PLANE - Mumbai Region (Primary)
+  # =================================================================
+  
+  # Kubernetes Control Plane Simulation
+  api-server:
+    image: k8s.gcr.io/kube-apiserver:v1.28.0
+    container_name: mumbai-api-server
+    ports:
+      - "6443:6443"
+    environment:
+      - KUBE_REGION=mumbai
+      - KUBE_ZONE=mumbai-west
+      - CLUSTER_NAME=flipkart-mumbai
+    volumes:
+      - ./config/k8s/apiserver:/etc/kubernetes/apiserver:ro
+      - ./certs/ca:/etc/kubernetes/pki:ro
+    networks:
+      - control-plane
+      - mumbai-region
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-k", "https://localhost:6443/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "region=mumbai"
+      - "zone=mumbai-west"
+      - "component=control-plane"
+      - "cost-center=infrastructure"
+
+  # ETCD Cluster - Distributed Key-Value Store
+  etcd-mumbai-1:
+    image: quay.io/coreos/etcd:v3.5.9
+    container_name: mumbai-etcd-1
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    environment:
+      - ETCD_NAME=mumbai-etcd-1
+      - ETCD_INITIAL_CLUSTER=mumbai-etcd-1=http://etcd-mumbai-1:2380,mumbai-etcd-2=http://etcd-mumbai-2:2380,delhi-etcd-1=http://etcd-delhi-1:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=flipkart-cluster
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd-mumbai-1:2379
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd-mumbai-1:2380
+    volumes:
+      - etcd-mumbai-1-data:/etcd-data
+    networks:
+      - control-plane
+      - mumbai-region
+    restart: unless-stopped
+    labels:
+      - "region=mumbai"
+      - "component=etcd"
+      - "node=1"
+
+  etcd-mumbai-2:
+    image: quay.io/coreos/etcd:v3.5.9
+    container_name: mumbai-etcd-2
+    ports:
+      - "2479:2379"
+      - "2480:2380"
+    environment:
+      - ETCD_NAME=mumbai-etcd-2
+      - ETCD_INITIAL_CLUSTER=mumbai-etcd-1=http://etcd-mumbai-1:2380,mumbai-etcd-2=http://etcd-mumbai-2:2380,delhi-etcd-1=http://etcd-delhi-1:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=flipkart-cluster
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd-mumbai-2:2379
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd-mumbai-2:2380
+    volumes:
+      - etcd-mumbai-2-data:/etcd-data
+    networks:
+      - control-plane
+      - mumbai-region
+    restart: unless-stopped
+    labels:
+      - "region=mumbai"
+      - "component=etcd"
+      - "node=2"
+
+  # =================================================================
+  # CONTROL PLANE - Delhi Region (Secondary)
+  # =================================================================
+  
+  etcd-delhi-1:
+    image: quay.io/coreos/etcd:v3.5.9
+    container_name: delhi-etcd-1
+    ports:
+      - "2579:2379"
+      - "2580:2380"
+    environment:
+      - ETCD_NAME=delhi-etcd-1
+      - ETCD_INITIAL_CLUSTER=mumbai-etcd-1=http://etcd-mumbai-1:2380,mumbai-etcd-2=http://etcd-mumbai-2:2380,delhi-etcd-1=http://etcd-delhi-1:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=flipkart-cluster
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd-delhi-1:2379
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd-delhi-1:2380
+    volumes:
+      - etcd-delhi-1-data:/etcd-data
+    networks:
+      - control-plane
+      - delhi-region
+    restart: unless-stopped
+    labels:
+      - "region=delhi"
+      - "component=etcd"
+      - "node=1"
+
+  # =================================================================
+  # WORKER NODES - Mumbai Zone
+  # =================================================================
+
+  # Kubelet Simulation - Mumbai Zone 1
+  kubelet-mumbai-1:
+    image: k8s.gcr.io/pause:3.9
+    container_name: mumbai-worker-1
+    privileged: true
+    environment:
+      - NODE_NAME=mumbai-worker-1
+      - KUBE_REGION=mumbai
+      - KUBE_ZONE=mumbai-west
+      - NODE_INSTANCE_TYPE=c5.2xlarge  # AWS equivalent for Indian clouds
+      - NODE_CAPACITY_CPU=8
+      - NODE_CAPACITY_MEMORY=16Gi
+      - NODE_CAPACITY_STORAGE=100Gi
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/kubelet:/etc/kubernetes/kubelet:ro
+    networks:
+      - mumbai-region
+      - workload-network
+    labels:
+      - "region=mumbai"
+      - "zone=mumbai-west"
+      - "component=worker"
+      - "instance-type=c5.2xlarge"
+      - "cost-center=compute"
+
+  kubelet-mumbai-2:
+    image: k8s.gcr.io/pause:3.9
+    container_name: mumbai-worker-2
+    privileged: true
+    environment:
+      - NODE_NAME=mumbai-worker-2
+      - KUBE_REGION=mumbai
+      - KUBE_ZONE=mumbai-east
+      - NODE_INSTANCE_TYPE=c5.2xlarge
+      - NODE_CAPACITY_CPU=8
+      - NODE_CAPACITY_MEMORY=16Gi
+      - NODE_CAPACITY_STORAGE=100Gi
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/kubelet:/etc/kubernetes/kubelet:ro
+    networks:
+      - mumbai-region
+      - workload-network
+    labels:
+      - "region=mumbai"
+      - "zone=mumbai-east"
+      - "component=worker"
+      - "instance-type=c5.2xlarge"
+
+  # =================================================================
+  # FLIPKART-STYLE MICROSERVICES
+  # =================================================================
+
+  # Product Catalog Service (Core Business Service)
+  product-catalog:
+    build:
+      context: ./services/product-catalog
+      dockerfile: Dockerfile
+    container_name: flipkart-product-catalog
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVICE_NAME=product-catalog
+      - SERVICE_VERSION=v2.1.0
+      - REGION=mumbai
+      - ZONE=mumbai-west
+      - DATABASE_URL=postgresql://flipkart:flipkart123@postgres-mumbai:5432/products
+      - REDIS_URL=redis://redis-mumbai:6379/0
+      - ELASTICSEARCH_URL=http://elasticsearch-mumbai:9200
+      - JVM_OPTS=-Xms2g -Xmx4g -XX:+UseG1GC
+      - INDIAN_TIMEZONE=Asia/Kolkata
+    volumes:
+      - ./config/product-catalog:/app/config:ro
+      - product-logs:/app/logs
+    networks:
+      - mumbai-region
+      - workload-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+      - "service=product-catalog"
+      - "version=v2.1.0"
+      - "tier=business"
+      - "sla=critical"
+      - "cost-optimization=enabled"
+
+  # Order Management Service
+  order-management:
+    build:
+      context: ./services/order-management
+      dockerfile: Dockerfile
+    container_name: flipkart-order-mgmt
+    ports:
+      - "8081:8080"
+    environment:
+      - SERVICE_NAME=order-management
+      - SERVICE_VERSION=v1.8.0
+      - REGION=mumbai
+      - ZONE=mumbai-west
+      - DATABASE_URL=postgresql://flipkart:flipkart123@postgres-mumbai:5432/orders
+      - KAFKA_BROKERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092
+      - PAYMENT_SERVICE_URL=http://payment-service:8080
+      - INVENTORY_SERVICE_URL=http://inventory-service:8080
+      - JVM_OPTS=-Xms1g -Xmx2g -XX:+UseG1GC
+    volumes:
+      - ./config/order-management:/app/config:ro
+      - order-logs:/app/logs
+    networks:
+      - mumbai-region
+      - workload-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 3G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    depends_on:
+      - postgres-mumbai
+      - kafka-mumbai-1
+      - payment-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=order-management"
+      - "version=v1.8.0"
+      - "tier=business"
+      - "sla=high"
+
+  # Payment Service (UPI/Card Processing)
+  payment-service:
+    build:
+      context: ./services/payment-service
+      dockerfile: Dockerfile
+    container_name: flipkart-payment
+    ports:
+      - "8082:8080"
+    environment:
+      - SERVICE_NAME=payment-service
+      - SERVICE_VERSION=v3.2.0
+      - REGION=mumbai
+      - ZONE=mumbai-west
+      - DATABASE_URL=postgresql://flipkart:flipkart123@postgres-mumbai:5432/payments
+      - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}
+      - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET}
+      - UPI_GATEWAY_URL=https://api.npci.org.in/upi
+      - PAYTM_MERCHANT_ID=${PAYTM_MERCHANT_ID}
+      - PHONEPE_MERCHANT_ID=${PHONEPE_MERCHANT_ID}
+      - PCI_COMPLIANCE_MODE=true
+      - ENCRYPTION_KEY=${PAYMENT_ENCRYPTION_KEY}
+    volumes:
+      - ./config/payment-service:/app/config:ro
+      - ./certs/payment:/app/certs:ro
+      - payment-logs:/app/logs
+    networks:
+      - mumbai-region
+      - workload-network
+      - secure-payment  # Isolated network for payment processing
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=payment-service"
+      - "version=v3.2.0"
+      - "tier=business"
+      - "sla=critical"
+      - "compliance=pci-dss"
+      - "security=high"
+
+  # Inventory Service
+  inventory-service:
+    build:
+      context: ./services/inventory-service
+      dockerfile: Dockerfile
+    container_name: flipkart-inventory
+    ports:
+      - "8083:8080"
+    environment:
+      - SERVICE_NAME=inventory-service
+      - SERVICE_VERSION=v2.0.0
+      - REGION=mumbai
+      - ZONE=mumbai-west
+      - DATABASE_URL=postgresql://flipkart:flipkart123@postgres-mumbai:5432/inventory
+      - REDIS_URL=redis://redis-mumbai:6379/1
+      - WAREHOUSE_LOCATIONS=mumbai,delhi,bangalore,kolkata,chennai
+    volumes:
+      - ./config/inventory-service:/app/config:ro
+    networks:
+      - mumbai-region
+      - workload-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=inventory-service"
+      - "version=v2.0.0"
+      - "tier=business"
+      - "sla=medium"
+
+  # =================================================================
+  # DATA TIER - INDIAN REGION OPTIMIZED
+  # =================================================================
+
+  # PostgreSQL Primary - Mumbai
+  postgres-mumbai:
+    image: postgres:15-alpine
+    container_name: flipkart-postgres-mumbai
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=flipkart
+      - POSTGRES_USER=flipkart
+      - POSTGRES_PASSWORD=flipkart123
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=en_IN.UTF-8
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-mumbai-data:/var/lib/postgresql/data
+      - ./config/postgres/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+      - ./config/postgres/init-scripts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - mumbai-region
+      - data-tier
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flipkart -d flipkart"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "component=database"
+      - "type=primary"
+      - "region=mumbai"
+      - "cost-tier=high"
+
+  # PostgreSQL Replica - Delhi
+  postgres-delhi:
+    image: postgres:15-alpine
+    container_name: flipkart-postgres-delhi
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=flipkart
+      - POSTGRES_USER=flipkart
+      - POSTGRES_PASSWORD=flipkart123
+      - PGUSER=postgres
+      - POSTGRES_MASTER_SERVICE=postgres-mumbai
+      - POSTGRES_SLAVE_MODE=true
+    volumes:
+      - postgres-delhi-data:/var/lib/postgresql/data
+      - ./config/postgres/recovery.conf:/var/lib/postgresql/data/recovery.conf:ro
+    networks:
+      - delhi-region
+      - data-tier
+    depends_on:
+      - postgres-mumbai
+    labels:
+      - "component=database"
+      - "type=replica"
+      - "region=delhi"
+      - "cost-tier=medium"
+
+  # Redis Cluster - Mumbai
+  redis-mumbai:
+    image: redis:7-alpine
+    container_name: flipkart-redis-mumbai
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server 
+      --appendonly yes 
+      --requirepass flipkart123
+      --maxmemory 2gb
+      --maxmemory-policy allkeys-lru
+      --timeout 300
+      --tcp-keepalive 300
+    volumes:
+      - redis-mumbai-data:/data
+      - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    networks:
+      - mumbai-region
+      - data-tier
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 3G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "flipkart123", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    labels:
+      - "component=cache"
+      - "region=mumbai"
+      - "cost-tier=medium"
+
+  # =================================================================
+  # MESSAGE STREAMING - KAFKA CLUSTER
+  # =================================================================
+
+  # Zookeeper for Kafka
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: flipkart-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+      - ZOOKEEPER_INIT_LIMIT=5
+      - ZOOKEEPER_SYNC_LIMIT=2
+      - ZOOKEEPER_SERVERS=zookeeper:2888:3888
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-logs:/var/lib/zookeeper/log
+    networks:
+      - mumbai-region
+      - streaming
+    labels:
+      - "component=coordination"
+      - "service=zookeeper"
+
+  # Kafka Broker 1 - Mumbai
+  kafka-mumbai-1:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: flipkart-kafka-1
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-mumbai-1:9092,PLAINTEXT_HOST://localhost:29092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=2
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=2
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
+      - KAFKA_JMX_PORT=9101
+      - KAFKA_JMX_HOSTNAME=localhost
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
+    volumes:
+      - kafka-mumbai-1-data:/var/lib/kafka/data
+    networks:
+      - mumbai-region
+      - streaming
+    depends_on:
+      - zookeeper
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "component=streaming"
+      - "broker-id=1"
+      - "region=mumbai"
+
+  # Kafka Broker 2 - Mumbai
+  kafka-mumbai-2:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: flipkart-kafka-2
+    ports:
+      - "9093:9092"
+      - "29093:29092"
+    environment:
+      - KAFKA_BROKER_ID=2
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-mumbai-2:9092,PLAINTEXT_HOST://localhost:29093
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=2
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=2
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
+      - KAFKA_JMX_PORT=9102
+      - KAFKA_JMX_HOSTNAME=localhost
+    volumes:
+      - kafka-mumbai-2-data:/var/lib/kafka/data
+    networks:
+      - mumbai-region
+      - streaming
+    depends_on:
+      - zookeeper
+    labels:
+      - "component=streaming"
+      - "broker-id=2"
+      - "region=mumbai"
+
+  # =================================================================
+  # MONITORING & OBSERVABILITY - INDIAN SCALE
+  # =================================================================
+
+  # Prometheus - Metrics Collection
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: flipkart-prometheus
+    ports:
+      - "9090:9090"
+    environment:
+      - PROMETHEUS_RETENTION_TIME=30d
+      - PROMETHEUS_RETENTION_SIZE=50GB
+      - PROMETHEUS_WEB_EXTERNAL_URL=http://prometheus.flipkart.internal:9090
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./config/prometheus/rules:/etc/prometheus/rules:ro
+      - prometheus-data:/prometheus
+    networks:
+      - mumbai-region
+      - monitoring
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--storage.tsdb.retention.size=50GB'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    labels:
+      - "component=monitoring"
+      - "service=prometheus"
+      - "cost-tier=high"
+
+  # Grafana - Dashboards
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: flipkart-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=flipkart123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_DOMAIN=grafana.flipkart.internal
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_FROM_ADDRESS=alerts@flipkart.com
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel,grafana-polystat-panel
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./config/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    networks:
+      - mumbai-region
+      - monitoring
+    depends_on:
+      - prometheus
+    labels:
+      - "component=monitoring"
+      - "service=grafana"
+
+  # Jaeger - Distributed Tracing
+  jaeger:
+    image: jaegertracing/all-in-one:1.50
+    container_name: flipkart-jaeger
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "14268:14268"  # HTTP collector
+      - "14250:14250"  # gRPC collector
+      - "6831:6831/udp"  # UDP collector
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - SPAN_STORAGE_TYPE=elasticsearch
+      - ES_SERVER_URLS=http://elasticsearch-mumbai:9200
+      - ES_USERNAME=elastic
+      - ES_PASSWORD=flipkart123
+    networks:
+      - mumbai-region
+      - monitoring
+    depends_on:
+      - elasticsearch-mumbai
+    labels:
+      - "component=tracing"
+      - "service=jaeger"
+
+  # =================================================================
+  # SEARCH & ANALYTICS
+  # =================================================================
+
+  # Elasticsearch - Search & Logging
+  elasticsearch-mumbai:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: flipkart-elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - cluster.name=flipkart-search
+      - node.name=mumbai-search-1
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=flipkart123
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - xpack.security.transport.ssl.enabled=false
+      - xpack.security.http.ssl.enabled=false
+    volumes:
+      - elasticsearch-mumbai-data:/usr/share/elasticsearch/data
+      - ./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    networks:
+      - mumbai-region
+      - data-tier
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    labels:
+      - "component=search"
+      - "service=elasticsearch"
+      - "cost-tier=high"
+
+  # =================================================================
+  # LOAD BALANCING & INGRESS
+  # =================================================================
+
+  # HAProxy - Load Balancer (Indian ISP Optimized)
+  haproxy:
+    image: haproxy:2.8-alpine
+    container_name: flipkart-haproxy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8404:8404"  # Stats page
+    volumes:
+      - ./config/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./certs/haproxy:/etc/ssl/certs:ro
+    networks:
+      - mumbai-region
+      - workload-network
+      - public-facing
+    depends_on:
+      - product-catalog
+      - order-management
+      - payment-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8404/stats"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "component=load-balancer"
+      - "service=haproxy"
+      - "public-facing=true"
+
+  # =================================================================
+  # SECURITY & COMPLIANCE
+  # =================================================================
+
+  # Vault - Secrets Management
+  vault:
+    image: hashicorp/vault:1.15
+    container_name: flipkart-vault
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=flipkart-root-token
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+      - VAULT_API_ADDR=http://0.0.0.0:8200
+    volumes:
+      - vault-data:/vault/data
+      - vault-logs:/vault/logs
+      - ./config/vault:/vault/config:ro
+    networks:
+      - mumbai-region
+      - secure-payment
+    cap_add:
+      - IPC_LOCK
+    labels:
+      - "component=security"
+      - "service=vault"
+      - "compliance=required"
+
+  # =================================================================
+  # COST OPTIMIZATION & RESOURCE MANAGEMENT
+  # =================================================================
+
+  # Node Exporter - System Metrics
+  node-exporter:
+    image: prom/node-exporter:v1.6.1
+    container_name: flipkart-node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    networks:
+      - monitoring
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--collector.cpu.info'
+      - '--collector.meminfo_numa'
+    labels:
+      - "component=monitoring"
+      - "service=node-exporter"
+      - "cost-optimization=enabled"
+
+  # cAdvisor - Container Metrics
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: flipkart-cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - monitoring
+    privileged: true
+    devices:
+      - /dev/kmsg
+    labels:
+      - "component=monitoring"
+      - "service=cadvisor"
+      - "cost-optimization=enabled"
+
+# =================================================================
+# NETWORKS - INDIAN REGION TOPOLOGY
+# =================================================================
+networks:
+  # Control plane network - Secure and isolated
+  control-plane:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+    labels:
+      - "type=control-plane"
+      - "security=high"
+
+  # Regional networks
+  mumbai-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+    labels:
+      - "region=mumbai"
+      - "type=regional"
+
+  delhi-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
+    labels:
+      - "region=delhi"
+      - "type=regional"
+
+  # Tier-based networks
+  workload-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
+    labels:
+      - "tier=application"
+
+  data-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.24.0.0/24
+    labels:
+      - "tier=data"
+      - "security=high"
+
+  streaming:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/24
+    labels:
+      - "tier=streaming"
+
+  monitoring:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.26.0.0/24
+    labels:
+      - "tier=monitoring"
+
+  secure-payment:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.27.0.0/24
+    labels:
+      - "tier=payment"
+      - "security=critical"
+      - "compliance=pci-dss"
+
+  public-facing:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24
+    labels:
+      - "tier=public"
+      - "security=medium"
+
+# =================================================================
+# VOLUMES - PERSISTENT DATA WITH COST OPTIMIZATION
+# =================================================================
+volumes:
+  # Control plane data
+  etcd-mumbai-1-data:
+    driver: local
+    labels:
+      - "tier=control-plane"
+      - "region=mumbai"
+      - "backup=required"
+      - "cost-tier=high"
+
+  etcd-mumbai-2-data:
+    driver: local
+    labels:
+      - "tier=control-plane"
+      - "region=mumbai"
+      - "backup=required"
+
+  etcd-delhi-1-data:
+    driver: local
+    labels:
+      - "tier=control-plane"
+      - "region=delhi"
+      - "backup=required"
+
+  # Database volumes
+  postgres-mumbai-data:
+    driver: local
+    labels:
+      - "tier=database"
+      - "region=mumbai"
+      - "backup=daily"
+      - "cost-tier=high"
+      - "encryption=required"
+
+  postgres-delhi-data:
+    driver: local
+    labels:
+      - "tier=database"
+      - "region=delhi"
+      - "backup=daily"
+      - "cost-tier=medium"
+
+  # Cache volumes
+  redis-mumbai-data:
+    driver: local
+    labels:
+      - "tier=cache"
+      - "region=mumbai"
+      - "cost-tier=medium"
+
+  # Streaming volumes
+  kafka-mumbai-1-data:
+    driver: local
+    labels:
+      - "tier=streaming"
+      - "region=mumbai"
+      - "cost-tier=high"
+
+  kafka-mumbai-2-data:
+    driver: local
+    labels:
+      - "tier=streaming"
+      - "region=mumbai"
+      - "cost-tier=high"
+
+  zookeeper-data:
+    driver: local
+    labels:
+      - "tier=coordination"
+      - "backup=required"
+
+  zookeeper-logs:
+    driver: local
+    labels:
+      - "tier=coordination"
+      - "log-retention=7d"
+
+  # Search and analytics
+  elasticsearch-mumbai-data:
+    driver: local
+    labels:
+      - "tier=search"
+      - "region=mumbai"
+      - "cost-tier=high"
+      - "retention=30d"
+
+  # Monitoring volumes
+  prometheus-data:
+    driver: local
+    labels:
+      - "tier=monitoring"
+      - "retention=30d"
+      - "cost-tier=medium"
+
+  grafana-data:
+    driver: local
+    labels:
+      - "tier=monitoring"
+      - "backup=weekly"
+
+  # Security volumes
+  vault-data:
+    driver: local
+    labels:
+      - "tier=security"
+      - "encryption=required"
+      - "backup=daily"
+      - "compliance=required"
+
+  vault-logs:
+    driver: local
+    labels:
+      - "tier=security"
+      - "audit-log=true"
+
+  # Application logs
+  product-logs:
+    driver: local
+    labels:
+      - "tier=application"
+      - "service=product-catalog"
+      - "retention=7d"
+
+  order-logs:
+    driver: local
+    labels:
+      - "tier=application"
+      - "service=order-management"
+      - "retention=7d"
+
+  payment-logs:
+    driver: local
+    labels:
+      - "tier=application"
+      - "service=payment"
+      - "retention=30d"
+      - "compliance=pci-dss"
+
+# =================================================================
+# CONFIGURATION FILES NEEDED:
+# =================================================================
+# ./config/k8s/apiserver/
+# ./config/kubelet/
+# ./config/prometheus/prometheus.yml
+# ./config/grafana/provisioning/
+# ./config/haproxy/haproxy.cfg
+# ./config/vault/
+# ./config/postgres/postgresql.conf
+# ./config/redis/redis.conf
+# ./config/elasticsearch/elasticsearch.yml
+# ./certs/ (TLS certificates)
+# ./services/ (microservice source code)
+# 
+# ESTIMATED COSTS (Mumbai Region):
+# - 8 vCPUs, 32GB RAM: ₹25,000/month
+# - 500GB SSD storage: ₹8,000/month
+# - Network transfer (1TB): ₹5,000/month
+# - Total monthly: ₹38,000 (~$460 USD)
+# 
+# OPTIMIZATION NOTES:
+# - Use spot instances for non-critical workloads (60% cost savings)
+# - Implement auto-scaling based on Indian peak hours (10 AM - 11 PM IST)
+# - Use local SSD for temporary data, EBS for persistent
+# - Configure appropriate resource limits for cost control

@@ -1,0 +1,170 @@
+{
+  "name": "hindi-tech-podcast-website",
+  "version": "1.0.0",
+  "description": "Official website for Hindi Tech Podcast - Engineering stories explained Mumbai style",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=3000 --open=index.html",
+    "build": "npm run build:css && npm run build:js && npm run build:assets",
+    "build:css": "postcss css/styles.css -o dist/css/styles.min.css --map",
+    "build:js": "terser js/app.js -o dist/js/app.min.js --source-map",
+    "build:assets": "npm run optimize:images && npm run generate:manifest",
+    "optimize:images": "imagemin images/**/*.{jpg,png,svg} --out-dir=dist/images",
+    "generate:manifest": "node scripts/generate-manifest.js",
+    "test": "npm run test:html && npm run test:accessibility && npm run test:performance",
+    "test:html": "html-validate *.html",
+    "test:accessibility": "axe-cli *.html",
+    "test:performance": "lighthouse http://localhost:3000 --output=json --output-path=./reports/lighthouse.json",
+    "deploy:netlify": "netlify deploy --prod --dir=dist",
+    "deploy:vercel": "vercel --prod",
+    "deploy:surge": "surge dist hindi-tech-podcast.surge.sh",
+    "lint": "npm run lint:css && npm run lint:js && npm run lint:html",
+    "lint:css": "stylelint css/*.css",
+    "lint:js": "eslint js/*.js",
+    "lint:html": "html-validate *.html",
+    "format": "prettier --write '**/*.{html,css,js,json,md}'",
+    "serve": "http-server -p 8080 -o",
+    "watch": "npm-run-all --parallel watch:*",
+    "watch:css": "postcss css/styles.css -o css/styles.css --watch",
+    "watch:js": "nodemon --watch js --exec 'npm run lint:js'",
+    "precommit": "lint-staged",
+    "semantic-release": "semantic-release",
+    "analyze": "npm run analyze:bundle && npm run analyze:lighthouse",
+    "analyze:bundle": "bundlesize",
+    "analyze:lighthouse": "lighthouse-ci autorun",
+    "validate": "npm run validate:html && npm run validate:links",
+    "validate:html": "html-validate *.html",
+    "validate:links": "linkinator http://localhost:3000 --recurse",
+    "security": "npm audit && retire --js --node",
+    "pwa": "npm run generate:sw && npm run generate:manifest",
+    "generate:sw": "workbox generateSW workbox-config.js",
+    "update:deps": "ncu -u && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hindi-tech-podcast/website.git"
+  },
+  "keywords": [
+    "hindi",
+    "tech",
+    "podcast",
+    "engineering",
+    "india",
+    "mumbai",
+    "distributed-systems",
+    "databases",
+    "microservices",
+    "system-design"
+  ],
+  "author": {
+    "name": "Hindi Tech Podcast Team",
+    "email": "hello@hinditechpodcast.com",
+    "url": "https://hinditechpodcast.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hindi-tech-podcast/website/issues"
+  },
+  "homepage": "https://hinditechpodcast.com",
+  "devDependencies": {
+    "@axe-core/cli": "^4.8.2",
+    "@html-validate/cli": "^8.7.4",
+    "autoprefixer": "^10.4.16",
+    "bundlesize": "^0.18.1",
+    "cssnano": "^6.0.1",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-accessibility": "^3.0.1",
+    "html-validate": "^8.7.4",
+    "http-server": "^14.1.1",
+    "husky": "^8.0.3",
+    "imagemin": "^8.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "^10.0.1",
+    "lighthouse": "^11.4.0",
+    "lighthouse-ci": "^0.12.0",
+    "linkinator": "^4.1.2",
+    "lint-staged": "^15.2.0",
+    "live-server": "^1.2.2",
+    "nodemon": "^3.0.2",
+    "npm-check-updates": "^16.14.12",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "prettier": "^3.1.1",
+    "retire": "^4.0.3",
+    "semantic-release": "^22.0.8",
+    "stylelint": "^16.0.2",
+    "stylelint-config-standard": "^36.0.0",
+    "terser": "^5.26.0",
+    "workbox-cli": "^7.0.0"
+  },
+  "dependencies": {
+    "intersection-observer": "^0.12.2",
+    "web-vitals": "^3.5.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11",
+    "not op_mini all"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "lint-staged": {
+    "*.html": [
+      "html-validate",
+      "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "bundlesize": [
+    {
+      "path": "./css/styles.css",
+      "maxSize": "50 kB"
+    },
+    {
+      "path": "./js/app.js",
+      "maxSize": "100 kB"
+    }
+  ],
+  "workbox": {
+    "globDirectory": "./",
+    "globPatterns": [
+      "**/*.{html,js,css,png,jpg,svg,woff2}"
+    ],
+    "swDest": "./sw.js",
+    "runtimeCaching": [
+      {
+        "urlPattern": "/audio/",
+        "handler": "CacheFirst",
+        "options": {
+          "cacheName": "audio-cache",
+          "expiration": {
+            "maxAgeSeconds": 86400
+          }
+        }
+      }
+    ]
+  },
+  "standard-version": {
+    "scripts": {
+      "prebump": "npm test",
+      "precommit": "git add CHANGELOG.md"
+    }
+  }
+}

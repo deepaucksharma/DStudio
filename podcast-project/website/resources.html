@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | Hindi Tech Podcast | Learning Guides & Code</title>
+    <meta name="description" content="Access code repositories, learning guides, pronunciation help, and Indian tech company directory for Hindi Tech Podcast listeners.">
+    <meta name="keywords" content="hindi tech resources, programming guides, indian tech companies, pronunciation guide, learning paths">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Resources - Hindi Tech Podcast">
+    <meta property="og:description" content="Code repositories, learning guides, and resources for Hindi Tech Podcast listeners">
+    <meta property="og:image" content="./images/resources-page-cover.jpg">
+    <meta property="og:url" content="https://hindi-tech-podcast.com/resources.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/styles.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="./images/logo.svg" alt="Hindi Tech Podcast Logo" class="nav-logo">
+                <span class="nav-title" data-en="Hindi Tech Podcast" data-hi="हिंदी टेक पॉडकास्ट">Hindi Tech Podcast</span>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link" data-en="Home" data-hi="होम">Home</a>
+                <a href="episodes.html" class="nav-link" data-en="Episodes" data-hi="एपिसोड्स">Episodes</a>
+                <a href="resources.html" class="nav-link active" data-en="Resources" data-hi="रिसोर्सेज">Resources</a>
+                <a href="community.html" class="nav-link" data-en="Community" data-hi="कम्युनिटी">Community</a>
+                <a href="about.html" class="nav-link" data-en="About" data-hi="हमारे बारे में">About</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                    <span class="lang-text">हिं</span>
+                </button>
+                <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Resources Hero -->
+    <section class="resources-hero">
+        <div class="container">
+            <h1 class="page-title" data-en="Learning Resources" data-hi="लर्निंग रिसोर्सेज">Learning Resources</h1>
+            <p class="page-subtitle" data-en="Everything you need to follow along with our episodes. Code repositories, learning guides, pronunciation help, and more." data-hi="हमारे एपिसोड्स के साथ चलने के लिए आपको जो कुछ भी चाहिए। कोड रिपॉज़िटरीज़, लर्निंग गाइड्स, उच्चारण सहायता, और बहुत कुछ।">Everything you need to follow along with our episodes. Code repositories, learning guides, pronunciation help, and more.</p>
+            
+            <div class="resources-stats">
+                <div class="stat">
+                    <span class="stat-number">2000+</span>
+                    <span class="stat-label" data-en="Code Examples" data-hi="कोड उदाहरण">Code Examples</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label" data-en="Learning Paths" data-hi="लर्निंग पाथ्स">Learning Paths</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label" data-en="Companies" data-hi="कंपनियां">Companies</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label" data-en="Languages" data-hi="भाषाएं">Languages</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access -->
+    <section class="quick-access-section">
+        <div class="container">
+            <div class="quick-access-grid">
+                <a href="#code" class="quick-access-card">
+                    <div class="access-icon">💻</div>
+                    <h3 data-en="Code Repository" data-hi="कोड रिपॉज़िटरी">Code Repository</h3>
+                    <p data-en="2000+ working examples" data-hi="2000+ काम करने वाले उदाहरण">2000+ working examples</p>
+                </a>
+                
+                <a href="#guides" class="quick-access-card">
+                    <div class="access-icon">📚</div>
+                    <h3 data-en="Learning Guides" data-hi="लर्निंग गाइड्स">Learning Guides</h3>
+                    <p data-en="Step-by-step tutorials" data-hi="चरणबद्ध ट्यूटोरियल्स">Step-by-step tutorials</p>
+                </a>
+                
+                <a href="#pronunciation" class="quick-access-card">
+                    <div class="access-icon">🗣️</div>
+                    <h3 data-en="Pronunciation Guide" data-hi="उच्चारण गाइड">Pronunciation Guide</h3>
+                    <p data-en="Tech terms in Hindi" data-hi="हिंदी में टेक टर्म्स">Tech terms in Hindi</p>
+                </a>
+                
+                <a href="#companies" class="quick-access-card">
+                    <div class="access-icon">🏢</div>
+                    <h3 data-en="Company Directory" data-hi="कंपनी डायरेक्टरी">Company Directory</h3>
+                    <p data-en="Indian tech companies" data-hi="भारतीय टेक कंपनियां">Indian tech companies</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Repository Section -->
+    <section id="code" class="resource-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 data-en="Code Repository" data-hi="कोड रिपॉज़िटरी">Code Repository</h2>
+                <p data-en="All the code examples from our episodes, organized by topic and episode. Every example is tested and production-ready." data-hi="हमारे एपिसोड्स के सभी कोड उदाहरण, विषय और एपिसोड के अनुसार व्यवस्थित। हर उदाहरण परीक्षित और प्रोडक्शन-रेडी है।">All the code examples from our episodes, organized by topic and episode. Every example is tested and production-ready.</p>
+            </div>
+            
+            <div class="code-categories">
+                <div class="code-nav">
+                    <button class="code-filter-btn active" data-filter="all" data-en="All Languages" data-hi="सभी भाषाएं">All Languages</button>
+                    <button class="code-filter-btn" data-filter="python">Python</button>
+                    <button class="code-filter-btn" data-filter="java">Java</button>
+                    <button class="code-filter-btn" data-filter="go">Go</button>
+                    <button class="code-filter-btn" data-filter="javascript">JavaScript</button>
+                    <button class="code-filter-btn" data-filter="rust">Rust</button>
+                    <button class="code-filter-btn" data-filter="elixir">Elixir</button>
+                </div>
+                
+                <div class="code-repositories-grid">
+                    <div class="code-repo-card" data-language="python">
+                        <div class="repo-header">
+                            <div class="repo-icon">🐍</div>
+                            <div class="repo-info">
+                                <h3>Distributed Systems in Python</h3>
+                                <p data-en="CAP theorem, consensus algorithms, and partitioning examples" data-hi="CAP theorem, consensus algorithms, और partitioning के उदाहरण">CAP theorem, consensus algorithms, and partitioning examples</p>
+                            </div>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat-item">
+                                <span class="stat-icon">📁</span>
+                                <span>250+ files</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span>1.2k stars</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">🍴</span>
+                                <span>340 forks</span>
+                            </span>
+                        </div>
+                        <div class="repo-actions">
+                            <a href="https://github.com/hindi-tech-podcast/distributed-systems-python" class="btn btn-primary" target="_blank">
+                                <span class="github-icon">👨‍💻</span>
+                                <span data-en="View on GitHub" data-hi="GitHub पर देखें">View on GitHub</span>
+                            </a>
+                            <button class="btn btn-secondary clone-btn" data-repo="distributed-systems-python">
+                                <span class="clone-icon">📥</span>
+                                <span data-en="Clone" data-hi="क्लोन">Clone</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="code-repo-card" data-language="java">
+                        <div class="repo-header">
+                            <div class="repo-icon">☕</div>
+                            <div class="repo-info">
+                                <h3>Database Internals in Java</h3>
+                                <p data-en="B-trees, LSM trees, ACID implementation, and indexing strategies" data-hi="B-trees, LSM trees, ACID implementation, और indexing strategies">B-trees, LSM trees, ACID implementation, and indexing strategies</p>
+                            </div>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat-item">
+                                <span class="stat-icon">📁</span>
+                                <span>180+ files</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span>890 stars</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">🍴</span>
+                                <span>210 forks</span>
+                            </span>
+                        </div>
+                        <div class="repo-actions">
+                            <a href="https://github.com/hindi-tech-podcast/database-internals-java" class="btn btn-primary" target="_blank">
+                                <span class="github-icon">👨‍💻</span>
+                                <span data-en="View on GitHub" data-hi="GitHub पर देखें">View on GitHub</span>
+                            </a>
+                            <button class="btn btn-secondary clone-btn" data-repo="database-internals-java">
+                                <span class="clone-icon">📥</span>
+                                <span data-en="Clone" data-hi="क्लोन">Clone</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="code-repo-card" data-language="go">
+                        <div class="repo-header">
+                            <div class="repo-icon">🐹</div>
+                            <div class="repo-info">
+                                <h3>Microservices Patterns in Go</h3>
+                                <p data-en="Service mesh, circuit breakers, and container orchestration" data-hi="Service mesh, circuit breakers, और container orchestration">Service mesh, circuit breakers, and container orchestration</p>
+                            </div>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat-item">
+                                <span class="stat-icon">📁</span>
+                                <span>150+ files</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span>650 stars</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">🍴</span>
+                                <span>120 forks</span>
+                            </span>
+                        </div>
+                        <div class="repo-actions">
+                            <a href="https://github.com/hindi-tech-podcast/microservices-go" class="btn btn-primary" target="_blank">
+                                <span class="github-icon">👨‍💻</span>
+                                <span data-en="View on GitHub" data-hi="GitHub पर देखें">View on GitHub</span>
+                            </a>
+                            <button class="btn btn-secondary clone-btn" data-repo="microservices-go">
+                                <span class="clone-icon">📥</span>
+                                <span data-en="Clone" data-hi="क्लोन">Clone</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="code-repo-card" data-language="javascript">
+                        <div class="repo-header">
+                            <div class="repo-icon">🟨</div>
+                            <div class="repo-info">
+                                <h3>Real-time Systems in JavaScript</h3>
+                                <p data-en="WebSocket implementations, Socket.IO, and real-time communication" data-hi="WebSocket implementations, Socket.IO, और real-time communication">WebSocket implementations, Socket.IO, and real-time communication</p>
+                            </div>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat-item">
+                                <span class="stat-icon">📁</span>
+                                <span>120+ files</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span>480 stars</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">🍴</span>
+                                <span>95 forks</span>
+                            </span>
+                        </div>
+                        <div class="repo-actions">
+                            <a href="https://github.com/hindi-tech-podcast/realtime-javascript" class="btn btn-primary" target="_blank">
+                                <span class="github-icon">👨‍💻</span>
+                                <span data-en="View on GitHub" data-hi="GitHub पर देखें">View on GitHub</span>
+                            </a>
+                            <button class="btn btn-secondary clone-btn" data-repo="realtime-javascript">
+                                <span class="clone-icon">📥</span>
+                                <span data-en="Clone" data-hi="क्लोन">Clone</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="code-repo-card" data-language="rust">
+                        <div class="repo-header">
+                            <div class="repo-icon">🦀</div>
+                            <div class="repo-info">
+                                <h3>High-Performance Systems in Rust</h3>
+                                <p data-en="Memory safety, concurrency, and zero-cost abstractions" data-hi="Memory safety, concurrency, और zero-cost abstractions">Memory safety, concurrency, and zero-cost abstractions</p>
+                            </div>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat-item">
+                                <span class="stat-icon">📁</span>
+                                <span>90+ files</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span>320 stars</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">🍴</span>
+                                <span>65 forks</span>
+                            </span>
+                        </div>
+                        <div class="repo-actions">
+                            <a href="https://github.com/hindi-tech-podcast/high-performance-rust" class="btn btn-primary" target="_blank">
+                                <span class="github-icon">👨‍💻</span>
+                                <span data-en="View on GitHub" data-hi="GitHub पर देखें">View on GitHub</span>
+                            </a>
+                            <button class="btn btn-secondary clone-btn" data-repo="high-performance-rust">
+                                <span class="clone-icon">📥</span>
+                                <span data-en="Clone" data-hi="क्लोन">Clone</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="code-repo-card" data-language="elixir">
+                        <div class="repo-header">
+                            <div class="repo-icon">💧</div>
+                            <div class="repo-info">
+                                <h3>Fault-Tolerant Systems in Elixir</h3>
+                                <p data-en="Actor model, supervision trees, and fault tolerance patterns" data-hi="Actor model, supervision trees, और fault tolerance patterns">Actor model, supervision trees, and fault tolerance patterns</p>
+                            </div>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat-item">
+                                <span class="stat-icon">📁</span>
+                                <span>75+ files</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">⭐</span>
+                                <span>280 stars</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="stat-icon">🍴</span>
+                                <span>45 forks</span>
+                            </span>
+                        </div>
+                        <div class="repo-actions">
+                            <a href="https://github.com/hindi-tech-podcast/fault-tolerant-elixir" class="btn btn-primary" target="_blank">
+                                <span class="github-icon">👨‍💻</span>
+                                <span data-en="View on GitHub" data-hi="GitHub पर देखें">View on GitHub</span>
+                            </a>
+                            <button class="btn btn-secondary clone-btn" data-repo="fault-tolerant-elixir">
+                                <span class="clone-icon">📥</span>
+                                <span data-en="Clone" data-hi="क्लोन">Clone</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Guides Section -->
+    <section id="guides" class="resource-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 data-en="Learning Guides" data-hi="लर्निंग गाइड्स">Learning Guides</h2>
+                <p data-en="Structured learning paths for different experience levels. Start from basics and progress to advanced topics with our Mumbai-style explanations." data-hi="विभिन्न अनुभव स्तरों के लिए संरचित लर्निंग पाथ्स। बेसिक्स से शुरू करें और हमारी मुंबई-स्टाइल व्याख्याओं के साथ एडवांस्ड टॉपिक्स में प्रगति करें।">Structured learning paths for different experience levels. Start from basics and progress to advanced topics with our Mumbai-style explanations.</p>
+            </div>
+            
+            <div class="learning-paths-grid">
+                <div class="learning-path-card">
+                    <div class="path-header">
+                        <div class="path-icon">🎯</div>
+                        <div class="path-info">
+                            <h3 data-en="Beginner's Journey" data-hi="शुरुआती का सफर">Beginner's Journey</h3>
+                            <p class="path-level" data-en="For absolute beginners" data-hi="बिल्कुल शुरुआती लोगों के लिए">For absolute beginners</p>
+                        </div>
+                        <div class="path-duration">8 weeks</div>
+                    </div>
+                    <div class="path-content">
+                        <p class="path-description" data-en="Start your tech journey with basic programming concepts, explained like a friend over chai in Mumbai." data-hi="मुंबई में चाय के साथ दोस्त की तरह समझाए गए बेसिक प्रोग्रामिंग कॉन्सेप्ट्स के साथ अपनी टेक यात्रा शुरू करें।">Start your tech journey with basic programming concepts, explained like a friend over chai in Mumbai.</p>
+                        <div class="path-topics">
+                            <span class="topic-tag">Programming Basics</span>
+                            <span class="topic-tag">Data Structures</span>
+                            <span class="topic-tag">Algorithms</span>
+                            <span class="topic-tag">Web Fundamentals</span>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text">0% Complete</span>
+                        </div>
+                    </div>
+                    <div class="path-actions">
+                        <button class="btn btn-primary start-path-btn" data-path="beginner">
+                            <span data-en="Start Learning" data-hi="सीखना शुरू करें">Start Learning</span>
+                        </button>
+                        <a href="./guides/beginner-journey.html" class="btn btn-secondary">
+                            <span data-en="View Details" data-hi="विवरण देखें">View Details</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="learning-path-card">
+                    <div class="path-header">
+                        <div class="path-icon">🚀</div>
+                        <div class="path-info">
+                            <h3 data-en="Distributed Systems" data-hi="डिस्ट्रिब्यूटेड सिस्टम्स">Distributed Systems</h3>
+                            <p class="path-level" data-en="Intermediate to Advanced" data-hi="इंटरमीडिएट से एडवांस्ड">Intermediate to Advanced</p>
+                        </div>
+                        <div class="path-duration">12 weeks</div>
+                    </div>
+                    <div class="path-content">
+                        <p class="path-description" data-en="Master distributed systems like WhatsApp and Flipkart engineers. Learn through real production examples." data-hi="व्हाट्सएप्प और फ्लिपकार्ट इंजीनियर्स की तरह डिस्ट्रिब्यूटेड सिस्टम्स में मास्टर बनें। असली प्रोडक्शन उदाहरणों के माध्यम से सीखें।">Master distributed systems like WhatsApp and Flipkart engineers. Learn through real production examples.</p>
+                        <div class="path-topics">
+                            <span class="topic-tag">CAP Theorem</span>
+                            <span class="topic-tag">Consensus</span>
+                            <span class="topic-tag">Partitioning</span>
+                            <span class="topic-tag">Replication</span>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 25%"></div>
+                            </div>
+                            <span class="progress-text">25% Complete</span>
+                        </div>
+                    </div>
+                    <div class="path-actions">
+                        <button class="btn btn-primary continue-path-btn" data-path="distributed">
+                            <span data-en="Continue Learning" data-hi="सीखना जारी रखें">Continue Learning</span>
+                        </button>
+                        <a href="./guides/distributed-systems.html" class="btn btn-secondary">
+                            <span data-en="View Details" data-hi="विवरण देखें">View Details</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="learning-path-card">
+                    <div class="path-header">
+                        <div class="path-icon">🗄️</div>
+                        <div class="path-info">
+                            <h3 data-en="Database Deep Dive" data-hi="डेटाबेस डीप डाइव">Database Deep Dive</h3>
+                            <p class="path-level" data-en="Intermediate" data-hi="इंटरमीडिएट">Intermediate</p>
+                        </div>
+                        <div class="path-duration">10 weeks</div>
+                    </div>
+                    <div class="path-content">
+                        <p class="path-description" data-en="Understand database internals from ACID to sharding. Learn how Zomato and Paytm handle millions of transactions." data-hi="ACID से शार्डिंग तक डेटाबेस इंटर्नल्स को समझें। सीखें कि ज़ोमैटो और पेटीएम लाखों ट्रांजैक्शन्स को कैसे हैंडल करते हैं।">Understand database internals from ACID to sharding. Learn how Zomato and Paytm handle millions of transactions.</p>
+                        <div class="path-topics">
+                            <span class="topic-tag">ACID Properties</span>
+                            <span class="topic-tag">Indexing</span>
+                            <span class="topic-tag">Sharding</span>
+                            <span class="topic-tag">Replication</span>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <span class="progress-text">60% Complete</span>
+                        </div>
+                    </div>
+                    <div class="path-actions">
+                        <button class="btn btn-primary continue-path-btn" data-path="database">
+                            <span data-en="Continue Learning" data-hi="सीखना जारी रखें">Continue Learning</span>
+                        </button>
+                        <a href="./guides/database-deep-dive.html" class="btn btn-secondary">
+                            <span data-en="View Details" data-hi="विवरण देखें">View Details</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="learning-path-card">
+                    <div class="path-header">
+                        <div class="path-icon">🔒</div>
+                        <div class="path-info">
+                            <h3 data-en="Security & Authentication" data-hi="सिक्यूरिटी और ऑथेंटिकेशन">Security & Authentication</h3>
+                            <p class="path-level" data-en="Intermediate to Advanced" data-hi="इंटरमीडिएट से एडवांस्ड">Intermediate to Advanced</p>
+                        </div>
+                        <div class="path-duration">8 weeks</div>
+                    </div>
+                    <div class="path-content">
+                        <p class="path-description" data-en="Learn security patterns from UPI to OAuth. Understand how Indian fintech companies secure millions of transactions." data-hi="UPI से OAuth तक सिक्यूरिटी पैटर्न सीखें। समझें कि भारतीय फिनटेक कंपनियां लाखों ट्रांजैक्शन्स को कैसे सुरक्षित करती हैं।">Learn security patterns from UPI to OAuth. Understand how Indian fintech companies secure millions of transactions.</p>
+                        <div class="path-topics">
+                            <span class="topic-tag">OAuth 2.0</span>
+                            <span class="topic-tag">JWT Tokens</span>
+                            <span class="topic-tag">Encryption</span>
+                            <span class="topic-tag">API Security</span>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span class="progress-text">0% Complete</span>
+                        </div>
+                    </div>
+                    <div class="path-actions">
+                        <button class="btn btn-primary start-path-btn" data-path="security">
+                            <span data-en="Start Learning" data-hi="सीखना शुरू करें">Start Learning</span>
+                        </button>
+                        <a href="./guides/security-authentication.html" class="btn btn-secondary">
+                            <span data-en="View Details" data-hi="विवरण देखें">View Details</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="learning-path-card">
+                    <div class="path-header">
+                        <div class="path-icon">🔧</div>
+                        <div class="path-info">
+                            <h3 data-en="Microservices Architecture" data-hi="माइक्रोसर्विसेज आर्किटेक्चर">Microservices Architecture</h3>
+                            <p class="path-level" data-en="Advanced" data-hi="एडवांस्ड">Advanced</p>
+                        </div>
+                        <div class="path-duration">14 weeks</div>
+                    </div>
+                    <div class="path-content">
+                        <p class="path-description" data-en="Build scalable microservices like Ola and Swiggy. Learn service mesh, API gateways, and container orchestration." data-hi="ओला और स्विगी की तरह स्केलेबल माइक्रोसर्विसेज बनाएं। सर्विस मेश, API गेटवेज, और कंटेनर ऑर्केस्ट्रेशन सीखें।">Build scalable microservices like Ola and Swiggy. Learn service mesh, API gateways, and container orchestration.</p>
+                        <div class="path-topics">
+                            <span class="topic-tag">Service Mesh</span>
+                            <span class="topic-tag">API Gateway</span>
+                            <span class="topic-tag">Circuit Breaker</span>
+                            <span class="topic-tag">Kubernetes</span>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                            <span class="progress-text">40% Complete</span>
+                        </div>
+                    </div>
+                    <div class="path-actions">
+                        <button class="btn btn-primary continue-path-btn" data-path="microservices">
+                            <span data-en="Continue Learning" data-hi="सीखना जारी रखें">Continue Learning</span>
+                        </button>
+                        <a href="./guides/microservices-architecture.html" class="btn btn-secondary">
+                            <span data-en="View Details" data-hi="विवरण देखें">View Details</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="learning-path-card">
+                    <div class="path-header">
+                        <div class="path-icon">⚡</div>
+                        <div class="path-info">
+                            <h3 data-en="Performance Engineering" data-hi="परफॉर्मेंस इंजीनियरिंग">Performance Engineering</h3>
+                            <p class="path-level" data-en="Advanced" data-hi="एडवांस्ड">Advanced</p>
+                        </div>
+                        <div class="path-duration">10 weeks</div>
+                    </div>
+                    <div class="path-content">
+                        <p class="path-description" data-en="Optimize systems for India's diverse network conditions. Learn caching, CDNs, and performance monitoring." data-hi="भारत की विविध नेटवर्क स्थितियों के लिए सिस्टम्स को ऑप्टिमाइज़ करें। कैशिंग, CDNs, और परफॉर्मेंस मॉनिटरिंग सीखें।">Optimize systems for India's diverse network conditions. Learn caching, CDNs, and performance monitoring.</p>
+                        <div class="path-topics">
+                            <span class="topic-tag">Caching Strategies</span>
+                            <span class="topic-tag">CDN Optimization</span>
+                            <span class="topic-tag">Load Balancing</span>
+                            <span class="topic-tag">Monitoring</span>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 15%"></div>
+                            </div>
+                            <span class="progress-text">15% Complete</span>
+                        </div>
+                    </div>
+                    <div class="path-actions">
+                        <button class="btn btn-primary continue-path-btn" data-path="performance">
+                            <span data-en="Continue Learning" data-hi="सीखना जारी रखें">Continue Learning</span>
+                        </button>
+                        <a href="./guides/performance-engineering.html" class="btn btn-secondary">
+                            <span data-en="View Details" data-hi="विवरण देखें">View Details</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pronunciation Guide Section -->
+    <section id="pronunciation" class="resource-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 data-en="Pronunciation Guide" data-hi="उच्चारण गाइड">Pronunciation Guide</h2>
+                <p data-en="Learn how to pronounce technical terms in Hindi. Audio recordings and phonetic spellings included." data-hi="हिंदी में तकनीकी शब्दों का उच्चारण सीखें। ऑडियो रिकॉर्डिंग और ध्वन्यात्मक वर्तनी शामिल।">Learn how to pronounce technical terms in Hindi. Audio recordings and phonetic spellings included.</p>
+            </div>
+            
+            <div class="pronunciation-search">
+                <div class="search-container">
+                    <input type="text" id="pronunciationSearch" class="search-input" placeholder="Search technical terms..." data-placeholder-en="Search technical terms..." data-placeholder-hi="तकनीकी शब्द खोजें...">
+                    <button class="search-btn" aria-label="Search">
+                        <span class="search-icon">🔍</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="pronunciation-categories">
+                <div class="category-nav">
+                    <button class="category-filter-btn active" data-filter="all" data-en="All Terms" data-hi="सभी शब्द">All Terms</button>
+                    <button class="category-filter-btn" data-filter="programming" data-en="Programming" data-hi="प्रोग्रामिंग">Programming</button>
+                    <button class="category-filter-btn" data-filter="database" data-en="Database" data-hi="डेटाबेस">Database</button>
+                    <button class="category-filter-btn" data-filter="networking" data-en="Networking" data-hi="नेटवर्किंग">Networking</button>
+                    <button class="category-filter-btn" data-filter="security" data-en="Security" data-hi="सिक्यूरिटी">Security</button>
+                    <button class="category-filter-btn" data-filter="cloud" data-en="Cloud" data-hi="क्लाउड">Cloud</button>
+                </div>
+                
+                <div class="pronunciation-terms-grid">
+                    <div class="pronunciation-term" data-category="programming">
+                        <div class="term-header">
+                            <h3 class="english-term">Algorithm</h3>
+                            <button class="play-pronunciation-btn" data-term="algorithm" aria-label="Play pronunciation">
+                                <span class="play-icon">🔊</span>
+                            </button>
+                        </div>
+                        <div class="term-content">
+                            <p class="hindi-term">एल्गोरिदम / अल्गोरिदम</p>
+                            <p class="phonetic">al-go-ri-dhum</p>
+                            <p class="term-definition" data-en="A step-by-step procedure for calculations, data processing, and automated reasoning tasks." data-hi="गणना, डेटा प्रोसेसिंग, और स्वचालित तर्क कार्यों के लिए एक चरणबद्ध प्रक्रिया।">A step-by-step procedure for calculations, data processing, and automated reasoning tasks.</p>
+                            <div class="term-examples">
+                                <span class="example-tag">Sorting Algorithm</span>
+                                <span class="example-tag">Search Algorithm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pronunciation-term" data-category="database">
+                        <div class="term-header">
+                            <h3 class="english-term">Database</h3>
+                            <button class="play-pronunciation-btn" data-term="database" aria-label="Play pronunciation">
+                                <span class="play-icon">🔊</span>
+                            </button>
+                        </div>
+                        <div class="term-content">
+                            <p class="hindi-term">डेटाबेस / आंकड़ा आधार</p>
+                            <p class="phonetic">de-ta-beys</p>
+                            <p class="term-definition" data-en="A structured collection of data that is stored and accessed electronically." data-hi="डेटा का एक संरचित संग्रह जो इलेक्ट्रॉनिक रूप से संग्रहीत और एक्सेस किया जाता है।">A structured collection of data that is stored and accessed electronically.</p>
+                            <div class="term-examples">
+                                <span class="example-tag">MySQL</span>
+                                <span class="example-tag">MongoDB</span>
+                                <span class="example-tag">PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pronunciation-term" data-category="networking">
+                        <div class="term-header">
+                            <h3 class="english-term">API</h3>
+                            <button class="play-pronunciation-btn" data-term="api" aria-label="Play pronunciation">
+                                <span class="play-icon">🔊</span>
+                            </button>
+                        </div>
+                        <div class="term-content">
+                            <p class="hindi-term">एपीआई / एप्लिकेशन प्रोग्रामिंग इंटरफेस</p>
+                            <p class="phonetic">ey-pee-aai</p>
+                            <p class="term-definition" data-en="Application Programming Interface - a set of protocols for building and integrating application software." data-hi="एप्लिकेशन प्रोग्रामिंग इंटरफेस - एप्लिकेशन सॉफ्टवेयर बनाने और एकीकृत करने के लिए प्रोटोकॉल का एक सेट।">Application Programming Interface - a set of protocols for building and integrating application software.</p>
+                            <div class="term-examples">
+                                <span class="example-tag">REST API</span>
+                                <span class="example-tag">GraphQL</span>
+                                <span class="example-tag">WebSocket</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pronunciation-term" data-category="security">
+                        <div class="term-header">
+                            <h3 class="english-term">Authentication</h3>
+                            <button class="play-pronunciation-btn" data-term="authentication" aria-label="Play pronunciation">
+                                <span class="play-icon">🔊</span>
+                            </button>
+                        </div>
+                        <div class="term-content">
+                            <p class="hindi-term">ऑथेंटिकेशन / प्रमाणीकरण</p>
+                            <p class="phonetic">aw-then-ti-key-shun</p>
+                            <p class="term-definition" data-en="The process of verifying the identity of a user, process, or device." data-hi="उपयोगकर्ता, प्रक्रिया, या उपकरण की पहचान सत्यापित करने की प्रक्रिया।">The process of verifying the identity of a user, process, or device.</p>
+                            <div class="term-examples">
+                                <span class="example-tag">OAuth</span>
+                                <span class="example-tag">JWT</span>
+                                <span class="example-tag">2FA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pronunciation-term" data-category="cloud">
+                        <div class="term-header">
+                            <h3 class="english-term">Kubernetes</h3>
+                            <button class="play-pronunciation-btn" data-term="kubernetes" aria-label="Play pronunciation">
+                                <span class="play-icon">🔊</span>
+                            </button>
+                        </div>
+                        <div class="term-content">
+                            <p class="hindi-term">कुबेरनेटेस / के8एस</p>
+                            <p class="phonetic">koo-ber-ne-tes</p>
+                            <p class="term-definition" data-en="An open-source container orchestration platform for automating deployment, scaling, and management of containerized applications." data-hi="कंटेनराइज़्ड एप्लिकेशन्स की तैनाती, स्केलिंग, और प्रबंधन को स्वचालित करने के लिए एक ओपन-सोर्स कंटेनर ऑर्केस्ट्रेशन प्लेटफ़ॉर्म।">An open-source container orchestration platform for automating deployment, scaling, and management of containerized applications.</p>
+                            <div class="term-examples">
+                                <span class="example-tag">Pods</span>
+                                <span class="example-tag">Services</span>
+                                <span class="example-tag">Deployments</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pronunciation-term" data-category="programming">
+                        <div class="term-header">
+                            <h3 class="english-term">Framework</h3>
+                            <button class="play-pronunciation-btn" data-term="framework" aria-label="Play pronunciation">
+                                <span class="play-icon">🔊</span>
+                            </button>
+                        </div>
+                        <div class="term-content">
+                            <p class="hindi-term">फ्रेमवर्क / ढांचा</p>
+                            <p class="phonetic">frem-wurk</p>
+                            <p class="term-definition" data-en="A platform for developing software applications. It provides a foundation structure for building applications." data-hi="सॉफ्टवेयर एप्लिकेशन विकसित करने के लिए एक प्लेटफ़ॉर्म। यह एप्लिकेशन बनाने के लिए एक आधार संरचना प्रदान करता है।">A platform for developing software applications. It provides a foundation structure for building applications.</p>
+                            <div class="term-examples">
+                                <span class="example-tag">React</span>
+                                <span class="example-tag">Django</span>
+                                <span class="example-tag">Spring</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Directory Section -->
+    <section id="companies" class="resource-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 data-en="Indian Tech Company Directory" data-hi="भारतीय टेक कंपनी डायरेक्टरी">Indian Tech Company Directory</h2>
+                <p data-en="Learn about the companies we feature in our episodes. Technical architecture, scale, and engineering challenges." data-hi="हमारे एपिसोड्स में फीचर की जाने वाली कंपनियों के बारे में जानें। तकनीकी आर्किटेक्चर, स्केल, और इंजीनियरिंग चुनौतियां।">Learn about the companies we feature in our episodes. Technical architecture, scale, and engineering challenges.</p>
+            </div>
+            
+            <div class="companies-filter">
+                <div class="filter-nav">
+                    <button class="filter-btn active" data-filter="all" data-en="All Companies" data-hi="सभी कंपनियां">All Companies</button>
+                    <button class="filter-btn" data-filter="ecommerce" data-en="E-commerce" data-hi="ई-कॉमर्स">E-commerce</button>
+                    <button class="filter-btn" data-filter="fintech" data-en="Fintech" data-hi="फिनटेक">Fintech</button>
+                    <button class="filter-btn" data-filter="foodtech" data-en="Food Tech" data-hi="फूड टेक">Food Tech</button>
+                    <button class="filter-btn" data-filter="transport" data-en="Transport" data-hi="ट्रांसपोर्ट">Transport</button>
+                    <button class="filter-btn" data-filter="edtech" data-en="EdTech" data-hi="एडटेक">EdTech</button>
+                </div>
+            </div>
+            
+            <div class="companies-grid">
+                <div class="company-card" data-category="ecommerce">
+                    <div class="company-header">
+                        <img src="./images/companies/flipkart-logo.png" alt="Flipkart Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3>Flipkart</h3>
+                            <p class="company-category" data-en="E-commerce" data-hi="ई-कॉमर्स">E-commerce</p>
+                        </div>
+                        <div class="company-scale">400M+ users</div>
+                    </div>
+                    <div class="company-content">
+                        <p class="company-description" data-en="India's largest e-commerce platform. Handles millions of transactions daily with advanced microservices architecture." data-hi="भारत का सबसे बड़ा ई-कॉमर्स प्लेटफ़ॉर्म। एडवांस्ड माइक्रोसर्विसेज आर्किटेक्चर के साथ रोज़ाना लाखों ट्रांजैक्शन्स हैंडल करता है।">India's largest e-commerce platform. Handles millions of transactions daily with advanced microservices architecture.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Kafka</span>
+                            <span class="tech-tag">Elasticsearch</span>
+                        </div>
+                        <div class="company-metrics">
+                            <div class="metric">
+                                <span class="metric-value">80B+</span>
+                                <span class="metric-label">API calls/day</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">15M+</span>
+                                <span class="metric-label">Products</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">180+</span>
+                                <span class="metric-label">Countries</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <a href="./companies/flipkart.html" class="btn btn-primary">
+                            <span data-en="Learn Architecture" data-hi="आर्किटेक्चर सीखें">Learn Architecture</span>
+                        </a>
+                        <a href="episodes.html?company=flipkart" class="btn btn-secondary">
+                            <span data-en="Related Episodes" data-hi="संबंधित एपिसोड्स">Related Episodes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="company-card" data-category="fintech">
+                    <div class="company-header">
+                        <img src="./images/companies/paytm-logo.png" alt="Paytm Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3>Paytm</h3>
+                            <p class="company-category" data-en="Fintech" data-hi="फिनटेक">Fintech</p>
+                        </div>
+                        <div class="company-scale">300M+ users</div>
+                    </div>
+                    <div class="company-content">
+                        <p class="company-description" data-en="Leading digital payments and financial services platform. Processes billions in transactions with bank-grade security." data-hi="अग्रणी डिजिटल पेमेंट्स और फाइनेंशियल सर्विसेज प्लेटफ़ॉर्म। बैंक-ग्रेड सिक्यूरिटी के साथ अरबों के ट्रांजैक्शन्स प्रोसेस करता है।">Leading digital payments and financial services platform. Processes billions in transactions with bank-grade security.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">RabbitMQ</span>
+                        </div>
+                        <div class="company-metrics">
+                            <div class="metric">
+                                <span class="metric-value">2B+</span>
+                                <span class="metric-label">Transactions/month</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">21M+</span>
+                                <span class="metric-label">Merchants</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">99.9%</span>
+                                <span class="metric-label">Uptime</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <a href="./companies/paytm.html" class="btn btn-primary">
+                            <span data-en="Learn Architecture" data-hi="आर्किटेक्चर सीखें">Learn Architecture</span>
+                        </a>
+                        <a href="episodes.html?company=paytm" class="btn btn-secondary">
+                            <span data-en="Related Episodes" data-hi="संबंधित एपिसोड्स">Related Episodes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="company-card" data-category="foodtech">
+                    <div class="company-header">
+                        <img src="./images/companies/zomato-logo.png" alt="Zomato Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3>Zomato</h3>
+                            <p class="company-category" data-en="Food Tech" data-hi="फूड टेक">Food Tech</p>
+                        </div>
+                        <div class="company-scale">200M+ users</div>
+                    </div>
+                    <div class="company-content">
+                        <p class="company-description" data-en="Food delivery and restaurant discovery platform. Real-time order tracking with complex logistics algorithms." data-hi="फूड डिलीवरी और रेस्टोरेंट डिस्कवरी प्लेटफ़ॉर्म। जटिल लॉजिस्टिक्स एल्गोरिदम के साथ रियल-टाइम ऑर्डर ट्रैकिंग।">Food delivery and restaurant discovery platform. Real-time order tracking with complex logistics algorithms.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Apache Spark</span>
+                        </div>
+                        <div class="company-metrics">
+                            <div class="metric">
+                                <span class="metric-value">500K+</span>
+                                <span class="metric-label">Restaurants</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">50M+</span>
+                                <span class="metric-label">Orders/month</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">30min</span>
+                                <span class="metric-label">Avg delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <a href="./companies/zomato.html" class="btn btn-primary">
+                            <span data-en="Learn Architecture" data-hi="आर्किटेक्चर सीखें">Learn Architecture</span>
+                        </a>
+                        <a href="episodes.html?company=zomato" class="btn btn-secondary">
+                            <span data-en="Related Episodes" data-hi="संबंधित एपिसोड्स">Related Episodes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="company-card" data-category="transport">
+                    <div class="company-header">
+                        <img src="./images/companies/ola-logo.png" alt="Ola Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3>Ola</h3>
+                            <p class="company-category" data-en="Transport" data-hi="ट्रांसपोर्ट">Transport</p>
+                        </div>
+                        <div class="company-scale">150M+ users</div>
+                    </div>
+                    <div class="company-content">
+                        <p class="company-description" data-en="Ride-hailing platform with advanced route optimization and dynamic pricing algorithms. Real-time driver-rider matching at scale." data-hi="एडवांस्ड रूट ऑप्टिमाइज़ेशन और डायनामिक प्राइसिंग एल्गोरिदम के साथ राइड-हेलिंग प्लेटफ़ॉर्म। स्केल पर रियल-टाइम ड्राइवर-राइडर मैचिंग।">Ride-hailing platform with advanced route optimization and dynamic pricing algorithms. Real-time driver-rider matching at scale.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Go</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">Apache Kafka</span>
+                            <span class="tech-tag">TensorFlow</span>
+                        </div>
+                        <div class="company-metrics">
+                            <div class="metric">
+                                <span class="metric-value">1M+</span>
+                                <span class="metric-label">Drivers</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">10M+</span>
+                                <span class="metric-label">Rides/month</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">250+</span>
+                                <span class="metric-label">Cities</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <a href="./companies/ola.html" class="btn btn-primary">
+                            <span data-en="Learn Architecture" data-hi="आर्किटेक्चर सीखें">Learn Architecture</span>
+                        </a>
+                        <a href="episodes.html?company=ola" class="btn btn-secondary">
+                            <span data-en="Related Episodes" data-hi="संबंधित एपिसोड्स">Related Episodes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="company-card" data-category="edtech">
+                    <div class="company-header">
+                        <img src="./images/companies/byju-logo.png" alt="BYJU'S Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3>BYJU'S</h3>
+                            <p class="company-category" data-en="EdTech" data-hi="एडटेक">EdTech</p>
+                        </div>
+                        <div class="company-scale">100M+ learners</div>
+                    </div>
+                    <div class="company-content">
+                        <p class="company-description" data-en="Online education platform serving millions of students. Video streaming, adaptive learning, and personalized content delivery." data-hi="लाखों छात्रों को सेवा देने वाला ऑनलाइन एजुकेशन प्लेटफ़ॉर्म। वीडियो स्ट्रीमिंग, एडेप्टिव लर्निंग, और व्यक्तिगत कंटेंट डिलीवरी।">Online education platform serving millions of students. Video streaming, adaptive learning, and personalized content delivery.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">CDN</span>
+                        </div>
+                        <div class="company-metrics">
+                            <div class="metric">
+                                <span class="metric-value">2.5M+</span>
+                                <span class="metric-label">Paid learners</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">10PB+</span>
+                                <span class="metric-label">Content storage</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">1.8B+</span>
+                                <span class="metric-label">Learning mins/month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <a href="./companies/byjus.html" class="btn btn-primary">
+                            <span data-en="Learn Architecture" data-hi="आर्किटेक्चर सीखें">Learn Architecture</span>
+                        </a>
+                        <a href="episodes.html?company=byju" class="btn btn-secondary">
+                            <span data-en="Related Episodes" data-hi="संबंधित एपिसोड्स">Related Episodes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="company-card" data-category="fintech">
+                    <div class="company-header">
+                        <img src="./images/companies/razorpay-logo.png" alt="Razorpay Logo" class="company-logo">
+                        <div class="company-info">
+                            <h3>Razorpay</h3>
+                            <p class="company-category" data-en="Fintech" data-hi="फिनटेक">Fintech</p>
+                        </div>
+                        <div class="company-scale">8M+ businesses</div>
+                    </div>
+                    <div class="company-content">
+                        <p class="company-description" data-en="Payment gateway and banking infrastructure for businesses. High-availability payment processing with 99.99% uptime." data-hi="व्यवसायों के लिए पेमेंट गेटवे और बैंकिंग इन्फ्रास्ट्रक्चर। 99.99% अपटाइम के साथ हाई-अवेलेबिलिटी पेमेंट प्रोसेसिंग।">Payment gateway and banking infrastructure for businesses. High-availability payment processing with 99.99% uptime.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                        <div class="company-metrics">
+                            <div class="metric">
+                                <span class="metric-value">270B+</span>
+                                <span class="metric-label">Payment volume</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">99.99%</span>
+                                <span class="metric-label">Success rate</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">100ms</span>
+                                <span class="metric-label">Response time</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <a href="./companies/razorpay.html" class="btn btn-primary">
+                            <span data-en="Learn Architecture" data-hi="आर्किटेक्चर सीखें">Learn Architecture</span>
+                        </a>
+                        <a href="episodes.html?company=razorpay" class="btn btn-secondary">
+                            <span data-en="Related Episodes" data-hi="संबंधित एपिसोड्स">Related Episodes</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools & Downloads Section -->
+    <section class="tools-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 data-en="Tools & Downloads" data-hi="टूल्स और डाउनलोड्स">Tools & Downloads</h2>
+                <p data-en="Useful tools, templates, and downloads to accelerate your learning journey." data-hi="आपकी सीखने की यात्रा को तेज़ करने के लिए उपयोगी टूल्स, टेम्प्लेट्स, और डाउनलोड्स।">Useful tools, templates, and downloads to accelerate your learning journey.</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <h3 data-en="System Design Templates" data-hi="सिस्टम डिज़ाइन टेम्प्लेट्स">System Design Templates</h3>
+                    <p data-en="Ready-to-use templates for system design interviews and architecture documentation." data-hi="सिस्टम डिज़ाइन इंटरव्यू और आर्किटेक्चर डॉक्यूमेंटेशन के लिए तैयार टेम्प्लेट्स।">Ready-to-use templates for system design interviews and architecture documentation.</p>
+                    <div class="tool-formats">
+                        <span class="format-tag">Figma</span>
+                        <span class="format-tag">Draw.io</span>
+                        <span class="format-tag">PDF</span>
+                    </div>
+                    <a href="./downloads/system-design-templates.zip" class="btn btn-primary" download>
+                        <span class="download-icon">⬇</span>
+                        <span data-en="Download" data-hi="डाउनलोड">Download</span>
+                    </a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📝</div>
+                    <h3 data-en="Interview Checklists" data-hi="इंटरव्यू चेकलिस्ट्स">Interview Checklists</h3>
+                    <p data-en="Comprehensive checklists for technical interviews at Indian tech companies." data-hi="भारतीय टेक कंपनियों में तकनीकी इंटरव्यू के लिए व्यापक चेकलिस्ट्स।">Comprehensive checklists for technical interviews at Indian tech companies.</p>
+                    <div class="tool-formats">
+                        <span class="format-tag">PDF</span>
+                        <span class="format-tag">Notion</span>
+                        <span class="format-tag">Google Docs</span>
+                    </div>
+                    <a href="./downloads/interview-checklists.pdf" class="btn btn-primary" download>
+                        <span class="download-icon">⬇</span>
+                        <span data-en="Download" data-hi="डाउनलोड">Download</span>
+                    </a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🧮</div>
+                    <h3 data-en="Scaling Calculator" data-hi="स्केलिंग कैलकुलेटर">Scaling Calculator</h3>
+                    <p data-en="Calculate bandwidth, storage, and infrastructure costs for different scales." data-hi="विभिन्न स्केल्स के लिए बैंडविड्थ, स्टोरेज, और इन्फ्रास्ट्रक्चर कॉस्ट कैलकुलेट करें।">Calculate bandwidth, storage, and infrastructure costs for different scales.</p>
+                    <div class="tool-formats">
+                        <span class="format-tag">Web App</span>
+                        <span class="format-tag">Excel</span>
+                        <span class="format-tag">API</span>
+                    </div>
+                    <a href="./tools/scaling-calculator.html" class="btn btn-primary">
+                        <span class="tool-icon">🔧</span>
+                        <span data-en="Open Tool" data-hi="टूल खोलें">Open Tool</span>
+                    </a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🎧</div>
+                    <h3 data-en="Offline Audio Player" data-hi="ऑफलाइन ऑडियो प्लेयर">Offline Audio Player</h3>
+                    <p data-en="Progressive Web App for listening to episodes offline with advanced playback features." data-hi="एडवांस्ड प्लेबैक फीचर्स के साथ एपिसोड्स को ऑफलाइन सुनने के लिए प्रोग्रेसिव वेब ऐप।">Progressive Web App for listening to episodes offline with advanced playback features.</p>
+                    <div class="tool-formats">
+                        <span class="format-tag">PWA</span>
+                        <span class="format-tag">Android</span>
+                        <span class="format-tag">iOS</span>
+                    </div>
+                    <a href="./player/install.html" class="btn btn-primary">
+                        <span class="install-icon">📱</span>
+                        <span data-en="Install App" data-hi="ऐप इंस्टॉल करें">Install App</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2 class="section-title" data-en="Stay Updated" data-hi="अपडेट रहें">Stay Updated</h2>
+                    <p data-en="Get weekly updates on new resources, code repositories, and exclusive content. No spam, only valuable tech insights." data-hi="नए रिसोर्सेज, कोड रिपॉज़िटरीज़, और एक्सक्लूसिव कंटेंट पर साप्ताहिक अपडेट पाएं। कोई स्पैम नहीं, केवल मूल्यवान टेक इनसाइट्स।">Get weekly updates on new resources, code repositories, and exclusive content. No spam, only valuable tech insights.</p>
+                </div>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="आपका email address" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary" data-en="Subscribe" data-hi="सब्सक्राइब करें">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="./images/logo.svg" alt="Hindi Tech Podcast Logo" class="footer-logo">
+                        <span class="footer-title" data-en="Hindi Tech Podcast" data-hi="हिंदी टेक पॉडकास्ट">Hindi Tech Podcast</span>
+                    </div>
+                    <p class="footer-description" data-en="Engineering stories explained like Mumbai local train announcements - clear, direct, and impossible to ignore." data-hi="इंजीनियरिंग की कहानियां मुंबई लोकल ट्रेन की अनाउंसमेंट की तरह समझाई गई हैं - साफ, सीधी, और नज़रअंदाज़ करना असंभव।">Engineering stories explained like Mumbai local train announcements - clear, direct, and impossible to ignore.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <span class="social-icon">📺</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Spotify">
+                            <span class="social-icon">🎵</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Apple Podcasts">
+                            <span class="social-icon">🎧</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <span class="social-icon">👨‍💻</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <span class="social-icon">🐦</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Resources" data-hi="रिसोर्सेज">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#code" data-en="Code Repository" data-hi="कोड रिपॉज़िटरी">Code Repository</a></li>
+                        <li><a href="#guides" data-en="Learning Guides" data-hi="लर्निंग गाइड्स">Learning Guides</a></li>
+                        <li><a href="#pronunciation" data-en="Pronunciation Guide" data-hi="उच्चारण गाइड">Pronunciation Guide</a></li>
+                        <li><a href="#companies" data-en="Company Directory" data-hi="कंपनी डायरेक्टरी">Company Directory</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Episodes" data-hi="एपिसोड्स">Episodes</h3>
+                    <ul class="footer-links">
+                        <li><a href="episodes.html?category=latest" data-en="Latest Episodes" data-hi="नवीनतम एपिसोड्स">Latest Episodes</a></li>
+                        <li><a href="episodes.html?category=distributed-systems" data-en="Distributed Systems" data-hi="डिस्ट्रिब्यूटेड सिस्टम्स">Distributed Systems</a></li>
+                        <li><a href="episodes.html?category=databases" data-en="Databases" data-hi="डेटाबेसेज">Databases</a></li>
+                        <li><a href="episodes.html?category=security" data-en="Security" data-hi="सिक्यूरिटी">Security</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Connect" data-hi="जुड़ें">Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="community.html#discord" data-en="Discord Server" data-hi="Discord सर्वर">Discord Server</a></li>
+                        <li><a href="community.html#events" data-en="Tech Events" data-hi="टेक इवेंट्स">Tech Events</a></li>
+                        <li><a href="community.html#contribute" data-en="Contribute" data-hi="योगदान दें">Contribute</a></li>
+                        <li><a href="about.html#contact" data-en="Contact Us" data-hi="संपर्क करें">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright" data-en="© 2025 Hindi Tech Podcast. All rights reserved." data-hi="© 2025 हिंदी टेक पॉडकास्ट। सभी अधिकार सुरक्षित।">© 2025 Hindi Tech Podcast. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="privacy.html" data-en="Privacy Policy" data-hi="प्राइवेसी पॉलिसी">Privacy Policy</a>
+                        <a href="terms.html" data-en="Terms of Service" data-hi="सेवा की शर्तें">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/app.js"></script>
+    <script src="./js/resources.js"></script>
+    
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</body>
+</html>

@@ -1,0 +1,934 @@
+# Azure DevOps Pipeline for Indian E-commerce Platform
+# Episode 092: Container Orchestration - Azure DevOps CI/CD
+# Context: Production-grade Azure DevOps pipeline optimized for Indian infrastructure and compliance
+
+name: $(Date:yyyyMMdd)$(Rev:.r)-flipkart-indian-ecommerce
+
+# Trigger configuration
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+      - feature/*
+  paths:
+    exclude:
+      - docs/**
+      - README.md
+      - '*.md'
+
+# Pull request configuration
+pr:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    exclude:
+      - docs/**
+      - README.md
+      - '*.md'
+
+# Schedule for daily builds at 2 AM IST
+schedules:
+- cron: "30 20 * * *"  # 2:00 AM IST in UTC
+  displayName: Daily build for dependency updates
+  branches:
+    include:
+    - main
+  always: false
+
+# Global variables for Indian infrastructure
+variables:
+  # Build Configuration
+  buildConfiguration: 'Release'
+  
+  # Docker Registry Configuration
+  dockerRegistry: 'registry.flipkart.com'
+  dockerRepo: 'flipkart'
+  
+  # Indian Cloud Configuration
+  primaryRegion: 'Central India'
+  secondaryRegion: 'South India'
+  indianTimezone: 'Asia/Kolkata'
+  
+  # Azure Kubernetes Clusters
+  mumbaiCluster: 'flipkart-mumbai-aks'
+  delhiCluster: 'flipkart-delhi-aks'
+  bangaloreCluster: 'flipkart-bangalore-aks'
+  
+  # Indian Compliance Flags
+  rbiCompliance: 'enabled'
+  pciDssCompliance: 'enabled'
+  dataLocalization: 'enabled'
+  itAct2000Compliance: 'enabled'
+  
+  # Cost Optimization
+  spotInstances: 'enabled'
+  resourceOptimization: 'enabled'
+  scheduledScaling: 'enabled'
+  
+  # Business Configuration
+  deploymentWindow: '02:00-06:00'  # IST off-peak hours
+  festivalSeasonScaling: 'enabled'
+  
+  # Microservices
+  microservices: 'product-catalog,order-management,payment-service,user-service,search-service,api-gateway'
+  
+  # Version and Build Info
+  imageTag: '$(Build.BuildNumber)'
+  buildTimestamp: $[format('{0:yyyyMMddHHmmss}', pipeline.startTime)]
+
+# Parameters for deployment customization
+parameters:
+- name: environment
+  displayName: 'Target Environment'
+  type: string
+  default: 'staging'
+  values:
+  - staging
+  - production
+
+- name: region
+  displayName: 'Indian Region'
+  type: string
+  default: 'mumbai'
+  values:
+  - mumbai
+  - delhi
+  - bangalore
+  - all
+
+- name: skipTests
+  displayName: 'Skip Tests'
+  type: boolean
+  default: false
+
+- name: deployToProduction
+  displayName: 'Deploy to Production'
+  type: boolean
+  default: false
+
+- name: festivalMode
+  displayName: 'Enable Festival Season Scaling'
+  type: boolean
+  default: false
+
+# Resource pools optimized for Indian infrastructure
+pool:
+  vmImage: 'ubuntu-latest'
+
+# Pipeline stages
+stages:
+- stage: Initialize
+  displayName: 'Initialize & Validate'
+  jobs:
+  - job: ValidateAndScan
+    displayName: 'Code Validation & Security Scan'
+    timeoutInMinutes: 30
+    
+    variables:
+      istTime: $[format('{0:yyyy-MM-dd HH:mm:ss}', pipeline.startTime)]
+    
+    steps:
+    - checkout: self
+      fetchDepth: 0
+      displayName: 'Checkout source code'
+    
+    - task: PowerShell@2
+      displayName: 'Set Indian Timezone and Display Info'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🇮🇳 Starting Flipkart Indian E-commerce CI/CD Pipeline"
+          Write-Host "Build Number: $(Build.BuildNumber)"
+          Write-Host "Build Timestamp: $(buildTimestamp)"
+          Write-Host "Environment: ${{ parameters.environment }}"
+          Write-Host "Region: ${{ parameters.region }}"
+          Write-Host "Festival Mode: ${{ parameters.festivalMode }}"
+          
+          # Set timezone context
+          $istTime = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::UtcNow, "India Standard Time")
+          Write-Host "Current IST Time: $istTime"
+          
+          # Check deployment window for production
+          if ("${{ parameters.environment }}" -eq "production") {
+            $currentHour = $istTime.Hour
+            if ($currentHour -lt 2 -or $currentHour -gt 6) {
+              Write-Host "⚠️ Warning: Deploying outside recommended window (2-6 AM IST)"
+            }
+          }
+    
+    - task: JavaToolInstaller@0
+      displayName: 'Setup Java 17'
+      inputs:
+        versionSpec: '17'
+        jdkArchitectureOption: 'x64'
+        jdkSourceOption: 'PreInstalled'
+    
+    - task: Gradle@2
+      displayName: 'Validate Code Quality'
+      inputs:
+        workingDirectory: ''
+        gradleWrapperFile: 'gradlew'
+        gradleOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.17'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: false
+        tasks: 'clean checkstyleMain spotbugsMain'
+    
+    - task: PowerShell@2
+      displayName: 'Validate Indian Configurations'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🔍 Validating Indian regional configurations"
+          
+          # Check for Indian timezone configuration
+          $timezoneCheck = Select-String -Path "src/**/*.java", "src/**/*.properties", "src/**/*.yml" -Pattern "Asia/Kolkata" -SimpleMatch
+          if (-not $timezoneCheck) {
+            Write-Host "⚠️ Warning: Indian timezone not configured"
+          }
+          
+          # Check for Indian currency configuration
+          $currencyCheck = Select-String -Path "src/**/*" -Pattern "INR" -SimpleMatch
+          if (-not $currencyCheck) {
+            Write-Host "⚠️ Warning: Indian currency not configured"
+          }
+          
+          # Check for Indian locale configuration
+          $localeCheck = Select-String -Path "src/**/*" -Pattern "en_IN" -SimpleMatch
+          if (-not $localeCheck) {
+            Write-Host "⚠️ Warning: Indian locale not configured"
+          }
+    
+    - task: trivy@1
+      displayName: 'Source Code Security Scan'
+      inputs:
+        version: '0.45.0'
+        command: 'fs'
+        path: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        exitCode: '0'
+        severities: 'CRITICAL,HIGH,MEDIUM'
+    
+    - task: PowerShell@2
+      displayName: 'Check Indian Payment Credentials Security'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🔍 Checking for exposed Indian payment gateway credentials"
+          
+          # Check for Razorpay credentials
+          $razorpayCheck = Select-String -Path "." -Pattern "rzp_test|rzp_live" -Exclude "*.git*" -Recurse
+          if ($razorpayCheck) {
+            Write-Host "❌ ERROR: Razorpay credentials found in code!"
+            exit 1
+          }
+          
+          # Check for Paytm credentials
+          $paytmCheck = Select-String -Path "." -Pattern "MIDT.*paytm|paytm.*secret" -Exclude "*.git*" -Recurse
+          if ($paytmCheck) {
+            Write-Host "❌ ERROR: Paytm credentials found in code!"
+            exit 1
+          }
+          
+          Write-Host "✅ No hardcoded Indian payment credentials found"
+    
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      displayName: 'Publish Security Scan Results'
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: 'trivy-results.sarif'
+        testRunTitle: 'Security Scan Results'
+
+- stage: ComplianceCheck
+  displayName: 'Indian Compliance Validation'
+  dependsOn: Initialize
+  jobs:
+  - job: RBICompliance
+    displayName: 'RBI Compliance Check'
+    steps:
+    - checkout: self
+    
+    - task: PowerShell@2
+      displayName: 'RBI Compliance Validation'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🏛️ Performing RBI compliance validation"
+          
+          # Check data localization
+          Write-Host "📍 Verifying data stays within Indian borders"
+          $regionCheck = Select-String -Path "kubernetes/**/*" -Pattern "Central India|South India" -SimpleMatch
+          if (-not $regionCheck) {
+            Write-Host "❌ ERROR: Non-Indian regions detected in configuration"
+            exit 1
+          }
+          
+          # Check encryption standards
+          Write-Host "🔐 Verifying encryption standards (AES-256)"
+          $encryptionCheck = Select-String -Path "kubernetes/secrets.yaml" -Pattern "AES-256" -SimpleMatch
+          if (-not $encryptionCheck) {
+            Write-Host "❌ ERROR: Required encryption standard not found"
+            exit 1
+          }
+          
+          # Check audit logging
+          Write-Host "📝 Verifying audit logging configuration"
+          $auditCheck = Select-String -Path "kubernetes/**/*" -Pattern "audit.*enabled" -SimpleMatch
+          if (-not $auditCheck) {
+            Write-Host "⚠️ Warning: Audit logging not explicitly enabled"
+          }
+          
+          Write-Host "✅ RBI compliance check passed"
+  
+  - job: PCIDSSCompliance
+    displayName: 'PCI-DSS Compliance Check'
+    steps:
+    - checkout: self
+    
+    - task: PowerShell@2
+      displayName: 'PCI-DSS Compliance Validation'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "💳 Performing PCI-DSS compliance check for payment systems"
+          
+          # Check TLS configuration
+          $tlsCheck = Select-String -Path "kubernetes/**/*" -Pattern "TLSv1\.[23]" -SimpleMatch
+          if (-not $tlsCheck) {
+            Write-Host "❌ ERROR: Secure TLS version not configured"
+            exit 1
+          }
+          
+          # Check tokenization
+          $tokenizationCheck = Select-String -Path "kubernetes/**/*" -Pattern "tokenization.*true" -SimpleMatch
+          if (-not $tokenizationCheck) {
+            Write-Host "⚠️ Warning: Tokenization not explicitly enabled"
+          }
+          
+          # Check payment encryption
+          $paymentEncryptionCheck = Select-String -Path "kubernetes/secrets.yaml" -Pattern "payment-encryption-key" -SimpleMatch
+          if (-not $paymentEncryptionCheck) {
+            Write-Host "❌ ERROR: Payment encryption key not found"
+            exit 1
+          }
+          
+          Write-Host "✅ PCI-DSS compliance check passed"
+
+- stage: BuildAndTest
+  displayName: 'Build & Test'
+  dependsOn: ComplianceCheck
+  condition: and(succeeded(), not(${{ parameters.skipTests }}))
+  jobs:
+  - job: UnitTests
+    displayName: 'Unit Tests'
+    timeoutInMinutes: 30
+    steps:
+    - checkout: self
+    
+    - task: JavaToolInstaller@0
+      displayName: 'Setup Java 17'
+      inputs:
+        versionSpec: '17'
+        jdkArchitectureOption: 'x64'
+        jdkSourceOption: 'PreInstalled'
+    
+    - task: Gradle@2
+      displayName: 'Run Unit Tests'
+      inputs:
+        workingDirectory: ''
+        gradleWrapperFile: 'gradlew'
+        gradleOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.17'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/TEST-*.xml'
+        testRunTitle: 'Unit Tests'
+        tasks: 'test jacocoTestReport'
+    
+    - task: PowerShell@2
+      displayName: 'Run Indian-specific Tests'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🇮🇳 Running Indian payment gateway tests"
+          ./gradlew test --tests "*Razorpay*" --continue
+          ./gradlew test --tests "*Paytm*" --continue
+          ./gradlew test --tests "*UPI*" --continue
+          ./gradlew test --tests "*PhonePe*" --continue
+          
+          Write-Host "🌐 Running Indian localization tests"
+          ./gradlew test --tests "*Localization*" --continue
+          ./gradlew test --tests "*GST*" --continue
+          ./gradlew test --tests "*Indian*" --continue
+    
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish Code Coverage'
+      inputs:
+        codeCoverageTool: 'JaCoCo'
+        summaryFileLocation: '**/jacocoTestReport.xml'
+        reportDirectory: '**/jacoco/test/html'
+  
+  - job: BuildDockerImages
+    displayName: 'Build Docker Images'
+    dependsOn: UnitTests
+    timeoutInMinutes: 45
+    steps:
+    - checkout: self
+    
+    - task: Docker@2
+      displayName: 'Login to Container Registry'
+      inputs:
+        containerRegistry: 'flipkart-registry'
+        command: 'login'
+    
+    - task: PowerShell@2
+      displayName: 'Build Microservices Images'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🐳 Building Docker images for Indian e-commerce platform"
+          
+          $microservices = "$(microservices)".Split(',')
+          
+          foreach ($service in $microservices) {
+            Write-Host "Building $service"
+            
+            docker build `
+              --build-arg TIMEZONE=$(indianTimezone) `
+              --build-arg LOCALE=en_IN `
+              --build-arg CURRENCY=INR `
+              --build-arg BUILD_VERSION=$(Build.BuildNumber) `
+              --tag $(dockerRegistry)/$(dockerRepo)/$service`:$(imageTag) `
+              --tag $(dockerRegistry)/$(dockerRepo)/$service`:latest `
+              --file Dockerfile.$service `
+              .
+            
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "❌ Failed to build $service"
+              exit 1
+            }
+          }
+          
+          Write-Host "✅ All Docker images built successfully"
+    
+    - task: trivy@1
+      displayName: 'Scan Container Images'
+      inputs:
+        version: '0.45.0'
+        command: 'image'
+        image: '$(dockerRegistry)/$(dockerRepo)/api-gateway:$(imageTag)'
+        format: 'table'
+        exitCode: '1'
+        severities: 'CRITICAL,HIGH'
+    
+    - task: Docker@2
+      displayName: 'Push Images to Registry'
+      inputs:
+        containerRegistry: 'flipkart-registry'
+        repository: '$(dockerRepo)/api-gateway'
+        command: 'push'
+        tags: |
+          $(imageTag)
+          latest
+
+- stage: IntegrationTest
+  displayName: 'Integration Testing'
+  dependsOn: BuildAndTest
+  condition: and(succeeded(), not(${{ parameters.skipTests }}))
+  jobs:
+  - job: IntegrationTests
+    displayName: 'Integration Tests'
+    timeoutInMinutes: 30
+    services:
+      postgres: postgres
+      redis: redis
+    
+    steps:
+    - checkout: self
+    
+    - task: DockerCompose@0
+      displayName: 'Start Test Environment'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'flipkart-registry'
+        dockerComposeFile: 'docker-compose.test.yml'
+        action: 'Run services'
+        detached: true
+    
+    - task: PowerShell@2
+      displayName: 'Run Integration Tests'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🔗 Running integration tests with Indian infrastructure"
+          
+          # Wait for services to start
+          Start-Sleep -Seconds 60
+          
+          try {
+            # Test basic health endpoints
+            $response = Invoke-WebRequest -Uri "http://localhost:8080/health" -UseBasicParsing
+            if ($response.StatusCode -ne 200) { throw "Health check failed" }
+            
+            # Test Indian regional endpoints
+            $mumbaiResponse = Invoke-WebRequest -Uri "http://localhost:8080/api/v1/health/mumbai" -UseBasicParsing
+            if ($mumbaiResponse.StatusCode -ne 200) { throw "Mumbai health check failed" }
+            
+            $delhiResponse = Invoke-WebRequest -Uri "http://localhost:8080/api/v1/health/delhi" -UseBasicParsing
+            if ($delhiResponse.StatusCode -ne 200) { throw "Delhi health check failed" }
+            
+            $bangaloreResponse = Invoke-WebRequest -Uri "http://localhost:8080/api/v1/health/bangalore" -UseBasicParsing
+            if ($bangaloreResponse.StatusCode -ne 200) { throw "Bangalore health check failed" }
+            
+            # Test GST calculation endpoints
+            $gstBody = @{
+              amount = 1000
+              state = "maharashtra"
+              category = "electronics"
+            } | ConvertTo-Json
+            
+            $gstResponse = Invoke-WebRequest -Uri "http://localhost:8080/api/v1/gst/calculate" -Method POST -Body $gstBody -ContentType "application/json" -UseBasicParsing
+            if ($gstResponse.StatusCode -ne 200) { throw "GST calculation test failed" }
+            
+            # Test Indian payment gateway mock endpoints
+            $paymentsResponse = Invoke-WebRequest -Uri "http://localhost:8080/api/v1/payments/gateways" -UseBasicParsing
+            if ($paymentsResponse.StatusCode -ne 200) { throw "Payments gateway test failed" }
+            
+            Write-Host "✅ Integration tests passed"
+          }
+          catch {
+            Write-Host "❌ Integration tests failed: $_"
+            exit 1
+          }
+    
+    - task: DockerCompose@0
+      displayName: 'Stop Test Environment'
+      condition: always()
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'flipkart-registry'
+        dockerComposeFile: 'docker-compose.test.yml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: 'down'
+
+- stage: DeployStaging
+  displayName: 'Deploy to Staging'
+  dependsOn: IntegrationTest
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'), eq('${{ parameters.environment }}', 'staging')))
+  jobs:
+  - deployment: StagingDeployment
+    displayName: 'Deploy to Mumbai Staging'
+    timeoutInMinutes: 30
+    environment: 'flipkart-staging-mumbai'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          
+          - task: HelmInstaller@1
+            displayName: 'Install Helm'
+            inputs:
+              helmVersionToInstall: '3.12.0'
+          
+          - task: Kubernetes@1
+            displayName: 'Configure kubectl for Mumbai Staging'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'mumbai-staging-aks'
+              command: 'get'
+              arguments: 'nodes'
+          
+          - task: HelmDeploy@0
+            displayName: 'Deploy to Mumbai Staging'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: 'mumbai-staging-aks'
+              namespace: 'flipkart-staging'
+              command: 'upgrade'
+              chartType: 'FilePath'
+              chartPath: 'helm/api-gateway/'
+              releaseName: 'flipkart-staging'
+              arguments: >
+                --set image.tag=$(imageTag)
+                --set global.region=$(primaryRegion)
+                --set global.environment=staging
+                --set global.indianOptimization.timezone=$(indianTimezone)
+                --set costOptimization.spotInstances.enabled=true
+                --set replicaCount=3
+                --set festivalScaling.enabled=${{ parameters.festivalMode }}
+                --values helm/api-gateway/values-staging.yaml
+                --wait --timeout=10m
+          
+          - task: Kubernetes@1
+            displayName: 'Verify Staging Deployment'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'mumbai-staging-aks'
+              command: 'get'
+              arguments: 'pods -n flipkart-staging'
+          
+          - task: PowerShell@2
+            displayName: 'Staging Smoke Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                Write-Host "🧪 Running staging validation tests"
+                
+                Start-Sleep -Seconds 60  # Wait for services to stabilize
+                
+                $stagingUrl = "https://staging-mumbai.flipkart.internal"
+                
+                try {
+                  # Health checks
+                  $healthResponse = Invoke-WebRequest -Uri "$stagingUrl/health" -UseBasicParsing
+                  if ($healthResponse.StatusCode -ne 200) { throw "Health check failed" }
+                  
+                  $mumbaiResponse = Invoke-WebRequest -Uri "$stagingUrl/api/v1/regions/mumbai" -UseBasicParsing
+                  if ($mumbaiResponse.StatusCode -ne 200) { throw "Mumbai region check failed" }
+                  
+                  # Indian specific endpoints
+                  $paymentsResponse = Invoke-WebRequest -Uri "$stagingUrl/api/v1/payments/gateways" -UseBasicParsing
+                  if ($paymentsResponse.StatusCode -ne 200) { throw "Payments gateway check failed" }
+                  
+                  Write-Host "✅ Staging validation passed"
+                }
+                catch {
+                  Write-Host "❌ Staging validation failed: $_"
+                  exit 1
+                }
+
+- stage: DeployProduction
+  displayName: 'Deploy to Production'
+  dependsOn: DeployStaging
+  condition: and(succeeded(), or(and(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq('${{ parameters.deployToProduction }}', true)), eq('${{ parameters.environment }}', 'production')))
+  jobs:
+  - deployment: ProductionMumbai
+    displayName: 'Deploy Mumbai Production'
+    timeoutInMinutes: 45
+    environment: 'flipkart-production-mumbai'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          
+          - task: HelmInstaller@1
+            displayName: 'Install Helm'
+            inputs:
+              helmVersionToInstall: '3.12.0'
+          
+          - task: Kubernetes@1
+            displayName: 'Configure kubectl for Mumbai Production'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'mumbai-production-aks'
+              command: 'get'
+              arguments: 'nodes'
+          
+          - task: PowerShell@2
+            displayName: 'Generate Deployment Timestamp'
+            inputs:
+              targetType: 'inline'
+              script: |
+                $deploymentTimestamp = Get-Date -Format "yyyyMMddHHmmss"
+                Write-Host "##vso[task.setvariable variable=deploymentTimestamp]$deploymentTimestamp"
+                Write-Host "Deployment timestamp: $deploymentTimestamp"
+          
+          - task: HelmDeploy@0
+            displayName: 'Deploy to Mumbai Production'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: 'mumbai-production-aks'
+              namespace: 'flipkart-production'
+              command: 'upgrade'
+              chartType: 'FilePath'
+              chartPath: 'helm/api-gateway/'
+              releaseName: 'flipkart-prod-mumbai-$(deploymentTimestamp)'
+              arguments: >
+                --set image.tag=$(imageTag)
+                --set global.region=$(primaryRegion)
+                --set global.environment=production
+                --set global.indianOptimization.timezone=$(indianTimezone)
+                --set replicaCount=10
+                --set resources.requests.cpu=1000m
+                --set resources.requests.memory=2Gi
+                --set costOptimization.spotInstances.enabled=false
+                --set festivalScaling.enabled=${{ parameters.festivalMode }}
+                --set autoscaling.enabled=true
+                --set autoscaling.minReplicas=10
+                --set autoscaling.maxReplicas=50
+                --values helm/api-gateway/values-production.yaml
+                --wait --timeout=15m
+          
+          - task: Kubernetes@1
+            displayName: 'Verify Mumbai Production Deployment'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'mumbai-production-aks'
+              command: 'get'
+              arguments: 'pods -n flipkart-production -l app.kubernetes.io/instance=flipkart-prod-mumbai-$(deploymentTimestamp)'
+  
+  - deployment: ProductionDelhi
+    displayName: 'Deploy Delhi Production'
+    dependsOn: ProductionMumbai
+    condition: and(succeeded(), or(eq('${{ parameters.region }}', 'delhi'), eq('${{ parameters.region }}', 'all')))
+    timeoutInMinutes: 45
+    environment: 'flipkart-production-delhi'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          
+          - task: HelmInstaller@1
+            displayName: 'Install Helm'
+            inputs:
+              helmVersionToInstall: '3.12.0'
+          
+          - task: Kubernetes@1
+            displayName: 'Configure kubectl for Delhi Production'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'delhi-production-aks'
+              command: 'get'
+              arguments: 'nodes'
+          
+          - task: PowerShell@2
+            displayName: 'Generate Deployment Timestamp'
+            inputs:
+              targetType: 'inline'
+              script: |
+                $deploymentTimestamp = Get-Date -Format "yyyyMMddHHmmss"
+                Write-Host "##vso[task.setvariable variable=deploymentTimestamp]$deploymentTimestamp"
+                Write-Host "Deployment timestamp: $deploymentTimestamp"
+          
+          - task: HelmDeploy@0
+            displayName: 'Deploy to Delhi Production'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: 'delhi-production-aks'
+              namespace: 'flipkart-production'
+              command: 'upgrade'
+              chartType: 'FilePath'
+              chartPath: 'helm/api-gateway/'
+              releaseName: 'flipkart-prod-delhi-$(deploymentTimestamp)'
+              arguments: >
+                --set image.tag=$(imageTag)
+                --set global.region=$(secondaryRegion)
+                --set global.environment=production
+                --set global.indianOptimization.timezone=$(indianTimezone)
+                --set replicaCount=5
+                --set festivalScaling.enabled=${{ parameters.festivalMode }}
+                --values helm/api-gateway/values-production-delhi.yaml
+                --wait --timeout=15m
+
+- stage: PostDeployment
+  displayName: 'Post-deployment Validation'
+  dependsOn: DeployProduction
+  condition: succeeded()
+  jobs:
+  - job: ProductionValidation
+    displayName: 'Production Validation'
+    steps:
+    - task: PowerShell@2
+      displayName: 'Production Smoke Tests'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🔍 Running production validation tests"
+          
+          Start-Sleep -Seconds 120  # Wait for traffic to stabilize
+          
+          try {
+            # Mumbai region tests
+            $mumbaiHealthResponse = Invoke-WebRequest -Uri "https://api.flipkart.com/health" -UseBasicParsing
+            if ($mumbaiHealthResponse.StatusCode -ne 200) { throw "Mumbai health check failed" }
+            
+            $mumbaiRegionResponse = Invoke-WebRequest -Uri "https://api.flipkart.com/api/v1/regions/mumbai" -UseBasicParsing
+            if ($mumbaiRegionResponse.StatusCode -ne 200) { throw "Mumbai region check failed" }
+            
+            # Payment gateway connectivity
+            $paymentsHealthResponse = Invoke-WebRequest -Uri "https://api.flipkart.com/api/v1/payments/health" -UseBasicParsing
+            if ($paymentsHealthResponse.StatusCode -ne 200) { throw "Payments health check failed" }
+            
+            # Indian specific functionality
+            $citiesResponse = Invoke-WebRequest -Uri "https://api.flipkart.com/api/v1/cities/indian" -UseBasicParsing
+            if ($citiesResponse.StatusCode -ne 200) { throw "Indian cities API check failed" }
+            
+            if ("${{ parameters.region }}" -eq "all" -or "${{ parameters.region }}" -eq "delhi") {
+              # Delhi region tests
+              $delhiHealthResponse = Invoke-WebRequest -Uri "https://delhi.flipkart.com/health" -UseBasicParsing
+              if ($delhiHealthResponse.StatusCode -ne 200) { throw "Delhi health check failed" }
+            }
+            
+            Write-Host "✅ Production validation passed"
+          }
+          catch {
+            Write-Host "❌ Production validation failed: $_"
+            exit 1
+          }
+  
+  - job: SetupMonitoring
+    displayName: 'Setup Monitoring'
+    dependsOn: ProductionValidation
+    steps:
+    - checkout: self
+    
+    - task: Kubernetes@1
+      displayName: 'Configure kubectl for Mumbai Production'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'mumbai-production-aks'
+        command: 'get'
+        arguments: 'nodes'
+    
+    - task: Kubernetes@1
+      displayName: 'Deploy Prometheus Monitoring'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'mumbai-production-aks'
+        command: 'apply'
+        arguments: '-f kubernetes/monitoring/prometheus.yaml -n flipkart-monitoring'
+    
+    - task: Kubernetes@1
+      displayName: 'Deploy Grafana Dashboards'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'mumbai-production-aks'
+        command: 'apply'
+        arguments: '-f kubernetes/monitoring/grafana.yaml -n flipkart-monitoring'
+    
+    - task: Kubernetes@1
+      displayName: 'Verify Monitoring Stack'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'mumbai-production-aks'
+        command: 'get'
+        arguments: 'pods -n flipkart-monitoring'
+
+- stage: Notification
+  displayName: 'Notifications & Cleanup'
+  dependsOn: PostDeployment
+  condition: always()
+  jobs:
+  - job: SendNotifications
+    displayName: 'Send Notifications'
+    steps:
+    - task: PowerShell@2
+      displayName: 'Determine Build Status'
+      inputs:
+        targetType: 'inline'
+        script: |
+          $buildStatus = "$(Agent.JobStatus)"
+          $istTime = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::UtcNow, "India Standard Time")
+          
+          Write-Host "🏁 Pipeline completed with status: $buildStatus"
+          Write-Host "📅 IST Time: $istTime"
+          
+          Write-Host "##vso[task.setvariable variable=buildStatus]$buildStatus"
+          Write-Host "##vso[task.setvariable variable=istTime]$istTime"
+    
+    - task: PowerShell@2
+      displayName: 'Send Teams Notification'
+      condition: always()
+      inputs:
+        targetType: 'inline'
+        script: |
+          $buildStatus = "$(buildStatus)"
+          $istTime = "$(istTime)"
+          
+          $color = switch ($buildStatus) {
+            "Succeeded" { "good" }
+            "Failed" { "danger" }
+            default { "warning" }
+          }
+          
+          $emoji = switch ($buildStatus) {
+            "Succeeded" { "✅" }
+            "Failed" { "❌" }
+            default { "⚠️" }
+          }
+          
+          $webhookUrl = "$(teamsWebhookUrl)"
+          
+          $body = @{
+            "@type" = "MessageCard"
+            "@context" = "http://schema.org/extensions"
+            "themeColor" = $color
+            "summary" = "Flipkart Deployment Status"
+            "sections" = @(
+              @{
+                "activityTitle" = "$emoji Flipkart Indian E-commerce Deployment"
+                "activitySubtitle" = "Status: $buildStatus"
+                "facts" = @(
+                  @{
+                    "name" = "Environment"
+                    "value" = "${{ parameters.environment }}"
+                  },
+                  @{
+                    "name" = "Region"
+                    "value" = "${{ parameters.region }}"
+                  },
+                  @{
+                    "name" = "Version"
+                    "value" = "$(imageTag)"
+                  },
+                  @{
+                    "name" = "Time (IST)"
+                    "value" = $istTime
+                  },
+                  @{
+                    "name" = "Festival Mode"
+                    "value" = "${{ parameters.festivalMode }}"
+                  },
+                  @{
+                    "name" = "Compliance"
+                    "value" = "RBI ✅ | PCI-DSS ✅ | Data Localization ✅"
+                  }
+                )
+                "markdown" = $true
+              }
+            )
+            "potentialAction" = @(
+              @{
+                "@type" = "OpenUri"
+                "name" = "View Build"
+                "targets" = @(
+                  @{
+                    "os" = "default"
+                    "uri" = "$(System.TeamFoundationCollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)"
+                  }
+                )
+              }
+            )
+          } | ConvertTo-Json -Depth 10
+          
+          try {
+            Invoke-RestMethod -Uri $webhookUrl -Method Post -Body $body -ContentType "application/json"
+            Write-Host "✅ Teams notification sent successfully"
+          }
+          catch {
+            Write-Host "❌ Failed to send Teams notification: $_"
+          }
+    
+    - task: PowerShell@2
+      displayName: 'Cost Optimization Cleanup'
+      condition: eq(variables['buildStatus'], 'Succeeded')
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "🧹 Triggering cost optimization cleanup"
+          Write-Host "Old deployment cleanup scheduled"
+          Write-Host "Registry cleanup scheduled"
+          Write-Host "Unused resource cleanup scheduled"
+          
+          # This would typically call cleanup scripts or webhooks
+          # For demo purposes, we're just logging the actions

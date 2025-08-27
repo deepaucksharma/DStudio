@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window"],
+    "strict": true
+  },
+  "tasks": {
+    "dev": "deno run --allow-net --allow-read --allow-env --watch main.ts",
+    "deploy": "deployctl deploy --project=indian-tech-edge main.ts",
+    "test": "deno test --allow-net --allow-read --allow-env",
+    "lint": "deno lint",
+    "fmt": "deno fmt"
+  },
+  "imports": {
+    "oak": "https://deno.land/x/oak@v12.6.1/mod.ts",
+    "cors": "https://deno.land/x/cors@v1.2.2/mod.ts",
+    "crypto": "https://deno.land/std@0.200.0/crypto/mod.ts",
+    "testing": "https://deno.land/std@0.200.0/testing/asserts.ts",
+    "uuid": "https://deno.land/std@0.200.0/uuid/mod.ts"
+  }
+}

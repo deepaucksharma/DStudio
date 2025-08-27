@@ -6,6 +6,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/communication/publish-subscribe.md - Pub-sub foundations of event bus architecture
+- **Pattern Library**: docs/pattern-library/architecture/event-driven.md - Event-driven architecture patterns and best practices
+- **Pattern Library**: docs/pattern-library/architecture/event-streaming.md - Event streaming for high-throughput scenarios
+- **Case Studies**: docs/architects-handbook/case-studies/messaging-streaming/kafka.md - Kafka as event bus backbone
+- **Pattern Library**: docs/pattern-library/data-management/event-sourcing.md - Event sourcing with event bus integration
+- **Core Principles**: docs/core-principles/laws/emergent-chaos.md - Managing complexity in event-driven systems
+- **Excellence**: docs/excellence/migrations/polling-to-event-driven.md - Migration from polling to event-driven architectures
+
+---
+
 ## Opening Sequence (Mumbai Local Train Style)
 
 "Arre yaar, Dadar station mein khade ho kar sochiye... har platform se trains aa-jaa rahi hain, passengers chadh rahe hain, utar rahe hain. Koi Virar ja raha hai, koi Churchgate, koi Thane. Sabka apna destination hai, par sabko same announcement sunai deta hai - 'Next train is for...' Yeh hai Mumbai Local system ka asli magic - ek central announcement system se sabko information mil jaati hai!"

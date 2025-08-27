@@ -1,0 +1,1260 @@
+# Episode 094: Advanced Distributed Tracing
+# Production-grade observability for Indian e-commerce scale
+# Context: PhonePe/GPay style financial transaction tracing
+# Focus: OpenTelemetry, Jaeger, Zipkin, and custom tracing solutions
+
+version: '3.8'
+
+services:
+  # =================================================================
+  # TRACING INFRASTRUCTURE - JAEGER CLUSTER
+  # =================================================================
+
+  # Jaeger Collector - Mumbai (Primary)
+  jaeger-collector-mumbai:
+    image: jaegertracing/jaeger-collector:1.50
+    container_name: phonepe-jaeger-collector-mumbai
+    ports:
+      - "14268:14268"  # HTTP collector
+      - "14250:14250"  # gRPC collector
+      - "9411:9411"    # Zipkin compatible endpoint
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+      - ES_SERVER_URLS=http://elasticsearch-mumbai:9200
+      - ES_USERNAME=elastic
+      - ES_PASSWORD=phonepe123
+      - ES_INDEX_PREFIX=jaeger
+      - ES_NUM_SHARDS=5
+      - ES_NUM_REPLICAS=1
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true
+      - METRICS_BACKEND=prometheus
+      - METRICS_HTTP_ROUTE=/metrics
+    volumes:
+      - ./config/jaeger/collector.yaml:/etc/jaeger/config.yaml:ro
+    networks:
+      - mumbai-region
+      - tracing-backend
+      - observability
+    depends_on:
+      - elasticsearch-mumbai
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:14269/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=jaeger-collector"
+      - "region=mumbai"
+      - "role=primary"
+      - "cost-tier=high"
+
+  # Jaeger Collector - Delhi (Secondary)
+  jaeger-collector-delhi:
+    image: jaegertracing/jaeger-collector:1.50
+    container_name: phonepe-jaeger-collector-delhi
+    ports:
+      - "14269:14268"
+      - "14251:14250"
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+      - ES_SERVER_URLS=http://elasticsearch-delhi:9200
+      - ES_USERNAME=elastic
+      - ES_PASSWORD=phonepe123
+      - ES_INDEX_PREFIX=jaeger
+      - COLLECTOR_OTLP_ENABLED=true
+      - METRICS_BACKEND=prometheus
+    volumes:
+      - ./config/jaeger/collector.yaml:/etc/jaeger/config.yaml:ro
+    networks:
+      - delhi-region
+      - tracing-backend
+    depends_on:
+      - elasticsearch-delhi
+    labels:
+      - "service=jaeger-collector"
+      - "region=delhi"
+      - "role=secondary"
+
+  # Jaeger Query Service - Mumbai
+  jaeger-query-mumbai:
+    image: jaegertracing/jaeger-query:1.50
+    container_name: phonepe-jaeger-query-mumbai
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "16687:16687"  # GRPC endpoint
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+      - ES_SERVER_URLS=http://elasticsearch-mumbai:9200
+      - ES_USERNAME=elastic
+      - ES_PASSWORD=phonepe123
+      - ES_INDEX_PREFIX=jaeger
+      - QUERY_BASE_PATH=/jaeger
+      - METRICS_BACKEND=prometheus
+      - QUERY_STATIC_FILES=/go/jaeger-ui/
+    volumes:
+      - ./config/jaeger/query.yaml:/etc/jaeger/config.yaml:ro
+    networks:
+      - mumbai-region
+      - tracing-backend
+      - public-facing
+    depends_on:
+      - elasticsearch-mumbai
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:16687/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=jaeger-query"
+      - "region=mumbai"
+      - "ui=enabled"
+
+  # Jaeger Agent - Sidecar for services
+  jaeger-agent:
+    image: jaegertracing/jaeger-agent:1.50
+    container_name: phonepe-jaeger-agent
+    ports:
+      - "6831:6831/udp"  # Thrift compact
+      - "6832:6832/udp"  # Thrift binary
+      - "5778:5778"      # HTTP serve configs
+      - "14271:14271"    # Admin port
+    environment:
+      - REPORTER_GRPC_HOST_PORT=jaeger-collector-mumbai:14250
+      - REPORTER_TYPE=grpc
+      - AGENT_TAGS=datacenter=mumbai,cluster=phonepe-prod
+    command:
+      - "--reporter.grpc.host-port=jaeger-collector-mumbai:14250"
+      - "--agent.tags=datacenter=mumbai,cluster=phonepe-prod"
+      - "--log-level=info"
+    networks:
+      - mumbai-region
+      - tracing-backend
+    depends_on:
+      - jaeger-collector-mumbai
+    labels:
+      - "service=jaeger-agent"
+      - "type=sidecar"
+
+  # =================================================================
+  # ALTERNATIVE TRACING - ZIPKIN
+  # =================================================================
+
+  # Zipkin Server
+  zipkin:
+    image: openzipkin/zipkin:2.24
+    container_name: phonepe-zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=http://elasticsearch-mumbai:9200
+      - ES_USERNAME=elastic
+      - ES_PASSWORD=phonepe123
+      - ES_INDEX=zipkin
+      - ES_INDEX_REPLICAS=1
+      - ES_INDEX_SHARDS=5
+      - JAVA_OPTS=-Xms1g -Xmx2g
+    volumes:
+      - zipkin-data:/zipkin
+    networks:
+      - mumbai-region
+      - tracing-backend
+    depends_on:
+      - elasticsearch-mumbai
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9411/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=zipkin"
+      - "alternative=jaeger"
+
+  # =================================================================
+  # OPENTELEMETRY INFRASTRUCTURE
+  # =================================================================
+
+  # OpenTelemetry Collector
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.88.0
+    container_name: phonepe-otel-collector
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+      - "8888:8888"   # Prometheus metrics
+      - "8889:8889"   # Prometheus exporter metrics
+      - "13133:13133" # Health check extension
+    environment:
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=otel-collector,service.version=0.88.0
+    volumes:
+      - ./config/otel/otel-collector.yaml:/etc/otel-collector-config.yaml:ro
+    networks:
+      - mumbai-region
+      - tracing-backend
+      - observability
+    depends_on:
+      - jaeger-collector-mumbai
+      - prometheus
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:13133/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=otel-collector"
+      - "version=0.88.0"
+      - "standard=opentelemetry"
+
+  # =================================================================
+  # PAYMENT MICROSERVICES WITH TRACING
+  # =================================================================
+
+  # Payment Gateway Service - UPI/Card Processing
+  payment-gateway:
+    build:
+      context: ./services/payment-gateway
+      dockerfile: Dockerfile
+    container_name: phonepe-payment-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVICE_NAME=payment-gateway
+      - SERVICE_VERSION=v3.2.0
+      - OTEL_SERVICE_NAME=payment-gateway
+      - OTEL_SERVICE_VERSION=v3.2.0
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger-collector-mumbai:14268/api/traces
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=payment-gateway,service.instance.id=gateway-1,deployment.environment=production,region=mumbai
+      - DATABASE_URL=postgresql://phonepe:phonepe123@postgres-payment:5432/payments
+      - REDIS_URL=redis://redis-mumbai:6379/0
+      - VAULT_URL=http://vault:8200
+      - VAULT_TOKEN=${VAULT_TOKEN}
+      - UPI_GATEWAY_URL=http://upi-service:8080
+      - CARD_PROCESSOR_URL=http://card-processor:8080
+      - FRAUD_DETECTION_URL=http://fraud-detection:8080
+      - TRACING_ENABLED=true
+      - TRACING_SAMPLE_RATE=1.0
+      - METRICS_ENABLED=true
+      - LOG_LEVEL=info
+      - INDIAN_TIMEZONE=Asia/Kolkata
+    volumes:
+      - ./config/payment-gateway:/app/config:ro
+      - ./certs/payment:/app/certs:ro
+      - payment-gateway-logs:/app/logs
+    networks:
+      - mumbai-region
+      - payment-tier
+      - tracing-backend
+    depends_on:
+      - postgres-payment
+      - redis-mumbai
+      - vault
+      - otel-collector
+      - upi-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    labels:
+      - "service=payment-gateway"
+      - "version=v3.2.0"
+      - "tier=critical"
+      - "tracing=enabled"
+      - "compliance=pci-dss"
+
+  # UPI Service - NPCI Integration
+  upi-service:
+    build:
+      context: ./services/upi-service
+      dockerfile: Dockerfile
+    container_name: phonepe-upi-service
+    ports:
+      - "8081:8080"
+    environment:
+      - SERVICE_NAME=upi-service
+      - SERVICE_VERSION=v2.8.0
+      - OTEL_SERVICE_NAME=upi-service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=upi-service,service.instance.id=upi-1,deployment.environment=production
+      - DATABASE_URL=postgresql://phonepe:phonepe123@postgres-payment:5432/payments
+      - NPCI_GATEWAY_URL=https://api.npci.org.in/upi
+      - PSP_ID=PHONEPE
+      - MERCHANT_ID=${PHONEPE_MERCHANT_ID}
+      - VPA_SUFFIX=@phonepe
+      - TRACING_ENABLED=true
+      - CIRCUIT_BREAKER_ENABLED=true
+      - RETRY_ENABLED=true
+      - TIMEOUT_MS=10000
+    volumes:
+      - ./config/upi-service:/app/config:ro
+      - ./certs/upi:/app/certs:ro
+      - upi-logs:/app/logs
+    networks:
+      - mumbai-region
+      - payment-tier
+      - tracing-backend
+    depends_on:
+      - postgres-payment
+      - otel-collector
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=upi-service"
+      - "version=v2.8.0"
+      - "integration=npci"
+      - "tracing=enabled"
+
+  # Card Processor Service
+  card-processor:
+    build:
+      context: ./services/card-processor
+      dockerfile: Dockerfile
+    container_name: phonepe-card-processor
+    ports:
+      - "8082:8080"
+    environment:
+      - SERVICE_NAME=card-processor
+      - SERVICE_VERSION=v1.9.0
+      - OTEL_SERVICE_NAME=card-processor
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=card-processor,service.instance.id=card-1
+      - DATABASE_URL=postgresql://phonepe:phonepe123@postgres-payment:5432/payments
+      - VISA_GATEWAY_URL=https://api.visa.com
+      - MASTERCARD_GATEWAY_URL=https://api.mastercard.com
+      - RUPAY_GATEWAY_URL=https://api.rupay.co.in
+      - PCI_COMPLIANCE_MODE=true
+      - ENCRYPTION_ENABLED=true
+      - TRACING_ENABLED=true
+      - TOKENIZATION_ENABLED=true
+    volumes:
+      - ./config/card-processor:/app/config:ro
+      - ./certs/card:/app/certs:ro
+      - card-processor-logs:/app/logs
+    networks:
+      - mumbai-region
+      - payment-tier
+      - tracing-backend
+      - secure-card-processing
+    depends_on:
+      - postgres-payment
+      - otel-collector
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=card-processor"
+      - "version=v1.9.0"
+      - "compliance=pci-dss"
+      - "tracing=enabled"
+
+  # Fraud Detection Service - ML-based
+  fraud-detection:
+    build:
+      context: ./services/fraud-detection
+      dockerfile: Dockerfile
+    container_name: phonepe-fraud-detection
+    ports:
+      - "8083:8080"
+    environment:
+      - SERVICE_NAME=fraud-detection
+      - SERVICE_VERSION=v4.1.0
+      - OTEL_SERVICE_NAME=fraud-detection
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=fraud-detection,service.instance.id=fraud-1
+      - DATABASE_URL=postgresql://phonepe:phonepe123@postgres-fraud:5432/fraud
+      - REDIS_URL=redis://redis-mumbai:6379/1
+      - ML_MODEL_URL=http://ml-inference:8080
+      - KAFKA_BROKERS=kafka-mumbai:9092
+      - RISK_SCORE_THRESHOLD=0.7
+      - REAL_TIME_SCORING=true
+      - TRACING_ENABLED=true
+      - CUSTOM_SPANS_ENABLED=true
+    volumes:
+      - ./config/fraud-detection:/app/config:ro
+      - fraud-detection-logs:/app/logs
+    networks:
+      - mumbai-region
+      - payment-tier
+      - tracing-backend
+      - ml-inference-tier
+    depends_on:
+      - postgres-fraud
+      - redis-mumbai
+      - ml-inference
+      - kafka-mumbai
+      - otel-collector
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=fraud-detection"
+      - "version=v4.1.0"
+      - "ml=enabled"
+      - "tracing=enabled"
+
+  # ML Inference Service
+  ml-inference:
+    build:
+      context: ./services/ml-inference
+      dockerfile: Dockerfile
+    container_name: phonepe-ml-inference
+    ports:
+      - "8084:8080"
+    environment:
+      - SERVICE_NAME=ml-inference
+      - SERVICE_VERSION=v2.3.0
+      - OTEL_SERVICE_NAME=ml-inference
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=ml-inference,service.instance.id=ml-1,model.name=fraud-detection-v4
+      - MODEL_PATH=/app/models/fraud-detection-v4.pkl
+      - REDIS_URL=redis://redis-mumbai:6379/2
+      - INFERENCE_TIMEOUT_MS=500
+      - BATCH_SIZE=32
+      - TRACING_ENABLED=true
+      - MODEL_METRICS_ENABLED=true
+    volumes:
+      - ./models:/app/models:ro
+      - ./config/ml-inference:/app/config:ro
+      - ml-inference-logs:/app/logs
+    networks:
+      - mumbai-region
+      - ml-inference-tier
+      - tracing-backend
+    depends_on:
+      - redis-mumbai
+      - otel-collector
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 20s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=ml-inference"
+      - "version=v2.3.0"
+      - "model=fraud-detection-v4"
+      - "tracing=enabled"
+
+  # =================================================================
+  # WALLET AND ACCOUNT SERVICES
+  # =================================================================
+
+  # Wallet Service
+  wallet-service:
+    build:
+      context: ./services/wallet-service
+      dockerfile: Dockerfile
+    container_name: phonepe-wallet-service
+    ports:
+      - "8085:8080"
+    environment:
+      - SERVICE_NAME=wallet-service
+      - SERVICE_VERSION=v5.2.0
+      - OTEL_SERVICE_NAME=wallet-service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=wallet-service,service.instance.id=wallet-1
+      - DATABASE_URL=postgresql://phonepe:phonepe123@postgres-wallet:5432/wallet
+      - REDIS_URL=redis://redis-mumbai:6379/3
+      - PAYMENT_GATEWAY_URL=http://payment-gateway:8080
+      - NOTIFICATION_SERVICE_URL=http://notification-service:8080
+      - BALANCE_CHECK_ENABLED=true
+      - TRANSACTION_LIMITS_ENABLED=true
+      - TRACING_ENABLED=true
+      - AUDIT_LOGGING_ENABLED=true
+    volumes:
+      - ./config/wallet-service:/app/config:ro
+      - wallet-logs:/app/logs
+    networks:
+      - mumbai-region
+      - payment-tier
+      - tracing-backend
+    depends_on:
+      - postgres-wallet
+      - redis-mumbai
+      - payment-gateway
+      - otel-collector
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=wallet-service"
+      - "version=v5.2.0"
+      - "tier=critical"
+      - "tracing=enabled"
+
+  # Notification Service
+  notification-service:
+    build:
+      context: ./services/notification-service
+      dockerfile: Dockerfile
+    container_name: phonepe-notification
+    ports:
+      - "8086:8080"
+    environment:
+      - SERVICE_NAME=notification-service
+      - SERVICE_VERSION=v2.1.0
+      - OTEL_SERVICE_NAME=notification-service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=notification-service,service.instance.id=notif-1
+      - DATABASE_URL=postgresql://phonepe:phonepe123@postgres-notification:5432/notifications
+      - REDIS_URL=redis://redis-mumbai:6379/4
+      - KAFKA_BROKERS=kafka-mumbai:9092
+      - SMS_GATEWAY_URL=http://sms-gateway:8080
+      - EMAIL_GATEWAY_URL=http://email-gateway:8080
+      - PUSH_NOTIFICATION_ENABLED=true
+      - TRACING_ENABLED=true
+      - DELIVERY_TRACKING_ENABLED=true
+    volumes:
+      - ./config/notification-service:/app/config:ro
+      - notification-logs:/app/logs
+    networks:
+      - mumbai-region
+      - notification-tier
+      - tracing-backend
+    depends_on:
+      - postgres-notification
+      - redis-mumbai
+      - kafka-mumbai
+      - otel-collector
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=notification-service"
+      - "version=v2.1.0"
+      - "tracing=enabled"
+
+  # =================================================================
+  # DATA STORES WITH TRACING
+  # =================================================================
+
+  # PostgreSQL - Payment Database
+  postgres-payment:
+    image: postgres:15-alpine
+    container_name: phonepe-postgres-payment
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=payments
+      - POSTGRES_USER=phonepe
+      - POSTGRES_PASSWORD=phonepe123
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=en_IN.UTF-8
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-payment-data:/var/lib/postgresql/data
+      - ./config/postgres/payment-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./config/postgres/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+    networks:
+      - mumbai-region
+      - payment-tier
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phonepe -d payments"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "database=payments"
+      - "tier=critical"
+
+  # PostgreSQL - Fraud Database
+  postgres-fraud:
+    image: postgres:15-alpine
+    container_name: phonepe-postgres-fraud
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=fraud
+      - POSTGRES_USER=phonepe
+      - POSTGRES_PASSWORD=phonepe123
+    volumes:
+      - postgres-fraud-data:/var/lib/postgresql/data
+      - ./config/postgres/fraud-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - mumbai-region
+      - payment-tier
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phonepe -d fraud"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "database=fraud"
+
+  # PostgreSQL - Wallet Database
+  postgres-wallet:
+    image: postgres:15-alpine
+    container_name: phonepe-postgres-wallet
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=wallet
+      - POSTGRES_USER=phonepe
+      - POSTGRES_PASSWORD=phonepe123
+    volumes:
+      - postgres-wallet-data:/var/lib/postgresql/data
+      - ./config/postgres/wallet-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - mumbai-region
+      - payment-tier
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phonepe -d wallet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "database=wallet"
+
+  # PostgreSQL - Notification Database
+  postgres-notification:
+    image: postgres:15-alpine
+    container_name: phonepe-postgres-notification
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_DB=notifications
+      - POSTGRES_USER=phonepe
+      - POSTGRES_PASSWORD=phonepe123
+    volumes:
+      - postgres-notification-data:/var/lib/postgresql/data
+      - ./config/postgres/notification-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - mumbai-region
+      - notification-tier
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phonepe -d notifications"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "database=notifications"
+
+  # Redis - Caching and Sessions
+  redis-mumbai:
+    image: redis:7-alpine
+    container_name: phonepe-redis-mumbai
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server 
+      --requirepass phonepe123
+      --appendonly yes
+      --maxmemory 2gb
+      --maxmemory-policy allkeys-lru
+      --timeout 300
+    volumes:
+      - redis-mumbai-data:/data
+    networks:
+      - mumbai-region
+      - payment-tier
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "phonepe123", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    labels:
+      - "service=redis"
+      - "region=mumbai"
+      - "tier=cache"
+
+  # =================================================================
+  # ELASTICSEARCH FOR TRACE STORAGE
+  # =================================================================
+
+  # Elasticsearch - Mumbai (Primary)
+  elasticsearch-mumbai:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: phonepe-elasticsearch-mumbai
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - cluster.name=phonepe-tracing
+      - node.name=elasticsearch-mumbai-1
+      - cluster.initial_master_nodes=elasticsearch-mumbai-1,elasticsearch-delhi-1
+      - discovery.seed_hosts=elasticsearch-delhi:9300
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=phonepe123
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - xpack.security.transport.ssl.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.monitoring.collection.enabled=true
+    volumes:
+      - elasticsearch-mumbai-data:/usr/share/elasticsearch/data
+      - ./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    networks:
+      - mumbai-region
+      - tracing-backend
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD", "curl", "-u", "elastic:phonepe123", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    labels:
+      - "service=elasticsearch"
+      - "region=mumbai"
+      - "role=primary"
+      - "purpose=tracing-storage"
+
+  # Elasticsearch - Delhi (Secondary)
+  elasticsearch-delhi:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: phonepe-elasticsearch-delhi
+    ports:
+      - "9201:9200"
+      - "9301:9300"
+    environment:
+      - cluster.name=phonepe-tracing
+      - node.name=elasticsearch-delhi-1
+      - cluster.initial_master_nodes=elasticsearch-mumbai-1,elasticsearch-delhi-1
+      - discovery.seed_hosts=elasticsearch-mumbai:9300
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=phonepe123
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - xpack.security.transport.ssl.enabled=false
+      - xpack.security.http.ssl.enabled=false
+    volumes:
+      - elasticsearch-delhi-data:/usr/share/elasticsearch/data
+    networks:
+      - delhi-region
+      - tracing-backend
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    labels:
+      - "service=elasticsearch"
+      - "region=delhi"
+      - "role=secondary"
+
+  # =================================================================
+  # MESSAGE STREAMING
+  # =================================================================
+
+  # Zookeeper for Kafka
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: phonepe-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-logs:/var/lib/zookeeper/log
+    networks:
+      - mumbai-region
+      - streaming
+    labels:
+      - "service=zookeeper"
+
+  # Kafka - Event Streaming with Tracing
+  kafka-mumbai:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: phonepe-kafka-mumbai
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-mumbai:9092,PLAINTEXT_HOST://localhost:29092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_LOG_RETENTION_HOURS=168
+      - KAFKA_LOG_RETENTION_BYTES=1073741824
+    volumes:
+      - kafka-mumbai-data:/var/lib/kafka/data
+    networks:
+      - mumbai-region
+      - streaming
+    depends_on:
+      - zookeeper
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=kafka"
+      - "region=mumbai"
+
+  # =================================================================
+  # MONITORING AND METRICS
+  # =================================================================
+
+  # Prometheus - Metrics Collection
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: phonepe-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus/prometheus-tracing.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - mumbai-region
+      - observability
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=30d'
+    labels:
+      - "service=prometheus"
+      - "purpose=metrics"
+
+  # Grafana - Observability Dashboards
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: phonepe-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=phonepe123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel,jaegertracing-jaeger-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/tracing-dashboards:/var/lib/grafana/dashboards:ro
+      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - mumbai-region
+      - observability
+      - public-facing
+    depends_on:
+      - prometheus
+      - jaeger-query-mumbai
+    labels:
+      - "service=grafana"
+      - "dashboards=tracing"
+
+  # =================================================================
+  # SECURITY AND SECRETS
+  # =================================================================
+
+  # HashiCorp Vault
+  vault:
+    image: hashicorp/vault:1.15
+    container_name: phonepe-vault
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=phonepe-root-token
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+      - VAULT_API_ADDR=http://0.0.0.0:8200
+    volumes:
+      - vault-data:/vault/data
+      - vault-logs:/vault/logs
+      - ./config/vault:/vault/config:ro
+    networks:
+      - mumbai-region
+      - payment-tier
+    cap_add:
+      - IPC_LOCK
+    labels:
+      - "service=vault"
+      - "tier=security"
+
+  # =================================================================
+  # LOAD TESTING AND TRACE GENERATION
+  # =================================================================
+
+  # Trace Generator - Synthetic load
+  trace-generator:
+    build:
+      context: ./tools/trace-generator
+      dockerfile: Dockerfile
+    container_name: phonepe-trace-generator
+    environment:
+      - PAYMENT_GATEWAY_URL=http://payment-gateway:8080
+      - WALLET_SERVICE_URL=http://wallet-service:8080
+      - TRANSACTION_RATE=10  # transactions per second
+      - DURATION=3600  # 1 hour
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - TRACE_SAMPLE_RATE=1.0
+    volumes:
+      - ./tools/trace-generator:/app:ro
+      - trace-generator-logs:/app/logs
+    networks:
+      - mumbai-region
+      - payment-tier
+      - tracing-backend
+    depends_on:
+      - payment-gateway
+      - wallet-service
+      - otel-collector
+    labels:
+      - "service=trace-generator"
+      - "purpose=load-testing"
+
+  # Performance Testing
+  k6-load-test:
+    image: loadimpact/k6:latest
+    container_name: phonepe-k6-load-test
+    environment:
+      - K6_PROMETHEUS_REMOTE_URL=http://prometheus:9090/api/v1/write
+      - K6_TRACING_ENABLED=true
+    volumes:
+      - ./tests/load-tests:/scripts:ro
+      - load-test-results:/results
+    networks:
+      - mumbai-region
+      - public-facing
+    depends_on:
+      - payment-gateway
+      - prometheus
+    command: >
+      run 
+      --out prometheus
+      --tag testid=phonepe-tracing-load-test
+      /scripts/payment-flow-test.js
+    labels:
+      - "service=k6"
+      - "purpose=performance-testing"
+
+# =================================================================
+# NETWORKS - TRACING-OPTIMIZED TOPOLOGY
+# =================================================================
+networks:
+  # Multi-region networks
+  mumbai-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.50.0.0/16
+    labels:
+      - "region=mumbai"
+      - "type=regional"
+
+  delhi-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.51.0.0/16
+    labels:
+      - "region=delhi"
+      - "type=regional"
+
+  # Tier-based networks
+  payment-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.52.0.0/16
+    labels:
+      - "tier=payment"
+      - "security=high"
+
+  tracing-backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.53.0.0/24
+    labels:
+      - "tier=tracing"
+      - "purpose=observability"
+
+  observability:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.54.0.0/24
+    labels:
+      - "tier=observability"
+      - "monitoring=enabled"
+
+  ml-inference-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.55.0.0/24
+    labels:
+      - "tier=ml"
+      - "purpose=inference"
+
+  notification-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.56.0.0/24
+    labels:
+      - "tier=notification"
+
+  streaming:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.57.0.0/24
+    labels:
+      - "tier=streaming"
+
+  secure-card-processing:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.58.0.0/24
+    labels:
+      - "tier=card-processing"
+      - "security=critical"
+      - "compliance=pci-dss"
+
+  public-facing:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.59.0.0/24
+    labels:
+      - "tier=public"
+
+# =================================================================
+# VOLUMES - TRACING DATA STORAGE
+# =================================================================
+volumes:
+  # Elasticsearch data
+  elasticsearch-mumbai-data:
+    driver: local
+    labels:
+      - "service=elasticsearch"
+      - "region=mumbai"
+      - "purpose=trace-storage"
+      - "backup=daily"
+
+  elasticsearch-delhi-data:
+    driver: local
+    labels:
+      - "service=elasticsearch"
+      - "region=delhi"
+      - "purpose=trace-storage"
+
+  # Zipkin data
+  zipkin-data:
+    driver: local
+    labels:
+      - "service=zipkin"
+      - "purpose=trace-storage"
+
+  # Database volumes
+  postgres-payment-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "database=payments"
+      - "backup=hourly"
+      - "encryption=required"
+
+  postgres-fraud-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "database=fraud"
+      - "backup=daily"
+
+  postgres-wallet-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "database=wallet"
+      - "backup=hourly"
+
+  postgres-notification-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "database=notifications"
+      - "backup=daily"
+
+  # Cache volume
+  redis-mumbai-data:
+    driver: local
+    labels:
+      - "service=redis"
+      - "region=mumbai"
+      - "type=cache"
+
+  # Streaming volumes
+  kafka-mumbai-data:
+    driver: local
+    labels:
+      - "service=kafka"
+      - "region=mumbai"
+      - "retention=7d"
+
+  zookeeper-data:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "purpose=coordination"
+
+  zookeeper-logs:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "type=logs"
+
+  # Monitoring volumes
+  prometheus-data:
+    driver: local
+    labels:
+      - "service=prometheus"
+      - "retention=30d"
+
+  grafana-data:
+    driver: local
+    labels:
+      - "service=grafana"
+      - "type=dashboards"
+
+  # Security volumes
+  vault-data:
+    driver: local
+    labels:
+      - "service=vault"
+      - "security=encrypted"
+      - "backup=daily"
+
+  vault-logs:
+    driver: local
+    labels:
+      - "service=vault"
+      - "type=audit-logs"
+      - "retention=90d"
+
+  # Application logs
+  payment-gateway-logs:
+    driver: local
+    labels:
+      - "service=payment-gateway"
+      - "type=application-logs"
+      - "retention=30d"
+
+  upi-logs:
+    driver: local
+    labels:
+      - "service=upi-service"
+      - "type=application-logs"
+      - "retention=30d"
+
+  card-processor-logs:
+    driver: local
+    labels:
+      - "service=card-processor"
+      - "type=application-logs"
+      - "retention=90d"
+      - "compliance=pci-dss"
+
+  fraud-detection-logs:
+    driver: local
+    labels:
+      - "service=fraud-detection"
+      - "type=application-logs"
+      - "retention=30d"
+
+  ml-inference-logs:
+    driver: local
+    labels:
+      - "service=ml-inference"
+      - "type=application-logs"
+      - "retention=7d"
+
+  wallet-logs:
+    driver: local
+    labels:
+      - "service=wallet-service"
+      - "type=application-logs"
+      - "retention=30d"
+
+  notification-logs:
+    driver: local
+    labels:
+      - "service=notification-service"
+      - "type=application-logs"
+      - "retention=7d"
+
+  # Testing and tools
+  trace-generator-logs:
+    driver: local
+    labels:
+      - "service=trace-generator"
+      - "type=test-logs"
+      - "retention=7d"
+
+  load-test-results:
+    driver: local
+    labels:
+      - "service=k6"
+      - "type=test-results"
+      - "retention=7d"
+
+# =================================================================
+# CONFIGURATION FILES REQUIRED:
+# =================================================================
+# ./config/jaeger/collector.yaml
+# ./config/jaeger/query.yaml
+# ./config/otel/otel-collector.yaml
+# ./config/prometheus/prometheus-tracing.yml
+# ./config/grafana/tracing-dashboards/
+# ./config/grafana/provisioning/
+# ./config/vault/
+# ./config/postgres/ (init scripts)
+# ./config/elasticsearch/elasticsearch.yml
+# ./services/ (microservice source code with tracing)
+# ./tools/trace-generator/
+# ./tests/load-tests/
+# ./models/ (ML models)
+# ./certs/ (TLS certificates)
+# 
+# TRACING COSTS (Mumbai Primary + Delhi Secondary):
+# - Elasticsearch (16GB RAM, 8 vCPUs): ₹35,000/month
+# - Application services (24 vCPUs total): ₹25,000/month
+# - Storage (2TB for traces): ₹12,000/month
+# - Network (Inter-region + ingress): ₹8,000/month
+# - Total: ₹80,000/month (~$960 USD)
+# 
+# OPTIMIZATION STRATEGIES:
+# - Sampling: 10% for high-traffic, 100% for critical paths
+# - Retention: 7 days for all traces, 30 days for error traces
+# - Compression: GZIP for trace data
+# - Regional failover for high availability
+# - Auto-scaling based on trace volume

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Episodes | Hindi Tech Podcast | भारतीय Technology</title>
+    <meta name="description" content="Browse all 100+ episodes covering distributed systems, databases, security, and real Indian tech company stories.">
+    <meta name="keywords" content="hindi tech podcast episodes, indian engineering, distributed systems, database episodes, microservices">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="All Episodes - Hindi Tech Podcast">
+    <meta property="og:description" content="Browse all 100+ episodes covering distributed systems, databases, and real Indian tech stories">
+    <meta property="og:image" content="./images/episodes-page-cover.jpg">
+    <meta property="og:url" content="https://hindi-tech-podcast.com/episodes.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/styles.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="./images/logo.svg" alt="Hindi Tech Podcast Logo" class="nav-logo">
+                <span class="nav-title" data-en="Hindi Tech Podcast" data-hi="हिंदी टेक पॉडकास्ट">Hindi Tech Podcast</span>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link" data-en="Home" data-hi="होम">Home</a>
+                <a href="episodes.html" class="nav-link active" data-en="Episodes" data-hi="एपिसोड्स">Episodes</a>
+                <a href="resources.html" class="nav-link" data-en="Resources" data-hi="रिसोर्सेज">Resources</a>
+                <a href="community.html" class="nav-link" data-en="Community" data-hi="कम्युनिटी">Community</a>
+                <a href="about.html" class="nav-link" data-en="About" data-hi="हमारे बारे में">About</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                    <span class="lang-text">हिं</span>
+                </button>
+                <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Episodes Header -->
+    <section class="episodes-header">
+        <div class="container">
+            <div class="episodes-header-content">
+                <h1 class="page-title" data-en="All Episodes" data-hi="सभी एपिसोड्स">All Episodes</h1>
+                <p class="page-subtitle" data-en="100+ deep-dive episodes covering distributed systems, databases, and real production stories from Indian tech companies." data-hi="डिस्ट्रिब्यूटेड सिस्टम्स, डेटाबेसेज, और भारतीय टेक कंपनियों की असली प्रोडक्शन कहानियों को कवर करने वाले 100+ गहरी चर्चा के एपिसोड्स।">100+ deep-dive episodes covering distributed systems, databases, and real production stories from Indian tech companies.</p>
+                
+                <div class="episodes-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="totalEpisodes">100+</span>
+                        <span class="stat-label" data-en="Episodes" data-hi="एपिसोड्स">Episodes</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">300+</span>
+                        <span class="stat-label" data-en="Hours" data-hi="घंटे">Hours</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">2000+</span>
+                        <span class="stat-label" data-en="Code Examples" data-hi="कोड उदाहरण">Code Examples</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label" data-en="Case Studies" data-hi="केस स्टडीज">Case Studies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="search-filter-section">
+        <div class="container">
+            <div class="search-filter-container">
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <input type="text" 
+                               id="episodeSearch" 
+                               class="search-input" 
+                               placeholder="Search episodes, topics, companies..."
+                               data-placeholder-en="Search episodes, topics, companies..."
+                               data-placeholder-hi="एपिसोड्स, विषय, कंपनियां खोजें...">
+                        <button class="search-btn" aria-label="Search">
+                            <span class="search-icon">🔍</span>
+                        </button>
+                    </div>
+                    <div class="search-suggestions" id="searchSuggestions">
+                        <!-- Dynamic suggestions will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label class="filter-label" data-en="Category" data-hi="श्रेणी">Category</label>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="all" data-en="All Categories" data-hi="सभी श्रेणियां">All Categories</option>
+                            <option value="distributed-systems" data-en="Distributed Systems" data-hi="डिस्ट्रिब्यूटेड सिस्टम्स">Distributed Systems</option>
+                            <option value="databases" data-en="Databases" data-hi="डेटाबेसेज">Databases</option>
+                            <option value="security" data-en="Security" data-hi="सिक्यूरिटी">Security</option>
+                            <option value="microservices" data-en="Microservices" data-hi="माइक्रोसर्विसेज">Microservices</option>
+                            <option value="performance" data-en="Performance" data-hi="परफॉर्मेंस">Performance</option>
+                            <option value="cloud" data-en="Cloud & DevOps" data-hi="क्लाउड और DevOps">Cloud & DevOps</option>
+                            <option value="ai-ml" data-en="AI & ML" data-hi="AI और ML">AI & ML</option>
+                            <option value="frontend" data-en="Frontend" data-hi="फ्रंटएंड">Frontend</option>
+                            <option value="mobile" data-en="Mobile" data-hi="मोबाइल">Mobile</option>
+                            <option value="blockchain" data-en="Blockchain" data-hi="ब्लॉकचेन">Blockchain</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label" data-en="Company" data-hi="कंपनी">Company</label>
+                        <select id="companyFilter" class="filter-select">
+                            <option value="all" data-en="All Companies" data-hi="सभी कंपनियां">All Companies</option>
+                            <option value="flipkart">Flipkart</option>
+                            <option value="paytm">Paytm</option>
+                            <option value="zomato">Zomato</option>
+                            <option value="ola">Ola</option>
+                            <option value="swiggy">Swiggy</option>
+                            <option value="irctc">IRCTC</option>
+                            <option value="jio">Jio</option>
+                            <option value="phonepe">PhonePe</option>
+                            <option value="razorpay">Razorpay</option>
+                            <option value="byju">BYJU'S</option>
+                            <option value="global">Global Companies</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label" data-en="Duration" data-hi="अवधि">Duration</label>
+                        <select id="durationFilter" class="filter-select">
+                            <option value="all" data-en="All Durations" data-hi="सभी अवधि">All Durations</option>
+                            <option value="short" data-en="< 2 hours" data-hi="< 2 घंटे">< 2 hours</option>
+                            <option value="medium" data-en="2-3 hours" data-hi="2-3 घंटे">2-3 hours</option>
+                            <option value="long" data-en="> 3 hours" data-hi="> 3 घंटे">> 3 hours</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label" data-en="Sort By" data-hi="क्रम">Sort By</label>
+                        <select id="sortFilter" class="filter-select">
+                            <option value="latest" data-en="Latest First" data-hi="नवीनतम पहले">Latest First</option>
+                            <option value="oldest" data-en="Oldest First" data-hi="पुराने पहले">Oldest First</option>
+                            <option value="popular" data-en="Most Popular" data-hi="सबसे लोकप्रिय">Most Popular</option>
+                            <option value="duration-asc" data-en="Shortest First" data-hi="छोटे पहले">Shortest First</option>
+                            <option value="duration-desc" data-en="Longest First" data-hi="लंबे पहले">Longest First</option>
+                        </select>
+                    </div>
+
+                    <button class="filter-clear-btn" id="clearFilters" data-en="Clear All" data-hi="सभी साफ करें">Clear All</button>
+                </div>
+
+                <!-- Active Filters Display -->
+                <div class="active-filters" id="activeFilters">
+                    <!-- Active filter tags will be populated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episodes Grid -->
+    <section class="episodes-grid-section">
+        <div class="container">
+            <div class="episodes-grid-header">
+                <div class="episodes-count">
+                    <span id="episodeCount">100</span> 
+                    <span data-en="episodes found" data-hi="एपिसोड्स मिले">episodes found</span>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid" aria-label="Grid view">⊞</button>
+                    <button class="view-btn" data-view="list" aria-label="List view">☰</button>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loadingState">
+                <div class="loading-spinner"></div>
+                <p data-en="Loading episodes..." data-hi="एपिसोड्स लोड हो रहे हैं...">Loading episodes...</p>
+            </div>
+
+            <!-- No Results State -->
+            <div class="no-results-state" id="noResultsState" style="display: none;">
+                <div class="no-results-icon">🔍</div>
+                <h3 data-en="No episodes found" data-hi="कोई एपिसोड नहीं मिला">No episodes found</h3>
+                <p data-en="Try adjusting your search or filters" data-hi="अपनी खोज या फ़िल्टर को समायोजित करने का प्रयास करें">Try adjusting your search or filters</p>
+                <button class="btn btn-primary" onclick="clearAllFilters()" data-en="Clear Filters" data-hi="फ़िल्टर साफ़ करें">Clear Filters</button>
+            </div>
+
+            <!-- Episodes Grid Container -->
+            <div class="episodes-grid" id="episodesGrid">
+                <!-- Episodes will be dynamically loaded here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container" id="loadMoreContainer">
+                <button class="btn btn-secondary load-more-btn" id="loadMoreBtn" data-en="Load More Episodes" data-hi="और एपिसोड्स लोड करें">Load More Episodes</button>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container" id="paginationContainer" style="display: none;">
+                <div class="pagination">
+                    <button class="pagination-btn" id="prevPage" disabled>‹</button>
+                    <div class="pagination-numbers" id="paginationNumbers">
+                        <!-- Page numbers will be populated here -->
+                    </div>
+                    <button class="pagination-btn" id="nextPage">›</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access Sidebar -->
+    <div class="quick-access-sidebar" id="quickAccessSidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3 data-en="Quick Access" data-hi="त्वरित पहुंच">Quick Access</h3>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">×</button>
+            </div>
+            
+            <div class="sidebar-section">
+                <h4 data-en="Popular Topics" data-hi="लोकप्रिय विषय">Popular Topics</h4>
+                <div class="topic-tags">
+                    <button class="topic-tag" data-filter="cap-theorem">CAP Theorem</button>
+                    <button class="topic-tag" data-filter="microservices">Microservices</button>
+                    <button class="topic-tag" data-filter="database-indexing">Database Indexing</button>
+                    <button class="topic-tag" data-filter="oauth">OAuth 2.0</button>
+                    <button class="topic-tag" data-filter="kubernetes">Kubernetes</button>
+                    <button class="topic-tag" data-filter="redis">Redis</button>
+                    <button class="topic-tag" data-filter="kafka">Apache Kafka</button>
+                    <button class="topic-tag" data-filter="mongodb">MongoDB</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 data-en="Recent Searches" data-hi="हाल की खोजें">Recent Searches</h4>
+                <div class="recent-searches" id="recentSearches">
+                    <!-- Recent searches will be populated here -->
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 data-en="Bookmarked" data-hi="बुकमार्क किए गए">Bookmarked</h4>
+                <div class="bookmarked-episodes" id="bookmarkedEpisodes">
+                    <!-- Bookmarked episodes will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Access Toggle -->
+    <button class="quick-access-toggle" id="quickAccessToggle" aria-label="Toggle quick access">
+        <span class="toggle-icon">⚡</span>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="./images/logo.svg" alt="Hindi Tech Podcast Logo" class="footer-logo">
+                        <span class="footer-title" data-en="Hindi Tech Podcast" data-hi="हिंदी टेक पॉडकास्ट">Hindi Tech Podcast</span>
+                    </div>
+                    <p class="footer-description" data-en="Engineering stories explained like Mumbai local train announcements - clear, direct, and impossible to ignore." data-hi="इंजीनियरिंग की कहानियां मुंबई लोकल ट्रेन की अनाउंसमेंट की तरह समझाई गई हैं - साफ, सीधी, और नज़रअंदाज़ करना असंभव।">Engineering stories explained like Mumbai local train announcements - clear, direct, and impossible to ignore.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <span class="social-icon">📺</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Spotify">
+                            <span class="social-icon">🎵</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Apple Podcasts">
+                            <span class="social-icon">🎧</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <span class="social-icon">👨‍💻</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <span class="social-icon">🐦</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Browse" data-hi="ब्राउज़ करें">Browse</h3>
+                    <ul class="footer-links">
+                        <li><a href="episodes.html?category=latest" data-en="Latest Episodes" data-hi="नवीनतम एपिसोड्स">Latest Episodes</a></li>
+                        <li><a href="episodes.html?category=popular" data-en="Most Popular" data-hi="सबसे लोकप्रिय">Most Popular</a></li>
+                        <li><a href="episodes.html?category=distributed-systems" data-en="Distributed Systems" data-hi="डिस्ट्रिब्यूटेड सिस्टम्स">Distributed Systems</a></li>
+                        <li><a href="episodes.html?category=databases" data-en="Databases" data-hi="डेटाबेसेज">Databases</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Resources" data-hi="रिसोर्सेज">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="resources.html#code" data-en="Code Examples" data-hi="कोड उदाहरण">Code Examples</a></li>
+                        <li><a href="resources.html#guides" data-en="Learning Guides" data-hi="लर्निंग गाइड्स">Learning Guides</a></li>
+                        <li><a href="resources.html#companies" data-en="Company Directory" data-hi="कंपनी डायरेक्टरी">Company Directory</a></li>
+                        <li><a href="resources.html#pronunciation" data-en="Pronunciation Guide" data-hi="उच्चारण गाइड">Pronunciation Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Connect" data-hi="जुड़ें">Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="community.html#discord" data-en="Discord Server" data-hi="Discord सर्वर">Discord Server</a></li>
+                        <li><a href="community.html#events" data-en="Tech Events" data-hi="टेक इवेंट्स">Tech Events</a></li>
+                        <li><a href="community.html#contribute" data-en="Contribute" data-hi="योगदान दें">Contribute</a></li>
+                        <li><a href="about.html#contact" data-en="Contact Us" data-hi="संपर्क करें">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright" data-en="© 2025 Hindi Tech Podcast. All rights reserved." data-hi="© 2025 हिंदी टेक पॉडकास्ट। सभी अधिकार सुरक्षित।">© 2025 Hindi Tech Podcast. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="privacy.html" data-en="Privacy Policy" data-hi="प्राइवेसी पॉलिसी">Privacy Policy</a>
+                        <a href="terms.html" data-en="Terms of Service" data-hi="सेवा की शर्तें">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/app.js"></script>
+    <script src="./js/episodes.js"></script>
+    
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</body>
+</html>

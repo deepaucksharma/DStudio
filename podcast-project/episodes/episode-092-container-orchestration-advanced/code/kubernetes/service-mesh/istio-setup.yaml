@@ -1,0 +1,627 @@
+# Istio Service Mesh Configuration for Indian E-commerce Platform
+# Episode 092: Container Orchestration - Service Mesh
+# Context: Production-grade service mesh with Indian infrastructure optimization
+
+---
+# Istio Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-system
+  labels:
+    istio-injection: disabled
+    name: istio-system
+    region: mumbai
+    tier: infrastructure
+
+---
+# Istio Installation Configuration
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: flipkart-istio-control-plane
+  namespace: istio-system
+  labels:
+    region: mumbai
+    environment: production
+spec:
+  # Global configuration for Indian deployment
+  values:
+    global:
+      meshID: flipkart-mesh
+      network: mumbai-network
+      # Optimized for Indian latency and bandwidth
+      proxy:
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        # Indian timezone setting
+        env:
+          TZ: "Asia/Kolkata"
+        # Resource optimization for Indian infrastructure costs
+        concurrency: 2
+        # Improved observability for troubleshooting
+        accessLogFile: "/dev/stdout"
+        accessLogFormat: |
+          [%START_TIME%] "%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%"
+          %RESPONSE_CODE% %RESPONSE_FLAGS% %BYTES_RECEIVED% %BYTES_SENT%
+          %DURATION% %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% "%REQ(X-FORWARDED-FOR)%"
+          "%REQ(USER-AGENT)%" "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%"
+          %UPSTREAM_CLUSTER% %UPSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_LOCAL_ADDRESS%
+          %DOWNSTREAM_REMOTE_ADDRESS% %REQUESTED_SERVER_NAME% %ROUTE_NAME%
+      
+      # Regional configuration
+      defaultNodeSelector:
+        topology.kubernetes.io/region: "ap-south-1"
+      
+      # Multi-cluster configuration for Indian regions
+      meshNetworks:
+        mumbai-network:
+          endpoints:
+          - fromRegistry: mumbai-cluster
+          gateways:
+          - address: 10.0.0.1  # Mumbai gateway IP
+            port: 15443
+        delhi-network:
+          endpoints:
+          - fromRegistry: delhi-cluster
+          gateways:
+          - address: 10.1.0.1  # Delhi gateway IP
+            port: 15443
+        bangalore-network:
+          endpoints:
+          - fromRegistry: bangalore-cluster
+          gateways:
+          - address: 10.2.0.1  # Bangalore gateway IP
+            port: 15443
+
+  components:
+    # Pilot configuration (control plane)
+    pilot:
+      k8s:
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
+        nodeSelector:
+          node-type: control-plane
+        tolerations:
+        - key: "control-plane"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+        # High availability for control plane
+        replicaCount: 3
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: istiod
+              topologyKey: kubernetes.io/hostname
+        env:
+          # Optimized for Indian network conditions
+          PILOT_ENABLE_CROSS_CLUSTER_WORKLOAD_ENTRY: true
+          PILOT_ENABLE_HEADLESS_SERVICE_POD_LISTENERS: true
+          PILOT_SCOPE_GATEWAY_TO_NAMESPACE: false
+          # Enhanced security for financial transactions
+          PILOT_ENABLE_WORKLOAD_ENTRY_AUTOREGISTRATION: false
+          PILOT_JWT_PUB_KEY_REFRESH_INTERVAL: "15m"
+          EXTERNAL_ISTIOD: false
+          # Performance optimizations
+          PILOT_PUSH_THROTTLE: "100"
+          PILOT_DEBOUNCE_AFTER: "100ms"
+          PILOT_DEBOUNCE_MAX: "10s"
+
+    # Ingress Gateway - Optimized for Indian traffic
+    ingressGateways:
+    - name: istio-ingressgateway
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "1Gi"
+          limits:
+            cpu: "2000m"
+            memory: "2Gi"
+        replicaCount: 5  # High replica count for Indian traffic scale
+        nodeSelector:
+          node-type: gateway
+        # Load balancer configuration for Indian users
+        service:
+          type: LoadBalancer
+          annotations:
+            service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+            service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+            service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-1a,subnet-mumbai-1b,subnet-mumbai-1c"
+            service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+            # Indian ISP optimization
+            service.beta.kubernetes.io/aws-load-balancer-ip-address-type: "ipv4"
+            external-dns.alpha.kubernetes.io/hostname: "gateway.flipkart.com"
+        # Environment variables for Indian optimization
+        env:
+          # Connection pooling optimized for Indian latency
+          ISTIO_META_HTTP_10: "1"
+          PILOT_ENABLE_DESTINATION_RULE_INHERITANCE: true
+          # Enhanced logging for debugging
+          PILOT_ENABLE_ACCESS_LOG: true
+        # Pod disruption budget for high availability
+        podDisruptionBudget:
+          minAvailable: 3
+        # HPA for auto-scaling during Indian peak hours
+        hpaSpec:
+          maxReplicas: 10
+          minReplicas: 5
+          metrics:
+          - type: Resource
+            resource:
+              name: cpu
+              target:
+                type: Utilization
+                averageUtilization: 70
+          - type: Resource
+            resource:
+              name: memory
+              target:
+                type: Utilization
+                averageUtilization: 80
+
+    # Egress Gateway for external Indian services
+    - name: istio-egressgateway
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        replicaCount: 2
+        service:
+          type: ClusterIP
+        env:
+          # Egress optimization for Indian external services
+          ISTIO_META_ROUTER_MODE: "sni-dnat"
+
+    # East-West Gateway for cross-region communication
+    - name: istio-eastwestgateway
+      enabled: true
+      label:
+        istio: eastwestgateway
+        app: istio-eastwestgateway
+      k8s:
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+        replicaCount: 2
+        service:
+          type: LoadBalancer
+          annotations:
+            service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+            service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+            service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-private-1a,subnet-mumbai-private-1b"
+        env:
+          # Cross-region communication optimization
+          ISTIO_META_REQUESTED_NETWORK_VIEW: "mumbai-network"
+          PILOT_ENABLE_CROSS_CLUSTER_WORKLOAD_ENTRY: true
+
+  # Additional components
+  # Istiod (control plane)
+  pilot:
+    enabled: true
+
+---
+# Gateway for HTTP/HTTPS traffic
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: flipkart-gateway
+  namespace: istio-system
+  labels:
+    region: mumbai
+    tier: public
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  # HTTPS configuration
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: flipkart-tls-secret
+    hosts:
+    - "*.flipkart.com"
+    - "flipkart.com"
+  
+  # HTTP redirect to HTTPS
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*.flipkart.com"
+    - "flipkart.com"
+    tls:
+      httpsRedirect: true
+
+---
+# Cross-region Gateway
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: cross-region-gateway
+  namespace: istio-system
+  labels:
+    region: mumbai
+    type: east-west
+spec:
+  selector:
+    istio: eastwestgateway
+  servers:
+  - port:
+      number: 15443
+      name: tls
+      protocol: TLS
+    tls:
+      mode: ISTIO_MUTUAL
+    hosts:
+    - "*.local"  # For cross-region service communication
+
+---
+# Virtual Service for main application
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: flipkart-vs
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    tier: public
+spec:
+  hosts:
+  - "api.flipkart.com"
+  - "www.flipkart.com"
+  gateways:
+  - istio-system/flipkart-gateway
+  http:
+  # Product API routing with retry and timeout
+  - match:
+    - uri:
+        prefix: "/api/v1/products"
+    route:
+    - destination:
+        host: product-catalog
+        port:
+          number: 8080
+      weight: 100
+    retries:
+      attempts: 3
+      perTryTimeout: 5s
+      retryOn: 5xx,reset,connect-failure,refused-stream
+    timeout: 15s
+    # Fault injection for testing (disable in production)
+    # fault:
+    #   delay:
+    #     percentage:
+    #       value: 0.1
+    #     fixedDelay: 2s
+  
+  # Order API routing with circuit breaker
+  - match:
+    - uri:
+        prefix: "/api/v1/orders"
+    route:
+    - destination:
+        host: order-management
+        port:
+          number: 8080
+    retries:
+      attempts: 2
+      perTryTimeout: 10s
+      retryOn: 5xx,gateway-error,connect-failure
+    timeout: 30s
+  
+  # Payment API routing with enhanced security
+  - match:
+    - uri:
+        prefix: "/api/v1/payments"
+    route:
+    - destination:
+        host: payment-service-internal
+        port:
+          number: 8443
+    retries:
+      attempts: 1  # Limited retries for payment security
+      perTryTimeout: 30s
+    timeout: 60s
+    headers:
+      request:
+        add:
+          x-payment-route: "secure"
+  
+  # Default route to frontend
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        host: frontend-service
+        port:
+          number: 80
+    retries:
+      attempts: 3
+      perTryTimeout: 10s
+    timeout: 30s
+
+---
+# Destination Rule for Circuit Breaker
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: product-catalog-dr
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    service: product-catalog
+spec:
+  host: product-catalog
+  trafficPolicy:
+    # Connection pool settings optimized for Indian infrastructure
+    connectionPool:
+      tcp:
+        maxConnections: 100
+        connectTimeout: 30s
+        keepAlive:
+          time: 7200s
+          interval: 75s
+          probes: 9
+      http:
+        http1MaxPendingRequests: 50
+        http2MaxRequests: 100
+        maxRequestsPerConnection: 10
+        maxRetries: 3
+        consecutiveGatewayErrors: 5
+        interval: 30s
+        baseEjectionTime: 30s
+        maxEjectionPercent: 50
+        minHealthPercent: 30
+    # Circuit breaker
+    outlierDetection:
+      consecutive5xxErrors: 5
+      consecutiveGatewayErrors: 5
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+      minHealthPercent: 30
+    # Load balancing for Indian data centers
+    loadBalancer:
+      simple: LEAST_CONN
+      consistentHash:
+        httpHeaderName: "x-user-id"  # For sticky sessions if needed
+  # Port-specific policies
+  portLevelSettings:
+  - port:
+      number: 8080
+    connectionPool:
+      tcp:
+        maxConnections: 50
+      http:
+        http1MaxPendingRequests: 25
+        maxRequestsPerConnection: 5
+
+---
+# Destination Rule for Payment Service - Enhanced Security
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: payment-service-dr
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    service: payment-service
+    compliance: pci-dss
+spec:
+  host: payment-service-internal
+  trafficPolicy:
+    # Strict connection limits for payment security
+    connectionPool:
+      tcp:
+        maxConnections: 20
+        connectTimeout: 10s
+        keepAlive:
+          time: 60s
+          interval: 30s
+      http:
+        http1MaxPendingRequests: 10
+        http2MaxRequests: 20
+        maxRequestsPerConnection: 1  # No connection reuse for security
+        maxRetries: 1
+    # Aggressive circuit breaker for payment service
+    outlierDetection:
+      consecutive5xxErrors: 2
+      consecutiveGatewayErrors: 2
+      interval: 10s
+      baseEjectionTime: 60s
+      maxEjectionPercent: 30
+      minHealthPercent: 70
+    # TLS settings for internal communication
+    tls:
+      mode: ISTIO_MUTUAL
+      minProtocolVersion: TLSV1_3
+      maxProtocolVersion: TLSV1_3
+      cipherSuites:
+      - "ECDHE-RSA-AES256-GCM-SHA384"
+      - "ECDHE-RSA-CHACHA20-POLY1305"
+
+---
+# Service Entry for external Indian payment gateways
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: external-payment-gateways
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    type: external-service
+spec:
+  hosts:
+  - api.razorpay.com
+  - api.paytm.com
+  - secure.payu.in
+  - api.cashfree.com
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  location: MESH_EXTERNAL
+  resolution: DNS
+
+---
+# Service Entry for NPCI UPI Gateway
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: npci-upi-gateway
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    type: financial-service
+    compliance: rbi
+spec:
+  hosts:
+  - api.npci.org.in
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  location: MESH_EXTERNAL
+  resolution: DNS
+
+---
+# Virtual Service for external payment gateways
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: external-payment-gateways-vs
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    type: external-routing
+spec:
+  hosts:
+  - api.razorpay.com
+  - api.paytm.com
+  http:
+  - match:
+    - headers:
+        source-service:
+          exact: payment-service
+    route:
+    - destination:
+        host: api.razorpay.com
+      weight: 70
+    - destination:
+        host: api.paytm.com
+      weight: 30
+    timeout: 30s
+    retries:
+      attempts: 2
+      perTryTimeout: 15s
+
+---
+# AuthorizationPolicy for payment service
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: payment-service-authz
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    service: payment-service
+    compliance: pci-dss
+spec:
+  selector:
+    matchLabels:
+      app: payment-service
+  rules:
+  # Allow order management service to call payment service
+  - from:
+    - source:
+        principals: ["cluster.local/ns/flipkart-production/sa/order-management-sa"]
+    to:
+    - operation:
+        methods: ["POST", "GET"]
+        paths: ["/api/v1/payments/*"]
+  
+  # Allow API gateway to call payment service
+  - from:
+    - source:
+        principals: ["cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account"]
+    to:
+    - operation:
+        methods: ["POST", "GET", "PUT"]
+        paths: ["/api/v1/payments/*"]
+  
+  # Deny all other traffic
+  - from:
+    - source:
+        notPrincipals: ["*"]
+    action: DENY
+
+---
+# PeerAuthentication for strict mTLS
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: strict-mtls
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    security: strict
+spec:
+  mtls:
+    mode: STRICT
+
+---
+# RequestAuthentication for JWT validation
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: flipkart-jwt
+  namespace: flipkart-production
+  labels:
+    region: mumbai
+    auth: jwt
+spec:
+  selector:
+    matchLabels:
+      app: api-gateway
+  jwtRules:
+  - issuer: "https://auth.flipkart.com"
+    jwksUri: "https://auth.flipkart.com/.well-known/jwks.json"
+    audiences:
+    - "flipkart-api"
+    - "flipkart-mobile"
+    forwardOriginalToken: true
+    fromHeaders:
+    - name: Authorization
+      prefix: "Bearer "
+    - name: X-JWT-Token
+    fromParams:
+    - "access_token"

@@ -1,0 +1,1371 @@
+# Episode 096: Event Streaming Architecture
+# Production-scale event streaming for Indian fintech
+# Context: Razorpay/Paytm style real-time payment processing
+# Focus: Kafka, Pulsar, EventBridge, and streaming analytics
+
+version: '3.8'
+
+services:
+  # =================================================================
+  # KAFKA CLUSTER - PRIMARY STREAMING PLATFORM
+  # =================================================================
+
+  # Zookeeper Ensemble for Kafka
+  zookeeper-1:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: razorpay-zookeeper-1
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+      - ZOOKEEPER_INIT_LIMIT=5
+      - ZOOKEEPER_SYNC_LIMIT=2
+      - ZOOKEEPER_SERVERS=zookeeper-1:2888:3888;zookeeper-2:2888:3888;zookeeper-3:2888:3888
+      - ZOOKEEPER_SERVER_ID=1
+    volumes:
+      - zookeeper-1-data:/var/lib/zookeeper/data
+      - zookeeper-1-logs:/var/lib/zookeeper/log
+    networks:
+      - streaming-control
+      - mumbai-region
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "2181"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    labels:
+      - "service=zookeeper"
+      - "instance=1"
+      - "region=mumbai"
+
+  zookeeper-2:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: razorpay-zookeeper-2
+    ports:
+      - "2182:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+      - ZOOKEEPER_INIT_LIMIT=5
+      - ZOOKEEPER_SYNC_LIMIT=2
+      - ZOOKEEPER_SERVERS=zookeeper-1:2888:3888;zookeeper-2:2888:3888;zookeeper-3:2888:3888
+      - ZOOKEEPER_SERVER_ID=2
+    volumes:
+      - zookeeper-2-data:/var/lib/zookeeper/data
+      - zookeeper-2-logs:/var/lib/zookeeper/log
+    networks:
+      - streaming-control
+      - mumbai-region
+    labels:
+      - "service=zookeeper"
+      - "instance=2"
+
+  zookeeper-3:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: razorpay-zookeeper-3
+    ports:
+      - "2183:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+      - ZOOKEEPER_INIT_LIMIT=5
+      - ZOOKEEPER_SYNC_LIMIT=2
+      - ZOOKEEPER_SERVERS=zookeeper-1:2888:3888;zookeeper-2:2888:3888;zookeeper-3:2888:3888
+      - ZOOKEEPER_SERVER_ID=3
+    volumes:
+      - zookeeper-3-data:/var/lib/zookeeper/data
+      - zookeeper-3-logs:/var/lib/zookeeper/log
+    networks:
+      - streaming-control
+      - mumbai-region
+    labels:
+      - "service=zookeeper"
+      - "instance=3"
+
+  # Kafka Broker 1 - Mumbai Zone A
+  kafka-mumbai-1:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: razorpay-kafka-mumbai-1
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-mumbai-1:9092,PLAINTEXT_HOST://localhost:29092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=3000
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
+      - KAFKA_NUM_PARTITIONS=12
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_LOG_RETENTION_HOURS=168
+      - KAFKA_LOG_RETENTION_BYTES=1073741824
+      - KAFKA_LOG_SEGMENT_BYTES=1073741824
+      - KAFKA_LOG_CLEANUP_POLICY=delete
+      - KAFKA_COMPRESSION_TYPE=snappy
+      - KAFKA_JMX_PORT=9101
+      - KAFKA_JMX_HOSTNAME=localhost
+    volumes:
+      - kafka-mumbai-1-data:/var/lib/kafka/data
+    networks:
+      - streaming-control
+      - mumbai-region
+      - event-streaming
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=kafka"
+      - "broker-id=1"
+      - "region=mumbai"
+      - "zone=mumbai-a"
+
+  # Kafka Broker 2 - Mumbai Zone B
+  kafka-mumbai-2:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: razorpay-kafka-mumbai-2
+    ports:
+      - "9093:9092"
+      - "29093:29092"
+    environment:
+      - KAFKA_BROKER_ID=2
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-mumbai-2:9092,PLAINTEXT_HOST://localhost:29093
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=3000
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
+      - KAFKA_NUM_PARTITIONS=12
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_LOG_RETENTION_HOURS=168
+      - KAFKA_LOG_SEGMENT_BYTES=1073741824
+      - KAFKA_COMPRESSION_TYPE=snappy
+      - KAFKA_JMX_PORT=9102
+      - KAFKA_JMX_HOSTNAME=localhost
+    volumes:
+      - kafka-mumbai-2-data:/var/lib/kafka/data
+    networks:
+      - streaming-control
+      - mumbai-region
+      - event-streaming
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    labels:
+      - "service=kafka"
+      - "broker-id=2"
+      - "region=mumbai"
+      - "zone=mumbai-b"
+
+  # Kafka Broker 3 - Delhi Zone
+  kafka-delhi-1:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: razorpay-kafka-delhi-1
+    ports:
+      - "9094:9092"
+      - "29094:29092"
+    environment:
+      - KAFKA_BROKER_ID=3
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-delhi-1:9092,PLAINTEXT_HOST://localhost:29094
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=2
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=3
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=3000
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
+      - KAFKA_NUM_PARTITIONS=12
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_LOG_RETENTION_HOURS=168
+      - KAFKA_LOG_SEGMENT_BYTES=1073741824
+      - KAFKA_COMPRESSION_TYPE=snappy
+      - KAFKA_JMX_PORT=9103
+      - KAFKA_JMX_HOSTNAME=localhost
+    volumes:
+      - kafka-delhi-1-data:/var/lib/kafka/data
+    networks:
+      - streaming-control
+      - delhi-region
+      - event-streaming
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    labels:
+      - "service=kafka"
+      - "broker-id=3"
+      - "region=delhi"
+      - "zone=delhi-a"
+
+  # =================================================================
+  # APACHE PULSAR - ALTERNATIVE STREAMING PLATFORM
+  # =================================================================
+
+  # Pulsar BookKeeper
+  bookkeeper:
+    image: apachepulsar/pulsar:3.1.0
+    container_name: razorpay-bookkeeper
+    ports:
+      - "3181:3181"
+    environment:
+      - clusterName=razorpay-cluster
+      - zkServers=zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181
+      - metadataServiceUri=zk+hier://zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181/ledgers
+      - advertisedAddress=bookkeeper
+      - BOOKIE_MEM=-Xms1g -Xmx1g -XX:MaxDirectMemorySize=1g
+    volumes:
+      - bookkeeper-data:/pulsar/data
+    networks:
+      - streaming-control
+      - pulsar-cluster
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    command: >
+      bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf &&
+               exec bin/pulsar bookie"
+    labels:
+      - "service=bookkeeper"
+      - "cluster=razorpay-pulsar"
+
+  # Pulsar Broker
+  pulsar-broker:
+    image: apachepulsar/pulsar:3.1.0
+    container_name: razorpay-pulsar-broker
+    ports:
+      - "6650:6650"  # Binary protocol
+      - "8080:8080"  # HTTP admin
+    environment:
+      - metadataStoreUrl=zk:zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181
+      - configurationMetadataStoreUrl=zk:zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181/pulsar-cluster
+      - clusterName=razorpay-cluster
+      - managedLedgerDefaultEnsembleSize=1
+      - managedLedgerDefaultWriteQuorum=1
+      - managedLedgerDefaultAckQuorum=1
+      - advertisedAddress=pulsar-broker
+      - advertisedListeners=external:pulsar://localhost:6650
+      - PULSAR_MEM=-Xms1g -Xmx1g -XX:MaxDirectMemorySize=1g
+    volumes:
+      - pulsar-broker-data:/pulsar/data
+    networks:
+      - streaming-control
+      - pulsar-cluster
+      - event-streaming
+    depends_on:
+      - zookeeper-1
+      - bookkeeper
+    command: >
+      bash -c "bin/apply-config-from-env.py conf/broker.conf &&
+               exec bin/pulsar broker"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/admin/v2/clusters"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=pulsar-broker"
+      - "cluster=razorpay-pulsar"
+
+  # =================================================================
+  # KAFKA ECOSYSTEM TOOLS
+  # =================================================================
+
+  # Kafka Schema Registry
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.4.0
+    container_name: razorpay-schema-registry
+    ports:
+      - "8081:8081"
+    environment:
+      - SCHEMA_REGISTRY_HOST_NAME=schema-registry
+      - SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092,kafka-delhi-1:9092
+      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+      - SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL=PLAINTEXT
+      - SCHEMA_REGISTRY_MODE_MUTABILITY=true
+      - SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL=INFO
+    volumes:
+      - schema-registry-data:/var/lib/schema-registry
+    networks:
+      - event-streaming
+      - mumbai-region
+    depends_on:
+      - kafka-mumbai-1
+      - kafka-mumbai-2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/subjects"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=schema-registry"
+      - "purpose=schema-management"
+
+  # Kafka Connect
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect:7.4.0
+    container_name: razorpay-kafka-connect
+    ports:
+      - "8083:8083"
+    environment:
+      - CONNECT_BOOTSTRAP_SERVERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092,kafka-delhi-1:9092
+      - CONNECT_REST_ADVERTISED_HOST_NAME=kafka-connect
+      - CONNECT_REST_PORT=8083
+      - CONNECT_GROUP_ID=razorpay-connect-cluster
+      - CONNECT_CONFIG_STORAGE_TOPIC=razorpay-connect-configs
+      - CONNECT_OFFSET_STORAGE_TOPIC=razorpay-connect-offsets
+      - CONNECT_STATUS_STORAGE_TOPIC=razorpay-connect-status
+      - CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=3
+      - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=3
+      - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=3
+      - CONNECT_KEY_CONVERTER=org.apache.kafka.connect.storage.StringConverter
+      - CONNECT_VALUE_CONVERTER=io.confluent.connect.avro.AvroConverter
+      - CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - CONNECT_PLUGIN_PATH=/usr/share/java,/usr/share/confluent-hub-components
+      - CONNECT_LOG4J_APPENDER_STDOUT_LAYOUT_CONVERSIONPATTERN=[%d] %p %X{connector.context}%m (%c:%L)%n
+    volumes:
+      - kafka-connect-data:/data
+      - ./config/kafka-connect/connectors:/etc/kafka-connect/connectors:ro
+    networks:
+      - event-streaming
+      - mumbai-region
+      - data-integration
+    depends_on:
+      - kafka-mumbai-1
+      - kafka-mumbai-2
+      - schema-registry
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/connectors"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=kafka-connect"
+      - "purpose=data-integration"
+
+  # KSQL Server
+  ksqldb-server:
+    image: confluentinc/cp-ksqldb-server:7.4.0
+    container_name: razorpay-ksqldb-server
+    ports:
+      - "8088:8088"
+    environment:
+      - KSQL_CONFIG_DIR=/etc/ksql
+      - KSQL_BOOTSTRAP_SERVERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092,kafka-delhi-1:9092
+      - KSQL_HOST_NAME=ksqldb-server
+      - KSQL_LISTENERS=http://0.0.0.0:8088
+      - KSQL_CACHE_MAX_BYTES_BUFFERING=0
+      - KSQL_KSQL_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - KSQL_PRODUCER_INTERCEPTOR_CLASSES=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+      - KSQL_CONSUMER_INTERCEPTOR_CLASSES=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+      - KSQL_KSQL_CONNECT_URL=http://kafka-connect:8083
+      - KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR=3
+      - KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE=true
+      - KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE=true
+    volumes:
+      - ksqldb-data:/var/lib/ksql
+    networks:
+      - event-streaming
+      - mumbai-region
+    depends_on:
+      - kafka-mumbai-1
+      - schema-registry
+      - kafka-connect
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=ksqldb"
+      - "purpose=stream-processing"
+
+  # KSQL CLI
+  ksqldb-cli:
+    image: confluentinc/cp-ksqldb-cli:7.4.0
+    container_name: razorpay-ksqldb-cli
+    depends_on:
+      - ksqldb-server
+    entrypoint: /bin/sh
+    tty: true
+    networks:
+      - event-streaming
+    environment:
+      - KSQL_CONFIG_DIR=/etc/ksql
+    volumes:
+      - ./config/ksql/queries:/queries:ro
+    labels:
+      - "service=ksqldb-cli"
+      - "purpose=interactive-queries"
+
+  # =================================================================
+  # PAYMENT MICROSERVICES WITH EVENT STREAMING
+  # =================================================================
+
+  # Payment Event Producer - Transaction Events
+  payment-event-producer:
+    build:
+      context: ./services/payment-event-producer
+      dockerfile: Dockerfile
+    container_name: razorpay-payment-producer
+    ports:
+      - "8090:8080"
+    environment:
+      - SERVICE_NAME=payment-event-producer
+      - SERVICE_VERSION=v2.1.0
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092,kafka-delhi-1:9092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - PAYMENT_EVENTS_TOPIC=payment.events.v1
+      - TRANSACTION_EVENTS_TOPIC=transaction.events.v1
+      - REFUND_EVENTS_TOPIC=refund.events.v1
+      - PRODUCER_ACKS=all
+      - PRODUCER_RETRIES=2147483647
+      - PRODUCER_MAX_IN_FLIGHT_REQUESTS=5
+      - PRODUCER_ENABLE_IDEMPOTENCE=true
+      - PRODUCER_COMPRESSION_TYPE=snappy
+      - PRODUCER_BATCH_SIZE=16384
+      - PRODUCER_LINGER_MS=5
+      - DATABASE_URL=postgresql://razorpay:razorpay123@postgres-payment:5432/payments
+      - REDIS_URL=redis://redis-mumbai:6379/0
+      - IDEMPOTENCY_ENABLED=true
+      - EXACTLY_ONCE_SEMANTICS=true
+    volumes:
+      - ./config/payment-producer:/app/config:ro
+      - payment-producer-logs:/app/logs
+    networks:
+      - event-streaming
+      - mumbai-region
+      - payment-tier
+    depends_on:
+      - kafka-mumbai-1
+      - kafka-mumbai-2
+      - schema-registry
+      - postgres-payment
+      - redis-mumbai
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=payment-event-producer"
+      - "version=v2.1.0"
+      - "pattern=event-sourcing"
+      - "tier=critical"
+
+  # Payment Event Consumer - Analytics Pipeline
+  payment-analytics-consumer:
+    build:
+      context: ./services/payment-analytics-consumer
+      dockerfile: Dockerfile
+    container_name: razorpay-analytics-consumer
+    ports:
+      - "8091:8080"
+    environment:
+      - SERVICE_NAME=payment-analytics-consumer
+      - SERVICE_VERSION=v1.8.0
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092,kafka-delhi-1:9092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - CONSUMER_GROUP_ID=payment-analytics-group
+      - PAYMENT_EVENTS_TOPIC=payment.events.v1
+      - TRANSACTION_EVENTS_TOPIC=transaction.events.v1
+      - CONSUMER_AUTO_OFFSET_RESET=earliest
+      - CONSUMER_ENABLE_AUTO_COMMIT=false
+      - CONSUMER_MAX_POLL_RECORDS=500
+      - CONSUMER_SESSION_TIMEOUT_MS=30000
+      - CONSUMER_HEARTBEAT_INTERVAL_MS=3000
+      - ELASTICSEARCH_URL=http://elasticsearch-analytics:9200
+      - CLICKHOUSE_URL=http://clickhouse:8123
+      - REDIS_URL=redis://redis-mumbai:6379/1
+      - REAL_TIME_AGGREGATION=true
+      - WINDOWING_SIZE_MINUTES=5
+    volumes:
+      - ./config/analytics-consumer:/app/config:ro
+      - analytics-consumer-logs:/app/logs
+    networks:
+      - event-streaming
+      - mumbai-region
+      - analytics-tier
+    depends_on:
+      - kafka-mumbai-1
+      - payment-event-producer
+      - elasticsearch-analytics
+      - clickhouse
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=payment-analytics-consumer"
+      - "version=v1.8.0"
+      - "purpose=analytics"
+
+  # Fraud Detection Consumer - Real-time ML
+  fraud-detection-consumer:
+    build:
+      context: ./services/fraud-detection-consumer
+      dockerfile: Dockerfile
+    container_name: razorpay-fraud-consumer
+    ports:
+      - "8092:8080"
+    environment:
+      - SERVICE_NAME=fraud-detection-consumer
+      - SERVICE_VERSION=v3.2.0
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092,kafka-delhi-1:9092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - CONSUMER_GROUP_ID=fraud-detection-group
+      - PAYMENT_EVENTS_TOPIC=payment.events.v1
+      - FRAUD_ALERTS_TOPIC=fraud.alerts.v1
+      - ML_MODEL_URL=http://ml-fraud-inference:8080
+      - DATABASE_URL=postgresql://razorpay:razorpay123@postgres-fraud:5432/fraud
+      - REDIS_URL=redis://redis-mumbai:6379/2
+      - REAL_TIME_SCORING=true
+      - FRAUD_THRESHOLD=0.75
+      - ALERT_WEBHOOK_URL=http://alert-service:8080/webhook
+      - PROCESSING_GUARANTEE=exactly_once
+    volumes:
+      - ./config/fraud-consumer:/app/config:ro
+      - fraud-consumer-logs:/app/logs
+    networks:
+      - event-streaming
+      - mumbai-region
+      - fraud-detection-tier
+    depends_on:
+      - kafka-mumbai-1
+      - payment-event-producer
+      - ml-fraud-inference
+      - postgres-fraud
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=fraud-detection-consumer"
+      - "version=v3.2.0"
+      - "ml=enabled"
+      - "real-time=true"
+
+  # Notification Consumer - Multi-channel alerts
+  notification-consumer:
+    build:
+      context: ./services/notification-consumer
+      dockerfile: Dockerfile
+    container_name: razorpay-notification-consumer
+    ports:
+      - "8093:8080"
+    environment:
+      - SERVICE_NAME=notification-consumer
+      - SERVICE_VERSION=v2.0.0
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092,kafka-delhi-1:9092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - CONSUMER_GROUP_ID=notification-group
+      - PAYMENT_EVENTS_TOPIC=payment.events.v1
+      - FRAUD_ALERTS_TOPIC=fraud.alerts.v1
+      - SMS_GATEWAY_URL=http://sms-gateway:8080
+      - EMAIL_GATEWAY_URL=http://email-gateway:8080
+      - PUSH_NOTIFICATION_URL=http://push-service:8080
+      - WEBHOOK_DELIVERY_URL=http://webhook-service:8080
+      - DATABASE_URL=postgresql://razorpay:razorpay123@postgres-notification:5432/notifications
+      - REDIS_URL=redis://redis-mumbai:6379/3
+      - DELIVERY_RETRY_COUNT=3
+      - DELIVERY_TIMEOUT_MS=10000
+    volumes:
+      - ./config/notification-consumer:/app/config:ro
+      - notification-consumer-logs:/app/logs
+    networks:
+      - event-streaming
+      - mumbai-region
+      - notification-tier
+    depends_on:
+      - kafka-mumbai-1
+      - payment-event-producer
+      - fraud-detection-consumer
+      - postgres-notification
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=notification-consumer"
+      - "version=v2.0.0"
+      - "channels=sms,email,push,webhook"
+
+  # =================================================================
+  # STREAMING ANALYTICS AND ML
+  # =================================================================
+
+  # Apache Flink - Stream Processing
+  flink-jobmanager:
+    image: flink:1.18.0-scala_2.12-java11
+    container_name: razorpay-flink-jobmanager
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: flink-jobmanager
+        taskmanager.numberOfTaskSlots: 2
+        parallelism.default: 2
+        jobmanager.memory.process.size: 1600m
+        taskmanager.memory.process.size: 1728m
+        taskmanager.memory.flink.size: 1280m
+        rest.port: 8081
+        rest.address: 0.0.0.0
+        rest.bind-address: 0.0.0.0
+    volumes:
+      - flink-jobmanager-data:/opt/flink/data
+      - ./config/flink/jobs:/opt/flink/jobs:ro
+    networks:
+      - stream-processing
+      - mumbai-region
+    labels:
+      - "service=flink-jobmanager"
+      - "purpose=stream-processing"
+
+  flink-taskmanager:
+    image: flink:1.18.0-scala_2.12-java11
+    container_name: razorpay-flink-taskmanager
+    depends_on:
+      - flink-jobmanager
+    command: taskmanager
+    scale: 2
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: flink-jobmanager
+        taskmanager.numberOfTaskSlots: 2
+        parallelism.default: 2
+        jobmanager.memory.process.size: 1600m
+        taskmanager.memory.process.size: 1728m
+        taskmanager.memory.flink.size: 1280m
+    volumes:
+      - flink-taskmanager-data:/opt/flink/data
+    networks:
+      - stream-processing
+      - mumbai-region
+    labels:
+      - "service=flink-taskmanager"
+      - "purpose=stream-processing"
+
+  # ML Fraud Inference Service
+  ml-fraud-inference:
+    build:
+      context: ./services/ml-fraud-inference
+      dockerfile: Dockerfile
+    container_name: razorpay-ml-fraud-inference
+    ports:
+      - "8094:8080"
+    environment:
+      - SERVICE_NAME=ml-fraud-inference
+      - SERVICE_VERSION=v1.5.0
+      - MODEL_PATH=/app/models/fraud-detection-v3.pkl
+      - REDIS_URL=redis://redis-mumbai:6379/4
+      - INFERENCE_BATCH_SIZE=64
+      - INFERENCE_TIMEOUT_MS=100
+      - MODEL_REFRESH_INTERVAL_HOURS=6
+      - FEATURE_STORE_URL=http://feature-store:8080
+      - MONITORING_ENABLED=true
+    volumes:
+      - ./models/fraud:/app/models:ro
+      - ./config/ml-inference:/app/config:ro
+      - ml-inference-logs:/app/logs
+    networks:
+      - fraud-detection-tier
+      - mumbai-region
+    depends_on:
+      - redis-mumbai
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 20s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=ml-fraud-inference"
+      - "version=v1.5.0"
+      - "model=fraud-detection-v3"
+
+  # =================================================================
+  # DATA STORES AND ANALYTICS
+  # =================================================================
+
+  # PostgreSQL - Payment Database
+  postgres-payment:
+    image: postgres:15-alpine
+    container_name: razorpay-postgres-payment
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=payments
+      - POSTGRES_USER=razorpay
+      - POSTGRES_PASSWORD=razorpay123
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=en_IN.UTF-8
+    volumes:
+      - postgres-payment-data:/var/lib/postgresql/data
+      - ./config/postgres/payment-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - payment-tier
+      - mumbai-region
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U razorpay -d payments"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "database=payments"
+
+  # PostgreSQL - Fraud Database
+  postgres-fraud:
+    image: postgres:15-alpine
+    container_name: razorpay-postgres-fraud
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=fraud
+      - POSTGRES_USER=razorpay
+      - POSTGRES_PASSWORD=razorpay123
+    volumes:
+      - postgres-fraud-data:/var/lib/postgresql/data
+      - ./config/postgres/fraud-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - fraud-detection-tier
+      - mumbai-region
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U razorpay -d fraud"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "database=fraud"
+
+  # PostgreSQL - Notification Database
+  postgres-notification:
+    image: postgres:15-alpine
+    container_name: razorpay-postgres-notification
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=notifications
+      - POSTGRES_USER=razorpay
+      - POSTGRES_PASSWORD=razorpay123
+    volumes:
+      - postgres-notification-data:/var/lib/postgresql/data
+      - ./config/postgres/notification-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - notification-tier
+      - mumbai-region
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U razorpay -d notifications"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "database=notifications"
+
+  # Redis - Caching and Session Store
+  redis-mumbai:
+    image: redis:7-alpine
+    container_name: razorpay-redis-mumbai
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server 
+      --requirepass razorpay123
+      --appendonly yes
+      --maxmemory 2gb
+      --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-mumbai-data:/data
+    networks:
+      - payment-tier
+      - mumbai-region
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "razorpay123", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    labels:
+      - "service=redis"
+      - "region=mumbai"
+
+  # Elasticsearch - Analytics Storage
+  elasticsearch-analytics:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: razorpay-elasticsearch-analytics
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - cluster.name=razorpay-analytics
+      - node.name=elasticsearch-analytics-1
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=razorpay123
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - xpack.security.transport.ssl.enabled=false
+      - xpack.security.http.ssl.enabled=false
+    volumes:
+      - elasticsearch-analytics-data:/usr/share/elasticsearch/data
+    networks:
+      - analytics-tier
+      - mumbai-region
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD", "curl", "-u", "elastic:razorpay123", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    labels:
+      - "service=elasticsearch"
+      - "purpose=analytics"
+
+  # ClickHouse - OLAP Analytics
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.8-alpine
+    container_name: razorpay-clickhouse
+    ports:
+      - "8123:8123"  # HTTP interface
+      - "9000:9000"  # Native interface
+    environment:
+      - CLICKHOUSE_DB=razorpay_analytics
+      - CLICKHOUSE_USER=razorpay
+      - CLICKHOUSE_PASSWORD=razorpay123
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./config/clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - analytics-tier
+      - mumbai-region
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8123/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=clickhouse"
+      - "purpose=olap-analytics"
+
+  # =================================================================
+  # MONITORING AND OBSERVABILITY
+  # =================================================================
+
+  # Prometheus - Metrics Collection
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: razorpay-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus/prometheus-streaming.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - monitoring
+      - mumbai-region
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=30d'
+    labels:
+      - "service=prometheus"
+      - "purpose=metrics"
+
+  # Grafana - Dashboards
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: razorpay-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=razorpay123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/streaming-dashboards:/var/lib/grafana/dashboards:ro
+      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - monitoring
+      - mumbai-region
+    depends_on:
+      - prometheus
+    labels:
+      - "service=grafana"
+      - "dashboards=streaming"
+
+  # Kafka Exporter for Prometheus
+  kafka-exporter:
+    image: danielqsj/kafka-exporter:v1.7.0
+    container_name: razorpay-kafka-exporter
+    ports:
+      - "9308:9308"
+    command:
+      - '--kafka.server=kafka-mumbai-1:9092'
+      - '--kafka.server=kafka-mumbai-2:9092'
+      - '--kafka.server=kafka-delhi-1:9092'
+      - '--web.listen-address=0.0.0.0:9308'
+      - '--log.level=info'
+    networks:
+      - event-streaming
+      - monitoring
+    depends_on:
+      - kafka-mumbai-1
+      - kafka-mumbai-2
+    labels:
+      - "service=kafka-exporter"
+      - "purpose=kafka-metrics"
+
+  # =================================================================
+  # CONTROL CENTER AND MANAGEMENT
+  # =================================================================
+
+  # Confluent Control Center
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:7.4.0
+    container_name: razorpay-control-center
+    ports:
+      - "9021:9021"
+    environment:
+      - CONTROL_CENTER_BOOTSTRAP_SERVERS=kafka-mumbai-1:9092,kafka-mumbai-2:9092,kafka-delhi-1:9092
+      - CONTROL_CENTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - CONTROL_CENTER_CONNECT_CONNECT_CLUSTER=http://kafka-connect:8083
+      - CONTROL_CENTER_KSQL_KSQLDB_URL=http://ksqldb-server:8088
+      - CONTROL_CENTER_REPLICATION_FACTOR=3
+      - CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS=1
+      - CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS=1
+      - CONFLUENT_METRICS_TOPIC_REPLICATION=3
+      - PORT=9021
+    volumes:
+      - control-center-data:/var/lib/confluent-control-center
+    networks:
+      - event-streaming
+      - mumbai-region
+    depends_on:
+      - kafka-mumbai-1
+      - kafka-mumbai-2
+      - schema-registry
+      - kafka-connect
+      - ksqldb-server
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9021/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=control-center"
+      - "purpose=kafka-management"
+
+  # Kafka Manager (CMAK)
+  kafka-manager:
+    image: hlebalbau/kafka-manager:stable
+    container_name: razorpay-kafka-manager
+    ports:
+      - "9000:9000"
+    environment:
+      - ZK_HOSTS=zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181
+      - APPLICATION_SECRET=razorpay-kafka-manager-secret
+    networks:
+      - streaming-control
+      - mumbai-region
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    labels:
+      - "service=kafka-manager"
+      - "purpose=cluster-management"
+
+# =================================================================
+# NETWORKS - EVENT STREAMING TOPOLOGY
+# =================================================================
+networks:
+  # Regional networks
+  mumbai-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.60.0.0/16
+    labels:
+      - "region=mumbai"
+      - "type=regional"
+
+  delhi-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.61.0.0/16
+    labels:
+      - "region=delhi"
+      - "type=regional"
+
+  # Streaming networks
+  streaming-control:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.62.0.0/24
+    labels:
+      - "tier=streaming-control"
+      - "purpose=coordination"
+
+  event-streaming:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.63.0.0/16
+    labels:
+      - "tier=event-streaming"
+      - "purpose=messaging"
+
+  stream-processing:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.64.0.0/24
+    labels:
+      - "tier=stream-processing"
+      - "purpose=analytics"
+
+  pulsar-cluster:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.65.0.0/24
+    labels:
+      - "tier=pulsar"
+      - "purpose=alternative-streaming"
+
+  # Application tiers
+  payment-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.66.0.0/16
+    labels:
+      - "tier=payment"
+      - "security=high"
+
+  fraud-detection-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.67.0.0/24
+    labels:
+      - "tier=fraud-detection"
+      - "ml=enabled"
+
+  notification-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.68.0.0/24
+    labels:
+      - "tier=notification"
+
+  analytics-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.69.0.0/24
+    labels:
+      - "tier=analytics"
+      - "purpose=olap"
+
+  data-integration:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.70.0.0/24
+    labels:
+      - "tier=data-integration"
+      - "purpose=etl"
+
+  monitoring:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.71.0.0/24
+    labels:
+      - "tier=monitoring"
+
+# =================================================================
+# VOLUMES - STREAMING DATA STORAGE
+# =================================================================
+volumes:
+  # Zookeeper volumes
+  zookeeper-1-data:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "instance=1"
+      - "backup=required"
+
+  zookeeper-1-logs:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "instance=1"
+      - "type=logs"
+
+  zookeeper-2-data:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "instance=2"
+
+  zookeeper-2-logs:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "instance=2"
+
+  zookeeper-3-data:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "instance=3"
+
+  zookeeper-3-logs:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "instance=3"
+
+  # Kafka volumes
+  kafka-mumbai-1-data:
+    driver: local
+    labels:
+      - "service=kafka"
+      - "broker-id=1"
+      - "region=mumbai"
+      - "retention=7d"
+
+  kafka-mumbai-2-data:
+    driver: local
+    labels:
+      - "service=kafka"
+      - "broker-id=2"
+      - "region=mumbai"
+
+  kafka-delhi-1-data:
+    driver: local
+    labels:
+      - "service=kafka"
+      - "broker-id=3"
+      - "region=delhi"
+
+  # Pulsar volumes
+  bookkeeper-data:
+    driver: local
+    labels:
+      - "service=bookkeeper"
+      - "purpose=ledger-storage"
+
+  pulsar-broker-data:
+    driver: local
+    labels:
+      - "service=pulsar-broker"
+
+  # Kafka ecosystem volumes
+  schema-registry-data:
+    driver: local
+    labels:
+      - "service=schema-registry"
+      - "purpose=schema-storage"
+
+  kafka-connect-data:
+    driver: local
+    labels:
+      - "service=kafka-connect"
+      - "purpose=connector-configs"
+
+  ksqldb-data:
+    driver: local
+    labels:
+      - "service=ksqldb"
+      - "purpose=stream-processing"
+
+  control-center-data:
+    driver: local
+    labels:
+      - "service=control-center"
+      - "purpose=management"
+
+  # Stream processing volumes
+  flink-jobmanager-data:
+    driver: local
+    labels:
+      - "service=flink-jobmanager"
+
+  flink-taskmanager-data:
+    driver: local
+    labels:
+      - "service=flink-taskmanager"
+
+  # Database volumes
+  postgres-payment-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "database=payments"
+      - "backup=hourly"
+
+  postgres-fraud-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "database=fraud"
+      - "backup=daily"
+
+  postgres-notification-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "database=notifications"
+      - "backup=daily"
+
+  # Cache volume
+  redis-mumbai-data:
+    driver: local
+    labels:
+      - "service=redis"
+      - "region=mumbai"
+
+  # Analytics volumes
+  elasticsearch-analytics-data:
+    driver: local
+    labels:
+      - "service=elasticsearch"
+      - "purpose=analytics"
+      - "retention=30d"
+
+  clickhouse-data:
+    driver: local
+    labels:
+      - "service=clickhouse"
+      - "purpose=olap"
+      - "retention=90d"
+
+  # Monitoring volumes
+  prometheus-data:
+    driver: local
+    labels:
+      - "service=prometheus"
+      - "retention=30d"
+
+  grafana-data:
+    driver: local
+    labels:
+      - "service=grafana"
+
+  # Application logs
+  payment-producer-logs:
+    driver: local
+    labels:
+      - "service=payment-event-producer"
+      - "type=application-logs"
+      - "retention=7d"
+
+  analytics-consumer-logs:
+    driver: local
+    labels:
+      - "service=payment-analytics-consumer"
+      - "type=application-logs"
+      - "retention=7d"
+
+  fraud-consumer-logs:
+    driver: local
+    labels:
+      - "service=fraud-detection-consumer"
+      - "type=application-logs"
+      - "retention=30d"
+
+  notification-consumer-logs:
+    driver: local
+    labels:
+      - "service=notification-consumer"
+      - "type=application-logs"
+      - "retention=7d"
+
+  ml-inference-logs:
+    driver: local
+    labels:
+      - "service=ml-fraud-inference"
+      - "type=application-logs"
+      - "retention=7d"
+
+# =================================================================
+# CONFIGURATION FILES REQUIRED:
+# =================================================================
+# ./config/kafka-connect/connectors/
+# ./config/ksql/queries/
+# ./config/prometheus/prometheus-streaming.yml
+# ./config/grafana/streaming-dashboards/
+# ./config/grafana/provisioning/
+# ./config/postgres/ (init scripts)
+# ./config/clickhouse/init.sql
+# ./config/flink/jobs/
+# ./services/ (microservice source code)
+# ./models/fraud/ (ML models)
+# 
+# TOPIC ARCHITECTURE:
+# - payment.events.v1 (partitions: 12, replication: 3)
+# - transaction.events.v1 (partitions: 12, replication: 3)
+# - refund.events.v1 (partitions: 6, replication: 3)
+# - fraud.alerts.v1 (partitions: 6, replication: 3)
+# - user.events.v1 (partitions: 12, replication: 3)
+# - merchant.events.v1 (partitions: 6, replication: 3)
+# 
+# ESTIMATED COSTS (Event Streaming Infrastructure):
+# - Kafka cluster (3 brokers, 8GB each): ₹45,000/month
+# - Analytics storage (Elasticsearch + ClickHouse): ₹25,000/month
+# - Stream processing (Flink cluster): ₹15,000/month
+# - Application services: ₹20,000/month
+# - Network and storage: ₹10,000/month
+# - Total: ₹115,000/month (~$1,380 USD)
+# 
+# THROUGHPUT TARGETS:
+# - Peak: 100,000 events/second
+# - Average: 25,000 events/second
+# - Latency: <50ms end-to-end
+# - Availability: 99.99%

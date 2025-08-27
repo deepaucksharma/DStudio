@@ -1,0 +1,643 @@
+/*
+ * Ola Driver-Rider Matching System - TigerGraph GSQL Implementation
+ * =================================================================
+ * 
+ * यह system Ola के real-time driver-rider matching को handle करता है।
+ * Mumbai traffic और demand patterns को consider करते हुए optimal matching।
+ * 
+ * Features:
+ * - Real-time driver availability tracking
+ * - Multi-factor matching algorithm
+ * - Traffic-aware ETA calculations
+ * - Dynamic pricing support
+ * - Route optimization
+ * 
+ * Scale: 1M drivers, 150M riders, 1M rides per day
+ * Response time: <200ms for matching
+ * 
+ * Author: Ola Mumbai Engineering Team
+ */
+
+// ============================================================================
+// GRAPH SCHEMA DEFINITION
+// ============================================================================
+
+USE GRAPH OlaRideGraph
+
+// Create vertex types for Ola ecosystem
+CREATE VERTEX Driver (
+    PRIMARY_ID driver_id STRING,
+    name STRING,
+    phone STRING,
+    email STRING,
+    license_number STRING,
+    vehicle_type STRING,  // "Micro", "Mini", "Prime", "Auto"
+    vehicle_number STRING,
+    rating FLOAT,
+    trips_completed INT,
+    total_earnings FLOAT,
+    
+    // Real-time location data
+    current_lat FLOAT,
+    current_lng FLOAT,
+    current_area STRING,
+    last_location_update DATETIME,
+    
+    // Availability status
+    is_available BOOL,
+    is_online BOOL,
+    duty_status STRING,  // "ONLINE", "OFFLINE", "ON_TRIP", "BREAK"
+    
+    // Performance metrics
+    acceptance_rate FLOAT,
+    cancellation_rate FLOAT,
+    completion_rate FLOAT,
+    avg_rating FLOAT,
+    
+    // Working patterns
+    preferred_areas SET<STRING>,
+    shift_start_time TIME,
+    shift_end_time TIME,
+    hours_worked_today FLOAT,
+    
+    // Mumbai specific
+    local_language_support SET<STRING>,  // ["Hindi", "Marathi", "English"]
+    knows_shortcuts BOOL,
+    mumbai_experience_years INT
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX Rider (
+    PRIMARY_ID rider_id STRING,
+    name STRING,
+    phone STRING,
+    email STRING,
+    age INT,
+    gender STRING,
+    
+    // Current location for ride request
+    current_lat FLOAT,
+    current_lng FLOAT,
+    current_area STRING,
+    
+    // Profile information
+    rating FLOAT,
+    total_rides INT,
+    total_spent FLOAT,
+    preferred_payment STRING,  // "Cash", "Wallet", "UPI", "Card"
+    
+    // Preferences
+    preferred_vehicle_types SET<STRING>,
+    max_wait_time INT,  // minutes
+    price_sensitivity STRING,  // "Low", "Medium", "High"
+    
+    // Behavioral patterns
+    avg_ride_distance FLOAT,
+    avg_ride_cost FLOAT,
+    frequent_routes SET<STRING>,
+    peak_hour_usage BOOL,
+    
+    // Mumbai specific
+    home_area STRING,
+    office_area STRING,
+    language_preference STRING
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX Location (
+    PRIMARY_ID location_id STRING,
+    area_name STRING,
+    lat FLOAT,
+    lng FLOAT,
+    location_type STRING,  // "Residential", "Commercial", "Transport Hub", "Entertainment"
+    
+    // Traffic and demand data
+    current_traffic_density FLOAT,  // 0.0 to 1.0
+    avg_demand_multiplier FLOAT,
+    surge_pricing_active BOOL,
+    surge_multiplier FLOAT,
+    
+    // Mumbai specific areas
+    zone STRING,  // "South Mumbai", "Western Suburbs", "Central", "Eastern", "Navi Mumbai"
+    is_airport BOOL,
+    is_railway_station BOOL,
+    is_mall BOOL,
+    
+    // Weather impact
+    weather_condition STRING,
+    rainfall_impact FLOAT
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX RideRequest (
+    PRIMARY_ID request_id STRING,
+    rider_id STRING,
+    
+    // Pickup and drop locations
+    pickup_lat FLOAT,
+    pickup_lng FLOAT,
+    pickup_area STRING,
+    drop_lat FLOAT,
+    drop_lng FLOAT,
+    drop_area STRING,
+    
+    // Request details
+    vehicle_type_requested STRING,
+    passenger_count INT,
+    scheduled_time DATETIME,
+    special_requirements SET<STRING>,  // ["AC", "Pet Friendly", "Wheelchair Accessible"]
+    
+    // Pricing
+    estimated_distance FLOAT,
+    estimated_duration INT,  // minutes
+    estimated_fare FLOAT,
+    max_fare_willing FLOAT,
+    
+    // Status tracking
+    status STRING,  // "REQUESTED", "SEARCHING", "ASSIGNED", "ACCEPTED", "STARTED", "COMPLETED", "CANCELLED"
+    request_time DATETIME,
+    assignment_time DATETIME,
+    pickup_time DATETIME,
+    drop_time DATETIME,
+    
+    // Mumbai rush hour considerations
+    is_peak_hour BOOL,
+    traffic_factor FLOAT,
+    monsoon_factor FLOAT
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX Trip (
+    PRIMARY_ID trip_id STRING,
+    request_id STRING,
+    driver_id STRING,
+    rider_id STRING,
+    
+    // Trip details
+    start_time DATETIME,
+    end_time DATETIME,
+    actual_distance FLOAT,
+    actual_duration INT,
+    
+    // Route information
+    route_taken STRING,  // Encoded polyline
+    traffic_conditions SET<STRING>,
+    avg_speed FLOAT,
+    
+    // Financial details
+    base_fare FLOAT,
+    distance_fare FLOAT,
+    time_fare FLOAT,
+    surge_fare FLOAT,
+    toll_charges FLOAT,
+    total_fare FLOAT,
+    commission_charged FLOAT,
+    driver_earnings FLOAT,
+    
+    // Ratings
+    rider_rating FLOAT,
+    driver_rating FLOAT,
+    feedback_comments STRING,
+    
+    // Mumbai specific
+    monsoon_delay_minutes INT,
+    traffic_jam_count INT,
+    route_efficiency_score FLOAT
+) WITH primary_id_as_attribute="true"
+
+// ============================================================================
+// EDGE DEFINITIONS - Relationships
+// ============================================================================
+
+CREATE DIRECTED EDGE NEAR_LOCATION (
+    FROM Driver TO Location,
+    distance_km FLOAT,
+    estimated_arrival_time INT,  // minutes
+    traffic_adjusted_time INT,
+    last_calculated DATETIME
+)
+
+CREATE DIRECTED EDGE REQUESTS_RIDE (
+    FROM Rider TO RideRequest,
+    timestamp DATETIME,
+    priority_score FLOAT,
+    wait_time_tolerance INT
+)
+
+CREATE DIRECTED EDGE ASSIGNED_TO (
+    FROM Driver TO RideRequest,
+    assignment_time DATETIME,
+    estimated_pickup_time INT,
+    acceptance_probability FLOAT,
+    distance_to_pickup FLOAT
+)
+
+CREATE DIRECTED EDGE COMPLETED_TRIP (
+    FROM Driver TO Rider,
+    trip_id STRING,
+    trip_date DATETIME,
+    route_taken STRING,
+    fare_charged FLOAT,
+    rating_given FLOAT,
+    trip_duration INT,
+    pickup_area STRING,
+    drop_area STRING
+)
+
+CREATE UNDIRECTED EDGE FREQUENT_ROUTE (
+    FROM Location TO Location,
+    route_frequency INT,
+    avg_duration INT,
+    avg_distance FLOAT,
+    peak_hour_multiplier FLOAT,
+    traffic_pattern STRING
+)
+
+CREATE DIRECTED EDGE PREFERS_AREA (
+    FROM Driver TO Location,
+    preference_strength FLOAT,
+    earnings_in_area FLOAT,
+    trips_completed_in_area INT,
+    comfort_level FLOAT
+)
+
+// ============================================================================
+// LOADING SAMPLE DATA - Mumbai Ride Ecosystem
+// ============================================================================
+
+// Insert Mumbai locations and areas
+INSERT INTO Location VALUES
+("LOC_001", "Bandra West", 19.0544, 72.8231, "Commercial", 0.7, 1.2, false, 1.0, "Western Suburbs", false, true, true, "Clear", 0.0),
+("LOC_002", "Andheri East", 19.1136, 72.8697, "Commercial", 0.8, 1.5, true, 1.8, "Western Suburbs", false, false, true, "Clear", 0.0),
+("LOC_003", "Chhatrapati Shivaji Airport", 19.0896, 72.8656, "Transport Hub", 0.6, 2.0, true, 2.5, "Western Suburbs", true, false, false, "Clear", 0.0),
+("LOC_004", "Dadar", 19.0178, 72.8478, "Transport Hub", 0.9, 1.8, true, 2.2, "Central", false, true, false, "Light Rain", 0.3),
+("LOC_005", "Colaba", 18.9067, 72.8147, "Tourist", 0.5, 1.1, false, 1.0, "South Mumbai", false, false, false, "Clear", 0.0);
+
+// Insert drivers across Mumbai
+INSERT INTO Driver VALUES
+("DRV_001", "राजेश कुमार", "+91-9876543210", "rajesh.driver@ola.com", "MH02AB1234", "Mini", "MH02AB1234", 4.7, 2847, 345000.50, 19.0544, 72.8231, "Bandra West", "2024-01-20 15:30:00", true, true, "ONLINE", 0.92, 0.05, 0.98, 4.7, ["Bandra", "Andheri", "Santa Cruz"], "06:00:00", "22:00:00", 8.5, ["Hindi", "Marathi", "English"], true, 12),
+("DRV_002", "सुरेश पाटिल", "+91-9876543211", "suresh.driver@ola.com", "MH03CD5678", "Micro", "MH03CD5678", 4.5, 1956, 234000.75, 19.1136, 72.8697, "Andheri East", "2024-01-20 15:32:00", true, true, "ONLINE", 0.88, 0.08, 0.95, 4.5, ["Andheri", "Powai", "Kurla"], "05:30:00", "21:30:00", 9.2, ["Hindi", "English"], true, 8),
+("DRV_003", "अमित शर्मा", "+91-9876543212", "amit.driver@ola.com", "MH01EF9012", "Prime", "MH01EF9012", 4.8, 3245, 567000.25, 19.0896, 72.8656, "Near Airport", "2024-01-20 15:28:00", true, true, "ONLINE", 0.95, 0.03, 0.99, 4.8, ["Airport", "Vile Parle", "Bandra"], "24/7", "24/7", 10.0, ["Hindi", "English", "Marathi"], true, 15);
+
+// Insert riders
+INSERT INTO Rider VALUES
+("RDR_001", "प्रिया जोशी", "+91-9876543213", "priya.rider@email.com", 28, "Female", 19.0544, 72.8231, "Bandra West", 4.6, 89, 25600.50, "UPI", ["Mini", "Prime"], 8, "Medium", 12.5, 287.50, ["Bandra-Andheri", "Bandra-BKC"], true, "Bandra West", "BKC", "Hindi"),
+("RDR_002", "विकास अग्रवाल", "+91-9876543214", "vikas.rider@email.com", 35, "Male", 19.1136, 72.8697, "Andheri East", 4.4, 156, 67800.75, "Credit Card", ["Prime", "Mini"], 10, "Low", 18.7, 435.25, ["Andheri-BKC", "Andheri-Powai"], true, "Andheri East", "Powai", "English");
+
+// ============================================================================
+// REAL-TIME DRIVER MATCHING ALGORITHM
+// ============================================================================
+
+CREATE QUERY find_optimal_driver(STRING rider_id, FLOAT pickup_lat, FLOAT pickup_lng, STRING vehicle_type_requested) 
+FOR GRAPH OlaRideGraph {
+    
+    // Performance optimization variables
+    TYPEDEF TUPLE<STRING driver_id, FLOAT score, FLOAT distance, INT eta, STRING driver_name, FLOAT rating> DriverMatch;
+    HeapAccum<DriverMatch>(15, score DESC) @@top_drivers;
+    
+    // Get rider preferences
+    start_rider = {Rider.*} WHERE Rider.rider_id == rider_id;
+    
+    // Find available drivers within 5km radius
+    available_drivers = SELECT d 
+                       FROM Driver:d
+                       WHERE d.is_available == true 
+                         AND d.is_online == true
+                         AND d.duty_status == "ONLINE"
+                         AND d.vehicle_type == vehicle_type_requested
+                         AND d.last_location_update > datetime_sub(now(), INTERVAL 10 MINUTE)
+                         AND calculate_distance(pickup_lat, pickup_lng, d.current_lat, d.current_lng) <= 5.0;
+    
+    // Multi-factor scoring algorithm
+    matched_drivers = SELECT d
+                     FROM available_drivers:d
+                     ACCUM 
+                         // Distance and ETA calculation
+                         FLOAT distance = calculate_distance(pickup_lat, pickup_lng, d.current_lat, d.current_lng),
+                         INT base_eta = CASE 
+                                         WHEN distance <= 0.5 THEN 2
+                                         WHEN distance <= 1.0 THEN 4
+                                         WHEN distance <= 2.0 THEN 8
+                                         WHEN distance <= 3.0 THEN 12
+                                         ELSE 18
+                                       END,
+                         
+                         // Traffic adjustment for Mumbai conditions
+                         FLOAT traffic_multiplier = get_traffic_multiplier(d.current_area),
+                         INT traffic_adjusted_eta = base_eta * traffic_multiplier,
+                         
+                         // Scoring factors (Mumbai optimized)
+                         FLOAT distance_score = (5.0 - distance) * 15,  // Closer is better
+                         FLOAT rating_score = d.rating * 25,            // Higher rating preferred
+                         FLOAT acceptance_score = d.acceptance_rate * 20, // Reliable drivers
+                         FLOAT completion_score = d.completion_rate * 15, // Consistent performers
+                         
+                         // Mumbai-specific factors
+                         FLOAT local_knowledge_score = CASE 
+                                                        WHEN d.knows_shortcuts == true THEN 10
+                                                        ELSE 0
+                                                      END,
+                         
+                         FLOAT area_familiarity_score = CASE 
+                                                         WHEN get_area_name(pickup_lat, pickup_lng) IN d.preferred_areas THEN 15
+                                                         ELSE 0
+                                                       END,
+                         
+                         FLOAT experience_score = MIN(d.mumbai_experience_years, 10),
+                         
+                         // Availability and workload factors
+                         FLOAT workload_score = CASE 
+                                                 WHEN d.hours_worked_today < 6 THEN 10
+                                                 WHEN d.hours_worked_today < 10 THEN 5
+                                                 ELSE 0
+                                               END,
+                         
+                         // Language compatibility (Mumbai multilingual)
+                         FLOAT language_score = CASE 
+                                                 WHEN "Hindi" IN d.local_language_support THEN 5
+                                                 ELSE 0
+                                               END,
+                         
+                         // Rush hour and monsoon adjustments
+                         FLOAT peak_hour_bonus = CASE 
+                                                  WHEN is_peak_hour() AND d.rating > 4.5 THEN 8
+                                                  ELSE 0
+                                                END,
+                         
+                         FLOAT monsoon_bonus = CASE 
+                                                WHEN is_monsoon_season() AND d.completion_rate > 0.95 THEN 12
+                                                ELSE 0
+                                              END,
+                         
+                         // Calculate total score
+                         FLOAT total_score = distance_score + rating_score + acceptance_score + completion_score + 
+                                           local_knowledge_score + area_familiarity_score + experience_score + 
+                                           workload_score + language_score + peak_hour_bonus + monsoon_bonus,
+                         
+                         @@top_drivers += DriverMatch(d.driver_id, total_score, distance, traffic_adjusted_eta, d.name, d.rating);
+    
+    PRINT @@top_drivers;
+}
+
+// ============================================================================
+// BATCH RIDE ASSIGNMENT ALGORITHM
+// ============================================================================
+
+CREATE QUERY batch_ride_assignment() FOR GRAPH OlaRideGraph {
+    
+    // Statistics tracking
+    INT @@total_requests = 0;
+    INT @@successful_assignments = 0;
+    INT @@failed_assignments = 0;
+    
+    // Get all pending ride requests (last 2 minutes)
+    pending_requests = SELECT r FROM RideRequest:r 
+                      WHERE r.status == "SEARCHING" 
+                        AND r.request_time > datetime_sub(now(), INTERVAL 2 MINUTE);
+    
+    // Process each request with priority
+    prioritized_requests = SELECT r FROM pending_requests:r
+                          ACCUM 
+                              // Calculate priority score based on wait time and rider profile
+                              FLOAT wait_time_minutes = datetime_diff(now(), r.request_time) / 60.0,
+                              FLOAT priority_score = wait_time_minutes * 10,  // Base priority from wait time
+                              
+                              // Rider premium status bonus
+                              @@total_requests += 1
+                          ORDER BY priority_score DESC;
+    
+    // Assign drivers to high-priority requests first
+    FOREACH request IN prioritized_requests DO
+        // Get rider details
+        request_rider = SELECT rider FROM RideRequest:req -(REQUESTS_RIDE)- Rider:rider 
+                       WHERE req.request_id == request.request_id;
+        
+        // Find optimal driver using our matching algorithm
+        optimal_driver_result = find_optimal_driver(
+            request_rider.rider_id, 
+            request.pickup_lat, 
+            request.pickup_lng,
+            request.vehicle_type_requested
+        );
+        
+        // Check if we found available drivers
+        IF optimal_driver_result.size() > 0 THEN
+            best_driver = optimal_driver_result[0];
+            
+            // Create assignment relationship
+            INSERT INTO ASSIGNED_TO VALUES(
+                best_driver.driver_id, 
+                request.request_id,
+                now(),
+                best_driver.eta,
+                calculate_acceptance_probability(best_driver.score),
+                best_driver.distance
+            );
+            
+            // Update request status
+            UPDATE RideRequest SET status = "ASSIGNED", assignment_time = now() 
+            WHERE request_id == request.request_id;
+            
+            // Update driver availability
+            UPDATE Driver SET is_available = false, duty_status = "ASSIGNED"
+            WHERE driver_id == best_driver.driver_id;
+            
+            // Send push notification to driver (simulate)
+            send_driver_notification(best_driver.driver_id, request.request_id);
+            
+            @@successful_assignments += 1;
+            
+        ELSE
+            // No drivers available
+            @@failed_assignments += 1;
+            
+            // Check if we should increase surge pricing
+            IF should_increase_surge_pricing(request.pickup_area) THEN
+                increase_area_surge_multiplier(request.pickup_area);
+            END;
+        END;
+    END;
+    
+    // Return assignment statistics
+    PRINT @@total_requests as total_requests;
+    PRINT @@successful_assignments as successful_assignments;
+    PRINT @@failed_assignments as failed_assignments;
+    PRINT (@@successful_assignments * 100.0 / @@total_requests) as success_rate;
+}
+
+// ============================================================================
+// ROUTE OPTIMIZATION FOR MULTI-STOP TRIPS
+// ============================================================================
+
+CREATE QUERY optimize_multi_stop_route(STRING driver_id, SET<STRING> pickup_locations) 
+FOR GRAPH OlaRideGraph {
+    
+    TYPEDEF TUPLE<STRING location_id, FLOAT lat, FLOAT lng, INT sequence> RoutePoint;
+    ListAccum<RoutePoint> @@optimal_route;
+    
+    // Get driver's current location
+    driver_location = SELECT d FROM Driver:d WHERE d.driver_id == driver_id;
+    
+    // Get all pickup locations with coordinates
+    pickup_points = SELECT l FROM Location:l WHERE l.location_id IN pickup_locations;
+    
+    // Implement nearest neighbor TSP approximation for Mumbai traffic
+    STRING current_location = driver_id;
+    SET<STRING> unvisited = pickup_locations;
+    INT sequence_number = 1;
+    
+    // Add driver's current position as starting point
+    @@optimal_route += RoutePoint(driver_id, driver_location.current_lat, driver_location.current_lng, 0);
+    
+    // Greedy nearest neighbor with Mumbai traffic considerations
+    WHILE unvisited.size() > 0 DO
+        FLOAT min_travel_time = 999999;
+        STRING next_location = "";
+        
+        // Find nearest unvisited location considering traffic
+        FOREACH loc IN unvisited DO
+            FLOAT travel_time = calculate_mumbai_travel_time(current_location, loc);
+            
+            IF travel_time < min_travel_time THEN
+                min_travel_time = travel_time;
+                next_location = loc;
+            END;
+        END;
+        
+        // Add to route
+        next_point = SELECT l FROM Location:l WHERE l.location_id == next_location;
+        @@optimal_route += RoutePoint(next_location, next_point.lat, next_point.lng, sequence_number);
+        
+        // Update for next iteration
+        current_location = next_location;
+        unvisited = unvisited MINUS (next_location);
+        sequence_number = sequence_number + 1;
+    END;
+    
+    PRINT @@optimal_route;
+}
+
+// ============================================================================
+// PERFORMANCE ANALYTICS AND INSIGHTS
+// ============================================================================
+
+CREATE QUERY driver_performance_analytics(STRING time_period) FOR GRAPH OlaRideGraph {
+    
+    DATETIME start_time = CASE time_period
+                           WHEN "today" THEN datetime_sub(now(), INTERVAL 1 DAY)
+                           WHEN "week" THEN datetime_sub(now(), INTERVAL 7 DAY)
+                           WHEN "month" THEN datetime_sub(now(), INTERVAL 30 DAY)
+                           ELSE datetime_sub(now(), INTERVAL 1 DAY)
+                         END;
+    
+    // Analyze driver performance metrics
+    driver_stats = SELECT d.driver_id,
+                          d.name,
+                          d.vehicle_type,
+                          d.current_area,
+                          d.rating,
+                          count(t.trip_id) as trips_completed,
+                          sum(t.driver_earnings) as total_earnings,
+                          avg(t.rider_rating) as avg_rider_rating,
+                          avg(t.actual_duration) as avg_trip_duration,
+                          avg(t.route_efficiency_score) as avg_efficiency
+                   FROM Driver:d -(COMPLETED_TRIP)- Rider:r, 
+                        Trip:t
+                   WHERE t.start_time >= start_time
+                     AND t.driver_id == d.driver_id
+                   GROUP BY d.driver_id;
+    
+    // Top performers identification
+    top_performers = SELECT d.driver_id,
+                           d.name,
+                           d.total_earnings,
+                           d.avg_rider_rating,
+                           d.trips_completed,
+                           (d.total_earnings / d.trips_completed) as earnings_per_trip,
+                           CASE 
+                             WHEN d.avg_rider_rating >= 4.7 AND d.trips_completed >= 50 THEN "Star Driver"
+                             WHEN d.avg_rider_rating >= 4.5 AND d.trips_completed >= 30 THEN "Good Driver"
+                             WHEN d.avg_rider_rating >= 4.0 AND d.trips_completed >= 20 THEN "Average Driver"
+                             ELSE "Needs Improvement"
+                           END as performance_category
+                    FROM driver_stats:d
+                    ORDER BY d.total_earnings DESC, d.avg_rider_rating DESC;
+    
+    PRINT top_performers;
+}
+
+// ============================================================================
+// SURGE PRICING ALGORITHM
+// ============================================================================
+
+CREATE QUERY calculate_dynamic_pricing() FOR GRAPH OlaRideGraph {
+    
+    // Analyze demand vs supply by area
+    area_metrics = SELECT l.area_name,
+                          l.zone,
+                          count(pending_requests.request_id) as pending_demand,
+                          count(available_drivers.driver_id) as available_supply,
+                          avg(l.current_traffic_density) as traffic_level
+                   FROM Location:l,
+                        RideRequest:pending_requests,
+                        Driver:available_drivers
+                   WHERE pending_requests.pickup_area == l.area_name
+                     AND pending_requests.status == "SEARCHING"
+                     AND available_drivers.current_area == l.area_name
+                     AND available_drivers.is_available == true
+                   GROUP BY l.area_name;
+    
+    // Calculate surge multiplier
+    surge_recommendations = SELECT a.area_name,
+                                  a.pending_demand,
+                                  a.available_supply,
+                                  a.traffic_level,
+                                  CASE 
+                                    WHEN a.available_supply == 0 THEN 3.0
+                                    ELSE MAX(1.0, MIN(3.0, a.pending_demand * 1.0 / a.available_supply))
+                                  END as recommended_surge_multiplier,
+                                  CASE 
+                                    WHEN a.traffic_level > 0.8 THEN "High Traffic Surge"
+                                    WHEN a.pending_demand > a.available_supply * 2 THEN "High Demand Surge"
+                                    ELSE "Normal Pricing"
+                                  END as surge_reason
+                           FROM area_metrics:a
+                           WHERE a.pending_demand > 0;
+    
+    PRINT surge_recommendations;
+}
+
+// ============================================================================
+// UTILITY FUNCTIONS (Simulated for Demo)
+// ============================================================================
+
+/*
+// These functions would be implemented in the TigerGraph system
+CREATE FUNCTION calculate_distance(FLOAT lat1, FLOAT lng1, FLOAT lat2, FLOAT lng2) RETURNS FLOAT {
+    // Haversine formula implementation
+    RETURN sqrt(pow(lat2-lat1, 2) + pow(lng2-lng1, 2)) * 111.0;  // Simplified km calculation
+}
+
+CREATE FUNCTION get_traffic_multiplier(STRING area) RETURNS FLOAT {
+    // Mumbai traffic patterns by area and time
+    RETURN CASE 
+             WHEN area IN ["BKC", "Nariman Point", "Andheri"] AND is_peak_hour() THEN 2.0
+             WHEN is_monsoon_season() THEN 1.5
+             ELSE 1.0
+           END;
+}
+
+CREATE FUNCTION calculate_mumbai_travel_time(STRING from_loc, STRING to_loc) RETURNS FLOAT {
+    // Mumbai-specific travel time calculation considering traffic, monsoon, etc.
+    FLOAT base_time = calculate_distance_between_locations(from_loc, to_loc) * 3.0;  // 3 min per km average
+    FLOAT traffic_factor = get_current_traffic_factor();
+    RETURN base_time * traffic_factor;
+}
+
+CREATE FUNCTION is_peak_hour() RETURNS BOOL {
+    TIME current_time = time_part(now());
+    RETURN (current_time >= "08:00:00" AND current_time <= "11:00:00") OR
+           (current_time >= "18:00:00" AND current_time <= "21:00:00");
+}
+
+CREATE FUNCTION is_monsoon_season() RETURNS BOOL {
+    INT current_month = month_part(now());
+    RETURN current_month >= 6 AND current_month <= 9;  // June to September
+}
+*/

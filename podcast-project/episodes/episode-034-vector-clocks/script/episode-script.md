@@ -10,6 +10,19 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/coordination/vector-clocks.md - Comprehensive guide to vector clocks implementation and use cases
+- **Pattern Library**: docs/pattern-library/coordination/logical-clocks.md - Foundation of logical time in distributed systems  
+- **Pattern Library**: docs/pattern-library/coordination/hlc.md - Hybrid Logical Clocks as evolution of vector clocks
+- **Core Principles**: docs/core-principles/laws/asynchronous-reality.md - Understanding time and causality in async systems
+- **Case Studies**: docs/architects-handbook/case-studies/databases/amazon-dynamo.md - Vector clocks in DynamoDB for conflict resolution
+- **Excellence**: docs/excellence/migrations/vector-clocks-to-hlc.md - Migration strategies from vector clocks to hybrid logical clocks
+
+---
+
 ## Hook: Mumbai Local Train Timing Mystery (0:00 - 10:00)
 
 **[Sound Effect: Mumbai local train announcement, crowd noise]**

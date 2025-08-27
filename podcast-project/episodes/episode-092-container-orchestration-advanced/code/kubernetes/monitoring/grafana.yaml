@@ -1,0 +1,1044 @@
+# Grafana Monitoring Dashboard for Indian E-commerce Platform
+# Episode 092: Container Orchestration - Grafana
+# Context: Production-grade dashboards optimized for Indian business metrics
+
+---
+# Grafana ConfigMap for Dashboards
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: flipkart-monitoring
+  labels:
+    app: grafana
+    component: dashboards
+data:
+  flipkart-overview.json: |
+    {
+      "dashboard": {
+        "id": null,
+        "title": "Flipkart Overview - Indian E-commerce Metrics",
+        "tags": ["flipkart", "india", "ecommerce"],
+        "timezone": "Asia/Kolkata",
+        "panels": [
+          {
+            "id": 1,
+            "title": "Overall Health Status",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(up{job=~\"flipkart.*\"})",
+                "legendFormat": "Services Up"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "thresholds": {
+                  "steps": [
+                    {"color": "red", "value": 0},
+                    {"color": "yellow", "value": 5},
+                    {"color": "green", "value": 10}
+                  ]
+                }
+              }
+            },
+            "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0}
+          },
+          {
+            "id": 2,
+            "title": "Request Rate (Indian Peak Hours)",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum(rate(http_requests_total[5m]))",
+                "legendFormat": "Total Requests/sec"
+              },
+              {
+                "expr": "flipkart:indian_peak_hours:traffic",
+                "legendFormat": "Peak Hours Traffic"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 6, "y": 0},
+            "yAxes": [
+              {"label": "Requests/sec", "unit": "reqps"}
+            ]
+          },
+          {
+            "id": 3,
+            "title": "Payment Methods Distribution (India)",
+            "type": "piechart",
+            "targets": [
+              {
+                "expr": "sum by (payment_method) (rate(payment_amount_total[5m]))",
+                "legendFormat": "{{payment_method}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 6, "x": 0, "y": 4}
+          },
+          {
+            "id": 4,
+            "title": "Regional Traffic Distribution",
+            "type": "worldmap",
+            "targets": [
+              {
+                "expr": "flipkart:regional_traffic:rate5m",
+                "legendFormat": "{{region}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 18, "x": 0, "y": 12},
+            "options": {
+              "map": "india"
+            }
+          },
+          {
+            "id": 5,
+            "title": "API Response Times (95th Percentile)",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "flipkart:http_duration:p95:5m",
+                "legendFormat": "{{service}} - 95th percentile"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 0, "y": 20},
+            "yAxes": [
+              {"label": "Response Time", "unit": "s"}
+            ],
+            "alert": {
+              "conditions": [
+                {
+                  "query": {"queryType": "", "refId": "A"},
+                  "reducer": {"params": [], "type": "last"},
+                  "evaluator": {"params": [2], "type": "gt"}
+                }
+              ],
+              "executionErrorState": "alerting",
+              "noDataState": "no_data",
+              "frequency": "10s",
+              "handler": 1,
+              "name": "High API Response Time",
+              "message": "API response time is above 2 seconds"
+            }
+          },
+          {
+            "id": 6,
+            "title": "Error Rate by Service",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "flipkart:http_error_percentage:rate5m",
+                "legendFormat": "{{service}} - Error %"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 12, "y": 20},
+            "yAxes": [
+              {"label": "Error Rate", "unit": "percent"}
+            ]
+          }
+        ],
+        "time": {
+          "from": "now-1h",
+          "to": "now"
+        },
+        "refresh": "5s"
+      }
+    }
+
+  payment-dashboard.json: |
+    {
+      "dashboard": {
+        "id": null,
+        "title": "Payment Systems - Indian Financial Compliance",
+        "tags": ["payments", "india", "pci-dss", "rbi"],
+        "timezone": "Asia/Kolkata",
+        "panels": [
+          {
+            "id": 1,
+            "title": "Payment Success Rate",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(rate(payment_success_total[5m])) / sum(rate(payment_attempts_total[5m])) * 100",
+                "legendFormat": "Success Rate %"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "color": {"mode": "thresholds"},
+                "thresholds": {
+                  "steps": [
+                    {"color": "red", "value": 0},
+                    {"color": "yellow", "value": 95},
+                    {"color": "green", "value": 99}
+                  ]
+                },
+                "unit": "percent"
+              }
+            },
+            "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0}
+          },
+          {
+            "id": 2,
+            "title": "UPI vs Card vs Wallet (Indian Preference)",
+            "type": "piechart",
+            "targets": [
+              {
+                "expr": "sum by (payment_method) (rate(payment_success_total{payment_method=~\"upi|card|wallet\"}[5m]))",
+                "legendFormat": "{{payment_method}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 6, "x": 6, "y": 0}
+          },
+          {
+            "id": 3,
+            "title": "Payment Gateway Response Times",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "histogram_quantile(0.95, sum(rate(payment_gateway_duration_seconds_bucket[5m])) by (le, gateway))",
+                "legendFormat": "{{gateway}} - 95th percentile"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+            "yAxes": [
+              {"label": "Response Time", "unit": "s"}
+            ]
+          },
+          {
+            "id": 4,
+            "title": "RBI Compliance Metrics",
+            "type": "table",
+            "targets": [
+              {
+                "expr": "sum by (compliance_check) (compliance_violations_total)",
+                "legendFormat": "{{compliance_check}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+          },
+          {
+            "id": 5,
+            "title": "Payment Fraud Detection",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum(rate(fraud_detected_total[5m]))",
+                "legendFormat": "Fraud Attempts/sec"
+              },
+              {
+                "expr": "sum(rate(fraud_blocked_total[5m]))",
+                "legendFormat": "Fraud Blocked/sec"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}
+          },
+          {
+            "id": 6,
+            "title": "Daily Payment Volume (INR)",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum(increase(payment_amount_total[1d]))",
+                "legendFormat": "Daily Volume (INR)"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+            "yAxes": [
+              {"label": "Amount", "unit": "currencyINR"}
+            ]
+          }
+        ]
+      }
+    }
+
+  indian-business-metrics.json: |
+    {
+      "dashboard": {
+        "id": null,
+        "title": "Indian Business Metrics - Festival & Regional Analytics",
+        "tags": ["business", "india", "festivals", "regional"],
+        "timezone": "Asia/Kolkata",
+        "panels": [
+          {
+            "id": 1,
+            "title": "Festival Season Indicator",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "ALERTS{alertname=\"FestivalSeasonActive\"}",
+                "legendFormat": "Festival Active"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "color": {"mode": "thresholds"},
+                "thresholds": {
+                  "steps": [
+                    {"color": "green", "value": 0},
+                    {"color": "orange", "value": 1}
+                  ]
+                },
+                "mappings": [
+                  {"options": {"0": {"text": "Normal"}, "1": {"text": "Festival Season"}}}
+                ]
+              }
+            },
+            "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0}
+          },
+          {
+            "id": 2,
+            "title": "Regional Performance (Response Time)",
+            "type": "heatmap",
+            "targets": [
+              {
+                "expr": "avg by (region) (flipkart:http_duration:p95:5m)",
+                "legendFormat": "{{region}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 6, "y": 0}
+          },
+          {
+            "id": 3,
+            "title": "Indian Peak Hours vs Off-Hours Traffic",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "flipkart:indian_peak_hours:traffic",
+                "legendFormat": "Peak Hours (10 AM - 11 PM IST)"
+              },
+              {
+                "expr": "sum(rate(http_requests_total[5m])) - flipkart:indian_peak_hours:traffic",
+                "legendFormat": "Off Hours"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 18, "x": 0, "y": 8},
+            "yAxes": [
+              {"label": "Requests/sec", "unit": "reqps"}
+            ]
+          },
+          {
+            "id": 4,
+            "title": "Orders by City (Top 10 Indian Cities)",
+            "type": "bargauge",
+            "targets": [
+              {
+                "expr": "topk(10, sum by (city) (flipkart:orders:rate5m))",
+                "legendFormat": "{{city}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 9, "x": 0, "y": 16}
+          },
+          {
+            "id": 5,
+            "title": "GST Collection by State",
+            "type": "table",
+            "targets": [
+              {
+                "expr": "sum by (state) (gst_collected_total)",
+                "legendFormat": "{{state}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 9, "x": 9, "y": 16}
+          },
+          {
+            "id": 6,
+            "title": "Language Preference Distribution",
+            "type": "piechart",
+            "targets": [
+              {
+                "expr": "sum by (language) (rate(api_requests_total[5m]))",
+                "legendFormat": "{{language}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 9, "x": 0, "y": 24}
+          },
+          {
+            "id": 7,
+            "title": "COD vs Online Payment Ratio by Region",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "sum by (region) (rate(payment_success_total{payment_method=\"cod\"}[5m]))",
+                "legendFormat": "{{region}} - COD"
+              },
+              {
+                "expr": "sum by (region) (rate(payment_success_total{payment_method!=\"cod\"}[5m]))",
+                "legendFormat": "{{region}} - Online"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 9, "x": 9, "y": 24}
+          }
+        ],
+        "templating": {
+          "list": [
+            {
+              "name": "region",
+              "type": "query",
+              "query": "label_values(flipkart:regional_traffic:rate5m, region)",
+              "refresh": 2
+            },
+            {
+              "name": "festival",
+              "type": "custom",
+              "options": [
+                {"text": "Diwali", "value": "diwali"},
+                {"text": "Dussehra", "value": "dussehra"},
+                {"text": "Holi", "value": "holi"},
+                {"text": "Eid", "value": "eid"}
+              ]
+            }
+          ]
+        }
+      }
+    }
+
+---
+# Grafana Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: flipkart-monitoring
+  labels:
+    app: grafana
+    component: dashboard
+    tier: monitoring
+    region: mumbai
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: grafana
+      component: dashboard
+  template:
+    metadata:
+      labels:
+        app: grafana
+        component: dashboard
+        tier: monitoring
+        region: mumbai
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3000"
+        prometheus.io/path: "/metrics"
+    spec:
+      # Security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 472
+        fsGroup: 472
+      
+      # Node affinity
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: ["ap-south-1"]
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values: ["grafana"]
+              topologyKey: kubernetes.io/hostname
+      
+      containers:
+      - name: grafana
+        image: grafana/grafana:10.1.0
+        imagePullPolicy: IfNotPresent
+        
+        ports:
+        - name: web
+          containerPort: 3000
+          protocol: TCP
+        
+        env:
+        # Indian timezone and locale
+        - name: TZ
+          value: "Asia/Kolkata"
+        - name: GF_SERVER_ROOT_URL
+          value: "https://grafana.flipkart.internal"
+        - name: GF_SERVER_DOMAIN
+          value: "grafana.flipkart.internal"
+        
+        # Security configuration
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: monitoring-credentials
+              key: grafana-admin-password
+        - name: GF_SECURITY_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secret-key
+              key: secret-key
+        - name: GF_USERS_ALLOW_SIGN_UP
+          value: "false"
+        - name: GF_USERS_ALLOW_ORG_CREATE
+          value: "false"
+        - name: GF_AUTH_DISABLE_LOGIN_FORM
+          value: "false"
+        
+        # Database configuration
+        - name: GF_DATABASE_TYPE
+          value: "postgres"
+        - name: GF_DATABASE_HOST
+          value: "postgres-primary:5432"
+        - name: GF_DATABASE_NAME
+          value: "grafana"
+        - name: GF_DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: username
+        - name: GF_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-credentials
+              key: password
+        
+        # Session configuration
+        - name: GF_SESSION_PROVIDER
+          value: "redis"
+        - name: GF_SESSION_PROVIDER_CONFIG
+          value: "addr=redis-cluster:6379,pool_size=100,db=grafana"
+        
+        # SMTP configuration for Indian alerts
+        - name: GF_SMTP_ENABLED
+          value: "true"
+        - name: GF_SMTP_HOST
+          value: "smtp.gmail.com:587"
+        - name: GF_SMTP_FROM_ADDRESS
+          value: "alerts@flipkart.com"
+        - name: GF_SMTP_FROM_NAME
+          value: "Flipkart Monitoring"
+        
+        # Plugin configuration
+        - name: GF_INSTALL_PLUGINS
+          value: "grafana-piechart-panel,grafana-worldmap-panel,grafana-polystat-panel,grafana-clock-panel,grafana-simple-json-datasource"
+        
+        # Indian business configuration
+        - name: GF_DEFAULT_THEME
+          value: "dark"
+        - name: GF_TIMEZONE
+          value: "Asia/Kolkata"
+        - name: GF_DATE_FORMATS_DEFAULT_TIMEZONE
+          value: "Asia/Kolkata"
+        
+        # Performance tuning
+        - name: GF_ALERTING_ENABLED
+          value: "true"
+        - name: GF_ALERTING_EXECUTE_ALERTS
+          value: "true"
+        - name: GF_METRICS_ENABLED
+          value: "true"
+        - name: GF_METRICS_BASIC_AUTH_USERNAME
+          value: "admin"
+        - name: GF_METRICS_BASIC_AUTH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: monitoring-credentials
+              key: prometheus-password
+        
+        # Indian compliance
+        - name: GF_SECURITY_COOKIE_SECURE
+          value: "true"
+        - name: GF_SECURITY_COOKIE_SAMESITE
+          value: "strict"
+        - name: GF_LOG_LEVEL
+          value: "info"
+        
+        # Resources optimized for Indian infrastructure
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
+        
+        volumeMounts:
+        - name: grafana-storage
+          mountPath: /var/lib/grafana
+        - name: grafana-dashboards
+          mountPath: /etc/grafana/provisioning/dashboards
+          readOnly: true
+        - name: grafana-datasources
+          mountPath: /etc/grafana/provisioning/datasources
+          readOnly: true
+        - name: grafana-config
+          mountPath: /etc/grafana/grafana.ini
+          subPath: grafana.ini
+          readOnly: true
+        
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 30
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 3
+        
+        # Security context
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop:
+            - ALL
+      
+      volumes:
+      - name: grafana-storage
+        persistentVolumeClaim:
+          claimName: grafana-storage
+      - name: grafana-dashboards
+        configMap:
+          name: grafana-dashboards
+      - name: grafana-datasources
+        configMap:
+          name: grafana-datasources
+      - name: grafana-config
+        configMap:
+          name: grafana-config
+      
+      terminationGracePeriodSeconds: 30
+
+---
+# Grafana Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: flipkart-monitoring
+  labels:
+    app: grafana
+    component: dashboard
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-private-1a,subnet-mumbai-private-1b"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: web
+    port: 80
+    targetPort: 3000
+    protocol: TCP
+  selector:
+    app: grafana
+    component: dashboard
+  # Internal access only
+  loadBalancerSourceRanges:
+  - "10.0.0.0/8"
+  - "172.16.0.0/12"
+  - "192.168.0.0/16"
+
+---
+# Grafana Storage PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-storage
+  namespace: flipkart-monitoring
+  labels:
+    app: grafana
+    component: dashboard
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: gp3
+
+---
+# Grafana Datasources ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: flipkart-monitoring
+  labels:
+    app: grafana
+    component: datasources
+data:
+  datasources.yaml: |
+    apiVersion: 1
+    
+    deleteDatasources:
+      - name: Prometheus
+        orgId: 1
+    
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        orgId: 1
+        url: http://prometheus:9090
+        basicAuth: false
+        isDefault: true
+        editable: true
+        jsonData:
+          httpMethod: POST
+          timeInterval: "5s"
+          queryTimeout: "60s"
+          tlsSkipVerify: false
+        secureJsonData:
+          basicAuthPassword: ""
+      
+      - name: Prometheus-Payment
+        type: prometheus
+        access: proxy
+        orgId: 1
+        url: http://prometheus:9090
+        basicAuth: true
+        basicAuthUser: admin
+        editable: false
+        jsonData:
+          httpMethod: POST
+          timeInterval: "5s"
+          queryTimeout: "30s"
+          tlsSkipVerify: false
+          manageAlerts: true
+          alertmanagerUid: alertmanager
+        secureJsonData:
+          basicAuthPassword: ${PROMETHEUS_PASSWORD}
+      
+      - name: Loki
+        type: loki
+        access: proxy
+        orgId: 1
+        url: http://loki:3100
+        basicAuth: false
+        editable: true
+        jsonData:
+          maxLines: 1000
+          derivedFields:
+            - datasourceUid: jaeger
+              matcherRegex: "trace_id=(\\w+)"
+              name: "TraceID"
+              url: "/jaeger/trace/$${__value.raw}"
+      
+      - name: Jaeger
+        type: jaeger
+        access: proxy
+        orgId: 1
+        url: http://jaeger-query:16686
+        basicAuth: false
+        editable: true
+        uid: jaeger
+        jsonData:
+          tracesToLogs:
+            datasourceUid: loki
+            tags: ["job", "instance", "pod", "namespace"]
+            mappedTags: [{"key": "service.name", "value": "service"}]
+            mapTagNamesEnabled: false
+            spanStartTimeShift: "1h"
+            spanEndTimeShift: "1h"
+      
+      - name: ElasticSearch-Logs
+        type: elasticsearch
+        access: proxy
+        orgId: 1
+        url: http://elasticsearch:9200
+        database: "logstash-*"
+        basicAuth: true
+        basicAuthUser: elastic
+        editable: true
+        jsonData:
+          interval: "Daily"
+          timeField: "@timestamp"
+          esVersion: "8.0.0"
+          maxConcurrentShardRequests: 5
+          logMessageField: "message"
+          logLevelField: "level"
+        secureJsonData:
+          basicAuthPassword: ${ELASTICSEARCH_PASSWORD}
+
+---
+# Grafana Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: flipkart-monitoring
+  labels:
+    app: grafana
+    component: config
+data:
+  grafana.ini: |
+    ##################### Grafana Configuration for Indian E-commerce #####################
+    
+    [default]
+    instance_name = flipkart-grafana-mumbai
+    
+    [paths]
+    data = /var/lib/grafana/
+    logs = /var/log/grafana
+    plugins = /var/lib/grafana/plugins
+    provisioning = /etc/grafana/provisioning
+    
+    [server]
+    protocol = http
+    http_addr = 0.0.0.0
+    http_port = 3000
+    domain = grafana.flipkart.internal
+    enforce_domain = false
+    root_url = https://grafana.flipkart.internal/
+    serve_from_sub_path = false
+    router_logging = false
+    static_root_path = public
+    enable_gzip = true
+    cert_file =
+    cert_key =
+    socket =
+    cdn_url =
+    read_timeout = 0
+    
+    [database]
+    type = postgres
+    host = postgres-primary:5432
+    name = grafana
+    user = ${GF_DATABASE_USER}
+    password = ${GF_DATABASE_PASSWORD}
+    ssl_mode = require
+    ca_cert_path =
+    client_key_path =
+    client_cert_path =
+    server_cert_name =
+    path = grafana.db
+    max_idle_conn = 2
+    max_open_conn = 10
+    conn_max_lifetime = 14400
+    log_queries =
+    cache_mode = private
+    
+    [session]
+    provider = redis
+    provider_config = addr=redis-cluster:6379,pool_size=100,db=grafana
+    cookie_name = grafana_sess
+    cookie_secure = true
+    session_life_time = 86400
+    gc_interval_time = 86400
+    conn_max_lifetime = 14400
+    
+    [dataproxy]
+    logging = false
+    timeout = 30
+    send_user_header = false
+    
+    [analytics]
+    reporting_enabled = false
+    check_for_updates = false
+    google_analytics_ua_id =
+    google_tag_manager_id =
+    rudderstack_write_key =
+    rudderstack_data_plane_url =
+    rudderstack_sdk_url =
+    rudderstack_config_url =
+    
+    [security]
+    disable_initial_admin_creation = false
+    admin_user = admin
+    admin_password = ${GF_SECURITY_ADMIN_PASSWORD}
+    secret_key = ${GF_SECURITY_SECRET_KEY}
+    login_remember_days = 7
+    cookie_username = grafana_user
+    cookie_remember_name = grafana_remember
+    disable_gravatar = false
+    data_source_proxy_whitelist =
+    disable_brute_force_login_protection = false
+    cookie_secure = true
+    cookie_samesite = strict
+    allow_embedding = false
+    strict_transport_security = true
+    strict_transport_security_max_age_seconds = 86400
+    strict_transport_security_preload = false
+    strict_transport_security_subdomains = false
+    x_content_type_options = true
+    x_xss_protection = true
+    content_security_policy = true
+    content_security_policy_template = """script-src 'self' 'unsafe-eval' 'unsafe-inline' 'strict-dynamic' $NONCE;object-src 'none';font-src 'self';style-src 'self' 'unsafe-inline' blob:;img-src * data:;base-uri 'self';connect-src 'self' grafana.com ws://localhost:3000/ wss://localhost:3000/;manifest-src 'self';media-src 'none';form-action 'self';"""
+    
+    [snapshots]
+    external_enabled = false
+    external_snapshot_url = https://snapshots-origin.raintank.io
+    external_snapshot_name = Publish to snapshot.raintank.io
+    snapshot_remove_expired = true
+    
+    [dashboards]
+    versions_to_keep = 20
+    min_refresh_interval = 5s
+    default_home_dashboard_path =
+    
+    [users]
+    allow_sign_up = false
+    allow_org_create = false
+    auto_assign_org = true
+    auto_assign_org_id = 1
+    auto_assign_org_role = Viewer
+    verify_email_enabled = false
+    login_hint = email or username
+    password_hint = password
+    default_theme = dark
+    home_page =
+    external_manage_link_url =
+    external_manage_link_name =
+    external_manage_info =
+    viewers_can_edit = false
+    editors_can_admin = false
+    user_invite_max_lifetime_duration = 24h
+    
+    [auth]
+    login_cookie_name = grafana_session
+    login_maximum_inactive_lifetime_duration =
+    login_maximum_lifetime_duration =
+    token_rotation_interval_minutes = 10
+    disable_login_form = false
+    disable_signout_menu = false
+    signout_redirect_url =
+    oauth_auto_login = false
+    oauth_state_cookie_max_age = 600
+    api_key_max_seconds_to_live = -1
+    
+    [auth.anonymous]
+    enabled = false
+    org_name = Main Org.
+    org_role = Viewer
+    hide_version = false
+    
+    [auth.basic]
+    enabled = true
+    
+    [auth.ldap]
+    enabled = false
+    config_file = /etc/grafana/ldap.toml
+    allow_sign_up = true
+    sync_cron = "0 0 1 * * *"
+    active_sync_enabled = true
+    
+    [smtp]
+    enabled = ${GF_SMTP_ENABLED}
+    host = ${GF_SMTP_HOST}
+    user =
+    password =
+    cert_file =
+    key_file =
+    skip_verify = false
+    from_address = ${GF_SMTP_FROM_ADDRESS}
+    from_name = ${GF_SMTP_FROM_NAME}
+    ehlo_identity = dashboard.flipkart.internal
+    startTLS_policy =
+    
+    [emails]
+    welcome_email_on_sign_up = false
+    templates_pattern = emails/*.html, emails/*.txt
+    content_types = text/html
+    
+    [log]
+    mode = console file
+    level = info
+    filters =
+    
+    [log.console]
+    level =
+    format = console
+    
+    [log.file]
+    level =
+    format = text
+    log_rotate = true
+    max_lines = 1000000
+    max_size_shift = 28
+    daily_rotate = true
+    max_days = 7
+    
+    [metrics]
+    enabled = true
+    interval_seconds = 10
+    disable_total_stats = false
+    basic_auth_username = admin
+    basic_auth_password = ${GF_METRICS_BASIC_AUTH_PASSWORD}
+    
+    [metrics.graphite]
+    address =
+    prefix = prod.grafana.%(instance_name)s.
+    
+    [tracing.jaeger]
+    address = jaeger-agent:6831
+    always_included_tag = tag1:value1
+    sampler_type = const
+    sampler_param = 1
+    zipkin_propagation = false
+    disable_shared_zipkin_spans = false
+    
+    [grafana_net]
+    url = https://grafana.net
+    
+    [alerting]
+    enabled = true
+    execute_alerts = true
+    error_or_timeout = alerting
+    nodata_or_nullvalues = no_data
+    concurrent_render_limit = 5
+    evaluation_timeout_seconds = 30
+    notification_timeout_seconds = 30
+    max_attempts = 3
+    min_interval_seconds = 1
+    max_annotation_age =
+    max_annotations_to_keep =
+    
+    [explore]
+    enabled = true
+    
+    [panels]
+    enable_alpha = false
+    disable_sanitize_html = false
+    
+    [plugins]
+    enable_alpha = false
+    app_tls_skip_verify_insecure = false
+    allow_loading_unsigned_plugins =
+    marketplace_url = https://grafana.com/grafana/plugins/
+    
+    [enterprise]
+    license_path =
+    
+    [feature_toggles]
+    enable = 
+    
+    [date_formats]
+    full_date = MMM Do, YYYY hh:mm:ss a
+    interval_second = hh:mm:ss a
+    interval_minute = hh:mm a
+    interval_hour = MM/DD hh:mm a
+    interval_day = MM/DD
+    interval_month = YYYY-MM
+    interval_year = YYYY
+    use_browser_locale = false
+    default_timezone = Asia/Kolkata

@@ -3,6 +3,19 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Core Principles**: docs/core-principles/laws/emergent-chaos.md - Understanding how gossip protocols exhibit emergent behavior in distributed systems
+- **Core Principles**: docs/core-principles/laws/asynchronous-reality.md - How gossip protocols handle asynchronous communication and eventual consistency
+- **Pattern Library**: docs/pattern-library/communication/publish-subscribe.md - Relationship between gossip protocols and pub-sub patterns
+- **Case Studies**: docs/architects-handbook/case-studies/databases/cassandra.md - Real-world implementation of gossip protocols in Cassandra
+- **Case Studies**: docs/architects-handbook/case-studies/messaging-streaming/kafka.md - How Kafka uses gossip-like mechanisms for cluster management
+- **Analysis**: docs/analysis/queueing-models.md - Mathematical modeling of information propagation in gossip protocols
+
+---
+
 ### Opening: Mumbai Local Train Ka Gossip Network
 
 *[Sound of Mumbai local train announcer, followed by chatter and bustling sounds]*

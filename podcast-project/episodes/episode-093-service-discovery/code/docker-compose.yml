@@ -1,0 +1,1155 @@
+# Episode 093: Service Discovery & Load Balancing
+# Advanced service discovery patterns for Indian e-commerce scale
+# Context: Swiggy/Zomato style multi-city service mesh
+# Focus: Dynamic service registration, health checks, and intelligent routing
+
+version: '3.8'
+
+services:
+  # =================================================================
+  # SERVICE DISCOVERY CONTROL PLANE
+  # =================================================================
+
+  # Consul - Primary Service Registry (Mumbai)
+  consul-mumbai:
+    image: consul:1.16
+    container_name: swiggy-consul-mumbai
+    ports:
+      - "8500:8500"     # HTTP API
+      - "8600:8600/udp" # DNS interface
+      - "8300:8300"     # Server RPC
+      - "8301:8301"     # Serf LAN
+      - "8302:8302"     # Serf WAN
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+      - CONSUL_LOCAL_CONFIG={"datacenter":"mumbai","server":true,"ui_config":{"enabled":true},"connect":{"enabled":true},"log_level":"INFO","node_name":"consul-mumbai-1","retry_join":["consul-delhi","consul-bangalore"]}
+    volumes:
+      - consul-mumbai-data:/consul/data
+      - consul-mumbai-config:/consul/config
+      - ./config/consul/mumbai:/consul/config/local:ro
+    networks:
+      - mumbai-region
+      - service-discovery
+      - multi-region
+    command: >
+      consul agent 
+      -server 
+      -bootstrap-expect=3
+      -ui 
+      -client=0.0.0.0
+      -bind=0.0.0.0
+      -datacenter=mumbai
+      -node=consul-mumbai-1
+    healthcheck:
+      test: ["CMD", "consul", "members"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    labels:
+      - "service=consul"
+      - "datacenter=mumbai"
+      - "role=server"
+      - "cost-tier=high"
+
+  # Consul - Secondary Registry (Delhi)
+  consul-delhi:
+    image: consul:1.16
+    container_name: swiggy-consul-delhi
+    ports:
+      - "8501:8500"
+      - "8601:8600/udp"
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+      - CONSUL_LOCAL_CONFIG={"datacenter":"delhi","server":true,"ui_config":{"enabled":true},"connect":{"enabled":true},"log_level":"INFO","node_name":"consul-delhi-1","retry_join":["consul-mumbai","consul-bangalore"]}
+    volumes:
+      - consul-delhi-data:/consul/data
+      - consul-delhi-config:/consul/config
+      - ./config/consul/delhi:/consul/config/local:ro
+    networks:
+      - delhi-region
+      - service-discovery
+      - multi-region
+    command: >
+      consul agent 
+      -server 
+      -bootstrap-expect=3
+      -ui 
+      -client=0.0.0.0
+      -bind=0.0.0.0
+      -datacenter=delhi
+      -node=consul-delhi-1
+      -retry-join=consul-mumbai
+    depends_on:
+      - consul-mumbai
+    labels:
+      - "service=consul"
+      - "datacenter=delhi"
+      - "role=server"
+
+  # Consul - Tertiary Registry (Bangalore)
+  consul-bangalore:
+    image: consul:1.16
+    container_name: swiggy-consul-bangalore
+    ports:
+      - "8502:8500"
+      - "8602:8600/udp"
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+      - CONSUL_LOCAL_CONFIG={"datacenter":"bangalore","server":true,"ui_config":{"enabled":true},"connect":{"enabled":true},"log_level":"INFO","node_name":"consul-bangalore-1","retry_join":["consul-mumbai","consul-delhi"]}
+    volumes:
+      - consul-bangalore-data:/consul/data
+      - consul-bangalore-config:/consul/config
+      - ./config/consul/bangalore:/consul/config/local:ro
+    networks:
+      - bangalore-region
+      - service-discovery
+      - multi-region
+    command: >
+      consul agent 
+      -server 
+      -bootstrap-expect=3
+      -ui 
+      -client=0.0.0.0
+      -bind=0.0.0.0
+      -datacenter=bangalore
+      -node=consul-bangalore-1
+      -retry-join=consul-mumbai
+    depends_on:
+      - consul-mumbai
+    labels:
+      - "service=consul"
+      - "datacenter=bangalore"
+      - "role=server"
+
+  # =================================================================
+  # ALTERNATIVE SERVICE DISCOVERY - ETCD
+  # =================================================================
+
+  # ETCD Cluster for Kubernetes-style service discovery
+  etcd-discovery:
+    image: quay.io/coreos/etcd:v3.5.9
+    container_name: swiggy-etcd-discovery
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    environment:
+      - ETCD_NAME=etcd-discovery
+      - ETCD_INITIAL_CLUSTER=etcd-discovery=http://etcd-discovery:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=swiggy-discovery
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd-discovery:2379
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd-discovery:2380
+      - ETCD_AUTO_COMPACTION_RETENTION=1
+    volumes:
+      - etcd-discovery-data:/etcd-data
+    networks:
+      - service-discovery
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=etcd"
+      - "role=service-discovery"
+
+  # =================================================================
+  # ZOOKEEPER - ALTERNATIVE COORDINATION SERVICE
+  # =================================================================
+
+  # Zookeeper for service coordination
+  zookeeper-discovery:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: swiggy-zookeeper
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+      - ZOOKEEPER_INIT_LIMIT=5
+      - ZOOKEEPER_SYNC_LIMIT=2
+      - ZOOKEEPER_SERVERS=zookeeper-discovery:2888:3888
+    volumes:
+      - zookeeper-discovery-data:/var/lib/zookeeper/data
+      - zookeeper-discovery-logs:/var/lib/zookeeper/log
+    networks:
+      - service-discovery
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "2181"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    labels:
+      - "service=zookeeper"
+      - "role=coordination"
+
+  # =================================================================
+  # LOAD BALANCERS WITH SERVICE DISCOVERY INTEGRATION
+  # =================================================================
+
+  # HAProxy with Consul Template
+  haproxy-consul:
+    build:
+      context: ./haproxy-consul
+      dockerfile: Dockerfile
+    container_name: swiggy-haproxy-consul
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Stats
+    environment:
+      - CONSUL_URL=consul-mumbai:8500
+      - CONSUL_TOKEN=${CONSUL_TOKEN}
+      - HAPROXY_RELOAD_DELAY=5s
+    volumes:
+      - ./config/haproxy/consul-template.hcl:/etc/consul-template/config.hcl:ro
+      - ./config/haproxy/haproxy.cfg.tmpl:/etc/haproxy/haproxy.cfg.tmpl:ro
+      - ./certs/haproxy:/etc/ssl/certs:ro
+    networks:
+      - mumbai-region
+      - service-discovery
+      - public-facing
+    depends_on:
+      - consul-mumbai
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/stats"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=haproxy"
+      - "integration=consul"
+      - "role=load-balancer"
+
+  # NGINX with Consul Template
+  nginx-consul:
+    build:
+      context: ./nginx-consul
+      dockerfile: Dockerfile
+    container_name: swiggy-nginx-consul
+    ports:
+      - "8000:80"
+      - "8443:443"
+    environment:
+      - CONSUL_URL=consul-mumbai:8500
+      - NGINX_RELOAD_SIGNAL=HUP
+    volumes:
+      - ./config/nginx/consul-template.hcl:/etc/consul-template/config.hcl:ro
+      - ./config/nginx/nginx.conf.tmpl:/etc/nginx/templates/nginx.conf.tmpl:ro
+      - ./certs/nginx:/etc/ssl/certs:ro
+    networks:
+      - mumbai-region
+      - service-discovery
+      - public-facing
+    depends_on:
+      - consul-mumbai
+    labels:
+      - "service=nginx"
+      - "integration=consul"
+      - "role=reverse-proxy"
+
+  # Envoy with xDS API
+  envoy-xds:
+    image: envoyproxy/envoy:v1.28.0
+    container_name: swiggy-envoy-xds
+    ports:
+      - "8001:80"
+      - "9901:9901"  # Admin interface
+    environment:
+      - XDS_SERVER_URL=consul-mumbai:8500
+      - ENVOY_LOG_LEVEL=info
+    volumes:
+      - ./config/envoy/envoy-xds.yaml:/etc/envoy/envoy.yaml:ro
+    networks:
+      - mumbai-region
+      - service-discovery
+    depends_on:
+      - consul-mumbai
+    command: ["envoy", "-c", "/etc/envoy/envoy.yaml", "--service-cluster", "swiggy-envoy"]
+    labels:
+      - "service=envoy"
+      - "integration=xds"
+      - "role=proxy"
+
+  # =================================================================
+  # MICROSERVICES WITH SELF-REGISTRATION
+  # =================================================================
+
+  # Restaurant Service - Auto-registers with Consul
+  restaurant-service-mumbai-1:
+    build:
+      context: ./services/restaurant-service
+      dockerfile: Dockerfile
+    container_name: swiggy-restaurant-mumbai-1
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVICE_NAME=restaurant-service
+      - SERVICE_VERSION=v2.1.0
+      - SERVICE_PORT=8080
+      - SERVICE_ID=restaurant-mumbai-1
+      - DATACENTER=mumbai
+      - ZONE=mumbai-west
+      - CONSUL_URL=consul-mumbai:8500
+      - CONSUL_REGISTER=true
+      - HEALTH_CHECK_INTERVAL=10s
+      - HEALTH_CHECK_URL=http://localhost:8080/health
+      - DATABASE_URL=postgresql://swiggy:swiggy123@postgres-mumbai:5432/restaurants
+      - REDIS_URL=redis://redis-mumbai:6379/0
+      - FEATURE_MULTI_CITY=true
+      - INDIAN_REGIONS=mumbai,delhi,bangalore,hyderabad,kolkata,chennai,pune
+    volumes:
+      - ./config/restaurant-service:/app/config:ro
+      - restaurant-logs:/app/logs
+    networks:
+      - mumbai-region
+      - service-discovery
+      - application-tier
+    depends_on:
+      - consul-mumbai
+      - postgres-mumbai
+      - redis-mumbai
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    labels:
+      - "service=restaurant-service"
+      - "version=v2.1.0"
+      - "datacenter=mumbai"
+      - "zone=mumbai-west"
+      - "instance=1"
+      - "auto-discovery=consul"
+
+  # Restaurant Service - Instance 2
+  restaurant-service-mumbai-2:
+    build:
+      context: ./services/restaurant-service
+      dockerfile: Dockerfile
+    container_name: swiggy-restaurant-mumbai-2
+    ports:
+      - "8081:8080"
+    environment:
+      - SERVICE_NAME=restaurant-service
+      - SERVICE_VERSION=v2.1.0
+      - SERVICE_PORT=8080
+      - SERVICE_ID=restaurant-mumbai-2
+      - DATACENTER=mumbai
+      - ZONE=mumbai-east
+      - CONSUL_URL=consul-mumbai:8500
+      - CONSUL_REGISTER=true
+      - HEALTH_CHECK_INTERVAL=10s
+      - DATABASE_URL=postgresql://swiggy:swiggy123@postgres-mumbai:5432/restaurants
+      - REDIS_URL=redis://redis-mumbai:6379/0
+    volumes:
+      - ./config/restaurant-service:/app/config:ro
+    networks:
+      - mumbai-region
+      - service-discovery
+      - application-tier
+    depends_on:
+      - consul-mumbai
+      - postgres-mumbai
+      - redis-mumbai
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=restaurant-service"
+      - "version=v2.1.0"
+      - "datacenter=mumbai"
+      - "zone=mumbai-east"
+      - "instance=2"
+
+  # Order Service - Cross-region deployment
+  order-service-mumbai:
+    build:
+      context: ./services/order-service
+      dockerfile: Dockerfile
+    container_name: swiggy-order-mumbai
+    ports:
+      - "8090:8080"
+    environment:
+      - SERVICE_NAME=order-service
+      - SERVICE_VERSION=v3.0.0
+      - SERVICE_PORT=8080
+      - SERVICE_ID=order-mumbai-1
+      - DATACENTER=mumbai
+      - CONSUL_URL=consul-mumbai:8500
+      - CONSUL_REGISTER=true
+      - RESTAURANT_SERVICE_URL=consul://restaurant-service
+      - PAYMENT_SERVICE_URL=consul://payment-service
+      - DELIVERY_SERVICE_URL=consul://delivery-service
+      - KAFKA_BROKERS=kafka-mumbai:9092
+      - DATABASE_URL=postgresql://swiggy:swiggy123@postgres-mumbai:5432/orders
+      - CIRCUIT_BREAKER_ENABLED=true
+      - RETRY_ENABLED=true
+      - TIMEOUT_MS=5000
+    volumes:
+      - ./config/order-service:/app/config:ro
+      - order-logs:/app/logs
+    networks:
+      - mumbai-region
+      - service-discovery
+      - application-tier
+    depends_on:
+      - consul-mumbai
+      - restaurant-service-mumbai-1
+      - postgres-mumbai
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=order-service"
+      - "version=v3.0.0"
+      - "datacenter=mumbai"
+      - "tier=business-critical"
+
+  # Payment Service - PCI Compliant with discovery
+  payment-service:
+    build:
+      context: ./services/payment-service
+      dockerfile: Dockerfile
+    container_name: swiggy-payment
+    ports:
+      - "8100:8080"
+    environment:
+      - SERVICE_NAME=payment-service
+      - SERVICE_VERSION=v4.1.0
+      - SERVICE_PORT=8080
+      - SERVICE_ID=payment-mumbai-1
+      - DATACENTER=mumbai
+      - CONSUL_URL=consul-mumbai:8500
+      - CONSUL_REGISTER=true
+      - VAULT_URL=http://vault:8200
+      - VAULT_TOKEN=${VAULT_TOKEN}
+      - DATABASE_URL=postgresql://swiggy:swiggy123@postgres-payment:5432/payments
+      - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}
+      - PAYTM_MERCHANT_ID=${PAYTM_MERCHANT_ID}
+      - UPI_GATEWAY_URL=https://api.npci.org.in/upi
+      - PCI_COMPLIANCE_MODE=true
+      - TLS_REQUIRED=true
+    volumes:
+      - ./config/payment-service:/app/config:ro
+      - ./certs/payment:/app/certs:ro
+      - payment-logs:/app/logs
+    networks:
+      - mumbai-region
+      - service-discovery
+      - secure-payment
+    depends_on:
+      - consul-mumbai
+      - vault
+      - postgres-payment
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:8443/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    labels:
+      - "service=payment-service"
+      - "version=v4.1.0"
+      - "security=pci-compliant"
+      - "tier=critical"
+
+  # Delivery Service - With GPS tracking
+  delivery-service:
+    build:
+      context: ./services/delivery-service
+      dockerfile: Dockerfile
+    container_name: swiggy-delivery
+    ports:
+      - "8110:8080"
+    environment:
+      - SERVICE_NAME=delivery-service
+      - SERVICE_VERSION=v2.3.0
+      - SERVICE_PORT=8080
+      - SERVICE_ID=delivery-mumbai-1
+      - DATACENTER=mumbai
+      - CONSUL_URL=consul-mumbai:8500
+      - CONSUL_REGISTER=true
+      - REDIS_URL=redis://redis-mumbai:6379/2
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
+      - HERE_MAPS_API_KEY=${HERE_MAPS_API_KEY}
+      - GPS_TRACKING_ENABLED=true
+      - REAL_TIME_UPDATES=true
+      - KAFKA_BROKERS=kafka-mumbai:9092
+    volumes:
+      - ./config/delivery-service:/app/config:ro
+    networks:
+      - mumbai-region
+      - service-discovery
+      - application-tier
+    depends_on:
+      - consul-mumbai
+      - redis-mumbai
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=delivery-service"
+      - "version=v2.3.0"
+      - "feature=gps-tracking"
+
+  # =================================================================
+  # SERVICE MESH INTEGRATION
+  # =================================================================
+
+  # Consul Connect - Service Mesh
+  consul-connect-proxy:
+    image: consul:1.16
+    container_name: swiggy-connect-proxy
+    environment:
+      - CONSUL_HTTP_ADDR=consul-mumbai:8500
+    volumes:
+      - ./config/consul-connect:/consul/config:ro
+    networks:
+      - service-discovery
+      - service-mesh
+    depends_on:
+      - consul-mumbai
+    command: >
+      consul connect proxy 
+      -service restaurant-service 
+      -upstream order-service:8080
+      -log-level INFO
+    labels:
+      - "service=consul-connect"
+      - "type=sidecar-proxy"
+
+  # =================================================================
+  # DATABASE AND INFRASTRUCTURE
+  # =================================================================
+
+  # PostgreSQL - Mumbai
+  postgres-mumbai:
+    image: postgres:15-alpine
+    container_name: swiggy-postgres-mumbai
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=swiggy
+      - POSTGRES_USER=swiggy
+      - POSTGRES_PASSWORD=swiggy123
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=en_IN.UTF-8
+    volumes:
+      - postgres-mumbai-data:/var/lib/postgresql/data
+      - ./config/postgres/init-scripts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - mumbai-region
+      - data-tier
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U swiggy -d swiggy"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "region=mumbai"
+      - "tier=data"
+
+  # PostgreSQL - Payment (Isolated)
+  postgres-payment:
+    image: postgres:15-alpine
+    container_name: swiggy-postgres-payment
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=payments
+      - POSTGRES_USER=swiggy
+      - POSTGRES_PASSWORD=swiggy123
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+    volumes:
+      - postgres-payment-data:/var/lib/postgresql/data
+      - ./config/postgres/payment-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - secure-payment
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U swiggy -d payments"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "service=postgresql"
+      - "purpose=payment"
+      - "security=isolated"
+
+  # Redis - Mumbai
+  redis-mumbai:
+    image: redis:7-alpine
+    container_name: swiggy-redis-mumbai
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server 
+      --requirepass swiggy123
+      --appendonly yes
+      --maxmemory 1gb
+      --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-mumbai-data:/data
+    networks:
+      - mumbai-region
+      - data-tier
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "swiggy123", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    labels:
+      - "service=redis"
+      - "region=mumbai"
+      - "tier=cache"
+
+  # Kafka - Event Streaming
+  kafka-mumbai:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: swiggy-kafka-mumbai
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-discovery:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-mumbai:9092,PLAINTEXT_HOST://localhost:29092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+    volumes:
+      - kafka-mumbai-data:/var/lib/kafka/data
+    networks:
+      - mumbai-region
+      - streaming
+    depends_on:
+      - zookeeper-discovery
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "service=kafka"
+      - "region=mumbai"
+      - "tier=streaming"
+
+  # =================================================================
+  # SECURITY AND SECRETS MANAGEMENT
+  # =================================================================
+
+  # HashiCorp Vault
+  vault:
+    image: hashicorp/vault:1.15
+    container_name: swiggy-vault
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=swiggy-root-token
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+      - VAULT_API_ADDR=http://0.0.0.0:8200
+    volumes:
+      - vault-data:/vault/data
+      - vault-logs:/vault/logs
+      - ./config/vault:/vault/config:ro
+    networks:
+      - service-discovery
+      - secure-payment
+    cap_add:
+      - IPC_LOCK
+    healthcheck:
+      test: ["CMD", "vault", "status"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "service=vault"
+      - "tier=security"
+
+  # =================================================================
+  # MONITORING AND OBSERVABILITY
+  # =================================================================
+
+  # Prometheus with Consul SD
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: swiggy-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus/prometheus-consul.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - mumbai-region
+      - service-discovery
+      - monitoring
+    depends_on:
+      - consul-mumbai
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=15d'
+    labels:
+      - "service=prometheus"
+      - "integration=consul-sd"
+
+  # Grafana with Service Discovery Dashboards
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: swiggy-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=swiggy123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/service-discovery-dashboards:/var/lib/grafana/dashboards:ro
+      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - mumbai-region
+      - monitoring
+    depends_on:
+      - prometheus
+    labels:
+      - "service=grafana"
+      - "dashboards=service-discovery"
+
+  # Consul Exporter for Prometheus
+  consul-exporter:
+    image: prom/consul-exporter:v0.10.0
+    container_name: swiggy-consul-exporter
+    ports:
+      - "9107:9107"
+    command:
+      - '--consul.server=consul-mumbai:8500'
+      - '--consul.timeout=5s'
+      - '--web.listen-address=0.0.0.0:9107'
+    networks:
+      - service-discovery
+      - monitoring
+    depends_on:
+      - consul-mumbai
+    labels:
+      - "service=consul-exporter"
+      - "exporter=prometheus"
+
+  # =================================================================
+  # SERVICE DISCOVERY TOOLS AND UTILITIES
+  # =================================================================
+
+  # Consul Template Standalone
+  consul-template:
+    image: hashicorp/consul-template:0.33.0
+    container_name: swiggy-consul-template
+    environment:
+      - CONSUL_HTTP_ADDR=consul-mumbai:8500
+    volumes:
+      - ./config/consul-template:/consul-template/config:ro
+      - ./templates:/consul-template/templates:ro
+      - consul-template-output:/consul-template/output
+    networks:
+      - service-discovery
+    depends_on:
+      - consul-mumbai
+    command: >
+      consul-template 
+      -config=/consul-template/config/config.hcl
+      -log-level=INFO
+    labels:
+      - "service=consul-template"
+      - "purpose=configuration-management"
+
+  # Registrator - Auto-registration for Docker containers
+  registrator:
+    image: gliderlabs/registrator:latest
+    container_name: swiggy-registrator
+    environment:
+      - CONSUL_HTTP_ADDR=consul-mumbai:8500
+      - REGISTRATOR_CLEANUP=true
+      - REGISTRATOR_EXPLICIT=false
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    networks:
+      - service-discovery
+    depends_on:
+      - consul-mumbai
+    command: >
+      consul://consul-mumbai:8500
+    labels:
+      - "service=registrator"
+      - "purpose=auto-registration"
+
+  # =================================================================
+  # TESTING AND DEVELOPMENT TOOLS
+  # =================================================================
+
+  # Service Discovery Test Client
+  discovery-test-client:
+    build:
+      context: ./tools/discovery-test
+      dockerfile: Dockerfile
+    container_name: swiggy-discovery-test
+    environment:
+      - CONSUL_URL=consul-mumbai:8500
+      - ETCD_URL=etcd-discovery:2379
+      - ZOOKEEPER_URL=zookeeper-discovery:2181
+      - TEST_INTERVAL=30s
+      - TEST_SERVICES=restaurant-service,order-service,payment-service,delivery-service
+    volumes:
+      - ./tools/discovery-test:/app:ro
+      - test-results:/app/results
+    networks:
+      - service-discovery
+      - mumbai-region
+    depends_on:
+      - consul-mumbai
+      - etcd-discovery
+      - zookeeper-discovery
+    labels:
+      - "service=discovery-test"
+      - "purpose=testing"
+
+  # Load Test Generator
+  load-test:
+    image: loadimpact/k6:latest
+    container_name: swiggy-load-test
+    environment:
+      - K6_PROMETHEUS_REMOTE_URL=http://prometheus:9090/api/v1/write
+    volumes:
+      - ./tests/load-tests:/scripts:ro
+      - load-test-results:/results
+    networks:
+      - mumbai-region
+      - public-facing
+    depends_on:
+      - haproxy-consul
+      - nginx-consul
+    command: >
+      run 
+      --out prometheus
+      --tag testid=service-discovery-load-test
+      /scripts/service-discovery-test.js
+    labels:
+      - "service=k6"
+      - "purpose=load-testing"
+
+# =================================================================
+# NETWORKS - MULTI-REGION SERVICE DISCOVERY
+# =================================================================
+networks:
+  # Multi-region network for cross-datacenter communication
+  multi-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+    labels:
+      - "type=multi-region"
+      - "scope=global"
+
+  # Regional networks
+  mumbai-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
+    labels:
+      - "region=mumbai"
+      - "type=regional"
+
+  delhi-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.32.0.0/16
+    labels:
+      - "region=delhi"
+      - "type=regional"
+
+  bangalore-region:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.33.0.0/16
+    labels:
+      - "region=bangalore"
+      - "type=regional"
+
+  # Service discovery network
+  service-discovery:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.34.0.0/24
+    labels:
+      - "tier=service-discovery"
+      - "security=medium"
+
+  # Service mesh network
+  service-mesh:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.35.0.0/24
+    labels:
+      - "tier=service-mesh"
+      - "security=high"
+
+  # Tier-based networks
+  application-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.36.0.0/16
+    labels:
+      - "tier=application"
+
+  data-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.37.0.0/24
+    labels:
+      - "tier=data"
+      - "security=high"
+
+  streaming:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.38.0.0/24
+    labels:
+      - "tier=streaming"
+
+  monitoring:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.39.0.0/24
+    labels:
+      - "tier=monitoring"
+
+  secure-payment:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.40.0.0/24
+    labels:
+      - "tier=payment"
+      - "security=critical"
+      - "compliance=pci-dss"
+
+  public-facing:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.41.0.0/24
+    labels:
+      - "tier=public"
+      - "security=medium"
+
+# =================================================================
+# VOLUMES - SERVICE DISCOVERY DATA
+# =================================================================
+volumes:
+  # Consul data volumes
+  consul-mumbai-data:
+    driver: local
+    labels:
+      - "service=consul"
+      - "datacenter=mumbai"
+      - "backup=required"
+
+  consul-mumbai-config:
+    driver: local
+    labels:
+      - "service=consul"
+      - "datacenter=mumbai"
+      - "type=config"
+
+  consul-delhi-data:
+    driver: local
+    labels:
+      - "service=consul"
+      - "datacenter=delhi"
+
+  consul-delhi-config:
+    driver: local
+    labels:
+      - "service=consul"
+      - "datacenter=delhi"
+
+  consul-bangalore-data:
+    driver: local
+    labels:
+      - "service=consul"
+      - "datacenter=bangalore"
+
+  consul-bangalore-config:
+    driver: local
+    labels:
+      - "service=consul"
+      - "datacenter=bangalore"
+
+  # ETCD data
+  etcd-discovery-data:
+    driver: local
+    labels:
+      - "service=etcd"
+      - "purpose=service-discovery"
+
+  # Zookeeper data
+  zookeeper-discovery-data:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "purpose=coordination"
+
+  zookeeper-discovery-logs:
+    driver: local
+    labels:
+      - "service=zookeeper"
+      - "type=logs"
+
+  # Database volumes
+  postgres-mumbai-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "region=mumbai"
+      - "backup=daily"
+
+  postgres-payment-data:
+    driver: local
+    labels:
+      - "service=postgresql"
+      - "purpose=payment"
+      - "security=encrypted"
+
+  # Cache volumes
+  redis-mumbai-data:
+    driver: local
+    labels:
+      - "service=redis"
+      - "region=mumbai"
+
+  # Streaming volumes
+  kafka-mumbai-data:
+    driver: local
+    labels:
+      - "service=kafka"
+      - "region=mumbai"
+
+  # Security volumes
+  vault-data:
+    driver: local
+    labels:
+      - "service=vault"
+      - "security=encrypted"
+
+  vault-logs:
+    driver: local
+    labels:
+      - "service=vault"
+      - "type=audit-logs"
+
+  # Monitoring volumes
+  prometheus-data:
+    driver: local
+    labels:
+      - "service=prometheus"
+      - "retention=15d"
+
+  grafana-data:
+    driver: local
+    labels:
+      - "service=grafana"
+      - "type=dashboards"
+
+  # Template and configuration volumes
+  consul-template-output:
+    driver: local
+    labels:
+      - "service=consul-template"
+      - "type=generated-config"
+
+  # Application logs
+  restaurant-logs:
+    driver: local
+    labels:
+      - "service=restaurant-service"
+      - "type=application-logs"
+
+  order-logs:
+    driver: local
+    labels:
+      - "service=order-service"
+      - "type=application-logs"
+
+  payment-logs:
+    driver: local
+    labels:
+      - "service=payment-service"
+      - "type=application-logs"
+      - "retention=30d"
+
+  # Test results
+  test-results:
+    driver: local
+    labels:
+      - "type=test-results"
+      - "retention=7d"
+
+  load-test-results:
+    driver: local
+    labels:
+      - "type=load-test-results"
+      - "retention=7d"
+
+# =================================================================
+# CONFIGURATION FILES REQUIRED:
+# =================================================================
+# ./config/consul/mumbai/
+# ./config/consul/delhi/
+# ./config/consul/bangalore/
+# ./config/haproxy/consul-template.hcl
+# ./config/haproxy/haproxy.cfg.tmpl
+# ./config/nginx/consul-template.hcl
+# ./config/nginx/nginx.conf.tmpl
+# ./config/envoy/envoy-xds.yaml
+# ./config/prometheus/prometheus-consul.yml
+# ./config/grafana/service-discovery-dashboards/
+# ./config/consul-template/config.hcl
+# ./config/vault/
+# ./services/ (microservice source code)
+# ./tools/discovery-test/
+# ./tests/load-tests/
+# ./templates/ (consul-template templates)
+# 
+# ESTIMATED COSTS (Indian Multi-Region):
+# Mumbai: ₹15,000/month (Primary)
+# Delhi: ₹10,000/month (Secondary)
+# Bangalore: ₹8,000/month (Tertiary)
+# Network: ₹5,000/month (Inter-region)
+# Total: ₹38,000/month (~$460 USD)
+# 
+# SCALING PATTERNS:
+# - 3-region setup for 99.9% availability
+# - Consul clustering across regions
+# - Automatic failover and service mesh
+# - Cost-optimized for Indian cloud pricing

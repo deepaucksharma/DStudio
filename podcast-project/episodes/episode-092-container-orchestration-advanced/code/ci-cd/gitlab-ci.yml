@@ -1,0 +1,512 @@
+# GitLab CI/CD Pipeline for Indian E-commerce Platform
+# Episode 092: Container Orchestration - CI/CD Pipeline
+# Context: Production-grade CI/CD optimized for Indian infrastructure and compliance
+
+# Global Variables for Indian Infrastructure
+variables:
+  # Docker Registry Configuration
+  DOCKER_REGISTRY: "registry.flipkart.com"
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  
+  # Indian Cloud Regions
+  PRIMARY_REGION: "ap-south-1"
+  SECONDARY_REGION: "ap-southeast-1"
+  
+  # Kubernetes Clusters
+  MUMBAI_CLUSTER: "flipkart-mumbai-prod"
+  DELHI_CLUSTER: "flipkart-delhi-prod"
+  BANGALORE_CLUSTER: "flipkart-bangalore-prod"
+  
+  # Indian Compliance
+  RBI_COMPLIANCE_CHECK: "enabled"
+  PCI_DSS_SCAN: "enabled"
+  DATA_LOCALIZATION_CHECK: "enabled"
+  
+  # Cost Optimization for Indian Infrastructure
+  SPOT_INSTANCES: "enabled"
+  RESOURCE_OPTIMIZATION: "enabled"
+  
+  # Indian Business Metrics
+  INDIAN_TIMEZONE: "Asia/Kolkata"
+  DEPLOYMENT_HOURS: "02:00-06:00"  # Off-peak hours IST
+  
+  # Image Security Scanning
+  TRIVY_VERSION: "0.45.0"
+  SONAR_VERSION: "4.8.0"
+
+# Pipeline Stages optimized for Indian deployment patterns
+stages:
+  - validate
+  - security-scan
+  - build
+  - test
+  - compliance-check
+  - package
+  - deploy-staging
+  - integration-test
+  - deploy-production
+  - post-deployment
+  - monitoring
+
+# Cache configuration for faster builds in Indian infrastructure
+cache:
+  paths:
+    - .m2/repository/
+    - node_modules/
+    - vendor/
+    - .gradle/caches/
+  key: "$CI_COMMIT_REF_SLUG"
+  policy: pull-push
+
+# Docker service configuration
+services:
+  - docker:24.0.6-dind
+
+before_script:
+  - echo "Starting CI/CD pipeline for Indian e-commerce platform"
+  - export TZ=$INDIAN_TIMEZONE
+  - date
+  - echo "Registry: $DOCKER_REGISTRY"
+  - docker info
+
+# Stage 1: Validation and Code Quality
+validate-code:
+  stage: validate
+  image: openjdk:17-jdk-slim
+  script:
+    - echo "Validating code for Indian compliance standards"
+    - ./gradlew clean
+    - ./gradlew check
+    - ./gradlew ktlintCheck  # Kotlin lint for Android apps
+    - echo "Checking for Indian regional configuration"
+    - grep -r "Asia/Kolkata" src/ || echo "Warning: Indian timezone not configured"
+    - grep -r "INR" src/ || echo "Warning: Indian currency not configured"
+  artifacts:
+    reports:
+      junit:
+        - build/test-results/test/TEST-*.xml
+    paths:
+      - build/reports/
+    expire_in: 1 day
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+# Stage 2: Security Scanning (Critical for Indian compliance)
+security-scan:
+  stage: security-scan
+  image: aquasec/trivy:$TRIVY_VERSION
+  script:
+    - echo "Running security scans for Indian compliance (RBI, PCI-DSS)"
+    # Source code vulnerability scanning
+    - trivy fs --security-checks vuln,secret,config ./
+    # Check for hardcoded Indian credentials
+    - echo "Checking for hardcoded credentials"
+    - grep -r "razorpay" . --exclude-dir=.git || echo "No Razorpay keys found in code"
+    - grep -r "paytm" . --exclude-dir=.git || echo "No Paytm keys found in code"
+    - grep -r "phonepe" . --exclude-dir=.git || echo "No PhonePe keys found in code"
+    # Indian specific security checks
+    - echo "Checking RBI compliance requirements"
+    - grep -r "data-localization" . || echo "Warning: Data localization not configured"
+  artifacts:
+    reports:
+      junit:
+        - trivy-results.xml
+    paths:
+      - trivy-results.json
+    expire_in: 1 week
+  allow_failure: false
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+# Stage 3: Build Docker Images
+build-microservices:
+  stage: build
+  image: docker:24.0.6
+  script:
+    - echo "Building microservices for Indian e-commerce platform"
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $DOCKER_REGISTRY
+    
+    # Build main application
+    - docker build -t $DOCKER_REGISTRY/flipkart/product-catalog:$CI_COMMIT_SHA -f Dockerfile.product-catalog .
+    - docker build -t $DOCKER_REGISTRY/flipkart/order-management:$CI_COMMIT_SHA -f Dockerfile.order-management .
+    - docker build -t $DOCKER_REGISTRY/flipkart/payment-service:$CI_COMMIT_SHA -f Dockerfile.payment-service .
+    - docker build -t $DOCKER_REGISTRY/flipkart/user-service:$CI_COMMIT_SHA -f Dockerfile.user-service .
+    - docker build -t $DOCKER_REGISTRY/flipkart/search-service:$CI_COMMIT_SHA -f Dockerfile.search-service .
+    
+    # Build with Indian optimization
+    - docker build --build-arg TIMEZONE=$INDIAN_TIMEZONE --build-arg LOCALE=en_IN -t $DOCKER_REGISTRY/flipkart/api-gateway:$CI_COMMIT_SHA -f Dockerfile.api-gateway .
+    
+    # Tag with branch name for staging
+    - docker tag $DOCKER_REGISTRY/flipkart/product-catalog:$CI_COMMIT_SHA $DOCKER_REGISTRY/flipkart/product-catalog:$CI_COMMIT_REF_SLUG
+    - docker tag $DOCKER_REGISTRY/flipkart/order-management:$CI_COMMIT_SHA $DOCKER_REGISTRY/flipkart/order-management:$CI_COMMIT_REF_SLUG
+    - docker tag $DOCKER_REGISTRY/flipkart/payment-service:$CI_COMMIT_SHA $DOCKER_REGISTRY/flipkart/payment-service:$CI_COMMIT_REF_SLUG
+    - docker tag $DOCKER_REGISTRY/flipkart/user-service:$CI_COMMIT_SHA $DOCKER_REGISTRY/flipkart/user-service:$CI_COMMIT_REF_SLUG
+    - docker tag $DOCKER_REGISTRY/flipkart/search-service:$CI_COMMIT_SHA $DOCKER_REGISTRY/flipkart/search-service:$CI_COMMIT_REF_SLUG
+    - docker tag $DOCKER_REGISTRY/flipkart/api-gateway:$CI_COMMIT_SHA $DOCKER_REGISTRY/flipkart/api-gateway:$CI_COMMIT_REF_SLUG
+    
+    # Push to registry
+    - docker push $DOCKER_REGISTRY/flipkart/product-catalog:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/flipkart/order-management:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/flipkart/payment-service:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/flipkart/user-service:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/flipkart/search-service:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/flipkart/api-gateway:$CI_COMMIT_SHA
+    
+    - docker push $DOCKER_REGISTRY/flipkart/product-catalog:$CI_COMMIT_REF_SLUG
+    - docker push $DOCKER_REGISTRY/flipkart/order-management:$CI_COMMIT_REF_SLUG
+    - docker push $DOCKER_REGISTRY/flipkart/payment-service:$CI_COMMIT_REF_SLUG
+    - docker push $DOCKER_REGISTRY/flipkart/user-service:$CI_COMMIT_REF_SLUG
+    - docker push $DOCKER_REGISTRY/flipkart/search-service:$CI_COMMIT_REF_SLUG
+    - docker push $DOCKER_REGISTRY/flipkart/api-gateway:$CI_COMMIT_REF_SLUG
+  dependencies:
+    - validate-code
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Stage 4: Automated Testing
+unit-tests:
+  stage: test
+  image: openjdk:17-jdk-slim
+  script:
+    - echo "Running unit tests for Indian e-commerce scenarios"
+    - ./gradlew test
+    - ./gradlew jacocoTestReport
+    # Indian specific test cases
+    - echo "Running Indian payment gateway tests"
+    - ./gradlew test --tests "*RazorpayTest*"
+    - ./gradlew test --tests "*PaytmTest*"
+    - ./gradlew test --tests "*UPITest*"
+    # Indian localization tests
+    - ./gradlew test --tests "*LocalizationTest*"
+    - ./gradlew test --tests "*GSTCalculationTest*"
+  artifacts:
+    reports:
+      junit:
+        - build/test-results/test/TEST-*.xml
+      coverage_report:
+        coverage_format: jacoco
+        path: build/reports/jacoco/test/jacocoTestReport.xml
+    paths:
+      - build/reports/
+    expire_in: 1 week
+  coverage: '/Total.*?([0-9]{1,3})%/'
+  dependencies:
+    - validate-code
+
+integration-tests:
+  stage: test
+  image: docker:24.0.6
+  services:
+    - docker:24.0.6-dind
+    - postgres:13
+    - redis:7-alpine
+  variables:
+    POSTGRES_DB: flipkart_test
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test123
+    REDIS_URL: redis://redis:6379
+  script:
+    - echo "Running integration tests with Indian infrastructure"
+    - docker-compose -f docker-compose.test.yml up -d
+    - sleep 30  # Wait for services to start
+    # Test Indian payment integrations
+    - docker-compose -f docker-compose.test.yml exec -T app ./gradlew integrationTest
+    # Test Indian regional services
+    - curl -f http://localhost:8080/api/v1/health/mumbai || exit 1
+    - curl -f http://localhost:8080/api/v1/health/delhi || exit 1
+    - curl -f http://localhost:8080/api/v1/health/bangalore || exit 1
+    # Test GST calculation endpoints
+    - curl -f http://localhost:8080/api/v1/gst/calculate || exit 1
+    - docker-compose -f docker-compose.test.yml down
+  dependencies:
+    - build-microservices
+  artifacts:
+    reports:
+      junit:
+        - build/test-results/integrationTest/TEST-*.xml
+    expire_in: 1 week
+
+# Stage 5: Indian Compliance Checks
+rbi-compliance-check:
+  stage: compliance-check
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - echo "Performing RBI compliance validation"
+    # Check data localization requirements
+    - echo "Verifying data stays within Indian borders"
+    - grep -r "ap-south-1\|ap-southeast-1" kubernetes/ || (echo "ERROR: Non-Indian regions detected" && exit 1)
+    # Check encryption standards
+    - echo "Verifying encryption standards (AES-256)"
+    - grep -r "AES-256" kubernetes/secrets.yaml || (echo "ERROR: Required encryption not found" && exit 1)
+    # Check audit logging
+    - echo "Verifying audit logging is enabled"
+    - grep -r "audit-log.*enabled" kubernetes/ || echo "Warning: Audit logging configuration not found"
+    # Verify no hardcoded credentials
+    - echo "Checking for credential security"
+    - ! grep -r "password.*=" src/ --exclude-dir=test || (echo "ERROR: Hardcoded passwords detected" && exit 1)
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$RBI_COMPLIANCE_CHECK == "enabled"'
+
+pci-dss-compliance:
+  stage: compliance-check
+  image: alpine:latest
+  script:
+    - echo "Performing PCI-DSS compliance check for payment systems"
+    # Check payment service security
+    - echo "Verifying payment service security configurations"
+    - grep -r "pci-dss.*enabled" kubernetes/ || echo "Warning: PCI-DSS not explicitly enabled"
+    # Check tokenization
+    - grep -r "tokenization.*true" kubernetes/ || echo "Warning: Tokenization not configured"
+    # Check TLS configuration
+    - grep -r "TLSv1.2\|TLSv1.3" kubernetes/ || (echo "ERROR: Secure TLS not configured" && exit 1)
+    # Verify payment data encryption
+    - grep -r "payment-encryption-key" kubernetes/secrets.yaml || (echo "ERROR: Payment encryption key not found" && exit 1)
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$PCI_DSS_SCAN == "enabled"'
+  dependencies:
+    - security-scan
+
+# Stage 6: Package Helm Charts
+package-helm-charts:
+  stage: package
+  image: alpine/helm:3.12.0
+  script:
+    - echo "Packaging Helm charts for Indian deployment"
+    - helm lint helm/api-gateway/
+    - helm package helm/api-gateway/ --version $CI_COMMIT_SHA
+    - helm package helm/api-gateway/ --version $CI_COMMIT_REF_SLUG
+    # Create Helm repository index
+    - helm repo index . --url https://charts.flipkart.com
+  artifacts:
+    paths:
+      - "*.tgz"
+      - index.yaml
+    expire_in: 1 week
+  dependencies:
+    - validate-code
+
+# Stage 7: Deploy to Staging (Mumbai region)
+deploy-staging-mumbai:
+  stage: deploy-staging
+  image: bitnami/kubectl:latest
+  environment:
+    name: staging-mumbai
+    url: https://staging-mumbai.flipkart.internal
+  script:
+    - echo "Deploying to Mumbai staging environment"
+    - kubectl config use-context $MUMBAI_CLUSTER
+    # Create namespace if not exists
+    - kubectl create namespace flipkart-staging --dry-run=client -o yaml | kubectl apply -f -
+    # Deploy using Helm
+    - helm upgrade --install flipkart-staging helm/api-gateway/ 
+      --namespace flipkart-staging 
+      --set image.tag=$CI_COMMIT_SHA 
+      --set global.region=ap-south-1 
+      --set global.environment=staging
+      --set global.indianOptimization.timezone=Asia/Kolkata
+      --set costOptimization.spotInstances.enabled=true
+      --values helm/api-gateway/values-staging.yaml
+    # Wait for deployment
+    - kubectl rollout status deployment/flipkart-staging-api-gateway -n flipkart-staging --timeout=600s
+    # Verify deployment
+    - kubectl get pods -n flipkart-staging
+    - echo "Staging deployment completed in Mumbai region"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  dependencies:
+    - package-helm-charts
+    - rbi-compliance-check
+
+# Stage 8: Integration Testing in Staging
+staging-integration-tests:
+  stage: integration-test
+  image: curlimages/curl:latest
+  script:
+    - echo "Running integration tests against Mumbai staging"
+    - sleep 60  # Wait for services to fully start
+    # Health checks
+    - curl -f https://staging-mumbai.flipkart.internal/health || exit 1
+    # Indian specific endpoints
+    - curl -f https://staging-mumbai.flipkart.internal/api/v1/regions/mumbai || exit 1
+    - curl -f https://staging-mumbai.flipkart.internal/api/v1/payments/gateways || exit 1
+    # GST calculation test
+    - curl -X POST -H "Content-Type: application/json" 
+      -d '{"amount": 1000, "state": "maharashtra"}' 
+      https://staging-mumbai.flipkart.internal/api/v1/gst/calculate || exit 1
+    # Load test for Indian traffic patterns
+    - for i in $(seq 1 100); do curl -s https://staging-mumbai.flipkart.internal/health > /dev/null; done
+    - echo "Integration tests passed"
+  dependencies:
+    - deploy-staging-mumbai
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Stage 9: Production Deployment (Multi-region)
+deploy-production-mumbai:
+  stage: deploy-production
+  image: bitnami/kubectl:latest
+  environment:
+    name: production-mumbai
+    url: https://api.flipkart.com
+  script:
+    - echo "Deploying to Mumbai production (primary region)"
+    - kubectl config use-context $MUMBAI_CLUSTER
+    # Blue-Green deployment strategy
+    - export DEPLOYMENT_TIMESTAMP=$(date +%Y%m%d%H%M%S)
+    - helm upgrade --install flipkart-prod-$DEPLOYMENT_TIMESTAMP helm/api-gateway/
+      --namespace flipkart-production
+      --set image.tag=$CI_COMMIT_SHA
+      --set global.region=ap-south-1
+      --set global.environment=production
+      --set global.indianOptimization.timezone=Asia/Kolkata
+      --set replicaCount=10
+      --set resources.requests.cpu=1000m
+      --set resources.requests.memory=2Gi
+      --set costOptimization.spotInstances.enabled=false
+      --values helm/api-gateway/values-production.yaml
+    # Wait for deployment
+    - kubectl rollout status deployment/flipkart-prod-$DEPLOYMENT_TIMESTAMP-api-gateway -n flipkart-production --timeout=900s
+    # Health check
+    - kubectl get pods -n flipkart-production -l app.kubernetes.io/instance=flipkart-prod-$DEPLOYMENT_TIMESTAMP
+    # Switch traffic (update service selector)
+    - kubectl patch service flipkart-api-gateway -n flipkart-production -p '{"spec":{"selector":{"app.kubernetes.io/instance":"flipkart-prod-'$DEPLOYMENT_TIMESTAMP'"}}}'
+    - echo "Mumbai production deployment completed"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - when: manual
+  dependencies:
+    - staging-integration-tests
+    - pci-dss-compliance
+
+deploy-production-delhi:
+  stage: deploy-production
+  image: bitnami/kubectl:latest
+  environment:
+    name: production-delhi
+    url: https://delhi.flipkart.com
+  script:
+    - echo "Deploying to Delhi production (secondary region)"
+    - kubectl config use-context $DELHI_CLUSTER
+    - export DEPLOYMENT_TIMESTAMP=$(date +%Y%m%d%H%M%S)
+    - helm upgrade --install flipkart-prod-delhi-$DEPLOYMENT_TIMESTAMP helm/api-gateway/
+      --namespace flipkart-production
+      --set image.tag=$CI_COMMIT_SHA
+      --set global.region=ap-south-1
+      --set global.environment=production
+      --set global.indianOptimization.timezone=Asia/Kolkata
+      --set replicaCount=5
+      --values helm/api-gateway/values-production-delhi.yaml
+    - kubectl rollout status deployment/flipkart-prod-delhi-$DEPLOYMENT_TIMESTAMP-api-gateway -n flipkart-production --timeout=900s
+    - echo "Delhi production deployment completed"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - when: manual
+  dependencies:
+    - deploy-production-mumbai
+
+# Stage 10: Post-deployment validation
+production-smoke-tests:
+  stage: post-deployment
+  image: curlimages/curl:latest
+  script:
+    - echo "Running production smoke tests"
+    - sleep 120  # Wait for traffic to stabilize
+    # Mumbai region tests
+    - curl -f https://api.flipkart.com/health || exit 1
+    - curl -f https://api.flipkart.com/api/v1/regions/mumbai || exit 1
+    # Delhi region tests
+    - curl -f https://delhi.flipkart.com/health || exit 1
+    # Payment gateway connectivity
+    - curl -f https://api.flipkart.com/api/v1/payments/health || exit 1
+    # Indian specific functionality
+    - curl -X GET https://api.flipkart.com/api/v1/cities/indian || exit 1
+    - echo "Production smoke tests passed"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  dependencies:
+    - deploy-production-mumbai
+    - deploy-production-delhi
+
+# Stage 11: Monitoring and Alerting Setup
+setup-monitoring:
+  stage: monitoring
+  image: bitnami/kubectl:latest
+  script:
+    - echo "Setting up monitoring for Indian production environment"
+    # Deploy Prometheus rules for Indian business metrics
+    - kubectl apply -f kubernetes/monitoring/prometheus.yaml -n flipkart-monitoring
+    - kubectl apply -f kubernetes/monitoring/grafana.yaml -n flipkart-monitoring
+    # Create alerts for Indian peak hours
+    - kubectl create configmap indian-business-alerts 
+      --from-file=kubernetes/monitoring/indian-business-rules.yml 
+      -n flipkart-monitoring --dry-run=client -o yaml | kubectl apply -f -
+    # Verify monitoring stack
+    - kubectl get pods -n flipkart-monitoring
+    - echo "Monitoring setup completed"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  dependencies:
+    - production-smoke-tests
+
+# Notification and Cleanup
+notify-deployment:
+  stage: monitoring
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache curl
+  script:
+    - echo "Sending deployment notifications"
+    # Slack notification
+    - |
+      curl -X POST -H 'Content-type: application/json' \
+      --data '{"text":"🇮🇳 Flipkart Production Deployment Successful!\n• Mumbai: ✅ Deployed\n• Delhi: ✅ Deployed\n• Monitoring: ✅ Active\n• Compliance: ✅ RBI & PCI-DSS Verified\n• Time: '$(date)' IST"}' \
+      $SLACK_WEBHOOK_URL
+    # Email notification to Indian team
+    - echo "Deployment completed at $(date) IST" | mail -s "Flipkart Production Deployment Success" devops@flipkart.com
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  dependencies:
+    - setup-monitoring
+
+# Rollback capability
+rollback-production:
+  stage: deploy-production
+  image: bitnami/kubectl:latest
+  script:
+    - echo "Rolling back production deployment"
+    - kubectl config use-context $MUMBAI_CLUSTER
+    - helm rollback flipkart-prod --namespace flipkart-production
+    - kubectl config use-context $DELHI_CLUSTER  
+    - helm rollback flipkart-prod-delhi --namespace flipkart-production
+    - echo "Rollback completed"
+  when: manual
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+# Cost optimization cleanup
+cleanup-old-deployments:
+  stage: monitoring
+  image: bitnami/kubectl:latest
+  script:
+    - echo "Cleaning up old deployments to optimize costs"
+    # Remove deployments older than 7 days
+    - kubectl get deployments -n flipkart-production --sort-by=.metadata.creationTimestamp -o name | head -n -3 | xargs -r kubectl delete -n flipkart-production
+    # Clean up unused images in registry
+    - echo "Triggering registry cleanup job"
+    - curl -X POST $REGISTRY_CLEANUP_WEBHOOK
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  when: delayed
+  start_in: 2 hours

@@ -9,6 +9,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Case Studies**: docs/architects-handbook/case-studies/messaging-streaming/mapreduce.md - MapReduce implementation patterns
+- **Pattern Library**: docs/pattern-library/scaling/scatter-gather.md - Scatter-gather patterns in distributed computing
+- **Pattern Library**: docs/pattern-library/coordination/emergent-leader.md - Leader election in distributed computing
+- **Pattern Library**: docs/pattern-library/resilience/fault-tolerance.md - Fault tolerance in distributed systems
+- **Case Studies**: docs/architects-handbook/case-studies/messaging-streaming/apache-spark.md - Apache Spark for distributed computing
+- **Pattern Library**: docs/pattern-library/scaling/chunking.md - Data partitioning and chunking strategies
+- **Core Principles**: docs/core-principles/laws/emergent-chaos.md - Managing complexity in distributed computations
+
+---
+
 ## Part 1: MapReduce Fundamentals aur IRCTC Ki Kahani (60 minutes)
 
 ### Opening: Mumbai Ki Construction Analogy

@@ -1,0 +1,448 @@
+# Kubernetes Service Manifests for Indian E-commerce Platform
+# Episode 092: Container Orchestration
+# Context: Production-grade services with load balancing and regional optimization
+
+---
+# Product Catalog Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-catalog-service
+  namespace: flipkart-production
+  labels:
+    app: product-catalog
+    version: v2.1.0
+    tier: business-critical
+    team: catalog-team
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    # Indian region specific annotations
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-1a,subnet-mumbai-1b,subnet-mumbai-1c"
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+    prometheus.io/path: "/metrics"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  - name: grpc
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  selector:
+    app: product-catalog
+    version: v2.1.0
+  # Session affinity for better caching
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800  # 3 hours
+  # Load balancer optimization for Indian traffic patterns
+  loadBalancerSourceRanges:
+  - "0.0.0.0/0"  # Allow all traffic (restrict in production)
+
+---
+# Product Catalog Internal Service (for internal communication)
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-catalog
+  namespace: flipkart-production
+  labels:
+    app: product-catalog
+    version: v2.1.0
+    tier: business-critical
+    type: internal
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  - name: grpc
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  - name: metrics
+    port: 8081
+    targetPort: 8081
+    protocol: TCP
+  selector:
+    app: product-catalog
+    version: v2.1.0
+
+---
+# Order Management Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-management-service
+  namespace: flipkart-production
+  labels:
+    app: order-management
+    version: v1.8.0
+    tier: business-critical
+    team: order-team
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "300"  # 5 minutes for order processing
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-1a,subnet-mumbai-1b,subnet-mumbai-1c"
+    # Circuit breaker configuration
+    circuit-breaker.istio.io/enabled: "true"
+    circuit-breaker.istio.io/failure-threshold: "5"
+    circuit-breaker.istio.io/recovery-time: "30s"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: order-management
+    version: v1.8.0
+  sessionAffinity: None  # No session affinity for stateless order processing
+
+---
+# Order Management Internal Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-management
+  namespace: flipkart-production
+  labels:
+    app: order-management
+    version: v1.8.0
+    tier: business-critical
+    type: internal
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  - name: metrics
+    port: 8081
+    targetPort: 8081
+    protocol: TCP
+  selector:
+    app: order-management
+    version: v1.8.0
+
+---
+# Payment Service - HTTPS Only for PCI Compliance
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  namespace: flipkart-production
+  labels:
+    app: payment-service
+    version: v3.2.0
+    tier: critical
+    team: payment-team
+    compliance: pci-dss
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: https
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-south-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "600"  # 10 minutes for payment processing
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-secure-1a,subnet-mumbai-secure-1b"
+    # Security annotations
+    service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "flipkart-payment-access-logs"
+    # PCI DSS compliance
+    pci-dss.compliance/enabled: "true"
+    security-scan.compliance/daily: "true"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8443
+    protocol: TCP
+  selector:
+    app: payment-service
+    version: v3.2.0
+  # IP restrictions for payment service (Indian financial regulations)
+  loadBalancerSourceRanges:
+  - "103.21.244.0/22"   # Cloudflare India
+  - "103.22.200.0/22"   # Cloudflare India
+  - "103.31.4.0/22"     # Cloudflare India
+  - "104.16.0.0/12"     # Cloudflare Global
+  - "108.162.192.0/18"  # Cloudflare Global
+  - "131.0.72.0/22"     # Cloudflare India
+  - "172.64.0.0/13"     # Cloudflare Global
+  - "173.245.48.0/20"   # Cloudflare Global
+  - "188.114.96.0/20"   # Cloudflare Global
+  - "190.93.240.0/20"   # Cloudflare Global
+  - "197.234.240.0/22"  # Cloudflare Global
+  - "198.41.128.0/17"   # Cloudflare Global
+
+---
+# Payment Service Internal
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service-internal
+  namespace: flipkart-production
+  labels:
+    app: payment-service
+    version: v3.2.0
+    tier: critical
+    type: internal
+spec:
+  type: ClusterIP
+  ports:
+  - name: https
+    port: 8443
+    targetPort: 8443
+    protocol: TCP
+  - name: metrics
+    port: 8444
+    targetPort: 8444
+    protocol: TCP
+  selector:
+    app: payment-service
+    version: v3.2.0
+
+---
+# Inventory Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-service
+  namespace: flipkart-production
+  labels:
+    app: inventory-service
+    version: v2.0.0
+    tier: business
+    team: inventory-team
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  - name: metrics
+    port: 8081
+    targetPort: 8081
+    protocol: TCP
+  selector:
+    app: inventory-service
+    version: v2.0.0
+
+---
+# Headless Service for StatefulSet Services (Database, etc.)
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-primary-headless
+  namespace: flipkart-production
+  labels:
+    app: postgres
+    role: primary
+    tier: data
+spec:
+  type: ClusterIP
+  clusterIP: None  # Headless service
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: 5432
+    protocol: TCP
+  selector:
+    app: postgres
+    role: primary
+
+---
+# Redis Cluster Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-cluster
+  namespace: flipkart-production
+  labels:
+    app: redis
+    tier: cache
+spec:
+  type: ClusterIP
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+    protocol: TCP
+  - name: cluster
+    port: 16379
+    targetPort: 16379
+    protocol: TCP
+  selector:
+    app: redis
+
+---
+# ElasticSearch Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: flipkart-production
+  labels:
+    app: elasticsearch
+    tier: search
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 9200
+    targetPort: 9200
+    protocol: TCP
+  - name: transport
+    port: 9300
+    targetPort: 9300
+    protocol: TCP
+  selector:
+    app: elasticsearch
+
+---
+# Multi-region Service for Cross-region Communication
+apiVersion: v1
+kind: Service
+metadata:
+  name: flipkart-global-api
+  namespace: flipkart-production
+  labels:
+    app: api-gateway
+    scope: global
+    regions: "mumbai,delhi,bangalore"
+  annotations:
+    # Global load balancer for cross-region traffic
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    # Custom domain for Indian users
+    external-dns.alpha.kubernetes.io/hostname: "api.flipkart.com"
+    external-dns.alpha.kubernetes.io/ttl: "300"
+    # Geo-routing for Indian users
+    geo-routing.aws/regions: "ap-south-1,ap-southeast-1"
+    geo-routing.aws/primary: "ap-south-1"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8443
+    protocol: TCP
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: api-gateway
+  # Indian IP range optimization
+  loadBalancerSourceRanges:
+  - "14.0.0.0/8"      # BSNL India
+  - "27.96.0.0/13"    # Airtel India
+  - "49.14.0.0/15"    # Airtel India
+  - "59.144.0.0/12"   # BSNL India
+  - "103.5.140.0/22"  # Jio India
+  - "106.51.0.0/16"   # Jio India
+  - "117.192.0.0/10"  # BSNL India
+  - "122.160.0.0/11"  # Airtel India
+  - "150.129.0.0/16"  # Jio India
+  - "157.44.0.0/16"   # Jio India
+  - "180.151.0.0/16"  # Jio India
+  - "202.54.0.0/15"   # Various Indian ISPs
+  - "203.88.0.0/13"   # Various Indian ISPs
+
+---
+# NodePort Service for Development/Testing
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-catalog-nodeport
+  namespace: flipkart-development
+  labels:
+    app: product-catalog
+    environment: development
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+    nodePort: 30080
+    protocol: TCP
+  selector:
+    app: product-catalog
+
+---
+# ExternalName Service for External Dependencies
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-payment-gateway
+  namespace: flipkart-production
+  labels:
+    type: external
+    provider: razorpay
+spec:
+  type: ExternalName
+  externalName: api.razorpay.com
+  ports:
+  - name: https
+    port: 443
+    protocol: TCP
+
+---
+# Service for Monitoring Stack
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: flipkart-monitoring
+  labels:
+    app: prometheus
+    tier: monitoring
+spec:
+  type: ClusterIP
+  ports:
+  - name: web
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  selector:
+    app: prometheus
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: flipkart-monitoring
+  labels:
+    app: grafana
+    tier: monitoring
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: web
+    port: 80
+    targetPort: 3000
+    protocol: TCP
+  selector:
+    app: grafana

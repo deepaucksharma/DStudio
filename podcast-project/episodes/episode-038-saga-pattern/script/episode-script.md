@@ -6,6 +6,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/data-management/saga.md - Complete saga pattern implementation guide
+- **Pattern Library**: docs/pattern-library/coordination/saga-pattern-production-mastery.md - Production-ready saga patterns
+- **Excellence**: docs/excellence/migrations/2pc-to-saga.md - Migration strategies from 2PC to saga pattern
+- **Pattern Library**: docs/pattern-library/architecture/choreography.md - Choreography-based saga implementations
+- **Pattern Library**: docs/pattern-library/data-management/event-sourcing.md - Event sourcing with saga patterns
+- **Case Studies**: docs/architects-handbook/case-studies/financial-commerce/payment-system.md - Saga patterns in payment processing
+- **Pattern Library**: docs/pattern-library/resilience/graceful-degradation.md - Graceful degradation in saga failure scenarios
+
+---
+
 ## Opening and Series Introduction (5 minutes)
 
 Namaste dosto! Welcome to Episode 38 of our Hindi Tech Podcast Series. Main hoon aapka host, aur aaj hum explore karenge ek aisi pattern jo modern distributed systems ki backbone hai - **Saga Pattern**.

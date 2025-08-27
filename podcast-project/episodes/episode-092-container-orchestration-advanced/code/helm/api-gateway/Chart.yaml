@@ -1,0 +1,132 @@
+# Helm Chart for Indian E-commerce API Gateway
+# Episode 092: Container Orchestration - Helm Charts
+# Context: Production-ready API Gateway for Flipkart-scale deployment
+
+apiVersion: v2
+name: flipkart-api-gateway
+description: A production-grade API Gateway for Indian e-commerce platform with regional optimization
+type: application
+version: 1.0.0
+appVersion: "2.1.0"
+
+# Metadata for Indian deployment
+keywords:
+  - api-gateway
+  - kong
+  - nginx
+  - indian-ecommerce
+  - production
+  - microservices
+  - regional-deployment
+
+home: https://github.com/flipkart/api-gateway
+icon: https://raw.githubusercontent.com/Kong/kong/master/assets/images/logo.png
+
+maintainers:
+  - name: Platform Engineering Team
+    email: platform-team@flipkart.com
+    url: https://tech.flipkart.com
+  - name: API Gateway Team
+    email: api-gateway-team@flipkart.com
+
+sources:
+  - https://github.com/flipkart/api-gateway
+  - https://github.com/Kong/kong
+  - https://github.com/kubernetes/ingress-nginx
+
+# Chart dependencies
+dependencies:
+  - name: kong
+    version: "2.31.0"
+    repository: "https://charts.konghq.com"
+    condition: kong.enabled
+    tags:
+      - api-gateway
+      - kong
+  
+  - name: nginx-ingress
+    version: "4.8.0"
+    repository: "https://kubernetes.github.io/ingress-nginx"
+    condition: nginx.enabled
+    tags:
+      - ingress
+      - nginx
+  
+  - name: redis
+    version: "18.1.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
+    tags:
+      - cache
+      - session-store
+  
+  - name: postgresql
+    version: "12.10.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgresql.enabled
+    tags:
+      - database
+      - metadata-store
+
+# Chart annotations for Indian compliance and optimization
+annotations:
+  # Deployment configuration
+  "deployment.region": "ap-south-1"
+  "deployment.zones": "ap-south-1a,ap-south-1b,ap-south-1c"
+  "deployment.environment": "production"
+  
+  # Compliance and security
+  "compliance.rbi": "enabled"
+  "compliance.pci-dss": "enabled"
+  "security.mtls": "enforced"
+  "security.waf": "enabled"
+  
+  # Performance and scaling
+  "scaling.min-replicas": "5"
+  "scaling.max-replicas": "50"
+  "scaling.target-cpu": "70"
+  "scaling.target-memory": "80"
+  
+  # Cost optimization
+  "cost.spot-instances": "enabled"
+  "cost.budget": "INR-200000-monthly"
+  "cost.optimization": "auto-scaling"
+  
+  # Monitoring and observability
+  "monitoring.prometheus": "enabled"
+  "monitoring.grafana": "enabled"
+  "monitoring.jaeger": "enabled"
+  "logging.fluentd": "enabled"
+  
+  # Backup and disaster recovery
+  "backup.schedule": "0 2 * * *"  # Daily at 2 AM IST
+  "backup.retention": "30d"
+  "dr.rto": "15m"
+  "dr.rpo": "5m"
+  
+  # Network and traffic
+  "traffic.pattern": "indian-peak-hours"
+  "cdn.cloudflare": "enabled"
+  "cdn.aws-cloudfront": "enabled"
+  
+  # API Gateway specific
+  "rate-limiting.global": "10000/min"
+  "rate-limiting.per-user": "100/min"
+  "timeout.gateway": "30s"
+  "timeout.upstream": "60s"
+  
+  # Indian specific configurations
+  "timezone": "Asia/Kolkata"
+  "locale": "en_IN"
+  "currency": "INR"
+  "payment-gateways": "razorpay,paytm,phonepe,cashfree"
+  
+  # Chart lifecycle
+  "helm.sh/hook-weight": "0"
+  "helm.sh/resource-policy": "keep"
+  
+  # Documentation and support
+  "documentation": "https://docs.flipkart.com/api-gateway"
+  "support": "platform-team@flipkart.com"
+  "runbook": "https://runbooks.flipkart.com/api-gateway"
+  "oncall": "+91-80-XXXX-XXXX"

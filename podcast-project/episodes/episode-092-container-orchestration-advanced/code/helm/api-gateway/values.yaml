@@ -1,0 +1,632 @@
+# Default values for Flipkart API Gateway
+# Episode 092: Container Orchestration - Helm Values
+# Context: Production configuration optimized for Indian infrastructure
+
+# Global configuration
+global:
+  # Indian region deployment
+  region: "ap-south-1"
+  zones:
+    - "ap-south-1a"
+    - "ap-south-1b" 
+    - "ap-south-1c"
+  
+  # Environment settings
+  environment: "production"
+  namespace: "flipkart-production"
+  
+  # Indian compliance and regulations
+  compliance:
+    rbi: true
+    pciDss: true
+    dataLocalization: true
+  
+  # Image registry
+  imageRegistry: "registry.flipkart.com"
+  imagePullSecrets:
+    - "flipkart-registry-secret"
+  
+  # Security settings
+  security:
+    mtls: true
+    waf: true
+    rateLimiting: true
+  
+  # Indian infrastructure optimization
+  indianOptimization:
+    timezone: "Asia/Kolkata"
+    locale: "en_IN"
+    currency: "INR"
+    peakHours: "10:00-23:00"  # Indian shopping hours
+
+# Kong API Gateway Configuration
+kong:
+  enabled: true
+  
+  # Image configuration
+  image:
+    repository: kong/kong-gateway
+    tag: "3.4.1.1-alpine"
+    pullPolicy: IfNotPresent
+  
+  # Deployment configuration for Indian scale
+  replicaCount: 8  # High replica count for Indian traffic
+  
+  # Resource allocation optimized for cost and performance
+  resources:
+    requests:
+      cpu: "1000m"
+      memory: "2Gi"
+    limits:
+      cpu: "2000m"
+      memory: "4Gi"
+  
+  # Autoscaling for Indian traffic patterns
+  autoscaling:
+    enabled: true
+    minReplicas: 8
+    maxReplicas: 50
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+    
+    # Custom metrics for Indian peak hours
+    behavior:
+      scaleUp:
+        stabilizationWindowSeconds: 60
+        policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 15
+      scaleDown:
+        stabilizationWindowSeconds: 300
+        policies:
+        - type: Percent
+          value: 10
+          periodSeconds: 60
+  
+  # Pod disruption budget for high availability
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 5
+  
+  # Node affinity for Indian regions
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: topology.kubernetes.io/region
+            operator: In
+            values: ["ap-south-1"]
+          - key: node.kubernetes.io/instance-type
+            operator: In
+            values: ["c5.xlarge", "c5.2xlarge", "m5.xlarge"]
+    
+    # Pod anti-affinity for distribution
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values: ["kong"]
+          topologyKey: kubernetes.io/hostname
+  
+  # Kong specific configuration
+  env:
+    # Database connection
+    database: "postgres"
+    pg_host: "kong-postgresql"
+    pg_port: 5432
+    pg_database: "kong"
+    pg_user: "kong"
+    pg_password:
+      valueFrom:
+        secretKeyRef:
+          name: kong-postgresql
+          key: password
+    
+    # Performance tuning for Indian infrastructure
+    nginx_worker_processes: "auto"
+    nginx_worker_connections: "16384"
+    nginx_http_client_body_buffer_size: "128k"
+    nginx_http_client_max_body_size: "10m"
+    
+    # Logging configuration
+    log_level: "info"
+    proxy_access_log: "/dev/stdout"
+    admin_access_log: "/dev/stdout"
+    
+    # Security configurations
+    headers: "off"  # Custom security headers via plugins
+    server_tokens: "off"
+    
+    # Indian timezone
+    TZ: "Asia/Kolkata"
+    
+    # Rate limiting defaults
+    anonymous_reports: "off"
+    
+    # Upstream configurations
+    upstream_keepalive_pool_size: 60
+    upstream_keepalive_max_requests: 100
+    upstream_keepalive_idle_timeout: 60s
+  
+  # Kong Admin API configuration
+  admin:
+    enabled: true
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+      service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+      service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-private-1a,subnet-mumbai-private-1b"
+    loadBalancerSourceRanges:
+      - "10.0.0.0/8"      # Internal networks only
+      - "172.16.0.0/12"   # Private networks
+      - "192.168.0.0/16"  # Private networks
+  
+  # Kong Manager (GUI)
+  manager:
+    enabled: true
+    type: ClusterIP
+  
+  # Kong proxy service
+  proxy:
+    enabled: true
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+      service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+      service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-1a,subnet-mumbai-1b,subnet-mumbai-1c"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-south-1:123456789012:certificate/flipkart-ssl"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+      external-dns.alpha.kubernetes.io/hostname: "api.flipkart.com"
+      external-dns.alpha.kubernetes.io/ttl: "300"
+    
+    # Load balancer configuration for Indian traffic
+    loadBalancerSourceRanges: []  # Allow all (configure in production)
+    
+    http:
+      enabled: true
+      servicePort: 80
+      containerPort: 8000
+    
+    tls:
+      enabled: true
+      servicePort: 443
+      containerPort: 8443
+      parameters:
+        - http2
+  
+  # Enterprise features (if using Kong Enterprise)
+  enterprise:
+    enabled: false
+    license_secret: kong-enterprise-license
+    
+  # Plugins configuration
+  plugins:
+    configMaps: []
+    secrets: []
+  
+  # Custom Kong configuration for Indian deployment
+  customEnv:
+    # Performance optimizations
+    - name: KONG_NGINX_PROXY_LARGE_CLIENT_HEADER_BUFFERS
+      value: "16 128k"
+    - name: KONG_NGINX_PROXY_BUFFER_SIZE
+      value: "128k"
+    - name: KONG_NGINX_PROXY_BUFFERS
+      value: "8 128k"
+    
+    # Indian regulatory compliance
+    - name: KONG_DATA_LOCALIZATION
+      value: "true"
+    - name: KONG_REGION
+      value: "india"
+    
+    # Monitoring and observability
+    - name: KONG_TRACING_INSTRUMENTATIONS
+      value: "all"
+    - name: KONG_TRACING_SAMPLING_RATE
+      value: "0.1"
+
+# NGINX Ingress Controller (Alternative/Complement to Kong)
+nginx:
+  enabled: true
+  
+  controller:
+    replicaCount: 5
+    
+    image:
+      repository: registry.k8s.io/ingress-nginx/controller
+      tag: "v1.8.1"
+      digest: ""
+      pullPolicy: IfNotPresent
+    
+    # Resources for Indian traffic scale
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+      limits:
+        cpu: "1000m"
+        memory: "2Gi"
+    
+    # Autoscaling
+    autoscaling:
+      enabled: true
+      minReplicas: 5
+      maxReplicas: 20
+      targetCPUUtilizationPercentage: 70
+    
+    # Service configuration
+    service:
+      type: LoadBalancer
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+        service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-mumbai-1a,subnet-mumbai-1b,subnet-mumbai-1c"
+    
+    # Configuration optimized for Indian users
+    config:
+      # Performance settings
+      worker-processes: "auto"
+      worker-connections: "16384"
+      max-worker-open-files: "65536"
+      
+      # Buffer sizes for Indian network conditions
+      client-body-buffer-size: "128k"
+      client-max-body-size: "10m"
+      large-client-header-buffers: "16 128k"
+      
+      # Timeouts optimized for Indian latency
+      client-body-timeout: "60s"
+      client-header-timeout: "60s"
+      proxy-connect-timeout: "60s"
+      proxy-send-timeout: "60s"
+      proxy-read-timeout: "60s"
+      
+      # Compression for bandwidth optimization
+      enable-gzip: "true"
+      gzip-level: "6"
+      gzip-types: "text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript"
+      
+      # Security settings
+      server-tokens: "false"
+      ssl-protocols: "TLSv1.2 TLSv1.3"
+      ssl-ciphers: "ECDHE-RSA-AES128-GCM-SHA256,ECDHE-RSA-AES256-GCM-SHA384"
+      
+      # Rate limiting
+      limit-rps: "100"
+      limit-connections: "10"
+      
+      # Indian timezone
+      TZ: "Asia/Kolkata"
+      
+      # Custom error pages
+      custom-http-errors: "404,503"
+      
+      # Monitoring
+      enable-prometheus-metrics: "true"
+      prometheus-port: "10254"
+
+# PostgreSQL Database for Kong
+postgresql:
+  enabled: true
+  
+  # Image configuration
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: "15.4.0-debian-11-r45"
+  
+  # Authentication
+  auth:
+    postgresPassword: "kong-postgres-password"
+    username: "kong"
+    password: "kong-password"
+    database: "kong"
+  
+  # Primary database configuration
+  primary:
+    # Resources optimized for Indian infrastructure costs
+    resources:
+      requests:
+        memory: "2Gi"
+        cpu: "1000m"
+      limits:
+        memory: "4Gi"
+        cpu: "2000m"
+    
+    # Node selection for database
+    nodeSelector:
+      node-type: "database"
+    
+    # Persistence configuration
+    persistence:
+      enabled: true
+      size: "100Gi"
+      storageClass: "gp3"  # AWS GP3 for cost optimization
+      accessModes:
+        - ReadWriteOnce
+    
+    # PostgreSQL configuration for performance
+    configuration: |
+      # Performance tuning for Indian workloads
+      max_connections = 200
+      shared_buffers = 1GB
+      effective_cache_size = 3GB
+      maintenance_work_mem = 256MB
+      checkpoint_completion_target = 0.9
+      wal_buffers = 16MB
+      default_statistics_target = 100
+      random_page_cost = 1.1
+      effective_io_concurrency = 200
+      work_mem = 10MB
+      
+      # Logging for monitoring
+      log_destination = 'stderr'
+      logging_collector = on
+      log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h '
+      log_statement = 'all'
+      log_min_duration_statement = 1000
+      
+      # Indian timezone
+      timezone = 'Asia/Kolkata'
+      log_timezone = 'Asia/Kolkata'
+  
+  # Read replicas for performance
+  readReplicas:
+    replicaCount: 2
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "2Gi"
+        cpu: "1000m"
+
+# Redis for caching and session management
+redis:
+  enabled: true
+  
+  # Architecture
+  architecture: "replication"
+  
+  # Authentication
+  auth:
+    enabled: true
+    password: "redis-password"
+  
+  # Master configuration
+  master:
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "2Gi"
+        cpu: "1000m"
+    
+    # Persistence
+    persistence:
+      enabled: true
+      size: "50Gi"
+      storageClass: "gp3"
+    
+    # Configuration optimized for Indian workloads
+    configuration: |
+      # Memory management
+      maxmemory 1gb
+      maxmemory-policy allkeys-lru
+      
+      # Performance settings
+      tcp-keepalive 300
+      timeout 300
+      
+      # Persistence settings
+      save 900 1
+      save 300 10
+      save 60 10000
+      
+      # Logging
+      loglevel notice
+      syslog-enabled yes
+      syslog-ident redis
+      
+      # Indian timezone (Redis doesn't use timezone, but for reference)
+      # TZ Asia/Kolkata
+  
+  # Replica configuration
+  replica:
+    replicaCount: 2
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
+  
+  # Sentinel for high availability
+  sentinel:
+    enabled: true
+    masterSet: "flipkart-redis"
+
+# Monitoring and Observability
+monitoring:
+  # Prometheus metrics
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      namespace: "flipkart-monitoring"
+      interval: "30s"
+      scrapeTimeout: "10s"
+      labels:
+        release: "prometheus"
+  
+  # Grafana dashboards
+  grafana:
+    enabled: true
+    dashboards:
+      - kong-overview
+      - nginx-ingress
+      - api-performance
+      - indian-traffic-patterns
+  
+  # Distributed tracing
+  jaeger:
+    enabled: true
+    agent:
+      host: "jaeger-agent"
+      port: 6831
+    collector:
+      endpoint: "http://jaeger-collector:14268/api/traces"
+
+# Security Configuration
+security:
+  # TLS/SSL configuration
+  tls:
+    enabled: true
+    secretName: "flipkart-api-gateway-tls"
+    issuer: "letsencrypt-prod"
+  
+  # Network policies
+  networkPolicies:
+    enabled: true
+    ingress:
+      - from:
+        - namespaceSelector:
+            matchLabels:
+              name: "flipkart-production"
+        - namespaceSelector:
+            matchLabels:
+              name: "istio-system"
+    egress:
+      - to:
+        - namespaceSelector:
+            matchLabels:
+              name: "flipkart-production"
+      - to: []  # Allow external traffic for payment gateways
+        ports:
+        - protocol: TCP
+          port: 443
+  
+  # Pod security context
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    fsGroup: 2000
+  
+  # Container security context
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop:
+        - ALL
+
+# Cost Optimization
+costOptimization:
+  # Spot instances for non-critical components
+  spotInstances:
+    enabled: true
+    components:
+      - "nginx-ingress"
+      - "redis-replica"
+  
+  # Resource limits enforcement
+  resourceQuotas:
+    enabled: true
+    limits:
+      cpu: "50"
+      memory: "100Gi"
+      persistentVolumeClaims: "20"
+  
+  # Scheduled scaling for Indian traffic patterns
+  scheduledScaling:
+    enabled: true
+    schedule:
+      # Scale up during Indian business hours
+      - name: "business-hours-scale-up"
+        cron: "0 9 * * *"  # 9 AM IST
+        replicas: 
+          kong: 12
+          nginx: 8
+      
+      # Scale down during off-hours
+      - name: "off-hours-scale-down"
+        cron: "0 1 * * *"  # 1 AM IST
+        replicas:
+          kong: 6
+          nginx: 4
+
+# Backup and Disaster Recovery
+backup:
+  enabled: true
+  schedule: "0 2 * * *"  # Daily at 2 AM IST
+  retention: "30d"
+  
+  # Velero backup configuration
+  velero:
+    enabled: true
+    backupLocation: "s3://flipkart-backups-mumbai"
+    volumeSnapshotLocation: "aws-mumbai"
+  
+  # Database backup
+  postgresql:
+    enabled: true
+    schedule: "0 1 * * *"  # Daily at 1 AM IST
+    retention: "7d"
+
+# Custom Indian Configuration
+indian:
+  # Payment gateway integrations
+  paymentGateways:
+    razorpay:
+      enabled: true
+      webhook: "/webhooks/razorpay"
+    paytm:
+      enabled: true
+      webhook: "/webhooks/paytm"
+    phonepe:
+      enabled: true
+      webhook: "/webhooks/phonepe"
+    upi:
+      enabled: true
+      npciEndpoint: "https://api.npci.org.in/upi"
+  
+  # Regional optimizations
+  regional:
+    cdn:
+      cloudflare: true
+      awsCloudfront: true
+    
+    # Indian ISP optimizations
+    ispOptimizations:
+      jio: true
+      airtel: true
+      bsnl: true
+      vodafone: true
+  
+  # Compliance settings
+  compliance:
+    dataLocalization: true
+    rbiGuidelines: true
+    itAct2000: true
+    digitalIndia: true
+  
+  # Business metrics
+  businessMetrics:
+    peakHours: "10:00-23:00"
+    festivalScaling: true
+    gstIntegration: true
+    regionalLanguages:
+      - "hi"  # Hindi
+      - "ta"  # Tamil
+      - "te"  # Telugu
+      - "bn"  # Bengali
+      - "mr"  # Marathi

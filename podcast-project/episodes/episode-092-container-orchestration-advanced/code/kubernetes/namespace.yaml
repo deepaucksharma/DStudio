@@ -1,0 +1,122 @@
+# Kubernetes Namespace Configuration for Indian E-commerce Platform
+# Episode 092: Container Orchestration
+# Context: Flipkart-style multi-tenant namespace organization
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-production
+  labels:
+    tier: production
+    region: mumbai
+    compliance: rbi-compliant
+    cost-center: platform-engineering
+    backup: enabled
+    monitoring: enabled
+    security-level: high
+  annotations:
+    description: "Production namespace for Flipkart-style e-commerce platform"
+    contact: "platform-team@flipkart.com"
+    created-by: "platform-engineering"
+    cost-budget: "INR-500000-monthly"
+    backup-schedule: "0 2 * * *"  # Daily at 2 AM IST
+    security-scan: "daily"
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-staging
+  labels:
+    tier: staging
+    region: mumbai
+    cost-center: platform-engineering
+    backup: limited
+    monitoring: enabled
+    security-level: medium
+  annotations:
+    description: "Staging environment for testing"
+    contact: "platform-team@flipkart.com"
+    cost-budget: "INR-100000-monthly"
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-development
+  labels:
+    tier: development
+    region: mumbai
+    cost-center: engineering
+    backup: disabled
+    monitoring: basic
+    security-level: low
+  annotations:
+    description: "Development environment for engineers"
+    contact: "dev-team@flipkart.com"
+    cost-budget: "INR-50000-monthly"
+
+---
+# Regional namespaces for multi-region deployment
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-delhi
+  labels:
+    tier: production
+    region: delhi
+    role: regional-replica
+    compliance: rbi-compliant
+    cost-center: platform-engineering
+  annotations:
+    description: "Delhi region deployment"
+    primary-region: "mumbai"
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-bangalore
+  labels:
+    tier: production
+    region: bangalore
+    role: regional-replica
+    compliance: rbi-compliant
+    cost-center: platform-engineering
+  annotations:
+    description: "Bangalore region deployment"
+    primary-region: "mumbai"
+
+---
+# Monitoring and Infrastructure namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-monitoring
+  labels:
+    tier: infrastructure
+    purpose: monitoring
+    region: mumbai
+    cost-center: platform-engineering
+    security-level: high
+  annotations:
+    description: "Centralized monitoring and observability"
+    retention-policy: "90-days"
+
+---
+# Security and compliance namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-security
+  labels:
+    tier: infrastructure
+    purpose: security
+    region: mumbai
+    compliance: pci-dss
+    cost-center: security-team
+    security-level: critical
+  annotations:
+    description: "Security services and compliance tools"
+    audit-log-retention: "365-days"
+    access-review: "monthly"

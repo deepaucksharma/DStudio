@@ -1,0 +1,808 @@
+# Prometheus Monitoring Stack for Indian E-commerce Platform
+# Episode 092: Container Orchestration - Monitoring
+# Context: Production-grade monitoring optimized for Indian infrastructure
+
+---
+# Prometheus Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flipkart-monitoring
+  labels:
+    name: flipkart-monitoring
+    tier: infrastructure
+    purpose: monitoring
+    region: mumbai
+    compliance: rbi-compliant
+
+---
+# Prometheus ServiceAccount
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus
+  namespace: flipkart-monitoring
+  labels:
+    app: prometheus
+    component: server
+
+---
+# Prometheus ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+    component: server
+rules:
+- apiGroups: [""]
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs: ["get", "list", "watch"]
+- nonResourceURLs: ["/metrics"]
+  verbs: ["get"]
+
+---
+# Prometheus ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+    component: server
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus
+subjects:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: flipkart-monitoring
+
+---
+# Prometheus ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: flipkart-monitoring
+  labels:
+    app: prometheus
+    component: server
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+      external_labels:
+        cluster: 'flipkart-mumbai'
+        region: 'ap-south-1'
+        datacenter: 'mumbai-west'
+        environment: 'production'
+        company: 'flipkart'
+    
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets: ['alertmanager:9093']
+    
+    rule_files:
+      - "alert_rules.yml"
+      - "recording_rules.yml"
+      - "indian_business_rules.yml"
+    
+    scrape_configs:
+      # Kubernetes API Server monitoring
+      - job_name: 'kubernetes-apiservers'
+        kubernetes_sd_configs:
+          - role: endpoints
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: default;kubernetes;https
+      
+      # Kubernetes nodes monitoring
+      - job_name: 'kubernetes-nodes'
+        kubernetes_sd_configs:
+          - role: node
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+          - action: labelmap
+            regex: __meta_kubernetes_node_label_(.+)
+          - target_label: __address__
+            replacement: kubernetes.default.svc:443
+          - source_labels: [__meta_kubernetes_node_name]
+            regex: (.+)
+            target_label: __metrics_path__
+            replacement: /api/v1/nodes/${1}/proxy/metrics
+      
+      # Kubernetes pods monitoring
+      - job_name: 'kubernetes-pods'
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+          - action: labelmap
+            regex: __meta_kubernetes_pod_label_(.+)
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            action: replace
+            target_label: kubernetes_pod_name
+      
+      # Flipkart application services
+      - job_name: 'flipkart-services'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names: ['flipkart-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+          - action: labelmap
+            regex: __meta_kubernetes_service_label_(.+)
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            action: replace
+            target_label: kubernetes_service_name
+        metric_relabel_configs:
+          # Add Indian region labels
+          - target_label: region
+            replacement: mumbai
+          - target_label: country
+            replacement: india
+      
+      # Node Exporter for system metrics
+      - job_name: 'node-exporter'
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_endpoints_name]
+            action: keep
+            regex: node-exporter
+          - source_labels: [__meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: metrics
+      
+      # Blackbox exporter for external monitoring
+      - job_name: 'blackbox-external'
+        metrics_path: /probe
+        params:
+          module: [http_2xx]
+        static_configs:
+          - targets:
+            - https://api.flipkart.com/health
+            - https://www.flipkart.com
+            - https://payments.flipkart.com/health
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter:9115
+      
+      # Payment gateway monitoring
+      - job_name: 'payment-gateways'
+        metrics_path: /probe
+        params:
+          module: [http_2xx]
+        static_configs:
+          - targets:
+            - https://api.razorpay.com
+            - https://api.paytm.com
+            - https://api.phonepe.com
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter:9115
+          - target_label: job
+            replacement: payment-gateways
+      
+      # Indian business metrics
+      - job_name: 'business-metrics'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names: ['flipkart-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_label_tier]
+            action: keep
+            regex: business.*
+      
+      # Infrastructure monitoring
+      - job_name: 'infrastructure'
+        static_configs:
+          - targets: ['postgres-exporter:9187']
+            labels:
+              service: 'postgresql'
+              tier: 'database'
+          - targets: ['redis-exporter:9121']
+            labels:
+              service: 'redis'
+              tier: 'cache'
+          - targets: ['elasticsearch-exporter:9114']
+            labels:
+              service: 'elasticsearch'
+              tier: 'search'
+          - targets: ['kafka-exporter:9308']
+            labels:
+              service: 'kafka'
+              tier: 'streaming'
+
+  alert_rules.yml: |
+    groups:
+    - name: flipkart-critical-alerts
+      rules:
+      # High availability alerts
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+          region: mumbai
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "Service {{ $labels.job }} on {{ $labels.instance }} has been down for more than 1 minute"
+          runbook_url: "https://runbooks.flipkart.com/service-down"
+          oncall: "+91-80-XXXX-XXXX"
+      
+      # Payment system alerts (critical for revenue)
+      - alert: PaymentServiceDown
+        expr: up{job="payment-service"} == 0
+        for: 30s
+        labels:
+          severity: critical
+          team: payments
+          priority: p0
+        annotations:
+          summary: "Payment service is down - REVENUE IMPACT"
+          description: "Payment service has been down for 30 seconds. Immediate attention required."
+          impact: "All payment processing stopped"
+          escalation: "Immediately escalate to CTO"
+      
+      - alert: PaymentGatewayUnreachable
+        expr: probe_success{job="payment-gateways"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: payments
+        annotations:
+          summary: "Payment gateway {{ $labels.instance }} unreachable"
+          description: "Cannot reach payment gateway {{ $labels.instance }} for 2 minutes"
+      
+      # High traffic alerts (Indian peak hours)
+      - alert: HighTrafficDuringPeakHours
+        expr: sum(rate(http_requests_total[5m])) > 50000 and hour() >= 10 and hour() <= 23
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+          context: indian-peak-hours
+        annotations:
+          summary: "High traffic during Indian peak hours"
+          description: "Request rate is {{ $value }} req/sec during peak hours (10 AM - 11 PM IST)"
+          action: "Consider auto-scaling or traffic throttling"
+      
+      # Infrastructure alerts
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is above 80% for 10 minutes"
+      
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is above 85%"
+      
+      # Database alerts
+      - alert: DatabaseConnectionPoolExhaustion
+        expr: sum(hikaricp_connections_active) / sum(hikaricp_connections_max) > 0.9
+        for: 2m
+        labels:
+          severity: critical
+          team: backend
+        annotations:
+          summary: "Database connection pool near exhaustion"
+          description: "Database connection pool usage is above 90%"
+      
+      - alert: DatabaseSlowQueries
+        expr: mysql_global_status_slow_queries > 100
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "High number of slow database queries"
+          description: "Slow query count: {{ $value }}"
+      
+      # API performance alerts
+      - alert: HighAPILatency
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service)) > 2
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "High API latency for {{ $labels.service }}"
+          description: "95th percentile latency is {{ $value }} seconds"
+      
+      - alert: HighErrorRate
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          team: backend
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }}"
+      
+      # Indian business alerts
+      - alert: FestivalTrafficSpike
+        expr: sum(rate(http_requests_total[5m])) > 100000
+        for: 1m
+        labels:
+          severity: info
+          team: platform
+          context: festival-season
+        annotations:
+          summary: "Festival traffic spike detected"
+          description: "Traffic is {{ $value }} req/sec - likely festival season"
+          action: "Ensure festival scaling is active"
+      
+      # Compliance alerts
+      - alert: DataLocalizationViolation
+        expr: up{region!="india"} == 1
+        for: 1m
+        labels:
+          severity: critical
+          team: compliance
+          regulation: rbi
+        annotations:
+          summary: "Potential data localization violation"
+          description: "Service running outside India: {{ $labels.instance }}"
+          compliance_impact: "RBI data localization requirements"
+
+  recording_rules.yml: |
+    groups:
+    - name: flipkart-recording-rules
+      interval: 30s
+      rules:
+      # API request rates
+      - record: flipkart:http_requests:rate5m
+        expr: sum(rate(http_requests_total[5m])) by (service, method, status)
+      
+      - record: flipkart:http_requests:rate1h
+        expr: sum(rate(http_requests_total[1h])) by (service, method, status)
+      
+      # Error rates
+      - record: flipkart:http_errors:rate5m
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)
+      
+      - record: flipkart:http_error_percentage:rate5m
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m])) by (service) /
+          sum(rate(http_requests_total[5m])) by (service) * 100
+      
+      # Response time percentiles
+      - record: flipkart:http_duration:p95:5m
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service))
+      
+      - record: flipkart:http_duration:p99:5m
+        expr: histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service))
+      
+      # Infrastructure utilization
+      - record: flipkart:cpu_utilization:avg5m
+        expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+      
+      - record: flipkart:memory_utilization:current
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+      
+      # Business metrics
+      - record: flipkart:orders:rate5m
+        expr: sum(rate(orders_created_total[5m])) by (region, city)
+      
+      - record: flipkart:revenue:rate5m
+        expr: sum(rate(payment_amount_total[5m])) by (payment_method, region)
+      
+      # Indian specific metrics
+      - record: flipkart:indian_peak_hours:traffic
+        expr: |
+          (
+            sum(rate(http_requests_total[5m])) and 
+            (hour() >= 10 and hour() <= 23)
+          ) or vector(0)
+      
+      - record: flipkart:regional_traffic:rate5m
+        expr: sum(rate(http_requests_total[5m])) by (region, city)
+
+  indian_business_rules.yml: |
+    groups:
+    - name: indian-business-metrics
+      interval: 1m
+      rules:
+      # Festival season detection
+      - alert: FestivalSeasonActive
+        expr: |
+          (month() == 10 and day() >= 20) or  # Diwali season
+          (month() == 10 and day() <= 5) or   # Dussehra
+          (month() == 3 and day() >= 20 and day() <= 30) or  # Holi
+          (month() == 8 and day() == 15) or   # Independence Day
+          (month() == 1 and day() == 26)      # Republic Day
+        labels:
+          severity: info
+          team: business
+          context: festival
+        annotations:
+          summary: "Festival season detected - expect high traffic"
+          description: "Current date falls in major Indian festival period"
+          action: "Ensure festival scaling is enabled"
+      
+      # Regional performance monitoring
+      - alert: RegionalPerformanceDegradation
+        expr: |
+          (
+            avg(flipkart:http_duration:p95:5m) by (region) > 3 and
+            region != "mumbai"
+          )
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+          context: regional
+        annotations:
+          summary: "Performance degradation in {{ $labels.region }} region"
+          description: "95th percentile response time is {{ $value }}s in {{ $labels.region }}"
+      
+      # Payment method monitoring
+      - alert: UPIPaymentFailures
+        expr: |
+          sum(rate(payment_failures_total{method="upi"}[5m])) /
+          sum(rate(payment_attempts_total{method="upi"}[5m])) > 0.1
+        for: 3m
+        labels:
+          severity: critical
+          team: payments
+          payment_method: upi
+        annotations:
+          summary: "High UPI payment failure rate"
+          description: "UPI failure rate is {{ $value | humanizePercentage }}"
+          impact: "Major payment method in India affected"
+      
+      # GST compliance monitoring
+      - alert: GSTCalculationErrors
+        expr: sum(rate(gst_calculation_errors_total[5m])) > 10
+        for: 2m
+        labels:
+          severity: warning
+          team: finance
+          compliance: gst
+        annotations:
+          summary: "GST calculation errors detected"
+          description: "{{ $value }} GST calculation errors per second"
+          compliance_risk: "Tax calculation accuracy impact"
+
+---
+# Prometheus Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: flipkart-monitoring
+  labels:
+    app: prometheus
+    component: server
+    tier: monitoring
+    region: mumbai
+spec:
+  replicas: 2  # High availability
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: prometheus
+      component: server
+  template:
+    metadata:
+      labels:
+        app: prometheus
+        component: server
+        tier: monitoring
+        region: mumbai
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: prometheus
+      
+      # Node affinity for monitoring nodes
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: ["ap-south-1"]
+              - key: node-type
+                operator: In
+                values: ["monitoring", "general"]
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values: ["prometheus"]
+              topologyKey: kubernetes.io/hostname
+      
+      # Security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        fsGroup: 65534
+      
+      containers:
+      - name: prometheus
+        image: prom/prometheus:v2.47.0
+        imagePullPolicy: IfNotPresent
+        
+        args:
+          - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--storage.tsdb.path=/prometheus'
+          - '--storage.tsdb.retention.time=30d'
+          - '--storage.tsdb.retention.size=50GB'
+          - '--web.console.libraries=/etc/prometheus/console_libraries'
+          - '--web.console.templates=/etc/prometheus/consoles'
+          - '--web.enable-lifecycle'
+          - '--web.enable-admin-api'
+          - '--web.external-url=http://prometheus.flipkart.internal:9090'
+          - '--web.route-prefix=/'
+          # Indian timezone for better log correlation
+          - '--log.level=info'
+          - '--query.timeout=2m'
+          - '--query.max-concurrency=20'
+          # Optimized for Indian infrastructure
+          - '--storage.tsdb.min-block-duration=2h'
+          - '--storage.tsdb.max-block-duration=25h'
+        
+        ports:
+        - name: web
+          containerPort: 9090
+          protocol: TCP
+        
+        env:
+        - name: TZ
+          value: "Asia/Kolkata"
+        
+        # Resource allocation optimized for Indian infrastructure costs
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "4Gi"
+          limits:
+            cpu: "2000m"
+            memory: "8Gi"
+        
+        volumeMounts:
+        - name: config
+          mountPath: /etc/prometheus
+          readOnly: true
+        - name: storage
+          mountPath: /prometheus
+        - name: rules
+          mountPath: /etc/prometheus/rules
+          readOnly: true
+        
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 10
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 3
+        
+        # Lifecycle management
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 15"]
+      
+      # Configuration reload sidecar
+      - name: configmap-reload
+        image: jimmidyson/configmap-reload:v0.8.0
+        args:
+          - '--volume-dir=/etc/prometheus'
+          - '--webhook-url=http://localhost:9090/-/reload'
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "32Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
+        volumeMounts:
+        - name: config
+          mountPath: /etc/prometheus
+          readOnly: true
+      
+      volumes:
+      - name: config
+        configMap:
+          name: prometheus-config
+      - name: rules
+        configMap:
+          name: prometheus-rules
+      - name: storage
+        persistentVolumeClaim:
+          claimName: prometheus-storage
+      
+      terminationGracePeriodSeconds: 30
+
+---
+# Prometheus Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: flipkart-monitoring
+  labels:
+    app: prometheus
+    component: server
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: web
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  selector:
+    app: prometheus
+    component: server
+  # Internal access only
+  loadBalancerSourceRanges:
+  - "10.0.0.0/8"
+  - "172.16.0.0/12"
+  - "192.168.0.0/16"
+
+---
+# Prometheus Storage PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-storage
+  namespace: flipkart-monitoring
+  labels:
+    app: prometheus
+    component: server
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "gp3"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: gp3
+
+---
+# Prometheus HPA
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: prometheus-hpa
+  namespace: flipkart-monitoring
+  labels:
+    app: prometheus
+    component: server
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: prometheus
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60

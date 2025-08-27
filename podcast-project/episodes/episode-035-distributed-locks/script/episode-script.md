@@ -8,6 +8,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/coordination/distributed-lock.md - Complete blueprint for distributed lock implementation
+- **Pattern Library**: docs/pattern-library/coordination/consensus.md - Consensus algorithms underlying distributed locks
+- **Pattern Library**: docs/pattern-library/coordination/lease.md - Lease-based locking mechanisms and timeout handling
+- **Core Principles**: docs/core-principles/laws/distributed-knowledge.md - How distributed locks help coordinate shared knowledge
+- **Case Studies**: docs/architects-handbook/case-studies/databases/etcd.md - etcd as a distributed lock backend
+- **Case Studies**: docs/architects-handbook/case-studies/databases/redis-architecture.md - Redis-based distributed locking patterns
+- **Pattern Library**: docs/pattern-library/resilience/split-brain.md - Preventing split-brain scenarios with fencing tokens
+
+---
+
 ## Part 1: Fundamentals aur Theory (7,000 words)
 
 ### Introduction: Mumbai Parking Spot ka Engineering Problem

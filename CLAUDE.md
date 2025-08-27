@@ -10,9 +10,10 @@
 - **Language**: 70% Hindi/Roman Hindi, 30% Technical English terms only
 - **Style**: Mumbai street-style storytelling, NOT academic
 - **Examples**: 30% MUST be Indian context (Paytm, Flipkart, Ola, Zomato, IRCTC)
-- **Code**: 15+ working examples per episode (Python, Java, Go)
+- **Technical Explanations**: 15+ rich audio explanations (NO raw code - this is a PODCAST!)
 - **Case Studies**: 5+ production failures with timeline and costs
 - **2025 Focus**: All examples must be 2020-2025, no outdated content
+- **CRITICAL**: Code concepts explained through stories, NOT syntax
 
 ### Agent Responsibilities
 
@@ -54,18 +55,20 @@ Verification:
   - Readability: Street-level language
 ```
 
-#### Code Developer Agent
+#### Technical Explanation Developer Agent
 ```yaml
-Task: Create production-ready code examples
+Task: Convert technical concepts to audio-friendly explanations
 Requirements:
-  - 15+ complete code examples
-  - Multiple languages (Python, Java, Go)
-  - All code MUST be runnable
-  - Include tests for each example
+  - 15+ rich technical explanations (NO raw code)
+  - Each explanation 200-500 words minimum
+  - Use Mumbai metaphors and Indian examples
+  - Include production metrics and costs in INR
+  - Explain the WHY, WHEN, HOW MUCH, not HOW TO CODE
 Verification:
-  - Code count: Minimum 15 examples
-  - Syntax check: All must compile/run
-  - Comments: Hindi comments included
+  - Explanation count: Minimum 15 concepts
+  - Audio readability: Must sound natural when spoken
+  - Depth check: Each explanation teaches 5+ insights
+  - Indian context: 40%+ local examples
 ```
 
 #### Technical Reviewer Agent
@@ -142,12 +145,13 @@ Agent 4: Script Writing
   - MUST produce 20,000+ words
   - Verify word count 3 times
   
-Agent 5: Code Development
-  - 15+ examples minimum
-  - Test each example
-  - Document thoroughly
+Agent 5: Technical Explanation Development
+  - 15+ technical concepts explained
+  - Each explanation 200-500 words
+  - Mumbai metaphors + Indian examples
+  - Production metrics in INR
 
-GATE: 20,000 words + 15 code examples
+GATE: 20,000 words + 15 rich explanations
 ```
 
 #### Phase 3: Review (2 agents parallel)
@@ -219,6 +223,54 @@ Agent Sign-offs:
 - Review Agent: [PENDING/COMPLETE]
 - QA Agent: [PENDING/COMPLETE]
 ```
+
+---
+
+## AUDIO-FIRST CONTENT PRINCIPLES (NEW - CRITICAL)
+
+### Why NO Code in Podcasts?
+**Podcasts are AUDIO-ONLY** - Listeners cannot see code while:
+- Driving to work on Mumbai-Pune expressway
+- Standing in crowded Mumbai local trains
+- Walking/jogging in Aarey Colony
+- Cooking dinner while listening
+
+### Code to Explanation Transformation Rules
+```yaml
+Instead of Code:
+  def rate_limiter(max_requests=100):
+    # implementation details
+
+Use Rich Explanation:
+  "Imagine IRCTC during Tatkal booking at 10 AM. The system allows only 100 
+  requests per second per user. Why? Without this limit, the servers would 
+  crash faster than Mumbai traffic in monsoon. Here's how it works: Think 
+  of it like token system at a bank. Every second, you get 100 tokens. 
+  Each booking attempt uses one token. No tokens? You wait. This saved 
+  IRCTC ₹50 crores by preventing server crashes during peak booking."
+```
+
+### Explanation Depth Formula
+- **Simple concept (5-10 lines code)** → 200-300 word story
+- **Complex algorithm (20-30 lines)** → 400-500 word journey  
+- **System design (50+ lines)** → 600+ word architecture saga
+
+### Mumbai Metaphor Bank
+- Distributed systems = Mumbai local train network
+- Microservices = Dabbawalas
+- Load balancer = Toll booth lanes
+- Circuit breaker = Train door closing mechanism
+- Message queue = BEST bus stops
+- Cache = Street vendor keeping popular items ready
+- Database sharding = Different railway lines (Western, Central, Harbour)
+
+### Technical Concepts to Stories
+- "Function call" → "System asks for help"
+- "API request" → "Ordering from Swiggy"
+- "Database query" → "Checking PNR status"
+- "Cache hit" → "Vendor remembering your regular order"
+- "Timeout" → "Uber driver canceling after 5 minutes"
+- "Retry logic" → "Redialing when call drops"
 
 ---
 
@@ -466,7 +518,7 @@ python -c "import sys; content=open(sys.argv[1]).read(); words=len(content.split
 
 ### Per Episode Requirements
 - [ ] 20,000+ words (HARD MINIMUM)
-- [ ] 15+ code examples (TESTED)
+- [ ] 15+ technical explanations (AUDIO-FRIENDLY, NO CODE)
 - [ ] 5+ case studies (VERIFIED)
 - [ ] 30%+ Indian context
 - [ ] 100% 2020+ examples
@@ -475,6 +527,7 @@ python -c "import sys; content=open(sys.argv[1]).read(); words=len(content.split
 - [ ] Zero technical errors
 - [ ] High engagement value
 - [ ] Practical takeaways
+- [ ] All concepts explained through stories, not syntax
 
 ### Series Goals
 - 200 episodes total
@@ -488,10 +541,11 @@ python -c "import sys; content=open(sys.argv[1]).read(); words=len(content.split
 ## ENFORCEMENT RULES
 
 1. **NO EPISODE PROCEEDS WITHOUT 20,000 WORDS**
-2. **NO CODE EXAMPLES WITHOUT TESTING**
+2. **NO RAW CODE IN SCRIPTS - ONLY AUDIO EXPLANATIONS**
 3. **NO CASE STUDIES WITHOUT VERIFICATION**
 4. **NO TECHNICAL CONTENT WITHOUT REVIEW**
 5. **NO PUBLISHING WITHOUT QA APPROVAL**
+6. **EVERY TECHNICAL CONCEPT MUST BE A STORY, NOT SYNTAX**
 
 ---
 
@@ -509,7 +563,7 @@ Launch 3 agents in parallel:
 ```markdown
 Launch 2 agents in parallel:
 - Agent 4: "Write complete Episode X script, MUST BE 20,000+ words"
-- Agent 5: "Create 15+ code examples for Episode X, all tested"
+- Agent 5: "Create 15+ rich technical explanations for Episode X, each 200-500 words, using Mumbai metaphors and Indian examples, NO raw code"
 ```
 
 ### For Review Phase
@@ -557,7 +611,7 @@ Remember: Quality > Speed, but maintain discipline. Every episode represents 3 h
 
 ---
 
-*Last Updated: 2025-01-10*
-*Version: 1.1*
-*Status: ACTIVE - ENFORCEMENT MODE*
-*Change: Added documentation reference requirements for research agents*
+*Last Updated: 2025-01-24*
+*Version: 2.0 - AUDIO-FIRST REVOLUTION*
+*Status: ACTIVE - PODCAST ENFORCEMENT MODE*
+*Major Change: Transformed from code-heavy to audio-first approach. All technical concepts must be explained through stories and metaphors, NOT code syntax. This is a PODCAST - listeners cannot see code!*

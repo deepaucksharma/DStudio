@@ -1,0 +1,695 @@
+# GitHub Actions Workflow for Indian E-commerce Platform
+# Episode 092: Container Orchestration - GitHub Actions CI/CD
+# Context: Production-grade CI/CD optimized for Indian infrastructure and compliance
+
+name: Flipkart Indian E-commerce CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run daily at 2 AM IST for dependency updates
+    - cron: '30 20 * * *'  # 2:00 AM IST
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      region:
+        description: 'Indian region for deployment'
+        required: true
+        default: 'mumbai'
+        type: choice
+        options:
+          - mumbai
+          - delhi
+          - bangalore
+
+# Environment variables for Indian infrastructure
+env:
+  DOCKER_REGISTRY: registry.flipkart.com
+  INDIAN_TIMEZONE: Asia/Kolkata
+  PRIMARY_REGION: ap-south-1
+  SECONDARY_REGION: ap-southeast-1
+  RBI_COMPLIANCE: enabled
+  PCI_DSS_COMPLIANCE: enabled
+  DATA_LOCALIZATION: enabled
+  COST_OPTIMIZATION: enabled
+
+# Default permissions for security
+permissions:
+  contents: read
+  packages: write
+  security-events: write
+  id-token: write
+
+jobs:
+  # Job 1: Code Validation and Security Scanning
+  validate-and-scan:
+    name: Code Validation & Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      should-deploy: ${{ steps.changes.outputs.should-deploy }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set Indian timezone
+        run: |
+          sudo timedatectl set-timezone ${{ env.INDIAN_TIMEZONE }}
+          echo "Current time in India: $(date)"
+      
+      - name: Setup Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+      
+      - name: Setup Node.js for frontend
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Generate version
+        id: version
+        run: |
+          VERSION=$(date +'%Y%m%d%H%M%S')-$(echo ${{ github.sha }} | cut -c1-7)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Generated version: $VERSION"
+      
+      - name: Code quality check
+        run: |
+          echo "Running code quality checks for Indian compliance"
+          ./gradlew clean checkstyleMain spotbugsMain
+          
+          # Check for Indian-specific configurations
+          echo "Validating Indian regional settings"
+          grep -r "Asia/Kolkata" src/ || echo "Warning: Indian timezone not configured"
+          grep -r "INR" src/ || echo "Warning: Indian currency not configured"
+          grep -r "en_IN" src/ || echo "Warning: Indian locale not configured"
+      
+      - name: Security vulnerability scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          
+      - name: Upload security scan results
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+      
+      - name: Indian credentials security check
+        run: |
+          echo "Checking for exposed Indian payment gateway credentials"
+          # Check for hardcoded payment gateway secrets
+          if grep -r "rzp_test\|rzp_live" . --exclude-dir=.git; then
+            echo "ERROR: Razorpay credentials found in code"
+            exit 1
+          fi
+          if grep -r "MIDT.*paytm\|paytm.*secret" . --exclude-dir=.git; then
+            echo "ERROR: Paytm credentials found in code"
+            exit 1
+          fi
+          echo "No hardcoded Indian payment credentials found"
+      
+      - name: Check for changes requiring deployment
+        id: changes
+        run: |
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+          fi
+
+  # Job 2: Build and Test
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    needs: validate-and-scan
+    timeout-minutes: 30
+    
+    strategy:
+      matrix:
+        service: [product-catalog, order-management, payment-service, user-service, search-service, api-gateway]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            image=moby/buildkit:v0.12.0
+      
+      - name: Login to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Setup Java for testing
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+      
+      - name: Run unit tests
+        run: |
+          echo "Running unit tests for ${{ matrix.service }}"
+          ./gradlew :${{ matrix.service }}:test
+          
+          # Run Indian-specific test suites
+          echo "Running Indian payment gateway tests"
+          ./gradlew :${{ matrix.service }}:test --tests "*Razorpay*"
+          ./gradlew :${{ matrix.service }}:test --tests "*Paytm*"
+          ./gradlew :${{ matrix.service }}:test --tests "*UPI*"
+          
+          # Run localization tests
+          ./gradlew :${{ matrix.service }}:test --tests "*Localization*"
+          ./gradlew :${{ matrix.service }}:test --tests "*GST*"
+      
+      - name: Generate test coverage
+        run: |
+          ./gradlew :${{ matrix.service }}:jacocoTestReport
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results-${{ matrix.service }}
+          path: |
+            **/build/test-results/test/TEST-*.xml
+            **/build/reports/jacoco/test/jacocoTestReport.xml
+      
+      - name: Build Docker image
+        run: |
+          echo "Building Docker image for ${{ matrix.service }}"
+          
+          # Build with Indian optimizations
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 \
+            --build-arg TIMEZONE=${{ env.INDIAN_TIMEZONE }} \
+            --build-arg LOCALE=en_IN \
+            --build-arg CURRENCY=INR \
+            --tag ${{ env.DOCKER_REGISTRY }}/flipkart/${{ matrix.service }}:${{ needs.validate-and-scan.outputs.version }} \
+            --tag ${{ env.DOCKER_REGISTRY }}/flipkart/${{ matrix.service }}:latest \
+            --file Dockerfile.${{ matrix.service }} \
+            --push \
+            .
+      
+      - name: Scan Docker image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.DOCKER_REGISTRY }}/flipkart/${{ matrix.service }}:${{ needs.validate-and-scan.outputs.version }}
+          format: 'table'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
+
+  # Job 3: Indian Compliance Validation
+  compliance-check:
+    name: Indian Compliance Check
+    runs-on: ubuntu-latest
+    needs: [validate-and-scan]
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: RBI Compliance Check
+        run: |
+          echo "Performing RBI compliance validation"
+          
+          # Check data localization
+          echo "Verifying data stays within Indian borders"
+          if ! grep -r "ap-south-1\|ap-southeast-1" kubernetes/; then
+            echo "ERROR: Non-Indian regions detected in configuration"
+            exit 1
+          fi
+          
+          # Check encryption standards
+          echo "Verifying encryption standards (AES-256)"
+          if ! grep -r "AES-256" kubernetes/secrets.yaml; then
+            echo "ERROR: Required encryption standard not found"
+            exit 1
+          fi
+          
+          # Check audit logging
+          echo "Verifying audit logging configuration"
+          grep -r "audit.*enabled" kubernetes/ || echo "Warning: Audit logging not explicitly enabled"
+          
+          echo "RBI compliance check passed"
+      
+      - name: PCI-DSS Compliance Check
+        run: |
+          echo "Performing PCI-DSS compliance check for payment systems"
+          
+          # Check TLS configuration
+          if ! grep -rE "TLSv1\.[23]" kubernetes/; then
+            echo "ERROR: Secure TLS version not configured"
+            exit 1
+          fi
+          
+          # Check tokenization
+          grep -r "tokenization.*true" kubernetes/ || echo "Warning: Tokenization not explicitly enabled"
+          
+          # Check payment encryption
+          if ! grep -r "payment-encryption-key" kubernetes/secrets.yaml; then
+            echo "ERROR: Payment encryption key not found"
+            exit 1
+          fi
+          
+          echo "PCI-DSS compliance check passed"
+      
+      - name: Indian IT Act 2000 Compliance
+        run: |
+          echo "Checking compliance with Indian IT Act 2000"
+          
+          # Digital signature verification
+          grep -r "digital.*signature\|rsa.*key" kubernetes/ || echo "Info: Digital signature configuration not found"
+          
+          # Data protection measures
+          grep -r "data.*protection\|privacy" kubernetes/ || echo "Info: Data protection configuration not found"
+          
+          echo "IT Act 2000 compliance check completed"
+
+  # Job 4: Integration Testing
+  integration-test:
+    name: Integration Testing
+    runs-on: ubuntu-latest
+    needs: [build-and-test, compliance-check]
+    timeout-minutes: 25
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: flipkart_test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test123
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+      
+      - name: Start application services
+        run: |
+          echo "Starting application for integration testing"
+          docker-compose -f docker-compose.test.yml up -d
+          sleep 60  # Wait for services to start
+      
+      - name: Run integration tests
+        run: |
+          echo "Running integration tests with Indian scenarios"
+          ./gradlew integrationTest
+          
+          # Test Indian regional endpoints
+          curl -f http://localhost:8080/api/v1/health/mumbai || exit 1
+          curl -f http://localhost:8080/api/v1/health/delhi || exit 1
+          curl -f http://localhost:8080/api/v1/health/bangalore || exit 1
+      
+      - name: Test Indian payment gateways
+        run: |
+          echo "Testing Indian payment gateway integrations"
+          
+          # Test Razorpay integration
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"amount": 1000, "currency": "INR", "gateway": "razorpay"}' \
+            http://localhost:8080/api/v1/payments/test || exit 1
+          
+          # Test UPI integration
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"amount": 500, "vpa": "test@upi", "gateway": "upi"}' \
+            http://localhost:8080/api/v1/payments/upi/test || exit 1
+      
+      - name: Test GST calculations
+        run: |
+          echo "Testing GST calculation functionality"
+          
+          # Test GST calculation for different states
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"amount": 1000, "state": "maharashtra", "category": "electronics"}' \
+            http://localhost:8080/api/v1/gst/calculate || exit 1
+          
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"amount": 2000, "state": "karnataka", "category": "clothing"}' \
+            http://localhost:8080/api/v1/gst/calculate || exit 1
+      
+      - name: Load testing for Indian traffic patterns
+        run: |
+          echo "Running load tests simulating Indian traffic patterns"
+          
+          # Simulate peak hour traffic
+          for i in {1..100}; do
+            curl -s http://localhost:8080/health > /dev/null &
+          done
+          wait
+          
+          # Simulate festival season traffic
+          for i in {1..500}; do
+            curl -s http://localhost:8080/api/v1/products/search?q=diwali > /dev/null &
+            if [ $((i % 50)) -eq 0 ]; then
+              wait  # Wait every 50 requests to avoid overwhelming
+            fi
+          done
+          wait
+      
+      - name: Cleanup
+        if: always()
+        run: |
+          docker-compose -f docker-compose.test.yml down
+
+  # Job 5: Deploy to Staging
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [integration-test]
+    if: needs.validate-and-scan.outputs.should-deploy == 'true' || github.event_name == 'workflow_dispatch'
+    environment: 
+      name: staging-mumbai
+      url: https://staging-mumbai.flipkart.internal
+    timeout-minutes: 20
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: '3.12.0'
+      
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: '1.28.0'
+      
+      - name: Configure kubectl for Mumbai cluster
+        run: |
+          echo "${{ secrets.KUBECONFIG_MUMBAI }}" | base64 -d > /tmp/kubeconfig
+          export KUBECONFIG=/tmp/kubeconfig
+          kubectl config current-context
+      
+      - name: Deploy to Mumbai staging
+        env:
+          KUBECONFIG: /tmp/kubeconfig
+        run: |
+          echo "Deploying to Mumbai staging environment"
+          
+          # Create namespace if not exists
+          kubectl create namespace flipkart-staging --dry-run=client -o yaml | kubectl apply -f -
+          
+          # Deploy using Helm with Indian optimizations
+          helm upgrade --install flipkart-staging helm/api-gateway/ \
+            --namespace flipkart-staging \
+            --set image.tag=${{ needs.validate-and-scan.outputs.version }} \
+            --set global.region=${{ env.PRIMARY_REGION }} \
+            --set global.environment=staging \
+            --set global.indianOptimization.timezone=${{ env.INDIAN_TIMEZONE }} \
+            --set costOptimization.spotInstances.enabled=true \
+            --set replicaCount=3 \
+            --values helm/api-gateway/values-staging.yaml \
+            --wait --timeout=10m
+          
+          # Verify deployment
+          kubectl rollout status deployment/flipkart-staging-api-gateway -n flipkart-staging --timeout=600s
+          kubectl get pods -n flipkart-staging
+      
+      - name: Staging smoke tests
+        env:
+          KUBECONFIG: /tmp/kubeconfig
+        run: |
+          echo "Running staging smoke tests"
+          sleep 60  # Wait for services to stabilize
+          
+          # Get staging URL
+          STAGING_URL=$(kubectl get ingress flipkart-staging-api-gateway -n flipkart-staging -o jsonpath='{.spec.rules[0].host}')
+          
+          # Health checks
+          curl -f https://$STAGING_URL/health || exit 1
+          curl -f https://$STAGING_URL/api/v1/regions/mumbai || exit 1
+          
+          # Indian specific endpoints
+          curl -f https://$STAGING_URL/api/v1/payments/gateways || exit 1
+          
+          echo "Staging deployment successful"
+
+  # Job 6: Deploy to Production
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [deploy-staging]
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    environment: 
+      name: production
+      url: https://api.flipkart.com
+    timeout-minutes: 30
+    
+    strategy:
+      matrix:
+        region:
+          - name: mumbai
+            cluster_secret: KUBECONFIG_MUMBAI
+            region_code: ap-south-1
+            replicas: 10
+          - name: delhi  
+            cluster_secret: KUBECONFIG_DELHI
+            region_code: ap-south-1
+            replicas: 5
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: '3.12.0'
+      
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: '1.28.0'
+      
+      - name: Configure kubectl for ${{ matrix.region.name }}
+        run: |
+          echo "${{ secrets[matrix.region.cluster_secret] }}" | base64 -d > /tmp/kubeconfig-${{ matrix.region.name }}
+          export KUBECONFIG=/tmp/kubeconfig-${{ matrix.region.name }}
+          kubectl config current-context
+      
+      - name: Deploy to ${{ matrix.region.name }} production
+        env:
+          KUBECONFIG: /tmp/kubeconfig-${{ matrix.region.name }}
+        run: |
+          echo "Deploying to ${{ matrix.region.name }} production"
+          
+          # Blue-Green deployment
+          DEPLOYMENT_TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          
+          helm upgrade --install flipkart-prod-${{ matrix.region.name }}-$DEPLOYMENT_TIMESTAMP helm/api-gateway/ \
+            --namespace flipkart-production \
+            --set image.tag=${{ needs.validate-and-scan.outputs.version }} \
+            --set global.region=${{ matrix.region.region_code }} \
+            --set global.environment=production \
+            --set global.indianOptimization.timezone=${{ env.INDIAN_TIMEZONE }} \
+            --set replicaCount=${{ matrix.region.replicas }} \
+            --set resources.requests.cpu=1000m \
+            --set resources.requests.memory=2Gi \
+            --set costOptimization.spotInstances.enabled=false \
+            --set autoscaling.enabled=true \
+            --set autoscaling.minReplicas=${{ matrix.region.replicas }} \
+            --set autoscaling.maxReplicas=${{ multiply(matrix.region.replicas, 3) }} \
+            --values helm/api-gateway/values-production.yaml \
+            --wait --timeout=15m
+          
+          # Wait for deployment to be ready
+          kubectl rollout status deployment/flipkart-prod-${{ matrix.region.name }}-$DEPLOYMENT_TIMESTAMP-api-gateway -n flipkart-production --timeout=900s
+          
+          # Verify deployment health
+          kubectl get pods -n flipkart-production -l app.kubernetes.io/instance=flipkart-prod-${{ matrix.region.name }}-$DEPLOYMENT_TIMESTAMP
+          
+          echo "${{ matrix.region.name }} production deployment completed"
+      
+      - name: Production health check for ${{ matrix.region.name }}
+        env:
+          KUBECONFIG: /tmp/kubeconfig-${{ matrix.region.name }}
+        run: |
+          echo "Running production health checks for ${{ matrix.region.name }}"
+          sleep 120  # Wait for traffic to stabilize
+          
+          # Get production URL based on region
+          if [ "${{ matrix.region.name }}" == "mumbai" ]; then
+            PROD_URL="https://api.flipkart.com"
+          else
+            PROD_URL="https://${{ matrix.region.name }}.flipkart.com"
+          fi
+          
+          # Health checks
+          curl -f $PROD_URL/health || exit 1
+          curl -f $PROD_URL/api/v1/regions/${{ matrix.region.name }} || exit 1
+          
+          # Payment gateway connectivity
+          curl -f $PROD_URL/api/v1/payments/health || exit 1
+          
+          echo "${{ matrix.region.name }} production health checks passed"
+
+  # Job 7: Post-deployment monitoring setup
+  setup-monitoring:
+    name: Setup Monitoring
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: '1.28.0'
+      
+      - name: Configure kubectl for Mumbai
+        run: |
+          echo "${{ secrets.KUBECONFIG_MUMBAI }}" | base64 -d > /tmp/kubeconfig
+          export KUBECONFIG=/tmp/kubeconfig
+      
+      - name: Deploy monitoring stack
+        env:
+          KUBECONFIG: /tmp/kubeconfig
+        run: |
+          echo "Setting up monitoring for Indian production environment"
+          
+          # Deploy Prometheus with Indian business rules
+          kubectl apply -f kubernetes/monitoring/prometheus.yaml -n flipkart-monitoring
+          
+          # Deploy Grafana with Indian dashboards
+          kubectl apply -f kubernetes/monitoring/grafana.yaml -n flipkart-monitoring
+          
+          # Verify monitoring stack
+          kubectl wait --for=condition=available deployment/prometheus -n flipkart-monitoring --timeout=300s
+          kubectl wait --for=condition=available deployment/grafana -n flipkart-monitoring --timeout=300s
+          
+          kubectl get pods -n flipkart-monitoring
+          echo "Monitoring setup completed"
+
+  # Job 8: Notifications and cleanup
+  notify-and-cleanup:
+    name: Notifications & Cleanup
+    runs-on: ubuntu-latest
+    needs: [setup-monitoring]
+    if: always()
+    timeout-minutes: 10
+    
+    steps:
+      - name: Send Slack notification
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: ${{ job.status }}
+          channel: '#flipkart-deployments'
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow
+          custom_payload: |
+            {
+              text: ":flag-in: Flipkart Indian E-commerce Deployment",
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                fields: [{
+                  title: 'Status',
+                  value: '${{ job.status }}',
+                  short: true
+                }, {
+                  title: 'Environment',
+                  value: 'Production (Mumbai + Delhi)',
+                  short: true
+                }, {
+                  title: 'Version',
+                  value: '${{ needs.validate-and-scan.outputs.version }}',
+                  short: true
+                }, {
+                  title: 'Time (IST)',
+                  value: '$(TZ=Asia/Kolkata date)',
+                  short: true
+                }, {
+                  title: 'Compliance',
+                  value: 'RBI ✅ | PCI-DSS ✅ | Data Localization ✅',
+                  short: false
+                }]
+              }]
+            }
+      
+      - name: Teams notification for Indian team
+        if: always()
+        uses: aliencube/microsoft-teams-actions@v0.8.0
+        with:
+          webhook_uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          title: "Flipkart Deployment Status"
+          summary: "Indian E-commerce Platform Deployment ${{ job.status }}"
+          text: |
+            **Deployment Status:** ${{ job.status }}
+            **Environment:** Production (Mumbai + Delhi)
+            **Version:** ${{ needs.validate-and-scan.outputs.version }}
+            **Time:** $(TZ=Asia/Kolkata date)
+            **Compliance:** RBI ✅ PCI-DSS ✅ Data Localization ✅
+      
+      - name: Cost optimization cleanup
+        if: success()
+        run: |
+          echo "Triggering cost optimization cleanup"
+          # This would typically call cleanup scripts or webhooks
+          echo "Old deployment cleanup scheduled"
+          echo "Registry cleanup scheduled"
+          echo "Unused resource cleanup scheduled"

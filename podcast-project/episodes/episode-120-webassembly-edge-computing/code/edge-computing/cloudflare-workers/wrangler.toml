@@ -1,0 +1,56 @@
+# Cloudflare Workers configuration for Indian tech scenarios
+# Flipkart, Paytm के global traffic के लिए edge optimization
+
+name = "indian-tech-edge-worker"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# KV namespaces for caching - Flipkart sale के time heavy traffic के लिए
+[[kv_namespaces]]
+binding = "PRODUCT_CACHE"
+preview_id = "preview-products"
+id = "production-products"
+
+[[kv_namespaces]]  
+binding = "USER_SESSIONS"
+preview_id = "preview-sessions"
+id = "production-sessions"
+
+# Durable Objects for real-time features - Ola ride matching के लिए
+[[durable_objects]]
+name = "RideMatching"
+class_name = "RideMatchingDO"
+script_name = "indian-tech-edge-worker"
+
+[[durable_objects]]
+name = "LiveChat" 
+class_name = "LiveChatDO"
+script_name = "indian-tech-edge-worker"
+
+# Environment variables
+[env.production.vars]
+ENVIRONMENT = "production"
+PAYTM_API_KEY = "your-paytm-api-key"
+RAZORPAY_KEY = "your-razorpay-key"
+FLIPKART_AFFILIATE_ID = "your-flipkart-id"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+DEBUG_MODE = "true"
+
+# Routes configuration
+[[env.production.routes]]
+pattern = "api.flipkart.com/*"
+zone_name = "flipkart.com"
+
+[[env.production.routes]]
+pattern = "checkout.paytm.com/*" 
+zone_name = "paytm.com"
+
+# Analytics and monitoring
+[observability]
+enabled = true
+
+[observability.head]
+# Custom headers for Indian traffic analysis
+headers = ["CF-IPCountry", "CF-Ray", "User-Agent"]

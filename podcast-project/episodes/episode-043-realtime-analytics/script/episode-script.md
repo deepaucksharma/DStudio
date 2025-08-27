@@ -3,6 +3,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/scaling/analytics-scale.md - Scaling analytics for real-time processing
+- **Pattern Library**: docs/pattern-library/data-management/stream-processing.md - Stream processing patterns and implementation
+- **Pattern Library**: docs/pattern-library/architecture/lambda-architecture.md - Lambda architecture for real-time analytics
+- **Pattern Library**: docs/pattern-library/architecture/kappa-architecture.md - Kappa architecture for stream processing
+- **Case Studies**: docs/architects-handbook/case-studies/messaging-streaming/kafka.md - Kafka for real-time analytics
+- **Pattern Library**: docs/pattern-library/data-management/data-lakehouse.md - Modern data lakehouse architecture
+- **Case Studies**: docs/architects-handbook/case-studies/search-analytics/elasticsearch.md - Elasticsearch for real-time search analytics
+
+---
+
 ## Episode Overview
 **Title**: Episode 43 - Real-time Analytics: Mumbai ke Local Trains se Seekhenge Data Streaming  
 **Duration**: 180+ minutes (3 hours)  

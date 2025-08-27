@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindi Tech Podcast | Engineering Deep Dive | भारतीय Technology</title>
+    <meta name="description" content="3-hour deep dive episodes on distributed systems, databases, and engineering in Hindi. Real production stories from Indian tech companies.">
+    <meta name="keywords" content="hindi tech podcast, indian engineering, distributed systems, database, microservices, mumbai tech">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Hindi Tech Podcast - Engineering Deep Dive">
+    <meta property="og:description" content="3-hour episodes covering distributed systems, databases, and real Indian tech company stories">
+    <meta property="og:image" content="./images/podcast-cover.jpg">
+    <meta property="og:url" content="https://hindi-tech-podcast.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hindi Tech Podcast - Engineering Deep Dive">
+    <meta name="twitter:description" content="3-hour episodes covering distributed systems, databases, and real Indian tech company stories">
+    <meta name="twitter:image" content="./images/podcast-cover.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="./css/styles.css" as="style">
+    <link rel="preload" href="./js/app.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/styles.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PodcastSeries",
+      "name": "Hindi Tech Podcast",
+      "description": "Deep dive episodes on distributed systems and engineering in Hindi",
+      "url": "https://hindi-tech-podcast.com",
+      "author": {
+        "@type": "Person",
+        "name": "Hindi Tech Podcast Host"
+      },
+      "inLanguage": ["hi", "en"]
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="./images/logo.svg" alt="Hindi Tech Podcast Logo" class="nav-logo">
+                <span class="nav-title" data-en="Hindi Tech Podcast" data-hi="हिंदी टेक पॉडकास्ट">Hindi Tech Podcast</span>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link" data-en="Home" data-hi="होम">Home</a>
+                <a href="episodes.html" class="nav-link" data-en="Episodes" data-hi="एपिसोड्स">Episodes</a>
+                <a href="resources.html" class="nav-link" data-en="Resources" data-hi="रिसोर्सेज">Resources</a>
+                <a href="community.html" class="nav-link" data-en="Community" data-hi="कम्युनिटी">Community</a>
+                <a href="about.html" class="nav-link" data-en="About" data-hi="हमारे बारे में">About</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                    <span class="lang-text">हिं</span>
+                </button>
+                <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="hero-pattern"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title" data-en="Engineering Stories from Mumbai Streets" data-hi="मुंबई की गलियों से इंजीनियरिंग की कहानियां">
+                        Engineering Stories from Mumbai Streets
+                    </h1>
+                    <p class="hero-subtitle" data-en="3-hour deep dives into distributed systems, databases, and real production failures. Explained like a friend over chai." data-hi="डिस्ट्रिब्यूटेड सिस्टम्स, डेटाबेसेज, और प्रोडक्शन फेलियर्स की 3 घंटे की गहरी चर्चा। चाय के साथ दोस्त की तरह समझाया गया।">
+                        3-hour deep dives into distributed systems, databases, and real production failures. Explained like a friend over chai.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label" data-en="Episodes" data-hi="एपिसोड्स">Episodes</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">300+</span>
+                            <span class="stat-label" data-en="Hours" data-hi="घंटे">Hours</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">50K+</span>
+                            <span class="stat-label" data-en="Listeners" data-hi="श्रोता">Listeners</span>
+                        </div>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="episodes.html" class="btn btn-primary" data-en="Browse Episodes" data-hi="एपिसोड्स देखें">Browse Episodes</a>
+                        <a href="#latest" class="btn btn-secondary" data-en="Latest Episode" data-hi="नवीनतम एपिसोड">Latest Episode</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="podcast-player-preview">
+                        <div class="player-mockup">
+                            <div class="player-header">
+                                <span class="player-title" data-en="Episode 091: WebSocket Protocols" data-hi="एपिसोड 091: वेबसॉकेट प्रोटोकॉल्स">Episode 091: WebSocket Protocols</span>
+                            </div>
+                            <div class="player-waveform">
+                                <div class="waveform-bars">
+                                    <div class="bar" style="height: 20%"></div>
+                                    <div class="bar" style="height: 40%"></div>
+                                    <div class="bar" style="height: 80%"></div>
+                                    <div class="bar" style="height: 60%"></div>
+                                    <div class="bar" style="height: 90%"></div>
+                                    <div class="bar" style="height: 30%"></div>
+                                    <div class="bar" style="height: 70%"></div>
+                                    <div class="bar" style="height: 50%"></div>
+                                </div>
+                            </div>
+                            <div class="player-controls">
+                                <button class="play-btn">▶</button>
+                                <span class="time">1:23:45 / 3:02:18</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Episodes Section -->
+    <section class="latest-episodes" id="latest">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Latest Episodes" data-hi="नवीनतम एपिसोड्स">Latest Episodes</h2>
+                <p class="section-subtitle" data-en="Fresh stories from the trenches of Indian tech companies" data-hi="भारतीय टेक कंपनियों की नई कहानियां">Fresh stories from the trenches of Indian tech companies</p>
+                <a href="episodes.html" class="view-all-link" data-en="View All Episodes →" data-hi="सभी एपिसोड्स देखें →">View All Episodes →</a>
+            </div>
+            
+            <div class="episodes-carousel">
+                <div class="episodes-container" id="episodesContainer">
+                    <!-- Episode cards will be loaded dynamically -->
+                    <div class="episode-card featured">
+                        <div class="episode-image">
+                            <img src="./images/episode-091-cover.jpg" alt="Episode 091 Cover" loading="lazy">
+                            <div class="episode-duration">3:02:18</div>
+                            <button class="play-overlay" aria-label="Play episode">
+                                <span class="play-icon">▶</span>
+                            </button>
+                        </div>
+                        <div class="episode-content">
+                            <div class="episode-meta">
+                                <span class="episode-number">091</span>
+                                <span class="episode-category">Real-time Systems</span>
+                                <span class="episode-date">Aug 2025</span>
+                            </div>
+                            <h3 class="episode-title" data-en="WebSocket Protocols: Real-time at WhatsApp Scale" data-hi="वेबसॉकेट प्रोटोकॉल्स: व्हाट्सएप्प स्केल पर रियल-टाइम">WebSocket Protocols: Real-time at WhatsApp Scale</h3>
+                            <p class="episode-description" data-en="How WhatsApp handles 2 billion real-time connections, Socket.IO vs native WebSockets, and why Facebook's infrastructure team sleeps well at night." data-hi="व्हाट्सएप्प 2 अरब रियल-टाइम कनेक्शन्स को कैसे हैंडल करता है, Socket.IO vs नेटिव वेबसॉकेट्स, और क्यों फेसबुक की इन्फ्रास्ट्रक्चर टीम रात को चैन से सोती है।">How WhatsApp handles 2 billion real-time connections, Socket.IO vs native WebSockets, and why Facebook's infrastructure team sleeps well at night.</p>
+                            <div class="episode-tags">
+                                <span class="tag">WebSocket</span>
+                                <span class="tag">Socket.IO</span>
+                                <span class="tag">WhatsApp</span>
+                                <span class="tag">Real-time</span>
+                            </div>
+                            <div class="episode-actions">
+                                <button class="btn-play" data-episode="091">
+                                    <span class="play-icon">▶</span>
+                                    <span data-en="Play Now" data-hi="अभी सुनें">Play Now</span>
+                                </button>
+                                <button class="btn-download" data-episode="091" aria-label="Download episode">
+                                    <span class="download-icon">⬇</span>
+                                </button>
+                                <button class="btn-share" data-episode="091" aria-label="Share episode">
+                                    <span class="share-icon">📤</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-image">
+                            <img src="./images/episode-090-cover.jpg" alt="Episode 090 Cover" loading="lazy">
+                            <div class="episode-duration">3:15:22</div>
+                            <button class="play-overlay" aria-label="Play episode">
+                                <span class="play-icon">▶</span>
+                            </button>
+                        </div>
+                        <div class="episode-content">
+                            <div class="episode-meta">
+                                <span class="episode-number">090</span>
+                                <span class="episode-category">Security</span>
+                                <span class="episode-date">Aug 2025</span>
+                            </div>
+                            <h3 class="episode-title" data-en="OAuth 2.0 Deep Dive: Paytm's Security Architecture" data-hi="OAuth 2.0 डीप डाइव: पेटीएम की सिक्यूरिटी आर्किटेक्चर">OAuth 2.0 Deep Dive: Paytm's Security Architecture</h3>
+                            <p class="episode-description" data-en="Understanding OAuth flows through Paytm's payment security, JWT tokens, refresh token rotation, and handling 500M+ transactions securely." data-hi="पेटीएम की पेमेंट सिक्यूरिटी के जरिए OAuth फ्लोज़ को समझना, JWT टोकन्स, रिफ्रेश टोकन रोटेशन, और 500M+ ट्रांजैक्शन्स को सुरक्षित रूप से हैंडल करना।">Understanding OAuth flows through Paytm's payment security, JWT tokens, refresh token rotation, and handling 500M+ transactions securely.</p>
+                            <div class="episode-tags">
+                                <span class="tag">OAuth 2.0</span>
+                                <span class="tag">JWT</span>
+                                <span class="tag">Paytm</span>
+                                <span class="tag">Security</span>
+                            </div>
+                            <div class="episode-actions">
+                                <button class="btn-play" data-episode="090">
+                                    <span class="play-icon">▶</span>
+                                    <span data-en="Play Now" data-hi="अभी सुनें">Play Now</span>
+                                </button>
+                                <button class="btn-download" data-episode="090" aria-label="Download episode">
+                                    <span class="download-icon">⬇</span>
+                                </button>
+                                <button class="btn-share" data-episode="090" aria-label="Share episode">
+                                    <span class="share-icon">📤</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-image">
+                            <img src="./images/episode-089-cover.jpg" alt="Episode 089 Cover" loading="lazy">
+                            <div class="episode-duration">2:58:45</div>
+                            <button class="play-overlay" aria-label="Play episode">
+                                <span class="play-icon">▶</span>
+                            </button>
+                        </div>
+                        <div class="episode-content">
+                            <div class="episode-meta">
+                                <span class="episode-number">089</span>
+                                <span class="episode-category">Databases</span>
+                                <span class="episode-date">Jul 2025</span>
+                            </div>
+                            <h3 class="episode-title" data-en="Database Indexing: How Zomato Finds Your Food Fast" data-hi="डेटाबेस इंडेक्सिंग: ज़ोमैटो आपका खाना तेज़ी से कैसे ढूंढता है">Database Indexing: How Zomato Finds Your Food Fast</h3>
+                            <p class="episode-description" data-en="B-tree indexes, composite indexes, covering indexes explained through Zomato's restaurant search. Why some queries are fast and others timeout." data-hi="B-tree इंडेक्सेज, कम्पोज़िट इंडेक्सेज, कवरिंग इंडेक्सेज को ज़ोमैटो के रेस्टोरेंट सर्च के जरिए समझाया गया। कुछ क्वेरीज़ तेज़ क्यों हैं और कुछ टाइमआउट क्यों हो जाती हैं।">B-tree indexes, composite indexes, covering indexes explained through Zomato's restaurant search. Why some queries are fast and others timeout.</p>
+                            <div class="episode-tags">
+                                <span class="tag">Database</span>
+                                <span class="tag">Indexing</span>
+                                <span class="tag">Zomato</span>
+                                <span class="tag">Performance</span>
+                            </div>
+                            <div class="episode-actions">
+                                <button class="btn-play" data-episode="089">
+                                    <span class="play-icon">▶</span>
+                                    <span data-en="Play Now" data-hi="अभी सुनें">Play Now</span>
+                                </button>
+                                <button class="btn-download" data-episode="089" aria-label="Download episode">
+                                    <span class="download-icon">⬇</span>
+                                </button>
+                                <button class="btn-share" data-episode="089" aria-label="Share episode">
+                                    <span class="share-icon">📤</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" id="prevBtn" aria-label="Previous episodes">‹</button>
+                    <button class="carousel-btn next" id="nextBtn" aria-label="Next episodes">›</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title" data-en="Mumbai Style Tech Education" data-hi="मुंबई स्टाइल टेक एजुकेशन">Mumbai Style Tech Education</h2>
+                    <p class="about-description" data-en="We break down complex distributed systems using Mumbai's daily life examples. Like explaining CAP theorem through Mumbai local trains during monsoon, or database transactions through Dabbawalas." data-hi="हम मुंबई की रोज़मर्रा की ज़िन्दगी के उदाहरणों का उपयोग करके जटिल डिस्ट्रिब्यूटेड सिस्टम्स को समझाते हैं। जैसे CAP theorem को मानसून के दौरान मुंबई लोकल ट्रेनों के जरिए समझाना, या डेटाबेस ट्रांजैक्शन्स को डब्बावालों के जरिए।">We break down complex distributed systems using Mumbai's daily life examples. Like explaining CAP theorem through Mumbai local trains during monsoon, or database transactions through Dabbawalas.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature">
+                            <div class="feature-icon">🏢</div>
+                            <h3 data-en="Real Company Stories" data-hi="असली कंपनी की कहानियां">Real Company Stories</h3>
+                            <p data-en="Production failures from Flipkart, Ola, Paytm, and Zomato with actual timelines and costs." data-hi="Flipkart, Ola, Paytm, और Zomato की प्रोडक्शन फेलियर्स वास्तविक टाइमलाइन और लागत के साथ।">Production failures from Flipkart, Ola, Paytm, and Zomato with actual timelines and costs.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">💻</div>
+                            <h3 data-en="Working Code Examples" data-hi="काम करने वाले कोड उदाहरण">Working Code Examples</h3>
+                            <p data-en="15+ tested code examples per episode in Python, Java, and Go. No theoretical fluff." data-hi="हर एपिसोड में Python, Java, और Go में 15+ टेस्ट किए गए कोड उदाहरण। कोई सैद्धांतिक बकवास नहीं।">15+ tested code examples per episode in Python, Java, and Go. No theoretical fluff.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🎯</div>
+                            <h3 data-en="3-Hour Deep Dives" data-hi="3 घंटे की गहरी चर्चा">3-Hour Deep Dives</h3>
+                            <p data-en="Proper understanding takes time. We cover theory, practice, and war stories in detail." data-hi="सही समझ में समय लगता है। हम theory, practice, और war stories को विस्तार से कवर करते हैं।">Proper understanding takes time. We cover theory, practice, and war stories in detail.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🇮🇳</div>
+                            <h3 data-en="Indian Context" data-hi="भारतीय संदर्भ">Indian Context</h3>
+                            <p data-en="Examples from IRCTC's Tatkal booking, UPI's distributed transactions, and Jio's network scale." data-hi="IRCTC की तत्काल बुकिंग, UPI के डिस्ट्रिब्यूटेड ट्रांजैक्शन्स, और Jio के नेटवर्क स्केल के उदाहरण।">Examples from IRCTC's Tatkal booking, UPI's distributed transactions, and Jio's network scale.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="mumbai-illustration">
+                        <div class="skyline"></div>
+                        <div class="train"></div>
+                        <div class="buildings"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Explore by Category" data-hi="श्रेणी के अनुसार खोजें">Explore by Category</h2>
+                <p class="section-subtitle" data-en="Find episodes on your favorite topics" data-hi="अपने पसंदीदा विषयों पर एपिसोड्स खोजें">Find episodes on your favorite topics</p>
+            </div>
+            
+            <div class="categories-grid">
+                <a href="episodes.html?category=distributed-systems" class="category-card">
+                    <div class="category-icon">🌐</div>
+                    <h3 data-en="Distributed Systems" data-hi="डिस्ट्रिब्यूटेड सिस्टम्स">Distributed Systems</h3>
+                    <p data-en="CAP theorem, consensus, partitioning" data-hi="CAP theorem, consensus, partitioning">CAP theorem, consensus, partitioning</p>
+                    <span class="episode-count">25 episodes</span>
+                </a>
+                
+                <a href="episodes.html?category=databases" class="category-card">
+                    <div class="category-icon">🗄️</div>
+                    <h3 data-en="Databases" data-hi="डेटाबेसेज">Databases</h3>
+                    <p data-en="ACID, indexing, replication, sharding" data-hi="ACID, indexing, replication, sharding">ACID, indexing, replication, sharding</p>
+                    <span class="episode-count">20 episodes</span>
+                </a>
+                
+                <a href="episodes.html?category=security" class="category-card">
+                    <div class="category-icon">🔒</div>
+                    <h3 data-en="Security" data-hi="सिक्यूरिटी">Security</h3>
+                    <p data-en="OAuth, JWT, encryption, authorization" data-hi="OAuth, JWT, encryption, authorization">OAuth, JWT, encryption, authorization</p>
+                    <span class="episode-count">15 episodes</span>
+                </a>
+                
+                <a href="episodes.html?category=microservices" class="category-card">
+                    <div class="category-icon">🔧</div>
+                    <h3 data-en="Microservices" data-hi="माइक्रोसर्विसेज">Microservices</h3>
+                    <p data-en="API gateways, service mesh, containers" data-hi="API gateways, service mesh, containers">API gateways, service mesh, containers</p>
+                    <span class="episode-count">18 episodes</span>
+                </a>
+                
+                <a href="episodes.html?category=performance" class="category-card">
+                    <div class="category-icon">⚡</div>
+                    <h3 data-en="Performance" data-hi="परफॉर्मेंस">Performance</h3>
+                    <p data-en="Caching, CDNs, load balancing" data-hi="Caching, CDNs, load balancing">Caching, CDNs, load balancing</p>
+                    <span class="episode-count">12 episodes</span>
+                </a>
+                
+                <a href="episodes.html?category=cloud" class="category-card">
+                    <div class="category-icon">☁️</div>
+                    <h3 data-en="Cloud & DevOps" data-hi="क्लाउड और DevOps">Cloud & DevOps</h3>
+                    <p data-en="Kubernetes, Docker, infrastructure" data-hi="Kubernetes, Docker, infrastructure">Kubernetes, Docker, infrastructure</p>
+                    <span class="episode-count">10 episodes</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2 class="section-title" data-en="Stay Updated" data-hi="अपडेट रहें">Stay Updated</h2>
+                    <p data-en="Get notified when new episodes drop. Weekly deep-dive summaries and code repositories." data-hi="नए एपिसोड्स आने पर सूचना पाएं। साप्ताहिक गहरी चर्चा की सारांश और कोड रिपॉज़िटरीज़।">Get notified when new episodes drop. Weekly deep-dive summaries and code repositories.</p>
+                </div>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="आपका email address" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary" data-en="Subscribe" data-hi="सब्सक्राइब करें">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="./images/logo.svg" alt="Hindi Tech Podcast Logo" class="footer-logo">
+                        <span class="footer-title" data-en="Hindi Tech Podcast" data-hi="हिंदी टेक पॉडकास्ट">Hindi Tech Podcast</span>
+                    </div>
+                    <p class="footer-description" data-en="Engineering stories explained like Mumbai local train announcements - clear, direct, and impossible to ignore." data-hi="इंजीनियरिंग की कहानियां मुंबई लोकल ट्रेन की अनाउंसमेंट की तरह समझाई गई हैं - साफ, सीधी, और नज़रअंदाज़ करना असंभव।">Engineering stories explained like Mumbai local train announcements - clear, direct, and impossible to ignore.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <span class="social-icon">📺</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Spotify">
+                            <span class="social-icon">🎵</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Apple Podcasts">
+                            <span class="social-icon">🎧</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <span class="social-icon">👨‍💻</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <span class="social-icon">🐦</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Episodes" data-hi="एपिसोड्स">Episodes</h3>
+                    <ul class="footer-links">
+                        <li><a href="episodes.html?category=latest" data-en="Latest Episodes" data-hi="नवीनतम एपिसोड्स">Latest Episodes</a></li>
+                        <li><a href="episodes.html?category=popular" data-en="Most Popular" data-hi="सबसे लोकप्रिय">Most Popular</a></li>
+                        <li><a href="episodes.html?category=distributed-systems" data-en="Distributed Systems" data-hi="डिस्ट्रिब्यूटेड सिस्टम्स">Distributed Systems</a></li>
+                        <li><a href="episodes.html?category=databases" data-en="Databases" data-hi="डेटाबेसेज">Databases</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Resources" data-hi="रिसोर्सेज">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="resources.html#code" data-en="Code Examples" data-hi="कोड उदाहरण">Code Examples</a></li>
+                        <li><a href="resources.html#guides" data-en="Learning Guides" data-hi="लर्निंग गाइड्स">Learning Guides</a></li>
+                        <li><a href="resources.html#companies" data-en="Company Directory" data-hi="कंपनी डायरेक्टरी">Company Directory</a></li>
+                        <li><a href="resources.html#pronunciation" data-en="Pronunciation Guide" data-hi="उच्चारण गाइड">Pronunciation Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Community" data-hi="कम्युनिटी">Community</h3>
+                    <ul class="footer-links">
+                        <li><a href="community.html#discord" data-en="Discord Server" data-hi="Discord सर्वर">Discord Server</a></li>
+                        <li><a href="community.html#events" data-en="Tech Events" data-hi="टेक इवेंट्स">Tech Events</a></li>
+                        <li><a href="community.html#contribute" data-en="Contribute" data-hi="योगदान दें">Contribute</a></li>
+                        <li><a href="about.html#contact" data-en="Contact Us" data-hi="संपर्क करें">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright" data-en="© 2025 Hindi Tech Podcast. All rights reserved." data-hi="© 2025 हिंदी टेक पॉडकास्ट। सभी अधिकार सुरक्षित।">© 2025 Hindi Tech Podcast. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="privacy.html" data-en="Privacy Policy" data-hi="प्राइवेसी पॉलिसी">Privacy Policy</a>
+                        <a href="terms.html" data-en="Terms of Service" data-hi="सेवा की शर्तें">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/app.js"></script>
+    
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</body>
+</html>

@@ -1,5 +1,17 @@
 # Episode 40: Domain-Driven Design - The Mumbai Street-Smart Approach to Building Software
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/architecture/anti-corruption-layer.md - Anti-corruption layer patterns in DDD
+- **Pattern Library**: docs/pattern-library/data-management/polyglot-persistence.md - Different databases for different domains
+- **Pattern Library**: docs/pattern-library/architecture/microservices-decomposition-mastery.md - Microservices decomposition using DDD
+- **Excellence**: docs/excellence/migrations/monolith-to-microservices.md - DDD-driven microservices migration
+- **Pattern Library**: docs/pattern-library/data-management/event-sourcing.md - Event sourcing in domain-driven design
+- **Case Studies**: docs/architects-handbook/case-studies/financial-commerce/ecommerce-platform.md - DDD in e-commerce platforms
+- **Pattern Library**: docs/pattern-library/architecture/shared-nothing.md - Shared-nothing architecture with DDD boundaries
+
 ## Introduction: Domain-Driven Design Ki Real Story
 
 Namaste engineers! Aaj hum baat karne wale hain Domain-Driven Design ke baare mein - lekin ye koi boring academic topic nahi hai. Ye hai Mumbai ki galiyon mein chalne wali real software engineering ki story. 

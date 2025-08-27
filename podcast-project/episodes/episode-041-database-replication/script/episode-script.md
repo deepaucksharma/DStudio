@@ -3,6 +3,18 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/scaling/read-replicas.md - Read replica strategies and implementation
+- **Pattern Library**: docs/pattern-library/scaling/geo-replication.md - Geo-distributed replication patterns
+- **Pattern Library**: docs/pattern-library/data-management/eventual-consistency.md - Eventual consistency in replicated systems
+- **Case Studies**: docs/architects-handbook/case-studies/databases/mongodb.md - MongoDB replication strategies
+- **Case Studies**: docs/architects-handbook/case-studies/databases/cassandra.md - Cassandra multi-datacenter replication
+- **Excellence**: docs/excellence/migrations/primary-replica-to-multi-primary.md - Multi-primary replication migration
+- **Pattern Library**: docs/pattern-library/resilience/failover.md - Automatic failover in database replication
+
 **Episode Title**: Database Replication Strategies - Mumbai Se Duniya Tak Data Kaise Pahunchta Hai  
 **Duration**: 3 hours (60 min + 60 min + 60 min)  
 **Target Audience**: Software Engineers, System Architects, Database Administrators  

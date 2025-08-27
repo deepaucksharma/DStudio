@@ -7,6 +7,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/coordination/consensus.md - Advanced consensus protocols beyond 2PC
+- **Core Principles**: docs/core-principles/flp-impossibility.md - FLP impossibility theorem and 3PC limitations
+- **Core Principles**: docs/core-principles/laws/asynchronous-reality.md - Network partition handling in distributed transactions
+- **Pattern Library**: docs/pattern-library/resilience/split-brain.md - Preventing split-brain scenarios in 3PC
+- **Excellence**: docs/excellence/migrations/2pc-to-saga.md - Why modern systems prefer saga over 3PC
+- **Case Studies**: docs/architects-handbook/case-studies/financial-commerce/payment-system.md - Production transaction coordination patterns
+- **Pattern Library**: docs/pattern-library/resilience/timeout-advanced.md - Advanced timeout strategies in multi-phase protocols
+
+---
+
 ## Episode Hook & Introduction (20 minutes)
 
 ### Mumbai Wedding Planning Analogy

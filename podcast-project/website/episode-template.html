@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode 091: WebSocket Protocols | Hindi Tech Podcast</title>
+    <meta name="description" content="How WhatsApp handles 2 billion real-time connections, Socket.IO vs native WebSockets, and production architecture deep dive.">
+    <meta name="keywords" content="websocket, socket.io, real-time, whatsapp, hindi tech podcast, distributed systems">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Episode 091: WebSocket Protocols - Hindi Tech Podcast">
+    <meta property="og:description" content="How WhatsApp handles 2 billion real-time connections, Socket.IO vs native WebSockets, and production architecture deep dive.">
+    <meta property="og:image" content="./images/episode-091-cover.jpg">
+    <meta property="og:url" content="https://hindi-tech-podcast.com/episodes/episode-091.html">
+    <meta property="og:type" content="article">
+    <meta property="og:audio" content="./audio/episode-091.mp3">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Episode 091: WebSocket Protocols">
+    <meta name="twitter:description" content="3-hour deep dive into real-time systems at WhatsApp scale">
+    <meta name="twitter:image" content="./images/episode-091-cover.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/styles.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PodcastEpisode",
+      "name": "Episode 091: WebSocket Protocols",
+      "description": "How WhatsApp handles 2 billion real-time connections, Socket.IO vs native WebSockets, and production architecture deep dive.",
+      "url": "https://hindi-tech-podcast.com/episodes/episode-091.html",
+      "datePublished": "2025-08-17",
+      "duration": "PT3H2M18S",
+      "associatedMedia": {
+        "@type": "MediaObject",
+        "contentUrl": "./audio/episode-091.mp3",
+        "encodingFormat": "audio/mpeg"
+      },
+      "partOfSeries": {
+        "@type": "PodcastSeries",
+        "name": "Hindi Tech Podcast",
+        "url": "https://hindi-tech-podcast.com"
+      }
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="../images/logo.svg" alt="Hindi Tech Podcast Logo" class="nav-logo">
+                <span class="nav-title" data-en="Hindi Tech Podcast" data-hi="हिंदी टेक पॉडकास्ट">Hindi Tech Podcast</span>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html" class="nav-link" data-en="Home" data-hi="होम">Home</a>
+                <a href="../episodes.html" class="nav-link" data-en="Episodes" data-hi="एपिसोड्स">Episodes</a>
+                <a href="../resources.html" class="nav-link" data-en="Resources" data-hi="रिसोर्सेज">Resources</a>
+                <a href="../community.html" class="nav-link" data-en="Community" data-hi="कम्युनिटी">Community</a>
+                <a href="../about.html" class="nav-link" data-en="About" data-hi="हमारे बारे में">About</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                    <span class="lang-text">हिं</span>
+                </button>
+                <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Episode Header -->
+    <section class="episode-header">
+        <div class="container">
+            <div class="episode-breadcrumb">
+                <a href="../episodes.html" data-en="← All Episodes" data-hi="← सभी एपिसोड्स">← All Episodes</a>
+                <span class="breadcrumb-separator">/</span>
+                <span data-en="Real-time Systems" data-hi="रियल-टाइम सिस्टम्स">Real-time Systems</span>
+            </div>
+            
+            <div class="episode-header-content">
+                <div class="episode-meta">
+                    <span class="episode-number">Episode 091</span>
+                    <span class="episode-category">Real-time Systems</span>
+                    <span class="episode-date">August 17, 2025</span>
+                    <span class="episode-duration">3:02:18</span>
+                </div>
+                
+                <h1 class="episode-title" data-en="WebSocket Protocols: Real-time at WhatsApp Scale" data-hi="वेबसॉकेट प्रोटोकॉल्स: व्हाट्सएप्प स्केल पर रियल-टाइम">WebSocket Protocols: Real-time at WhatsApp Scale</h1>
+                
+                <p class="episode-description" data-en="How WhatsApp handles 2 billion real-time connections, Socket.IO vs native WebSockets, connection pooling strategies, and why Facebook's infrastructure team sleeps well at night. Deep dive into real-time messaging architecture with working code examples." data-hi="व्हाट्सएप्प 2 अरब रियल-टाइम कनेक्शन्स को कैसे हैंडल करता है, Socket.IO vs नेटिव वेबसॉकेट्स, कनेक्शन पूलिंग रणनीतियां, और क्यों फेसबुक की इन्फ्रास्ट्रक्चर टीम रात को चैन से सोती है। काम करने वाले कोड उदाहरणों के साथ रियल-टाइम मैसेजिंग आर्किटेक्चर की गहरी चर्चा।">How WhatsApp handles 2 billion real-time connections, Socket.IO vs native WebSockets, connection pooling strategies, and why Facebook's infrastructure team sleeps well at night. Deep dive into real-time messaging architecture with working code examples.</p>
+                
+                <div class="episode-tags">
+                    <span class="tag">WebSocket</span>
+                    <span class="tag">Socket.IO</span>
+                    <span class="tag">WhatsApp</span>
+                    <span class="tag">Real-time</span>
+                    <span class="tag">Production</span>
+                    <span class="tag">Architecture</span>
+                </div>
+                
+                <div class="episode-actions">
+                    <button class="btn btn-primary play-btn" id="mainPlayBtn">
+                        <span class="play-icon">▶</span>
+                        <span data-en="Play Episode" data-hi="एपिसोड चलाएं">Play Episode</span>
+                    </button>
+                    <button class="btn btn-secondary download-btn" id="downloadBtn">
+                        <span class="download-icon">⬇</span>
+                        <span data-en="Download" data-hi="डाउनलोड">Download</span>
+                    </button>
+                    <button class="btn btn-secondary share-btn" id="shareBtn">
+                        <span class="share-icon">📤</span>
+                        <span data-en="Share" data-hi="शेयर">Share</span>
+                    </button>
+                    <button class="btn btn-secondary bookmark-btn" id="bookmarkBtn">
+                        <span class="bookmark-icon">🔖</span>
+                        <span data-en="Bookmark" data-hi="बुकमार्क">Bookmark</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="episode-cover">
+                <img src="../images/episode-091-cover.jpg" alt="Episode 091 Cover" class="cover-image">
+                <div class="cover-overlay">
+                    <button class="cover-play-btn" aria-label="Play episode">
+                        <span class="cover-play-icon">▶</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Player -->
+    <section class="audio-player-section" id="audioPlayerSection">
+        <div class="container">
+            <div class="audio-player" id="audioPlayer">
+                <div class="player-controls">
+                    <button class="player-btn" id="playPauseBtn" aria-label="Play/Pause">
+                        <span class="player-icon">▶</span>
+                    </button>
+                    <button class="player-btn" id="rewindBtn" aria-label="Rewind 10 seconds">
+                        <span class="player-icon">⏪</span>
+                    </button>
+                    <button class="player-btn" id="forwardBtn" aria-label="Forward 30 seconds">
+                        <span class="player-icon">⏩</span>
+                    </button>
+                </div>
+                
+                <div class="player-progress">
+                    <div class="progress-container">
+                        <input type="range" class="progress-bar" id="progressBar" min="0" max="100" value="0">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="time-display">
+                        <span class="current-time" id="currentTime">0:00</span>
+                        <span class="total-time" id="totalTime">3:02:18</span>
+                    </div>
+                </div>
+                
+                <div class="player-extras">
+                    <div class="speed-control">
+                        <button class="speed-btn" id="speedBtn">1×</button>
+                        <div class="speed-menu" id="speedMenu">
+                            <button class="speed-option" data-speed="0.5">0.5×</button>
+                            <button class="speed-option" data-speed="0.75">0.75×</button>
+                            <button class="speed-option active" data-speed="1">1×</button>
+                            <button class="speed-option" data-speed="1.25">1.25×</button>
+                            <button class="speed-option" data-speed="1.5">1.5×</button>
+                            <button class="speed-option" data-speed="2">2×</button>
+                        </div>
+                    </div>
+                    
+                    <div class="volume-control">
+                        <button class="volume-btn" id="volumeBtn" aria-label="Volume">
+                            <span class="volume-icon">🔊</span>
+                        </button>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
+                    </div>
+                    
+                    <button class="chapters-btn" id="chaptersBtn" aria-label="Chapters">
+                        <span class="chapters-icon">📑</span>
+                    </button>
+                </div>
+                
+                <audio id="audioElement" preload="metadata">
+                    <source src="../audio/episode-091.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episode Content Tabs -->
+    <section class="episode-content-section">
+        <div class="container">
+            <div class="content-tabs">
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="overview" data-en="Overview" data-hi="अवलोकन">Overview</button>
+                    <button class="tab-btn" data-tab="transcript" data-en="Transcript" data-hi="ट्रांस्क्रिप्ट">Transcript</button>
+                    <button class="tab-btn" data-tab="code" data-en="Code Examples" data-hi="कोड उदाहरण">Code Examples</button>
+                    <button class="tab-btn" data-tab="notes" data-en="Show Notes" data-hi="शो नोट्स">Show Notes</button>
+                    <button class="tab-btn" data-tab="resources" data-en="Resources" data-hi="रिसोर्सेज">Resources</button>
+                </div>
+                
+                <!-- Overview Tab -->
+                <div class="tab-content active" id="overviewTab">
+                    <div class="episode-overview">
+                        <div class="overview-section">
+                            <h3 data-en="What You'll Learn" data-hi="आप क्या सीखेंगे">What You'll Learn</h3>
+                            <ul class="learning-points">
+                                <li data-en="WebSocket protocol fundamentals and comparison with HTTP" data-hi="वेबसॉकेट प्रोटोकॉल के मूल सिद्धांत और HTTP के साथ तुलना">WebSocket protocol fundamentals and comparison with HTTP</li>
+                                <li data-en="Socket.IO vs native WebSockets - when to use what" data-hi="Socket.IO vs नेटिव वेबसॉकेट्स - कब क्या उपयोग करें">Socket.IO vs native WebSockets - when to use what</li>
+                                <li data-en="WhatsApp's connection pooling and load balancing strategies" data-hi="व्हाट्सएप्प की कनेक्शन पूलिंग और लोड बैलेंसिंग रणनीतियां">WhatsApp's connection pooling and load balancing strategies</li>
+                                <li data-en="Handling 2 billion concurrent connections with Erlang/OTP" data-hi="Erlang/OTP के साथ 2 अरब समानांतर कनेक्शन्स को हैंडल करना">Handling 2 billion concurrent connections with Erlang/OTP</li>
+                                <li data-en="Message queuing and delivery guarantees in real-time systems" data-hi="रियल-टाइम सिस्टम्स में मैसेज क्यूइंग और डिलीवरी गारंटी">Message queuing and delivery guarantees in real-time systems</li>
+                                <li data-en="Production monitoring and debugging WebSocket connections" data-hi="प्रोडक्शन मॉनिटरिंग और वेबसॉकेट कनेक्शन्स की डिबगिंग">Production monitoring and debugging WebSocket connections</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="overview-section">
+                            <h3 data-en="Topics Covered" data-hi="शामिल विषय">Topics Covered</h3>
+                            <div class="topics-grid">
+                                <div class="topic-card">
+                                    <h4>WebSocket Protocol (45 min)</h4>
+                                    <p data-en="Handshake process, frame format, connection lifecycle" data-hi="हैंडशेक प्रक्रिया, फ्रेम फॉर्मेट, कनेक्शन लाइफसाइकल">Handshake process, frame format, connection lifecycle</p>
+                                    <span class="timestamp">0:00 - 0:45</span>
+                                </div>
+                                <div class="topic-card">
+                                    <h4>Socket.IO Deep Dive (40 min)</h4>
+                                    <p data-en="Transport fallbacks, rooms, namespaces, adapters" data-hi="ट्रांसपोर्ट फॉलबैक्स, रूम्स, नेमस्पेसेज, एडाप्टर्स">Transport fallbacks, rooms, namespaces, adapters</p>
+                                    <span class="timestamp">0:45 - 1:25</span>
+                                </div>
+                                <div class="topic-card">
+                                    <h4>WhatsApp Architecture (55 min)</h4>
+                                    <p data-en="Erlang/OTP, connection pools, message routing" data-hi="Erlang/OTP, कनेक्शन पूल्स, मैसेज रूटिंग">Erlang/OTP, connection pools, message routing</p>
+                                    <span class="timestamp">1:25 - 2:20</span>
+                                </div>
+                                <div class="topic-card">
+                                    <h4>Production Considerations (42 min)</h4>
+                                    <p data-en="Monitoring, debugging, performance optimization" data-hi="मॉनिटरिंग, डिबगिंग, परफॉर्मेंस ऑप्टिमाइज़ेशन">Monitoring, debugging, performance optimization</p>
+                                    <span class="timestamp">2:20 - 3:02</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overview-section">
+                            <h3 data-en="Companies & Case Studies" data-hi="कंपनियां और केस स्टडीज">Companies & Case Studies</h3>
+                            <div class="companies-grid">
+                                <div class="company-card">
+                                    <img src="../images/companies/whatsapp-logo.png" alt="WhatsApp" class="company-logo">
+                                    <div class="company-info">
+                                        <h4>WhatsApp</h4>
+                                        <p data-en="2 billion users, Erlang/OTP architecture, message delivery" data-hi="2 अरब यूज़र्स, Erlang/OTP आर्किटेक्चर, मैसेज डिलीवरी">2 billion users, Erlang/OTP architecture, message delivery</p>
+                                    </div>
+                                </div>
+                                <div class="company-card">
+                                    <img src="../images/companies/slack-logo.png" alt="Slack" class="company-logo">
+                                    <div class="company-info">
+                                        <h4>Slack</h4>
+                                        <p data-en="Real-time team collaboration, presence system" data-hi="रियल-टाइम टीम कोलैबोरेशन, प्रेज़ेंस सिस्टम">Real-time team collaboration, presence system</p>
+                                    </div>
+                                </div>
+                                <div class="company-card">
+                                    <img src="../images/companies/discord-logo.png" alt="Discord" class="company-logo">
+                                    <div class="company-info">
+                                        <h4>Discord</h4>
+                                        <p data-en="Gaming voice/video, low-latency requirements" data-hi="गेमिंग वॉइस/वीडियो, कम-लेटेंसी आवश्यकताएं">Gaming voice/video, low-latency requirements</p>
+                                    </div>
+                                </div>
+                                <div class="company-card">
+                                    <img src="../images/companies/jio-logo.png" alt="Jio" class="company-logo">
+                                    <div class="company-info">
+                                        <h4>Jio</h4>
+                                        <p data-en="Indian scale challenges, network reliability" data-hi="भारतीय स्केल चुनौतियां, नेटवर्क विश्वसनीयता">Indian scale challenges, network reliability</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transcript Tab -->
+                <div class="tab-content" id="transcriptTab">
+                    <div class="transcript-container">
+                        <div class="transcript-controls">
+                            <button class="transcript-search-btn" id="transcriptSearchBtn">
+                                <span class="search-icon">🔍</span>
+                                <span data-en="Search Transcript" data-hi="ट्रांस्क्रिप्ट खोजें">Search Transcript</span>
+                            </button>
+                            <div class="transcript-settings">
+                                <button class="font-size-btn" data-size="small">A</button>
+                                <button class="font-size-btn active" data-size="medium">A</button>
+                                <button class="font-size-btn" data-size="large">A</button>
+                            </div>
+                        </div>
+                        
+                        <div class="transcript-search" id="transcriptSearch" style="display: none;">
+                            <input type="text" placeholder="Search in transcript..." class="transcript-search-input">
+                            <div class="search-results" id="searchResults"></div>
+                        </div>
+                        
+                        <div class="transcript-content" id="transcriptContent">
+                            <div class="transcript-segment" data-time="0">
+                                <span class="timestamp">00:00</span>
+                                <p data-en="Namaste! Welcome to episode 091 of Hindi Tech Podcast. Today we're diving deep into WebSocket protocols - सुनिए, आज हम बात करेंगे WebSocket के बारे में, जो real-time communication का backbone है." data-hi="नमस्ते! हिंदी टेक पॉडकास्ट के एपिसोड 091 में आपका स्वागत है। आज हम WebSocket प्रोटोकॉल्स में गहरी डुबकी लगा रहे हैं - सुनिए, आज हम बात करेंगे WebSocket के बारे में, जो real-time communication का backbone है।">Namaste! Welcome to episode 091 of Hindi Tech Podcast. Today we're diving deep into WebSocket protocols - सुनिए, आज हम बात करेंगे WebSocket के बारे में, जो real-time communication का backbone है.</p>
+                            </div>
+                            
+                            <div class="transcript-segment" data-time="30">
+                                <span class="timestamp">00:30</span>
+                                <p data-en="Imagine करिए, आप WhatsApp पर message भेज रहे हैं और instantly दूसरे person को मिल जाता है। यह magic नहीं है, यह WebSocket का काम है. But wait - पहले समझते हैं कि traditional HTTP requests की क्या problem थी." data-hi="कल्पना करिए, आप WhatsApp पर message भेज रहे हैं और तुरंत दूसरे व्यक्ति को मिल जाता है। यह जादू नहीं है, यह WebSocket का काम है। लेकिन रुकिए - पहले समझते हैं कि पारंपरिक HTTP requests की क्या समस्या थी।">Imagine करिए, आप WhatsApp पर message भेज रहे हैं और instantly दूसरे person को मिल जाता है। यह magic नहीं है, यह WebSocket का काम है. But wait - पहले समझते हैं कि traditional HTTP requests की क्या problem थी.</p>
+                            </div>
+                            
+                            <div class="transcript-segment" data-time="90">
+                                <span class="timestamp">01:30</span>
+                                <p data-en="HTTP is like sending letters - आप एक request भेजते हैं, server response देता है, connection close हो जाता है। हर बार नया connection बनाना पड़ता है। यह ऐसा है जैसे आप बार-बार दरवाज़ा knock कर रहे हैं।" data-hi="HTTP पत्र भेजने जैसा है - आप एक request भेजते हैं, server response देता है, connection बंद हो जाता है। हर बार नया connection बनाना पड़ता है। यह ऐसा है जैसे आप बार-बार दरवाज़ा knock कर रहे हैं।">HTTP is like sending letters - आप एक request भेजते हैं, server response देता है, connection close हो जाता है। हर बार नया connection बनाना पड़ता है। यह ऐसा है जैसे आप बार-बार दरवाज़ा knock कर रहे हैं।</p>
+                            </div>
+                            
+                            <!-- More transcript segments would continue here -->
+                            <div class="transcript-segment" data-time="150">
+                                <span class="timestamp">02:30</span>
+                                <p data-en="WebSocket का solution brilliant है - एक बार connection establish हो जाए, तो यह open रहता है। दोनो तरफ से data भेज सकते हैं। यह Mumbai local train की तरह है - एक बार चढ़ गए तो destination तक बिना रुके जा सकते हैं।" data-hi="WebSocket का समाधान शानदार है - एक बार connection स्थापित हो जाए, तो यह खुला रहता है। दोनों तरफ से data भेज सकते हैं। यह मुंबई लोकल ट्रेन की तरह है - एक बार चढ़ गए तो गंतव्य तक बिना रुके जा सकते हैं।">WebSocket का solution brilliant है - एक बार connection establish हो जाए, तो यह open रहता है। दोनो तरफ से data भेज सकते हैं। यह Mumbai local train की तरह है - एक बार चढ़ गए तो destination तक बिना रुके जा सकते हैं।</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Code Examples Tab -->
+                <div class="tab-content" id="codeTab">
+                    <div class="code-examples">
+                        <div class="code-nav">
+                            <button class="code-tab-btn active" data-code="websocket-basics">WebSocket Basics</button>
+                            <button class="code-tab-btn" data-code="socketio-server">Socket.IO Server</button>
+                            <button class="code-tab-btn" data-code="connection-pool">Connection Pool</button>
+                            <button class="code-tab-btn" data-code="load-balancer">Load Balancer</button>
+                            <button class="code-tab-btn" data-code="monitoring">Monitoring</button>
+                        </div>
+                        
+                        <div class="code-section active" id="websocket-basics">
+                            <h3>Basic WebSocket Implementation</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-language">JavaScript</span>
+                                    <button class="copy-btn" data-clipboard-target="#basic-websocket">
+                                        <span class="copy-icon">📋</span>
+                                        <span data-en="Copy" data-hi="कॉपी">Copy</span>
+                                    </button>
+                                </div>
+                                <pre><code id="basic-websocket" class="language-javascript">// Basic WebSocket Client Implementation
+// WhatsApp style connection management
+
+class WebSocketManager {
+    constructor(url, options = {}) {
+        this.url = url;
+        this.options = {
+            maxRetries: 5,
+            retryDelay: 1000,
+            heartbeatInterval: 30000,
+            ...options
+        };
+        this.ws = null;
+        this.retryCount = 0;
+        this.isConnected = false;
+        this.messageQueue = [];
+        this.heartbeatTimer = null;
+    }
+
+    connect() {
+        try {
+            this.ws = new WebSocket(this.url);
+            
+            this.ws.onopen = (event) => {
+                console.log('✅ WebSocket connected');
+                this.isConnected = true;
+                this.retryCount = 0;
+                
+                // Process queued messages
+                this.processMessageQueue();
+                
+                // Start heartbeat
+                this.startHeartbeat();
+                
+                this.onConnectionOpen(event);
+            };
+
+            this.ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                // Handle heartbeat response
+                if (data.type === 'pong') {
+                    return;
+                }
+                
+                this.onMessage(data);
+            };
+
+            this.ws.onclose = (event) => {
+                console.log('❌ WebSocket disconnected:', event.code);
+                this.isConnected = false;
+                this.stopHeartbeat();
+                
+                // Attempt reconnection
+                if (this.retryCount < this.options.maxRetries) {
+                    this.scheduleReconnect();
+                } else {
+                    this.onConnectionFailed();
+                }
+                
+                this.onConnectionClose(event);
+            };
+
+            this.ws.onerror = (error) => {
+                console.error('🔴 WebSocket error:', error);
+                this.onError(error);
+            };
+
+        } catch (error) {
+            console.error('Failed to create WebSocket:', error);
+            this.scheduleReconnect();
+        }
+    }
+
+    send(data) {
+        const message = JSON.stringify(data);
+        
+        if (this.isConnected && this.ws.readyState === WebSocket.OPEN) {
+            this.ws.send(message);
+        } else {
+            // Queue message for later delivery
+            this.messageQueue.push(message);
+            console.log('📤 Message queued (connection not ready)');
+        }
+    }
+
+    processMessageQueue() {
+        while (this.messageQueue.length > 0) {
+            const message = this.messageQueue.shift();
+            this.ws.send(message);
+        }
+        console.log('✅ Message queue processed');
+    }
+
+    startHeartbeat() {
+        this.heartbeatTimer = setInterval(() => {
+            if (this.isConnected) {
+                this.send({ type: 'ping', timestamp: Date.now() });
+            }
+        }, this.options.heartbeatInterval);
+    }
+
+    stopHeartbeat() {
+        if (this.heartbeatTimer) {
+            clearInterval(this.heartbeatTimer);
+            this.heartbeatTimer = null;
+        }
+    }
+
+    scheduleReconnect() {
+        this.retryCount++;
+        const delay = this.options.retryDelay * Math.pow(2, this.retryCount - 1);
+        
+        console.log(`🔄 Scheduling reconnect in ${delay}ms (attempt ${this.retryCount})`);
+        
+        setTimeout(() => {
+            console.log(`🔄 Reconnecting... (attempt ${this.retryCount})`);
+            this.connect();
+        }, delay);
+    }
+
+    // Event handlers (override these)
+    onConnectionOpen(event) {}
+    onMessage(data) {}
+    onConnectionClose(event) {}
+    onConnectionFailed() {}
+    onError(error) {}
+
+    disconnect() {
+        this.stopHeartbeat();
+        if (this.ws) {
+            this.ws.close();
+        }
+    }
+}
+
+// Usage Example - WhatsApp style messaging
+const wsManager = new WebSocketManager('wss://api.example.com/ws', {
+    maxRetries: 10,
+    retryDelay: 1000,
+    heartbeatInterval: 30000
+});
+
+// Override event handlers
+wsManager.onConnectionOpen = () => {
+    console.log('🎉 Ready to send messages!');
+    
+    // Authenticate user
+    wsManager.send({
+        type: 'auth',
+        token: 'user-jwt-token',
+        userId: 'user123'
+    });
+};
+
+wsManager.onMessage = (data) => {
+    switch (data.type) {
+        case 'message':
+            displayMessage(data.content, data.from);
+            break;
+        case 'typing':
+            showTypingIndicator(data.from);
+            break;
+        case 'presence':
+            updateUserPresence(data.userId, data.status);
+            break;
+    }
+};
+
+// Connect to server
+wsManager.connect();
+
+// Send a message
+function sendMessage(text, to) {
+    wsManager.send({
+        type: 'message',
+        content: text,
+        to: to,
+        timestamp: Date.now(),
+        messageId: generateMessageId()
+    });
+}
+
+function generateMessageId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="code-section" id="socketio-server">
+                            <h3>Socket.IO Server Implementation</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-language">Node.js</span>
+                                    <button class="copy-btn" data-clipboard-target="#socketio-server-code">
+                                        <span class="copy-icon">📋</span>
+                                        <span data-en="Copy" data-hi="कॉपी">Copy</span>
+                                    </button>
+                                </div>
+                                <pre><code id="socketio-server-code" class="language-javascript">// Socket.IO Server - WhatsApp scale implementation
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+const redis = require('redis');
+const jwt = require('jsonwebtoken');
+
+const app = express();
+const server = http.createServer(app);
+
+// Configure Socket.IO with clustering support
+const io = socketIO(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    },
+    adapter: require('socket.io-redis')({
+        host: 'localhost',
+        port: 6379
+    }),
+    transports: ['websocket', 'polling'],
+    pingTimeout: 60000,
+    pingInterval: 25000
+});
+
+// Redis clients for pub/sub and caching
+const redisClient = redis.createClient();
+const redisPub = redis.createClient();
+const redisSub = redis.createClient();
+
+// In-memory stores (use Redis in production)
+const userSockets = new Map(); // userId -> socketId mapping
+const activeRooms = new Map();  // roomId -> user count
+const typingUsers = new Map();  // roomId -> Set of typing users
+
+// Authentication middleware
+io.use(async (socket, next) => {
+    try {
+        const token = socket.handshake.auth.token;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        
+        // Fetch user details from database
+        const user = await getUserById(decoded.userId);
+        if (!user) {
+            return next(new Error('User not found'));
+        }
+        
+        socket.userId = user.id;
+        socket.userData = user;
+        next();
+        
+    } catch (error) {
+        next(new Error('Authentication failed'));
+    }
+});
+
+// Connection handler
+io.on('connection', (socket) => {
+    console.log(`✅ User connected: ${socket.userData.name} (${socket.userId})`);
+    
+    // Store user-socket mapping
+    userSockets.set(socket.userId, socket.id);
+    
+    // Join user to their personal room (for direct messages)
+    socket.join(`user:${socket.userId}`);
+    
+    // Update user's online status
+    updateUserPresence(socket.userId, 'online');
+    
+    // Handle joining chat rooms
+    socket.on('join:room', async (data) => {
+        const { roomId } = data;
+        
+        // Verify user has permission to join room
+        const hasPermission = await verifyRoomPermission(socket.userId, roomId);
+        if (!hasPermission) {
+            socket.emit('error', { message: 'No permission to join room' });
+            return;
+        }
+        
+        socket.join(roomId);
+        
+        // Update room user count
+        const currentCount = activeRooms.get(roomId) || 0;
+        activeRooms.set(roomId, currentCount + 1);
+        
+        // Notify room members
+        socket.to(roomId).emit('user:joined', {
+            userId: socket.userId,
+            userData: socket.userData,
+            timestamp: Date.now()
+        });
+        
+        // Send recent messages
+        const recentMessages = await getRecentMessages(roomId, 50);
+        socket.emit('messages:history', {
+            roomId,
+            messages: recentMessages
+        });
+        
+        console.log(`📱 User ${socket.userId} joined room ${roomId}`);
+    });
+    
+    // Handle sending messages
+    socket.on('message:send', async (data) => {
+        const { roomId, content, type = 'text', replyTo } = data;
+        
+        // Validate message
+        if (!content || content.trim().length === 0) {
+            socket.emit('error', { message: 'Message content cannot be empty' });
+            return;
+        }
+        
+        // Check if user is in the room
+        if (!socket.rooms.has(roomId)) {
+            socket.emit('error', { message: 'You are not in this room' });
+            return;
+        }
+        
+        // Create message object
+        const message = {
+            id: generateMessageId(),
+            roomId,
+            userId: socket.userId,
+            userData: socket.userData,
+            content,
+            type,
+            replyTo,
+            timestamp: Date.now(),
+            status: 'sent'
+        };
+        
+        try {
+            // Save message to database
+            await saveMessage(message);
+            
+            // Send to all room members
+            io.to(roomId).emit('message:received', message);
+            
+            // Send delivery confirmation to sender
+            socket.emit('message:delivered', {
+                messageId: message.id,
+                timestamp: Date.now()
+            });
+            
+            // Store in Redis for quick access
+            await redisClient.lpush(`messages:${roomId}`, JSON.stringify(message));
+            await redisClient.ltrim(`messages:${roomId}`, 0, 99); // Keep last 100 messages
+            
+            console.log(`💬 Message sent in room ${roomId} by user ${socket.userId}`);
+            
+        } catch (error) {
+            console.error('Error saving message:', error);
+            socket.emit('error', { message: 'Failed to send message' });
+        }
+    });
+    
+    // Handle typing indicators
+    socket.on('typing:start', (data) => {
+        const { roomId } = data;
+        
+        if (!socket.rooms.has(roomId)) return;
+        
+        // Add user to typing set
+        if (!typingUsers.has(roomId)) {
+            typingUsers.set(roomId, new Set());
+        }
+        typingUsers.get(roomId).add(socket.userId);
+        
+        // Notify other room members
+        socket.to(roomId).emit('typing:user_started', {
+            userId: socket.userId,
+            userData: socket.userData
+        });
+        
+        // Auto-stop typing after 3 seconds
+        setTimeout(() => {
+            socket.emit('typing:stop', { roomId });
+        }, 3000);
+    });
+    
+    socket.on('typing:stop', (data) => {
+        const { roomId } = data;
+        
+        if (!socket.rooms.has(roomId)) return;
+        
+        // Remove user from typing set
+        if (typingUsers.has(roomId)) {
+            typingUsers.get(roomId).delete(socket.userId);
+            
+            // Clean up empty sets
+            if (typingUsers.get(roomId).size === 0) {
+                typingUsers.delete(roomId);
+            }
+        }
+        
+        // Notify other room members
+        socket.to(roomId).emit('typing:user_stopped', {
+            userId: socket.userId
+        });
+    });
+    
+    // Handle message read receipts
+    socket.on('message:read', async (data) => {
+        const { messageId, roomId } = data;
+        
+        try {
+            // Update read status in database
+            await markMessageAsRead(messageId, socket.userId);
+            
+            // Notify message sender
+            const message = await getMessageById(messageId);
+            if (message && message.userId !== socket.userId) {
+                const senderSocketId = userSockets.get(message.userId);
+                if (senderSocketId) {
+                    io.to(senderSocketId).emit('message:read_receipt', {
+                        messageId,
+                        readBy: socket.userId,
+                        timestamp: Date.now()
+                    });
+                }
+            }
+            
+        } catch (error) {
+            console.error('Error marking message as read:', error);
+        }
+    });
+    
+    // Handle presence updates
+    socket.on('presence:update', (data) => {
+        const { status } = data; // online, away, busy, offline
+        
+        updateUserPresence(socket.userId, status);
+        
+        // Notify contacts about presence change
+        socket.broadcast.emit('presence:changed', {
+            userId: socket.userId,
+            status,
+            timestamp: Date.now()
+        });
+    });
+    
+    // Handle disconnection
+    socket.on('disconnect', (reason) => {
+        console.log(`❌ User disconnected: ${socket.userId} (${reason})`);
+        
+        // Remove from user-socket mapping
+        userSockets.delete(socket.userId);
+        
+        // Update room user counts
+        socket.rooms.forEach(roomId => {
+            if (roomId !== socket.id && roomId.startsWith('user:') === false) {
+                const currentCount = activeRooms.get(roomId) || 1;
+                activeRooms.set(roomId, Math.max(0, currentCount - 1));
+                
+                // Notify room members
+                socket.to(roomId).emit('user:left', {
+                    userId: socket.userId,
+                    timestamp: Date.now()
+                });
+            }
+        });
+        
+        // Clear typing indicators
+        typingUsers.forEach((users, roomId) => {
+            if (users.has(socket.userId)) {
+                users.delete(socket.userId);
+                socket.to(roomId).emit('typing:user_stopped', {
+                    userId: socket.userId
+                });
+            }
+        });
+        
+        // Update presence to offline (with delay for reconnections)
+        setTimeout(() => {
+            if (!userSockets.has(socket.userId)) {
+                updateUserPresence(socket.userId, 'offline');
+            }
+        }, 5000);
+    });
+});
+
+// Utility functions
+async function getUserById(userId) {
+    // Implement database query
+    return { id: userId, name: 'User Name', avatar: 'avatar.jpg' };
+}
+
+async function verifyRoomPermission(userId, roomId) {
+    // Implement permission check
+    return true;
+}
+
+async function getRecentMessages(roomId, limit) {
+    // Get from Redis first, fallback to database
+    const cached = await redisClient.lrange(`messages:${roomId}`, 0, limit - 1);
+    if (cached.length > 0) {
+        return cached.map(msg => JSON.parse(msg)).reverse();
+    }
+    
+    // Fallback to database
+    return [];
+}
+
+async function saveMessage(message) {
+    // Implement database save
+    console.log('Saving message:', message.id);
+}
+
+async function getMessageById(messageId) {
+    // Implement database query
+    return null;
+}
+
+async function markMessageAsRead(messageId, userId) {
+    // Implement database update
+    console.log(`Message ${messageId} read by ${userId}`);
+}
+
+function updateUserPresence(userId, status) {
+    // Update in Redis with TTL
+    redisClient.setex(`presence:${userId}`, 300, status);
+    
+    // Broadcast to relevant connections
+    io.emit('presence:changed', {
+        userId,
+        status,
+        timestamp: Date.now()
+    });
+}
+
+function generateMessageId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+
+// Start server
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`🚀 Socket.IO server running on port ${PORT}`);
+    console.log(`📊 Redis adapter enabled for clustering`);
+});</code></pre>
+                            </div>
+                        </div>
+                        
+                        <!-- More code sections would be here -->
+                    </div>
+                </div>
+                
+                <!-- Show Notes Tab -->
+                <div class="tab-content" id="notesTab">
+                    <div class="show-notes">
+                        <h3 data-en="Episode Notes & References" data-hi="एपिसोड नोट्स और संदर्भ">Episode Notes & References</h3>
+                        
+                        <div class="notes-section">
+                            <h4 data-en="Key Takeaways" data-hi="मुख्य सीख">Key Takeaways</h4>
+                            <ul>
+                                <li data-en="WebSocket maintains persistent connection unlike HTTP's request-response cycle" data-hi="वेबसॉकेट HTTP के request-response cycle के विपरीत निरंतर connection बनाए रखता है">WebSocket maintains persistent connection unlike HTTP's request-response cycle</li>
+                                <li data-en="Socket.IO provides fallback mechanisms for browsers that don't support WebSocket" data-hi="Socket.IO उन browsers के लिए fallback mechanisms प्रदान करता है जो WebSocket को support नहीं करते">Socket.IO provides fallback mechanisms for browsers that don't support WebSocket</li>
+                                <li data-en="WhatsApp uses Erlang/OTP to handle millions of concurrent connections efficiently" data-hi="व्हाट्सएप्प लाखों समानांतर connections को efficiently handle करने के लिए Erlang/OTP का उपयोग करता है">WhatsApp uses Erlang/OTP to handle millions of concurrent connections efficiently</li>
+                                <li data-en="Connection pooling and load balancing are crucial for production real-time systems" data-hi="Connection pooling और load balancing प्रोडक्शन real-time systems के लिए महत्वपूर्ण हैं">Connection pooling and load balancing are crucial for production real-time systems</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="notes-section">
+                            <h4 data-en="Production Metrics" data-hi="प्रोडक्शन मेट्रिक्स">Production Metrics</h4>
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <h5>WhatsApp</h5>
+                                    <ul>
+                                        <li>2+ billion users</li>
+                                        <li>100 billion messages/day</li>
+                                        <li>50 servers handle all traffic</li>
+                                        <li>99.9% uptime</li>
+                                    </ul>
+                                </div>
+                                <div class="metric-card">
+                                    <h5>Discord</h5>
+                                    <ul>
+                                        <li>150+ million MAU</li>
+                                        <li>4 billion messages/month</li>
+                                        <li><50ms latency target</li>
+                                        <li>Elixir/Phoenix backend</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="notes-section">
+                            <h4 data-en="References & Further Reading" data-hi="संदर्भ और आगे पढ़ने के लिए">References & Further Reading</h4>
+                            <ul class="references-list">
+                                <li><a href="https://tools.ietf.org/html/rfc6455" target="_blank">RFC 6455 - The WebSocket Protocol</a></li>
+                                <li><a href="https://socket.io/docs/" target="_blank">Socket.IO Documentation</a></li>
+                                <li><a href="https://www.erlang.org/blog/whatsapp-scalability/" target="_blank">WhatsApp's Erlang Architecture</a></li>
+                                <li><a href="https://blog.discord.com/how-discord-handles-two-and-half-million-concurrent-voice-users-using-webrtc/" target="_blank">Discord's Real-time Architecture</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resources Tab -->
+                <div class="tab-content" id="resourcesTab">
+                    <div class="episode-resources">
+                        <h3 data-en="Resources & Downloads" data-hi="रिसोर्सेज और डाउनलोड्स">Resources & Downloads</h3>
+                        
+                        <div class="resources-grid">
+                            <div class="resource-card">
+                                <div class="resource-icon">📁</div>
+                                <h4 data-en="Code Repository" data-hi="कोड रिपॉज़िटरी">Code Repository</h4>
+                                <p data-en="Complete source code for all examples" data-hi="सभी उदाहरणों के लिए पूरा source code">Complete source code for all examples</p>
+                                <a href="https://github.com/hindi-tech-podcast/episode-091" class="resource-link">GitHub Repo</a>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-icon">📊</div>
+                                <h4 data-en="Slides & Diagrams" data-hi="स्लाइड्स और डायग्राम्स">Slides & Diagrams</h4>
+                                <p data-en="Architecture diagrams and flowcharts" data-hi="आर्किटेक्चर डायग्राम्स और फ्लोचार्ट्स">Architecture diagrams and flowcharts</p>
+                                <a href="./resources/episode-091-slides.pdf" class="resource-link">Download PDF</a>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-icon">🎧</div>
+                                <h4 data-en="Audio Download" data-hi="ऑडियो डाउनलोड">Audio Download</h4>
+                                <p data-en="High quality MP3 (320 kbps)" data-hi="उच्च गुणवत्ता MP3 (320 kbps)">High quality MP3 (320 kbps)</p>
+                                <a href="../audio/episode-091.mp3" class="resource-link" download>Download MP3</a>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-icon">📝</div>
+                                <h4 data-en="Transcript" data-hi="ट्रांस्क्रिप्ट">Transcript</h4>
+                                <p data-en="Complete episode transcript" data-hi="पूरे एपिसोड का ट्रांस्क्रिप्ट">Complete episode transcript</p>
+                                <a href="./resources/episode-091-transcript.txt" class="resource-link">Download TXT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Episodes -->
+    <section class="related-episodes">
+        <div class="container">
+            <h3 class="section-title" data-en="Related Episodes" data-hi="संबंधित एपिसोड्स">Related Episodes</h3>
+            
+            <div class="related-episodes-grid">
+                <div class="related-episode-card">
+                    <img src="../images/episode-090-cover.jpg" alt="Episode 090" class="related-episode-image">
+                    <div class="related-episode-content">
+                        <span class="related-episode-number">090</span>
+                        <h4 class="related-episode-title">OAuth 2.0 Deep Dive</h4>
+                        <p class="related-episode-description">Paytm's security architecture</p>
+                        <span class="related-episode-duration">3:15:22</span>
+                    </div>
+                </div>
+                
+                <div class="related-episode-card">
+                    <img src="../images/episode-089-cover.jpg" alt="Episode 089" class="related-episode-image">
+                    <div class="related-episode-content">
+                        <span class="related-episode-number">089</span>
+                        <h4 class="related-episode-title">Database Indexing</h4>
+                        <p class="related-episode-description">How Zomato finds your food fast</p>
+                        <span class="related-episode-duration">2:58:45</span>
+                    </div>
+                </div>
+                
+                <div class="related-episode-card">
+                    <img src="../images/episode-088-cover.jpg" alt="Episode 088" class="related-episode-image">
+                    <div class="related-episode-content">
+                        <span class="related-episode-number">088</span>
+                        <h4 class="related-episode-title">Microservices Communication</h4>
+                        <p class="related-episode-description">Service mesh at Flipkart scale</p>
+                        <span class="related-episode-duration">3:08:12</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="comments-section">
+        <div class="container">
+            <h3 class="section-title" data-en="Discussion" data-hi="चर्चा">Discussion</h3>
+            
+            <div class="comments-container">
+                <div class="comment-form">
+                    <textarea placeholder="Share your thoughts about this episode..." class="comment-input" data-placeholder-en="Share your thoughts about this episode..." data-placeholder-hi="इस एपिसोड के बारे में अपने विचार साझा करें..."></textarea>
+                    <button class="btn btn-primary comment-submit" data-en="Post Comment" data-hi="कमेंट पोस्ट करें">Post Comment</button>
+                </div>
+                
+                <div class="comments-list">
+                    <!-- Comments will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="../images/logo.svg" alt="Hindi Tech Podcast Logo" class="footer-logo">
+                        <span class="footer-title" data-en="Hindi Tech Podcast" data-hi="हिंदी टेक पॉडकास्ट">Hindi Tech Podcast</span>
+                    </div>
+                    <p class="footer-description" data-en="Engineering stories explained like Mumbai local train announcements - clear, direct, and impossible to ignore." data-hi="इंजीनियरिंग की कहानियां मुंबई लोकल ट्रेन की अनाउंसमेंट की तरह समझाई गई हैं - साफ, सीधी, और नज़रअंदाज़ करना असंभव।">Engineering stories explained like Mumbai local train announcements - clear, direct, and impossible to ignore.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <span class="social-icon">📺</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Spotify">
+                            <span class="social-icon">🎵</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Apple Podcasts">
+                            <span class="social-icon">🎧</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <span class="social-icon">👨‍💻</span>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <span class="social-icon">🐦</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="More Episodes" data-hi="और एपिसोड्स">More Episodes</h3>
+                    <ul class="footer-links">
+                        <li><a href="../episodes.html?category=real-time" data-en="Real-time Systems" data-hi="रियल-टाइम सिस्टम्स">Real-time Systems</a></li>
+                        <li><a href="../episodes.html?category=security" data-en="Security" data-hi="सिक्यूरिटी">Security</a></li>
+                        <li><a href="../episodes.html?category=databases" data-en="Databases" data-hi="डेटाबेसेज">Databases</a></li>
+                        <li><a href="../episodes.html" data-en="All Episodes" data-hi="सभी एपिसोड्स">All Episodes</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Resources" data-hi="रिसोर्सेज">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/hindi-tech-podcast/episode-091" data-en="Code Repository" data-hi="कोड रिपॉज़िटरी">Code Repository</a></li>
+                        <li><a href="../resources.html#guides" data-en="Learning Guides" data-hi="लर्निंग गाइड्स">Learning Guides</a></li>
+                        <li><a href="../resources.html#companies" data-en="Company Directory" data-hi="कंपनी डायरेक्टरी">Company Directory</a></li>
+                        <li><a href="../resources.html#pronunciation" data-en="Pronunciation Guide" data-hi="उच्चारण गाइड">Pronunciation Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading" data-en="Connect" data-hi="जुड़ें">Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="../community.html#discord" data-en="Discord Server" data-hi="Discord सर्वर">Discord Server</a></li>
+                        <li><a href="../community.html#events" data-en="Tech Events" data-hi="टेक इवेंट्स">Tech Events</a></li>
+                        <li><a href="../community.html#contribute" data-en="Contribute" data-hi="योगदान दें">Contribute</a></li>
+                        <li><a href="../about.html#contact" data-en="Contact Us" data-hi="संपर्क करें">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright" data-en="© 2025 Hindi Tech Podcast. All rights reserved." data-hi="© 2025 हिंदी टेक पॉडकास्ट। सभी अधिकार सुरक्षित।">© 2025 Hindi Tech Podcast. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="../privacy.html" data-en="Privacy Policy" data-hi="प्राइवेसी पॉलिसी">Privacy Policy</a>
+                        <a href="../terms.html" data-en="Terms of Service" data-hi="सेवा की शर्तें">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/app.js"></script>
+    <script src="../js/episode-player.js"></script>
+    <script src="../js/code-highlighter.js"></script>
+    
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+        
+        // Track episode play events
+        gtag('event', 'episode_view', {
+            'episode_number': 91,
+            'episode_title': 'WebSocket Protocols',
+            'custom_map': {'custom_parameter_1': 'episode_id'}
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,502 @@
+# Kubernetes Ingress Manifests for Indian E-commerce Platform
+# Episode 092: Container Orchestration
+# Context: Production-grade ingress with CDN, SSL, and regional optimization
+
+---
+# Main Application Ingress - HTTPS with Indian CDN optimization
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flipkart-main-ingress
+  namespace: flipkart-production
+  labels:
+    app: flipkart-ingress
+    tier: public
+    region: mumbai
+  annotations:
+    # Ingress class
+    kubernetes.io/ingress.class: "nginx"
+    
+    # SSL/TLS Configuration
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
+    nginx.ingress.kubernetes.io/ssl-ciphers: "ECDHE-RSA-AES128-GCM-SHA256,ECDHE-RSA-AES256-GCM-SHA384"
+    
+    # Performance optimizations for Indian users
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "128k"
+    
+    # Compression for Indian bandwidth optimization
+    nginx.ingress.kubernetes.io/enable-compression: "true"
+    nginx.ingress.kubernetes.io/compression-level: "6"
+    nginx.ingress.kubernetes.io/compression-types: "text/plain,text/css,application/json,application/javascript,text/xml,application/xml,application/xml+rss,text/javascript"
+    
+    # Rate limiting to prevent abuse
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+    nginx.ingress.kubernetes.io/rate-limit-connections: "10"
+    
+    # Security headers
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header X-Frame-Options "SAMEORIGIN" always;
+      add_header X-Content-Type-Options "nosniff" always;
+      add_header X-XSS-Protection "1; mode=block" always;
+      add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+      add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gstatic.com; style-src 'self' 'unsafe-inline' *.googleapis.com; img-src 'self' data: *.cloudfront.net *.amazonaws.com; font-src 'self' *.googleapis.com *.gstatic.com;" always;
+    
+    # Geo-IP based routing for Indian users
+    nginx.ingress.kubernetes.io/server-snippet: |
+      set $backend "product-catalog";
+      if ($geoip_country_code = "IN") {
+          set $backend "product-catalog-india";
+      }
+    
+    # Custom error pages
+    nginx.ingress.kubernetes.io/custom-http-errors: "404,503"
+    nginx.ingress.kubernetes.io/default-backend: "error-page-service"
+    
+    # Monitoring and logging
+    nginx.ingress.kubernetes.io/enable-access-log: "true"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+
+spec:
+  tls:
+  - hosts:
+    - api.flipkart.com
+    - www.flipkart.com
+    - flipkart.com
+    secretName: flipkart-tls-secret
+  
+  rules:
+  # Main API endpoints
+  - host: api.flipkart.com
+    http:
+      paths:
+      # Product Catalog API
+      - path: /api/v1/products
+        pathType: Prefix
+        backend:
+          service:
+            name: product-catalog
+            port:
+              number: 8080
+      
+      # Product search with caching
+      - path: /api/v1/search
+        pathType: Prefix
+        backend:
+          service:
+            name: product-catalog
+            port:
+              number: 8080
+      
+      # Order Management API
+      - path: /api/v1/orders
+        pathType: Prefix
+        backend:
+          service:
+            name: order-management
+            port:
+              number: 8080
+      
+      # Payment API - Special routing for security
+      - path: /api/v1/payments
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-service-internal
+            port:
+              number: 8443
+      
+      # Inventory API
+      - path: /api/v1/inventory
+        pathType: Prefix
+        backend:
+          service:
+            name: inventory-service
+            port:
+              number: 8080
+      
+      # Health check endpoint for load balancers
+      - path: /health
+        pathType: Exact
+        backend:
+          service:
+            name: health-check-service
+            port:
+              number: 8080
+  
+  # Main website
+  - host: www.flipkart.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+
+---
+# Payment Service Dedicated Ingress - Enhanced Security
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flipkart-payment-ingress
+  namespace: flipkart-production
+  labels:
+    app: payment-ingress
+    tier: critical
+    compliance: pci-dss
+    region: mumbai
+  annotations:
+    kubernetes.io/ingress.class: "nginx-payment"  # Dedicated ingress class for payments
+    
+    # Enhanced SSL for PCI compliance
+    cert-manager.io/cluster-issuer: "pci-compliant-ca"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.3"
+    nginx.ingress.kubernetes.io/ssl-ciphers: "ECDHE-RSA-AES256-GCM-SHA384,ECDHE-RSA-CHACHA20-POLY1305"
+    nginx.ingress.kubernetes.io/ssl-prefer-server-ciphers: "on"
+    
+    # Strict security for payment endpoints
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1m"
+    
+    # Enhanced rate limiting for payment security
+    nginx.ingress.kubernetes.io/rate-limit: "10"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+    nginx.ingress.kubernetes.io/rate-limit-connections: "3"
+    
+    # IP whitelisting for payment endpoints (Indian payment gateways)
+    nginx.ingress.kubernetes.io/whitelist-source-range: |
+      103.21.244.0/22,    # Cloudflare India
+      103.22.200.0/22,    # Cloudflare India  
+      104.19.0.0/16,      # Razorpay
+      52.66.0.0/16,       # AWS Mumbai
+      13.232.0.0/14,      # AWS Mumbai
+      3.7.0.0/16,         # AWS Mumbai
+      65.0.0.0/8,         # Paytm gateway ranges
+      202.54.0.0/15       # Indian ISP ranges
+    
+    # Enhanced security headers for PCI compliance
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+      add_header X-Frame-Options "DENY" always;
+      add_header X-Content-Type-Options "nosniff" always;
+      add_header X-XSS-Protection "1; mode=block" always;
+      add_header Referrer-Policy "no-referrer" always;
+      add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; script-src 'none';" always;
+      add_header Cache-Control "no-store, no-cache, must-revalidate, private" always;
+      add_header Pragma "no-cache" always;
+    
+    # Web Application Firewall
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-transaction-id: "$request_id"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    
+    # Audit logging for PCI compliance
+    nginx.ingress.kubernetes.io/enable-access-log: "true"
+    nginx.ingress.kubernetes.io/access-log-path: "/var/log/nginx/payment-access.log"
+
+spec:
+  tls:
+  - hosts:
+    - payments.flipkart.com
+    - secure.flipkart.com
+    secretName: flipkart-payment-tls-secret
+  
+  rules:
+  - host: payments.flipkart.com
+    http:
+      paths:
+      # Payment processing endpoints
+      - path: /api/v1/payments/process
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-service-internal
+            port:
+              number: 8443
+      
+      # UPI payment endpoints
+      - path: /api/v1/payments/upi
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-service-internal
+            port:
+              number: 8443
+      
+      # Card payment endpoints
+      - path: /api/v1/payments/cards
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-service-internal
+            port:
+              number: 8443
+      
+      # Payment status and webhooks
+      - path: /api/v1/payments/status
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-service-internal
+            port:
+              number: 8443
+
+---
+# Regional Ingress for Delhi deployment
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flipkart-delhi-ingress
+  namespace: flipkart-delhi
+  labels:
+    app: flipkart-ingress
+    tier: public
+    region: delhi
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    
+    # Delhi-specific optimizations
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "45"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "45"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "45"
+    
+    # Geo-routing annotation
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header X-Served-By "Delhi-Region" always;
+      add_header X-Cache-Region "North-India" always;
+
+spec:
+  tls:
+  - hosts:
+    - delhi.flipkart.com
+    - north.flipkart.com
+    secretName: flipkart-delhi-tls-secret
+  
+  rules:
+  - host: delhi.flipkart.com
+    http:
+      paths:
+      - path: /api/v1/products
+        pathType: Prefix
+        backend:
+          service:
+            name: product-catalog-delhi
+            port:
+              number: 8080
+      
+      - path: /api/v1/orders
+        pathType: Prefix
+        backend:
+          service:
+            name: order-management-delhi
+            port:
+              number: 8080
+
+---
+# Internal Ingress for Admin and Monitoring
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flipkart-internal-ingress
+  namespace: flipkart-monitoring
+  labels:
+    app: internal-ingress
+    tier: infrastructure
+    access: internal
+  annotations:
+    kubernetes.io/ingress.class: "nginx-internal"
+    cert-manager.io/cluster-issuer: "internal-ca"
+    
+    # Internal network access only
+    nginx.ingress.kubernetes.io/whitelist-source-range: |
+      10.0.0.0/8,
+      172.16.0.0/12,
+      192.168.0.0/16,
+      100.64.0.0/10
+    
+    # Basic auth for admin access
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: admin-auth-secret
+    nginx.ingress.kubernetes.io/auth-realm: "Flipkart Internal - Authentication Required"
+
+spec:
+  tls:
+  - hosts:
+    - internal.flipkart.com
+    - admin.flipkart.com
+    - monitoring.flipkart.com
+    secretName: flipkart-internal-tls-secret
+  
+  rules:
+  # Monitoring stack
+  - host: monitoring.flipkart.com
+    http:
+      paths:
+      - path: /grafana
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 80
+      
+      - path: /prometheus
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus
+            port:
+              number: 9090
+      
+      - path: /alertmanager
+        pathType: Prefix
+        backend:
+          service:
+            name: alertmanager
+            port:
+              number: 9093
+  
+  # Admin interfaces
+  - host: admin.flipkart.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: admin-dashboard
+            port:
+              number: 8080
+
+---
+# Development Environment Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flipkart-dev-ingress
+  namespace: flipkart-development
+  labels:
+    app: dev-ingress
+    tier: development
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    
+    # Development-specific settings
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    
+    # Allow developer IPs
+    nginx.ingress.kubernetes.io/whitelist-source-range: |
+      103.21.244.0/22,
+      49.207.0.0/16,
+      117.192.0.0/10
+
+spec:
+  tls:
+  - hosts:
+    - dev.flipkart.com
+    - staging.flipkart.com
+    secretName: flipkart-dev-tls-secret
+  
+  rules:
+  - host: dev.flipkart.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: product-catalog-nodeport
+            port:
+              number: 8080
+
+---
+# Mobile API Ingress - Optimized for mobile traffic
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flipkart-mobile-ingress
+  namespace: flipkart-production
+  labels:
+    app: mobile-ingress
+    tier: public
+    client: mobile
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    
+    # Mobile-optimized settings
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-body-size: "5m"
+    
+    # Aggressive caching for mobile
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      add_header Cache-Control "public, max-age=300, s-maxage=300";
+      add_header X-Mobile-Optimized "true";
+    
+    # Compression optimized for mobile bandwidth
+    nginx.ingress.kubernetes.io/enable-compression: "true"
+    nginx.ingress.kubernetes.io/compression-level: "9"
+    
+    # Rate limiting for mobile API abuse prevention
+    nginx.ingress.kubernetes.io/rate-limit: "50"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+
+spec:
+  tls:
+  - hosts:
+    - mobile-api.flipkart.com
+    - m.flipkart.com
+    secretName: flipkart-mobile-tls-secret
+  
+  rules:
+  - host: mobile-api.flipkart.com
+    http:
+      paths:
+      # Mobile-optimized product API
+      - path: /api/mobile/v1/products
+        pathType: Prefix
+        backend:
+          service:
+            name: product-catalog-mobile
+            port:
+              number: 8080
+      
+      # Mobile order API
+      - path: /api/mobile/v1/orders
+        pathType: Prefix
+        backend:
+          service:
+            name: order-management-mobile
+            port:
+              number: 8080
+      
+      # Mobile-specific features
+      - path: /api/mobile/v1/recommendations
+        pathType: Prefix
+        backend:
+          service:
+            name: recommendation-service
+            port:
+              number: 8080

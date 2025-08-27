@@ -6,6 +6,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/ml-infrastructure/ml-pipeline-orchestration.md - ML pipeline orchestration patterns
+- **Pattern Library**: docs/pattern-library/ml-infrastructure/model-serving-scale.md - Scalable model serving architectures
+- **Pattern Library**: docs/pattern-library/ml-infrastructure/feature-store.md - Feature store implementation patterns
+- **Pattern Library**: docs/pattern-library/ml-infrastructure/distributed-training.md - Distributed training strategies
+- **Pattern Library**: docs/pattern-library/ml-infrastructure/model-versioning-rollback.md - Model versioning and rollback strategies
+- **Pattern Library**: docs/pattern-library/deployment/canary-release.md - Canary deployments for ML models
+- **Pattern Library**: docs/pattern-library/observability.md - Observability for ML systems
+
+---
+
 ## Episode Introduction
 
 *Theme music fades in - Mumbai local train sounds mixed with server humming*

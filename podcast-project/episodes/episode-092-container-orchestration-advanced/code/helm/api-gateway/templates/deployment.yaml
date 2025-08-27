@@ -1,0 +1,525 @@
+# API Gateway Deployment Template
+# Episode 092: Container Orchestration - Helm Templates
+# Context: Templated deployment for Indian e-commerce API Gateway
+
+{{- if .Values.kong.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-gateway.fullname" . }}-kong
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "api-gateway.labels" . | nindent 4 }}
+    component: kong
+    tier: api-gateway
+    region: {{ .Values.global.region }}
+  annotations:
+    deployment.kubernetes.io/revision: "{{ .Release.Revision }}"
+    {{- if .Values.monitoring.prometheus.enabled }}
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8100"
+    prometheus.io/path: "/metrics"
+    {{- end }}
+spec:
+  replicas: {{ .Values.kong.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.kong.strategy.maxUnavailable | default "25%" }}
+      maxSurge: {{ .Values.kong.strategy.maxSurge | default "25%" }}
+  selector:
+    matchLabels:
+      {{- include "api-gateway.selectorLabels" . | nindent 6 }}
+      component: kong
+  template:
+    metadata:
+      labels:
+        {{- include "api-gateway.selectorLabels" . | nindent 8 }}
+        component: kong
+        tier: api-gateway
+        region: {{ .Values.global.region }}
+        version: {{ .Values.kong.image.tag }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if .Values.monitoring.prometheus.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8100"
+        prometheus.io/path: "/metrics"
+        {{- end }}
+        {{- if .Values.global.security.mtls }}
+        sidecar.istio.io/inject: "true"
+        {{- end }}
+        # Indian specific annotations
+        indian.compliance/rbi: "{{ .Values.global.compliance.rbi }}"
+        indian.compliance/pci-dss: "{{ .Values.global.compliance.pciDss }}"
+        indian.optimization/timezone: "{{ .Values.global.indianOptimization.timezone }}"
+    spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "api-gateway.serviceAccountName" . }}
+      
+      # Security context for Indian compliance
+      securityContext:
+        {{- toYaml .Values.security.podSecurityContext | nindent 8 }}
+      
+      # Node selection for Indian regions
+      {{- if .Values.kong.affinity }}
+      affinity:
+        {{- toYaml .Values.kong.affinity | nindent 8 }}
+      {{- else }}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                  - {{ .Values.global.region }}
+              - key: node.kubernetes.io/instance-type
+                operator: In
+                values: ["c5.xlarge", "c5.2xlarge", "m5.xlarge"]
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: component
+                  operator: In
+                  values: ["kong"]
+              topologyKey: kubernetes.io/hostname
+      {{- end }}
+      
+      # Tolerations for spot instances
+      {{- if .Values.costOptimization.spotInstances.enabled }}
+      tolerations:
+      - key: "spot-instance"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      - key: "node.kubernetes.io/spot"
+        operator: "Exists"
+        effect: "NoSchedule"
+      {{- end }}
+      
+      # Init containers for setup
+      initContainers:
+      # Database migration container
+      - name: kong-migration
+        image: {{ .Values.kong.image.repository }}:{{ .Values.kong.image.tag }}
+        imagePullPolicy: {{ .Values.kong.image.pullPolicy }}
+        command: 
+          - /bin/bash
+          - -c
+          - |
+            kong migrations bootstrap --v
+            kong migrations up --v
+            kong migrations finish --v
+        env:
+        {{- range $key, $value := .Values.kong.env }}
+        - name: {{ $key | upper }}
+          {{- if kindIs "map" $value }}
+          valueFrom:
+            {{- toYaml $value | nindent 12 }}
+          {{- else }}
+          value: {{ $value | quote }}
+          {{- end }}
+        {{- end }}
+        # Indian specific environment variables
+        - name: KONG_REGION
+          value: {{ .Values.global.region }}
+        - name: KONG_TIMEZONE
+          value: {{ .Values.global.indianOptimization.timezone }}
+        - name: KONG_COMPLIANCE_MODE
+          value: "{{ .Values.global.compliance.rbi }}"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "200m"
+            memory: "512Mi"
+      
+      containers:
+      # Kong container
+      - name: kong
+        image: {{ .Values.kong.image.repository }}:{{ .Values.kong.image.tag }}
+        imagePullPolicy: {{ .Values.kong.image.pullPolicy }}
+        
+        # Security context
+        securityContext:
+          {{- toYaml .Values.security.securityContext | nindent 10 }}
+        
+        # Ports configuration
+        ports:
+        - name: proxy
+          containerPort: 8000
+          protocol: TCP
+        - name: proxy-ssl
+          containerPort: 8443
+          protocol: TCP
+        - name: admin
+          containerPort: 8001
+          protocol: TCP
+        - name: admin-ssl
+          containerPort: 8444
+          protocol: TCP
+        {{- if .Values.monitoring.prometheus.enabled }}
+        - name: metrics
+          containerPort: 8100
+          protocol: TCP
+        {{- end }}
+        
+        # Environment variables
+        env:
+        {{- range $key, $value := .Values.kong.env }}
+        - name: {{ $key | upper }}
+          {{- if kindIs "map" $value }}
+          valueFrom:
+            {{- toYaml $value | nindent 12 }}
+          {{- else }}
+          value: {{ $value | quote }}
+          {{- end }}
+        {{- end }}
+        
+        # Indian optimization environment variables
+        {{- range $env := .Values.kong.customEnv }}
+        - name: {{ $env.name }}
+          value: {{ $env.value | quote }}
+        {{- end }}
+        
+        # Resources optimized for Indian infrastructure
+        resources:
+          {{- toYaml .Values.kong.resources | nindent 10 }}
+        
+        # Volume mounts
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: prefix
+          mountPath: /kong_prefix
+        {{- if .Values.security.tls.enabled }}
+        - name: tls-certs
+          mountPath: /etc/ssl/certs/kong
+          readOnly: true
+        {{- end }}
+        # Configuration files
+        - name: config
+          mountPath: /etc/kong
+          readOnly: true
+        
+        # Health checks optimized for Indian latency
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 8100
+            scheme: HTTP
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+        
+        readinessProbe:
+          httpGet:
+            path: /status/ready
+            port: 8100
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        
+        # Startup probe for slow Indian infrastructure
+        startupProbe:
+          httpGet:
+            path: /status
+            port: 8100
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 18  # 3 minutes total
+          successThreshold: 1
+        
+        # Lifecycle hooks
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 30"]
+      
+      # Volumes
+      volumes:
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: prefix
+        emptyDir:
+          sizeLimit: 10Gi
+      {{- if .Values.security.tls.enabled }}
+      - name: tls-certs
+        secret:
+          secretName: {{ .Values.security.tls.secretName }}
+      {{- end }}
+      - name: config
+        configMap:
+          name: {{ include "api-gateway.fullname" . }}-kong-config
+      
+      # Termination settings
+      terminationGracePeriodSeconds: 60
+      
+      # DNS configuration for Indian domains
+      dnsPolicy: ClusterFirst
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "2"
+        - name: edns0
+{{- end }}
+
+---
+{{- if .Values.nginx.enabled }}
+# NGINX Ingress Controller Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-gateway.fullname" . }}-nginx
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "api-gateway.labels" . | nindent 4 }}
+    component: nginx
+    tier: ingress
+    region: {{ .Values.global.region }}
+spec:
+  replicas: {{ .Values.nginx.controller.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  selector:
+    matchLabels:
+      {{- include "api-gateway.selectorLabels" . | nindent 6 }}
+      component: nginx
+  template:
+    metadata:
+      labels:
+        {{- include "api-gateway.selectorLabels" . | nindent 8 }}
+        component: nginx
+        tier: ingress
+        region: {{ .Values.global.region }}
+      annotations:
+        {{- if .Values.monitoring.prometheus.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "10254"
+        prometheus.io/path: "/metrics"
+        {{- end }}
+    spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "api-gateway.serviceAccountName" . }}-nginx
+      
+      # Node selection for Indian regions
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                  - {{ .Values.global.region }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: component
+                  operator: In
+                  values: ["nginx"]
+              topologyKey: kubernetes.io/hostname
+      
+      containers:
+      - name: nginx-ingress-controller
+        image: {{ .Values.nginx.controller.image.repository }}:{{ .Values.nginx.controller.image.tag }}
+        imagePullPolicy: {{ .Values.nginx.controller.image.pullPolicy }}
+        
+        args:
+        - /nginx-ingress-controller
+        - --configmap=$(POD_NAMESPACE)/{{ include "api-gateway.fullname" . }}-nginx-config
+        - --tcp-services-configmap=$(POD_NAMESPACE)/{{ include "api-gateway.fullname" . }}-tcp-services
+        - --udp-services-configmap=$(POD_NAMESPACE)/{{ include "api-gateway.fullname" . }}-udp-services
+        - --annotations-prefix=nginx.ingress.kubernetes.io
+        - --publish-service=$(POD_NAMESPACE)/{{ include "api-gateway.fullname" . }}-nginx
+        - --election-id=ingress-controller-leader
+        - --controller-class=k8s.io/ingress-nginx
+        {{- if .Values.monitoring.prometheus.enabled }}
+        - --enable-metrics=true
+        - --metrics-port=10254
+        {{- end }}
+        # Indian specific configurations
+        - --default-backend-service=$(POD_NAMESPACE)/{{ include "api-gateway.fullname" . }}-default-backend
+        
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        - name: https
+          containerPort: 443
+          protocol: TCP
+        {{- if .Values.monitoring.prometheus.enabled }}
+        - name: metrics
+          containerPort: 10254
+          protocol: TCP
+        {{- end }}
+        
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: LD_PRELOAD
+          value: /usr/local/lib/libmimalloc.so
+        # Indian timezone
+        - name: TZ
+          value: {{ .Values.global.indianOptimization.timezone }}
+        
+        # Resources optimized for Indian traffic
+        resources:
+          {{- toYaml .Values.nginx.controller.resources | nindent 10 }}
+        
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 10254
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 5
+        
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 10254
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 1
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        
+        # Security context
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - NET_BIND_SERVICE
+          runAsUser: 101
+          allowPrivilegeEscalation: true
+        
+        volumeMounts:
+        - name: webhook-cert
+          mountPath: /usr/local/certificates/
+          readOnly: true
+        {{- if .Values.security.tls.enabled }}
+        - name: tls-certs
+          mountPath: /etc/ssl/certs/nginx
+          readOnly: true
+        {{- end }}
+        
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /wait-shutdown
+      
+      volumes:
+      - name: webhook-cert
+        secret:
+          secretName: {{ include "api-gateway.fullname" . }}-nginx-admission
+      {{- if .Values.security.tls.enabled }}
+      - name: tls-certs
+        secret:
+          secretName: {{ .Values.security.tls.secretName }}
+      {{- end }}
+      
+      terminationGracePeriodSeconds: 300
+      
+      # DNS configuration
+      dnsPolicy: ClusterFirst
+{{- end }}
+
+---
+# Default Backend for NGINX
+{{- if .Values.nginx.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-gateway.fullname" . }}-default-backend
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "api-gateway.labels" . | nindent 4 }}
+    component: default-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      {{- include "api-gateway.selectorLabels" . | nindent 6 }}
+      component: default-backend
+  template:
+    metadata:
+      labels:
+        {{- include "api-gateway.selectorLabels" . | nindent 8 }}
+        component: default-backend
+    spec:
+      containers:
+      - name: default-backend
+        image: registry.k8s.io/defaultbackend-amd64:1.5
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "20Mi"
+          limits:
+            cpu: "10m"
+            memory: "20Mi"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 0
+          timeoutSeconds: 5
+      # Spot instance toleration for cost optimization
+      {{- if .Values.costOptimization.spotInstances.enabled }}
+      tolerations:
+      - key: "spot-instance"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      {{- end }}
+{{- end }}

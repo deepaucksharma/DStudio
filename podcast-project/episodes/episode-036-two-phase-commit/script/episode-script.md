@@ -3,6 +3,20 @@
 
 ---
 
+## Documentation References
+
+This episode incorporates content and examples from the following documentation sources:
+
+- **Pattern Library**: docs/pattern-library/coordination/two-phase-commit.md - Comprehensive two-phase commit protocol implementation
+- **Pattern Library**: docs/pattern-library/coordination/consensus.md - Consensus foundations underlying 2PC
+- **Pattern Library**: docs/pattern-library/data-management/saga.md - Alternative to 2PC for long-running transactions
+- **Core Principles**: docs/core-principles/laws/asynchronous-reality.md - Understanding coordination challenges in distributed systems
+- **Excellence**: docs/excellence/migrations/2pc-to-saga.md - Migration from 2PC to saga pattern for better resilience
+- **Case Studies**: docs/architects-handbook/case-studies/financial-commerce/payment-system.md - Real-world payment systems using 2PC
+- **Pattern Library**: docs/pattern-library/resilience/timeout.md - Timeout handling in distributed transactions
+
+---
+
 ### Episode Opening: Priya Ki Shaadi Ka Jugaad
 
 *[Mumbai street sounds fading in, wedding shehnai in background]*

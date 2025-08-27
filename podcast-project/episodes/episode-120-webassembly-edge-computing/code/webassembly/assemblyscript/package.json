@@ -1,0 +1,28 @@
+{
+  "name": "assemblyscript-examples",
+  "version": "1.0.0",
+  "description": "AssemblyScript examples for Indian tech companies - Ola, Swiggy के लिए high-performance algorithms",
+  "scripts": {
+    "asbuild:untouched": "asc assembly/index.ts --target debug",
+    "asbuild:optimized": "asc assembly/index.ts --target release",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
+    "test": "node tests/test.js",
+    "serve": "python -m http.server 8080",
+    "build-all": "npm run asbuild && npm run test"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.27.0"
+  },
+  "dependencies": {
+    "@assemblyscript/loader": "^0.27.0"
+  },
+  "keywords": [
+    "webassembly",
+    "assemblyscript", 
+    "indian-tech",
+    "performance",
+    "ola",
+    "swiggy",
+    "flipkart"
+  ]
+}
